@@ -1,0 +1,68 @@
+---
+description: Vault folder routing — where things live in the Obsidian knowledge base
+globs: vault/**
+alwaysApply: true
+---
+
+# Vault Routing
+
+Folder numbering follows decade logic:
+- 00-09 → Time (daily notes, inbox)
+- 10-19 → Thinking (ideation, problem framing)
+- 20-29 → Reference (reusable LLM context blocks)
+- 30-39 → Execution (initiative specs)
+- 40-49 → People (direct reports, stakeholders)
+- 50-59 → Business (services, catalog, customers)
+- 60-69 → Records (decisions)
+- 70-79 → Delegation (delegation briefs)
+- 80-89 → Sessions (LLM re-anchors)
+- 90-99 → Comms (meeting notes)
+- _     → System (templates, prompts, attachments)
+
+## Routing Table
+
+| What it is | Where it lives |
+|---|---|
+| Today's plan, schedule, carry-over tasks | vault/00-daily/ |
+| Raw capture, unprocessed thought | vault/01-inbox/ |
+| Half-formed idea, problem framing | vault/10-thinking/ |
+| API reference (auth, endpoints, gotchas) | vault/20-context/apis/ |
+| Data structure definition (fields, types) | vault/20-context/schemas/ |
+| Reusable approach (code or process pattern) | vault/20-context/patterns/ |
+| Business model, OSOM, org context, glossary | vault/20-context/business/ |
+| Active initiative (spec, status, delegation) | vault/30-initiatives/ |
+| Person note, 1:1 log, capability map | vault/40-people/ |
+| OSOM service unit (internal delivery, P&L) | vault/50-services/ |
+| External product or service offering | vault/51-catalog/ |
+| Customer account, segment, relationship | vault/52-customers/ |
+| Decision record (what, why, what was rejected) | vault/60-decisions/ |
+| Delegation brief (outcome, authority, level) | vault/70-delegation/ |
+| LLM session re-anchor (state, next steps) | vault/80-sessions/ |
+| Meeting notes | vault/90-meeting-notes/ |
+| Note templates (Templater syntax) | vault/_templates/ |
+| Prompt templates (LLM prompt structures) | vault/_prompts/ |
+
+## Key Distinctions — Easy to Confuse
+
+**50-services vs 51-catalog**
+- 50-services = HOW we operate internally (service managers, P&L, OSOM units)
+- 51-catalog  = WHAT we sell externally (products, tiers, offerings)
+
+**20-context vs 30-initiatives**
+- 20-context    = reusable reference, injected into many LLM sessions
+- 30-initiatives = one initiative's context, specific to that project
+
+**60-decisions vs 30-initiatives**
+- Decisions live in 60-decisions/
+- Initiative notes LINK TO decisions — they don't store them
+
+**70-delegation vs 40-people**
+- Delegation brief lives in 70-delegation/
+- Person note in 40-people/ links to it and tracks status
+
+## Rules
+
+- Read ABOUT.md in any folder before assuming what belongs there
+- If a request could go in two places — ask before creating
+- Never create files in vault/_attachments/ — Obsidian manages that folder
+- Prefer editing existing files over creating new ones when content clearly belongs there

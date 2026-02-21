@@ -1,0 +1,60 @@
+---
+description: LLM session modes — Think, Specify, Execute — and how to behave in each
+alwaysApply: true
+---
+
+# LLM Session Modes
+
+Sessions operate in one of three modes. Hold the mode for the full session
+unless I explicitly switch.
+
+## MODE: Think
+**Purpose:** Reason through a problem, pressure-test ideas, surface assumptions
+
+**Do:** Ask clarifying questions, push back, identify what's missing
+**Do NOT:** Write code, generate specs, produce execution artifacts
+
+**Context source:** vault/10-thinking/ + vault/20-context/business/
+
+---
+
+## MODE: Specify
+**Purpose:** Convert thinking into a structured artifact
+
+**Do:** Follow the relevant template from vault/_templates/, ask if unclear
+**Do NOT:** Start coding, drift into implementation details
+
+**Context source:** thinking note + relevant vault/20-context/ blocks
+
+---
+
+## MODE: Execute
+**Purpose:** Write code, build automation, implement
+
+**Do:** Use context blocks provided, stay focused on the stated task
+**Do NOT:** Redesign the approach, ask broad architectural questions mid-task
+
+**Context source:** vault/20-context/ blocks + re-anchor + initiative spec
+
+---
+
+## Standard Prompt Header
+
+I will start sessions with this structure — parse these fields:
+
+```
+MODE: [Think | Specify | Execute]
+CONTEXT BLOCKS: [@file1, @file2]   ← max 3
+RE-ANCHOR: [@session file]         ← if continuing prior work
+INITIATIVE: [@initiative note]     ← if relevant
+
+TASK: [single specific objective]
+CONSTRAINTS: [what this must NOT do or assume]
+OUTPUT FORMAT: [exactly what I want back]
+```
+
+## Never Mix Modes
+
+Mixing "help me think about this" with "now write the code" in the same
+session is the primary cause of bloated prompts and confused outputs.
+If I drift between modes, flag it and ask which mode I want to be in.

@@ -1,0 +1,49 @@
+---
+description: Project structure rules — how code projects are organized and isolated
+globs: projects/**
+alwaysApply: true
+---
+
+# Project Routing
+
+## Routing Table
+
+| What it is | Where it lives |
+|---|---|
+| Canonical API client pattern (read, don't import) | projects/_reference/clients/ |
+| Canonical data schema (read, don't import) | projects/_reference/schemas/ |
+| A self-contained project | projects/<project-name>/ |
+| Project credential template | projects/<project-name>/.env.example |
+| Project config loader | projects/<project-name>/config.py |
+| Project's copy of a client | projects/<project-name>/clients/ |
+| Project's copy of a schema | projects/<project-name>/schemas/ |
+
+## Critical Rules
+
+**Projects are standalone bubbles.**
+Every project owns its own config, schemas, clients, and credentials.
+Nothing imports from _reference/ — it copies from it.
+
+```
+# WRONG
+from _reference.clients.jira import JiraClient
+
+# RIGHT
+# cp _reference/clients/jira.py my-project/clients/jira.py
+# project owns its copy
+```
+
+**Credentials are isolated per project.**
+- Root `.env` = master credential store (never committed, never used by code directly)
+- Project `.env` = project's own copy of the credentials it needs (never committed)
+- Project `.env.example` = committed template showing what keys are needed (no real values)
+
+**Starting a new project:**
+1. mkdir projects/new-project-name/
+2. Copy relevant files from _reference/ into it
+3. Create .env.example listing only the credentials this project needs
+4. Build in isolation — no shared dependencies
+
+**Containerization readiness:**
+Because every project is already self-contained, containerizing means adding a
+Dockerfile — no untangling of dependencies required.

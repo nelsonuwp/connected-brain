@@ -1,0 +1,51 @@
+---
+description: Rules for working with vault/20-context/ reference blocks
+globs: vault/20-context/**
+alwaysApply: true
+---
+
+# Context Block Rules
+
+Files in vault/20-context/ are authoritative reference material.
+
+## Behavior
+
+- Treat as ground truth for that API, schema, or pattern
+- Do NOT modify unless I explicitly say "update the context block"
+- Use the Summary section first — written for quick injection when context is tight
+- Known Gotchas section exists because those things cost real time — don't skip it
+
+## Context Block Structure
+
+Every file in vault/20-context/ follows this structure:
+
+```
+---
+type: context-block
+domain: [api | schema | pattern | business]
+tags: [...]
+last-verified: YYYY-MM-DD
+---
+
+## Summary
+2-3 sentences. Inject this first when context window is tight.
+
+## Key Reference
+The actual content — endpoints, field definitions, patterns.
+
+## Known Gotchas
+Things that caused problems before. Read these.
+
+## Reusable Code Block
+Working snippet. Copy into projects, don't import.
+
+## Last Used In
+Links to initiatives or sessions that used this block.
+```
+
+## Injection Rules
+
+- Max 3 context blocks per LLM prompt — if you need more, the task is too large
+- Always check last-verified date — stale context produces bad outputs
+- The vault markdown is the "what and why"
+- The Python implementation lives in projects/_reference/ (separate concern)
