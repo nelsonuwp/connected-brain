@@ -1,0 +1,32 @@
+# ── CREDENTIALS ───────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── OBSIDIAN ──────────────────────────────────────────────────────────────────
+# Commit: plugin list, settings, appearance (portable config)
+# Ignore: workspace state (machine-specific, changes constantly)
+vault/**/.obsidian/workspace.json
+vault/**/.obsidian/workspace-mobile.json
+vault/**/.obsidian/cache
+vault/**/.obsidian/plugins/*/data.json
+
+# ── PYTHON ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+.pytest_cache/
+
+# ── OS NOISE ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── EDITOR ────────────────────────────────────────────────────────────────────
+.vscode/
+*.swp
+*.swo
