@@ -1,0 +1,38 @@
+{
+  "daily-notes:goto-today": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "D"
+    }
+  ],
+  "switcher:open": [
+    {
+      "modifiers": ["Mod"],
+      "key": "O"
+    }
+  ],
+  "templater-obsidian:insert-templater": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "E"
+    }
+  ],
+  "quickadd:runQuickAdd": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "I"
+    }
+  ],
+  "command-palette:open": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "P"
+    }
+  ],
+  "periodic-notes:open-weekly-note": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "K"
+    }
+  ]
+}
