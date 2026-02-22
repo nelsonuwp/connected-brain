@@ -1,0 +1,56 @@
+---
+type: context-block
+domain: schema
+tags: [data, extraction, output-format, multi-source]
+last-verified: 2026-02-22
+---
+
+# Source Artifact Schema
+
+## Summary
+All data extraction scripts produce a vendor-agnostic SourceArtifact JSON file.
+One file per source, written unconditionally in a finally block — no silent failures.
+A single source can have multiple API calls (objects). Multiple sources get wrapped in a RunArtifact.
+
+## Structure
+
+### Single Source (SourceArtifact)
+```
+source          str        — provider name (matches filename suffix)
+company_id      str        — entity being pulled for
+collected_at    str        — ISO 8601 UTC timestamp
+status          str        — "success" | "partial" | "fail" | "skipped"
+objects         dict|null  — null = total failure; {} = ran but nothing found
+error           dict|null  — required when status == "fail"
+```
+
+### Per-Object (SourceObject) — each key under objects
+```
+status          str        — "success" | "partial" | "fail" | "skipped"
+record_count    int        — len(data) if list, 1 if dict, 0 if None
+error           any|null   — pass API error through; Python: {type, message, retryable}
+data            any        — raw vendor payload, unmodified
+```
+
+### Multi-Source Wrapper (RunArtifact)
+```
+run_id          str        — unique run identifier
+company_id      str        — entity being pulled for
+started_at      str        — ISO 8601 UTC
+completed_at    str        — ISO 8601 UTC
+status          str        — "success" | "partial" | "fail"
+sources         dict       — keyed by source name, values are SourceArtifacts
+```
+
+## Key Rules
+
+- objects: null  → total source failure (auth, timeout, etc.)
+- objects: {}    → source ran, nothing found — NOT a failure
+- data: null     → that specific object failed or was skipped
+- Always write the file. The finally block is mandatory.
+- Never normalize or reshape data in the extractor — raw payload only
+
+## Record Count Logic
+- isinstance(data, list) → len(data)
+- isinstance(data, dict) → 1
+- data is None           → 0

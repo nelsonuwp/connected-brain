@@ -1,0 +1,213 @@
+---
+alwaysApply: true
+---
+
+# Source Artifact Schema (Python Unified Raw Layer)
+
+All Python data extraction scripts MUST produce a vendor-agnostic JSON artifact. **Constraint:** Raw vendor payload only. No normalization or reshaping at this stage.
+
+**Location:** `outputs/temp/<run_id>/source_<name>.json`  
+**Filename Rule:** The `source` field value MUST match the `<name>` in the filename.
+
+A single source (e.g. ZoomInfo) can comprise multiple API calls (intents, company info, news, etc.). Each key under `objects` represents one such call or endpoint, with its own status, record_count, error, and data.
+
+## Python Implementation Pattern
+
+Every extractor must follow this "Single Write" pattern to prevent silent failures:
+
+```python
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+
+# 1. Initialize artifact with default failure state
+artifact = {
+    "source": "provider_name",
+    "company_id": company_id,
+    "collected_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+    "status": "fail",
+    "objects": None
+}
+
+try:
+    # 2. Logic to populate objects...
+    # artifact["objects"] = { ... }
+    # artifact["status"] = "success"
+except Exception as e:
+    # 3. Standardized Error Object
+    artifact["status"] = "fail"
+    artifact["error"] = {"type": type(e).__name__, "message": str(e), "retryable": False}
+finally:
+    # 4. Mandatory File Write (Rule: Silent failure prohibition)
+    path = Path(f"outputs/temp/{run_id}/source_provider_name.json")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(artifact, f, indent=2, ensure_ascii=False)
+```
+
+## Schema Requirements
+
+### Type Definitions (Python 3.9+)
+
+```python
+from typing import TypedDict, Optional, Any, Union, Literal
+
+class SourceObject(TypedDict):
+    status: Literal["success", "partial", "fail", "skipped"]
+    record_count: int
+    error: Union[str, dict, None]
+    data: Any  # Unmodified vendor JSON
+
+class SourceArtifact(TypedDict):
+    source: str
+    company_id: str
+    collected_at: str  # ISO 8601 UTC
+    status: Literal["success", "partial", "fail", "skipped"]
+    objects: Optional[dict[str, SourceObject]]  # None on full failure
+    error: Optional[dict]  # Required if status == "fail"
+```
+
+### Record Count Logic
+
+Use `isinstance` to determine `record_count` consistently:
+
+- `isinstance(data, list)` → `len(data)`
+- `isinstance(data, dict)` → `1`
+- `data is None` (or failed/skipped) → `0`
+
+### State Logic: Empty vs Null
+
+- **`objects: null`** — Total source failure (e.g. 401 Unauthorized, timeout).
+- **`objects: {}`** — Source ran successfully but no entity types were found/requested.
+- **`data: null`** — That specific endpoint/object failed or was skipped.
+
+**Error:** When the API provides an error, pass it through. For Python-originated exceptions, use at least `{"type": type(e).__name__, "message": str(e)}`; add `retryable` when known.
+
+## Critical Rules
+
+1. **No Silent Failures:** The `finally` block must execute. Never exit a script without writing the JSON artifact.
+2. **UTF-8 Encoding:** Always use `encoding="utf-8"` in `open()`.
+3. **Path Resolution:** Use `pathlib.Path`. Always call `path.parent.mkdir(parents=True, exist_ok=True)` before writing.
+4. **Metadata Preservation:** Emit object metadata (`status`, `record_count`, `error`) even when that specific object fails; set `data: null` when unavailable.
+
+## Examples
+
+### Example: Success / partial success
+
+Source ran; one or more object types returned (some may be success, partial, or skipped).
+
+```json
+{
+  "source": "jira",
+  "company_id": "28348781",
+  "collected_at": "2026-02-12T20:11:00Z",
+  "status": "success",
+  "objects": {
+    "projects": {
+      "status": "success",
+      "record_count": 4,
+      "error": null,
+      "data": []
+    },
+    "issues": {
+      "status": "partial",
+      "record_count": 182,
+      "error": "pagination_timeout",
+      "data": []
+    },
+    "users": {
+      "status": "skipped",
+      "record_count": 0,
+      "error": null,
+      "data": null
+    }
+  }
+}
+```
+
+### Example: Full source failure
+
+Auth died, endpoint down, timeout, etc. Always emit a file. Set objects to null.
+
+```json
+{
+  "source": "news",
+  "company_id": "28348781",
+  "collected_at": "2026-02-12T20:11:00Z",
+  "status": "fail",
+  "error": {
+    "type": "ConnectionError",
+    "message": "Max retries exceeded",
+    "retryable": true
+  },
+  "objects": null
+}
+```
+
+Why this matters: scheduler knows it ran, retry logic can trigger, debugging is trivial, metrics stay accurate. Silent failures are poison.
+
+### Example: Object-level failure
+
+Source ran; one or more object types failed (e.g. rate limit on contacts).
+
+```json
+{
+  "source": "salesforce",
+  "company_id": "28348781",
+  "collected_at": "2026-02-12T20:11:00Z",
+  "status": "partial",
+  "objects": {
+    "account": {
+      "status": "success",
+      "record_count": 1,
+      "error": null,
+      "data": {}
+    },
+    "contacts": {
+      "status": "fail",
+      "record_count": 0,
+      "error": "rate_limited",
+      "data": null
+    }
+  }
+}
+```
+
+### Example: Multi-call source (e.g. ZoomInfo)
+
+One source, multiple API calls; each key under objects is one call (intent, news, company, etc.).
+
+```json
+{
+  "source": "zoominfo_full",
+  "company_id": "28348781",
+  "collected_at": "2026-02-12T20:11:00Z",
+  "status": "success",
+  "objects": {
+    "intent": {
+      "status": "success",
+      "record_count": 0,
+      "error": null,
+      "data": []
+    },
+    "news": {
+      "status": "success",
+      "record_count": 15,
+      "error": null,
+      "data": []
+    },
+    "company": {
+      "status": "success",
+      "record_count": 1,
+      "error": null,
+      "data": {}
+    }
+  }
+}
+```
+
+### source_azure_billing.json (permitted extensions)
+
+- **Root:** In addition to source, company_id, collected_at, status, error, objects, this source may include **billing_period** (string, e.g. `"202601"` or `"2026-01"`) at artifact root. This is a permitted extension for this source only.
+- **Success with no data:** When there is no aptum_customer or no customer_ids (no-cloud), the artifact MUST have **`status: "success"`**, **`objects: {}`** (empty dict), and **no** root `error`. Validation must explicitly allow this case; do not require object keys when status is success and objects is empty.
+- **Object keys when present:** usage_consumption, usage_consumption_trends (array of `{ "period": "YYYY-MM", "rows": [...] }`), recurring_subscriptions, reserved_instances, management_fees, credits. Each is a SourceObject (status, record_count, error, data). Rows preserve billing_currency/currency; never sum across currencies downstream.
