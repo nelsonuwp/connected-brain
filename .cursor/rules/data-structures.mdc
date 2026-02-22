@@ -23,11 +23,11 @@ from pathlib import Path
 # 1. Initialize artifact with default failure state
 artifact = {
     "source": "provider_name",
-    "company_id": company_id,
     "collected_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     "status": "fail",
     "objects": None
 }
+# Add domain-specific fields (e.g. company_id, account_id) at project level after this.
 
 try:
     # 2. Logic to populate objects...
@@ -60,11 +60,11 @@ class SourceObject(TypedDict):
 
 class SourceArtifact(TypedDict):
     source: str
-    company_id: str
     collected_at: str  # ISO 8601 UTC
     status: Literal["success", "partial", "fail", "skipped"]
     objects: Optional[dict[str, SourceObject]]  # None on full failure
     error: Optional[dict]  # Required if status == "fail"
+# No company_id or other domain IDs in base schema — add at project level after initializer.
 ```
 
 ### Record Count Logic
@@ -89,6 +89,7 @@ Use `isinstance` to determine `record_count` consistently:
 2. **UTF-8 Encoding:** Always use `encoding="utf-8"` in `open()`.
 3. **Path Resolution:** Use `pathlib.Path`. Always call `path.parent.mkdir(parents=True, exist_ok=True)` before writing.
 4. **Metadata Preservation:** Emit object metadata (`status`, `record_count`, `error`) even when that specific object fails; set `data: null` when unavailable.
+5. **Domain-specific fields:** Do not add company_id, account_id, etc. to the base schema. Projects that need an entity identifier add it to the artifact dict after the initializer returns.
 
 ## Examples
 
@@ -99,7 +100,6 @@ Source ran; one or more object types returned (some may be success, partial, or 
 ```json
 {
   "source": "jira",
-  "company_id": "28348781",
   "collected_at": "2026-02-12T20:11:00Z",
   "status": "success",
   "objects": {
@@ -132,7 +132,6 @@ Auth died, endpoint down, timeout, etc. Always emit a file. Set objects to null.
 ```json
 {
   "source": "news",
-  "company_id": "28348781",
   "collected_at": "2026-02-12T20:11:00Z",
   "status": "fail",
   "error": {
@@ -153,7 +152,6 @@ Source ran; one or more object types failed (e.g. rate limit on contacts).
 ```json
 {
   "source": "salesforce",
-  "company_id": "28348781",
   "collected_at": "2026-02-12T20:11:00Z",
   "status": "partial",
   "objects": {
@@ -180,7 +178,6 @@ One source, multiple API calls; each key under objects is one call (intent, news
 ```json
 {
   "source": "zoominfo_full",
-  "company_id": "28348781",
   "collected_at": "2026-02-12T20:11:00Z",
   "status": "success",
   "objects": {
@@ -208,6 +205,6 @@ One source, multiple API calls; each key under objects is one call (intent, news
 
 ### source_azure_billing.json (permitted extensions)
 
-- **Root:** In addition to source, company_id, collected_at, status, error, objects, this source may include **billing_period** (string, e.g. `"202601"` or `"2026-01"`) at artifact root. This is a permitted extension for this source only.
+- **Root:** Base fields are source, collected_at, status, error, objects. This source may add **billing_period** (string, e.g. `"202601"` or `"2026-01"`) at artifact root as a project-level extension.
 - **Success with no data:** When there is no aptum_customer or no customer_ids (no-cloud), the artifact MUST have **`status: "success"`**, **`objects: {}`** (empty dict), and **no** root `error`. Validation must explicitly allow this case; do not require object keys when status is success and objects is empty.
 - **Object keys when present:** usage_consumption, usage_consumption_trends (array of `{ "period": "YYYY-MM", "rows": [...] }`), recurring_subscriptions, reserved_instances, management_fees, credits. Each is a SourceObject (status, record_count, error, data). Rows preserve billing_currency/currency; never sum across currencies downstream.

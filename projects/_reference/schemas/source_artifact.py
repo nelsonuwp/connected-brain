@@ -1,8 +1,9 @@
 """
-Source Artifact Schema — Python Implementation
+Source Artifact Schema — Agnostic Python Implementation
 Reference: vault/20-context/schemas/source-artifact.md
 
 Copy this file into your project. Do not import from _reference directly.
+Your project owns its copy — add domain-specific fields at the project level.
 """
 from typing import TypedDict, Optional, Any, Union, Literal
 from datetime import datetime, timezone
@@ -17,24 +18,22 @@ class SourceObject(TypedDict):
     status: Literal["success", "partial", "fail", "skipped"]
     record_count: int
     error: Union[str, dict, None]
-    data: Any  # Unmodified vendor payload
+    data: Any  # Unmodified vendor payload — never reshape here
 
 
 class SourceArtifact(TypedDict):
-    source: str
-    company_id: str
-    collected_at: str           # ISO 8601 UTC
+    source: str                     # provider name — matches filename suffix
+    collected_at: str               # ISO 8601 UTC — when this data was fetched
     status: Literal["success", "partial", "fail", "skipped"]
-    objects: Optional[dict[str, SourceObject]]  # None on total failure
-    error: Optional[dict]       # Required when status == "fail"
+    objects: Optional[dict[str, SourceObject]]  # null = total failure
+    error: Optional[dict]           # present when status == "fail"
 
 
 class RunArtifact(TypedDict):
     """Wraps multiple SourceArtifacts from a single extraction run."""
-    run_id: str
-    company_id: str
-    started_at: str             # ISO 8601 UTC
-    completed_at: str           # ISO 8601 UTC
+    run_id: str                     # unique run identifier
+    started_at: str                 # ISO 8601 UTC — before first API call
+    completed_at: str               # ISO 8601 UTC — after finally block
     status: Literal["success", "partial", "fail"]
     sources: dict[str, SourceArtifact]
 
@@ -42,11 +41,17 @@ class RunArtifact(TypedDict):
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def utc_now() -> str:
+    """Current UTC time as ISO 8601 string."""
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def record_count(data: Any) -> int:
-    """Consistent record count logic across all extractors."""
+    """
+    Consistent record count across all extractors.
+    list  -> len(data)
+    dict  -> 1
+    None  -> 0
+    """
     if isinstance(data, list):
         return len(data)
     if isinstance(data, dict):
@@ -54,7 +59,9 @@ def record_count(data: Any) -> int:
     return 0
 
 
-def derive_run_status(sources: dict[str, SourceArtifact]) -> Literal["success", "partial", "fail"]:
+def derive_run_status(
+    sources: dict[str, SourceArtifact],
+) -> Literal["success", "partial", "fail"]:
     """Derive overall run status from individual source statuses."""
     statuses = {s["status"] for s in sources.values()}
     if statuses == {"success"}:
@@ -65,19 +72,25 @@ def derive_run_status(sources: dict[str, SourceArtifact]) -> Literal["success", 
 
 
 def write_artifact(artifact: Union[SourceArtifact, RunArtifact], path: Path) -> None:
-    """Mandatory write — always call in finally block."""
+    """
+    Mandatory write. Always call in finally block.
+    Never let a script exit without writing its artifact.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(artifact, f, indent=2, ensure_ascii=False)
 
 
-# ── Base Extractor Pattern ────────────────────────────────────────────────────
+# ── Initializers ──────────────────────────────────────────────────────────────
 
-def make_source_artifact(source: str, company_id: str) -> SourceArtifact:
-    """Initialize artifact in default failure state. Populate, then write."""
+def make_source_artifact(source: str) -> SourceArtifact:
+    """
+    Initialize a SourceArtifact in default failure state.
+    Populate objects and set status in the try block.
+    Always write in the finally block.
+    """
     return {
         "source": source,
-        "company_id": company_id,
         "collected_at": utc_now(),
         "status": "fail",
         "objects": None,
@@ -85,42 +98,55 @@ def make_source_artifact(source: str, company_id: str) -> SourceArtifact:
     }
 
 
-def make_run_artifact(company_id: str) -> tuple[RunArtifact, str]:
-    """Initialize a run artifact. Returns (artifact, run_id)."""
+def make_run_artifact() -> tuple[RunArtifact, str]:
+    """
+    Initialize a RunArtifact. Returns (artifact, run_id).
+    Set completed_at and final status in the finally block.
+    """
     run_id = str(uuid.uuid4())[:8]
     return {
         "run_id": run_id,
-        "company_id": company_id,
         "started_at": utc_now(),
-        "completed_at": "",      # set on completion
-        "status": "fail",        # updated on completion
+        "completed_at": "",
+        "status": "fail",
         "sources": {},
     }, run_id
 
 
-# ── Example Extractor (copy and adapt) ───────────────────────────────────────
+# ── Extractor Template ────────────────────────────────────────────────────────
 
-def extract_example(company_id: str, run_id: str, output_dir: Path) -> SourceArtifact:
+def extract_template(output_dir: Path) -> SourceArtifact:
     """
     Template for a single-source extractor.
-    Copy this function. Replace 'example' with your source name.
+
+    HOW TO USE:
+    1. Copy this function into your project
+    2. Rename it: extract_jira, extract_slack, extract_zoominfo, etc.
+    3. Replace 'template' with your source name in make_source_artifact()
+    4. Replace placeholder API calls with real ones
+    5. Add as many keys under objects as you have endpoints
+    6. Never remove the finally block
+
+    ADDING DOMAIN FIELDS:
+    If your project needs extra fields (e.g. account_id, billing_period),
+    add them to the artifact dict after make_source_artifact() returns.
+    Do not modify SourceArtifact TypedDict — extend at the project level.
     """
-    artifact = make_source_artifact("example", company_id)
-    path = output_dir / f"source_example.json"
+    artifact = make_source_artifact("template")
+    path = output_dir / "source_template.json"
 
     try:
-        # Replace with actual API calls
-        raw_items = []           # e.g. response.json()["items"]
-        raw_detail = {}          # e.g. response.json()
+        raw_list = []
+        raw_detail = {}
 
         artifact["objects"] = {
-            "items": {
+            "list_endpoint": {
                 "status": "success",
-                "record_count": record_count(raw_items),
+                "record_count": record_count(raw_list),
                 "error": None,
-                "data": raw_items,
+                "data": raw_list,
             },
-            "detail": {
+            "detail_endpoint": {
                 "status": "success",
                 "record_count": record_count(raw_detail),
                 "error": None,
@@ -138,32 +164,37 @@ def extract_example(company_id: str, run_id: str, output_dir: Path) -> SourceArt
         }
 
     finally:
-        write_artifact(artifact, path)  # Always runs. No silent failures.
+        write_artifact(artifact, path)
 
     return artifact
 
 
-# ── Multi-Source Runner Pattern ───────────────────────────────────────────────
+# ── Multi-Source Runner Template ──────────────────────────────────────────────
 
-def run_extraction(company_id: str, output_base: Path) -> RunArtifact:
+def run_extraction(output_base: Path) -> RunArtifact:
     """
     Runs multiple extractors and wraps results in a RunArtifact.
-    Add your extractors to the extractors list.
+
+    HOW TO USE:
+    1. Copy into your project
+    2. Import your extractor functions at the top of the file
+    3. Add them to the extractors list as ('source_name', function) tuples
+    4. Never remove the finally block
     """
-    run, run_id = make_run_artifact(company_id)
+    run, run_id = make_run_artifact()
     output_dir = output_base / run_id
     run_path = output_dir / "run.json"
 
     try:
         extractors = [
-            # ("source_name", extractor_function),
-            ("example", extract_example),
-            # ("zoominfo", extract_zoominfo),
-            # ("salesforce", extract_salesforce),
+            # ('jira',     extract_jira),
+            # ('slack',    extract_slack),
+            # ('zoominfo', extract_zoominfo),
+            ("template", extract_template),
         ]
 
         for source_name, extractor_fn in extractors:
-            result = extractor_fn(company_id, run_id, output_dir)
+            result = extractor_fn(output_dir)
             run["sources"][source_name] = result
 
         run["status"] = derive_run_status(run["sources"])
@@ -178,6 +209,6 @@ def run_extraction(company_id: str, output_base: Path) -> RunArtifact:
 
     finally:
         run["completed_at"] = utc_now()
-        write_artifact(run, run_path)  # Always runs.
+        write_artifact(run, run_path)
 
     return run
