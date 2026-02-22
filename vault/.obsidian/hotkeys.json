@@ -16,15 +16,6 @@
       "key": "O"
     }
   ],
-  "quickadd:runQuickAdd": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "I"
-    }
-  ],
   "command-palette:open": [
     {
       "modifiers": [
@@ -50,6 +41,24 @@
         "Shift"
       ],
       "key": "E"
+    }
+  ],
+  "quickadd:choice:449975f9-f89c-46b8-81b9-0ee680b7a757": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "M"
+    }
+  ],
+  "quickadd:choice:ecaad3d1-bd2b-4520-b11f-f3fcb8ee30df": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "I"
     }
   ]
 }
