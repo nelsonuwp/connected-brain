@@ -1,7 +1,7 @@
 ---
 type: thinking
 created: 2026-02-22
-status: raw
+status: promoted
 promoted-from: 01-inbox
 ---
 
