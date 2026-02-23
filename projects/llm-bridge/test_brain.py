@@ -104,7 +104,7 @@ def test_idea_promote_live_mocked(env_with_vault):
     fake_output = "---\ntype: thinking\nstatus: raw\n---\n# Test\n## The Idea\nFake.\n"
 
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.ai_call", return_value=fake_output):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=fake_output):
         import brain as brain_mod
         from typer.testing import CliRunner
         runner = CliRunner()
@@ -126,7 +126,7 @@ def test_idea_promote_api_failure(env_with_vault):
     unique = "idea-promote-fail.md"
     (vault / "01-inbox" / unique).write_text("My raw idea\n", encoding="utf-8")
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.ai_call", return_value=""):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=""):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()
@@ -162,7 +162,7 @@ def test_thinking_promote_live_mocked(env_with_vault):
     (vault / "10-thinking" / "test-thinking.md").write_text("Thinking content\n", encoding="utf-8")
     fake = "---\ntype: initiative\nstatus: drafting\n---\n# Test\n## One-Line Purpose\nFake.\n"
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.ai_call", return_value=fake):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=fake):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()
@@ -264,7 +264,7 @@ def test_thinking_refine_creates_snapshot(env_with_vault):
     vault = env_with_vault
     (vault / "10-thinking" / "snap-note.md").write_text("Before refine\n", encoding="utf-8")
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.ai_call", return_value="## Audit\n### What's Solid\nNone."):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value="## Audit\n### What's Solid\nNone."):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()
@@ -272,7 +272,7 @@ def test_thinking_refine_creates_snapshot(env_with_vault):
     assert result.exit_code == 0
     archive_dir = vault / "10-thinking" / "archive"
     assert archive_dir.exists()
-    # One timestamped file: snap-note-YYYYMMDD-HHMM.md
+    # One timestamped file: snap-note-YYYYMMDD-HHMMSS.md
     archives = list(archive_dir.glob("snap-note-*.md"))
     assert len(archives) == 1
     assert archives[0].read_text() == "Before refine\n"
@@ -291,7 +291,7 @@ def test_thinking_think_does_not_snapshot(env_with_vault):
     archive_dir = vault / "10-thinking" / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.ai_call", return_value="## Think\n### The Central Tension\nFake."):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value="## Think\n### The Central Tension\nFake."):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()

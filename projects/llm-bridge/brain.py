@@ -38,13 +38,13 @@ def archive_file(vault_relative_path: str, archive_filename: str) -> None:
 
 
 def snapshot_note_for_llm(note_path: str) -> None:
-    """Copy note to {folder}/archive/{stem}-{YYYYMMDD-HHMM}.md. Raises on failure. Caller aborts if this fails."""
+    """Copy note to {folder}/archive/{stem}-{YYYYMMDD-HHMMSS}.md. Raises on failure. Caller aborts if this fails."""
     full = Config.VAULT_ROOT / note_path
     parent = full.parent
     archive_dir = parent / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
     stem = full.stem
-    timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M")
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     dest_name = f"{stem}-{timestamp}.md"
     dest = archive_dir / dest_name
     shutil.copy2(str(full), str(dest))
@@ -68,7 +68,7 @@ def append_to_note(note_path: str, llm_output: str, mode: str) -> None:
     """Atomic append: original + --- + ## LLM Output — {mode} — {timestamp} + llm_output. Removes .tmp on exception."""
     full = Config.VAULT_ROOT / note_path
     original = full.read_text(encoding="utf-8")
-    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
     section = f"\n\n---\n\n## LLM Output — {mode} — {ts} UTC\n\n{llm_output}"
     new_content = original + section
     tmp_path = full.with_suffix(full.suffix + ".tmp")
@@ -85,7 +85,7 @@ def append_to_file(vault_relative_path: str, llm_output: str, mode: str) -> None
     """Same atomic pattern as append_to_note; used by context command."""
     full = Config.VAULT_ROOT / vault_relative_path
     original = full.read_text(encoding="utf-8")
-    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
     section = f"\n\n---\n\n## LLM Output — {mode} — {ts} UTC\n\n{llm_output}"
     new_content = original + section
     tmp_path = full.with_suffix(full.suffix + ".tmp")
@@ -99,12 +99,17 @@ def append_to_file(vault_relative_path: str, llm_output: str, mode: str) -> None
 
 
 def write_new_file(vault_relative_path: str, content: str) -> None:
-    """Atomic write to path. Creates parent dirs if missing. Used by promote commands."""
+    """Atomic write to path. Creates parent dirs if missing. Removes .tmp on exception. Used by promote commands."""
     full = Config.VAULT_ROOT / vault_relative_path
     full.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = full.with_suffix(full.suffix + ".tmp")
-    tmp_path.write_text(content, encoding="utf-8")
-    os.replace(tmp_path, full)
+    try:
+        tmp_path.write_text(content, encoding="utf-8")
+        os.replace(tmp_path, full)
+    except Exception:
+        if tmp_path.exists():
+            tmp_path.unlink()
+        raise
 
 
 def load_prompt(name: str) -> str:
