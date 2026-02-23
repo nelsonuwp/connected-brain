@@ -119,22 +119,23 @@ def test_idea_promote_api_failure(env_with_vault):
     """
     Mock ai_client.call to return "". Run idea promote.
     Expected terminal: "LLM call failed; original untouched."
-    Expected filesystem: 01-inbox/test-idea.md unchanged, no archive, no 10-thinking/ file.
+    Expected filesystem: original file unchanged, no archive of *this* file, no 10-thinking/ file.
+    Use unique filename so archive from other tests doesn't affect assertion.
     """
     vault = env_with_vault
-    (vault / "01-inbox" / "test-idea.md").write_text("My raw idea\n", encoding="utf-8")
+    unique = "idea-promote-fail.md"
+    (vault / "01-inbox" / unique).write_text("My raw idea\n", encoding="utf-8")
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
     with patch("brain.ai_call", return_value=""):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()
-        result = runner.invoke(brain_mod.app, ["idea", "promote", "01-inbox/test-idea.md"], env=env)
+        result = runner.invoke(brain_mod.app, ["idea", "promote", f"01-inbox/{unique}"], env=env)
     assert result.exit_code == 1
     assert "unchanged" in result.output or "failed" in result.output.lower()
-    assert (vault / "01-inbox" / "test-idea.md").read_text() == "My raw idea\n"
-    # No archived copy of this file (archive/ dir may exist from other tests)
-    assert not (vault / "01-inbox" / "archive" / "test-idea.md").exists()
-    assert not (vault / "10-thinking" / "test-idea.md").exists()
+    assert (vault / "01-inbox" / unique).read_text() == "My raw idea\n"
+    assert not (vault / "01-inbox" / "archive" / unique).exists()
+    assert not (vault / "10-thinking" / unique).exists()
 
 
 # ---- Promote: thinking promote ----
