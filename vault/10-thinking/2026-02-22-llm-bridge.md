@@ -99,5 +99,5 @@ If the answer is "Obsidian-specific file I/O and prompt template management," th
 2. Well I would LOVE it if it would _automatically_ put it in this file.
 3. I can't imagine that an obsidian plugin can do it... but also I run the other half of my life out of cursor, so I'll have access to the raw MD files and a terminal. Python is most likely easier to code than an obsidian plugin.
 4. It's me, passing it to cursor... Composer 1.5 most likely or some other coding-specific LLLM.
-5. python 
+5. python python_script.py -think 2026-02-22-llm-bridge.md
 
