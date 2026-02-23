@@ -1,56 +1,30 @@
 """
-OpenRouter transport only. Strings in, string out. No file I/O.
-Retries 429, 5xx with exponential backoff. Returns "" on unrecoverable failure.
+OpenRouter transport only. model, temperature, messages in; transport dict or None out.
+No alias handling, no console output on success. Retries 429, 5xx with exponential backoff.
 """
 import time
 import requests
 
 from config import Config
 
-MODEL_MAP: dict[str, str] = {
-    "reasoning": Config.MODEL_REASONING,
-    "workhorse": Config.MODEL_WORKHORSE,
-    "nano": Config.MODEL_NANO,
-}
-
-TEMPERATURE_MAP: dict[str, float] = {
-    "reasoning": Config.TEMPERATURE_REASONING,
-    "workhorse": Config.TEMPERATURE_WORKHORSE,
-    "nano": Config.TEMPERATURE_NANO,
-}
-
 RETRY_STATUSES = (429, 500, 502, 503, 504)
 URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
 def call(
-    model_alias: str,
-    system_prompt: str,
-    user_message: str,
-    temperature: float | None = None,
-    verbose: bool = True,
-) -> str:
+    model: str,
+    temperature: float,
+    messages: list[dict],
+) -> dict | None:
     """
-    Call OpenRouter chat completions. Returns response content or "" on failure.
-    Never raises. If temperature is None, uses config default for that alias.
+    Call OpenRouter chat completions. Returns transport dict with content + tokens, or None on failure.
+    Does not print or log on success.
     """
-    if model_alias not in MODEL_MAP:
-        if verbose:
-            print(f"Error: unknown model alias '{model_alias}'")
-        return ""
-
-    model_string = MODEL_MAP[model_alias]
-    temp = temperature if temperature is not None else TEMPERATURE_MAP[model_alias]
-
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_message},
-    ]
     payload = {
-        "model": model_string,
+        "model": model,
+        "temperature": temperature,
         "messages": messages,
         "max_tokens": 4096,
-        "temperature": temp,
     }
     headers = {
         "Authorization": f"Bearer {Config.OPENROUTER_API_KEY}",
@@ -87,16 +61,15 @@ def call(
                 continue
             text = str(content).strip()
             if not text:
-                return ""
+                return None
 
-            if verbose:
-                usage = data.get("usage") or {}
-                pt = usage.get("prompt_tokens", "?")
-                ct = usage.get("completion_tokens", "?")
-                tot = usage.get("total_tokens", "?")
-                print(f"Model: {model_string}")
-                print(f"Tokens: prompt={pt}, completion={ct}, total={tot}")
-            return text
+            usage = data.get("usage") or {}
+            tokens = {
+                "prompt": int(usage.get("prompt_tokens", 0)),
+                "completion": int(usage.get("completion_tokens", 0)),
+                "total": int(usage.get("total_tokens", 0)),
+            }
+            return {"content": text, "tokens": tokens}
 
         if resp.status_code in RETRY_STATUSES:
             last_error = f"HTTP {resp.status_code}"
@@ -104,16 +77,14 @@ def call(
                 time.sleep(2**attempt)
             continue
 
-        # 4xx (other than 429) or other status — do not retry
         last_error = f"HTTP {resp.status_code}"
-        if verbose:
-            try:
-                body = resp.text[:500] if resp.text else ""
-                print(f"Error: {last_error} — {body}")
-            except Exception:
-                print(f"Error: {last_error}")
-        return ""
+        try:
+            body = resp.text[:500] if resp.text else ""
+            print(f"Error: {last_error} — {body}")
+        except Exception:
+            print(f"Error: {last_error}")
+        return None
 
-    if verbose and last_error:
+    if last_error:
         print(f"Error: {last_error} (max retries exceeded)")
-    return ""
+    return None

@@ -54,28 +54,32 @@ messages = [
 ]
 ```
 
-The full `requests.post()` call in `ai_client.py`:
+brain.py assembles `messages` and calls `ai_client.call()` with the full list. The transport layer builds the body and returns a minimal result:
 
 ```python
-import requests
-
-response = requests.post(
-    url="https://openrouter.ai/api/v1/chat/completions",
-    headers={
-        "Authorization": f"Bearer {Config.OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
-    },
-    json={
-        "model": model_string,       # e.g. "anthropic/claude-opus-4-5"
-        "messages": messages,
-        "max_tokens": 4096
-    },
-    timeout=120
-)
-
-result = response.json()
-content = result["choices"][0]["message"]["content"]
+# brain.py assembles:
+messages = [
+    {"role": "system", "content": prompt["content"]},
+    {"role": "user", "content": user_content}
+]
+# ai_client.call(model_string, temperature, messages) builds:
+# json={ "model": model_string, "temperature": temperature, "messages": messages, "max_tokens": 4096 }
+# ai_client.call() returns (on success):
+# {"content": str, "tokens": {"prompt": int, "completion": int, "total": int}}
 ```
+
+So brain owns message assembly; ai_client only POSTs and returns the transport dict (content + tokens) or `None` on failure.
+
+---
+
+## Transport Result vs LLMResponse
+
+`ai_client.call()` returns a **transport result dict** — not a full LLMResponse. On success it returns only:
+
+- `content` (str): the model’s reply text
+- `tokens`: `{"prompt": int, "completion": int, "total": int}` from OpenRouter’s `usage`
+
+LLMResponse is a separate, richer envelope (run_id, model, generated_at, mode, status, output, error, sources_used, tokens) used for writing response records to disk (future use). Do not conflate the two: the transport layer does not construct or populate LLMResponse.
 
 ---
 

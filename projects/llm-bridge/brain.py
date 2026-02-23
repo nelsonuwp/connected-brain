@@ -2,12 +2,14 @@
 LLM Bridge CLI. Vault I/O, archive/snapshot, Typer. All eight commands are LLM operations.
 Calls ai_client.call() only; no HTTP logic here.
 """
+import json
 import os
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
 import typer
+import yaml
 from rich.console import Console
 
 from config import Config
@@ -15,6 +17,18 @@ from ai_client import call as ai_call
 
 app = typer.Typer()
 console = Console()
+
+# Alias → Config (used by resolution waterfall)
+MODEL_ALIAS_TO_STRING = {
+    "reasoning": Config.MODEL_REASONING,
+    "workhorse": Config.MODEL_WORKHORSE,
+    "nano": Config.MODEL_NANO,
+}
+TEMPERATURE_ALIAS_TO_FLOAT = {
+    "reasoning": Config.TEMPERATURE_REASONING,
+    "workhorse": Config.TEMPERATURE_WORKHORSE,
+    "nano": Config.TEMPERATURE_NANO,
+}
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -81,7 +95,7 @@ def build_user_message(
         content = read_file(path)
         parts.append(f"[CONTEXT: {path}]\n{content}")
     parts.append(f"[NOTE: {note_path}]\n{note_content}")
-    return "\n\n".join(parts)
+    return "\n\n---\n\n".join(parts)
 
 
 def append_to_note(note_path: str, llm_output: str, mode: str) -> None:
