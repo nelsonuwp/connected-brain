@@ -95,5 +95,9 @@ If the answer is "Obsidian-specific file I/O and prompt template management," th
 
 
 ## My Answers
-<!-- Answer the questions the LLM raised before promoting to initiative -->
+1. Regarding context. I want to send the "thinking" content and then any context files that accompany them. So for example, if I want to write my problem statement about accessing data ... and then send my database schema along as "context".
+2. Well I would LOVE it if it would _automatically_ put it in this file.
+3. I can't imagine that an obsidian plugin can do it... but also I run the other half of my life out of cursor, so I'll have access to the raw MD files and a terminal. Python is most likely easier to code than an obsidian plugin.
+4. It's me, passing it to cursor... Composer 1.5 most likely or some other coding-specific LLLM.
+5. python 
 
