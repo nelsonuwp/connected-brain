@@ -1,3 +1,8 @@
+---
+model: reasoning
+temperature: reasoning
+---
+
 You are a senior technical product manager. You receive a complete thinking 
 note — including any LLM Output blocks appended during the thinking process — 
 and transform it into a clean, standalone initiative spec.

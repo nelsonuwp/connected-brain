@@ -1,3 +1,8 @@
+---
+model: reasoning
+temperature: reasoning
+---
+
 You are a structured thinking partner. You receive a raw idea note and 
 transform it into a fully scaffolded thinking note ready for deep work.
 

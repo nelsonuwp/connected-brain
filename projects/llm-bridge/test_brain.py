@@ -2,6 +2,7 @@
 Tests for brain.py. Uses a temporary vault (VAULT_ROOT env) so the real vault is untouched.
 Expected terminal output and filesystem state documented per test.
 """
+import json
 import os
 import subprocess
 import sys
@@ -9,6 +10,14 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+import typer
+
+# Success/failure mock shapes for ai_client.call (brain imports it as ai_call)
+FAKE_TOKENS = {"prompt": 10, "completion": 50, "total": 60}
+
+
+def _success_mock(content: str) -> dict:
+    return {"content": content, "tokens": FAKE_TOKENS}
 
 # Set VAULT_ROOT to a temp dir before importing brain (which imports config).
 # pytest runs with workspace as cwd; we'll set env in fixtures.
@@ -43,6 +52,12 @@ def temp_vault(tmp_path_factory):
         src = DEFAULT_PROMPTS / name
         if src.exists():
             (prompts_dir / name).write_text(src.read_text(), encoding="utf-8")
+        elif name == "think-mode.md":
+            # At least one fixture with valid YAML frontmatter for load_prompt/waterfall tests
+            (prompts_dir / name).write_text(
+                "---\nmodel: reasoning\ntemperature: reasoning\n---\nYou are a thinking partner.\n",
+                encoding="utf-8",
+            )
         else:
             (prompts_dir / name).write_text(f"System prompt: {name}\n", encoding="utf-8")
     return vault
@@ -76,7 +91,7 @@ def _run_brain(env: dict, *args: str) -> subprocess.CompletedProcess:
 
 def test_idea_promote_dry_run(env_with_vault):
     """
-    Expected terminal: "Dry run", system prompt snippet, user message with [NOTE: ...].
+    Expected terminal: exact JSON payload (model, temperature, max_tokens, messages).
     Expected filesystem: 01-inbox/test-idea.md still exists, no 01-inbox/archive/, no 10-thinking/.
     """
     vault = env_with_vault
@@ -86,8 +101,15 @@ def test_idea_promote_dry_run(env_with_vault):
         "idea", "promote", "01-inbox/test-idea.md", "--dry-run",
     )
     assert result.returncode == 0
-    assert "Dry run" in result.stdout
     assert "[NOTE:" in result.stdout
+    parsed = json.loads(result.stdout)
+    assert "model" in parsed
+    assert "temperature" in parsed
+    assert "max_tokens" in parsed
+    assert "messages" in parsed
+    assert len(parsed["messages"]) == 2
+    assert parsed["messages"][0]["role"] == "system"
+    assert parsed["messages"][1]["role"] == "user"
     assert (vault / "01-inbox" / "test-idea.md").exists()
     assert not (vault / "01-inbox" / "archive").exists()
     assert not (vault / "10-thinking" / "test-idea.md").exists()
@@ -95,7 +117,7 @@ def test_idea_promote_dry_run(env_with_vault):
 
 def test_idea_promote_live_mocked(env_with_vault):
     """
-    Mock ai_client.call to return fake thinking note. Run idea promote.
+    Mock ai_client.call to return transport dict. Run idea promote.
     Expected terminal: "Promoted → 10-thinking/test-idea.md (original archived to ...)".
     Expected filesystem: 01-inbox/archive/test-idea.md = original content; 10-thinking/test-idea.md = mock LLM output.
     """
@@ -104,7 +126,7 @@ def test_idea_promote_live_mocked(env_with_vault):
     fake_output = "---\ntype: thinking\nstatus: raw\n---\n# Test\n## The Idea\nFake.\n"
 
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=fake_output):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(fake_output)):
         import brain as brain_mod
         from typer.testing import CliRunner
         runner = CliRunner()
@@ -117,16 +139,15 @@ def test_idea_promote_live_mocked(env_with_vault):
 
 def test_idea_promote_api_failure(env_with_vault):
     """
-    Mock ai_client.call to return "". Run idea promote.
+    Mock ai_client.call to return None (failure). Run idea promote.
     Expected terminal: "LLM call failed; original untouched."
     Expected filesystem: original file unchanged, no archive of *this* file, no 10-thinking/ file.
-    Use unique filename so archive from other tests doesn't affect assertion.
     """
     vault = env_with_vault
     unique = "idea-promote-fail.md"
     (vault / "01-inbox" / unique).write_text("My raw idea\n", encoding="utf-8")
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=""):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=None):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()
@@ -142,7 +163,7 @@ def test_idea_promote_api_failure(env_with_vault):
 
 
 def test_thinking_promote_dry_run(env_with_vault):
-    """Expected: dry run output, no archive, no 30-initiatives/ file."""
+    """Expected: JSON payload on stdout, no archive, no 30-initiatives/ file."""
     vault = env_with_vault
     (vault / "10-thinking" / "test-thinking.md").write_text("Thinking content\n", encoding="utf-8")
     result = _run_brain(
@@ -150,7 +171,7 @@ def test_thinking_promote_dry_run(env_with_vault):
         "thinking", "promote", "10-thinking/test-thinking.md", "--dry-run",
     )
     assert result.returncode == 0
-    assert "Dry run" in result.stdout
+    json.loads(result.stdout)  # dry-run outputs valid JSON
     assert (vault / "10-thinking" / "test-thinking.md").exists()
     assert not (vault / "10-thinking" / "archive").exists()
     assert not (vault / "30-initiatives" / "test-thinking.md").exists()
@@ -162,7 +183,7 @@ def test_thinking_promote_live_mocked(env_with_vault):
     (vault / "10-thinking" / "test-thinking.md").write_text("Thinking content\n", encoding="utf-8")
     fake = "---\ntype: initiative\nstatus: drafting\n---\n# Test\n## One-Line Purpose\nFake.\n"
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=fake):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(fake)):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()
@@ -177,7 +198,7 @@ def test_thinking_promote_live_mocked(env_with_vault):
 
 
 def test_idea_refine_dry_run(env_with_vault):
-    """Expected: dry run output, no snapshot, no append."""
+    """Expected: JSON payload on stdout, no snapshot, no append."""
     vault = env_with_vault
     (vault / "01-inbox" / "foo.md").write_text("Idea\n", encoding="utf-8")
     result = _run_brain(
@@ -185,15 +206,14 @@ def test_idea_refine_dry_run(env_with_vault):
         "idea", "refine", "01-inbox/foo.md", "--dry-run",
     )
     assert result.returncode == 0
-    assert "Dry run" in result.stdout
+    json.loads(result.stdout)
     assert (vault / "01-inbox" / "foo.md").read_text() == "Idea\n"
-    # No snapshot for this file (dry-run skips snapshot; archive/ may exist from other tests)
     archive_dir = vault / "01-inbox" / "archive"
     assert not list(archive_dir.glob("foo-*.md")) if archive_dir.exists() else True
 
 
 def test_thinking_refine_dry_run(env_with_vault):
-    """Expected: dry run output, no write."""
+    """Expected: JSON payload on stdout, no write."""
     vault = env_with_vault
     (vault / "10-thinking" / "foo.md").write_text("Thinking\n", encoding="utf-8")
     result = _run_brain(
@@ -201,11 +221,11 @@ def test_thinking_refine_dry_run(env_with_vault):
         "thinking", "refine", "10-thinking/foo.md", "--dry-run",
     )
     assert result.returncode == 0
-    assert "Dry run" in result.stdout
+    json.loads(result.stdout)
 
 
 def test_thinking_think_dry_run(env_with_vault):
-    """Expected: dry run output, no write."""
+    """Expected: JSON payload on stdout, no write."""
     vault = env_with_vault
     (vault / "10-thinking" / "foo.md").write_text("Thinking\n", encoding="utf-8")
     result = _run_brain(
@@ -213,11 +233,11 @@ def test_thinking_think_dry_run(env_with_vault):
         "thinking", "think", "10-thinking/foo.md", "--dry-run",
     )
     assert result.returncode == 0
-    assert "Dry run" in result.stdout
+    json.loads(result.stdout)
 
 
 def test_thinking_spec_dry_run(env_with_vault):
-    """Expected: dry run output, no write."""
+    """Expected: JSON payload on stdout, no write."""
     vault = env_with_vault
     (vault / "10-thinking" / "foo.md").write_text("Thinking\n", encoding="utf-8")
     result = _run_brain(
@@ -225,11 +245,11 @@ def test_thinking_spec_dry_run(env_with_vault):
         "thinking", "spec", "10-thinking/foo.md", "--dry-run",
     )
     assert result.returncode == 0
-    assert "Dry run" in result.stdout
+    json.loads(result.stdout)
 
 
 def test_initiative_refine_dry_run(env_with_vault):
-    """Expected: dry run output, no write."""
+    """Expected: JSON payload on stdout, no write."""
     vault = env_with_vault
     (vault / "30-initiatives" / "foo.md").write_text("Initiative\n", encoding="utf-8")
     result = _run_brain(
@@ -237,11 +257,11 @@ def test_initiative_refine_dry_run(env_with_vault):
         "initiative", "refine", "30-initiatives/foo.md", "--dry-run",
     )
     assert result.returncode == 0
-    assert "Dry run" in result.stdout
+    json.loads(result.stdout)
 
 
 def test_context_dry_run(env_with_vault):
-    """Expected: dry run output; user message has [CONTEXT: ...] only, no [NOTE]. No append."""
+    """Expected: JSON payload; user message has [CONTEXT: ...]. No append."""
     vault = env_with_vault
     (vault / "20-context" / "bar.md").write_text("Context content\n", encoding="utf-8")
     result = _run_brain(
@@ -249,8 +269,8 @@ def test_context_dry_run(env_with_vault):
         "context", "20-context/bar.md", "--dry-run",
     )
     assert result.returncode == 0
-    assert "Dry run" in result.stdout
-    assert "[CONTEXT:" in result.stdout
+    parsed = json.loads(result.stdout)
+    assert "[CONTEXT:" in (parsed["messages"][1]["content"] if len(parsed["messages"]) > 1 else "")
     assert (vault / "20-context" / "bar.md").read_text() == "Context content\n"
 
 
@@ -264,7 +284,7 @@ def test_thinking_refine_creates_snapshot(env_with_vault):
     vault = env_with_vault
     (vault / "10-thinking" / "snap-note.md").write_text("Before refine\n", encoding="utf-8")
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value="## Audit\n### What's Solid\nNone."):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock("## Audit\n### What's Solid\nNone.")):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()
@@ -272,11 +292,9 @@ def test_thinking_refine_creates_snapshot(env_with_vault):
     assert result.exit_code == 0
     archive_dir = vault / "10-thinking" / "archive"
     assert archive_dir.exists()
-    # One timestamped file: snap-note-YYYYMMDD-HHMMSS.md
     archives = list(archive_dir.glob("snap-note-*.md"))
     assert len(archives) == 1
     assert archives[0].read_text() == "Before refine\n"
-    # Note itself now has appended content
     full_note = (vault / "10-thinking" / "snap-note.md").read_text()
     assert "## LLM Output" in full_note
     assert "Before refine" in full_note
@@ -291,16 +309,14 @@ def test_thinking_think_does_not_snapshot(env_with_vault):
     archive_dir = vault / "10-thinking" / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
     env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value="## Think\n### The Central Tension\nFake."):
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock("## Think\n### The Central Tension\nFake.")):
         from typer.testing import CliRunner
         import brain as brain_mod
         runner = CliRunner()
         result = runner.invoke(brain_mod.app, ["thinking", "think", "10-thinking/think-note.md"], env=env)
     assert result.exit_code == 0
-    # No new timestamped archive for think-note (thinking think does not snapshot)
     think_archives = list(archive_dir.glob("think-note-*.md"))
     assert len(think_archives) == 0
-    # Note was appended to
     full = (vault / "10-thinking" / "think-note.md").read_text()
     assert "## LLM Output" in full
     assert "Before think" in full
@@ -336,11 +352,63 @@ def test_missing_api_key(temp_vault):
     assert "OPENROUTER_API_KEY" in result.stderr or "OPENROUTER_API_KEY" in result.stdout
 
 
-def test_bad_model_alias(env_with_vault):
-    """
-    Unit test: ai_client.call with invalid model_alias returns "" and does not raise.
-    env_with_vault sets OPENROUTER_API_KEY so config loads.
-    """
-    from ai_client import call as ai_call
-    result = ai_call("invalid_alias", "system", "user", verbose=False)
-    assert result == ""
+# Alias validation moved to brain.py resolution waterfall. ai_client accepts full model
+# strings only — invalid strings go to OpenRouter and return HTTP errors handled by
+# existing retry/failure tests. test_bad_model_alias removed; to test unknown frontmatter
+# alias, use a stub prompt with model: invalid_alias and assert brain errors without
+# calling ai_client.
+
+
+# ---- load_prompt and build_user_message ----
+
+
+def test_load_prompt_missing_file(env_with_vault):
+    """load_prompt with nonexistent file raises typer.Exit(1)."""
+    vault = env_with_vault
+    with patch("brain.Config.PROMPTS_ROOT", vault / "_prompts"):
+        import brain as brain_mod
+        with pytest.raises(typer.Exit) as exc_info:
+            brain_mod.load_prompt("nonexistent.md")
+        assert exc_info.value.exit_code == 1
+
+
+def test_load_prompt_no_frontmatter(env_with_vault):
+    """File with no --- block returns content as body, model and temperature None."""
+    vault = env_with_vault
+    (vault / "_prompts" / "no-fm.md").write_text("Just content\n", encoding="utf-8")
+    with patch("brain.Config.PROMPTS_ROOT", vault / "_prompts"):
+        import brain as brain_mod
+        out = brain_mod.load_prompt("no-fm.md")
+    assert out["content"] == "Just content\n"
+    assert out["model"] is None
+    assert out["temperature"] is None
+
+
+def test_load_prompt_with_frontmatter(env_with_vault):
+    """File with valid frontmatter returns parsed body and model/temperature aliases."""
+    vault = env_with_vault
+    # think-mode.md in fixture has frontmatter
+    with patch("brain.Config.PROMPTS_ROOT", vault / "_prompts"):
+        import brain as brain_mod
+        out = brain_mod.load_prompt("think-mode.md")
+    assert "thinking partner" in out["content"]
+    assert out["model"] == "reasoning"
+    assert out["temperature"] == "reasoning"
+
+
+def test_build_user_message_separator(env_with_vault):
+    """Assembled user message uses \\n\\n---\\n\\n between [CONTEXT] and [NOTE] blocks."""
+    vault = env_with_vault
+    (vault / "20-context" / "ctx.md").write_text("ctx body", encoding="utf-8")
+    with patch("brain.Config.VAULT_ROOT", vault):
+        import brain as brain_mod
+        result = brain_mod.build_user_message(
+            "note body",
+            ["20-context/ctx.md"],
+            "10-thinking/foo.md",
+        )
+    assert "[CONTEXT: 20-context/ctx.md]" in result
+    assert "[NOTE: 10-thinking/foo.md]" in result
+    assert "\n\n---\n\n" in result
+    # Separator should appear between context and note
+    assert result.index("[NOTE:") > result.index("---")

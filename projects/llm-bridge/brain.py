@@ -146,10 +146,81 @@ def write_new_file(vault_relative_path: str, content: str) -> None:
         raise
 
 
-def load_prompt(name: str) -> str:
-    """Load prompt file from PROMPTS_ROOT. Raises if missing."""
+def load_prompt(name: str) -> dict:
+    """
+    Load prompt file from PROMPTS_ROOT. Parse optional YAML frontmatter between ---.
+    Returns {"content": str, "model": str|None, "temperature": str|float|None}.
+    Missing file: typer.Exit(1), no fallback.
+    """
     path = Config.PROMPTS_ROOT / name
-    return path.read_text(encoding="utf-8")
+    if not path.exists():
+        console.print(f"[red]Prompt file not found: {path}[/red]")
+        raise typer.Exit(1)
+    raw = path.read_text(encoding="utf-8")
+    content = raw
+    model_alias: str | None = None
+    temperature_val: str | float | None = None
+
+    if raw.startswith("---"):
+        rest = raw[3:].lstrip("\n")
+        idx = rest.find("\n---")
+        if idx >= 0:
+            frontmatter_block = rest[:idx].strip()
+            content = rest[idx + 4:].lstrip("\n")
+            if frontmatter_block:
+                try:
+                    fm = yaml.safe_load(frontmatter_block)
+                    if isinstance(fm, dict):
+                        model_alias = fm.get("model")
+                        temperature_val = fm.get("temperature")
+                except yaml.YAMLError:
+                    pass
+
+    return {"content": content, "model": model_alias, "temperature": temperature_val}
+
+
+def resolve_model_and_temp(
+    prompt: dict,
+    cli_temperature: float | None,
+) -> tuple[str, float]:
+    """
+    Resolution waterfall: model = frontmatter model alias → fallback workhorse → Config;
+    temperature = CLI → frontmatter temperature alias → Config default for model alias.
+    """
+    model_alias = prompt.get("model") or "workhorse"
+    model_string = MODEL_ALIAS_TO_STRING.get(model_alias)
+    if model_string is None:
+        console.print(f"[red]Unknown model alias in prompt: {model_alias}[/red]")
+        raise typer.Exit(1)
+    if cli_temperature is not None:
+        temp = cli_temperature
+    else:
+        temp_alias = prompt.get("temperature") or model_alias
+        temp = TEMPERATURE_ALIAS_TO_FLOAT.get(temp_alias)
+        if temp is None:
+            temp = TEMPERATURE_ALIAS_TO_FLOAT.get(model_alias, Config.TEMPERATURE_WORKHORSE)
+    return model_string, float(temp)
+
+
+def print_dry_run_payload(
+    model: str,
+    temperature: float,
+    messages: list[dict],
+    max_tokens: int = 4096,
+) -> None:
+    """Print exact JSON payload that would be sent. Truncate message content to 120 chars."""
+    payload = {
+        "model": model,
+        "temperature": temperature,
+        "max_tokens": max_tokens,
+        "messages": [],
+    }
+    for m in messages:
+        msg = dict(m)
+        if isinstance(msg.get("content"), str) and len(msg["content"]) > 120:
+            msg["content"] = msg["content"][:120] + "... [truncated]"
+        payload["messages"].append(msg)
+    print(json.dumps(payload, indent=2))
 
 
 # ---------------------------------------------------------------------------
@@ -171,19 +242,20 @@ def idea_refine(
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    system = load_prompt("refine-idea.md")
-    user_msg = build_user_message(note_content, context_rel, vault_rel)
+    prompt = load_prompt("refine-idea.md")
+    user_content = build_user_message(note_content, context_rel, vault_rel)
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
-        console.print("[bold]Dry run — assembled payload[/bold]")
-        console.print(f"System prompt: {system[:200]}...")
-        console.print(f"User message:\n{user_msg}")
+        print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
     snapshot_note_for_llm(vault_rel)
-    result = ai_call("workhorse", system, user_msg, temperature=temperature, verbose=True)
-    if not result:
+    result = ai_call(model_string, temp, messages)
+    if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result, "refine-idea")
+    append_to_note(vault_rel, result["content"], "refine-idea")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
 
 
@@ -196,21 +268,22 @@ def idea_promote(
     """LLM transforms idea → thinking note. Archive original, write new file to 10-thinking/."""
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
-    system = load_prompt("promote-idea-to-thinking.md")
-    user_msg = f"[NOTE: {vault_rel}]\n{note_content}"
+    prompt = load_prompt("promote-idea-to-thinking.md")
+    user_content = f"[NOTE: {vault_rel}]\n{note_content}"
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
-        console.print("[bold]Dry run — assembled payload[/bold]")
-        console.print(f"System prompt: {system[:200]}...")
-        console.print(f"User message:\n{user_msg}")
+        print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    result = ai_call("reasoning", system, user_msg, temperature=temperature, verbose=True)
-    if not result:
+    result = ai_call(model_string, temp, messages)
+    if result is None:
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
     filename = Path(vault_rel).name
     archive_file(vault_rel, filename)
     dest = f"10-thinking/{filename}"
-    write_new_file(dest, result)
+    write_new_file(dest, result["content"])
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Promoted → {dest} (original archived to {archive_path})")
 
@@ -234,18 +307,20 @@ def thinking_refine(
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    system = load_prompt("refine-thinking.md")
-    user_msg = build_user_message(note_content, context_rel, vault_rel)
+    prompt = load_prompt("refine-thinking.md")
+    user_content = build_user_message(note_content, context_rel, vault_rel)
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
-        console.print("[bold]Dry run — assembled payload[/bold]")
-        console.print(f"User message:\n{user_msg[:500]}...")
+        print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
     snapshot_note_for_llm(vault_rel)
-    result = ai_call("workhorse", system, user_msg, temperature=temperature, verbose=True)
-    if not result:
+    result = ai_call(model_string, temp, messages)
+    if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result, "refine-thinking")
+    append_to_note(vault_rel, result["content"], "refine-thinking")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
 
 
@@ -260,17 +335,19 @@ def thinking_think(
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    system = load_prompt("think-mode.md")
-    user_msg = build_user_message(note_content, context_rel, vault_rel)
+    prompt = load_prompt("think-mode.md")
+    user_content = build_user_message(note_content, context_rel, vault_rel)
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
-        console.print("[bold]Dry run — assembled payload[/bold]")
-        console.print(f"User message:\n{user_msg[:500]}...")
+        print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    result = ai_call("reasoning", system, user_msg, temperature=temperature, verbose=True)
-    if not result:
+    result = ai_call(model_string, temp, messages)
+    if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result, "think")
+    append_to_note(vault_rel, result["content"], "think")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
 
 
@@ -285,18 +362,20 @@ def thinking_spec(
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    system = load_prompt("specify-mode.md")
-    user_msg = build_user_message(note_content, context_rel, vault_rel)
+    prompt = load_prompt("specify-mode.md")
+    user_content = build_user_message(note_content, context_rel, vault_rel)
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
-        console.print("[bold]Dry run — assembled payload[/bold]")
-        console.print(f"User message:\n{user_msg[:500]}...")
+        print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
     snapshot_note_for_llm(vault_rel)
-    result = ai_call("reasoning", system, user_msg, temperature=temperature, verbose=True)
-    if not result:
+    result = ai_call(model_string, temp, messages)
+    if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result, "spec")
+    append_to_note(vault_rel, result["content"], "spec")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
 
 
@@ -309,20 +388,22 @@ def thinking_promote(
     """LLM transforms thinking → initiative. Archive original, write new file to 30-initiatives/."""
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
-    system = load_prompt("promote-thinking-to-initiative.md")
-    user_msg = f"[NOTE: {vault_rel}]\n{note_content}"
+    prompt = load_prompt("promote-thinking-to-initiative.md")
+    user_content = f"[NOTE: {vault_rel}]\n{note_content}"
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
-        console.print("[bold]Dry run — assembled payload[/bold]")
-        console.print(f"User message:\n{user_msg[:500]}...")
+        print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    result = ai_call("reasoning", system, user_msg, temperature=temperature, verbose=True)
-    if not result:
+    result = ai_call(model_string, temp, messages)
+    if result is None:
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
     filename = Path(vault_rel).name
     archive_file(vault_rel, filename)
     dest = f"30-initiatives/{filename}"
-    write_new_file(dest, result)
+    write_new_file(dest, result["content"])
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Promoted → {dest} (original archived to {archive_path})")
 
@@ -346,18 +427,20 @@ def initiative_refine(
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    system = load_prompt("refine-initiative.md")
-    user_msg = build_user_message(note_content, context_rel, vault_rel)
+    prompt = load_prompt("refine-initiative.md")
+    user_content = build_user_message(note_content, context_rel, vault_rel)
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
-        console.print("[bold]Dry run — assembled payload[/bold]")
-        console.print(f"User message:\n{user_msg[:500]}...")
+        print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
     snapshot_note_for_llm(vault_rel)
-    result = ai_call("workhorse", system, user_msg, temperature=temperature, verbose=True)
-    if not result:
+    result = ai_call(model_string, temp, messages)
+    if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result, "refine-initiative")
+    append_to_note(vault_rel, result["content"], "refine-initiative")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
 
 
@@ -375,17 +458,19 @@ def context_cmd(
     """Summarize context block. User message is [CONTEXT: path] + contents only. Appends to context file."""
     _, vault_rel = resolve_under_vault(file)
     content = read_file(file)
-    user_msg = f"[CONTEXT: {vault_rel}]\n{content}"
-    system = load_prompt("describe-context.md")
+    user_content = f"[CONTEXT: {vault_rel}]\n{content}"
+    prompt = load_prompt("describe-context.md")
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
-        console.print("[bold]Dry run — assembled payload[/bold]")
-        console.print(f"User message:\n{user_msg[:500]}...")
+        print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    result = ai_call("nano", system, user_msg, temperature=temperature, verbose=True)
-    if not result:
+    result = ai_call(model_string, temp, messages)
+    if result is None:
         console.print("[red]LLM call failed; file unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_file(vault_rel, result, "describe-context")
+    append_to_file(vault_rel, result["content"], "describe-context")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
 
 

@@ -1,3 +1,8 @@
+---
+model: nano
+temperature: nano
+---
+
 You are a documentation assistant. You receive a context block from a 
 knowledge base and produce a concise description of it.
 

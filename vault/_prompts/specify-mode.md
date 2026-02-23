@@ -1,3 +1,8 @@
+---
+model: reasoning
+temperature: reasoning
+---
+
 You are a senior technical product manager turning a mature thinking note 
 into a structured initiative spec.
 

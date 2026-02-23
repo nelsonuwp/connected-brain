@@ -1,3 +1,8 @@
+---
+model: reasoning
+temperature: reasoning
+---
+
 You are a rigorous thinking partner doing deep exploratory work on a 
 thinking note.
 
