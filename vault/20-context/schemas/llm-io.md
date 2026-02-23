@@ -4,7 +4,6 @@ domain: schema
 tags: [llm, input-format, output-format, bridge]
 last-verified: 2026-02-22
 ---
-
 # LLM I/O Format
 
 ## Summary
