@@ -15,7 +15,7 @@ Python CLI (`brain.py`) that reads an Obsidian note plus optional context files,
 ## Context
 I'm building an "Adam in the loop" workflow for my daily work — a system where technology enhances my thinking rather than replacing it. The flow I'm building toward is:
 
-raw idea → templated questions → LLM think mode → I answer → LLM specify mode → initiative spec → I tweak → execute in Cursor (if it's a coding project -- 30%) or other tooling like Google Sheets, Word, Jira, Confluence, etc. (if it's a ")
+raw idea → templated questions → LLM think mode → I answer → LLM specify mode → initiative spec → I tweak → execute in Cursor (if it's a coding project -- 30%) or other tooling like Google Sheets, Word, Jira, Confluence, etc. (if it's a "business" project -- 70%)
 
 This project (`brain.py`) is the technical foundation that makes that flow possible. Without it, every LLM interaction requires copy-pasting between tools and context gets lost between sessions.
 
