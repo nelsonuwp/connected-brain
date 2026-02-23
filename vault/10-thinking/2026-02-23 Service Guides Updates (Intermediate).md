@@ -34,15 +34,23 @@ Data - [[Jorge Quintero]]
 
 **3. Most Important Unknowns**
 - **The LLM's primary mandate:** What exactly is the LLM supposed to execute once it has this context? (e.g., auto-generating SoWs, identifying operational bottlenecks, routing L2/L3 tickets, or answering customer queries). The format of the "IO" depends entirely on what the machine needs to output.    
+	- A: The LLM can be used for a variety of things. Basically I just need to create context TO pass to the LLM for a variety of situations. For example if I'm delivering a new product and service, it would be nice to feed the context of what the functions do so I can ask for some feedback. 
 - **Definition of "IO and interconnects":** It is unclear if you are mapping technical data flows, human ticket escalation paths, or financial dependencies between these service silos.    
+	- Just creating the service network context. 
 - **Authority to standardize:** If Jason Auer (Service Desk) and Andrei Ianouchkevitch (Managed Cloud) disagree on the handoff mapped in your scaffolding, it is unknown who has the final authority to dictate the operational boundary.    
+	- I do
 - **Current vs. Future State:** It is unclear if you are trying to document the messy reality of what currently exists (including archived services ), or the clean, ideal state you need the business to operate under.    
+	- Getting a little "execute-y" here, but define current state first, identify the overlaps and underlaps. Then get buy-in on the canon of the organization. 
 
 **4. Sharp Questions to Force Clearer Thinking**
 - What specific operational outcome fails if the LLM cannot understand the "interconnects" between Hybrid Service Delivery and Data Center Operations?    
+	- I mean, we are just building the context. So I need to build a "computer-readable" version of these services and how they interconnect. I will lean on those very LLMs to help me build. 
 - Your current documentation has conflicting owner names and overlapping dependencies. Are you digitizing the reality of your operations as they exist today, or the streamlined version you need to present to the market next year?    
-- When the service owners review this and inevitably disagree on where one service ends and another begins, what is the mechanism to force a decision rather than endless revisions?    
+	- I gave you the most recent in THIS document. Peter and Ian Crosby are no longer with the organization. 
+- When the service owners review this and inevitably disagree on where one service ends and another begins, what is the mechanism to force a decision rather than endless revisions? 
+	- We meet and decide. I don't think this is that bigg of an Idea. 
 - Why use an LLM for this mapping instead of a standard CMDB or enterprise architecture platform that natively handles relational mapping?    
+	- I just need the context, but a more standard CMDB can be explored later. 
 
 **5. The Framing Issue** You are treating an operational standardization problem as an IT formatting task. Converting bad or misaligned organizational logic into Markdown will just yield a machine-readable mess. The bottleneck isn't the file format; it's defining the strict operational boundaries and forcing the business leaders to adhere to them.
 
@@ -66,7 +74,7 @@ I _think_ I want the following:
 	- Managed Cloud
 	- Data
 * All files in Markdown files and living in vault/50-services
-* How the services fit together and flow vioa 
+* How the services fit together and flow via a mermaid diagram
 * A list of products and services that each team is responsible/accountable for
 
 ## What I Don't Know Yet
@@ -82,6 +90,7 @@ I _think_ I want the following:
 
 ## Who Else Is Involved
 <!-- People, teams, systems that touch this -->
+* Ben, George, Martin, Lacie, Pat, Jason, Jorge
 
 
 ## Ready to Promote?
