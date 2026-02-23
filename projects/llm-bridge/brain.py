@@ -21,10 +21,30 @@ console = Console()
 # ---------------------------------------------------------------------------
 
 
-def read_file(vault_relative_path: str) -> str:
-    """Read file from VAULT_ROOT / path. UTF-8. Raises on missing file."""
-    path = Config.VAULT_ROOT / vault_relative_path
-    return path.read_text(encoding="utf-8")
+def resolve_under_vault(path_arg: str) -> tuple[Path, str]:
+    """
+    Resolve a path argument to (full_path, vault_relative_str).
+    Accepts vault-relative (01-inbox/foo.md) or repo-relative (vault/10-thinking/foo.md).
+    Paths with .. are normalized. Result must be under VAULT_ROOT. Raises FileNotFoundError if not.
+    """
+    root = Config.VAULT_ROOT.resolve()
+    p = Path(path_arg.strip())
+    # If path starts with "vault/", treat as repo-relative: strip prefix and use rest under VAULT_ROOT
+    if p.parts and p.parts[0] == "vault":
+        rest = Path(*p.parts[1:]) if len(p.parts) > 1 else Path(".")
+        full = (root / rest).resolve()
+    else:
+        full = (root / p).resolve()
+    if full != root and not str(full).startswith(str(root) + os.sep):
+        raise FileNotFoundError(f"Path is not under vault: {path_arg}")
+    vault_rel = full.relative_to(root)
+    return full, str(vault_rel)
+
+
+def read_file(path_arg: str) -> str:
+    """Resolve path (vault-relative or vault/...) and read file. UTF-8. Raises on missing file."""
+    full, _ = resolve_under_vault(path_arg)
+    return full.read_text(encoding="utf-8")
 
 
 def archive_file(vault_relative_path: str, archive_filename: str) -> None:
@@ -128,39 +148,42 @@ app.add_typer(idea_app, name="idea")
 
 @idea_app.command("refine")
 def idea_refine(
-    file: str = typer.Argument(..., help="Vault-relative path, e.g. 01-inbox/foo.md"),
+    file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c", help="Context file(s), repeatable"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
     temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
 ) -> None:
     """Sharpen raw idea. Snapshot, then workhorse, append output."""
+    _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
+    context_rel = [resolve_under_vault(c)[1] for c in context]
     system = load_prompt("refine-idea.md")
-    user_msg = build_user_message(note_content, context, file)
+    user_msg = build_user_message(note_content, context_rel, vault_rel)
     if dry_run:
         console.print("[bold]Dry run — assembled payload[/bold]")
         console.print(f"System prompt: {system[:200]}...")
         console.print(f"User message:\n{user_msg}")
         raise typer.Exit(0)
-    snapshot_note_for_llm(file)
+    snapshot_note_for_llm(vault_rel)
     result = ai_call("workhorse", system, user_msg, temperature=temperature, verbose=True)
     if not result:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(file, result, "refine-idea")
-    console.print(f"Appended to {file}")
+    append_to_note(vault_rel, result, "refine-idea")
+    console.print(f"Appended to {vault_rel}")
 
 
 @idea_app.command("promote")
 def idea_promote(
-    file: str = typer.Argument(..., help="Vault-relative path, e.g. 01-inbox/foo.md"),
+    file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """LLM transforms idea → thinking note. Archive original, write new file to 10-thinking/."""
+    _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     system = load_prompt("promote-idea-to-thinking.md")
-    user_msg = f"[NOTE: {file}]\n{note_content}"
+    user_msg = f"[NOTE: {vault_rel}]\n{note_content}"
     if dry_run:
         console.print("[bold]Dry run — assembled payload[/bold]")
         console.print(f"System prompt: {system[:200]}...")
@@ -170,11 +193,11 @@ def idea_promote(
     if not result:
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
-    filename = Path(file).name
-    archive_file(file, filename)
+    filename = Path(vault_rel).name
+    archive_file(vault_rel, filename)
     dest = f"10-thinking/{filename}"
     write_new_file(dest, result)
-    archive_path = f"{Path(file).parent}/archive/{filename}"
+    archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Promoted → {dest} (original archived to {archive_path})")
 
 
@@ -188,39 +211,43 @@ app.add_typer(thinking_app, name="thinking")
 
 @thinking_app.command("refine")
 def thinking_refine(
-    file: str = typer.Argument(..., help="Vault-relative path, e.g. 10-thinking/foo.md"),
+    file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """Audit thinking note. Snapshot, workhorse, append."""
+    _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
+    context_rel = [resolve_under_vault(c)[1] for c in context]
     system = load_prompt("refine-thinking.md")
-    user_msg = build_user_message(note_content, context, file)
+    user_msg = build_user_message(note_content, context_rel, vault_rel)
     if dry_run:
         console.print("[bold]Dry run — assembled payload[/bold]")
         console.print(f"User message:\n{user_msg[:500]}...")
         raise typer.Exit(0)
-    snapshot_note_for_llm(file)
+    snapshot_note_for_llm(vault_rel)
     result = ai_call("workhorse", system, user_msg, temperature=temperature, verbose=True)
     if not result:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(file, result, "refine-thinking")
-    console.print(f"Appended to {file}")
+    append_to_note(vault_rel, result, "refine-thinking")
+    console.print(f"Appended to {vault_rel}")
 
 
 @thinking_app.command("think")
 def thinking_think(
-    file: str = typer.Argument(..., help="Vault-relative path, e.g. 10-thinking/foo.md"),
+    file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """Deep thinking. No snapshot — accumulation is intentional. Reasoning model, append."""
+    _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
+    context_rel = [resolve_under_vault(c)[1] for c in context]
     system = load_prompt("think-mode.md")
-    user_msg = build_user_message(note_content, context, file)
+    user_msg = build_user_message(note_content, context_rel, vault_rel)
     if dry_run:
         console.print("[bold]Dry run — assembled payload[/bold]")
         console.print(f"User message:\n{user_msg[:500]}...")
@@ -229,44 +256,47 @@ def thinking_think(
     if not result:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(file, result, "think")
-    console.print(f"Appended to {file}")
+    append_to_note(vault_rel, result, "think")
+    console.print(f"Appended to {vault_rel}")
 
 
 @thinking_app.command("spec")
 def thinking_spec(
-    file: str = typer.Argument(..., help="Vault-relative path, e.g. 10-thinking/foo.md"),
+    file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """Generate initiative spec content. Snapshot, reasoning, append."""
+    _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
+    context_rel = [resolve_under_vault(c)[1] for c in context]
     system = load_prompt("specify-mode.md")
-    user_msg = build_user_message(note_content, context, file)
+    user_msg = build_user_message(note_content, context_rel, vault_rel)
     if dry_run:
         console.print("[bold]Dry run — assembled payload[/bold]")
         console.print(f"User message:\n{user_msg[:500]}...")
         raise typer.Exit(0)
-    snapshot_note_for_llm(file)
+    snapshot_note_for_llm(vault_rel)
     result = ai_call("reasoning", system, user_msg, temperature=temperature, verbose=True)
     if not result:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(file, result, "spec")
-    console.print(f"Appended to {file}")
+    append_to_note(vault_rel, result, "spec")
+    console.print(f"Appended to {vault_rel}")
 
 
 @thinking_app.command("promote")
 def thinking_promote(
-    file: str = typer.Argument(..., help="Vault-relative path, e.g. 10-thinking/foo.md"),
+    file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """LLM transforms thinking → initiative. Archive original, write new file to 30-initiatives/."""
+    _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     system = load_prompt("promote-thinking-to-initiative.md")
-    user_msg = f"[NOTE: {file}]\n{note_content}"
+    user_msg = f"[NOTE: {vault_rel}]\n{note_content}"
     if dry_run:
         console.print("[bold]Dry run — assembled payload[/bold]")
         console.print(f"User message:\n{user_msg[:500]}...")
@@ -275,11 +305,11 @@ def thinking_promote(
     if not result:
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
-    filename = Path(file).name
-    archive_file(file, filename)
+    filename = Path(vault_rel).name
+    archive_file(vault_rel, filename)
     dest = f"30-initiatives/{filename}"
     write_new_file(dest, result)
-    archive_path = f"{Path(file).parent}/archive/{filename}"
+    archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Promoted → {dest} (original archived to {archive_path})")
 
 
@@ -293,26 +323,28 @@ app.add_typer(initiative_app, name="initiative")
 
 @initiative_app.command("refine")
 def initiative_refine(
-    file: str = typer.Argument(..., help="Vault-relative path, e.g. 30-initiatives/foo.md"),
+    file: str = typer.Argument(..., help="Path: vault-relative (30-initiatives/foo.md) or repo-relative (vault/30-initiatives/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """Audit initiative spec. Snapshot, workhorse, append."""
+    _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
+    context_rel = [resolve_under_vault(c)[1] for c in context]
     system = load_prompt("refine-initiative.md")
-    user_msg = build_user_message(note_content, context, file)
+    user_msg = build_user_message(note_content, context_rel, vault_rel)
     if dry_run:
         console.print("[bold]Dry run — assembled payload[/bold]")
         console.print(f"User message:\n{user_msg[:500]}...")
         raise typer.Exit(0)
-    snapshot_note_for_llm(file)
+    snapshot_note_for_llm(vault_rel)
     result = ai_call("workhorse", system, user_msg, temperature=temperature, verbose=True)
     if not result:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(file, result, "refine-initiative")
-    console.print(f"Appended to {file}")
+    append_to_note(vault_rel, result, "refine-initiative")
+    console.print(f"Appended to {vault_rel}")
 
 
 # ---------------------------------------------------------------------------
@@ -322,13 +354,14 @@ def initiative_refine(
 
 @app.command("context")
 def context_cmd(
-    file: str = typer.Argument(..., help="Vault-relative path to context file"),
+    file: str = typer.Argument(..., help="Path: vault-relative (20-context/foo.md) or repo-relative (vault/20-context/foo.md)"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """Summarize context block. User message is [CONTEXT: path] + contents only. Appends to context file."""
+    _, vault_rel = resolve_under_vault(file)
     content = read_file(file)
-    user_msg = f"[CONTEXT: {file}]\n{content}"
+    user_msg = f"[CONTEXT: {vault_rel}]\n{content}"
     system = load_prompt("describe-context.md")
     if dry_run:
         console.print("[bold]Dry run — assembled payload[/bold]")
@@ -338,8 +371,8 @@ def context_cmd(
     if not result:
         console.print("[red]LLM call failed; file unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_file(file, result, "describe-context")
-    console.print(f"Appended to {file}")
+    append_to_file(vault_rel, result, "describe-context")
+    console.print(f"Appended to {vault_rel}")
 
 
 # ---------------------------------------------------------------------------
