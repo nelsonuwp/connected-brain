@@ -33,3 +33,13 @@ I'm losing track of action items from back-to-back meetings. Things are falling 
 **What happens when the automation gets it wrong?** If it creates 5 Jira tickets from a brainstorming meeting where nothing was actually decided, or misses a critical action item, what's your recovery process?
 
 **How many meetings per week are we talking about?** The ROI calculation for building this changes dramatically between 5 meetings/week and 25 meetings/week.
+
+## My Answers
+
+- **Trigger:** Manual invocation only for now — I run it after meetings where I took notes
+- **Action items:** I'll use a specific syntax in notes (`ACTION:`) so there's no NLP guessing
+- **Notes live in:** Obsidian, same vault as this system
+- **Jira tickets:** Title + description only, I'll review before creation — not fully automated
+- **Emails:** Not a priority, drop that scope. Focus is Jira only.
+- **Volume:** ~10 meetings/week, maybe 4-5 that actually produce action items
+- **Wrong automation:** Review step before any tickets are created — nothing fires without my approval
