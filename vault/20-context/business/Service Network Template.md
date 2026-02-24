@@ -33,9 +33,9 @@ Outcome    = Why it matters / how it helps them succeed
 One bold line per need. No tables. No definition blocks in the output.
 -->
 
-**As a [Persona], I need [Capability] so that [Outcome].**
-
-**As a [Persona], I need [Capability] so that [Outcome].**
+- As a **[Persona]**, I need [Capability] so that [Outcome].
+- As a **[Persona]**, I need [Capability] so that [Outcome].
+- As a **[Persona]**, I need [Capability] so that [Outcome].
 
 ## Metrics & Usage
 

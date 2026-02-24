@@ -1,0 +1,117 @@
+# Service Guide Generation Prompt
+
+**Service Name:** Hosting
+**Expected number of guides:** [1 or more — if more than one, list them: e.g. "2 — Network, Data Center Operations"]
+
+---
+
+You are producing a service guide in Markdown format. One or more PDF source documents and a Markdown template have been attached. Your job is to read all inputs, think carefully, and produce a single clean Markdown file that strictly follows the template.
+
+The service name(s) are declared above. Use them exactly as written in the frontmatter of each guide. Do not rename, abbreviate, or infer a different name from the PDFs.
+
+---
+
+## Step 1 — Read Everything First
+
+Before writing anything, read every attached PDF in full. Do not skim.
+
+If more than one PDF is attached, determine whether they describe one service or multiple services. Check all three of the following before deciding:
+- Is the service manager the same person across documents?
+- Do the responsibilities and user groups substantially overlap?
+- Does one document appear to be an older or supplementary version of the other?
+
+If any two of those are true, treat the PDFs as the same service and synthesize into one guide. A difference in document title alone is NOT sufficient reason to produce two separate guides. Only produce multiple guides if the services have clearly different service managers, clearly different user groups, and clearly different responsibilities with minimal overlap — AND the expected number of guides declared above is greater than one.
+
+Also read the Service Network Template in full. The template contains HTML comment blocks (`<!-- -->`). These are authoring instructions only. Do not reproduce them in any output file.
+
+---
+
+## Step 2 — Think Before You Write
+
+Before producing any output, reason through the following in order:
+
+**0. One guide or many?**
+State your decision in one sentence and why. Then proceed. If the expected number of guides declared above conflicts with what you see in the PDFs, flag it before writing anything.
+
+**1. Who is the service manager?**
+Use the name from the PDFs. If documents conflict, use the most recent document.
+
+**2. What lifecycle phase and evolution stage apply?**
+Use the OSOM definitions:
+- Lifecycle: Discovery → Alpha → Beta → Live → Decommissioned
+- Evolution: Novelties → Bespoke → Product → Commodity
+- Default to `Live` if the service is clearly operational, regardless of what the document says about document status.
+
+**3. What is the service actually for?**
+Summarize it in your own words before writing the Service Description. The description must use the sentence structure from the template — do not deviate.
+
+**4. Who are all the user groups?**
+List every persona that appears across all attached PDFs. Each distinct persona with a distinct need gets its own User Need statement.
+
+**5. What metrics are explicitly defined vs. implied?**
+Only include metrics in the table. If a target is not explicitly stated, write `To be defined`. Do not invent targets.
+
+**6. What are the dependencies?**
+List every internal and external dependency declared in the PDFs. Normalize names: if two PDFs refer to the same team by different names, pick the cleaner canonical name and note the variant.
+
+---
+
+## Step 3 — Produce the Output
+
+Write the guide using the attached template. Follow these rules without exception:
+
+**Frontmatter**
+- Use the service name exactly as declared at the top of this prompt
+- Use the exact field names from the template: `Service Name`, `Service Manager`, `Service Evolution`, `Service Lifecycle Phase`
+- No extra fields
+
+**Service Description**
+- One paragraph only
+- Must follow the sentence structure: "The [Service Name] provides [Core Function], enabling [User Group] to [Business Use]. It delivers [Key Features] so that [Benefit / Outcome]."
+- No bullet points, no tables, no sub-headings inside this section
+- Plain language; remove any marketing or sales language from source documents
+
+**User Needs**
+- One bold line per need using the format: `**As a [Persona], I need [Capability] so that [Outcome].**`
+- High level only — if you find yourself describing steps in a process, you are going too deep
+- Do not write an onboarding or offboarding need
+- If the same need appears in multiple PDFs worded differently, write it once using the clearest wording
+- If a need is incomplete or TBD in the source, write what is defined and append *(capability not yet defined in source)* in italics
+
+**Metrics & Usage**
+- Four-column table: `Metric | Target | Measurement | Reporting`
+- Targets only where explicitly stated in source; otherwise `To be defined`
+- Aggregate metrics from all attached PDFs into one table
+- Do not duplicate rows; if the same metric appears in multiple PDFs, use it once
+
+**Dependencies**
+- Two-column table: `Dependency | Type (Internal / External)`
+- Use canonical service names — normalize variants from different PDFs
+- If a dependency name in the PDF differs from the canonical name, add a footnote below the table: *"PDF: '[original name]' — normalized to '[canonical name]'."*
+- List all declared dependencies; do not infer
+
+---
+
+## Step 4 — Self-Check Before Outputting
+
+Run through this checklist mentally before producing your final answer. Fix any issues first.
+
+- [ ] Service name in frontmatter matches exactly what was declared at the top of this prompt
+- [ ] Frontmatter has exactly four fields, all populated
+- [ ] Service Description is one paragraph, follows the sentence structure, contains no tables or bullets
+- [ ] Every user persona from the PDFs has at least one User Need statement
+- [ ] No User Need describes a process step or onboarding/offboarding
+- [ ] Metrics table has four columns; no targets are invented
+- [ ] Dependencies table lists only declared dependencies with correct Internal/External classification
+- [ ] No HTML comment blocks appear anywhere in the output
+- [ ] No definition tables appear anywhere in the output
+- [ ] The number of guides produced matches the expected number declared at the top of this prompt
+- [ ] The guide is one clean Markdown file with no explanation, preamble, or commentary outside the document itself
+
+---
+
+## Output Format
+
+Produce only the Markdown file. No introduction. No explanation after. No "here is your guide" preamble. Just the document, starting with the frontmatter `---` block.
+
+If you produced more than one guide (multiple services), separate them with a line containing only `---` and a comment indicating the filename: `<!-- filename: service-name.md -->`.
