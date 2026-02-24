@@ -9,30 +9,46 @@ promoted-from: 01-inbox
 
 ### The Raw Idea
 
-I need to establish the definitive operational canon of our organization. To do this, I am converting our fragmented service network into a machine-readable format (Markdown) to serve as context for LLMs. This will allow me to feed the LLM situational data (like delivering a new product) and get strategic feedback based on how our services actually interconnect.
+I am creating a baseline, machine-readable representation of our current service landscape.
 
-I have the authority to dictate the final boundaries. We will define the current state first to identify overlaps and underlaps, build the scaffolding in Markdown, and then meet with the service owners to force alignment and solidify the operational architecture.
+Right now, service knowledge is fragmented across documents, people, and diagrams. Before anything can be improved or aligned, I need a single, centralized source of truth that reflects how services actually operate today, not how they should operate.
+
+The immediate goal is not to redesign the service network. It is to **document the current state in a consistent Markdown format** so it can be:
+- Read and reasoned over by LLMs
+- Used as a neutral artifact in alignment conversations
+- Compared against a future, cleaner operating model
 
 Current Service Owners:
 - Hybrid Service Delivery Management - [[Lacie-Ellen Morley]]
 - Hybrid Solution Architecture - [[Pat Wolthausen]]
 - Data Center Operations - [[George Revie]]
-- Hosting / Security & Compliance - [[Martin Tessier]]
+- Hosting - [[Martin Tessier]]
 - Network - [[Ben Kennedy]]
 - Service Desk (L2/L3/NOC) - [[Jason Auer]]
 - Managed Cloud - [[Andrei Ianouchkevitch]]
 - Data - [[Jorge Quintero]]
+*Note:  Security & Compliance lives outside of the network discussions for now.*
+
 ---
 
 ### Why This Matters
 
-There is no machine-readable source of truth for our services. Digitizing this context allows me to leverage LLMs to rapidly evaluate new products, identify operational bottlenecks, and make data-driven architectural decisions. Having a strictly defined, unified operational model is also critical for demonstrating a highly efficient, packaged business model as we prepare operations for our upcoming milestones next year.
+We currently lack a unified, machine-readable view of our service network.
+
+Without that, every discussion about services is subjective, fragmented, and dependent on individual perspectives. That makes alignment slow and inconsistent.
+
+By centralizing the current state:
+- We create a shared reference point for all service owners
+- We remove ambiguity during cross-service discussions
+- We enable LLM-assisted analysis grounded in actual operational context
+
+This is less about documentation and more about **establishing a common reality that decisions can be made against**.
 
 ---
 
 ### What I Think I Want
 
-- The Service Guide Template filled out for the core delivery network:
+- A complete set of service guides in Markdown representing the **current state** of:
     - Hybrid Service Delivery Management
     - Hybrid Solution Architecture
     - Data Center Operations
@@ -41,33 +57,38 @@ There is no machine-readable source of truth for our services. Digitizing this c
     - Service Desk (L2/L3/NOC)
     - Managed Cloud
     - Data
-- These services follow the [[OSOM Model]] (and the mermaid diagram [[OSOM Mermaid]])
-- All documentation living as Markdown files in `vault/50-services`. These are the service contract. Not currently created in markdown.
-- A clear visual map of how services fit together and flow via a Mermaid diagram.
-- A definitive, signed-off list of products and services that each team is responsible and accountable for.
+- All documentation centralized in `vault/50-services
+- A consistent, minimal structure across all service guides so they can be parsed and compared
+- A high-level visual (Mermaid) of how services currently connect, even if imperfect
+- Clear ownership mapped to each service (who is accountable today, not who should be)
 
 ---
 
 ### What I Don't Know Yet
 
-- We don't have a 100% agreed-upon list of products and services yet.
-- The exact data structure (e.g., Zod schema or YAML frontmatter) the LLM will need within the Markdown files to reliably parse dependencies without a formal relational database.
-- How to handle legacy documentation discrepancies during the transition (e.g., historical documents showing heavy interdependent loops between Data Center, Network, and Infrastructure that may not reflect today's reality).    
+- The complete and accurate list of products and services each team supports today
+- The minimum viable structure needed for LLMs to reason over service relationships
+- How inconsistent or conflicting the current-state inputs will be across service owners
+- How much existing documentation reflects reality vs. legacy assumptions
 
 ---
 
 ### What I'm Conflating
 
-- **Formatting vs. Fixing:** I am conflating the act of converting documents to Markdown with the act of fixing broken organizational logic. Formatting a bad process just creates a well-formatted bad process.
-- **Current State vs. Future Canon:** I want to map the "current state," but the ultimate goal is the clean, streamlined "canon" of the business. I need to be careful not to hardcode legacy silos into our new LLM scaffolding.
+- **Documentation vs. Design:** This phase is about capturing what exists, not improving it
+- **Current State vs. Target State:** The output of this work is a baseline, not the final operating model
+- **Structure vs. Truth:** A clean Markdown format does not mean the underlying service model is correct
 
 ---
 
 ### Who Else Is Involved
 
-- **Core Owners:** Ben, George, Martin, Lacie, Pat, Jason, Andrei, Jorge.
-- **Potential Adjacencies:** Based on the existing service charts, there may be touchpoints with Infrastructure and Professional Services that need to be accounted for in the inputs/outputs, even if those specific owners aren't directly authoring this initial batch.
+- **Service Owners (source of truth for current state):**  
+    Ben, George, Martin, Lacie, Pat, Jason, Andrei, Jorge
+- **Adjacent Stakeholders (context providers, not primary authors):**  
+    Infrastructure, Professional Services
 
+Their role in this phase is to **describe reality as it exists today**, not to negotiate or redesign boundaries.
 
 ---
 
