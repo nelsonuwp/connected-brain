@@ -41,7 +41,8 @@ There is no machine-readable source of truth for our services. Digitizing this c
     - Service Desk (L2/L3/NOC)
     - Managed Cloud
     - Data
-- All documentation living as Markdown files in `vault/50-services`.
+- These services follow the [[OSOM Model]] (and the mermaid diagram [[OSOM Mermaid]])
+- All documentation living as Markdown files in `vault/50-services`. These are the service contract. Not currently created in markdown.
 - A clear visual map of how services fit together and flow via a Mermaid diagram.
 - A definitive, signed-off list of products and services that each team is responsible and accountable for.
 

@@ -11,10 +11,14 @@
             "id": "de7ef24c9f95b963",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "vault/10-thinking/2026-02-23 Service Guides Updates (Intermediate).md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "2026-02-23 Service Guides Updates (Intermediate)"
             }
           }
         ]
@@ -108,6 +112,7 @@
         "state": {
           "type": "backlink",
           "state": {
+            "file": "vault/30-initiatives/026-02-22-llm-bridge.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -126,6 +131,7 @@
         "state": {
           "type": "outgoing-link",
           "state": {
+            "file": "vault/30-initiatives/026-02-22-llm-bridge.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           },
@@ -139,6 +145,7 @@
         "state": {
           "type": "outline",
           "state": {
+            "file": "vault/30-initiatives/026-02-22-llm-bridge.md",
             "followCursor": false,
             "showSearch": false,
             "searchQuery": ""
@@ -146,9 +153,19 @@
           "icon": "lucide-list",
           "title": "Outline"
         }
+      },
+      {
+        "id": "21a7a764ee7f3fb1",
+        "type": "leaf",
+        "state": {
+          "type": "git-view",
+          "state": {},
+          "icon": "git-pull-request",
+          "title": "Source Control"
+        }
       }
     ],
-    "currentTab": 0
+    "currentTab": 3
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -158,9 +175,47 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "de7ef24c9f95b963",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "vault/20-context/business/OSOM Mermaid.md",
+    "vault/20-context/business/OSOM Model.md",
+    "vault/10-thinking/2026-02-23 Service Guides Updates (Intermediate).md",
+    "vault/20-context/business/ABOUT.md",
+    "vault/20-context/patterns/ABOUT.md",
+    "vault/30-initiatives/026-02-22-llm-bridge.md",
+    "vault/_templates/append-thinking.md",
+    "vault/80-sessions/connected-brain/session-001.md",
+    "vault/40-people/Pat Wolthausen.md",
+    "vault/40-people/Martin Tessier.md",
+    "vault/40-people/Lacie-Ellen Morley.md",
+    "vault/40-people/Jorge Quintero.md",
+    "vault/40-people/Jason Auer.md",
+    "vault/40-people/George Revie.md",
+    "vault/40-people/Ben Kennedy.md",
+    "vault/01-inbox/Archive/2026-02-23-Service Guides Intermediate Update.md",
+    "vault/01-inbox/Archive/2026-02-23-Economic Model.md",
+    "vault/01-inbox/2026-02-23-This is a new ide.md",
+    "/vault/_templates/append-thinking.md",
+    "/vault/_templates/append-initiative.md",
+    "vault/_templates/append-initiative.md",
+    "/vault/_templates",
+    "/vault/80-sessions/connected-brain/session-001.md",
+    "/vault/40-people/Pat Wolthausen.md",
+    "/vault/40-people/Martin Tessier.md",
+    "/vault/40-people/Lacie-Ellen Morley.md",
+    "/vault/40-people/Jorge Quintero.md",
+    "/vault/40-people",
+    "/vault/10-thinking",
+    "/vault/00-daily",
+    "/vault/80-sessions/connected-brain",
+    "vault/80-sessions/connected-brain",
+    "/vault/80-sessions",
+    "/vault/01-inbox/Archive",
+    "vault/01-inbox/Archive",
+    "/vault/01-inbox"
+  ]
 }
