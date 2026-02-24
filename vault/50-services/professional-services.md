@@ -1,42 +1,53 @@
 ---
 Service Name: Professional Services
-Service Manager: "[[Andrei Ianouchkevitch]]"
-Lifecycle: Live
-Evolution: Bespoke
-Source of Truth: Existing Doc
-Last Updated: 2026-02-24
+Service Manager: Andrei Ianouchkevitch
+Service Evolution: Bespoke
+Service Lifecycle Phase: Live
 ---
+## Service Description
 
-# Professional Services
+The Professional Services service delivers technical execution of non-recurring, project-based engagements, enabling customers to implement cloud and infrastructure solutions within agreed timelines and budgets. It delivers billable project delivery, solution documentation, and implementation artifacts following best practices so that customers achieve the outcomes defined in the Statement of Work and operational teams can take over day-to-day management with confidence.
 
-## Purpose
-Cloud Platform Professional Services delivers technical expertise through billable project execution. The PS team collaborates with Cloud Platform Solution & Delivery and Managed Services teams to implement solutions and create artifacts following cloud best practices while supporting the broader Cloud Platform business objectives.
+## User Needs
 
-## Responsibilities (Declared)
+- As a **Customer**, I need project deliverables executed according to the signed Statement of Work within the agreed timeline and budget so that I can achieve the outcomes I purchased without unexpected overruns or scope gaps.
 
-- Deliver the project deliverables outlined in the signed Statement of Work within the agreed-upon timeline and budget to achieve customer goals.
-- Support the Cloud Platform Solution & Delivery team in understanding where resources are spending their time so that they can measure the profitability of the Cloud Platform Professional Service.
-- Support estimating opportunities and accurate SoWs to manage customers' expectations (Synthesized from: SDET-Cloud Platform Professional Services-200226 + SDET-Cloud Platform Professional Services-240226)
-- Provide proactive communication about important information about the execution of the service to the Cloud Platform Solution & Delivery team (Synthesized from: SDET-Cloud Platform Professional Services-200226 + SDET-Cloud Platform Professional Services-240226)
-- Notify the Cloud Platform Solution & Delivery team of product and service updates and recommendations for expanding and enhancing the catalog.
-- Commit to achieving certifications and training to ensure partner tier status and specialization requirements are met.
-- Collaborate with the Cloud Platform Managed Services team with defined processes for seamless transitions from project delivery to managed services.
+- As an **HSDM Project Manager**, I need visibility into resource utilization, delivery progress, and potential overruns so that I can maintain SOW profitability and manage customer expectations proactively.
 
-## Upstream Dependencies (Declared)
+- As an **HSDM Project Manager**, I need accurate historical data and change order tracking so that I can support estimate accuracy on future engagements and identify scope creep early.
 
-- Hybrid Service Delivery Management (PDF: "Cloud Platform Solution & Delivery")
-- Managed Cloud Platforms (PDF: "Cloud Platform Managed Platforms Service")
-- Hosting (PDF: "Infrastructure")
+- As an **HSDM Project Manager**, I need proactive communication from PS about execution risks, value opportunities, and any information affecting customer satisfaction so that I can act before issues escalate.
 
-## Downstream Dependencies (Declared)
+- As an **HSDM Project Manager**, I need PS team members to maintain certifications and partner tier requirements so that we remain qualified to deliver the solutions we sell.
 
-- Hybrid Solution Architecture (Declared from structure — cross-reference pass)
-- Hybrid Service Delivery Management (Declared from structure — cross-reference pass)
+- As a **Managed Cloud team member**, I need defined handoff processes and complete solution documentation from PS at project close so that I can assume day 2 operations without gaps in knowledge or coverage.
 
-## Known Overlaps / Ambiguities
+## Metrics & Usage
 
-- Both PDF versions (200226 and 240226) have identical content; treated as one combined source for synthesis where applicable.
+| Metric | Target | Measurement | Reporting |
+|---|---|---|---|
+| SOW delivery accuracy | To be defined | % deviation from original SOW time and budget | Per project |
+| Customer satisfaction score | To be defined | Post-project survey | Per project |
+| Total capacity (hours) | To be defined | Resource capacity tracking | Monthly |
+| Total capacity ($) | To be defined | Resource capacity tracking | Monthly |
+| Delivered billable hours | To be defined | Time tracking system | Monthly |
+| Delivered internal project hours | To be defined | Time tracking system | Monthly |
+| Project revenue | To be defined | Financial reporting | Monthly |
+| Partner revenue (Microsoft + AWS) | To be defined | Financial reporting | Monthly |
+| Revenue backlog | To be defined | Financial reporting | Monthly |
+| Billable utilization | To be defined | Billable hours / total hours | Monthly |
+| Total utilization | To be defined | Total delivered hours / total capacity | Monthly |
+| Change orders vs. original SOW | To be defined | Change order count and value | Per project |
 
-## Notes (Optional)
+## Dependencies
 
-Sources: SDET-Cloud Platform Professional Services-200226-114233.pdf, SDET-Cloud Platform Professional Services-240226-142525.pdf. Cloud Platform Product responsibilities previously held by a dedicated team (Service Manager: Mouetsie Moliere, deactivated per CLP-Cloud Platform Product Service Contract). Product ownership is now distributed. No dedicated guide created.
+| Dependency | Type (Internal / External) |
+|---|---|
+| Hybrid Service Delivery Management | Internal |
+| Hybrid Solution Architecture | Internal |
+| Managed Cloud | Internal |
+| Hosting | Internal |
+
+*PDF: 'Cloud Platform Solution & Delivery' — normalized to 'Hybrid Service Delivery Management'.*
+*PDF: 'Cloud Platform Managed Platforms Service' — normalized to 'Managed Cloud'.*
+*PDF: 'Infrastructure' — normalized to 'Hosting'.*

@@ -1,41 +1,43 @@
 ---
 Service Name: Hybrid Solution Architecture
-Service Manager: "[[Pat Wolthausen]]"
-Lifecycle: Live
-Evolution: Bespoke
-Source of Truth: Existing Doc
-Last Updated: 2026-02-24
+Service Manager: Pat Wolthausen
+Service Evolution: Bespoke
+Service Lifecycle Phase: Live
 ---
+## Service Description
 
-# Hybrid Solution Architecture
+The Hybrid Solution Architecture service provides technical scoping, solution design, and estimation capabilities, enabling the Commercial team and customers to move from opportunity to executable engagement. It delivers purpose-built solution proposals, scope definition, budget ownership, and architectural guidance throughout project execution so that solutions are technically sound, commercially viable, and deliverable within agreed timelines and budgets.
 
-## Purpose
-Cloud Platform Solution Architecture (CPSA) bridges commercial objectives with technical execution, creating customer proposals that are purpose-built, achievable, and easily conveyable. The CPSA team works with commercial and delivery teams, provides leadership to technical teams on billable projects, and builds a comprehensive best practices framework for the Cloud Platform line of business. Beyond ensuring the technical viability of solutions aligned with customers' business goals, initiating projects strategically, and supporting the delivery team, CPSA refines standards, patterns, and automation processes to streamline project implementation and standardize practices. CPSA provides feedback loops combining insights from customers and the external ecosystem, shared with Product and Marketing. A crucial aspect is ensuring alignment of project scopes with realistic timelines and resources to underpin financial sustainability and long-term success of the cloud platforms line of business.
+## User Needs
 
-## Responsibilities (Declared)
+- As a **Commercial Account Manager**, I need technically feasible and clearly scoped solution proposals so that I can set accurate customer expectations and convert opportunities into booked engagements.
 
-- Craft proposals that balance innovation with technical feasibility so that client expectations are met with executable solutions (for Sales Engineers and Account Managers from the Commercial Team).
-- Provide critical feedback on technical execution to the Cloud Platform Product Team to refine and enhance future cloud platform products.
-- Provide expert guidance during project execution to Cloud Platform Professional Services so that projects adhere to best practices and standards for optimal outcomes.
-- Collaborate with Cloud Platform Service Delivery Managers throughout projects to ensure clear understanding of deliverable requirements and accurate estimations for project components, facilitating efficient project planning and execution.
-- Design cloud solutions tailored to customers' unique requirements and aligned with their business objectives so that proposed architectures effectively address their specific needs and challenges.
+- As a **Customer**, I need a solution designed around my specific requirements and business objectives so that the architecture proposed will actually address my needs when delivered.
 
-## Upstream Dependencies (Declared)
+- As an **HSDM Project Manager**, I need accurate scope definitions and effort estimates from HSA so that I can apply appropriate PM overhead and produce a complete, defensible SOW.
 
-- Commercial Account Management (Clear requirements from Sales Engineers and Account Managers)
-- Professional Services (Support and implementation feedback)
-- Hybrid Service Delivery Management (Project execution and delivery insights from Cloud Platform Service Delivery Managers)
-- [Product / Marketing — outside the nine; no guide for Product]
+- As a **Professional Services team member**, I need clear architectural guidance and defined deliverables during project execution so that I can implement the solution consistently with what was scoped and promised.
 
-## Downstream Dependencies (Declared)
+- As a **Managed Cloud team member**, I need early visibility into solution designs involving the platform layer so that I can validate feasibility and prepare for any operational handoff requirements.
 
-- Hybrid Service Delivery Management (Declared from structure — cross-reference pass)
+## Metrics & Usage
 
-## Known Overlaps / Ambiguities
+| Metric | Target | Measurement | Reporting |
+|---|---|---|---|
+| Billable utilization | To be defined | Time tracked on billable vs. non-billable activities | To be defined |
+| SOW turnaround time | To be defined | Average duration to prepare and finalise statements of work | To be defined |
+| Win rate | To be defined | Proposals converted into booked engagements | To be defined |
+| Estimate accuracy | To be defined | Estimated vs. actual project duration and cost | To be defined |
+| Project success | To be defined | NPS or renewal rate on HSA-scoped projects | To be defined |
 
-- CPSA dependencies in the PDF are expressed as needs from other teams (requirements, feedback, insights), not as a simple service list. Mapped to within-nine services where applicable. Cloud Platform Product Team has no dedicated guide; Product ownership is distributed.
-- The CLP-Cloud Platform Service Delivery PDF (mapped to HSDM) references CPSA extensively; cross-references belong here as overlap, not overwriting this guide.
+## Dependencies
 
-## Notes (Optional)
+| Dependency | Type (Internal / External) |
+|---|---|
+| Commercial Account Management | Internal |
+| Hybrid Service Delivery Management | Internal |
+| Professional Services | Internal |
+| Managed Cloud | Internal |
+| External Customers | External |
 
-Source: CLP-Cloud Platform Solution Architecture - Service Contract-240226-142539.pdf. Service Manager listed as deactivated at time of document capture. No replacement declared. The deprecated SDET-Cloud Platform Solution & Delivery PDF also relates to this area; it predates the service contract. Not used to overwrite content from the service contract. Cloud Platform Product responsibilities previously held by a dedicated team (Service Manager: Mouetsie Moliere, deactivated per CLP-Cloud Platform Product Service Contract). Product ownership is now distributed. No dedicated guide created.
+*Note: Service Manager role was previously held by Ian Crosby (deactivated). Pat Wolthausen is the current Service Manager.*

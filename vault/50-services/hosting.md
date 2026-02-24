@@ -1,48 +1,48 @@
 ---
 Service Name: Hosting
-Service Manager: "[[Martin Tessier]]"
-Lifecycle: Live
-Evolution: Bespoke
-Source of Truth: Existing Doc
-Last Updated: 2026-02-24
+Service Manager: Martin Tessier
+Service Evolution: Bespoke
+Service Lifecycle Phase: Live
 ---
+## Service Description
 
-# Hosting
+The Hosting service provides private cloud and dedicated server provisioning, covering physical hardware through to operating system bootstrap and customer handoff, enabling customers to receive a fully provisioned and operational environment ready for their workloads. It delivers hardware provisioning, OS configuration, solution documentation, and business continuity readiness so that customers have a stable, compliant, and correctly configured foundation before day 2 operations are assumed by the Service Desk.
 
-## Purpose
-The Infrastructure service comprises product, architecture, engineering, delivery, and support capabilities to develop, deliver, and support infrastructure solutions that meet customers' performance, security, and regulatory requirements.
+## User Needs
 
-## Responsibilities (Declared)
+- As a **Customer**, I need my private cloud or dedicated server environment provisioned correctly and handed off ready to use so that I can begin running my workloads without delay or rework.
 
-- Help customers define infrastructure solutions so that they can focus on the business value supported by the solution.
-- Support customers' physical infrastructure so that they can focus on their business rather than the underlying infrastructure.
-- Ensure customers' business continuity strategy can be executed successfully so that they can protect their business's integrity.
-- Operate the service without disruption so that customers' businesses continue to operate.
-- Enable customers to understand the health of their physical and logical infrastructure so they can plan their team's work accordingly.
-- Meet industry compliance standards so that customers can achieve required certification and protect the integrity of their business.
-- Ensure vendors/partners support transparent and timely communication so that customers can plan for expected changes and respond to unplanned incidents effectively.
-- Deliver timely responses to Commercial Account Managers for solution development support and order review and approvals.
+- As a **Customer**, I need my infrastructure solution designed to meet my performance and capacity requirements so that I can focus on business outcomes rather than hardware decisions.
 
-## Upstream Dependencies (Declared)
+- As a **Customer**, I need my business continuity requirements incorporated into my hosted environment so that I can protect business integrity in the event of an incident.
 
-- Commercial Account Management
-- Managed Cloud Platforms (PDF: "Managed Platforms")
-- Data Center Operations (PDF: "Data Center")
-- Network (PDF: "Network Service")
+- As a **Customer**, I need my hosted environment to meet my security and compliance standards so that I can achieve required certifications and protect the integrity of my business.
 
-## Downstream Dependencies (Declared)
+- As a **Customer**, I need transparent and timely communication during provisioning so that I can plan my team's readiness for go-live.
 
-- Data Center Operations (Declared from structure — cross-reference pass)
-- Managed Cloud Platforms (Declared from structure — cross-reference pass)
-- Network (Declared from structure — cross-reference pass)
-- Professional Services (Declared from structure — cross-reference pass)
-- Service Desk (Declared from structure — cross-reference pass)
+- As a **Commercial Account Manager**, I need timely turnaround on infrastructure scoping and provisioning so that I can deliver accurate commitments to customers and maintain deal momentum.
 
-## Known Overlaps / Ambiguities
+- As a **Service Desk team member**, I need complete provisioning documentation and runbooks at handoff so that I can assume day 2 operations without gaps in knowledge or coverage.
 
-- PDF service name: Infrastructure (SDET-Infrastructure). Renamed to Hosting for this initiative to normalize against conflation of "Infrastructure" and "IT Operations & Engineering" across guides.
-- PDF lists "IT Ops and Engineering" as a dependency; normalized to Hosting (same guide). Boundary between Infrastructure product/architecture/engineering and IT Ops may be internal; not listed as separate upstream to avoid self-reference.
+## Metrics & Usage
 
-## Notes (Optional)
+| Metric | Target | Measurement | Reporting |
+|---|---|---|---|
+| Provisioning accuracy | To be defined | Environments delivered to spec — met / not met | Per engagement |
+| Turnaround time for solution design | To be defined | MTTR | To be defined |
+| Solution documentation availability at handoff | To be defined | Documented and available — met / not met | Per engagement |
+| Runbook availability at handoff | To be defined | Documented and available — met / not met | Per engagement |
+| BCP / DRaaS incorporation | To be defined | Incorporated — met / not met | Per engagement |
+| Security standards achieved | To be defined | Met / not met | Per review |
+| Compliance standards achieved | To be defined | Met / not met | Per review |
+| Communication SLO adherence | To be defined | Defined SLOs — met / not met | To be defined |
 
-PDF service name: Infrastructure (SDET-Infrastructure). Renamed to Hosting for this initiative to normalize against conflation of "Infrastructure" and "IT Operations & Engineering" across guides. Source: SDET-Infrastructure-200226-114241.pdf
+## Dependencies
+
+| Dependency | Type (Internal / External) |
+|---|---|
+| Commercial Account Management | Internal |
+| Data Center Ops | Internal |
+| Network | Internal |
+| IT Operations & Engineering | Internal |
+| Service Desk | Internal |

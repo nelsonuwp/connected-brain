@@ -1,44 +1,58 @@
 ---
-Service Name: Managed Cloud Platforms
-Service Manager: "[[Andrei Ianouchkevitch]]"
-Lifecycle: Decommissioned
-Evolution: Bespoke
-Source of Truth: Existing Doc
-Last Updated: 2026-02-24
+Service Name: Managed Cloud
+Service Manager: Andrei Ianouchkevitch
+Service Evolution: Bespoke
+Service Lifecycle Phase: Live
 ---
+## Service Description
 
-# Managed Cloud Platforms
+The Managed Cloud service provides managed operations of the application and platform layer across cloud environments, enabling customers to run workloads on public and private cloud infrastructure without managing the underlying platform themselves. It delivers performance monitoring, incident response, business continuity support, security and compliance assurance, and triage of hyperscaler issues so that customers can focus on their business while their cloud platform operates reliably and predictably.
 
-## Purpose
-The Managed Platform supports and elevates customer applications from inception to operation. It supports the Cloud Platforms Service to deliver a unified managed experience, oversees the entire application stack, and ensures performance, security, and reliability.
+## User Needs
 
-## Responsibilities (Declared)
+- As a **Customer**, I need to be alerted when my application or platform performance deviates from baseline so that I can take remediation action before my business is impacted.
 
-- Make customers aware when their application's performance suddenly alters so that they can take remediating action.
-- Manage the application platform so that customers can focus on their business and not the underlying platform.
-- Ensure customers' business continuity strategy can be executed successfully so that they can protect their business's integrity.
-- Operate the service without disruption so that customers' businesses continue.
-- Enable customers to understand the application platform's state so they can plan their team's work accordingly.
-- Provide predictable and transparent pricing so that customers can budget effectively.
-- Meet customers' security standards so that they can protect the integrity of their business.
-- Meet customers' compliance standards so that they can protect the integrity of their business.
+- As a **Customer**, I need my cloud platform managed on my behalf so that I can focus on my business rather than the underlying platform operations.
 
-## Upstream Dependencies (Declared)
+- As a **Customer**, I need confidence that my business continuity strategy has been incorporated and can be executed successfully so that I can protect my business integrity in the event of an incident.
 
-- Commercial Account Management
-- Hosting (PDF: "Infrastructure", "IT Operations and Engineering" — normalized to Hosting)
-- Network
+- As a **Customer**, I need my platform to operate without unplanned disruption so that my business continues to run.
 
-## Downstream Dependencies (Declared)
+- As a **Customer**, I need visibility into the current state of my application platform so that I can plan my team's work accordingly.
 
-- Hosting (Declared from structure — cross-reference pass)
-- Professional Services (Declared from structure — cross-reference pass)
-- Service Desk (Declared from structure — cross-reference pass)
+- As a **Customer**, I need predictable and transparent pricing so that I can budget effectively month to month.
 
-## Known Overlaps / Ambiguities
+- As a **Customer**, I need my security and compliance standards met so that I can protect the integrity of my business.
 
-- PDF lifecycle: "Archiving and replaced by NEW Cloud Platform Managed Services." NEW Cloud Platform Managed Services is not one of the nine; no guide created for it.
+- As a **Service Desk team member**, I need clear escalation paths for hyperscaler issues (AWS, Azure, GCP) so that I can triage cloud platform incidents to the right team quickly and avoid customer impact.
 
-## Notes (Optional)
+## Metrics & Usage
 
-Source: APTUM-Managed Cloud Platforms-200226-114237.pdf. Lifecycle per PDF (verbatim): "Archiving and replaced by NEW Cloud Platform Managed Services."
+| Metric | Target | Measurement | Reporting |
+|---|---|---|---|
+| Unplanned downtime per customer | Zero | Downtime event tracking | Monthly |
+| Customer-created tickets | Zero | Ticket count | Monthly |
+| Total tickets created | Zero | Ticket count | Monthly |
+| Unplanned actions taken by service team | Zero | Actions outside customer runbook | Monthly |
+| Deviation from baseline performance metrics | Zero | Performance monitoring | Continuous |
+| Runbook coverage | To be defined | Runbooks exist per customer — met / not met | Monthly |
+| Business continuity strategy incorporated | To be defined | Binary — met / not met | Per review |
+| BCP successfully exercised | To be defined | Binary — met / not met | Per test |
+| Price delta month-over-month | Zero | Billing variance tracking | Monthly |
+| Security standards compliance | To be defined | Met / not met | Per review |
+| Compliance standards compliance | To be defined | Met / not met | Per review |
+
+## Dependencies
+
+| Dependency | Type (Internal / External) |
+|---|---|
+| Commercial Account Management | Internal |
+| Hosting | Internal |
+| Network | Internal |
+| IT Operations & Engineering | Internal |
+| Service Desk | Internal |
+| Professional Services | Internal |
+
+*PDF: 'Infrastructure' — normalized to 'Hosting'.*
+*PDF: 'IT Operations and Engineering' — normalized to 'IT Operations & Engineering'.*
+*Note: Source PDF for this service is archived. Content has been synthesized from archived material and confirmed service boundaries.*
