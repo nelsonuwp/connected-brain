@@ -8,6 +8,11 @@ import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+# Section timestamps (critique, explore, context) use Eastern for display
+SECTION_TZ = ZoneInfo("America/New_York")
+SECTION_TZ_LABEL = "ET"
 
 import typer
 import yaml
@@ -103,8 +108,8 @@ def append_to_note(note_path: str, llm_output: str, mode: str) -> None:
     """Atomic append: original + --- + ## LLM Output — {mode} — {timestamp} + llm_output. Removes .tmp on exception."""
     full = Config.VAULT_ROOT / note_path
     original = full.read_text(encoding="utf-8")
-    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
-    section = f"\n\n---\n\n## LLM Output — {mode} — {ts} UTC\n\n{llm_output}"
+    ts = datetime.now(SECTION_TZ).strftime("%Y-%m-%d %H:%M")
+    section = f"\n\n---\n\n## LLM Output — {mode} — {ts} {SECTION_TZ_LABEL}\n\n{llm_output}"
     new_content = original + section
     tmp_path = full.with_suffix(full.suffix + ".tmp")
     try:
@@ -120,8 +125,8 @@ def append_to_file(vault_relative_path: str, llm_output: str, mode: str) -> None
     """Same atomic pattern as append_to_note; used by context command."""
     full = Config.VAULT_ROOT / vault_relative_path
     original = full.read_text(encoding="utf-8")
-    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
-    section = f"\n\n---\n\n## LLM Output — {mode} — {ts} UTC\n\n{llm_output}"
+    ts = datetime.now(SECTION_TZ).strftime("%Y-%m-%d %H:%M")
+    section = f"\n\n---\n\n## LLM Output — {mode} — {ts} {SECTION_TZ_LABEL}\n\n{llm_output}"
     new_content = original + section
     tmp_path = full.with_suffix(full.suffix + ".tmp")
     try:
@@ -136,13 +141,13 @@ def append_to_file(vault_relative_path: str, llm_output: str, mode: str) -> None
 def append_section(note_path: str, content: str, section_title: str) -> None:
     """
     Atomic append of a named heading section to a note.
-    Format: \\n\\n---\\n\\n# {section_title} — {YYYY-MM-DD HH:MM} UTC\\n\\n{content}
+    Format: \\n\\n---\\n\\n# {section_title} — {YYYY-MM-DD HH:MM} ET\\n\\n{content}
     Atomic via .tmp + os.replace. Removes .tmp on exception.
     """
     full = Config.VAULT_ROOT / note_path
     original = full.read_text(encoding="utf-8")
-    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
-    section = f"\n\n---\n\n# {section_title} — {ts} UTC\n\n{content}"
+    ts = datetime.now(SECTION_TZ).strftime("%Y-%m-%d %H:%M")
+    section = f"\n\n---\n\n# {section_title} — {ts} {SECTION_TZ_LABEL}\n\n{content}"
     new_content = original + section
     tmp_path = full.with_suffix(full.suffix + ".tmp")
     try:
