@@ -68,17 +68,3 @@ There is no machine-readable source of truth for our services. Digitizing this c
 - **Potential Adjacencies:** Based on the existing service charts, there may be touchpoints with Infrastructure and Professional Services that need to be accounted for in the inputs/outputs, even if those specific owners aren't directly authoring this initial batch.
 
 
-## Ready to Promote?
-<!-- A thinking note is ready for 30-initiatives when you can answer YES to all three: -->
-- [ ] I know who owns this
-- [ ] I can describe a measurable outcome
-- [ ] I have a rough timeline
-
----
-## Think Mode Output
-<!-- Paste LLM think-mode response here after running it -->
-
-
-## My Answers
-<!-- Answer the questions the LLM raised before promoting to initiative -->
-

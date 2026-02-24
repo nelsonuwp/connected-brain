@@ -16,7 +16,9 @@ status: raw
 # <title from the original idea, unchanged>
 
 ## The Idea
-<restate the core idea in 1–2 clean sentences. clarify but do not expand.>
+<Rewrite the core idea in 1–2 precise, unambiguous sentences. Prefer
+specificity over generality. Do not introduce new concepts not present
+in the original idea.>
 
 ## Why This Matters
 <why is this worth developing? what problem does it solve or what opportunity
@@ -39,7 +41,7 @@ bullet list.>
 bullet list.>
 
 ## Next Step
-<the single most valuable next action — usually "run thinking think on this note".>
+<the single most valuable next action — usually "run thinking explore on this note".>
 
 Rules:
 - Do not add sections beyond those listed above

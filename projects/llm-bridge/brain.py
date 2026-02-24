@@ -1,5 +1,5 @@
 """
-LLM Bridge CLI. Vault I/O, archive/snapshot, Typer. All eight commands are LLM operations.
+LLM Bridge CLI. Vault I/O, archive/snapshot, Typer. idea/thinking/initiative: critique, explore, normalize, promote; context at root.
 Calls ai_client.call() only; no HTTP logic here.
 """
 import json
@@ -132,6 +132,82 @@ def append_to_file(vault_relative_path: str, llm_output: str, mode: str) -> None
         raise
 
 
+def append_section(note_path: str, content: str, section_title: str) -> None:
+    """
+    Atomic append of a named heading section to a note.
+    Format: \\n\\n---\\n\\n# {section_title} — {YYYY-MM-DD HH:MM} UTC\\n\\n{content}
+    Atomic via .tmp + os.replace. Removes .tmp on exception.
+    """
+    full = Config.VAULT_ROOT / note_path
+    original = full.read_text(encoding="utf-8")
+    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
+    section = f"\n\n---\n\n# {section_title} — {ts} UTC\n\n{content}"
+    new_content = original + section
+    tmp_path = full.with_suffix(full.suffix + ".tmp")
+    try:
+        tmp_path.write_text(new_content, encoding="utf-8")
+        os.replace(tmp_path, full)
+    except Exception:
+        if tmp_path.exists():
+            tmp_path.unlink()
+        raise
+
+
+# Injected section boundaries: \n\n---\n\n# Critique|Explore|Thinking|Spec (plan: only these as stop; no bare ---)
+_INJECTED_BOUNDARY_MARKERS = ("\n\n---\n\n# Critique", "\n\n---\n\n# Explore", "\n\n---\n\n# Thinking", "\n\n---\n\n# Spec")
+
+
+def _find_first_injected_boundary(remainder: str) -> int:
+    """Return index in remainder of the first injected section boundary, or -1 if none."""
+    idx = -1
+    for marker in _INJECTED_BOUNDARY_MARKERS:
+        pos = remainder.find(marker)
+        if pos >= 0 and (idx < 0 or pos < idx):
+            idx = pos
+    return idx
+
+
+def extract_current_version(full_content: str) -> tuple[str, str, str, bool]:
+    """
+    Extract the "Current Version" block for normalize. Frontmatter-aware; uses only
+    # Critique / # Explore / # Thinking / # Spec as stop boundaries (not bare ---).
+    Returns (current_text_for_llm, prefix, suffix, had_current_version_header).
+    Reassemble: prefix + ("# Current Version\\n\\n" if not had_current_version_header else "") + normalized + suffix.
+    """
+    # Frontmatter: leading --- ... ---
+    frontmatter = ""
+    remainder = full_content
+    if full_content.strip().startswith("---"):
+        rest = full_content.lstrip()
+        if rest.startswith("---"):
+            end_fm = rest.find("\n---", 3)
+            if end_fm >= 0:
+                # Include closing --- and newline
+                frontmatter = rest[: end_fm + 4]
+                remainder = rest[end_fm + 4 :].lstrip("\n")
+            else:
+                remainder = rest
+
+    boundary_idx = _find_first_injected_boundary(remainder)
+    if boundary_idx < 0:
+        boundary_idx = len(remainder)
+
+    had_header = remainder.strip().startswith("# Current Version")
+    if had_header:
+        start = remainder.find("# Current Version") + len("# Current Version")
+        while start < len(remainder) and remainder[start] in "\n\r":
+            start += 1
+        current_text = (remainder[start:boundary_idx] if boundary_idx <= len(remainder) else remainder[start:]).strip()
+        prefix = frontmatter + remainder[:start]
+        suffix = remainder[boundary_idx:] if boundary_idx < len(remainder) else ""
+    else:
+        current_text = (remainder[:boundary_idx] if boundary_idx < len(remainder) else remainder).strip()
+        prefix = frontmatter
+        suffix = remainder[boundary_idx:] if boundary_idx < len(remainder) else ""
+
+    return current_text, prefix, suffix, had_header
+
+
 def write_new_file(vault_relative_path: str, content: str) -> None:
     """Atomic write to path. Creates parent dirs if missing. Removes .tmp on exception. Used by promote commands."""
     full = Config.VAULT_ROOT / vault_relative_path
@@ -231,32 +307,93 @@ idea_app = typer.Typer()
 app.add_typer(idea_app, name="idea")
 
 
-@idea_app.command("refine")
-def idea_refine(
+@idea_app.command("critique")
+def idea_critique(
     file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c", help="Context file(s), repeatable"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
     temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
 ) -> None:
-    """Sharpen raw idea. Snapshot, then workhorse, append output."""
+    """Audit raw idea. Append # Critique section."""
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    prompt = load_prompt("refine-idea.md")
+    prompt = load_prompt("critique-idea.md")
     user_content = build_user_message(note_content, context_rel, vault_rel)
     messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    snapshot_note_for_llm(vault_rel)
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result["content"], "refine-idea")
+    append_section(vault_rel, result["content"], "Critique")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
+
+
+@idea_app.command("explore")
+def idea_explore(
+    file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
+    context: list[str] = typer.Option([], "--context", "-c", help="Context file(s), repeatable"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
+    temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
+) -> None:
+    """Expand possibilities on idea. Append # Explore section."""
+    _, vault_rel = resolve_under_vault(file)
+    note_content = read_file(file)
+    context_rel = [resolve_under_vault(c)[1] for c in context]
+    prompt = load_prompt("explore.md")
+    base_user = build_user_message(note_content, context_rel, vault_rel)
+    user_content = f"[STAGE: idea]\n\n{base_user}"
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
+    if dry_run:
+        print_dry_run_payload(model_string, temp, messages)
+        raise typer.Exit(0)
+    result = ai_call(model_string, temp, messages)
+    if result is None:
+        console.print("[red]LLM call failed; note unchanged.[/red]")
+        raise typer.Exit(1)
+    append_section(vault_rel, result["content"], "Explore")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
+    console.print(f"Appended to {vault_rel}")
+
+
+@idea_app.command("normalize")
+def idea_normalize(
+    file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
+    temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
+    snapshot: bool = typer.Option(False, "--snapshot", help="Snapshot note to archive before overwriting"),
+) -> None:
+    """Rewrite # Current Version only for clarity. Preserves # Critique / # Explore."""
+    _, vault_rel = resolve_under_vault(file)
+    full_content = read_file(file)
+    current_text, prefix, suffix, had_header = extract_current_version(full_content)
+    prompt = load_prompt("normalize.md")
+    user_content = f"[CURRENT VERSION CONTENT]\n{current_text}"
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
+    if dry_run:
+        print_dry_run_payload(model_string, temp, messages)
+        raise typer.Exit(0)
+    if snapshot:
+        snapshot_note_for_llm(vault_rel)
+    result = ai_call(model_string, temp, messages)
+    if result is None:
+        console.print("[red]LLM call failed; note unchanged.[/red]")
+        raise typer.Exit(1)
+    normalized = result["content"].strip()
+    if not had_header:
+        new_content = prefix + "# Current Version\n\n" + normalized + suffix
+    else:
+        new_content = prefix + normalized + suffix
+    write_new_file(vault_rel, new_content)
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
+    console.print(f"Normalized {vault_rel}")
 
 
 @idea_app.command("promote")
@@ -296,47 +433,47 @@ thinking_app = typer.Typer()
 app.add_typer(thinking_app, name="thinking")
 
 
-@thinking_app.command("refine")
-def thinking_refine(
+@thinking_app.command("critique")
+def thinking_critique(
     file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
-    """Audit thinking note. Snapshot, workhorse, append."""
+    """Audit thinking note. Append # Critique section."""
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    prompt = load_prompt("refine-thinking.md")
+    prompt = load_prompt("critique-thinking.md")
     user_content = build_user_message(note_content, context_rel, vault_rel)
     messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    snapshot_note_for_llm(vault_rel)
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result["content"], "refine-thinking")
+    append_section(vault_rel, result["content"], "Critique")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
 
 
-@thinking_app.command("think")
-def thinking_think(
+@thinking_app.command("explore")
+def thinking_explore(
     file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
-    """Deep thinking. No snapshot — accumulation is intentional. Reasoning model, append."""
+    """Deepen reasoning on thinking note. Append # Explore section."""
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    prompt = load_prompt("think-mode.md")
-    user_content = build_user_message(note_content, context_rel, vault_rel)
+    prompt = load_prompt("explore.md")
+    base_user = build_user_message(note_content, context_rel, vault_rel)
+    user_content = f"[STAGE: thinking]\n\n{base_user}"
     messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
@@ -346,7 +483,7 @@ def thinking_think(
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result["content"], "think")
+    append_section(vault_rel, result["content"], "Explore")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
 
@@ -358,7 +495,7 @@ def thinking_spec(
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
-    """Generate initiative spec content. Snapshot, reasoning, append."""
+    """Generate initiative spec content. Append # Spec section."""
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
@@ -369,14 +506,47 @@ def thinking_spec(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    snapshot_note_for_llm(vault_rel)
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result["content"], "spec")
+    append_section(vault_rel, result["content"], "Spec")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
+
+
+@thinking_app.command("normalize")
+def thinking_normalize(
+    file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+    temperature: float | None = typer.Option(None, "--temperature", "-t"),
+    snapshot: bool = typer.Option(False, "--snapshot", help="Snapshot note to archive before overwriting"),
+) -> None:
+    """Rewrite # Current Version only for clarity. Preserves # Critique / # Explore."""
+    _, vault_rel = resolve_under_vault(file)
+    full_content = read_file(file)
+    current_text, prefix, suffix, had_header = extract_current_version(full_content)
+    prompt = load_prompt("normalize.md")
+    user_content = f"[CURRENT VERSION CONTENT]\n{current_text}"
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
+    if dry_run:
+        print_dry_run_payload(model_string, temp, messages)
+        raise typer.Exit(0)
+    if snapshot:
+        snapshot_note_for_llm(vault_rel)
+    result = ai_call(model_string, temp, messages)
+    if result is None:
+        console.print("[red]LLM call failed; note unchanged.[/red]")
+        raise typer.Exit(1)
+    normalized = result["content"].strip()
+    if not had_header:
+        new_content = prefix + "# Current Version\n\n" + normalized + suffix
+    else:
+        new_content = prefix + normalized + suffix
+    write_new_file(vault_rel, new_content)
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
+    console.print(f"Normalized {vault_rel}")
 
 
 @thinking_app.command("promote")
@@ -416,32 +586,93 @@ initiative_app = typer.Typer()
 app.add_typer(initiative_app, name="initiative")
 
 
-@initiative_app.command("refine")
-def initiative_refine(
+@initiative_app.command("critique")
+def initiative_critique(
     file: str = typer.Argument(..., help="Path: vault-relative (30-initiatives/foo.md) or repo-relative (vault/30-initiatives/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
-    """Audit initiative spec. Snapshot, workhorse, append."""
+    """Audit initiative spec. Append # Critique section."""
     _, vault_rel = resolve_under_vault(file)
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
-    prompt = load_prompt("refine-initiative.md")
+    prompt = load_prompt("critique-initiative.md")
     user_content = build_user_message(note_content, context_rel, vault_rel)
     messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    snapshot_note_for_llm(vault_rel)
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_to_note(vault_rel, result["content"], "refine-initiative")
+    append_section(vault_rel, result["content"], "Critique")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Appended to {vault_rel}")
+
+
+@initiative_app.command("explore")
+def initiative_explore(
+    file: str = typer.Argument(..., help="Path: vault-relative (30-initiatives/foo.md) or repo-relative (vault/30-initiatives/foo.md)"),
+    context: list[str] = typer.Option([], "--context", "-c"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+    temperature: float | None = typer.Option(None, "--temperature", "-t"),
+) -> None:
+    """Explore execution options and tradeoffs. Append # Explore section."""
+    _, vault_rel = resolve_under_vault(file)
+    note_content = read_file(file)
+    context_rel = [resolve_under_vault(c)[1] for c in context]
+    prompt = load_prompt("explore.md")
+    base_user = build_user_message(note_content, context_rel, vault_rel)
+    user_content = f"[STAGE: initiative]\n\n{base_user}"
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
+    if dry_run:
+        print_dry_run_payload(model_string, temp, messages)
+        raise typer.Exit(0)
+    result = ai_call(model_string, temp, messages)
+    if result is None:
+        console.print("[red]LLM call failed; note unchanged.[/red]")
+        raise typer.Exit(1)
+    append_section(vault_rel, result["content"], "Explore")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
+    console.print(f"Appended to {vault_rel}")
+
+
+@initiative_app.command("normalize")
+def initiative_normalize(
+    file: str = typer.Argument(..., help="Path: vault-relative (30-initiatives/foo.md) or repo-relative (vault/30-initiatives/foo.md)"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+    temperature: float | None = typer.Option(None, "--temperature", "-t"),
+    snapshot: bool = typer.Option(False, "--snapshot", help="Snapshot note to archive before overwriting"),
+) -> None:
+    """Rewrite # Current Version only for clarity. Preserves # Critique / # Explore."""
+    _, vault_rel = resolve_under_vault(file)
+    full_content = read_file(file)
+    current_text, prefix, suffix, had_header = extract_current_version(full_content)
+    prompt = load_prompt("normalize.md")
+    user_content = f"[CURRENT VERSION CONTENT]\n{current_text}"
+    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
+    if dry_run:
+        print_dry_run_payload(model_string, temp, messages)
+        raise typer.Exit(0)
+    if snapshot:
+        snapshot_note_for_llm(vault_rel)
+    result = ai_call(model_string, temp, messages)
+    if result is None:
+        console.print("[red]LLM call failed; note unchanged.[/red]")
+        raise typer.Exit(1)
+    normalized = result["content"].strip()
+    if not had_header:
+        new_content = prefix + "# Current Version\n\n" + normalized + suffix
+    else:
+        new_content = prefix + normalized + suffix
+    write_new_file(vault_rel, new_content)
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
+    console.print(f"Normalized {vault_rel}")
 
 
 # ---------------------------------------------------------------------------
