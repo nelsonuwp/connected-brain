@@ -26,9 +26,7 @@ Do not:
 - Suggest solutions or reframe the spec — only identify weaknesses and ask questions
 - Use preamble or sign-offs
 
-Output format:
-## Spec Audit — <date>
-
+Output format (do not add a date or section title; the system adds the section header):
 ### Success Criteria Issues
 <specific items, or "None" if clean>
 

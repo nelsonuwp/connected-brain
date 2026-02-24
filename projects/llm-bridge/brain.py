@@ -4,6 +4,7 @@ Calls ai_client.call() only; no HTTP logic here.
 """
 import json
 import os
+import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -153,17 +154,22 @@ def append_section(note_path: str, content: str, section_title: str) -> None:
         raise
 
 
-# Injected section boundaries: \n\n---\n\n# Critique|Explore|Thinking|Spec (plan: only these as stop; no bare ---)
-_INJECTED_BOUNDARY_MARKERS = ("\n\n---\n\n# Critique", "\n\n---\n\n# Explore", "\n\n---\n\n# Thinking", "\n\n---\n\n# Spec")
+# Injected section boundaries: allow flexible newlines (\n+---\n+# Section) so manual edits don't break parsing
+_INJECTED_BOUNDARY_PATTERNS = [
+    re.compile(r"\n+---\n+# Critique"),
+    re.compile(r"\n+---\n+# Explore"),
+    re.compile(r"\n+---\n+# Thinking"),
+    re.compile(r"\n+---\n+# Spec"),
+]
 
 
 def _find_first_injected_boundary(remainder: str) -> int:
     """Return index in remainder of the first injected section boundary, or -1 if none."""
     idx = -1
-    for marker in _INJECTED_BOUNDARY_MARKERS:
-        pos = remainder.find(marker)
-        if pos >= 0 and (idx < 0 or pos < idx):
-            idx = pos
+    for pat in _INJECTED_BOUNDARY_PATTERNS:
+        m = pat.search(remainder)
+        if m is not None and (idx < 0 or m.start() < idx):
+            idx = m.start()
     return idx
 
 

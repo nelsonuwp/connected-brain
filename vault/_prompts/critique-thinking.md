@@ -24,9 +24,7 @@ Do not:
 - Suggest solutions or reframe the idea — only identify weaknesses and ask questions
 - Use preamble or sign-offs
 
-Output format:
-## Audit — <date>
-
+Output format (do not add a date or section title; the system adds the section header):
 ### What's Solid
 <brief, specific list>
 
