@@ -1,6 +1,6 @@
 ---
 Service Name: Hosting
-Service Manager: Martin Tessier
+Service Manager: "[[Martin Tessier]]"
 Service Evolution: Bespoke
 Service Lifecycle Phase: Live
 ---

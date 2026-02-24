@@ -1,6 +1,6 @@
 ---
 Service Name: Data Center Ops
-Service Manager: George Revie
+Service Manager: "[[George Revie]]"
 Service Evolution: Bespoke
 Service Lifecycle Phase: Live
 ---

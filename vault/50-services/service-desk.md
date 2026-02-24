@@ -1,6 +1,6 @@
 ---
 Service Name: Service Desk
-Service Manager: Jason Auer
+Service Manager: "[[Jason Auer]]"
 Service Evolution: Bespoke
 Service Lifecycle Phase: Live
 ---

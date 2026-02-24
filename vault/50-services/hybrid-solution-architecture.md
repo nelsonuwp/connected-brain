@@ -1,6 +1,6 @@
 ---
 Service Name: Hybrid Solution Architecture
-Service Manager: Pat Wolthausen
+Service Manager: "[[Pat Wolthausen]]"
 Service Evolution: Bespoke
 Service Lifecycle Phase: Live
 ---

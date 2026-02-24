@@ -1,6 +1,6 @@
 ---
 Service Name: Network
-Service Manager: Peter Saito
+Service Manager: "[[Ben Kennedy]]"
 Service Evolution: Bespoke
 Service Lifecycle Phase: Live
 ---

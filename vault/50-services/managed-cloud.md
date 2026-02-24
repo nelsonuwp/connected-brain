@@ -1,6 +1,6 @@
 ---
 Service Name: Managed Cloud
-Service Manager: Andrei Ianouchkevitch
+Service Manager: "[[Andrei Ianouchkevitch]]"
 Service Evolution: Bespoke
 Service Lifecycle Phase: Live
 ---

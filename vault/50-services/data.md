@@ -1,31 +1,47 @@
 ---
-Service Name: Data
-Service Manager:
-  - "[[Jorge Quintero]]"
-Lifecycle: Live
-Evolution:
-  - Not Provided
-Source of Truth: Owner Interview
-Last Updated: 2026-02-24
+Service Name: Data Operations
+Service Manager: "[[Jorge Quintero]]"
+Service Evolution: Bespoke
+Service Lifecycle Phase: Discovery
 ---
-# Data
+## Service Description
 
-## Purpose
-The Data service is a new capability that ingests operational and business data from across the service network and returns intelligence to those services to support decision-making. It functions as shared connective tissue across the nine services — aggregating inputs from all teams and surfacing insights back to each — rather than serving external customers directly. It is analogous to the neural network of the service model: the means by which the services understand and respond to their own operational state.
+The Data Operations service provides data ingestion, staging, transformation, and presentation capabilities across the service network, enabling internal teams to access the operational and performance data they need to manage their services effectively. It delivers standardised data pipelines, curated reporting surfaces, and metrics infrastructure so that service managers and operational teams can make informed decisions without building or maintaining their own data tooling.
 
-## Responsibilities (Declared)
-[Not Provided]
+## User Needs
 
-## Upstream Dependencies (Declared)
-[Not Provided]
+- As a **Service Manager**, I need access to accurate and timely performance and utilisation data for my service so that I can report against my metrics and identify areas for improvement.
 
-## Downstream Dependencies (Declared)
-[Not Provided]
+- As a **Finance team member**, I need consolidated revenue, utilisation, and profitability data from across all services so that I can produce accurate financial reporting and support business decisions.
 
-## Known Overlaps / Ambiguities
+- As a **Commercial Account Manager**, I need visibility into customer health and project status data so that I can manage client relationships and identify expansion opportunities.
 
-- The scope of "business intelligence" declared in the owner description overlaps with the Business Intelligence node shown as a Shared Service in the service network diagram. The relationship between this service and any existing BI capability is not yet defined.
-- No source document exists. All content in this guide is derived from owner verbal/written description. No declared responsibilities, dependencies, or boundaries have been confirmed.
+- As a **Management Team member**, I need aggregated operational dashboards across services so that I can monitor business performance without having to compile data manually from multiple sources.
 
-## Notes (Optional)
-No source document available at time of capture. Purpose derived from owner description only. Owner input and a formal service contract are required to populate remaining sections. This is the only guide in the nine that lacks a source document.
+- As a **Service Desk team member**, I need operational data and ticket trend reporting so that I can identify recurring issues and improve service quality over time.
+
+## Metrics & Usage
+
+| Metric | Target | Measurement | Reporting |
+|---|---|---|---|
+| Data pipeline availability | To be defined | Uptime monitoring | To be defined |
+| Data freshness / latency | To be defined | Time between source event and availability in reporting layer | To be defined |
+| Data accuracy | To be defined | Reconciliation between source systems and reported values | To be defined |
+| Coverage of services with active pipelines | To be defined | Number of services with defined and operational data feeds | To be defined |
+
+## Dependencies
+
+| Dependency | Type (Internal / External) |
+|---|---|
+| Hybrid Service Delivery Management | Internal |
+| Hybrid Solution Architecture | Internal |
+| Professional Services | Internal |
+| Managed Cloud | Internal |
+| Hosting | Internal |
+| Service Desk | Internal |
+| Data Center Ops | Internal |
+| Network | Internal |
+| Finance | Internal |
+| Commercial Account Management | Internal |
+
+*Note: This service is in Discovery phase. User needs are working hypotheses and should be validated with each internal consumer team before this contract is baselined.*

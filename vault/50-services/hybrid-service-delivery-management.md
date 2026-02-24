@@ -1,6 +1,6 @@
 ---
 Service Name: Hybrid Service Delivery Management
-Service Manager: Lacie Allen-Morley
+Service Manager: "[[Lacie Allen-Morley]]"
 Service Evolution: Bespoke
 Service Lifecycle Phase: Live
 ---
