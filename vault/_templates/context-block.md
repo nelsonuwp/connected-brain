@@ -3,6 +3,7 @@ type: context-block
 domain: 
 tags: []
 last-verified: <% tp.date.now("YYYY-MM-DD") %>
+last-edited: <% tp.date.now("YYYY-MM-DD") %>
 ---
 
 # <% tp.file.title %>

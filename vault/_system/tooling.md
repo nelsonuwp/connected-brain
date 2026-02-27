@@ -112,6 +112,44 @@ what the block covers and when to inject it.
 
 ---
 
+### Critique Output Format
+
+All three critique commands produce the same output structure:
+
+```
+## Score: X/10
+[≥8: strong, consider promoting] [5-7: rework suggested] [≤4: significant gaps]
+Score is advisory — you decide when to promote.
+
+## Section Breakdown
+### [Section Name]
+Strong: ...
+Weak: ...
+Fix: specifically what to add, change, or explore to address the weakness
+
+### [Section Name]
+...
+```
+
+The aggregate score gives you a quick read. The per-section breakdown
+tells you exactly what to fix. Not all sections will be flagged — only
+the ones with real issues.
+
+---
+
+### Kill Commands
+
+Move a note to local `archive/` and mark it as killed. No LLM call.
+
+```bash
+brain idea kill 01-inbox/2026-02-22-my-idea.md
+brain thinking kill 10-thinking/2026-02-22-my-idea.md
+brain initiative kill 30-initiatives/drafting/2026-02-22-my-idea.md
+```
+
+Adds `status: killed` to frontmatter, moves file to `{parent}/archive/`.
+Preserved for reference but gone from active folders.
+
 ### Flags Available on All Commands
 
 | Flag | What it does |
@@ -283,3 +321,55 @@ manually so you control what goes up.
 
 **Never commit:** `.env` files (contain API keys). These are in `.gitignore`.
 Always commit: `.env.example` files (no real values).
+
+---
+
+## Shell Commands Plugin (Obsidian)
+
+Eliminates having to type file paths in the terminal. The Shell Commands
+plugin lets you run brain.py commands against the currently open note
+directly from Obsidian via hotkey or command palette.
+
+### Setup
+
+**1.** Install Shell Commands plugin via Settings → Community Plugins →
+Browse → search "Shell Commands"
+
+**2.** Settings → Shell Commands → Add new command for each operation:
+
+| Command name | Shell command |
+|---|---|
+| Brain: Idea Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea explore "vault/{{file_path}}"` |
+| Brain: Idea Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea critique "vault/{{file_path}}"` |
+| Brain: Idea Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea promote "vault/{{file_path}}"` |
+| Brain: Idea Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea kill "vault/{{file_path}}"` |
+| Brain: Thinking Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking explore "vault/{{file_path}}"` |
+| Brain: Thinking Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking critique "vault/{{file_path}}"` |
+| Brain: Thinking Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking promote "vault/{{file_path}}"` |
+| Brain: Thinking Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking kill "vault/{{file_path}}"` |
+| Brain: Initiative Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative explore "vault/{{file_path}}"` |
+| Brain: Initiative Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative critique "vault/{{file_path}}"` |
+| Brain: Initiative Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative promote "vault/{{file_path}}"` |
+| Brain: Initiative Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative kill "vault/{{file_path}}"` |
+| Brain: Context | `cd ~/connected-brain/projects/llm-bridge && python brain.py context "vault/{{file_path}}"` |
+
+**3.** For each command, set output to: **Show in notification** (so you
+see token counts and success/error without switching to terminal)
+
+**4.** Assign hotkeys via Settings → Hotkeys → search "Shell Commands"
+Suggested additions:
+
+| Hotkey | Command |
+|---|---|
+| `Cmd+Shift+1` | Brain: Idea Critique |
+| `Cmd+Shift+2` | Brain: Thinking Critique |
+| `Cmd+Shift+3` | Brain: Initiative Critique |
+
+For explore and promote, use the command palette (`Cmd+Shift+P`) →
+type "Brain:" to see all commands. Less frequent, don't need dedicated hotkeys.
+
+### How {{file_path}} Works
+
+`{{file_path}}` is a Shell Commands built-in variable that resolves to
+the vault-relative path of the currently open note. Example:
+`01-inbox/2026-02-22-my-idea.md`. brain.py accepts this format directly.

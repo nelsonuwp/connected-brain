@@ -64,9 +64,10 @@ to critique. Read it in Obsidian, update your note based on what resonates.
 ```bash
 brain idea critique 01-inbox/2026-02-22-my-idea.md
 ```
-Output: score 0-10, what's strong, what's weak and specifically what to
-fix. If score ≥ 7, you're ready to promote. If not, fix the specific
-weaknesses and run critique again.
+Output: aggregate score 0-10, then a per-section breakdown — what's
+strong and why, what's weak and specifically what to fix in each weak
+section. Score ≥ 7 suggests readiness to promote. You decide when to
+actually promote — the score is advisory, not a gate.
 
 **Step 3 — Fix:**
 Open the note in Obsidian. Edit the main content directly based on the
@@ -116,8 +117,9 @@ Read it. Decide which direction to anchor on. Update your note — especially
 ```bash
 brain thinking critique 10-thinking/2026-02-22-my-idea.md
 ```
-Output: score 0-10, is the approach defined, are options genuinely
-considered, are assumptions surfaced. Fix what's weak, repeat until ≥ 7.
+Output: aggregate score 0-10, then per-section breakdown — what's solid,
+what needs more work and specifically what to add or clarify. Score ≥ 7
+suggests readiness. You decide when to promote.
 
 **Step 3 — Fix:**
 Edit the four main sections directly. Leave explore/critique history at
@@ -168,8 +170,9 @@ to critique.
 ```bash
 brain initiative critique 30-initiatives/drafting/2026-02-22-my-idea.md
 ```
-Output: score 0-10, is it executable, are success criteria testable, is
-ownership clear. Fix what's weak, repeat until ≥ 7.
+Output: aggregate score 0-10, then per-section breakdown — what's
+executable, what's vague, and specifically what to fix in each weak
+section. Score ≥ 7 suggests readiness. You decide when to promote.
 
 **Step 3 — Fix:**
 Edit the spec sections directly. Leave explore/critique history at bottom.
@@ -280,9 +283,27 @@ tokens on a real call.
 
 ## Quick Reference — Commands by Stage
 
-| Stage | Explore | Critique | Promote |
-|---|---|---|---|
-| Idea (`01-inbox/`) | `brain idea explore` | `brain idea critique` | `brain idea promote` |
-| Thinking (`10-thinking/`) | `brain thinking explore` | `brain thinking critique` | `brain thinking promote` |
-| Initiative (`drafting/`) | `brain initiative explore` | `brain initiative critique` | `brain initiative promote` |
-| Context (`20-context/`) | — | — | `brain context` |
+| Stage | Explore | Critique | Promote | Kill |
+|---|---|---|---|---|
+| Idea (`01-inbox/`) | `brain idea explore` | `brain idea critique` | `brain idea promote` | `brain idea kill` |
+| Thinking (`10-thinking/`) | `brain thinking explore` | `brain thinking critique` | `brain thinking promote` | `brain thinking kill` |
+| Initiative (`drafting/`) | `brain initiative explore` | `brain initiative critique` | `brain initiative promote` | `brain initiative kill` |
+| Context (`20-context/`) | — | — | `brain context` | — |
+
+## Killing a Note
+
+When an idea, thinking note, or initiative is no longer worth pursuing:
+
+```bash
+brain idea kill 01-inbox/2026-02-22-my-idea.md
+brain thinking kill 10-thinking/2026-02-22-my-idea.md
+brain initiative kill 30-initiatives/drafting/2026-02-22-my-idea.md
+```
+
+**What kill does:**
+- Moves the file to the local `archive/` subfolder of its current folder
+- Adds `status: killed` to the frontmatter
+- No LLM call — purely a file operation
+
+The note is gone from active view but preserved for reference. Nothing
+is permanently deleted.

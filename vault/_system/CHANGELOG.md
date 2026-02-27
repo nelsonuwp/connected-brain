@@ -112,3 +112,46 @@ Replaced by `_system/structure.md` which covers all folders in one place.
 **Rationale:** ABOUT files created clutter in the sidebar and were
 duplicating information that belongs in a single reference document.
 A reader looking for folder definitions has one place to go.
+
+---
+
+## 2026-02-27
+
+### Critique output format changed to aggregate + per-section
+**Decision:** All three critique prompts now produce an aggregate score
+followed by a per-section breakdown (strong/weak/fix for each section).
+**Rationale:** Original format gave an overall verdict but didn't tell
+you which specific sections needed work. Per-section breakdown makes
+critique actionable — you know exactly what to fix without re-reading
+the whole note to figure it out.
+
+### Score framing changed from gate to advisory
+**Decision:** Score ≥ 7 now "suggests readiness" rather than "means
+ready to promote." All docs and prompts updated to reflect this.
+**Rationale:** LLM scoring is inherently inconsistent. A 7 from one run
+may be a 6 from the next. Framing the score as a gate incentivizes
+gaming it rather than improving the actual thinking. You always decide
+when to promote — the score is a signal, not a blocker.
+
+### Kill command added
+**Decision:** `brain idea kill`, `brain thinking kill`, and
+`brain initiative kill` added. Moves file to local `archive/`, sets
+`status: killed` in frontmatter. No LLM call.
+**Rationale:** Ideas die, initiatives stall, things become irrelevant.
+Without an explicit kill path, dead notes accumulate guilt and clutter.
+Archive preserves them for reference without keeping them in active view.
+
+### last-edited added to context block template
+**Decision:** Context block frontmatter now includes `last-edited: YYYY-MM-DD`.
+No automated audit command — just a visible field.
+**Rationale:** Context blocks (OKRs, schemas, team structures) go stale.
+A visible last-edited date lets you notice when something hasn't been
+touched in months and decide whether it's still authoritative. Kept
+simple — no new commands, no automated flagging.
+
+### Shell Commands plugin adopted for Obsidian → brain.py integration
+**Decision:** Shell Commands plugin replaces manual terminal entry for
+brain.py operations. Commands pass `{{file_path}}` of current note.
+**Rationale:** Retyping full file paths in terminal every time is friction.
+Shell Commands lets you run any brain.py command against the current note
+from Obsidian's command palette or a hotkey. Output shown in notification.
