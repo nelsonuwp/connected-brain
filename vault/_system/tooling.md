@@ -1,0 +1,285 @@
+# Connected Brain — Tooling
+
+## brain.py
+
+The CLI that runs all LLM operations against vault notes. Lives in
+`projects/llm-bridge/`. All paths are vault-relative unless prefixed
+with `vault/` (repo-relative also accepted).
+
+### Installation & Setup
+
+```bash
+cd ~/connected-brain/projects/llm-bridge
+pip install -r requirements.txt
+cp .env.example .env
+# Add OPENROUTER_API_KEY to .env
+```
+
+### Model Tiers
+
+| Alias | Model | Used for |
+|---|---|---|
+| `reasoning` | claude-opus-4-5 | Promote operations (high stakes transforms) |
+| `workhorse` | claude-sonnet-4-5 | Explore and critique (quality + speed) |
+| `nano` | claude-haiku-4-5 | Context describe (fast, cheap) |
+
+Model and temperature are set per-prompt in frontmatter. Override with
+`--temperature` flag if needed.
+
+---
+
+### Command Reference
+
+#### `brain idea`
+
+Operates on notes in `01-inbox/`.
+
+```bash
+# Expand the why — surfaces 3 directions, tells you when to stop
+brain idea explore 01-inbox/2026-02-22-my-idea.md
+brain idea explore 01-inbox/2026-02-22-my-idea.md --context 20-context/business/osom-model.md
+
+# Score and audit — 0-10, what's strong, what to fix
+brain idea critique 01-inbox/2026-02-22-my-idea.md
+
+# Transform idea → thinking note, archive original
+brain idea promote 01-inbox/2026-02-22-my-idea.md
+```
+
+**promote behavior:** LLM reads the full idea note (including all
+`# Explore` and `# Critique` sections), generates a structured thinking
+note with sections populated from the idea content, writes to
+`10-thinking/{filename}`, moves original to `01-inbox/archive/{filename}`.
+
+---
+
+#### `brain thinking`
+
+Operates on notes in `10-thinking/`.
+
+```bash
+# Expand the how — surfaces 3 approaches, tradeoffs, who can help
+brain thinking explore 10-thinking/2026-02-22-my-idea.md
+brain thinking explore 10-thinking/2026-02-22-my-idea.md --context 20-context/business/osom-model.md
+
+# Score and audit — 0-10, what's solid, what needs more thinking
+brain thinking critique 10-thinking/2026-02-22-my-idea.md
+
+# Transform thinking → initiative spec, archive original
+brain thinking promote 10-thinking/2026-02-22-my-idea.md
+```
+
+**promote behavior:** LLM reads the full thinking note (including all
+accumulated `# Explore` and `# Critique` sections), synthesizes everything
+into a clean executable initiative spec, writes to
+`30-initiatives/drafting/{filename}`, moves original to
+`10-thinking/archive/{filename}`.
+
+---
+
+#### `brain initiative`
+
+Operates on notes in `30-initiatives/drafting/`.
+
+```bash
+# Explore implementation paths — surfaces 3 paths, sequencing, dependencies
+brain initiative explore 30-initiatives/drafting/2026-02-22-my-idea.md
+
+# Score and audit — 0-10, is it executable, are success criteria testable
+brain initiative critique 30-initiatives/drafting/2026-02-22-my-idea.md
+
+# Move from drafting/ to active/ — file move only, no LLM
+brain initiative promote 30-initiatives/drafting/2026-02-22-my-idea.md
+```
+
+**promote behavior:** Moves file from `30-initiatives/drafting/` to
+`30-initiatives/active/`. No LLM call. No content change. This is a
+status change, not a transformation.
+
+---
+
+#### `brain context`
+
+Operates on notes in `20-context/`. Generates a summary of the context
+block and appends it to the file.
+
+```bash
+brain context 20-context/business/osom-model.md
+```
+
+Useful after writing or updating a context block — the summary tells you
+what the block covers and when to inject it.
+
+---
+
+### Flags Available on All Commands
+
+| Flag | What it does |
+|---|---|
+| `--context path` | Inject a context block into the user message. Repeatable. |
+| `--dry-run` | Print the exact JSON payload that would be sent. Nothing is called or written. |
+| `--temperature 0.7` | Override the temperature set in the prompt frontmatter. |
+
+---
+
+### How Output Gets Written
+
+**Explore and critique** → appended to the bottom of the existing note as a
+`# Section — timestamp ET` block. The original note content is never touched.
+
+**Promote (idea and thinking)** → writes a new file to the target folder.
+Original is moved to `archive/`. Atomic write via temp file + `os.replace()`.
+
+**Promote (initiative)** → moves file between folders. No write operation.
+
+**Context** → appended to the context block file itself.
+
+---
+
+### Path Formats Accepted
+
+```bash
+# Vault-relative (preferred)
+brain idea critique 01-inbox/2026-02-22-my-idea.md
+
+# Repo-relative (also works)
+brain idea critique vault/01-inbox/2026-02-22-my-idea.md
+```
+
+---
+
+## Prompt Files
+
+All prompts live in `vault/_prompts/`. Named exactly as brain.py expects.
+
+### Prompts Used by brain.py
+
+| File | Used by | Model |
+|---|---|---|
+| `explore-idea.md` | `brain idea explore` | reasoning |
+| `explore-thinking.md` | `brain thinking explore` | reasoning |
+| `explore-initiative.md` | `brain initiative explore` | reasoning |
+| `critique-idea.md` | `brain idea critique` | workhorse |
+| `critique-thinking.md` | `brain thinking critique` | workhorse |
+| `critique-initiative.md` | `brain initiative critique` | workhorse |
+| `promote-idea-to-thinking.md` | `brain idea promote` | reasoning |
+| `promote-thinking-to-initiative.md` | `brain thinking promote` | reasoning |
+| `describe-context.md` | `brain context` | nano |
+
+### Manual-Use Prompts (Not Called by brain.py)
+
+These are pasted directly into a Claude or other LLM session. They follow
+the same frontmatter format as brain.py prompts so model and temperature
+intent is documented, but brain.py never reads them.
+
+| File | When to use |
+|---|---|
+| `one-on-one-prep.md` | Before a 1:1 — paste with person note content |
+| `re-anchor-prompt.md` | End of any long session — paste to generate re-anchor |
+| `meeting-summary.md` | After a meeting — paste with raw notes |
+
+### Prompt Frontmatter Format
+
+Every prompt file (including manual-use) starts with:
+
+```yaml
+---
+model: reasoning | workhorse | nano
+temperature: reasoning | workhorse | nano
+---
+```
+
+This documents intent even for manual-use prompts. For brain.py prompts,
+these values drive model and temperature selection automatically.
+
+---
+
+## Obsidian Hotkeys
+
+| Hotkey | Action |
+|---|---|
+| `Cmd+Shift+I` | Inbox capture — QuickAdd 3-field idea form |
+| `Cmd+Shift+M` | Promote to thinking — QuickAdd macro |
+| `Cmd+Shift+E` | Insert template into current note |
+| `Cmd+Shift+V` | Move current file to another folder |
+| `Cmd+Shift+D` | Open today's daily note |
+| `Cmd+Shift+K` | Open this week's weekly note |
+| `Cmd+O` | Quick switcher |
+| `Cmd+Shift+P` | Command palette |
+
+---
+
+## QuickAdd Macros
+
+### Inbox Capture (`Cmd+Shift+I`)
+Type: Capture
+Creates a dated note in `01-inbox/` with three fields in a single modal:
+- Idea title (used in filename and note heading)
+- What is it?
+- Why now?
+
+File format: `01-inbox/{{DATE:YYYY-MM-DD}}-{{VALUE:Idea title}}`
+One-page input: Always
+
+### Promote to Thinking (`Cmd+Shift+M`)
+Type: Template
+Creates a dated note in `10-thinking/` using the `thinking-note` template.
+Use this when you want to start a thinking note fresh from a title rather
+than promoting an existing idea note via brain.py.
+
+File format: `10-thinking/{{DATE:YYYY-MM-DD}}-{{VALUE:Note title}}`
+
+---
+
+## Templater Folder Mappings
+
+| Folder | Template applied on new file creation |
+|---|---|
+| `00-daily/` | `_templates/daily-briefing` |
+| `10-thinking/` | `_templates/thinking-note` |
+| `30-initiatives/` | `_templates/initiative-spec` |
+| `40-people/` | `_templates/person-note` |
+| `90-meeting-notes/` | `_templates/meeting-note` |
+
+Note: template auto-applies only on file **creation**, not on file **move**.
+Use `Cmd+Shift+E` to insert a template into an existing note after moving it.
+
+---
+
+## Dataview Dashboard
+
+The daily note (`00-daily/YYYY-MM-DD.md`) contains a Dataview query that
+surfaces active initiatives:
+
+```dataview
+TABLE owner, file.mtime as "Last Updated"
+FROM "30-initiatives/active"
+SORT file.mtime DESC
+```
+
+Frontmatter fields required on initiative specs:
+- `type: initiative`
+- `owner: "[[Person Name]]"`
+
+Status is implicit from folder location — files in `active/` are active,
+no separate status field needed.
+
+---
+
+## Git
+
+Repository: `github.com/nelsonuwp/connected-brain`
+
+```bash
+# Manual commit after significant work
+cd ~/connected-brain
+git add -A
+git commit -m "brief description"
+git push
+```
+
+Obsidian Git plugin auto-pulls on boot. Auto-push is not enabled — commit
+manually so you control what goes up.
+
+**Never commit:** `.env` files (contain API keys). These are in `.gitignore`.
+Always commit: `.env.example` files (no real values).
