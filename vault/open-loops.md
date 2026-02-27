@@ -113,3 +113,7 @@ This actually solves several problems you've already identified:
 The one thing this requires that doesn't exist yet is **Lacie's team having enough customer visibility to actually own that relationship** — which is exactly what Jorge's Operational Intelligence function is supposed to provide. A unified customer view, ticket health by customer, service consumption, margin per customer. That's not a nice-to-have in this model — it's load-bearing.
 
 So the org structure question resolves to: does Lacie's mandate extend from PS project delivery to ongoing customer relationship ownership across all services? Because if it does, you have your answer. And it fits cleanly within the service network as defined.
+
+# Updates to Report
+- last touch
+- account rep
