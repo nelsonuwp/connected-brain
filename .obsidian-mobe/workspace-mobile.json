@@ -181,6 +181,13 @@
   },
   "active": "de7ef24c9f95b963",
   "lastOpenFiles": [
+    "vault/00-daily/2026-02-25.md",
+    "/vault/00-daily/2026-02-25.md",
+    "/vault/00-daily/2026-02-24.md",
+    "/vault/00-daily",
+    "/vault/2026-02-25.md",
+    "vault/2026-02-25.md",
+    "/vault",
     "vault/50-services/hosting.md",
     "vault/50-services/data.md",
     "vault/50-services/data-center-operations.md",
@@ -203,19 +210,12 @@
     "/vault/50-services/managed-cloud.md",
     "/vault/50-services/hybrid-solution-architecture.md",
     "/vault/50-services/hybrid-service-delivery-management.md",
-    "/vault/50-services/hosting.md",
-    "/vault/50-services/data.md",
-    "/vault/50-services/data-center-operations.md",
     "/vault/50-services",
-    "/vault/30-initiatives/2026-02-23 Service Guides Updates (Intermediate).md",
-    "/vault/30-initiatives/2026-02-22-llm-bridge.md",
     "/vault/20-context/business",
     "/vault/20-context",
-    "/vault/00-daily",
     "/scratchpad.txt",
     "/projects/llm-bridge/brain.py",
     "/projects/llm-bridge",
-    "/projects",
-    "vault/10-thinking/archive"
+    "/projects"
   ]
 }
