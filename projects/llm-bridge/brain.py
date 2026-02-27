@@ -266,6 +266,33 @@ def load_prompt(name: str) -> dict:
     return {"content": content, "model": model_alias, "temperature": temperature_val}
 
 
+def _set_killed_frontmatter(content: str) -> str:
+    """
+    Set status: killed in frontmatter. If no frontmatter, prepend minimal ---\\nstatus: killed\\n---\\n\\n.
+    Uses same --- delimiters and PyYAML as load_prompt. Returns full file content to write.
+    """
+    raw = content
+    if raw.strip().startswith("---"):
+        rest = raw.lstrip()
+        if rest.startswith("---"):
+            rest = rest[3:].lstrip("\n")
+            idx = rest.find("\n---")
+            if idx >= 0:
+                frontmatter_block = rest[:idx].strip()
+                body = rest[idx + 4 :].lstrip("\n")
+                if frontmatter_block:
+                    try:
+                        fm = yaml.safe_load(frontmatter_block)
+                        if isinstance(fm, dict):
+                            fm["status"] = "killed"
+                            dumped = yaml.dump(fm, default_flow_style=False)
+                            return "---\n" + dumped.strip() + "\n---\n\n" + body
+                    except yaml.YAMLError:
+                        pass
+                return "---\nstatus: killed\n---\n\n" + (body or "")
+    return "---\nstatus: killed\n---\n\n" + raw
+
+
 def resolve_model_and_temp(
     prompt: dict,
     cli_temperature: float | None,
@@ -436,6 +463,21 @@ def idea_promote(
     console.print(f"Promoted → {dest} (original archived to {archive_path})")
 
 
+@idea_app.command("kill")
+def idea_kill(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Move idea to archive and mark as killed. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_killed_frontmatter(content)
+    write_new_file(vault_rel, new_content)
+    filename = Path(vault_rel).name
+    archive_file(vault_rel, filename)
+    archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
+    console.print(f"Killed → {archive_path}")
+
+
 # ---------------------------------------------------------------------------
 # Thinking
 # ---------------------------------------------------------------------------
@@ -589,6 +631,21 @@ def thinking_promote(
     console.print(f"Promoted → {dest} (original archived to {archive_path})")
 
 
+@thinking_app.command("kill")
+def thinking_kill(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Move thinking note to archive and mark as killed. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_killed_frontmatter(content)
+    write_new_file(vault_rel, new_content)
+    filename = Path(vault_rel).name
+    archive_file(vault_rel, filename)
+    archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
+    console.print(f"Killed → {archive_path}")
+
+
 # ---------------------------------------------------------------------------
 # Initiative
 # ---------------------------------------------------------------------------
@@ -684,6 +741,21 @@ def initiative_normalize(
     write_new_file(vault_rel, new_content)
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Normalized {vault_rel}")
+
+
+@initiative_app.command("kill")
+def initiative_kill(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Move initiative spec to archive and mark as killed. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_killed_frontmatter(content)
+    write_new_file(vault_rel, new_content)
+    filename = Path(vault_rel).name
+    archive_file(vault_rel, filename)
+    archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
+    console.print(f"Killed → {archive_path}")
 
 
 # ---------------------------------------------------------------------------
