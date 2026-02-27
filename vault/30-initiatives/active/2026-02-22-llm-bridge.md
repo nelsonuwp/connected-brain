@@ -1,10 +1,10 @@
 ---
-type: initiative
-status: drafting
-owner:
-jira-epic:
 created: 2026-02-22
+jira-epic: null
 last-updated: 2026-02-23
+owner: null
+status: active
+type: initiative
 ---
 
 # LLM Bridge (Project: Brain)
@@ -268,7 +268,7 @@ load_dotenv(Path(__file__).parent / ".env", override=True)         # child — p
 
 | Date | Mode | Context Used | Output | Where |
 |------|------|-------------|--------|-------|
-| 2026-02-22 | Think | none | Clarified scope, resolved 5 key questions | [[10-thinking/2026-02-22-llm-bridge]] |
+| 2026-02-22 | Think | none | Clarified scope, resolved 5 key questions | [[10-thinking/archive/2026-02-22-llm-bridge]] |
 | 2026-02-22 | Specify | none | Full work breakdown, resolved open questions | [[30-initiatives/2026-02-22-llm-bridge]] |
 | 2026-02-23 | Refine | CLI conventions | Integrated Typer subcommand architecture, renamed to brain.py | [[30-initiatives/2026-02-22-llm-bridge]] |
 | 2026-02-23 | Refine | Session re-anchor | .env hierarchy, dry-run, promote as file op, full command table, Python owns promotion | [[30-initiatives/2026-02-22-llm-bridge]] |

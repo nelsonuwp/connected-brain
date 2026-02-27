@@ -266,9 +266,9 @@ def load_prompt(name: str) -> dict:
     return {"content": content, "model": model_alias, "temperature": temperature_val}
 
 
-def _set_killed_frontmatter(content: str) -> str:
+def _set_frontmatter_status(content: str, status: str) -> str:
     """
-    Set status: killed in frontmatter. If no frontmatter, prepend minimal ---\\nstatus: killed\\n---\\n\\n.
+    Set status in frontmatter (add or overwrite). If no frontmatter, prepend minimal ---\\nstatus: {status}\\n---\\n\\n.
     Uses same --- delimiters and PyYAML as load_prompt. Returns full file content to write.
     """
     raw = content
@@ -284,13 +284,18 @@ def _set_killed_frontmatter(content: str) -> str:
                     try:
                         fm = yaml.safe_load(frontmatter_block)
                         if isinstance(fm, dict):
-                            fm["status"] = "killed"
+                            fm["status"] = status
                             dumped = yaml.dump(fm, default_flow_style=False)
                             return "---\n" + dumped.strip() + "\n---\n\n" + body
                     except yaml.YAMLError:
                         pass
-                return "---\nstatus: killed\n---\n\n" + (body or "")
-    return "---\nstatus: killed\n---\n\n" + raw
+                return f"---\nstatus: {status}\n---\n\n" + (body or "")
+    return f"---\nstatus: {status}\n---\n\n" + raw
+
+
+def _set_killed_frontmatter(content: str) -> str:
+    """Set status: killed in frontmatter. Delegates to _set_frontmatter_status."""
+    return _set_frontmatter_status(content, "killed")
 
 
 def resolve_model_and_temp(
@@ -624,7 +629,7 @@ def thinking_promote(
         raise typer.Exit(1)
     filename = Path(vault_rel).name
     archive_file(vault_rel, filename)
-    dest = f"30-initiatives/{filename}"
+    dest = f"30-initiatives/drafting/{filename}"
     write_new_file(dest, result["content"])
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
@@ -741,6 +746,25 @@ def initiative_normalize(
     write_new_file(vault_rel, new_content)
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Normalized {vault_rel}")
+
+
+@initiative_app.command("promote")
+def initiative_promote(
+    file: str = typer.Argument(..., help="Path: vault-relative (30-initiatives/drafting/foo.md) or repo-relative"),
+) -> None:
+    """Move file from drafting/ to active/, set status: active in frontmatter. No LLM call."""
+    full_path, vault_rel = resolve_under_vault(file)
+    path = Path(vault_rel)
+    # Dest: drafting/x.md -> active/x.md; or 30-initiatives/x.md -> 30-initiatives/active/x.md
+    if path.parent.name == "drafting":
+        dest_vault_rel = path.parent.parent / "active" / path.name
+    else:
+        dest_vault_rel = path.parent / "active" / path.name
+    content = full_path.read_text(encoding="utf-8")
+    new_content = _set_frontmatter_status(content, "active")
+    write_new_file(str(dest_vault_rel), new_content)
+    full_path.unlink()
+    console.print(f"Promoted → {dest_vault_rel}")
 
 
 @initiative_app.command("kill")
