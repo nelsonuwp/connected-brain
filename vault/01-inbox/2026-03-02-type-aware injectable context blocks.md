@@ -9,14 +9,20 @@ status: raw
 ## The Idea
 Add a type field (code | business | content) to note frontmatter across idea, thinking, task, and initiative. brain.py reads this field and auto-injects the matching context block from 20-context/types/ on every command. For v1, type affects system context only. Output structure and command availability are out of scope.
 
+## What is it 
+Today, type-specific criteria (security, maintainability, narrative flow) have to be manually added via --context flags or are missing entirely. A code task gets critiqued the same as a content piece. Add a type field (code | business | content) to note frontmatter so brain.py auto-injects the matching context block from 20-context/types/ on every command. For v1, type affects system context only.
+
 ## Why Now
 Tasks are being added to the pipeline and they need type-aware explore and critique behavior. Without it, a task to refactor auth logic gets critiqued the same way as a content piece — generic output that misses the real criteria. Rather than duplicate type logic into every prompt file, one injectable block per type works across the whole pipeline. Tasks don't exist yet, so now is the right time to design this before the prompts are written.
 
 ## Proposed Design
-- Type lives in frontmatter (not inferred from folder or content)
-- Three types for v1: code, business, content — coarse is fine, hierarchy if needed later
-- Injection not substitution — simpler to implement, sufficient for v1
-- Type × command matrix is out of scope — type block is static per note, not command-dependent
+- Type lives in frontmatter — explicit and portable. Folder inference breaks when a project mixes types. Content analysis is fragile. Frontmatter wins.
+- Three types for v1: code, business, content — maps to the three kinds of work in the pipeline: technical implementation, strategic decisions, written output. Finer splits wait until there's evidence they're needed.
+- Injection not substitution — simpler to implement, sufficient because type blocks are static and don't need per-command variation
+- Type × command matrix is out of scope — type block is static per note. If tasks prove this wrong, revisit.
+- Code thinking vs code task using same block: acceptable for v1. If tasks get too much exploratory framing in practice, split the blocks then.
+- Audience and constraint layering is out of scope — separate idea, worth noting if type alone proves insufficient
+- Type affects system context only. Output structure and command availability are separate ideas.
 - Risk: type blocks get stale and auto-injection becomes auto-pollution. Mitigation: keep blocks under 200 tokens, review quarterly
 - Blocker: brain.py doesn't currently support dynamic context loading. Estimate 2–4 hours to implement
 
