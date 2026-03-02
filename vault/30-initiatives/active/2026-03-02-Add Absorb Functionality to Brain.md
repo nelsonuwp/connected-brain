@@ -1,7 +1,8 @@
 ---
+status: active
 type: initiative
-status: drafting
 ---
+
 ## One-Line Purpose
 Enable low-friction, traceable consolidation of overlapping notes into a single root note, with sources automatically archived.
 
