@@ -816,17 +816,20 @@ def absorb_cmd(
 ) -> None:
     """Consolidate source notes into root: append ## Absorbed sections (Key Points + Raw Context), then archive sources."""
     _, root_vault_rel = resolve_under_vault(root_path)
+    if not sources:
+        console.print("[red]No source notes provided.[/red]")
+        raise typer.Exit(1)
     root_content = read_file(root_path)
     root_stem = Path(root_vault_rel).stem
     source_infos = []
     for s in sources:
-        _, vault_rel = resolve_under_vault(s)
-        source_content = read_file(s)
+        full, vault_rel = resolve_under_vault(s)
+        source_content = full.read_text(encoding="utf-8")
         source_infos.append((vault_rel, source_content))
     for vault_rel, _ in source_infos:
         source_stem = Path(vault_rel).stem
         if f"## Absorbed — [[{source_stem}]]" in root_content:
-            console.print(f"[yellow]WARNING: source already appears absorbed[/yellow]: {vault_rel}")
+            console.print(f"[yellow]WARNING: source already appears absorbed — {vault_rel}[/yellow]")
     prompt = load_prompt("summarize-absorbed.md")
     model_string, temp = resolve_model_and_temp(prompt, None)
     blocks = []
