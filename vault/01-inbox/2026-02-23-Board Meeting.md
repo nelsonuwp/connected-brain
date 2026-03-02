@@ -14,5 +14,7 @@ CSAT
 Products - Lot of churn that's hosting, why? is it a product problem, delivery product, or what?
 Kind of product related - sellers don't have pre-packaged offerings that they can just go and sell to the customers...everything is highly customized. 
 
+Dave wants to have a workshop, not just the board meeting. 
+
 
 ## Why Now
