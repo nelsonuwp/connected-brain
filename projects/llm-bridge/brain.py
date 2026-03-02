@@ -315,6 +315,11 @@ def _set_killed_frontmatter(content: str) -> str:
     return _set_frontmatter_status(content, "killed")
 
 
+def _set_absorbed_frontmatter(content: str, root_stem: str) -> str:
+    """Set status: absorbed to [[root_stem]] in frontmatter. For source notes after absorb."""
+    return _set_frontmatter_status(content, f"absorbed to [[{root_stem}]]")
+
+
 def resolve_model_and_temp(
     prompt: dict,
     cli_temperature: float | None,
@@ -822,18 +827,42 @@ def absorb_cmd(
         source_stem = Path(vault_rel).stem
         if f"## Absorbed — [[{source_stem}]]" in root_content:
             console.print(f"[yellow]WARNING: source already appears absorbed[/yellow]: {vault_rel}")
+    prompt = load_prompt("summarize-absorbed.md")
+    model_string, temp = resolve_model_and_temp(prompt, None)
     blocks = []
     for vault_rel, source_content in source_infos:
         source_stem = Path(vault_rel).stem
+        user_message = f"[NOTE: {vault_rel}]\n{source_content}"
+        messages = [
+            {"role": "system", "content": prompt["content"]},
+            {"role": "user", "content": user_message},
+        ]
+        result = ai_call(model_string, temp, messages)
+        if result is None:
+            key_points_block = "[WARNING: LLM failed, Key Points skipped]"
+        else:
+            key_points_block = result["content"].strip()
+            console.print(
+                f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}"
+            )
         block = (
             f"## Absorbed — [[{source_stem}]]\n\n"
-            "### Key Points\n\n[PLACEHOLDER]\n\n"
+            "### Key Points\n\n"
+            f"{key_points_block}\n\n"
             "### Raw Context\n\n"
             f"{source_content}"
         )
         blocks.append(block)
     if blocks:
         append_raw_to_file(root_vault_rel, "\n\n" + "\n\n".join(blocks))
+    for vault_rel, source_content in source_infos:
+        try:
+            new_content = _set_absorbed_frontmatter(source_content, root_stem)
+            write_new_file(vault_rel, new_content)
+            archive_file(vault_rel, Path(vault_rel).name)
+        except Exception as e:
+            console.print(f"[red]Archive failed for {vault_rel}: {e}[/red]")
+            raise typer.Exit(1)
     console.print(f"Absorbed {len(blocks)} source(s) into {root_vault_rel}")
 
 
