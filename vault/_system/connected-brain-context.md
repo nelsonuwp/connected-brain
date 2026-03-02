@@ -117,20 +117,21 @@ At each stage the loop is:
 
 **Commands:**
 
-- **Idea** (notes in `01-inbox/`): `brain idea explore | critique | promote | kill <path>`
-- **Thinking** (notes in `10-thinking/`): `brain thinking explore | critique | promote | kill <path>`
-- **Initiative** (notes in `30-initiatives/drafting/`): `brain initiative explore | critique | promote | kill <path>` — promote is file move only (drafting → active).
+- **Idea** (notes in `01-inbox/`): `brain idea explore | critique | normalize | promote | kill <path>`
+- **Thinking** (notes in `10-thinking/`): `brain thinking explore | critique | spec | normalize | promote | kill <path>`
+- **Initiative** (notes in `30-initiatives/drafting/`): `brain initiative explore | critique | normalize | promote | kill <path>` — promote is file move only (drafting → active).
 - **Context** (notes in `20-context/`): `brain context <path>` — generates summary and appends to file.
+- **Absorb** (any paths): `brain absorb <root> <source1> [source2...]` — consolidates source notes into root, appends Key Points + Raw Context, archives sources.
 
 **Flags:** `--context path` (repeatable) to inject context blocks; `--dry-run` to print payload without calling or writing; `--temperature` to override.
 
-**Output behavior:** Explore and critique append a timestamped block to the bottom of the note; promote (idea/thinking) writes a new file and archives the original; initiative promote only moves the file; context appends to the context file.
+**Output behavior:** Explore and critique append a timestamped block to the bottom of the note; promote (idea/thinking) writes `status: promoted` to the original and archives it, then writes the new file; initiative promote only moves the file; context appends to the context file; absorb appends ## Absorbed sections to root and archives each source with `status: absorbed to [[root_stem]]`.
 
 ---
 
 ## 7. Prompts and Context Blocks
 
-**Prompts:** In `vault/_prompts/`. Names match what brain.py expects (e.g. `explore-idea.md`, `critique-thinking.md`, `promote-idea-to-thinking.md`). Each has frontmatter: `model`, `temperature`. Manual-use prompts (e.g. meeting-summary, one-on-one-prep, re-anchor-prompt) are pasted into an LLM session, not run by brain.py.
+**Prompts:** In `vault/_prompts/`. Names match what brain.py expects (e.g. `explore.md`, `critique-thinking.md`, `promote-idea-to-thinking.md`, `summarize-absorbed.md` for absorb). Each has frontmatter: `model`, `temperature`. Manual-use prompts (e.g. meeting-summary, one-on-one-prep, re-anchor-prompt) are pasted into an LLM session, not run by brain.py.
 
 **Context blocks:** Notes in `20-context/` (and subfolders) are self-contained reference docs. Inject with `--context 20-context/...` on any brain command. Write once, inject instead of re-explaining. Run `brain context <path>` after writing/updating to get a summary appended.
 
@@ -153,8 +154,9 @@ At each stage the loop is:
 | Thinking | `brain thinking explore` | `brain thinking critique` | `brain thinking promote` | `brain thinking kill` |
 | Initiative (drafting) | `brain initiative explore` | `brain initiative critique` | `brain initiative promote` | `brain initiative kill` |
 | Context | — | — | `brain context` | — |
+| Absorb | — | — | `brain absorb <root> <source...>` | — |
 
-All paths vault-relative; `--dry-run` and `--context` available on all.
+All paths vault-relative; `--dry-run` and `--context` available on all (absorb takes root then one or more sources).
 
 ---
 

@@ -49,7 +49,8 @@ Current templates: `idea`, `thinking-note`, `initiative-spec`, `daily-briefing`,
 `delegation-brief`, `re-anchor`
 
 ### `_prompts/`
-LLM prompt files consumed by brain.py. Named exactly as brain.py expects them.
+LLM prompt files consumed by brain.py. Named exactly as brain.py expects them
+(e.g. `explore.md`, `critique-thinking.md`, `summarize-absorbed.md` for absorb).
 Do not rename without updating brain.py. Manual-use prompts (not called by
 brain.py) also live here but are documented as manual-use in `tooling.md`.
 

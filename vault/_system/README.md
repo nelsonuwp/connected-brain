@@ -60,8 +60,8 @@ explore → critique → fix → explore → critique → fix → promote
 ## The Tools
 
 - **Obsidian** — where everything lives. Notes, context, templates.
-- **brain.py** — CLI that runs LLM operations against vault notes.
-  You never copy-paste into a browser tab.
+- **brain.py** — CLI that runs LLM operations against vault notes
+  (idea, thinking, initiative, context, absorb). You never copy-paste into a browser tab.
 - **OpenRouter** — LLM provider. Three model tiers: reasoning, workhorse, nano.
 - **Cursor** — where code gets built. Initiative specs feed directly into
   Cursor Composer sessions.

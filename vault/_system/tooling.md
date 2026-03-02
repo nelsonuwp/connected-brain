@@ -185,6 +185,14 @@ Preserved for reference but gone from active folders.
 | `--dry-run` | Print the exact JSON payload that would be sent. Nothing is called or written. |
 | `--temperature 0.7` | Override the temperature set in the prompt frontmatter. |
 
+### Console output (dimmed)
+
+Diagnostic lines help confirm what ran: each context file loaded shows
+"Context loaded: path (N chars)"; before every LLM call, model, temperature,
+and prompt name are printed; for absorb, "Summarizing path (1/N)...",
+per-source token lines, "Tokens total: prompt=..., completion=..., total=...",
+and "Appended N block(s) to path".
+
 ---
 
 ### How Output Gets Written
@@ -223,14 +231,15 @@ All prompts live in `vault/_prompts/`. Named exactly as brain.py expects.
 
 | File | Used by | Model |
 |---|---|---|
-| `explore-idea.md` | `brain idea explore` | reasoning |
-| `explore-thinking.md` | `brain thinking explore` | reasoning |
-| `explore-initiative.md` | `brain initiative explore` | reasoning |
 | `critique-idea.md` | `brain idea critique` | workhorse |
 | `critique-thinking.md` | `brain thinking critique` | workhorse |
 | `critique-initiative.md` | `brain initiative critique` | workhorse |
+| `explore.md` | `brain idea explore`, `brain thinking explore`, `brain initiative explore` | reasoning |
+| `normalize.md` | `brain idea normalize`, `brain thinking normalize`, `brain initiative normalize` | workhorse |
 | `promote-idea-to-thinking.md` | `brain idea promote` | reasoning |
 | `promote-thinking-to-initiative.md` | `brain thinking promote` | reasoning |
+| `specify-mode.md` | `brain thinking spec` | reasoning |
+| `summarize-absorbed.md` | `brain absorb` | workhorse |
 | `describe-context.md` | `brain context` | nano |
 
 ### Manual-Use Prompts (Not Called by brain.py)
