@@ -3,7 +3,7 @@ type: thinking
 status: raw
 ---
 
-# Add Merge Functionality to Brain
+# Add Absorb Functionality to Brain
 
 ## The Idea
 Introduce an "Absorb" operation as a first-class primitive in the Brain system, allowing a root note to directionally consume one or more source notes by incorporating their content under a structured section while archiving the sources with backlinks to the root.
