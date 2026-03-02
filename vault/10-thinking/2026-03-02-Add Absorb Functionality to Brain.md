@@ -119,3 +119,48 @@ Absorb provides a **repeatable, low-friction way to consolidate** while preservi
 - Lack of constraints may lead to **messy or non-obvious lineage**
     
 - Archived notes may accumulate without a clear retrieval pattern
+
+---
+
+# Critique — 2026-03-02 09:26 ET
+
+## Score: 7/10
+Rework suggested — approach is clear, but assumptions need testing and risks lack mitigation strategy.
+
+## Section Breakdown
+
+### The Idea
+**Strong:** The operation is clearly defined with specific mechanics (status update, archive location, section structure).
+**Weak:** "Absorb can be performed across any stages, with no restrictions" is stated but not justified. Why is this unrestricted? What problem does cross-stage absorption solve that same-stage doesn't?
+**Fix:** Add one sentence explaining why cross-stage absorption is necessary (e.g., "A raw idea may need to be absorbed into a spec when it becomes implementation detail" or similar concrete scenario).
+
+### Why This Matters
+**Strong:** Problem statement is concrete with specific failure modes listed.
+**Weak:** Missing: what percentage of your current notes exhibit these problems? Is this solving a real pain point or a hypothetical one?
+**Fix:** Add one line quantifying the problem: "Currently X% of notes in [stage] are duplicates/fragments" or "I encounter this friction N times per week when working on [type of work]."
+
+### What I Know
+**Strong:** Mechanics are exhaustively specified. The "single, consistent section" detail shows you've thought through implementation.
+**Weak:** "Multiple absorbs of the same note are allowed (no enforcement or blocking)" — this is stated as known but contradicts the "directional operation" framing. If a source is archived after first absorb, how does second absorb work?
+**Fix:** Clarify: does "multiple absorbs" mean (a) same source → multiple roots, or (b) re-absorbing an already-archived note? If (b), explain the mechanics of absorbing from archive.
+
+### What I Don't Know
+**Strong:** Good list of operational uncertainties.
+**Weak:** These unknowns don't map to any proposed learning strategy. "How consistent will Key Points be" is answerable with a small test.
+**Fix:** For the top 2-3 unknowns, add: "Will test by [specific action]" or "Will learn this after [N uses/weeks]." Make the unknowns actionable.
+
+### Assumptions I'm Making
+**Strong:** "Simplicity is more valuable than correctness in edge cases" is a clear design bet.
+**Weak:** "I will manually decide what to absorb" assumes your judgment will be consistent over time, but you've listed 5 unknowns about when to use absorb. These are in tension.
+**Fix:** Either: (a) add a heuristic you'll follow (e.g., "absorb when source note hasn't been touched in 30 days"), or (b) acknowledge this assumption may not hold and you'll revisit after [N absorbs].
+
+### Risks and Constraints
+**Weak:** Every risk is stated but none have mitigation. "Root notes may become bloated" — at what size will you split them? "Overused as a shortcut" — what will stop you?
+**Fix:** For the top 3 risks, add one concrete mitigation or acceptance criterion:
+- "Will split root if absorbed section exceeds [N words/sources]"
+- "Will review absorbed notes quarterly to check for premature consolidation"
+- "Accept inconsistent summarization; will improve template after [N uses]"
+
+### Missing Section: Success Criteria
+**Weak:** No definition of what "working well" looks like.
+**Fix:** Add a section: "I'll know this is working if: (1) I stop creating duplicate notes for [topic type], (2) consolidation takes <5min per source, (3) I reference absorbed content at least [X]% of the time I open root note." Make it measurable.
