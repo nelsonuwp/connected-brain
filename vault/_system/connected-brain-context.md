@@ -62,7 +62,7 @@ At each stage the loop is:
 │   ├── 30-initiatives/       ← initiative specs
 │   │   ├── drafting/        ← specs being developed (explore/critique/fix)
 │   │   ├── active/          ← in execution (surfaced in daily dashboard)
-│   │   └── done/            ← completed (moved manually)
+│   │   └── completed/       ← completed (brain XXX complete or manual)
 │   ├── 40-people/            ← person notes, 1:1 logs
 │   ├── 50-services/         ← internal delivery units
 │   ├── 51-catalog/          ← external products/offerings
@@ -95,8 +95,8 @@ At each stage the loop is:
                     ↓  explore → critique → fix until score ≥ 7
                     ↓  brain initiative promote
 30-initiatives/active/     In execution (Jira for tasks; spec = source of truth)
-                    ↓  manual when done
-30-initiatives/done/       Completed
+                    ↓  brain initiative complete (or manual)
+30-initiatives/completed/  Completed
 ```
 
 **Killing a note:** `brain idea kill`, `brain thinking kill`, or `brain initiative kill` — moves to that folder's `archive/`, sets `status: killed`, no LLM call. Preserved, not deleted.
@@ -117,9 +117,10 @@ At each stage the loop is:
 
 **Commands:**
 
-- **Idea** (notes in `01-inbox/`): `brain idea explore | critique | normalize | promote | kill <path>`
-- **Thinking** (notes in `10-thinking/`): `brain thinking explore | critique | spec | normalize | promote | kill <path>`
-- **Initiative** (notes in `30-initiatives/drafting/`): `brain initiative explore | critique | normalize | promote | kill <path>` — promote is file move only (drafting → active).
+- **Idea** (notes in `01-inbox/`): `brain idea explore | critique | normalize | promote | complete | kill <path>`
+- **Thinking** (notes in `10-thinking/`): `brain thinking explore | critique | spec | normalize | promote | complete | kill <path>`
+- **Initiative** (notes in `30-initiatives/drafting/` or `active/`): `brain initiative explore | critique | normalize | promote | complete | kill <path>` — promote is file move only (drafting → active).
+- **Complete** (idea, thinking, initiative): sets status to complete and moves note to `30-initiatives/completed/`. No LLM call.
 - **Context** (notes in `20-context/`): `brain context <path>` — generates summary and appends to file.
 - **Absorb** (any paths): `brain absorb <root> <source1> [source2...]` — consolidates source notes into root, appends Key Points + Raw Context, archives sources.
 
@@ -148,13 +149,13 @@ At each stage the loop is:
 
 ## 9. Quick Command Reference
 
-| Stage | Explore | Critique | Promote | Kill |
-|-------|---------|----------|---------|------|
-| Idea | `brain idea explore` | `brain idea critique` | `brain idea promote` | `brain idea kill` |
-| Thinking | `brain thinking explore` | `brain thinking critique` | `brain thinking promote` | `brain thinking kill` |
-| Initiative (drafting) | `brain initiative explore` | `brain initiative critique` | `brain initiative promote` | `brain initiative kill` |
-| Context | — | — | `brain context` | — |
-| Absorb | — | — | `brain absorb <root> <source...>` | — |
+| Stage | Explore | Critique | Promote | Complete | Kill |
+|-------|---------|----------|---------|----------|------|
+| Idea | `brain idea explore` | `brain idea critique` | `brain idea promote` | `brain idea complete` | `brain idea kill` |
+| Thinking | `brain thinking explore` | `brain thinking critique` | `brain thinking promote` | `brain thinking complete` | `brain thinking kill` |
+| Initiative (drafting) | `brain initiative explore` | `brain initiative critique` | `brain initiative promote` | `brain initiative complete` | `brain initiative kill` |
+| Context | — | — | `brain context` | — | — |
+| Absorb | — | — | `brain absorb <root> <source...>` | — | — |
 
 All paths vault-relative; `--dry-run` and `--context` available on all (absorb takes root then one or more sources).
 

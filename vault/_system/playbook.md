@@ -14,8 +14,8 @@
                     ↓  explore → critique → fix (repeat until score ≥ 7)
                     ↓  brain initiative promote
   active/           In execution → tracked in Jira
-                    ↓  (manual when done)
-  done/             Completed
+                    ↓  brain initiative complete (or manual)
+  completed/        Completed
 ```
 
 ---
@@ -209,8 +209,11 @@ every Cursor session, generate a re-anchor:
 Save the output to `80-sessions/{initiative-name}/session-NNN.md`.
 
 **When done:**
-Move the file manually from `30-initiatives/active/` to
-`30-initiatives/done/`. It disappears from the dashboard.
+Use `brain initiative complete 30-initiatives/active/<file>.md` to set status
+to complete and move the note to `30-initiatives/completed/` (it disappears from
+the dashboard). From earlier stages you can use `brain idea complete` or
+`brain thinking complete` instead. Alternatively, move the file manually to
+`30-initiatives/completed/`.
 
 ---
 
@@ -300,12 +303,12 @@ Context) for each source; each source is then archived with
 
 ## Quick Reference — Commands by Stage
 
-| Stage | Explore | Critique | Promote | Kill |
-|---|---|---|---|---|
-| Idea (`01-inbox/`) | `brain idea explore` | `brain idea critique` | `brain idea promote` | `brain idea kill` |
-| Thinking (`10-thinking/`) | `brain thinking explore` | `brain thinking critique` | `brain thinking promote` | `brain thinking kill` |
-| Initiative (`drafting/`) | `brain initiative explore` | `brain initiative critique` | `brain initiative promote` | `brain initiative kill` |
-| Context (`20-context/`) | — | — | `brain context` | — |
+| Stage | Explore | Critique | Promote | Complete | Kill |
+|---|---|---|---|---|---|
+| Idea (`01-inbox/`) | `brain idea explore` | `brain idea critique` | `brain idea promote` | `brain idea complete` | `brain idea kill` |
+| Thinking (`10-thinking/`) | `brain thinking explore` | `brain thinking critique` | `brain thinking promote` | `brain thinking complete` | `brain thinking kill` |
+| Initiative (`drafting/`) | `brain initiative explore` | `brain initiative critique` | `brain initiative promote` | `brain initiative complete` | `brain initiative kill` |
+| Context (`20-context/`) | — | — | `brain context` | — | — |
 
 ## Killing a Note
 
