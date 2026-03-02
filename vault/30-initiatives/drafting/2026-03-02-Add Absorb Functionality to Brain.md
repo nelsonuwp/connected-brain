@@ -92,3 +92,78 @@ The current system breaks down when ideas overlap or evolve non-linearly across 
 - **Review Cadence:** Self will audit on 2026-03-16 by reviewing the git log for absorb operations and manually inspecting 5 random root notes. Must have at least 10 operations (tracked via git log --grep='absorb').
     
 - **Rollback Trigger:** If any absorb operation takes > 2 minutes end-to-end, or if 3+ archive links are broken (verified by manual vault check or broken link tools), disable the command and revert to manual consolidation until the UX is fixed.
+
+---
+
+# Critique — 2026-03-02 10:08 ET
+
+## Score: 7/10
+Rework suggested — execution would stall on vague acceptance criteria and missing technical detail.
+
+## Section Breakdown
+
+### One-Line Purpose
+**Strong:** Clear, specific, and captures the core mechanism (directional consolidation + archiving).
+
+### Context
+**Strong:** Explains the problem space well and justifies why this matters.
+
+### Success Looks Like
+
+**Weak:** Criterion 1 is not testable as written. "Heavily overlapping first 100 words" is subjective. "Manual review" by whom, using what rubric? This will fail in practice.
+
+**Fix:** Replace with: "Zero duplicate notes created for the same idea space over a 4-week observation period, verified by: (a) running a script that flags any two notes in 01-inbox or 10-thinking with Levenshtein distance < 20% on their first 100 words, AND (b) manual review by Self of flagged pairs using the rubric: 'duplicate = same core question or claim.' Passing threshold: ≤ 1 confirmed duplicate pair."
+
+**Weak:** Criterion 3 ("actively referenced") is vague. "Appearing in the git diff of subsequent edits" doesn't prove utility — it could be deleted, reformatted, or ignored.
+
+**Fix:** Replace with: "High utility: In a sample of 10 absorb operations, at least 7 must show evidence of use within 2 weeks, defined as: absorbed content is cited in a new note, referenced in a decision, or expanded with additional context (verified by git blame showing edits to absorbed sections beyond the initial paste)."
+
+### Constraints
+**Strong:** Directional flow, CLI signature, and structural enforcement are all specific and testable.
+
+### Open Questions
+
+**Weak:** "Summarization quality" decision trigger is subjective. "Omit critical context" — who judges? What counts as critical?
+
+**Fix:** Replace with: "If Self flags 3 out of 10 absorbs as missing critical context (defined as: a decision or constraint mentioned in Raw Context but absent from Key Points), downgrade to pasting Raw Context only."
+
+**Weak:** "Root note size limits" has no action tied to the trigger. "Manually split the note and revisit the UX" is not a decision — it's a vague intention.
+
+**Fix:** Replace with: "If any root note exceeds 500 lines after an absorb, Self will immediately split it into two notes and document the split criteria in a new spec within 48 hours."
+
+### Work Breakdown
+
+**Weak:** Step 3 ("LLM output is valid markdown, contains 3-5 bullet points") is not testable. What if it produces 2 bullets? 6 bullets? What if it's valid markdown but useless?
+
+**Fix:** Replace with: "Testable outcome: LLM output is valid markdown (passes `mdformat --check`), contains exactly 3-5 bullet points (verified by regex `^- ` count), and does not exceed 200 words (verified by `wc -w`)."
+
+**Weak:** Step 5 ("git diff shows only the expected file modifications") is vague. What are the expected modifications?
+
+**Fix:** Replace with: "Testable outcome: `git status` shows exactly 3 modified files (1 root note, 2 source notes moved to archive), and `git diff` on the root note shows exactly 2 new `## Absorbed` sections with no other changes."
+
+### Decisions Made
+**Strong:** Clear, specific, and defensible. User error tolerance is well-justified.
+
+### Delegation State
+
+**Weak:** "Full Implementation" is not a deliverable. What does "done" mean?
+
+**Fix:** Replace with: "Owns: Deliver a working `brain absorb` command that passes all 5 testable outcomes in Work Breakdown, plus end-to-end test. By When: 2026-03-07. Level: Execute."
+
+### Validation Plan
+
+**Weak:** "At least 10 operations" is arbitrary and not tied to success criteria. Why 10? What if you only need 3 absorbs in that period?
+
+**Fix:** Replace with: "Self will audit on 2026-03-16 by: (a) running the duplicate detection script from Success Criterion 1, (b) manually reviewing all absorb operations in git log, and (c) verifying that at least 7 out of 10 sampled absorbs meet the utility threshold from Success Criterion 3."
+
+**Weak:** "Broken link tools" is vague. Which tool? What counts as broken?
+
+**Fix:** Replace with: "Rollback Trigger: If any absorb operation takes > 2 minutes end-to-end (measured by `time brain absorb ...`), or if `obsidian-link-checker` (or equivalent) reports 3+ broken wikilinks in archived notes, disable the command and revert to manual consolidation."
+
+---
+
+### Missing Entirely
+
+**Error Handling:** No specification for what happens if the LLM call fails, times out, or returns malformed output. Add a testable outcome: "If LLM call fails or times out after 30s, fall back to pasting Raw Context only and log a warning."
+
+**Idempotency:** What happens if you run `brain absorb` twice on the same source? Does it append twice? Fail? Add a decision or constraint.
