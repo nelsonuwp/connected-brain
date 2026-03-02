@@ -2,141 +2,160 @@
 type: initiative
 status: drafting
 ---
-
-# Add Absorb Functionality to Brain
-
 ## One-Line Purpose
-Enable directional consolidation of source notes into a root note while preserving traceability and archiving sources.
+
+Enable directional, programmatic consolidation of source notes into a root note while preserving traceability and automatically archiving sources.
 
 ## Context
-The current system breaks down when ideas overlap or evolve non-linearly across stages. Related ideas emerge at different times, useful context gets stranded in earlier notes, and manual consolidation is inconsistent and loses traceability. This consolidation problem occurs multiple times per week when moving from idea → thinking or enriching existing notes. Absorb provides a repeatable, low-friction mechanism to consolidate while preserving where ideas came from.
+
+The current system breaks down when ideas overlap or evolve non-linearly across stages. Related ideas emerge at different times, useful context gets stranded in earlier notes, and manual consolidation is inconsistent and loses traceability. Because manual copy-pasting breaks workflow and is highly annoying, the effort is often abandoned, leaving fragmented idea spaces. Absorb provides a repeatable, low-friction CLI mechanism to consolidate while enforcing programmatic flow and preserving exactly where ideas came from.
 
 ## Success Looks Like
-1. Duplicate or overlapping notes for the same idea space stop being created
-2. Consolidation takes less than 5 minutes per source note
-3. Absorbed content is regularly relied upon when revisiting root notes
-4. Reduced friction when combining ideas across stages
+
+1. **Zero duplicate notes** created for the same idea space over a 4-week observation period (measured by manual audit of the vault).
+    
+2. **Instant execution:** The absorb operation completes programmatically in < 1 minute per source note (compared to the manual copy-paste baseline which is annoying enough to cause 30%+ abandonment).
+    
+3. **High utility:** Absorbed sections are referenced in at least 3 subsequent edits to root notes within 2 weeks of being absorbed.
+    
+4. **Zero hesitation:** The decision to consolidate vs. link drops to zero hesitation over a 2-week period (tracked via mental check/decision log).
+    
 
 ## Constraints
-- Absorb is directional: one root note, one or more source notes per operation
-- Root note remains in place and continues evolving
-- Source notes must be updated to `status: absorbed to [[root]]` and moved to their stage-specific archive folder
-- Absorbed content must be inserted under a consistent section structure (`## Absorbed — [[source]]` with `### Key Points` and `### Raw Context` subsections)
-- No system-enforced restrictions on cross-stage absorption
-- Existing links and backlinks are not modified
-- Content is copied, not transcluded
+
+- **Directional:** One root note, one or more source notes per operation.
+    
+- **Top-level command:** Must be invoked via positional arguments: brain absorb <root_path> <source_path_1>[<source_path_2> ...]. First argument is the target, the rest are inputs.
+    
+- **Status update:** Source notes must be updated to status: absorbed to [[root]] and moved to their stage-specific archive folder.
+    
+- **Enforced structure:** The script must programmatically enforce the section structure: ## Absorbed — [[source]], containing ### Key Points (LLM-generated) and ### Raw Context (copied verbatim).
+    
+- **No linking changes:** Existing links and backlinks are not modified.
+    
+- **No transclusion:** Content is physically copied to ensure portability.
+    
 
 ## Open Questions
-- **Summarization quality**: How consistent or high-quality will Key Points summarization be in practice? Matters because poor summaries reduce the value of the absorbed section. Will evaluate after 10–15 absorbs.
-- **Root note size limits**: At what point does a root note become too large to be useful? Matters because bloated notes defeat the purpose. Will observe when navigation or scanning slows down.
-- **Cross-stage confusion**: Will absorbing across stages create confusion in complex workflows? Matters for maintainability. Will monitor during real usage.
-- **Decision consistency**: Will I reliably choose absorb vs. link vs. leave separate without second-guessing? Matters for workflow predictability. Will revisit after repeated hesitation shows up.
+
+- **Summarization quality:** How consistent or high-quality will the LLM-generated Key Points be? Decision trigger: If the summary is repeatedly inaccurate or misses context after 10 absorbs, we will downgrade the command to only paste Raw Context.
+    
+- **Root note size limits:** At what point does a root note become too bloated to be useful? Decision trigger: If scrolling/scanning the root note takes > 10 seconds, we will manually split the note and revisit the absorb UX.
+    
+- **Cross-stage confusion:** Will absorbing across stages create confusion? Decision trigger: Acceptable risk. Will monitor during real usage and add validation warnings later only if it breaks the mental model.
+    
 
 ## Work Breakdown
 
 ### Files / Deliverables
-- Absorb command/script that processes source notes and updates root notes
-- Section template for absorbed content (`## Absorbed — [[source]]`, `### Key Points`, `### Raw Context`)
-- Archive move logic that respects stage-specific archive folders
-- Status update logic to set `status: absorbed to [[root]]` on source notes
+
+- **CLI Command:** A new top-level Typer command in brain.py: @app.command("absorb") utilizing variable-length positional arguments.
+    
+- **Prompt File:** vault/_prompts/summarize-absorbed.md (configured to use MODEL_WORKHORSE / Sonnet 4.5 for Key Points generation).
+    
+- **Frontmatter update logic:** Extend _set_frontmatter_status in brain.py to support setting status: absorbed to [[parent_note_name]].
+    
+- **Archiving logic:** Reuse existing archive_file helper in brain.py to route to appropriate stage archives.
+    
 
 ### Sequence
-1. Define the absorbed section template structure — establishes the format before any automation
-2. Build the status update and archive move logic — ensures sources are properly marked and relocated
-3. Build the content extraction and insertion logic — handles reading source content and placing it in root
-4. Implement Key Points summarization — can start with manual or simple extraction, refine after usage
-5. Integrate into a single absorb command — combines all steps into repeatable operation
+
+1. **Scaffold the CLI:** Build the @app.command("absorb") in brain.py with positional Typer arguments (first arg = root, rest = list of sources). Testable outcome: Command parses arguments and fails cleanly if any file does not exist.
+    
+2. **Build extraction & formatting:** Implement reading the source file(s) and assembling the ## Absorbed and ### Raw Context text. Testable outcome: Running on dummy files correctly appends the raw text to the parent note.
+    
+3. **Implement LLM Summarization:** Add the ai_client.call step using MODEL_WORKHORSE to generate the ### Key Points bullet list. Testable outcome: Verify the LLM correctly summarizes the source note in the final output.
+    
+4. **Build source archiving:** Implement the frontmatter update (absorbed to [[root]]) and trigger archive_file for each source note. Testable outcome: Source notes successfully move to their respective /archive/ folders with updated YAML.
+    
+5. **End-to-End Test:** Run the full flow on 2 overlapping idea notes into a thinking note. Testable outcome: Parent note has combined context, source notes are archived, and no critical errors occurred.
+    
 
 ## Decisions Made
-- Absorb operates per-source note, not in bulk — keeps each consolidation traceable
-- Content is copied, not transcluded — simpler to manage and more portable
-- No system-enforced stage restrictions — useful context comes from anywhere
-- Notes can be absorbed multiple times, including from archive — no blocking or enforcement
-- All absorbed content goes under a single consistent section — predictable structure
-- Archived notes remain accessible via search and backlinks — no special retrieval mechanism needed
-- Simplicity is prioritized over correctness in edge cases — will refine heuristics after repeated use
-- Root notes will be split or refactored if absorbed sections become difficult to scan — not pre-optimized
+
+- **User Error is Permitted:** The command will allow you to do "stupid" things (like absorbing an already-absorbed note, or creating circular references). Simplicity and lack of friction are prioritized.
+    
+- **Critical Errors Fail Hard:** The script will throw an immediate fatal error if the target root note or any of the source files do not exist.
+    
+- **Automated Summaries from Day 1:** Using claude-sonnet-4-5 (MODEL_WORKHORSE) to generate summaries automatically, rather than leaving it blank for manual entry.
+    
+- **Bulk absorbing:** Supported out of the box via multiple positional arguments for source files, allowing rapid multi-file consolidation in one command.
+    
 
 ## Delegation State
-| Person | Owns | By When | Level | Status |
-| ------ | ---- | ------- | ----- | ------ |
+
+|   |   |   |   |   |
+|---|---|---|---|---|
+|Person|Owns|By When|Level|Status|
+|Self|Full Implementation|End of Week|Execute|Not Started|
+
+## Validation Plan
+
+- **Review Cadence:** Audit the results after 2 weeks of organic usage (approx. 10-15 operations).
+    
+- **Rollback Trigger:** If the programmatic flow takes longer than manual copying due to LLM latency, or if the vault becomes cluttered with broken archive links, we will disable the command and revert to manual consolidation until the UX is fixed.
 
 ---
 
-# Critique — 2026-03-02 09:37 ET
+# Critique — 2026-03-02 10:03 ET
 
-## Score: 6/10
-Rework suggested — spec is conceptually clear but lacks executable detail and testable success criteria.
+## Score: 7/10
+Rework suggested — execution would stall on ambiguities in the Work Breakdown and missing validation criteria.
 
 ## Section Breakdown
 
 ### One-Line Purpose
-**Strong:** Clear and specific — directional consolidation with traceability is well-defined.
+**Strong:** Clear directional flow (source → root), explicit preservation of traceability, automatic archiving.
 
 ### Context
-**Strong:** Problem is concrete and frequency-based ("multiple times per week").
-**Weak:** No baseline measurement of current consolidation time or failure rate.
-**Fix:** Add: "Current consolidation takes X minutes and loses source attribution Y% of the time" to establish improvement targets.
+**Strong:** Articulates the pain point (manual copy-paste abandonment) and positions Absorb as a programmatic solution.
 
 ### Success Looks Like
-**Weak:** All four criteria are subjective or unmeasurable.
-- "Duplicate notes stop being created" — how is this measured? Over what time period?
-- "Less than 5 minutes per source" — compared to what baseline? How is this timed?
-- "Regularly relied upon" — what does "regularly" mean? How is reliance verified?
-- "Reduced friction" — no measurement method specified.
+**Weak:** Criterion 1 ("Zero duplicate notes") is not testable — "duplicate" is undefined and "manual audit" is not a verification method. Criterion 3 ("referenced in at least 3 subsequent edits") has no measurement mechanism. Criterion 4 ("zero hesitation") relies on a "mental check/decision log" that doesn't exist in the spec.
 
-**Fix:** Rewrite each criterion to be verifiable:
-1. "Zero duplicate notes created for the same idea space over 4-week observation period (measured by manual audit)"
-2. "Absorb operation completes in <5 minutes per source note, measured from command invocation to archive move (baseline: current manual process takes X minutes)"
-3. "Absorbed sections referenced in at least 3 subsequent edits to root notes within 2 weeks (tracked via git history or manual log)"
-4. "Consolidation hesitation drops to zero instances over 2-week period (tracked via decision log)"
+**Fix:** 
+- Criterion 1: Define "duplicate" (e.g., "two notes with identical ## One-Line Purpose or overlapping first 100 words") and specify the audit method (e.g., "run `brain list --duplicates` or grep for pattern X").
+- Criterion 3: Specify how "referenced" is measured (e.g., "appears in git diff of root note within 2 weeks" or "backlink count increases by 3+").
+- Criterion 4: Either drop this criterion or specify the log format and commit to maintaining it (e.g., "daily log entry in `_meta/absorb-decisions.md` with timestamp and choice").
 
 ### Constraints
-**Strong:** Directional flow, status updates, section structure, and content copying are all specific.
-**Weak:** "Consistent section structure" is defined but not enforced — how is consistency verified?
-**Fix:** Add: "Section structure compliance verified by automated check before archive move" or specify manual review cadence.
+**Strong:** Directional flow, positional CLI args, status update format, section structure enforcement, no linking changes, no transclusion.
 
 ### Open Questions
-**Strong:** Each question includes why it matters and a measurement plan.
-**Weak:** No decision triggers — when does an open question become a blocker vs. acceptable risk?
-**Fix:** For each question, add: "Will block further absorbs if [specific condition]" or "Acceptable to proceed if [threshold not exceeded]."
+**Weak:** Decision triggers are vague. "Repeatedly inaccurate" (how many times?), "scrolling/scanning takes > 10 seconds" (measured how? by whom?), "breaks the mental model" (what does this look like?).
+
+**Fix:** 
+- Summarization quality: "If 3 out of 10 absorbs produce Key Points that omit critical context (as judged by manual review), downgrade to Raw Context only."
+- Root note size: "If any root note exceeds 500 lines or 3000 words, manually split and revisit UX."
+- Cross-stage confusion: "If 2+ users report confusion or if a post-mortem reveals a broken workflow, add validation warnings."
 
 ### Work Breakdown — Files / Deliverables
-**Weak:** Missing file paths, formats, and integration points.
-- "Absorb command/script" — what language? Where does it live? How is it invoked?
-- "Section template" — is this a string constant, a separate file, or part of the command?
-- "Archive move logic" — how are stage-specific archive folders determined? Hard-coded map? Frontmatter-driven?
-- "Status update logic" — does this modify YAML frontmatter? Plain text replacement?
+**Weak:** "Prompt File" deliverable is incomplete — no spec for what the prompt should contain or how it should be structured. "Extend _set_frontmatter_status" is vague — does this function already exist? If so, what exactly changes?
 
-**Fix:** Specify:
-- Command location: `scripts/absorb.sh` or `src/commands/absorb.ts`
-- Template location: inline constant in absorb command or `templates/absorbed-section.md`
-- Archive folder resolution: "Read `stage` from source frontmatter, move to `{stage}/archive/`"
-- Status update mechanism: "YAML frontmatter update using [specific library/tool]"
+**Fix:** 
+- Add: "Create `vault/_prompts/summarize-absorbed.md` with template: 'Summarize the following note into 3-5 bullet points highlighting key insights and decisions. Input: {{source_content}}. Output format: markdown bullet list.'"
+- Clarify: "Modify `_set_frontmatter_status` to accept optional `parent_note_name` parameter and write `status: absorbed to [[parent_note_name]]` if provided."
 
 ### Work Breakdown — Sequence
-**Weak:** Steps are logical but not independently testable or completable.
-- Step 1: "Define template structure" — what is the acceptance test? A markdown file? A code constant?
-- Step 2: "Build status update and archive move logic" — how is this tested without the full command?
-- Step 4: "Implement Key Points summarization" — contradicts "can start with manual" — is manual acceptable for initial release or not?
-- Step 5: "Integrate into single command" — no integration test specified.
+**Weak:** Step 1 "fails cleanly if any file does not exist" contradicts Decisions Made ("Critical Errors Fail Hard"). Step 3 "verify the LLM correctly summarizes" has no pass/fail criteria. Step 5 "no critical errors occurred" is not specific.
 
-**Fix:** Rewrite each step with a testable outcome:
-1. "Template structure defined and committed to `templates/absorbed-section.md` — verified by manual inspection"
-2. "Status update and archive move logic functional in isolation — tested by running on 3 sample notes and verifying YAML change + file move"
-3. "Content extraction inserts raw source content under `### Raw Context` — tested by absorbing 2 notes and diff-checking root note"
-4. "Key Points summarization produces 3–5 bullet points per source — initially manual, automated after 10 absorbs — tested by reviewing 5 absorbed sections"
-5. "Full absorb command runs end-to-end — tested by absorbing 3 notes across 2 stages and verifying all constraints met"
+**Fix:** 
+- Step 1: Change to "Command parses arguments and raises FileNotFoundError with exit code 1 if any file does not exist."
+- Step 3: Add pass criteria: "LLM output is valid markdown, contains 3-5 bullet points, and does not exceed 200 words."
+- Step 5: Replace "no critical errors" with "root note contains exactly 2 new ## Absorbed sections, both source notes are in `/archive/`, and `git diff` shows expected changes only."
 
 ### Decisions Made
-**Strong:** Clear stance on bulk operations, transclude vs. copy, and stage restrictions.
-**Weak:** "Simplicity prioritized over correctness in edge cases" — which edge cases? What breaks?
-**Fix:** List 2–3 specific edge cases being ignored (e.g., "circular absorbs not prevented," "concurrent edits to root note may conflict") and state acceptable failure mode for each.
+**Strong:** Clear stance on user error tolerance, critical error handling, automated summaries, bulk absorbing.
 
 ### Delegation State
-**Weak:** Table is empty — no owner, no timeline, no accountability.
-**Fix:** Assign owner (even if self), set "By When" date for each Work Breakdown step, set Level (e.g., "Inform" if solo work, "Approve" if review needed), and Status ("Not Started").
+**Weak:** "End of Week" is not a date. "Execute" level is correct but "Not Started" status will immediately be stale.
 
-### Missing Sections
-**Weak:** No "How We'll Know It's Working" or rollback plan.
-**Fix:** Add section: "Validation Plan" — specify how you'll verify success criteria after 2 weeks of use and what triggers a rollback (e.g., "if consolidation time exceeds 10 minutes 3+ times, revert to manual process").
+**Fix:** Replace "End of Week" with explicit date (e.g., "2026-03-07"). Consider changing status to "Scheduled" or removing the Status column entirely if it's not maintained programmatically.
+
+### Validation Plan
+**Weak:** "Audit the results after 2 weeks" has no owner, no specific audit method, and no pass/fail criteria. "10-15 operations" is an assumption, not a measurement. Rollback trigger "LLM latency" has no threshold.
+
+**Fix:** 
+- Add owner: "Self will audit on 2026-03-16 by reviewing git log for absorb operations and manually inspecting 5 random root notes."
+- Replace "10-15 operations" with "at least 10 operations (tracked via `git log --grep='absorb'`)."
+- Rollback trigger: "If any absorb operation takes > 2 minutes end-to-end, or if 3+ archive links are broken (verified by `brain validate-links`), disable command and revert."
