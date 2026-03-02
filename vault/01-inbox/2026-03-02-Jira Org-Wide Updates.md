@@ -13,3 +13,4 @@ We need to make org-wide updates on how we use Jira as an organization.
 We have gone far too long without having everyone in a consolidated space. We need to get everyone working in the same way. 
 
 ## Context
+Currently 
