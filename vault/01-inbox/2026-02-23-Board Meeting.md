@@ -169,3 +169,38 @@ Below are the notes from Sarah:
 - Clear content outline for board and investor materials
 
 ## Why Now
+
+
+---
+
+# Explore — 2026-03-02 14:38 ET
+
+## Explore — 2026-02-23
+
+### Possible Framings
+
+1. **Exit readiness sprint** — This is fundamentally a 3-day pressure test to close gaps between where Aptum is and where a buyer needs them to be by October 2026. The board meeting is incidental; the real artifact is the execution plan that survives investor scrutiny.
+
+2. **Valuation storytelling exercise** — The substance matters less than whether leadership can tell a coherent, defensible story about why Aptum is worth what DBRG needs it to be worth. The workshop is narrative construction with financial backing.
+
+3. **Operating model intervention disguised as strategy** — Dave's questions (churn, pre-packaged offerings, CapEx tracking) suggest the real work is operational, not strategic. The exit framing may be cover for forcing hard conversations about how the business actually runs.
+
+4. **Alignment ritual** — The deliverables are secondary to getting the exec team, GTM, and technical leadership in a room long enough to surface disagreements and force resolution before the pressure of an active sale process.
+
+### Adjacent Questions Worth Surfacing
+
+- Who owns this workshop? Sarah's notes are detailed and process-oriented; Dave's questions are pointed and operational. Are they aligned on what "success" looks like, or will Day 1 reveal competing agendas?
+
+- The attendee list has question marks (MA??, Fred??, Emma?). Is the ambiguity about who attends a symptom of unclear ownership of the problems being discussed?
+
+- "Where resistance exists and what must change" appears in Day 2. Has someone already mapped the resistance? Or is that the real purpose of the session — to smoke it out?
+
+- The churn question ("is it a product problem, delivery product, or what?") suggests no one has diagnosed root cause yet. Is the workshop the right venue for that, or should diagnosis happen before and the workshop be about decisions?
+
+### Directions to Sharpen
+
+- What is *your* role in this? Facilitator, content owner, observer, decision-maker? The note doesn't say.
+
+- What does Dave actually want from you before the meeting? The note reads like information capture, not a request.
+
+- The "pre-packaged offerings" problem is concrete and actionable. Worth pulling that thread separately — it might be the highest-leverage operational fix regardless of exit timing.

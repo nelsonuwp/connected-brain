@@ -517,6 +517,20 @@ def idea_kill(
     console.print(f"Killed → {archive_path}")
 
 
+@idea_app.command("complete")
+def idea_complete(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Mark idea complete and move to 30-initiatives/completed/. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_frontmatter_status(content, "complete")
+    dest = f"30-initiatives/completed/{Path(vault_rel).name}"
+    write_new_file(dest, new_content)
+    (Config.VAULT_ROOT / vault_rel).unlink()
+    console.print(f"Completed → {dest}")
+
+
 # ---------------------------------------------------------------------------
 # Thinking
 # ---------------------------------------------------------------------------
@@ -692,6 +706,20 @@ def thinking_kill(
     console.print(f"Killed → {archive_path}")
 
 
+@thinking_app.command("complete")
+def thinking_complete(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Mark thinking note complete and move to 30-initiatives/completed/. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_frontmatter_status(content, "complete")
+    dest = f"30-initiatives/completed/{Path(vault_rel).name}"
+    write_new_file(dest, new_content)
+    (Config.VAULT_ROOT / vault_rel).unlink()
+    console.print(f"Completed → {dest}")
+
+
 # ---------------------------------------------------------------------------
 # Initiative
 # ---------------------------------------------------------------------------
@@ -824,6 +852,20 @@ def initiative_kill(
     archive_file(vault_rel, filename)
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Killed → {archive_path}")
+
+
+@initiative_app.command("complete")
+def initiative_complete(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Mark initiative complete and move to 30-initiatives/completed/. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_frontmatter_status(content, "complete")
+    dest = f"30-initiatives/completed/{Path(vault_rel).name}"
+    write_new_file(dest, new_content)
+    (Config.VAULT_ROOT / vault_rel).unlink()
+    console.print(f"Completed → {dest}")
 
 
 # ---------------------------------------------------------------------------

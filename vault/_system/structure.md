@@ -16,7 +16,7 @@
 │   ├── 30-initiatives/       ← initiative specs
 │   │   ├── drafting/         ← specs being developed
 │   │   ├── active/           ← in execution
-│   │   └── done/             ← completed
+│   │   └── completed/        ← completed items
 │   ├── 40-people/            ← person notes and 1:1 logs
 │   ├── 50-services/          ← internal service delivery units
 │   ├── 51-catalog/           ← external products and offerings
@@ -111,8 +111,9 @@ developed via explore/critique/fix loops. Not ready to execute.
 **`active/`** — Specs moved here by `brain initiative promote`. Actively
 being executed. Surfaced in daily note Dataview dashboard.
 
-**`done/`** — Completed initiatives. Moved here manually when execution
-is complete. Not surfaced in dashboard.
+**`completed/`** — Completed items. Notes land here via `brain idea complete`,
+`brain thinking complete`, or `brain initiative complete` (from any stage), or
+by moving a file manually. Not surfaced in dashboard.
 
 **What belongs:** One spec per initiative. The spec is the source of truth —
 execution tracking lives in Jira.

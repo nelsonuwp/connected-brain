@@ -62,9 +62,9 @@ to detect and handle the signal) for a case the user can manage
 themselves. Critique's score already tells you if something is ready.
 If you choose to promote a note with a score of 4, that's your call.
 
-### 30-initiatives split into drafting/active/done subfolders
+### 30-initiatives split into drafting/active/completed subfolders
 **Decision:** Initiative specs live in `30-initiatives/drafting/`,
-`30-initiatives/active/`, or `30-initiatives/done/` based on stage.
+`30-initiatives/active/`, or `30-initiatives/completed/` based on stage.
 **Rationale:** Status-as-folder makes the pipeline visible in the
 Obsidian sidebar without any plugins. Dataview can query a specific
 folder (`FROM "30-initiatives/active"`) without needing frontmatter
@@ -158,7 +158,7 @@ from Obsidian's command palette or a hotkey. Output shown in notification.
 
 ---
 
-## 2026-03-02
+## 2026-03-02 (complete commands and completed folder)
 
 ### Absorb command
 **Decision:** Top-level `brain absorb <root> <source1> [source2...]` added.
@@ -185,3 +185,18 @@ model, temperature, and prompt name; absorb prints progress (Summarizing path
 **Rationale:** Confirms each context file was found and gives a size signal;
 makes it clear which model and prompt are used before each call; absorb
 progress and token totals make multi-source runs easier to follow.
+
+### Complete commands
+**Decision:** `brain idea complete`, `brain thinking complete`, and
+`brain initiative complete` added. Set `status: complete` in frontmatter,
+write note to `30-initiatives/completed/{filename}`, remove source. No LLM
+call. If a file with the same name already exists in `completed/`, it is
+overwritten.
+**Rationale:** Items in any stage (idea, thinking, initiative) can be marked
+complete and moved to a single destination folder. Replaces manual move for
+"when done" workflow.
+
+### Folder name "completed"
+**Decision:** All references to `30-initiatives/done/` renamed to
+`30-initiatives/completed/` in docs and code for consistency.
+**Rationale:** Single canonical name for the completed-initiatives folder.

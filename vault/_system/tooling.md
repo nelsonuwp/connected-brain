@@ -44,6 +44,9 @@ brain idea critique 01-inbox/2026-02-22-my-idea.md
 
 # Transform idea → thinking note, archive original
 brain idea promote 01-inbox/2026-02-22-my-idea.md
+
+# Mark complete and move to 30-initiatives/completed/
+brain idea complete 01-inbox/2026-02-22-my-idea.md
 ```
 
 **promote behavior:** LLM reads the full idea note (including all
@@ -67,6 +70,9 @@ brain thinking critique 10-thinking/2026-02-22-my-idea.md
 
 # Transform thinking → initiative spec, archive original
 brain thinking promote 10-thinking/2026-02-22-my-idea.md
+
+# Mark complete and move to 30-initiatives/completed/
+brain thinking complete 10-thinking/2026-02-22-my-idea.md
 ```
 
 **promote behavior:** LLM reads the full thinking note (including all
@@ -90,11 +96,17 @@ brain initiative critique 30-initiatives/drafting/2026-02-22-my-idea.md
 
 # Move from drafting/ to active/ — file move only, no LLM
 brain initiative promote 30-initiatives/drafting/2026-02-22-my-idea.md
+
+# Mark complete and move to 30-initiatives/completed/ (works from drafting/ or active/)
+brain initiative complete 30-initiatives/active/2026-02-22-my-idea.md
 ```
 
 **promote behavior:** Moves file from `30-initiatives/drafting/` to
 `30-initiatives/active/`. No LLM call. No content change. This is a
 status change, not a transformation.
+
+**complete behavior:** Sets `status: complete` in frontmatter, writes to
+`30-initiatives/completed/{filename}`, removes source. No LLM call.
 
 ---
 
@@ -177,6 +189,21 @@ brain initiative kill 30-initiatives/drafting/2026-02-22-my-idea.md
 Adds `status: killed` to frontmatter, moves file to `{parent}/archive/`.
 Preserved for reference but gone from active folders.
 
+### Complete commands
+
+Mark a note complete and move it to `30-initiatives/completed/`. No LLM call.
+Works from any stage (idea, thinking, initiative). If a file with the same
+name already exists in `completed/`, it is overwritten.
+
+```bash
+brain idea complete 01-inbox/2026-02-22-my-idea.md
+brain thinking complete 10-thinking/2026-02-22-my-idea.md
+brain initiative complete 30-initiatives/active/2026-02-22-my-idea.md
+```
+
+Sets `status: complete` in frontmatter, writes to
+`30-initiatives/completed/{filename}`, removes the source file.
+
 ### Flags Available on All Commands
 
 | Flag | What it does |
@@ -206,6 +233,9 @@ has the correct status. New file is written to the target folder. Atomic write
 via temp file + `os.replace()`.
 
 **Promote (initiative)** → moves file between folders. No write operation.
+
+**Complete (idea, thinking, initiative)** → sets `status: complete`, writes to
+`30-initiatives/completed/{filename}`, removes source.
 
 **Context** → appended to the context block file itself.
 
@@ -380,14 +410,17 @@ Browse → search "Shell Commands"
 | Brain: Idea Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea explore "vault/{{file_path}}"` |
 | Brain: Idea Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea critique "vault/{{file_path}}"` |
 | Brain: Idea Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea promote "vault/{{file_path}}"` |
+| Brain: Idea Complete | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea complete "vault/{{file_path}}"` |
 | Brain: Idea Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea kill "vault/{{file_path}}"` |
 | Brain: Thinking Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking explore "vault/{{file_path}}"` |
 | Brain: Thinking Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking critique "vault/{{file_path}}"` |
 | Brain: Thinking Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking promote "vault/{{file_path}}"` |
+| Brain: Thinking Complete | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking complete "vault/{{file_path}}"` |
 | Brain: Thinking Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking kill "vault/{{file_path}}"` |
 | Brain: Initiative Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative explore "vault/{{file_path}}"` |
 | Brain: Initiative Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative critique "vault/{{file_path}}"` |
 | Brain: Initiative Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative promote "vault/{{file_path}}"` |
+| Brain: Initiative Complete | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative complete "vault/{{file_path}}"` |
 | Brain: Initiative Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative kill "vault/{{file_path}}"` |
 | Brain: Context | `cd ~/connected-brain/projects/llm-bridge && python brain.py context "vault/{{file_path}}"` |
 
