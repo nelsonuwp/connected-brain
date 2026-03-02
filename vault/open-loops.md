@@ -1,3 +1,6 @@
+
+## Customer Assignment
+
 Customer context has to be accessible at first touch. If a generalist picks up a ticket from a hybrid customer and has to go hunting for what products they have, what their environment looks like, and who their account manager is — that's where hybrid customer experience falls apart. This is actually an Operational Intelligence problem as much as an org problem. Jorge's team building a unified customer view is directly load-bearing for this.
 
 The conversation with Jason is really about whether the team is designed around engineer convenience or customer outcomes. The unassign model is engineer convenience dressed up as operational flexibility.
@@ -78,8 +81,11 @@ Within each pod, individual engineers own specific accounts. When their account 
 
 The bottom line for the conversation with Jason: the graveyard coverage problem is real and valid, but the answer is **pod coverage + named shift handoff**, not unassignment. The system does the routing. Engineers don't have to manually grab tickets. Ownership is preserved. The 2 graveyard people have a clear, bounded job. And when a customer calls for an update at 2am, the graveyard engineer can pull up the ticket, see the full history, and give an intelligent answer — because the ticket was never orphaned.
 
+
 ---
 
+
+## Ownership of the Customer & Service Guide Flows
 Within the service network as defined, the answer is neither Jason nor George — it's **Lacie.**
 
 Here's why. You already have a service that owns the customer relationship end to end — it's called **Hybrid Service Delivery Management**. That's not just a PMO for PS engagements. That's the function whose entire purpose is to be the single point of contact, own the customer relationship, and coordinate across the service network on the customer's behalf.
@@ -114,7 +120,7 @@ The one thing this requires that doesn't exist yet is **Lacie's team having enou
 
 So the org structure question resolves to: does Lacie's mandate extend from PS project delivery to ongoing customer relationship ownership across all services? Because if it does, you have your answer. And it fits cleanly within the service network as defined.
 
-# Updates to Report
+## Updates to AI Account Summaries
 - last touch
 - account rep
 
