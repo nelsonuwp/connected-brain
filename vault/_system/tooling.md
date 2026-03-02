@@ -44,6 +44,9 @@ brain idea critique 01-inbox/2026-02-22-my-idea.md
 
 # Transform idea → thinking note, archive original
 brain idea promote 01-inbox/2026-02-22-my-idea.md
+
+# Mark complete and move to 30-initiatives/completed/
+brain idea complete 01-inbox/2026-02-22-my-idea.md
 ```
 
 **promote behavior:** LLM reads the full idea note (including all
@@ -67,6 +70,9 @@ brain thinking critique 10-thinking/2026-02-22-my-idea.md
 
 # Transform thinking → initiative spec, archive original
 brain thinking promote 10-thinking/2026-02-22-my-idea.md
+
+# Mark complete and move to 30-initiatives/completed/
+brain thinking complete 10-thinking/2026-02-22-my-idea.md
 ```
 
 **promote behavior:** LLM reads the full thinking note (including all
@@ -90,11 +96,17 @@ brain initiative critique 30-initiatives/drafting/2026-02-22-my-idea.md
 
 # Move from drafting/ to active/ — file move only, no LLM
 brain initiative promote 30-initiatives/drafting/2026-02-22-my-idea.md
+
+# Mark complete and move to 30-initiatives/completed/ (works from drafting/ or active/)
+brain initiative complete 30-initiatives/active/2026-02-22-my-idea.md
 ```
 
 **promote behavior:** Moves file from `30-initiatives/drafting/` to
 `30-initiatives/active/`. No LLM call. No content change. This is a
 status change, not a transformation.
+
+**complete behavior:** Sets `status: complete` in frontmatter, writes to
+`30-initiatives/completed/{filename}`, removes source. No LLM call.
 
 ---
 
@@ -109,6 +121,33 @@ brain context 20-context/business/osom-model.md
 
 Useful after writing or updating a context block — the summary tells you
 what the block covers and when to inject it.
+
+---
+
+#### `brain absorb`
+
+Consolidates one or more source notes into a root note: appends ## Absorbed
+sections (LLM Key Points + verbatim Raw Context), then archives each source.
+
+```bash
+brain absorb 10-thinking/2026-02-22-my-thinking.md 01-inbox/overlap-a.md 01-inbox/overlap-b.md
+```
+
+**Signature:** `brain absorb <root_path> <source_path_1> [<source_path_2> ...]`
+Root is always first; one or more sources. Paths vault-relative or `vault/...`.
+
+**Behavior:** Root is append-only. For each source: LLM summarizes into Key
+Points (or fallback line if LLM fails); block is `## Absorbed — [[source_stem]]`,
+`### Key Points`, `### Raw Context` (verbatim). Then each source gets
+`status: absorbed to [[root_stem]]` in frontmatter and is moved to
+`{parent}/archive/`. No stage restrictions — any note can absorb any other.
+
+**Errors:** Missing root or any source → exit 1. No sources provided → exit 1
+with "No source notes provided". If root already contains `## Absorbed — [[source_stem]]`
+for a source, a dimmed warning is printed but the command proceeds (duplicate
+section will be appended).
+
+**Prompt:** `summarize-absorbed.md` (workhorse).
 
 ---
 
@@ -150,6 +189,21 @@ brain initiative kill 30-initiatives/drafting/2026-02-22-my-idea.md
 Adds `status: killed` to frontmatter, moves file to `{parent}/archive/`.
 Preserved for reference but gone from active folders.
 
+### Complete commands
+
+Mark a note complete and move it to `30-initiatives/completed/`. No LLM call.
+Works from any stage (idea, thinking, initiative). If a file with the same
+name already exists in `completed/`, it is overwritten.
+
+```bash
+brain idea complete 01-inbox/2026-02-22-my-idea.md
+brain thinking complete 10-thinking/2026-02-22-my-idea.md
+brain initiative complete 30-initiatives/active/2026-02-22-my-idea.md
+```
+
+Sets `status: complete` in frontmatter, writes to
+`30-initiatives/completed/{filename}`, removes the source file.
+
 ### Flags Available on All Commands
 
 | Flag | What it does |
@@ -158,6 +212,14 @@ Preserved for reference but gone from active folders.
 | `--dry-run` | Print the exact JSON payload that would be sent. Nothing is called or written. |
 | `--temperature 0.7` | Override the temperature set in the prompt frontmatter. |
 
+### Console output (dimmed)
+
+Diagnostic lines help confirm what ran: each context file loaded shows
+"Context loaded: path (N chars)"; before every LLM call, model, temperature,
+and prompt name are printed; for absorb, "Summarizing path (1/N)...",
+per-source token lines, "Tokens total: prompt=..., completion=..., total=...",
+and "Appended N block(s) to path".
+
 ---
 
 ### How Output Gets Written
@@ -165,10 +227,15 @@ Preserved for reference but gone from active folders.
 **Explore and critique** → appended to the bottom of the existing note as a
 `# Section — timestamp ET` block. The original note content is never touched.
 
-**Promote (idea and thinking)** → writes a new file to the target folder.
-Original is moved to `archive/`. Atomic write via temp file + `os.replace()`.
+**Promote (idea and thinking)** → original is updated with `status: promoted`
+in frontmatter and written back, then moved to `archive/` so the archived copy
+has the correct status. New file is written to the target folder. Atomic write
+via temp file + `os.replace()`.
 
 **Promote (initiative)** → moves file between folders. No write operation.
+
+**Complete (idea, thinking, initiative)** → sets `status: complete`, writes to
+`30-initiatives/completed/{filename}`, removes source.
 
 **Context** → appended to the context block file itself.
 
@@ -194,14 +261,15 @@ All prompts live in `vault/_prompts/`. Named exactly as brain.py expects.
 
 | File | Used by | Model |
 |---|---|---|
-| `explore-idea.md` | `brain idea explore` | reasoning |
-| `explore-thinking.md` | `brain thinking explore` | reasoning |
-| `explore-initiative.md` | `brain initiative explore` | reasoning |
 | `critique-idea.md` | `brain idea critique` | workhorse |
 | `critique-thinking.md` | `brain thinking critique` | workhorse |
 | `critique-initiative.md` | `brain initiative critique` | workhorse |
+| `explore.md` | `brain idea explore`, `brain thinking explore`, `brain initiative explore` | reasoning |
+| `normalize.md` | `brain idea normalize`, `brain thinking normalize`, `brain initiative normalize` | workhorse |
 | `promote-idea-to-thinking.md` | `brain idea promote` | reasoning |
 | `promote-thinking-to-initiative.md` | `brain thinking promote` | reasoning |
+| `specify-mode.md` | `brain thinking spec` | reasoning |
+| `summarize-absorbed.md` | `brain absorb` | workhorse |
 | `describe-context.md` | `brain context` | nano |
 
 ### Manual-Use Prompts (Not Called by brain.py)
@@ -342,14 +410,17 @@ Browse → search "Shell Commands"
 | Brain: Idea Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea explore "vault/{{file_path}}"` |
 | Brain: Idea Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea critique "vault/{{file_path}}"` |
 | Brain: Idea Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea promote "vault/{{file_path}}"` |
+| Brain: Idea Complete | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea complete "vault/{{file_path}}"` |
 | Brain: Idea Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py idea kill "vault/{{file_path}}"` |
 | Brain: Thinking Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking explore "vault/{{file_path}}"` |
 | Brain: Thinking Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking critique "vault/{{file_path}}"` |
 | Brain: Thinking Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking promote "vault/{{file_path}}"` |
+| Brain: Thinking Complete | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking complete "vault/{{file_path}}"` |
 | Brain: Thinking Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py thinking kill "vault/{{file_path}}"` |
 | Brain: Initiative Explore | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative explore "vault/{{file_path}}"` |
 | Brain: Initiative Critique | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative critique "vault/{{file_path}}"` |
 | Brain: Initiative Promote | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative promote "vault/{{file_path}}"` |
+| Brain: Initiative Complete | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative complete "vault/{{file_path}}"` |
 | Brain: Initiative Kill | `cd ~/connected-brain/projects/llm-bridge && python brain.py initiative kill "vault/{{file_path}}"` |
 | Brain: Context | `cd ~/connected-brain/projects/llm-bridge && python brain.py context "vault/{{file_path}}"` |
 

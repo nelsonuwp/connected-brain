@@ -99,6 +99,7 @@ def build_user_message(
     parts = []
     for path in context_files:
         content = read_file(path)
+        console.print(f"[dim]Context loaded: {path} ({len(content)} chars)[/dim]")
         parts.append(f"[CONTEXT: {path}]\n{content}")
     parts.append(f"[NOTE: {note_path}]\n{note_content}")
     return "\n\n---\n\n".join(parts)
@@ -128,6 +129,23 @@ def append_to_file(vault_relative_path: str, llm_output: str, mode: str) -> None
     ts = datetime.now(SECTION_TZ).strftime("%Y-%m-%d %H:%M")
     section = f"\n\n---\n\n## LLM Output — {mode} — {ts} {SECTION_TZ_LABEL}\n\n{llm_output}"
     new_content = original + section
+    tmp_path = full.with_suffix(full.suffix + ".tmp")
+    try:
+        tmp_path.write_text(new_content, encoding="utf-8")
+        os.replace(tmp_path, full)
+    except Exception:
+        if tmp_path.exists():
+            tmp_path.unlink()
+        raise
+
+
+def append_raw_to_file(vault_relative_path: str, content: str) -> None:
+    """Atomic append of raw content (no timestamp or section wrapper). Used by absorb."""
+    full = Config.VAULT_ROOT / vault_relative_path
+    original = full.read_text(encoding="utf-8")
+    if content and not content.startswith("\n"):
+        content = "\n\n" + content
+    new_content = original + content
     tmp_path = full.with_suffix(full.suffix + ".tmp")
     try:
         tmp_path.write_text(new_content, encoding="utf-8")
@@ -266,9 +284,9 @@ def load_prompt(name: str) -> dict:
     return {"content": content, "model": model_alias, "temperature": temperature_val}
 
 
-def _set_killed_frontmatter(content: str) -> str:
+def _set_frontmatter_status(content: str, status: str) -> str:
     """
-    Set status: killed in frontmatter. If no frontmatter, prepend minimal ---\\nstatus: killed\\n---\\n\\n.
+    Set status in frontmatter (add or overwrite). If no frontmatter, prepend minimal ---\\nstatus: {status}\\n---\\n\\n.
     Uses same --- delimiters and PyYAML as load_prompt. Returns full file content to write.
     """
     raw = content
@@ -284,13 +302,23 @@ def _set_killed_frontmatter(content: str) -> str:
                     try:
                         fm = yaml.safe_load(frontmatter_block)
                         if isinstance(fm, dict):
-                            fm["status"] = "killed"
+                            fm["status"] = status
                             dumped = yaml.dump(fm, default_flow_style=False)
                             return "---\n" + dumped.strip() + "\n---\n\n" + body
                     except yaml.YAMLError:
                         pass
-                return "---\nstatus: killed\n---\n\n" + (body or "")
-    return "---\nstatus: killed\n---\n\n" + raw
+                return f"---\nstatus: {status}\n---\n\n" + (body or "")
+    return f"---\nstatus: {status}\n---\n\n" + raw
+
+
+def _set_killed_frontmatter(content: str) -> str:
+    """Set status: killed in frontmatter. Delegates to _set_frontmatter_status."""
+    return _set_frontmatter_status(content, "killed")
+
+
+def _set_absorbed_frontmatter(content: str, root_stem: str) -> str:
+    """Set status: absorbed to [[root_stem]] in frontmatter. For source notes after absorb."""
+    return _set_frontmatter_status(content, f"absorbed to [[{root_stem}]]")
 
 
 def resolve_model_and_temp(
@@ -314,6 +342,11 @@ def resolve_model_and_temp(
         if temp is None:
             temp = TEMPERATURE_ALIAS_TO_FLOAT.get(model_alias, Config.TEMPERATURE_WORKHORSE)
     return model_string, float(temp)
+
+
+def _log_llm_call(model: str, temperature: float, prompt_name: str) -> None:
+    """Print resolved model and temperature before each LLM call."""
+    console.print(f"[dim]Calling {model} (temp={temperature}) with prompt '{prompt_name}'[/dim]")
 
 
 def print_dry_run_payload(
@@ -363,6 +396,7 @@ def idea_critique(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "critique-idea.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -391,6 +425,7 @@ def idea_explore(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -420,6 +455,7 @@ def idea_normalize(
         raise typer.Exit(0)
     if snapshot:
         snapshot_note_for_llm(vault_rel)
+    _log_llm_call(model_string, temp, "normalize.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -450,11 +486,14 @@ def idea_promote(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "promote-idea-to-thinking.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
     filename = Path(vault_rel).name
+    promoted_content = _set_frontmatter_status(note_content, "promoted")
+    write_new_file(vault_rel, promoted_content)
     archive_file(vault_rel, filename)
     dest = f"10-thinking/{filename}"
     write_new_file(dest, result["content"])
@@ -476,6 +515,20 @@ def idea_kill(
     archive_file(vault_rel, filename)
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Killed → {archive_path}")
+
+
+@idea_app.command("complete")
+def idea_complete(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Mark idea complete and move to 30-initiatives/completed/. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_frontmatter_status(content, "complete")
+    dest = f"30-initiatives/completed/{Path(vault_rel).name}"
+    write_new_file(dest, new_content)
+    (Config.VAULT_ROOT / vault_rel).unlink()
+    console.print(f"Completed → {dest}")
 
 
 # ---------------------------------------------------------------------------
@@ -504,6 +557,7 @@ def thinking_critique(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "critique-thinking.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -532,6 +586,7 @@ def thinking_explore(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -559,6 +614,7 @@ def thinking_spec(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "specify-mode.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -588,6 +644,7 @@ def thinking_normalize(
         raise typer.Exit(0)
     if snapshot:
         snapshot_note_for_llm(vault_rel)
+    _log_llm_call(model_string, temp, "normalize.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -618,13 +675,16 @@ def thinking_promote(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "promote-thinking-to-initiative.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
     filename = Path(vault_rel).name
+    promoted_content = _set_frontmatter_status(note_content, "promoted")
+    write_new_file(vault_rel, promoted_content)
     archive_file(vault_rel, filename)
-    dest = f"30-initiatives/{filename}"
+    dest = f"30-initiatives/drafting/{filename}"
     write_new_file(dest, result["content"])
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
@@ -644,6 +704,20 @@ def thinking_kill(
     archive_file(vault_rel, filename)
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Killed → {archive_path}")
+
+
+@thinking_app.command("complete")
+def thinking_complete(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Mark thinking note complete and move to 30-initiatives/completed/. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_frontmatter_status(content, "complete")
+    dest = f"30-initiatives/completed/{Path(vault_rel).name}"
+    write_new_file(dest, new_content)
+    (Config.VAULT_ROOT / vault_rel).unlink()
+    console.print(f"Completed → {dest}")
 
 
 # ---------------------------------------------------------------------------
@@ -672,6 +746,7 @@ def initiative_critique(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "critique-initiative.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -700,6 +775,7 @@ def initiative_explore(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -729,6 +805,7 @@ def initiative_normalize(
         raise typer.Exit(0)
     if snapshot:
         snapshot_note_for_llm(vault_rel)
+    _log_llm_call(model_string, temp, "normalize.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -741,6 +818,25 @@ def initiative_normalize(
     write_new_file(vault_rel, new_content)
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     console.print(f"Normalized {vault_rel}")
+
+
+@initiative_app.command("promote")
+def initiative_promote(
+    file: str = typer.Argument(..., help="Path: vault-relative (30-initiatives/drafting/foo.md) or repo-relative"),
+) -> None:
+    """Move file from drafting/ to active/, set status: active in frontmatter. No LLM call."""
+    full_path, vault_rel = resolve_under_vault(file)
+    path = Path(vault_rel)
+    # Dest: drafting/x.md -> active/x.md; or 30-initiatives/x.md -> 30-initiatives/active/x.md
+    if path.parent.name == "drafting":
+        dest_vault_rel = path.parent.parent / "active" / path.name
+    else:
+        dest_vault_rel = path.parent / "active" / path.name
+    content = full_path.read_text(encoding="utf-8")
+    new_content = _set_frontmatter_status(content, "active")
+    write_new_file(str(dest_vault_rel), new_content)
+    full_path.unlink()
+    console.print(f"Promoted → {dest_vault_rel}")
 
 
 @initiative_app.command("kill")
@@ -756,6 +852,94 @@ def initiative_kill(
     archive_file(vault_rel, filename)
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Killed → {archive_path}")
+
+
+@initiative_app.command("complete")
+def initiative_complete(
+    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+) -> None:
+    """Mark initiative complete and move to 30-initiatives/completed/. No LLM call."""
+    _, vault_rel = resolve_under_vault(file)
+    content = read_file(file)
+    new_content = _set_frontmatter_status(content, "complete")
+    dest = f"30-initiatives/completed/{Path(vault_rel).name}"
+    write_new_file(dest, new_content)
+    (Config.VAULT_ROOT / vault_rel).unlink()
+    console.print(f"Completed → {dest}")
+
+
+# ---------------------------------------------------------------------------
+# Absorb (consolidate source notes into root, then archive sources)
+# ---------------------------------------------------------------------------
+
+
+@app.command("absorb")
+def absorb_cmd(
+    root_path: str = typer.Argument(..., help="Root note path (vault-relative or vault/...)"),
+    sources: list[str] = typer.Argument(..., help="Source note path(s) to absorb into root"),
+) -> None:
+    """Consolidate source notes into root: append ## Absorbed sections (Key Points + Raw Context), then archive sources."""
+    _, root_vault_rel = resolve_under_vault(root_path)
+    if not sources:
+        console.print("[red]No source notes provided.[/red]")
+        raise typer.Exit(1)
+    root_content = read_file(root_path)
+    root_stem = Path(root_vault_rel).stem
+    source_infos = []
+    for s in sources:
+        full, vault_rel = resolve_under_vault(s)
+        source_content = full.read_text(encoding="utf-8")
+        source_infos.append((vault_rel, source_content))
+    for vault_rel, _ in source_infos:
+        source_stem = Path(vault_rel).stem
+        if f"## Absorbed — [[{source_stem}]]" in root_content:
+            console.print(f"[yellow]WARNING: source already appears absorbed — {vault_rel}[/yellow]")
+    prompt = load_prompt("summarize-absorbed.md")
+    model_string, temp = resolve_model_and_temp(prompt, None)
+    blocks = []
+    llm_results = []
+    for idx, (vault_rel, source_content) in enumerate(source_infos):
+        source_stem = Path(vault_rel).stem
+        console.print(f"[dim]Summarizing {vault_rel} ({idx + 1}/{len(source_infos)})...[/dim]")
+        user_message = f"[NOTE: {vault_rel}]\n{source_content}"
+        messages = [
+            {"role": "system", "content": prompt["content"]},
+            {"role": "user", "content": user_message},
+        ]
+        _log_llm_call(model_string, temp, "summarize-absorbed.md")
+        result = ai_call(model_string, temp, messages)
+        if result is None:
+            key_points_block = "[WARNING: LLM failed, Key Points skipped]"
+        else:
+            llm_results.append(result)
+            key_points_block = result["content"].strip()
+            console.print(
+                f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}"
+            )
+        block = (
+            f"## Absorbed — [[{source_stem}]]\n\n"
+            "### Key Points\n\n"
+            f"{key_points_block}\n\n"
+            "### Raw Context\n\n"
+            f"{source_content}"
+        )
+        blocks.append(block)
+    if llm_results:
+        total_prompt = sum(r["tokens"]["prompt"] for r in llm_results)
+        total_completion = sum(r["tokens"]["completion"] for r in llm_results)
+        console.print(f"Tokens total: prompt={total_prompt}, completion={total_completion}, total={total_prompt + total_completion}")
+    if blocks:
+        append_raw_to_file(root_vault_rel, "\n\n" + "\n\n".join(blocks))
+        console.print(f"[dim]Appended {len(blocks)} block(s) to {root_vault_rel}[/dim]")
+    for vault_rel, source_content in source_infos:
+        try:
+            new_content = _set_absorbed_frontmatter(source_content, root_stem)
+            write_new_file(vault_rel, new_content)
+            archive_file(vault_rel, Path(vault_rel).name)
+        except Exception as e:
+            console.print(f"[red]Archive failed for {vault_rel}: {e}[/red]")
+            raise typer.Exit(1)
+    console.print(f"Absorbed {len(blocks)} source(s) into {root_vault_rel}")
 
 
 # ---------------------------------------------------------------------------
@@ -779,6 +963,7 @@ def context_cmd(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "describe-context.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; file unchanged.[/red]")
