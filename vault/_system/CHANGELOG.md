@@ -155,3 +155,33 @@ brain.py operations. Commands pass `{{file_path}}` of current note.
 **Rationale:** Retyping full file paths in terminal every time is friction.
 Shell Commands lets you run any brain.py command against the current note
 from Obsidian's command palette or a hotkey. Output shown in notification.
+
+---
+
+## 2026-03-02
+
+### Absorb command
+**Decision:** Top-level `brain absorb <root> <source1> [source2...]` added.
+Appends ## Absorbed sections (LLM Key Points + verbatim Raw Context) to the
+root note; archives each source with `status: absorbed to [[root_stem]]` in
+frontmatter. Prompt: `summarize-absorbed.md` (workhorse).
+**Rationale:** Overlapping notes (e.g. two ideas covering the same ground) had
+no low-friction way to consolidate. Absorb merges content into one root with
+traceable Key Points and Raw Context, then archives sources. No stage
+restrictions. Empty sources list → exit 1 with "No source notes provided".
+
+### Promote frontmatter before archive
+**Decision:** For `brain idea promote` and `brain thinking promote`, the
+original note is now written with `status: promoted` in frontmatter before
+being moved to archive.
+**Rationale:** The archived copy should reflect that it was promoted, not
+leave the previous status in place.
+
+### Console logging
+**Decision:** `build_user_message` prints "Context loaded: path (N chars)" for
+each context file; every LLM call is preceded by a dimmed line with resolved
+model, temperature, and prompt name; absorb prints progress (Summarizing path
+1/N), per-source token lines, aggregate token total, and "Appended N block(s)".
+**Rationale:** Confirms each context file was found and gives a size signal;
+makes it clear which model and prompt are used before each call; absorb
+progress and token totals make multi-source runs easier to follow.

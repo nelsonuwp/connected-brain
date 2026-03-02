@@ -112,6 +112,33 @@ what the block covers and when to inject it.
 
 ---
 
+#### `brain absorb`
+
+Consolidates one or more source notes into a root note: appends ## Absorbed
+sections (LLM Key Points + verbatim Raw Context), then archives each source.
+
+```bash
+brain absorb 10-thinking/2026-02-22-my-thinking.md 01-inbox/overlap-a.md 01-inbox/overlap-b.md
+```
+
+**Signature:** `brain absorb <root_path> <source_path_1> [<source_path_2> ...]`
+Root is always first; one or more sources. Paths vault-relative or `vault/...`.
+
+**Behavior:** Root is append-only. For each source: LLM summarizes into Key
+Points (or fallback line if LLM fails); block is `## Absorbed — [[source_stem]]`,
+`### Key Points`, `### Raw Context` (verbatim). Then each source gets
+`status: absorbed to [[root_stem]]` in frontmatter and is moved to
+`{parent}/archive/`. No stage restrictions — any note can absorb any other.
+
+**Errors:** Missing root or any source → exit 1. No sources provided → exit 1
+with "No source notes provided". If root already contains `## Absorbed — [[source_stem]]`
+for a source, a dimmed warning is printed but the command proceeds (duplicate
+section will be appended).
+
+**Prompt:** `summarize-absorbed.md` (workhorse).
+
+---
+
 ### Critique Output Format
 
 All three critique commands produce the same output structure:
@@ -165,8 +192,10 @@ Preserved for reference but gone from active folders.
 **Explore and critique** → appended to the bottom of the existing note as a
 `# Section — timestamp ET` block. The original note content is never touched.
 
-**Promote (idea and thinking)** → writes a new file to the target folder.
-Original is moved to `archive/`. Atomic write via temp file + `os.replace()`.
+**Promote (idea and thinking)** → original is updated with `status: promoted`
+in frontmatter and written back, then moved to `archive/` so the archived copy
+has the correct status. New file is written to the target folder. Atomic write
+via temp file + `os.replace()`.
 
 **Promote (initiative)** → moves file between folders. No write operation.
 
