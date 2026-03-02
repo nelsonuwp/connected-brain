@@ -36,3 +36,50 @@ Without type awareness, a code task gets critiqued the same way as a content pie
 
 ## Next Step
 Run `thinking explore` on this note to stress-test the type granularity decision and the assumption that command-specific variation isn't needed.
+
+## Working Answers
+
+**Q2 — Code type block draft:**
+Evaluate for: correctness and edge case coverage, security and auth implications, test coverage, documentation impact, dependency risk. Avoid: narrative flow, audience framing, persuasion criteria.
+
+**Q3 — Explore vs critique on same code note:**
+Explore on code: needs expansive thinking — architecture options, tradeoffs, unknowns.
+Critique on code: needs a checklist — security, maintainability, test coverage, docs.
+These are not the same context. Type × command is probably necessary, not optional.
+
+**Implication:** If Q3 is true, static type blocks are wrong. The right design is a small matrix: type sets the domain (what kind of work), command sets the lens (what to look for). 6 blocks (3 types × explore/critique) not 3. Implementation difference is probably 30 minutes, not 4 hours.
+
+
+---
+
+# Explore — 2026-03-02 18:57 ET
+
+## Explore — 2025-03-02
+
+### The Central Tension
+
+You're betting that **type is stable and command-agnostic** — that a note's category (code/business/content) determines what criteria matter, regardless of what you're doing with that note. But your own uncertainty list suggests the opposite: "code thinking" vs. "code task" might need different framing, and `explore` vs. `critique` on the same note might need different context.
+
+The design assumes type is the dominant axis. But the actual quality degradation you're trying to prevent (generic output missing real criteria) might be driven more by **what you're asking for** than **what the note is about**. A code note being explored needs expansive architectural thinking; the same note being critiqued needs security/maintainability checklists. Those aren't the same context block.
+
+### What I'd Push On
+
+**The "injection not substitution" decision hides the real question.** You chose injection because "type blocks are static and don't need per-command variation" — but that's the assumption under examination, not a known fact. If type × command variation becomes necessary, injection becomes insufficient and you've built infrastructure that needs rework.
+
+**"Code thinking and code task can share a type block" is testable now.** Write the code type block. Apply it mentally to a thinking note and a task note you've already run through the system. Does the same 200 tokens serve both? If you're hedging while writing it, that's data.
+
+**Three types maps to your current work, not to the domain.** Code/business/content is how *you* currently use the system. But "business" is doing a lot of work — strategy, operations, process design, people decisions. These have wildly different evaluation criteria. "Is this operationally sound?" vs. "Is this strategically coherent?" are not the same question.
+
+**The 200-token constraint may be doing your thinking for you.** You set it to prevent auto-pollution, but it also prevents type blocks from being genuinely useful. If a meaningful code context block needs 400 tokens, the constraint forces you toward generic criteria — which is the problem you're solving.
+
+### Questions You Need to Answer
+
+1. What specific criteria are missing from current outputs that type blocks would add? Name three examples where generic critique failed and what type-aware critique would have caught.
+
+2. If you wrote the code type block today, what would it say? Write it. Does it apply equally well to architecture thinking, implementation tasks, and debugging notes?
+
+3. When you imagine running `critique` vs. `explore` on the same code note, do you want the same type context injected? If not, type × command is already necessary.
+
+4. Is "business" actually one type, or is it a bucket for "not code, not content"? What happens when you try to write a single business type block that serves strategy notes and operational notes?
+
+5. What's the cost of starting with type × command (6-9 blocks) vs. type-only (3 blocks)? If the implementation difference is small, the "simpler" argument weakens.
