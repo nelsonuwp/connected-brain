@@ -600,6 +600,7 @@ def thinking_spec(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "specify-mode.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -660,6 +661,7 @@ def thinking_promote(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "promote-thinking-to-initiative.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; original untouched.[/red]")
@@ -716,6 +718,7 @@ def initiative_critique(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "critique-initiative.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -744,6 +747,7 @@ def initiative_explore(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -851,17 +855,21 @@ def absorb_cmd(
     prompt = load_prompt("summarize-absorbed.md")
     model_string, temp = resolve_model_and_temp(prompt, None)
     blocks = []
-    for vault_rel, source_content in source_infos:
+    llm_results = []
+    for idx, (vault_rel, source_content) in enumerate(source_infos):
         source_stem = Path(vault_rel).stem
+        console.print(f"[dim]Summarizing {vault_rel} ({idx + 1}/{len(source_infos)})...[/dim]")
         user_message = f"[NOTE: {vault_rel}]\n{source_content}"
         messages = [
             {"role": "system", "content": prompt["content"]},
             {"role": "user", "content": user_message},
         ]
+        _log_llm_call(model_string, temp, "summarize-absorbed.md")
         result = ai_call(model_string, temp, messages)
         if result is None:
             key_points_block = "[WARNING: LLM failed, Key Points skipped]"
         else:
+            llm_results.append(result)
             key_points_block = result["content"].strip()
             console.print(
                 f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}"
@@ -874,8 +882,13 @@ def absorb_cmd(
             f"{source_content}"
         )
         blocks.append(block)
+    if llm_results:
+        total_prompt = sum(r["tokens"]["prompt"] for r in llm_results)
+        total_completion = sum(r["tokens"]["completion"] for r in llm_results)
+        console.print(f"Tokens total: prompt={total_prompt}, completion={total_completion}, total={total_prompt + total_completion}")
     if blocks:
         append_raw_to_file(root_vault_rel, "\n\n" + "\n\n".join(blocks))
+        console.print(f"[dim]Appended {len(blocks)} block(s) to {root_vault_rel}[/dim]")
     for vault_rel, source_content in source_infos:
         try:
             new_content = _set_absorbed_frontmatter(source_content, root_stem)
@@ -908,6 +921,7 @@ def context_cmd(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "describe-context.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; file unchanged.[/red]")
