@@ -42,3 +42,37 @@ The current system assumes linear idea evolution, but real thinking produces ove
 
 ## Next Step
 Run thinking explore on this note to clarify the open questions around conflict handling, cross-stage rules, and the interaction with existing `## Inputs` sections.
+
+---
+
+# Explore — 2026-03-02 09:11 ET
+
+## Explore — 2026-03-02
+
+### The Central Tension
+
+You're building a consolidation primitive, but the deeper question is whether "absorb" is actually one operation or several wearing the same name. Merging two ideas in the same stage is fundamentally different from pulling fragments up into a more mature note, which is different again from collapsing duplicates. Each implies different rules about what content transfers, what metadata survives, and what the resulting note's "integrity" even means.
+
+The risk is building a general-purpose "absorb" that's technically flexible but semantically ambiguous—users won't know when to use it versus link, and the archived sources will accumulate without clear meaning.
+
+### What I'd Push On
+
+**The directionality assumption may be too clean.** You've framed this as root-consumes-sources, but real consolidation often reveals that neither note should be the survivor—both are partial views of something that needs to be written fresh. Does absorb need a "synthesize into new" variant, or does that belong to a different operation entirely?
+
+**"Absorbed" as a status creates a third state.** You have active notes and archived notes. Now you're proposing absorbed-and-archived, which is archived-but-with-lineage. What's the actual retrieval story? When would someone navigate *to* an absorbed note versus *through* it via the root? If the answer is "rarely," you're building traceability infrastructure that serves the system's integrity more than the user's workflow.
+
+**The bloat problem is architectural, not cosmetic.** Collapsing absorbed content in the UI doesn't solve the underlying issue—if a root note has absorbed four sources, it now carries the cognitive load of five notes regardless of rendering. Is the right model actually *transclusion* (absorbed content lives elsewhere but renders inline) rather than *insertion* (content is copied into root)?
+
+**Stage-crossing is where the real complexity lives.** You've flagged this but not resolved it. If absorb is strictly same-stage, you need a different mechanism for "this inbox fragment actually belongs to that existing initiative." If absorb is cross-stage, you're implicitly saying that stage boundaries are about *primary* notes, not about what content can appear where—which is a meaningful policy decision.
+
+### Questions You Need to Answer
+
+1. What is the *retrieval* use case for an absorbed note? If you can't articulate when someone would want to find it directly, the archiving scheme is serving auditability, not usability.
+
+2. When two notes overlap but neither is clearly "root," what should the user do? If the answer is "pick one arbitrarily," the directionality model is a convenient simplification, not a reflection of how consolidation actually works.
+
+3. Is absorbed content first-class or reference? Meaning: can the root note's absorbed section be edited, or is it a frozen snapshot? If editable, you've just copied content. If frozen, you have a hybrid document with two different editing modes.
+
+4. What's the failure mode you're most worried about—fragmentation (too many notes, no consolidation) or premature synthesis (ideas collapsed before they're ready)? Absorb addresses the first but may accelerate the second.
+
+5. How does this interact with the existing linking model? If I link note A from note B, then later absorb A into B, what happens to the link? What happens to *other* notes that linked to A?
