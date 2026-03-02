@@ -16,5 +16,7 @@ Kind of product related - sellers don't have pre-packaged offerings that they ca
 
 Dave wants to have a workshop, not just the board meeting. 
 
+Capex needs to be 25% of our revenues...where do we track against that?
+
 
 ## Why Now
