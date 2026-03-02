@@ -99,6 +99,7 @@ def build_user_message(
     parts = []
     for path in context_files:
         content = read_file(path)
+        console.print(f"[dim]Context loaded: {path} ({len(content)} chars)[/dim]")
         parts.append(f"[CONTEXT: {path}]\n{content}")
     parts.append(f"[NOTE: {note_path}]\n{note_content}")
     return "\n\n---\n\n".join(parts)
@@ -343,6 +344,11 @@ def resolve_model_and_temp(
     return model_string, float(temp)
 
 
+def _log_llm_call(model: str, temperature: float, prompt_name: str) -> None:
+    """Print resolved model and temperature before each LLM call."""
+    console.print(f"[dim]Calling {model} (temp={temperature}) with prompt '{prompt_name}'[/dim]")
+
+
 def print_dry_run_payload(
     model: str,
     temperature: float,
@@ -390,6 +396,7 @@ def idea_critique(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "critique-idea.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -418,6 +425,7 @@ def idea_explore(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -447,6 +455,7 @@ def idea_normalize(
         raise typer.Exit(0)
     if snapshot:
         snapshot_note_for_llm(vault_rel)
+    _log_llm_call(model_string, temp, "normalize.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -477,6 +486,7 @@ def idea_promote(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "promote-idea-to-thinking.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; original untouched.[/red]")
@@ -533,6 +543,7 @@ def thinking_critique(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "critique-thinking.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -561,6 +572,7 @@ def thinking_explore(
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -617,6 +629,7 @@ def thinking_normalize(
         raise typer.Exit(0)
     if snapshot:
         snapshot_note_for_llm(vault_rel)
+    _log_llm_call(model_string, temp, "normalize.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
@@ -760,6 +773,7 @@ def initiative_normalize(
         raise typer.Exit(0)
     if snapshot:
         snapshot_note_for_llm(vault_rel)
+    _log_llm_call(model_string, temp, "normalize.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
