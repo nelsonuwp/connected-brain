@@ -1,7 +1,7 @@
 ---
-type: idea
 created: 2026-03-02
-status: raw
+status: promoted
+type: idea
 ---
 
 # type-aware injectable context blocks
@@ -184,3 +184,47 @@ Rework suggested
 **Strong:** "Transparency of what's being injected" is a real risk.
 **Weak:** The other two tensions are underspecified. What does "code thinking vs. code task needing different context" actually mean in practice?
 **Fix:** Make the second tension concrete: "A code thinking note explores tradeoffs broadly; a code task needs implementation constraints. If both use the same type block, does the task get too much exploratory framing?" Then say whether this is a real problem or theoretical.
+
+---
+
+# Critique — 2026-03-02 18:55 ET
+
+## Score: 7/10
+Rework suggested — one design question unresolved, otherwise ready to promote
+
+## Section Breakdown
+
+### The Idea
+**Strong:** Mechanism is clear (type field → auto-inject context block). Scope is explicit (system context only, v1).
+**Weak:** Missing the current-state pain. Why is manual context injection failing?
+**Fix:** Add one sentence before "Add a type field": "Today, type-specific criteria have to be manually added via --context flags or are missing entirely. A code task gets critiqued the same as a content piece."
+
+### Why Now
+**Strong:** Clear trigger (tasks being added), good timing logic (design before implementation).
+**Weak:** "Need type-aware explore and critique behavior" is abstract. What actually breaks?
+**Fix:** Replace "need type-aware explore and critique behavior" with: "Without it, a task to refactor auth logic gets critiqued the same way as a content piece — generic output that misses the real criteria (security, maintainability)."
+
+### Proposed Design
+**Strong:** Boundaries are explicit (injection not substitution, system context only, v1 scope clear). Risk mitigation is concrete (200 token limit, quarterly review). Blocker identified with time estimate. The "code thinking vs code task using same block" acknowledgment is good.
+**Weak:** "Three types for v1" is stated but not justified. Why code/business/content specifically?
+**Fix:** After "Three types for v1," add: "These map to the three kinds of work in the pipeline: technical implementation, strategic decisions, written output. Finer splits (architecture vs. debugging) wait until there's evidence they're needed."
+
+### Explore — Possibilities — Where type lives
+**Weak:** Four options listed but your Proposed Design already chose frontmatter. This section now contradicts your decision.
+**Fix:** Cut this subsection entirely. You've already decided. Or reduce to one line: "Frontmatter is explicit and portable. Folder inference breaks when a project mixes types. Content analysis is fragile."
+
+### Explore — Possibilities — What type affects
+**Weak:** This is already covered in Proposed Design ("type affects system context only"). Listing scope creep here creates confusion.
+**Fix:** Cut this subsection. It's redundant with Proposed Design.
+
+### Explore — Adjacent ideas — Context layering beyond type
+**Weak:** Introduces audience and constraints without saying whether they're alternatives, extensions, or out of scope.
+**Fix:** Add one line at the end: "Out of scope for v1 but worth noting if type alone proves insufficient."
+
+### Explore — Adjacent ideas — Dynamic context based on command
+**Weak:** This directly challenges your proposal (static type blocks) but you don't take a position. If command matters more than type, your whole design is wrong.
+**Fix:** Add: "This would replace static type blocks with a type × command matrix. Current assumption: type block is static per note, command doesn't vary it. If tasks prove this wrong, revisit."
+
+### Explore — Tensions to name — "code thinking vs code task"
+**Weak:** "Code thinking and code task might need different type context" is vague. What does this mean in practice?
+**Fix:** Make it concrete: "A code thinking note explores tradeoffs broadly; a code task needs implementation constraints. If both use the same type block, does the task get too much exploratory framing? Acceptable for v1. If tasks get polluted in practice, split the blocks then."
