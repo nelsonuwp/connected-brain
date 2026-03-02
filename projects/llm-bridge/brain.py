@@ -482,6 +482,8 @@ def idea_promote(
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
     filename = Path(vault_rel).name
+    promoted_content = _set_frontmatter_status(note_content, "promoted")
+    write_new_file(vault_rel, promoted_content)
     archive_file(vault_rel, filename)
     dest = f"10-thinking/{filename}"
     write_new_file(dest, result["content"])
@@ -650,6 +652,8 @@ def thinking_promote(
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
     filename = Path(vault_rel).name
+    promoted_content = _set_frontmatter_status(note_content, "promoted")
+    write_new_file(vault_rel, promoted_content)
     archive_file(vault_rel, filename)
     dest = f"30-initiatives/drafting/{filename}"
     write_new_file(dest, result["content"])
