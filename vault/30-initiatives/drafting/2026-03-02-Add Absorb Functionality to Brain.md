@@ -66,3 +66,57 @@ Ideas and thoughts emerge non-linearly. A new inbox capture often overlaps with 
 
 ## Validation Plan
 Self will review on 2026-03-16: check git log for absorb operations, manually inspect root notes from those operations, and confirm Key Points quality held up. Rollback trigger: if any absorb takes > 2 minutes end-to-end or leaves broken wikilinks (verified by `obsidian-link-checker`), disable and revert to manual consolidation.
+
+---
+
+# Critique — 2026-03-02 11:30 ET
+
+## Score: 9/10
+Strong — consider promoting
+
+## Section Breakdown
+
+### One-Line Purpose
+**Strong:** Clear, specific, and matches the actual command behavior described later.
+
+### Context
+**Strong:** Explains the problem concretely (overlapping notes, no consolidation mechanism) and positions Absorb as the solution.
+
+### Success Looks Like
+**Strong:** All four criteria are testable and specific.
+**Weak:** Criterion 4 ("accurate enough that I don't need to re-read") is subjective and conflicts with the Open Questions section, which acknowledges summarization quality is unknown.
+**Fix:** Either remove criterion 4 or reframe it as "Key Points capture the main decision/constraint from each source note" and tie it to the decision trigger already defined in Open Questions (3 out of 10 threshold).
+
+### Constraints
+**Strong:** Exceptionally detailed. Section structure is specified character-for-character. Error handling is explicit. Fallback behavior for LLM failure is defined. The "user error is permitted" stance is clear and intentional.
+
+### Open Questions
+**Strong:** Each question has a concrete decision trigger or resolution path. The 3-out-of-10 threshold for summarization quality is testable.
+
+### Work Breakdown — Files / Deliverables
+**Weak:** The prompt file specifies "3–5 bullet points" but Success Looks Like criterion 4 and the LLM fallback in Constraints don't enforce this range — if the LLM returns 2 bullets or 7 bullets, is that a failure?
+**Fix:** Either remove the bullet count from the prompt spec or add a validation step in sequence step 3 that checks bullet count and logs a warning if out of range.
+
+### Work Breakdown — Sequence
+**Strong:** Each step has a specific testable outcome. Step 5 end-to-end test is concrete and verifiable.
+**Weak:** Step 4 says "call `archive_file` for each source" but does not specify what happens if `archive_file` fails partway through (e.g., source 1 archives successfully, source 2 fails due to filesystem error). Does the command roll back? Does it leave source 1 archived and source 2 in place?
+**Fix:** Add to step 4 testable outcome: "If any archive operation fails, command exits with error code 1 and prints which source failed — no rollback of prior sources."
+
+### Decisions Made
+**Strong:** Each decision directly addresses a potential design fork and commits to a specific path.
+
+### Delegation State
+**Strong:** Single owner, specific deadline, clear deliverable tied to the 5 testable outcomes in Sequence.
+
+### Validation Plan
+**Strong:** Specific date, specific checks (git log, manual inspection, link checker), and a concrete rollback trigger (>2 minutes or broken links).
+**Weak:** The rollback trigger "broken wikilinks" is not caused by anything in the spec — Constraints explicitly say "No link modification: Existing wikilinks and backlinks are untouched." This is an internal contradiction.
+**Fix:** Remove "broken wikilinks" from the rollback trigger, or clarify what scenario would cause them (e.g., if archiving a source note breaks a link *to* that note from elsewhere, which is expected behavior and not a bug).
+
+---
+
+**Missing Section:** None — all expected sections are present.
+
+**Internal Contradictions:**
+1. Success criterion 4 vs. Open Questions on summarization quality (flagged above).
+2. Validation Plan rollback trigger mentions broken wikilinks, but Constraints say links are untouched (flagged above).
