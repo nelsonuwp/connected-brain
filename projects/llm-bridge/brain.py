@@ -138,6 +138,23 @@ def append_to_file(vault_relative_path: str, llm_output: str, mode: str) -> None
         raise
 
 
+def append_raw_to_file(vault_relative_path: str, content: str) -> None:
+    """Atomic append of raw content (no timestamp or section wrapper). Used by absorb."""
+    full = Config.VAULT_ROOT / vault_relative_path
+    original = full.read_text(encoding="utf-8")
+    if content and not content.startswith("\n"):
+        content = "\n\n" + content
+    new_content = original + content
+    tmp_path = full.with_suffix(full.suffix + ".tmp")
+    try:
+        tmp_path.write_text(new_content, encoding="utf-8")
+        os.replace(tmp_path, full)
+    except Exception:
+        if tmp_path.exists():
+            tmp_path.unlink()
+        raise
+
+
 def append_section(note_path: str, content: str, section_title: str) -> None:
     """
     Atomic append of a named heading section to a note.
@@ -780,6 +797,44 @@ def initiative_kill(
     archive_file(vault_rel, filename)
     archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
     console.print(f"Killed → {archive_path}")
+
+
+# ---------------------------------------------------------------------------
+# Absorb (consolidate source notes into root, then archive sources)
+# ---------------------------------------------------------------------------
+
+
+@app.command("absorb")
+def absorb_cmd(
+    root_path: str = typer.Argument(..., help="Root note path (vault-relative or vault/...)"),
+    sources: list[str] = typer.Argument(..., help="Source note path(s) to absorb into root"),
+) -> None:
+    """Consolidate source notes into root: append ## Absorbed sections (Key Points + Raw Context), then archive sources."""
+    _, root_vault_rel = resolve_under_vault(root_path)
+    root_content = read_file(root_path)
+    root_stem = Path(root_vault_rel).stem
+    source_infos = []
+    for s in sources:
+        _, vault_rel = resolve_under_vault(s)
+        source_content = read_file(s)
+        source_infos.append((vault_rel, source_content))
+    for vault_rel, _ in source_infos:
+        source_stem = Path(vault_rel).stem
+        if f"## Absorbed — [[{source_stem}]]" in root_content:
+            console.print(f"[yellow]WARNING: source already appears absorbed[/yellow]: {vault_rel}")
+    blocks = []
+    for vault_rel, source_content in source_infos:
+        source_stem = Path(vault_rel).stem
+        block = (
+            f"## Absorbed — [[{source_stem}]]\n\n"
+            "### Key Points\n\n[PLACEHOLDER]\n\n"
+            "### Raw Context\n\n"
+            f"{source_content}"
+        )
+        blocks.append(block)
+    if blocks:
+        append_raw_to_file(root_vault_rel, "\n\n" + "\n\n".join(blocks))
+    console.print(f"Absorbed {len(blocks)} source(s) into {root_vault_rel}")
 
 
 # ---------------------------------------------------------------------------
