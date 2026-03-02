@@ -11,6 +11,40 @@ week: <% tp.date.now("[W]ww") %>
 - Active delegation briefs: `/12`
 - Open loops: (check [[open-loops]])
 
+## Active Context
+
+### 📥 Inbox (Percolating Ideas)
+```dataview
+LIST 
+FROM "01-inbox"
+SORT file.mtime desc
+LIMIT 5
+```
+
+### 🧠 Active Thinking
+```dataview
+LIST 
+FROM "10-thinking"
+SORT file.mtime desc
+LIMIT 5
+```
+
+### 🏗️ Initiatives: Drafting
+```dataview
+LIST 
+FROM "30-initiatives/drafting"
+SORT file.mtime desc
+LIMIT 5
+```
+
+### 🚀 Initiatives: Active
+```dataview
+LIST 
+FROM "30-initiatives/active"
+SORT file.mtime desc
+LIMIT 5
+```
+
 ## Today's Schedule
 <!-- Populate from Outlook each morning -->
 
