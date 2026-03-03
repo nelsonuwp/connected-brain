@@ -57,3 +57,42 @@ Currently all notes receive identical generic context regardless of domain—a c
 ## Delegation State
 | Person | Owns | By When | Level | Status |
 | ------ | ---- | ------- | ----- | ------ |
+
+---
+
+# Explore — 2026-03-02 19:51 ET
+
+## Explore — 2025-01-14
+
+### Execution Options
+
+**Block authoring approach:**
+- Write blocks in isolation first, then test against notes (current plan)
+- Write blocks *from* existing notes: pull 3 representative notes per type, run current generic prompts, identify what's missing, write blocks to fill gaps
+- Pair-write: draft explore and critique blocks for same type simultaneously to ensure they're genuinely different lenses rather than overlapping
+
+**brain.py implementation paths:**
+- Simple file lookup: `20-context/types/{type}-{command}.md` — direct, brittle to typos/missing files
+- Registry dict in brain.py mapping (type, command) → path — explicit, catches errors at load time
+- Config file (YAML/JSON) listing valid types and their block paths — extensible, but adds a file to maintain
+
+**Sequencing tradeoffs:**
+- Current sequence (all 6 blocks → manual test → analyze → implement) delays feedback on whether the blocks work in real invocations until step 4
+- Alternative: implement basic brain.py loading first with placeholder blocks, then iterate on block content with live testing
+- Risk of current sequence: you optimize blocks for manual testing that behaves differently than automated injection
+
+### Dependency Risks
+
+**Frontmatter consistency:** How many existing notes actually have `type:` in frontmatter? If adoption is low, you'll spend step 2 adding frontmatter rather than testing blocks. Worth auditing before starting.
+
+**brain.py architecture:** "brain.py currently lacks dynamic context loading" — is this additive (new function) or does it require restructuring how context is assembled? The latter changes the implementation estimate significantly.
+
+**Block-to-prompt integration:** Where exactly in the system prompt do injected blocks land? Before or after existing context? This affects how blocks should be written (can they assume the reader has seen X?).
+
+### Tradeoffs to Decide
+
+**Testing threshold interpretation:** "Fewer than 30% override rate" — is this 30% of notes needing override, or 30% of *invocations*? A single problematic note type (e.g., hybrid code/content) could skew note-based metrics.
+
+**Warning behavior scope:** Warning on missing type is clear. What about notes where type exists but doesn't match the three valid options? Same warning? Different message? This is a data quality signal worth distinguishing.
+
+**Block versioning:** If blocks change after notes have been explored/critiqued, is there value in tracking which block version was used? Probably not for v1, but affects whether you want block content in a single file vs. split.
