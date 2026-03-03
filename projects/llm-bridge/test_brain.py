@@ -35,6 +35,9 @@ def temp_vault(tmp_path_factory):
     (vault / "10-thinking").mkdir()
     (vault / "30-initiatives").mkdir()
     (vault / "20-context").mkdir(parents=True)
+    for stage in ["drafting", "active", "completed"]:
+        (vault / "31-tasks" / stage).mkdir(parents=True)
+        (vault / "31-tasks" / stage / "archive").mkdir()
     prompts_dir = vault / "_prompts"
     prompts_dir.mkdir()
     for name in [
@@ -42,12 +45,18 @@ def temp_vault(tmp_path_factory):
         "critique-thinking.md",
         "critique-initiative.md",
         "explore.md",
-        "normalize.md",
         "promote-idea-to-thinking.md",
         "promote-thinking-to-initiative.md",
         "specify-mode.md",
         "describe-context.md",
         "summarize-absorbed.md",  # required for absorb tests
+        "task-explore-code.md",
+        "task-explore-business.md",
+        "task-explore-content.md",
+        "task-critique-code.md",
+        "task-critique-business.md",
+        "task-critique-content.md",
+        "promote-idea-to-task.md",
     ]:
         src = DEFAULT_PROMPTS / name
         if src.exists():
@@ -66,6 +75,14 @@ def temp_vault(tmp_path_factory):
             )
         else:
             (prompts_dir / name).write_text(f"System prompt: {name}\n", encoding="utf-8")
+    for task_prompt in [
+        "task-explore-code.md", "task-explore-business.md", "task-explore-content.md",
+        "task-critique-code.md", "task-critique-business.md", "task-critique-content.md",
+        "promote-idea-to-task.md",
+    ]:
+        path = prompts_dir / task_prompt
+        if not path.exists():
+            path.write_text(f"System prompt: {task_prompt}\n", encoding="utf-8")
     return vault
 
 
@@ -744,66 +761,6 @@ def test_explore_adds_explore_section(env_with_vault):
     assert "My idea" in full
 
 
-def test_normalize_overwrites_file(env_with_vault):
-    vault = env_with_vault
-    (vault / "01-inbox" / "test-normalize.md").write_text("Raw idea\n", encoding="utf-8")
-    fake_rewritten = "Clear idea."
-    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(fake_rewritten)):
-        from typer.testing import CliRunner
-        import brain as brain_mod
-        runner = CliRunner()
-        result = runner.invoke(brain_mod.app, ["idea", "normalize", "01-inbox/test-normalize.md"], env=env)
-    assert result.exit_code == 0
-    full = (vault / "01-inbox" / "test-normalize.md").read_text()
-    assert "# Current Version" in full
-    assert fake_rewritten in full
-
-
-def test_normalize_preserves_sections(env_with_vault):
-    vault = env_with_vault
-    content = "# Current Version\n\nOld body\n\n---\n\n# Explore\n\nExplore content\n\n---\n\n# Critique\n\nCritique content\n"
-    (vault / "01-inbox" / "test-preserve.md").write_text(content, encoding="utf-8")
-    fake_rewritten = "New body."
-    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(fake_rewritten)):
-        from typer.testing import CliRunner
-        import brain as brain_mod
-        runner = CliRunner()
-        result = runner.invoke(brain_mod.app, ["idea", "normalize", "01-inbox/test-preserve.md"], env=env)
-    assert result.exit_code == 0
-    full = (vault / "01-inbox" / "test-preserve.md").read_text()
-    assert "New body." in full
-    assert "Explore content" in full
-    assert "Critique content" in full
-    assert "Old body" not in full
-
-
-def test_normalize_dry_run_no_write(env_with_vault):
-    vault = env_with_vault
-    (vault / "01-inbox" / "dry.md").write_text("Text\n", encoding="utf-8")
-    result = _run_brain(
-        {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"},
-        "idea", "normalize", "01-inbox/dry.md", "--dry-run",
-    )
-    assert result.returncode == 0
-    json.loads(result.stdout)
-    assert (vault / "01-inbox" / "dry.md").read_text() == "Text\n"
-
-
-def test_normalize_failure_no_write(env_with_vault):
-    vault = env_with_vault
-    (vault / "01-inbox" / "fail.md").write_text("Text\n", encoding="utf-8")
-    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=None):
-        from typer.testing import CliRunner
-        import brain as brain_mod
-        runner = CliRunner()
-        result = runner.invoke(brain_mod.app, ["idea", "normalize", "01-inbox/fail.md"], env=env)
-    assert result.exit_code == 1
-    assert (vault / "01-inbox" / "fail.md").read_text() == "Text\n"
-
-
 def test_multiple_sections_accumulate(env_with_vault):
     vault = env_with_vault
     (vault / "01-inbox" / "acc.md").write_text("Idea\n", encoding="utf-8")
@@ -837,40 +794,3 @@ def test_append_section_order(env_with_vault):
     assert "First." in full
     assert "Second." in full
 
-
-# PRE-EXISTING FAILURE: missing normalize.md in test vault. Unrelated to type-aware context changes.
-def test_legacy_file_critique_then_normalize(env_with_vault):
-    vault = env_with_vault
-    content = "Original body\n\n---\n\n# Critique — 2026-01-01 12:00 UTC\n\nCritique text\n"
-    (vault / "01-inbox" / "legacy.md").write_text(content, encoding="utf-8")
-    fake_rewritten = "Normalized body."
-    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(fake_rewritten)):
-        from typer.testing import CliRunner
-        import brain as brain_mod
-        runner = CliRunner()
-        result = runner.invoke(brain_mod.app, ["idea", "normalize", "01-inbox/legacy.md"], env=env)
-    assert result.exit_code == 0
-    full = (vault / "01-inbox" / "legacy.md").read_text()
-    assert "Critique text" in full
-    assert "Normalized body." in full
-    assert "Original body" not in full
-
-
-def test_normalize_preserves_frontmatter(env_with_vault):
-    vault = env_with_vault
-    content = "---\ntype: thinking\nstatus: raw\n---\n\n# Current Version\n\nOld body\n"
-    (vault / "10-thinking" / "fm.md").write_text(content, encoding="utf-8")
-    fake_rewritten = "New body."
-    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
-    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(fake_rewritten)):
-        from typer.testing import CliRunner
-        import brain as brain_mod
-        runner = CliRunner()
-        result = runner.invoke(brain_mod.app, ["thinking", "normalize", "10-thinking/fm.md"], env=env)
-    assert result.exit_code == 0
-    full = (vault / "10-thinking" / "fm.md").read_text()
-    assert "type: thinking" in full
-    assert "status: raw" in full
-    assert "New body." in full
-    assert "Old body" not in full

@@ -1050,6 +1050,147 @@ def initiative_complete(
 
 
 # ---------------------------------------------------------------------------
+# Task
+# ---------------------------------------------------------------------------
+
+task_app = typer.Typer()
+app.add_typer(task_app, name="task")
+
+
+@task_app.command("explore")
+def task_explore(
+    ctx: typer.Context,
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+    context: list[str] = typer.Option([], "--context", "-c", help=CONTEXT_ARG_HELP),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
+    temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
+) -> None:
+    """Explore code/business/content task. Append # Explore section."""
+    full_path, display_path = resolve_path(file)
+    note_content = full_path.read_text(encoding="utf-8")
+    context_resolved = [resolve_path(c) for c in context]
+    prompt, prompt_name = _resolve_task_prompt_and_warn(note_content, "explore")
+    system_content = prompt["content"]
+    user_content = build_user_message(note_content, context_resolved, display_path)
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
+    if dry_run:
+        print_dry_run_payload(model_string, temp, messages)
+        raise typer.Exit(0)
+    if ctx.obj and ctx.obj.get("debug"):
+        print(system_content, file=sys.stderr)
+    _log_llm_call(model_string, temp, prompt_name)
+    result = ai_call(model_string, temp, messages)
+    if result is None:
+        console.print("[red]LLM call failed; note unchanged.[/red]")
+        raise typer.Exit(1)
+    append_section(full_path, result["content"], "Explore")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
+    console.print(f"Appended to {display_path}")
+
+
+@task_app.command("critique")
+def task_critique(
+    ctx: typer.Context,
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+    context: list[str] = typer.Option([], "--context", "-c", help=CONTEXT_ARG_HELP),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
+    temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
+) -> None:
+    """Audit task. Append # Critique section."""
+    full_path, display_path = resolve_path(file)
+    note_content = full_path.read_text(encoding="utf-8")
+    context_resolved = [resolve_path(c) for c in context]
+    prompt, prompt_name = _resolve_task_prompt_and_warn(note_content, "critique")
+    system_content = prompt["content"]
+    user_content = build_user_message(note_content, context_resolved, display_path)
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
+    model_string, temp = resolve_model_and_temp(prompt, temperature)
+    if dry_run:
+        print_dry_run_payload(model_string, temp, messages)
+        raise typer.Exit(0)
+    if ctx.obj and ctx.obj.get("debug"):
+        print(system_content, file=sys.stderr)
+    _log_llm_call(model_string, temp, prompt_name)
+    result = ai_call(model_string, temp, messages)
+    if result is None:
+        console.print("[red]LLM call failed; note unchanged.[/red]")
+        raise typer.Exit(1)
+    append_section(full_path, result["content"], "Critique")
+    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
+    console.print(f"Appended to {display_path}")
+
+
+@task_app.command("activate")
+def task_activate(
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+) -> None:
+    """Move task from drafting/ to active/, set status: active. No LLM call."""
+    full_path, display_path = resolve_path(file)
+    vault_root = Config.VAULT_ROOT.resolve()
+    try:
+        vault_rel = str(full_path.resolve().relative_to(vault_root))
+    except ValueError:
+        console.print("[red]File must be inside the vault.[/red]")
+        raise typer.Exit(1)
+    if not vault_rel.startswith("31-tasks/drafting/"):
+        console.print("[red]File must be in 31-tasks/drafting/ to activate.[/red]")
+        raise typer.Exit(1)
+    dest_vault_rel = "31-tasks/active/" + full_path.name
+    content = full_path.read_text(encoding="utf-8")
+    new_content = _set_frontmatter_status(content, "active")
+    write_new_file(dest_vault_rel, new_content)
+    full_path.unlink()
+    console.print(f"Promoted → {dest_vault_rel}")
+
+
+@task_app.command("complete")
+def task_complete(
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+) -> None:
+    """Move task from active/ to completed/, set status: complete. No LLM call."""
+    full_path, display_path = resolve_path(file)
+    vault_root = Config.VAULT_ROOT.resolve()
+    try:
+        vault_rel = str(full_path.resolve().relative_to(vault_root))
+    except ValueError:
+        console.print("[red]File must be inside the vault.[/red]")
+        raise typer.Exit(1)
+    if not vault_rel.startswith("31-tasks/active/"):
+        console.print("[red]File must be in 31-tasks/active/ to complete.[/red]")
+        raise typer.Exit(1)
+    dest_vault_rel = "31-tasks/completed/" + full_path.name
+    content = full_path.read_text(encoding="utf-8")
+    new_content = _set_frontmatter_status(content, "complete")
+    write_new_file(dest_vault_rel, new_content)
+    full_path.unlink()
+    console.print(f"Completed → {dest_vault_rel}")
+
+
+@task_app.command("kill")
+def task_kill(
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+) -> None:
+    """Move task to archive and mark as killed. No LLM call."""
+    full_path, _ = resolve_path(file)
+    vault_root = Config.VAULT_ROOT.resolve()
+    try:
+        vault_rel = str(full_path.resolve().relative_to(vault_root))
+    except ValueError:
+        console.print("[red]File must be inside the vault.[/red]")
+        raise typer.Exit(1)
+    if not (vault_rel.startswith("31-tasks/drafting/") or vault_rel.startswith("31-tasks/active/") or vault_rel.startswith("31-tasks/completed/")):
+        console.print("[red]File must be in 31-tasks/ (drafting, active, or completed) to kill.[/red]")
+        raise typer.Exit(1)
+    content = full_path.read_text(encoding="utf-8")
+    new_content = _set_killed_frontmatter(content)
+    write_to_path(full_path, new_content)
+    archive_file(full_path, full_path.name)
+    archive_path = f"{full_path.parent}/archive/{full_path.name}"
+    console.print(f"Killed → {archive_path}")
+
+
+# ---------------------------------------------------------------------------
 # Absorb (consolidate source notes into root, then archive sources)
 # ---------------------------------------------------------------------------
 

@@ -43,3 +43,14 @@ Do not:
 - Produce generic feedback ("add more detail") — every Fix must be specific
 
 Begin immediately with ## Score.
+
+After scoring, assess routing:
+- If the why is self-evident, the how is already obvious, and execution is bounded → recommend: task
+- Otherwise → recommend: thinking
+
+Output as:
+
+---route
+recommendation: task | thinking
+reason: one sentence
+---
