@@ -9,189 +9,222 @@ source-idea: [[2026-03-02-salesforce email ingestion for account intel]]
 
 ## What
 Add activity history and email message fetching to salesforceClient.py 
-so source_salesforce.json gains two new object keys (activity_histories, 
-email_messages), map them through the legacy envelope in gather.py, and 
-add a dedicated activity signal extractor that feeds unified_signals.json.
+so source_salesforce.json gains activity_histories and email_messages 
+object keys. Map them through the legacy envelope in gather.py. Add a 
+dedicated activity signal extractor (including Jira ticket cross-reference) 
+that feeds unified_signals.json. Add Account Owner to the report context bar.
 
 ## Done When
 1. source_salesforce.json contains activity_histories and email_messages 
    keys in objects, each a valid SourceObject (status/record_count/error/data)
 2. gather.py _map_to_legacy_envelope maps them to 
    raw_data["salesforce"]["data"]["ActivityHistories"] and ["EmailMessages"]
-3. A new extract_salesforce_activity_signals() function in 
-   signal_primitives.py (or signals.py) produces signal primitives from 
+3. extract_salesforce_activity_signals() produces signal primitives from 
    activity data and merges into unified_signals.json
-4. email_messages status is "skipped" (not "fail") when Enhanced Email 
-   is not enabled in the org
-5. Existing Account/Opportunities/Contacts behavior is unchanged — 
-   verified by running pipeline against a test account
+4. Jira ticket references (APTUM-\d+) extracted from activity text and 
+   emitted as signal primitives with ticket ID as evidence — downstream 
+   Jira signals with matching ticket IDs are correlated in unified_signals
+5. email_messages status is "skipped" (not "fail") when Enhanced Email 
+   is not enabled or contacts fetch failed
+6. Account Owner (Name from source_salesforce.json objects.account.data.Owner.Name) 
+   appears in the report context bar alongside Client ID and ZoomInfo ID
+7. Existing Account/Opportunities/Contacts behavior unchanged — verified 
+   by running pipeline against a test account
+8. Unit tests cover: bot detection patterns, signal extraction, 
+   EmailMessage unavailable scenario, Jira ticket regex extraction
+9. Docstrings on all new functions; CHANGELOG.md updated
 
 ## Notes
 
 ### Architecture decisions (resolved)
-- Fetch inside salesforceClient.fetch_data() — Option A from flow doc. 
-  Account Id is already resolved by the existing Client_ID__c query; 
-  use that Id for the ActivityHistories subquery and EmailMessage lookup
-- Single artifact — activity_histories and email_messages go into the 
-  existing source_salesforce.json objects dict alongside account, 
-  opportunities, contacts. No new artifact file.
+- Fetch inside salesforceClient.fetch_data() — Account Id already 
+  resolved by Client_ID__c query; use that Id for activity queries
+- Single artifact — all new keys go into existing source_salesforce.json
 - Legacy envelope — add to _map_to_legacy_envelope in gather.py:
     data["ActivityHistories"] = (objects.get("activity_histories") or {}).get("data") or []
     data["EmailMessages"] = (objects.get("email_messages") or {}).get("data") or []
-- Signal strategy — new function extract_salesforce_activity_signals() 
-  (Option 2 from flow doc), called from _extract_deterministic_signals() 
-  in signals.py, merged into all_signals
+- Signal strategy — new extract_salesforce_activity_signals() called 
+  from _extract_deterministic_signals() in signals.py
 
 ### Extraction spec
-- ActivityHistories: subquery on Account, LAST_N_DAYS:60, ORDER BY 
-  ActivityDate DESC, LIMIT 500. Fallback pattern required (some orgs 
-  reject WHERE in subquery — omit WHERE, filter by date in Python).
-  Strip attributes recursively. Data = flat list of records.
-- EmailMessage: fetch Contact IDs first (already queried in existing 
-  flow for contacts object), then query EmailMessage WHERE 
-  RelatedToId IN (contact_ids) AND MessageDate = LAST_N_DAYS:60. 
-  Paginate via nextRecordsUrl. Cap at 200 records. TextBody only 
-  (not HtmlBody — PII surface reduction). Strip attributes.
-  On any exception: status = "skipped", error message explains org 
-  lacks Enhanced Email, data = null.
+- ActivityHistories: subquery on Account. Window: LAST_N_DAYS:120 with 
+  Python fallback filter. ORDER BY ActivityDate DESC. LIMIT: whichever 
+  comes first — 120 days or 20 non-bot records (collect up to 500 raw, 
+  then trim to first 20 non-bot by date). Fallback required for orgs 
+  that reject WHERE in subquery. Strip attributes dict (type + url 
+  metadata) recursively. Data = flat list.
+- EmailMessage: use Contact IDs from existing contacts fetch. If contacts 
+  missing/failed: status = "skipped", error = "contacts unavailable". 
+  Otherwise: query WHERE RelatedToId IN (contact_ids) AND 
+  MessageDate = LAST_N_DAYS:120. Paginate via nextRecordsUrl. Cap 200 
+  records. TextBody only (not HtmlBody). Strip attributes.
+  On any exception: status = "skipped".
 
 ### Signal extraction spec
-Deterministic only for v1. extract_salesforce_activity_signals(sf_data) 
-reads raw_data["salesforce"]["data"]["ActivityHistories"] and produces:
-- last_touched signal: most recent ActivityDate as a signal primitive
-- activity_velocity: count per type (Call/Email/Meeting) in last 30 days
-- open_threads: subjects appearing 2+ times = unresolved item signal
-- escalation flag: "critical"/"asap"/"urgent"/"personal intervention" 
-  keyword match on Subject or Description
-- bot_ratio: count of bot records / total (for quality signal)
+extract_salesforce_activity_signals(sf_data) reads ActivityHistories:
 
-Bot detection (deterministic, applied before signal extraction):
-- Subject matches: order \d+ confirmation, \[peer1\.com #\d+\], 
-  your aptum invoice is ready
-- Do not exclude bots from artifact — flag them, filter in extractor
+- last_touched: most recent ActivityDate as signal primitive
+- activity_velocity: count per type (Call/Email/Meeting) in last 30 days
+- open_threads: subjects appearing 2+ times in last 30 days 
+  (case-insensitive, null = empty string) = unresolved item signal
+- escalation: case-insensitive keyword match on Subject + Description 
+  for: critical, asap, urgent, personal intervention, priorit
+- jira_references: regex APTUM-\d+ extracted from Subject + Description. 
+  Each unique ticket ID emitted as a signal primitive with 
+  source_type="salesforce_activity" and evidence=ticket ID. 
+  Correlation with Jira signals happens in unified_signals merge — 
+  if a signal with matching ticket ID exists from Jira source, 
+  tag both with a shared jira_ticket_id field for synthesizer context.
+- bot_ratio: flagged bot count / total
+
+Example signal primitive:
+```json
+{
+  "claim": "Customer escalated via email referencing open Jira ticket",
+  "source_type": "salesforce_activity",
+  "evidence": "APTUM-37903: 'This is critical for us, please personal intervention'",
+  "confidence": "high",
+  "signal_tag": "escalation",
+  "jira_ticket_id": "APTUM-37903"
+}
+```
+
+Bot detection (case-insensitive, before extraction):
+- Patterns: "order \d+ confirmation", "\[peer1\.com #\d+\]", 
+  "your aptum invoice is ready", "powered by jira service management"
+- Test cases: "Order 279799 Confirmation" → bot; 
+  "Order status update" → not bot; "[peer1.com #2410043]" → bot
+- Bot records stay in artifact (is_bot=true); excluded from signal 
+  extraction but counted for bot_ratio
+
+### Report: Account Owner in context bar
+- Source: source_salesforce.json → objects.account.data.Owner.Name
+- Already in artifact via ACCOUNT_WHITELIST (Owner field)
+- Add to report_generator.py context bar template alongside existing 
+  Client ID and ZoomInfo ID items
+- If Owner absent or null: omit the context-item entirely (no empty label)
+- This is the only report_generator.py change in this task
 
 ### Error handling
-- Activity fetch failure = status "partial" on source_salesforce.json, 
-  activity_histories object gets status "fail" with error. Pipeline 
-  continues — activities are non-critical.
-- EmailMessage unavailable = status "skipped" on email_messages object. 
-  Not "fail". Downstream tolerates missing EmailMessages key.
-- All writes in finally block per single-write rule.
+- Activity fetch failure: source_salesforce.json status = "partial", 
+  activity_histories object status = "fail". Set before single write.
+- EmailMessage unavailable: status = "skipped". Not "fail".
+- Logging: INFO for skipped, WARNING for partial/fail
+- No retries — Salesforce client already retries; fetch failures terminal
 
 ### Files to touch
 - data_sources/internal/salesforceClient.py — fetch_data() only
 - core/pipeline/gather.py — _map_to_legacy_envelope() salesforce branch
-- core/signal_primitives.py — new extract_salesforce_activity_signals()
+- core/signal_primitives.py — extract_salesforce_activity_signals()
 - core/pipeline/signals.py — call new extractor in _extract_deterministic_signals()
+- core/report_generator.py — context bar: Account Owner (targeted, single addition)
+- CHANGELOG.md
 
 ### Do not touch
 - Opportunity LLM extractor
-- commercial posture aggregator  
+- Commercial posture aggregator
 - people.py / contacts flow
-- Report rendering (downstream task)
+- Synthesizer / ai_intel_brief schema
+- All other report sections
 
----
+### Cursor Composer prompt
+```cursor
+I need to integrate Salesforce activity history into the AccountIntel 
+pipeline. Read the files listed before writing anything. Then produce 
+an implementation plan only — no code yet.
 
-# Critique — 2026-03-03 07:32 ET
+## Files to read first
+- data_sources/internal/salesforceClient.py
+- core/pipeline/gather.py (focus: _map_to_legacy_envelope, salesforce branch)
+- core/signal_primitives.py (focus: extract_salesforce_signals)
+- core/pipeline/signals.py (focus: _extract_deterministic_signals)
+- core/report_generator.py (focus: context bar / header section)
+- salesforceTestAccountActivities.py (reference implementation)
+- core/utils/io.py (focus: make_source_object, record_count_from_data, save_source_artifact)
 
-## Score: 7/10
-Ready for implementation with minor clarifications needed on test coverage and documentation updates.
+## What to implement
 
-## Section Breakdown
+### 1. salesforceClient.py — fetch_data() only
+After fetching Account (which gives you the resolved Account Id), add:
 
-### Done When
-**Strong:** 
-- Criteria 1-4 are observable and verifiable (JSON keys exist, status values match expectations)
-- Criterion 5 provides regression protection via explicit verification step
-- "skipped" vs "fail" distinction for Enhanced Email shows thoughtful error handling
+ActivityHistories subquery on the Account record:
+- LAST_N_DAYS:120, ORDER BY ActivityDate DESC, LIMIT 500
+- Fallback pattern required: some orgs reject WHERE in ActivityHistories 
+  subquery — omit WHERE and filter by date in Python
+- After fetching, trim to first 20 non-bot records by date (bot = 
+  subject matches "order \d+ confirmation", "\[peer1\.com #\d+\]", 
+  "your aptum invoice is ready", "powered by jira service management")
+- Strip attributes dict (type + url metadata) recursively from all records
+- Write as activity_histories SourceObject: 
+  make_source_object(status, record_count, error, data_list)
 
-**Weak:** 
-- No explicit test coverage requirement (e.g., "unit tests pass for bot detection regex" or "integration test confirms activity fetch with mock org")
-- No documentation update requirement (README, API docs, or inline docstrings)
+EmailMessage fetch:
+- Use Contact IDs already fetched for the contacts object
+- If contacts object failed/missing: activity_histories status = whatever 
+  it is, email_messages = make_source_object("skipped", 0, 
+  "contacts unavailable", None)
+- Otherwise: query EmailMessage WHERE RelatedToId IN (contact_ids) 
+  AND MessageDate = LAST_N_DAYS:120
+- Paginate via nextRecordsUrl, cap at 200 records
+- TextBody only (not HtmlBody)
+- Strip attributes
+- On any exception: status = "skipped" (not "fail") — Enhanced Email 
+  may not be enabled in all orgs
 
-**Fix:** 
-Add criteria 6-7:
-- "6. Unit tests cover bot detection patterns, signal extraction logic, and EmailMessage unavailable scenario"
-- "7. Docstrings added to new functions; CHANGELOG.md updated with new data sources"
+Partial failure handling: if activity fetch fails, set 
+activity_histories status = "fail" in objects dict. Set 
+source_salesforce.json top-level status = "partial". 
+Still write artifact in finally block (single-write rule).
 
----
+### 2. gather.py — _map_to_legacy_envelope(), salesforce branch only
+Add after existing Account/Opportunities/Contacts mapping:
+  data["ActivityHistories"] = (objects.get("activity_histories") or {}).get("data") or []
+  data["EmailMessages"] = (objects.get("email_messages") or {}).get("data") or []
 
-### Notes - Implementation Plan
-**Strong:**
-- Cursor-ready implementation plan exists with file-by-file breakdown
-- Architecture decisions explicitly resolved (Option A, single artifact, legacy envelope mapping)
-- Extraction spec is detailed with SOQL fragments, fallback patterns, and field choices
-- Signal extraction spec provides concrete primitives (last_touched, activity_velocity, etc.)
-- Error handling strategy addresses both failure modes with status differentiation
-- "Do not touch" section prevents scope creep
+Also add Account Owner to legacy data:
+  data["AccountOwner"] = ((objects.get("account") or {}).get("data") or {}).get("Owner", {}).get("Name") or None
 
-**Weak:**
-- Bot detection regex patterns listed but no test cases provided (e.g., "order 12345 confirmation" should match, "Order status update" should not)
-- Signal extraction spec lacks example output structure (what does `activity_velocity` signal primitive look like in JSON?)
-- No mention of logging strategy for debugging fetch failures
+### 3. core/signal_primitives.py — new function
+Add extract_salesforce_activity_signals(sf_data) that reads 
+sf_data["data"]["ActivityHistories"] and produces signal primitives 
+in the same schema as existing extract_salesforce_signals() output.
 
-**Fix:**
-- Add 2-3 bot detection test cases to Notes
-- Include example signal primitive JSON snippet for one signal type
-- Specify log level for activity fetch errors (INFO for skipped, WARNING for partial)
+Signals to produce:
+- last_touched: most recent ActivityDate
+- activity_velocity: count per ActivityType in last 30 days
+- open_threads: subjects appearing 2+ times in last 30 days 
+  (case-insensitive, null treated as empty string)
+- escalation: case-insensitive match for critical/asap/urgent/
+  personal intervention/priorit in Subject + Description
+- jira_references: regex APTUM-\d+ extracted from Subject + 
+  Description — emit one signal primitive per unique ticket ID, 
+  include ticket ID in evidence and as jira_ticket_id field
 
----
+Bot records (is_bot=True) excluded from signal extraction but 
+counted for a bot_ratio quality signal.
 
-### Notes - Extraction Spec
-**Strong:**
-- SOQL details are precise (LAST_N_DAYS:60, ORDER BY, LIMIT 500)
-- Fallback pattern for orgs rejecting WHERE in subquery shows real-world awareness
-- EmailMessage fetch strategy correctly chains from existing Contact query
-- PII reduction choice (TextBody only) is justified
-- Pagination and cap (200 records) prevent runaway queries
+### 4. core/pipeline/signals.py — _extract_deterministic_signals() only
+After existing extract_salesforce_signals() call, add:
+  if raw_data.get("salesforce", {}).get("status") in ("success", "partial"):
+      activity_signals = extract_salesforce_activity_signals(raw_data["salesforce"])
+      all_signals.extend(activity_signals)
 
-**Weak:**
-- "Strip attributes recursively" mentioned twice but no definition of what attributes to strip (Salesforce metadata fields like `attributes.type`, `attributes.url`?)
-- Contact ID fetch assumes contacts object succeeded — no handling if contacts fetch failed but account succeeded
+### 5. core/report_generator.py — context bar only
+Add Account Owner as a context-item in the context bar, 
+alongside existing Client ID and ZoomInfo ID.
+Source: pass account_owner into the template context from 
+raw_data["salesforce"]["data"].get("AccountOwner").
+If None or empty string: omit the item entirely.
 
-**Fix:**
-- Define "attributes" stripping: "Remove `attributes` dict from each record (contains `type` and `url` metadata)"
-- Add to error handling: "If contacts object missing/failed, skip EmailMessage fetch entirely (status = skipped, error = 'contacts unavailable')"
+## Constraints
+- Do not touch: opportunity extractor, commercial posture, people.py, 
+  synthesizer, ai_intel_brief schema, any other report sections
+- Match existing error handling pattern exactly (finally block, 
+  make_source_object, save_source_artifact)
+- No new dependencies
 
----
-
-### Notes - Signal Extraction Spec
-**Strong:**
-- Five distinct signal types with clear definitions
-- Bot detection applied before extraction (correct order)
-- Bot records flagged but not excluded from artifact (preserves data lineage)
-
-**Weak:**
-- "open_threads" logic ambiguous: subjects appearing 2+ times across all activities or within a time window?
-- Escalation keywords listed but no case-sensitivity rule
-- No handling for activities with null Subject/Description
-
-**Fix:**
-- Clarify: "open_threads: subjects appearing 2+ times in last 30 days (case-insensitive match)"
-- Add: "Escalation keywords matched case-insensitively; null Subject/Description treated as empty string"
-
----
-
-### Notes - Error Handling
-**Strong:**
-- Distinguishes "partial" (activity fail) from "skipped" (email unavailable)
-- Pipeline continues on activity failure (correct priority)
-- Single-write rule referenced (prevents partial artifact corruption)
-
-**Weak:**
-- "All writes in finally block" conflicts with existing SourceObject pattern where status is set before write
-- No retry strategy mentioned (should activity fetch retry on transient Salesforce API errors?)
-
-**Fix:**
-- Clarify: "Write source_salesforce.json once after all fetches complete; set activity_histories status to 'fail' in objects dict before write"
-- Add: "No retries for activity/email fetches (Salesforce client already retries API calls; fetch failures are terminal for this run)"
-
----
-
-### Gate Rule Compliance
-- ✅ Done When specifies observable outcomes (JSON keys, status values, unchanged behavior)
-- ✅ Cursor implementation plan exists (file list, extraction spec, signal spec)
-- ⚠️ Tests mentioned in extraction spec (bot detection) but not in Done When
-- ⚠️ Documentation not addressed (no docstring/CHANGELOG requirement)
-
-**Deductions:** -1 for missing test requirement in Done When, -1 for missing documentation requirement = **7/10**
+## Deliverable
+An implementation plan covering exact function signatures, 
+where each change goes in each file, and any edge cases. 
+No code yet — plan only.
+```
