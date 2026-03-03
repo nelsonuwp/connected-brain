@@ -1,8 +1,9 @@
 ---
-type: code
-status: drafting
 created: 2026-03-02
-source-idea: [[2026-03-02-salesforce email ingestion for account intel]]
+source-idea:
+- - 2026-03-02-salesforce email ingestion for account intel
+status: active
+type: code
 ---
 
 # salesforce email ingestion for account intel
