@@ -1018,7 +1018,7 @@ def initiative_complete(
 @app.command("absorb")
 def absorb_cmd(
     root_path: str = typer.Argument(..., help="Root note path (vault-relative or vault/...)"),
-    sources: list[str] = typer.Argument(..., help="Source note path(s) to absorb into root"),
+    sources: list[str] = typer.Argument(default=[], help="Source note path(s) to absorb into root"),
 ) -> None:
     """Consolidate source notes into root: append ## Absorbed sections (Key Points + Raw Context), then archive sources."""
     _, root_vault_rel = resolve_under_vault(root_path)
@@ -1031,8 +1031,8 @@ def absorb_cmd(
     for s in sources:
         full, vault_rel = resolve_under_vault(s)
         source_content = full.read_text(encoding="utf-8")
-        source_infos.append((vault_rel, source_content))
-    for vault_rel, _ in source_infos:
+        source_infos.append((full, vault_rel, source_content))
+    for _, vault_rel, _ in source_infos:
         source_stem = Path(vault_rel).stem
         if f"## Absorbed — [[{source_stem}]]" in root_content:
             console.print(f"[yellow]WARNING: source already appears absorbed — {vault_rel}[/yellow]")
@@ -1040,7 +1040,7 @@ def absorb_cmd(
     model_string, temp = resolve_model_and_temp(prompt, None)
     blocks = []
     llm_results = []
-    for idx, (vault_rel, source_content) in enumerate(source_infos):
+    for idx, (source_full_path, vault_rel, source_content) in enumerate(source_infos):
         source_stem = Path(vault_rel).stem
         console.print(f"[dim]Summarizing {vault_rel} ({idx + 1}/{len(source_infos)})...[/dim]")
         user_message = f"[NOTE: {vault_rel}]\n{source_content}"
@@ -1073,11 +1073,11 @@ def absorb_cmd(
     if blocks:
         append_raw_to_file(root_vault_rel, "\n\n" + "\n\n".join(blocks))
         console.print(f"[dim]Appended {len(blocks)} block(s) to {root_vault_rel}[/dim]")
-    for vault_rel, source_content in source_infos:
+    for source_full_path, vault_rel, source_content in source_infos:
         try:
             new_content = _set_absorbed_frontmatter(source_content, root_stem)
-            write_new_file(vault_rel, new_content)
-            archive_file(vault_rel, Path(vault_rel).name)
+            write_to_path(source_full_path, new_content)
+            archive_file(source_full_path, source_full_path.name)
         except Exception as e:
             console.print(f"[red]Archive failed for {vault_rel}: {e}[/red]")
             raise typer.Exit(1)

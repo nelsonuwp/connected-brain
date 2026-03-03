@@ -695,9 +695,12 @@ def test_build_user_message_separator(env_with_vault):
     (vault / "20-context" / "ctx.md").write_text("ctx body", encoding="utf-8")
     with patch("brain.Config.VAULT_ROOT", vault):
         import brain as brain_mod
+        from pathlib import Path
+        ctx_path = vault / "20-context" / "ctx.md"
+        context_resolved = [(ctx_path, "20-context/ctx.md")]
         result = brain_mod.build_user_message(
             "note body",
-            ["20-context/ctx.md"],
+            context_resolved,
             "10-thinking/foo.md",
         )
     assert "[CONTEXT: 20-context/ctx.md]" in result
