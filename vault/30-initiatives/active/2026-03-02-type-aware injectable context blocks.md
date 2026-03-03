@@ -1,6 +1,6 @@
 ---
+status: active
 type: initiative
-status: drafting
 ---
 
 # type-aware injectable context blocks

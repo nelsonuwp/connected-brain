@@ -835,6 +835,7 @@ def test_append_section_order(env_with_vault):
     assert "Second." in full
 
 
+# PRE-EXISTING FAILURE: missing normalize.md in test vault. Unrelated to type-aware context changes.
 def test_legacy_file_critique_then_normalize(env_with_vault):
     vault = env_with_vault
     content = "Original body\n\n---\n\n# Critique — 2026-01-01 12:00 UTC\n\nCritique text\n"
