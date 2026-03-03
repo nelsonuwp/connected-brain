@@ -179,8 +179,9 @@ def append_to_file(full_path: Path, llm_output: str, mode: str) -> None:
 
 
 def append_raw_to_file(vault_relative_path: str, content: str) -> None:
-    """Atomic append of raw content (no timestamp or section wrapper). Used by absorb."""
-    full = Config.VAULT_ROOT / vault_relative_path
+    """Atomic append of raw content (no timestamp or section wrapper). Used by absorb. Accepts vault-relative or absolute path."""
+    p = Path(vault_relative_path)
+    full = p.resolve() if p.is_absolute() else (Config.VAULT_ROOT / vault_relative_path).resolve()
     original = full.read_text(encoding="utf-8")
     if content and not content.startswith("\n"):
         content = "\n\n" + content
@@ -1021,7 +1022,7 @@ def absorb_cmd(
     sources: list[str] = typer.Argument(default=[], help="Source note path(s) to absorb into root"),
 ) -> None:
     """Consolidate source notes into root: append ## Absorbed sections (Key Points + Raw Context), then archive sources."""
-    _, root_vault_rel = resolve_under_vault(root_path)
+    root_full_path, root_vault_rel = resolve_path(root_path)
     if not sources:
         console.print("[red]No source notes provided.[/red]")
         raise typer.Exit(1)
@@ -1029,7 +1030,7 @@ def absorb_cmd(
     root_stem = Path(root_vault_rel).stem
     source_infos = []
     for s in sources:
-        full, vault_rel = resolve_under_vault(s)
+        full, vault_rel = resolve_path(s)
         source_content = full.read_text(encoding="utf-8")
         source_infos.append((full, vault_rel, source_content))
     for _, vault_rel, _ in source_infos:

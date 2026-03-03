@@ -1,7 +1,7 @@
 ---
-type: idea
 created: 2026-03-02
-status: raw
+status: absorbed to [[2026-03-02-salesforce email ingestion for account intel]]
+type: idea
 ---
 
 # AI Report Updates
