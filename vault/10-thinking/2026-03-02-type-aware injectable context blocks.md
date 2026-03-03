@@ -83,3 +83,49 @@ The design assumes type is the dominant axis. But the actual quality degradation
 4. Is "business" actually one type, or is it a bucket for "not code, not content"? What happens when you try to write a single business type block that serves strategy notes and operational notes?
 
 5. What's the cost of starting with type × command (6-9 blocks) vs. type-only (3 blocks)? If the implementation difference is small, the "simpler" argument weakens.
+
+---
+
+# Critique — 2026-03-02 18:59 ET
+
+## Score: 7/10
+Rework suggested — approach is defined but key assumptions need testing before implementation.
+
+## Section Breakdown
+
+### The Idea
+**Strong:** Type in frontmatter is the right choice — explicit, portable, avoids fragile inference.
+**Weak:** "One injectable block per type works across the whole pipeline" is stated as fact but contradicted by your own uncertainty in Q3.
+**Fix:** Reframe as hypothesis: "Static type blocks may be sufficient for v1" — then test it by writing the actual blocks.
+
+### Why This Matters
+**Weak:** "Tasks are being added to the pipeline now" creates false urgency. The timing argument doesn't validate the design.
+**Fix:** Remove the timing justification. The real reason is: current outputs are too generic. State what specific quality problems you've observed that type blocks would solve.
+
+### What I Know
+**Strong:** Implementation estimate and token budget are concrete constraints.
+**Weak:** "Type affects system context only for v1; output structure and command availability are separate ideas" — this separation may be artificial. If explore vs. critique need different context, they're not separate.
+**Fix:** Test whether explore/critique on the same note actually need different type context. If yes, this bullet is wrong.
+
+### What I Don't Know
+**Strong:** You've identified the right uncertainties — type granularity and command variation are the core questions.
+**Weak:** These aren't unknowns to explore later — they're testable now and should block implementation.
+**Fix:** Move these to "What I Need to Test" and make them blockers, not future concerns.
+
+### Assumptions I'm Making
+**Strong:** You've surfaced the critical assumption: "Type is primary and command is secondary."
+**Weak:** This assumption directly contradicts your Q3 working answer, but you haven't resolved the conflict.
+**Fix:** Either defend why type-only is sufficient despite Q3, or accept that the assumption is wrong and redesign around type × command.
+
+### Working Answers
+**Strong:** Q3 is excellent — you've identified that explore and critique need different context, which invalidates static type blocks.
+**Weak:** The implication stops at "6 blocks not 3" but doesn't explore what those blocks would contain or whether the matrix is the right structure.
+**Fix:** Draft one explore block and one critique block for code. If they're 80% the same, maybe command variation is overkill. If they're fundamentally different, the matrix is necessary.
+
+### Missing Section: Validation Plan
+**Weak:** You have no concrete test for whether three types are sufficient or whether type × command is necessary.
+**Fix:** Add a section that specifies: (1) Write all three type blocks. (2) Apply each to 2-3 existing notes of that type. (3) Identify where the block fails to provide useful context. (4) Use failures to decide if command variation or type subdivision is needed.
+
+### Next Step
+**Weak:** "Run explore to stress-test" is recursive — you just did that. The actual next step is to write the blocks and test them.
+**Fix:** Change to: "Draft code/business/content type blocks. Apply each to three existing notes. Document where generic context fails. Decide type-only vs. type × command based on failure patterns."
