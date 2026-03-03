@@ -89,3 +89,109 @@ Bot detection (deterministic, applied before signal extraction):
 - commercial posture aggregator  
 - people.py / contacts flow
 - Report rendering (downstream task)
+
+---
+
+# Critique — 2026-03-03 07:32 ET
+
+## Score: 7/10
+Ready for implementation with minor clarifications needed on test coverage and documentation updates.
+
+## Section Breakdown
+
+### Done When
+**Strong:** 
+- Criteria 1-4 are observable and verifiable (JSON keys exist, status values match expectations)
+- Criterion 5 provides regression protection via explicit verification step
+- "skipped" vs "fail" distinction for Enhanced Email shows thoughtful error handling
+
+**Weak:** 
+- No explicit test coverage requirement (e.g., "unit tests pass for bot detection regex" or "integration test confirms activity fetch with mock org")
+- No documentation update requirement (README, API docs, or inline docstrings)
+
+**Fix:** 
+Add criteria 6-7:
+- "6. Unit tests cover bot detection patterns, signal extraction logic, and EmailMessage unavailable scenario"
+- "7. Docstrings added to new functions; CHANGELOG.md updated with new data sources"
+
+---
+
+### Notes - Implementation Plan
+**Strong:**
+- Cursor-ready implementation plan exists with file-by-file breakdown
+- Architecture decisions explicitly resolved (Option A, single artifact, legacy envelope mapping)
+- Extraction spec is detailed with SOQL fragments, fallback patterns, and field choices
+- Signal extraction spec provides concrete primitives (last_touched, activity_velocity, etc.)
+- Error handling strategy addresses both failure modes with status differentiation
+- "Do not touch" section prevents scope creep
+
+**Weak:**
+- Bot detection regex patterns listed but no test cases provided (e.g., "order 12345 confirmation" should match, "Order status update" should not)
+- Signal extraction spec lacks example output structure (what does `activity_velocity` signal primitive look like in JSON?)
+- No mention of logging strategy for debugging fetch failures
+
+**Fix:**
+- Add 2-3 bot detection test cases to Notes
+- Include example signal primitive JSON snippet for one signal type
+- Specify log level for activity fetch errors (INFO for skipped, WARNING for partial)
+
+---
+
+### Notes - Extraction Spec
+**Strong:**
+- SOQL details are precise (LAST_N_DAYS:60, ORDER BY, LIMIT 500)
+- Fallback pattern for orgs rejecting WHERE in subquery shows real-world awareness
+- EmailMessage fetch strategy correctly chains from existing Contact query
+- PII reduction choice (TextBody only) is justified
+- Pagination and cap (200 records) prevent runaway queries
+
+**Weak:**
+- "Strip attributes recursively" mentioned twice but no definition of what attributes to strip (Salesforce metadata fields like `attributes.type`, `attributes.url`?)
+- Contact ID fetch assumes contacts object succeeded — no handling if contacts fetch failed but account succeeded
+
+**Fix:**
+- Define "attributes" stripping: "Remove `attributes` dict from each record (contains `type` and `url` metadata)"
+- Add to error handling: "If contacts object missing/failed, skip EmailMessage fetch entirely (status = skipped, error = 'contacts unavailable')"
+
+---
+
+### Notes - Signal Extraction Spec
+**Strong:**
+- Five distinct signal types with clear definitions
+- Bot detection applied before extraction (correct order)
+- Bot records flagged but not excluded from artifact (preserves data lineage)
+
+**Weak:**
+- "open_threads" logic ambiguous: subjects appearing 2+ times across all activities or within a time window?
+- Escalation keywords listed but no case-sensitivity rule
+- No handling for activities with null Subject/Description
+
+**Fix:**
+- Clarify: "open_threads: subjects appearing 2+ times in last 30 days (case-insensitive match)"
+- Add: "Escalation keywords matched case-insensitively; null Subject/Description treated as empty string"
+
+---
+
+### Notes - Error Handling
+**Strong:**
+- Distinguishes "partial" (activity fail) from "skipped" (email unavailable)
+- Pipeline continues on activity failure (correct priority)
+- Single-write rule referenced (prevents partial artifact corruption)
+
+**Weak:**
+- "All writes in finally block" conflicts with existing SourceObject pattern where status is set before write
+- No retry strategy mentioned (should activity fetch retry on transient Salesforce API errors?)
+
+**Fix:**
+- Clarify: "Write source_salesforce.json once after all fetches complete; set activity_histories status to 'fail' in objects dict before write"
+- Add: "No retries for activity/email fetches (Salesforce client already retries API calls; fetch failures are terminal for this run)"
+
+---
+
+### Gate Rule Compliance
+- ✅ Done When specifies observable outcomes (JSON keys, status values, unchanged behavior)
+- ✅ Cursor implementation plan exists (file list, extraction spec, signal spec)
+- ⚠️ Tests mentioned in extraction spec (bot detection) but not in Done When
+- ⚠️ Documentation not addressed (no docstring/CHANGELOG requirement)
+
+**Deductions:** -1 for missing test requirement in Done When, -1 for missing documentation requirement = **7/10**
