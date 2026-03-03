@@ -1,5 +1,5 @@
 """
-LLM Bridge CLI. Vault I/O, archive/snapshot, Typer. idea/thinking/initiative: critique, explore, normalize, promote; context at root.
+LLM Bridge CLI. Vault I/O, archive/snapshot, Typer. idea/thinking/initiative: critique, explore, promote; context at root.
 Calls ai_client.call() only; no HTTP logic here.
 """
 import json
@@ -383,6 +383,55 @@ def _resolve_type_block_and_warn(note_content: str, command: str) -> str | None:
     return _load_type_block(Config.VAULT_ROOT.resolve(), type_val, command)
 
 
+def _resolve_task_prompt_and_warn(note_content: str, command: str) -> tuple[dict, str]:
+    """Load task-{command}-{type}.md. type from frontmatter; default code on missing/invalid; warn to stderr."""
+    fm = _parse_note_frontmatter(note_content)
+    type_val = (fm.get("type") if fm else None) or None
+    if type_val is not None and isinstance(type_val, str):
+        type_val = type_val.strip() or None
+    if type_val is None:
+        print(f"[WARN] Note has no type specified — using task-{command}-code.md", file=sys.stderr)
+        type_val = "code"
+    elif type_val not in VALID_NOTE_TYPES:
+        print(f"[WARN] Note has invalid type '{type_val}' — using task-{command}-code.md", file=sys.stderr)
+        type_val = "code"
+    prompt_name = f"task-{command}-{type_val}.md"
+    prompt = load_prompt(prompt_name)
+    return prompt, prompt_name
+
+
+def _parse_route_block(note_content: str) -> dict | None:
+    """Find last ---route...--- block in note. Returns dict or None."""
+    marker = "---route"
+    last_idx = note_content.rfind("\n" + marker + "\n")
+    if last_idx == -1:
+        if note_content.startswith(marker + "\n"):
+            segment = note_content[len(marker) + 1:]
+        else:
+            return None
+    else:
+        segment = note_content[last_idx + len(marker) + 2:]
+    lines = segment.split("\n")
+    block_lines = []
+    for line in lines:
+        if line.strip() == "---":
+            break
+        block_lines.append(line)
+    block = "\n".join(block_lines).strip()
+    if not block:
+        return None
+    try:
+        data = yaml.safe_load(block)
+    except yaml.YAMLError:
+        return None
+    if not isinstance(data, dict):
+        return None
+    rec = data.get("recommendation")
+    if rec not in ("task", "thinking"):
+        return None
+    return {"recommendation": rec, "reason": data.get("reason") or ""}
+
+
 def _build_system_content_for_type_command(
     generic_context: str | None,
     type_block: str | None,
@@ -561,68 +610,50 @@ def idea_explore(
     console.print(f"Appended to {display_path}")
 
 
-@idea_app.command("normalize")
-def idea_normalize(
-    file: str = typer.Argument(..., help=PATH_ARG_HELP),
-    dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
-    temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
-    snapshot: bool = typer.Option(False, "--snapshot", help="Snapshot note to archive before overwriting"),
-) -> None:
-    """Rewrite # Current Version only for clarity. Preserves # Critique / # Explore."""
-    full_path, display_path = resolve_path(file)
-    full_content = full_path.read_text(encoding="utf-8")
-    current_text, prefix, suffix, had_header = extract_current_version(full_content)
-    prompt = load_prompt("normalize.md")
-    user_content = f"[CURRENT VERSION CONTENT]\n{current_text}"
-    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
-    model_string, temp = resolve_model_and_temp(prompt, temperature)
-    if dry_run:
-        print_dry_run_payload(model_string, temp, messages)
-        raise typer.Exit(0)
-    if snapshot:
-        snapshot_note_for_llm(full_path)
-    _log_llm_call(model_string, temp, "normalize.md")
-    result = ai_call(model_string, temp, messages)
-    if result is None:
-        console.print("[red]LLM call failed; note unchanged.[/red]")
-        raise typer.Exit(1)
-    normalized = result["content"].strip()
-    if not had_header:
-        new_content = prefix + "# Current Version\n\n" + normalized + suffix
-    else:
-        new_content = prefix + normalized + suffix
-    write_to_path(full_path, new_content)
-    console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
-    console.print(f"Normalized {display_path}")
-
-
 @idea_app.command("promote")
 def idea_promote(
     file: str = typer.Argument(..., help=PATH_ARG_HELP),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
+    as_task: bool = typer.Option(False, "--as-task", help="Force promote to task (31-tasks/drafting) regardless of critique route"),
 ) -> None:
-    """LLM transforms idea → thinking note. Archive original, write new file to 10-thinking/."""
+    """LLM transforms idea → thinking or task note. Archive original, write new file to 10-thinking/ or 31-tasks/drafting/."""
     full_path, display_path = resolve_path(file)
     note_content = full_path.read_text(encoding="utf-8")
-    prompt = load_prompt("promote-idea-to-thinking.md")
+    use_task = as_task
+    if not use_task:
+        route = _parse_route_block(note_content)
+        if route and route.get("recommendation") == "task":
+            use_task = True
+    if use_task:
+        prompt = load_prompt("promote-idea-to-task.md")
+    else:
+        prompt = load_prompt("promote-idea-to-thinking.md")
     user_content = f"[NOTE: {display_path}]\n{note_content}"
     messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
-    _log_llm_call(model_string, temp, "promote-idea-to-thinking.md")
+    prompt_name = "promote-idea-to-task.md" if use_task else "promote-idea-to-thinking.md"
+    _log_llm_call(model_string, temp, prompt_name)
     result = ai_call(model_string, temp, messages)
     if result is None:
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
     filename = full_path.name
-    promoted_content = _set_frontmatter_status(note_content, "promoted")
-    write_to_path(full_path, promoted_content)
-    archive_file(full_path, filename)
-    dest = f"10-thinking/{filename}"
-    write_new_file(dest, result["content"])
+    if use_task:
+        promoted_content = _set_frontmatter_status(note_content, "promoted-to-task")
+        write_to_path(full_path, promoted_content)
+        archive_file(full_path, filename)
+        write_new_file("31-tasks/drafting/" + filename, result["content"])
+        dest = f"31-tasks/drafting/{filename}"
+    else:
+        promoted_content = _set_frontmatter_status(note_content, "promoted")
+        write_to_path(full_path, promoted_content)
+        archive_file(full_path, filename)
+        write_new_file("10-thinking/" + filename, result["content"])
+        dest = f"10-thinking/{filename}"
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
     archive_path = f"{full_path.parent}/archive/{filename}"
     console.print(f"Promoted → {dest} (original archived to {archive_path})")
