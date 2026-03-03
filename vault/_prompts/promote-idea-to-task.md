@@ -41,3 +41,4 @@ Rules:
 - Do not add sections beyond those listed
 - Do not use preamble or sign-offs
 - Output the markdown structure directly starting with frontmatter
+- The output frontmatter type field MUST be one of: code, business, content — never "idea", "thinking", or any other value. If you cannot determine the type, default to "code".
