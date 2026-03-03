@@ -124,7 +124,7 @@ At each stage the loop is:
 - **Context** (notes in `20-context/`): `brain context <path>` — generates summary and appends to file.
 - **Absorb** (any paths): `brain absorb <root> <source1> [source2...]` — consolidates source notes into root, appends Key Points + Raw Context, archives sources.
 
-**Flags:** `--context path` (repeatable) to inject context blocks; `--dry-run` to print payload without calling or writing; `--temperature` to override.
+**Flags:** `--context path` (repeatable) to inject context blocks into the user message; `--dry-run` to print payload without calling or writing; `--temperature` to override; `--debug` (explore/critique only) to print full system message to stderr for verification (temporary).
 
 **Output behavior:** Explore and critique append a timestamped block to the bottom of the note; promote (idea/thinking) writes `status: promoted` to the original and archives it, then writes the new file; initiative promote only moves the file; context appends to the context file; absorb appends ## Absorbed sections to root and archives each source with `status: absorbed to [[root_stem]]`.
 
@@ -132,9 +132,12 @@ At each stage the loop is:
 
 ## 7. Prompts and Context Blocks
 
-**Prompts:** In `vault/_prompts/`. Names match what brain.py expects (e.g. `explore.md`, `critique-thinking.md`, `promote-idea-to-thinking.md`, `summarize-absorbed.md` for absorb). Each has frontmatter: `model`, `temperature`. Manual-use prompts (e.g. meeting-summary, one-on-one-prep, re-anchor-prompt) are pasted into an LLM session, not run by brain.py.
+**Prompts:** In `vault/_prompts/`. Names match what brain.py expects (e.g. `explore.md`, `critique-thinking.md`, `promote-idea-to-thinking.md`, `summarize-absorbed.md` for absorb). Each has frontmatter: `model`, `temperature`. Manual-use prompts (e.g. meeting-summary, one-on-one-prep, re-anchor-prompt) are pasted into an LLM session, not run by brain.py. `cursor-prompt.md` is a saved implementation prompt deliverable (not called by brain.py).
 
-**Context blocks:** Notes in `20-context/` (and subfolders) are self-contained reference docs. Inject with `--context 20-context/...` on any brain command. Write once, inject instead of re-explaining. Run `brain context <path>` after writing/updating to get a summary appended.
+**Context blocks:** Notes in `20-context/` (and subfolders) are self-contained reference docs. Two injection paths:
+- **Manual:** `--context 20-context/...` on any brain command injects the file into the user message.
+- **Type-aware (explore and critique only):** If the target note has `type: code`, `type: business`, or `type: content` in frontmatter, brain.py loads `20-context/types/{type}-{command}.md` (e.g. `code-critique.md`, `business-explore.md`) when the file exists and injects it into the system message in order: generic context → type block → command prompt. Missing or invalid type prints a warning to stderr and the command runs with generic context only (exit 0).
+Write once, inject instead of re-explaining. Run `brain context <path>` after writing/updating a manual context block to get a summary appended.
 
 ---
 

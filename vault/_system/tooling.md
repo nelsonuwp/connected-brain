@@ -122,6 +122,15 @@ brain context 20-context/business/osom-model.md
 Useful after writing or updating a context block — the summary tells you
 what the block covers and when to inject it.
 
+**Type-aware context (explore and critique only):** If the target note has
+`type: code`, `type: business`, or `type: content` in frontmatter, brain.py
+automatically loads `20-context/types/{type}-{command}.md` (e.g. `code-explore.md`,
+`business-critique.md`) when the file exists and injects it into the system
+message (before the command prompt). Missing or invalid type prints a
+warning to stderr and the command runs with generic context only; exit 0.
+Dry-run payload includes the assembled system message so you can verify
+injection without calling the API.
+
 ---
 
 #### `brain absorb`
@@ -209,8 +218,9 @@ Sets `status: complete` in frontmatter, writes to
 | Flag | What it does |
 |---|---|
 | `--context path` | Inject a context block into the user message. Repeatable. |
-| `--dry-run` | Print the exact JSON payload that would be sent. Nothing is called or written. |
+| `--dry-run` | Print the exact JSON payload that would be sent (includes type block when applicable). Nothing is called or written. |
 | `--temperature 0.7` | Override the temperature set in the prompt frontmatter. |
+| `--debug` | (Explore/critique only.) Print the full system message to stderr. Temporary; for verifying type-block injection. |
 
 ### Console output (dimmed)
 
@@ -283,6 +293,7 @@ intent is documented, but brain.py never reads them.
 | `one-on-one-prep.md` | Before a 1:1 — paste with person note content |
 | `re-anchor-prompt.md` | End of any long session — paste to generate re-anchor |
 | `meeting-summary.md` | After a meeting — paste with raw notes |
+| `cursor-prompt.md` | Saved implementation prompt deliverable for Cursor (reference only) |
 
 ### Prompt Frontmatter Format
 

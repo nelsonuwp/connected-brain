@@ -86,11 +86,11 @@ specs (→ `30-initiatives/drafting/`).
 archived files.
 
 ### `20-context/`
-Reusable context blocks injected into LLM sessions via `--context` flag.
-Each file is a self-contained reference document on one topic. The goal is
-to write these once and inject them instead of re-explaining.
+Reusable context blocks injected into LLM sessions. Two mechanisms:
+- **Manual:** `--context` flag on any brain command injects the file into the user message.
+- **Type-aware (explore/critique only):** Notes with `type: code|business|content` in frontmatter get a matching block from `20-context/types/{type}-{command}.md` injected into the system message automatically (e.g. `code-critique.md`, `business-explore.md`). Missing or invalid type prints a warning to stderr and runs with generic context only.
 
-**Sub-folders:** `apis/`, `business/`, `schemas/`, `people/`, `systems/`
+**Sub-folders:** `apis/`, `business/`, `schemas/`, `people/`, `systems/`, `types/`
 
 **What belongs:** API references, data schemas, business model descriptions,
 system architecture notes, anything you find yourself re-explaining to LLMs.

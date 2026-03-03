@@ -200,3 +200,23 @@ complete and moved to a single destination folder. Replaces manual move for
 **Decision:** All references to `30-initiatives/done/` renamed to
 `30-initiatives/completed/` in docs and code for consistency.
 **Rationale:** Single canonical name for the completed-initiatives folder.
+
+---
+
+## 2026-03-02 (type-aware context blocks)
+
+### Type-aware context injection (explore and critique)
+**Decision:** For `brain idea/thinking/initiative explore` and `brain idea/thinking/initiative critique`, the target note’s frontmatter `type:` field is read. If `type` is `code`, `business`, or `content`, brain.py loads `20-context/types/{type}-{command}.md` (e.g. `code-critique.md`, `business-explore.md`) when the file exists and injects it into the **system** message in order: generic context (empty for v1) → type block → command prompt. Segmented join so a future generic context slot can be added without code change.
+**Rationale:** Notes in different domains (code, business, content) need different evaluation lenses. Type-aware blocks let explore/critique apply the right criteria without requiring manual `--context` for standard cases.
+
+### Missing or invalid type: warn, do not fail
+**Decision:** If the note has no `type` or `type` is not one of `code|business|content`, brain.py prints a single warning line to stderr (`[WARN] Note has no type specified — ...` or `[WARN] Note has invalid type '...' — ...`) and proceeds with generic context only. Exit code remains 0.
+**Rationale:** Surfaces data quality (untyped notes) without blocking the workflow. User can add type later or ignore.
+
+### 20-context/types/ and six block files
+**Decision:** New subfolder `20-context/types/` contains exactly six files: `code-explore.md`, `code-critique.md`, `business-explore.md`, `business-critique.md`, `content-explore.md`, `content-critique.md`. Plain markdown, no frontmatter. Each under 200 tokens. brain.py looks up by path only; no registry.
+**Rationale:** Type × command matrix gives the right lens per domain (explore = expand options, critique = assess as stated).
+
+### cursor-prompt.md in _prompts/
+**Decision:** Implementation prompt deliverable for Cursor (steps 4 and 5 of type-aware context initiative) lives at `vault/_prompts/cursor-prompt.md`. Not called by brain.py; reference only.
+**Rationale:** Single place for prompt-like deliverables; keeps _system and initiative docs uncluttered.
