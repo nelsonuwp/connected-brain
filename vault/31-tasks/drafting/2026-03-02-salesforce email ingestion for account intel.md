@@ -8,102 +8,84 @@ source-idea: [[2026-03-02-salesforce email ingestion for account intel]]
 # salesforce email ingestion for account intel
 
 ## What
-Add activity history and email message fetching to salesforceClient.py so source_salesforce.json includes relationship signals alongside existing structured data.
+Add activity history and email message fetching to salesforceClient.py 
+so source_salesforce.json gains two new object keys (activity_histories, 
+email_messages), map them through the legacy envelope in gather.py, and 
+add a dedicated activity signal extractor that feeds unified_signals.json.
 
 ## Done When
-source_salesforce.json contains activity_histories and email_messages keys in the objects dict, populated from real Salesforce data using the tested extraction patterns, with email_messages gracefully absent when Enhanced Email is not enabled in the org.
+1. source_salesforce.json contains activity_histories and email_messages 
+   keys in objects, each a valid SourceObject (status/record_count/error/data)
+2. gather.py _map_to_legacy_envelope maps them to 
+   raw_data["salesforce"]["data"]["ActivityHistories"] and ["EmailMessages"]
+3. A new extract_salesforce_activity_signals() function in 
+   signal_primitives.py (or signals.py) produces signal primitives from 
+   activity data and merges into unified_signals.json
+4. email_messages status is "skipped" (not "fail") when Enhanced Email 
+   is not enabled in the org
+5. Existing Account/Opportunities/Contacts behavior is unchanged — 
+   verified by running pipeline against a test account
 
 ## Notes
-- Working extraction code exists in salesforceTestAccountActivities.py — integration only
-- Two queries: ActivityHistories subquery on Account, EmailMessage via Contact/Case IDs
-- 60-day window, 500 cap on activities
-- EmailMessage requires try/except — not all orgs have it enabled
-- Report consumption (Account Owner, Last Touched, Roll-In section) is downstream — this task is pipeline only
-- Bot/automated activity filtering happens at report time, not gather time
 
----
+### Architecture decisions (resolved)
+- Fetch inside salesforceClient.fetch_data() — Option A from flow doc. 
+  Account Id is already resolved by the existing Client_ID__c query; 
+  use that Id for the ActivityHistories subquery and EmailMessage lookup
+- Single artifact — activity_histories and email_messages go into the 
+  existing source_salesforce.json objects dict alongside account, 
+  opportunities, contacts. No new artifact file.
+- Legacy envelope — add to _map_to_legacy_envelope in gather.py:
+    data["ActivityHistories"] = (objects.get("activity_histories") or {}).get("data") or []
+    data["EmailMessages"] = (objects.get("email_messages") or {}).get("data") or []
+- Signal strategy — new function extract_salesforce_activity_signals() 
+  (Option 2 from flow doc), called from _extract_deterministic_signals() 
+  in signals.py, merged into all_signals
 
-# Explore — 2026-03-03 06:55 ET
+### Extraction spec
+- ActivityHistories: subquery on Account, LAST_N_DAYS:60, ORDER BY 
+  ActivityDate DESC, LIMIT 500. Fallback pattern required (some orgs 
+  reject WHERE in subquery — omit WHERE, filter by date in Python).
+  Strip attributes recursively. Data = flat list of records.
+- EmailMessage: fetch Contact IDs first (already queried in existing 
+  flow for contacts object), then query EmailMessage WHERE 
+  RelatedToId IN (contact_ids) AND MessageDate = LAST_N_DAYS:60. 
+  Paginate via nextRecordsUrl. Cap at 200 records. TextBody only 
+  (not HtmlBody — PII surface reduction). Strip attributes.
+  On any exception: status = "skipped", error message explains org 
+  lacks Enhanced Email, data = null.
 
-## Feasibility
+### Signal extraction spec
+Deterministic only for v1. extract_salesforce_activity_signals(sf_data) 
+reads raw_data["salesforce"]["data"]["ActivityHistories"] and produces:
+- last_touched signal: most recent ActivityDate as a signal primitive
+- activity_velocity: count per type (Call/Email/Meeting) in last 30 days
+- open_threads: subjects appearing 2+ times = unresolved item signal
+- escalation flag: "critical"/"asap"/"urgent"/"personal intervention" 
+  keyword match on Subject or Description
+- bot_ratio: count of bot records / total (for quality signal)
 
-**Yes, this is buildable.** The working extraction code in `salesforceTestAccountActivities.py` demonstrates the exact queries and patterns needed. The existing `salesforceClient.py` already has the OAuth2 flow, query infrastructure, and artifact-writing patterns established. This is integration work, not greenfield development.
+Bot detection (deterministic, applied before signal extraction):
+- Subject matches: order \d+ confirmation, \[peer1\.com #\d+\], 
+  your aptum invoice is ready
+- Do not exclude bots from artifact — flag them, filter in extractor
 
-Key evidence from context:
-- `salesforceTestAccountActivities.py` shows working ActivityHistories subquery and EmailMessage fetching
-- The `_query_sync` and `_query_more_sync` patterns handle pagination
-- The artifact schema (`source`, `company_id`, `collected_at`, `status`, `objects`) is already established in the codebase
-- The `objects` dict pattern (per-endpoint status/data) is used by other clients
+### Error handling
+- Activity fetch failure = status "partial" on source_salesforce.json, 
+  activity_histories object gets status "fail" with error. Pipeline 
+  continues — activities are non-critical.
+- EmailMessage unavailable = status "skipped" on email_messages object. 
+  Not "fail". Downstream tolerates missing EmailMessages key.
+- All writes in finally block per single-write rule.
 
-**Stack alignment confirmed:** Python3, httpx, OAuth2 password flow, JSON artifacts under `outputs/temp/<run_id>/`.
+### Files to touch
+- data_sources/internal/salesforceClient.py — fetch_data() only
+- core/pipeline/gather.py — _map_to_legacy_envelope() salesforce branch
+- core/signal_primitives.py — new extract_salesforce_activity_signals()
+- core/pipeline/signals.py — call new extractor in _extract_deterministic_signals()
 
----
-
-## Unknowns and Dependencies
-
-1. **Salesforce Account ID resolution** — How does `salesforceClient.py` currently resolve account? Does it already query by client_id → SF Account lookup, or does it receive an Account ID? The test script hardcodes `ACCOUNT_ID`. Need to confirm the lookup path.
-
-2. **Existing `source_salesforce.json` schema** — What keys currently exist in `objects`? Need to avoid collisions and understand if `activity_histories` / `email_messages` naming is consistent with existing patterns.
-
-3. **Contact/Case ID availability** — The EmailMessage query requires Contact IDs (and optionally Case IDs). Are these already fetched in the current SF client flow, or does this require additional queries?
-
-4. **ActivityHistories WHERE clause support** — The test script shows a fallback pattern because some orgs don't support WHERE in the subquery. This must be preserved in integration.
-
-5. **Rate limits and query cost** — ActivityHistories subquery + EmailMessage query + Contact ID lookup = 3-4 SOQL queries per account. Is this within acceptable bounds for batch runs?
-
-6. **Owner data** — The note mentions "Account Owner" for report consumption. Is Owner already fetched on the Account query, or does that need to be added here?
-
----
-
-## Risks
-
-1. **Silent EmailMessage failure mode** — The spec says "gracefully absent" but the test code uses try/except that prints a warning. If the exception handling silently fails and writes an empty object with `status: success`, downstream consumers won't know the org lacks Enhanced Email vs. had no messages. Should be `status: skipped` with explanation.
-
-2. **Activity volume explosion** — 500-record cap at 60 days is reasonable, but some accounts may have heavy automated activity (email tracking, workflow triggers). The note says "bot filtering happens at report time" — but if 90% of 500 records are bot noise, the useful signal cap is effectively much lower.
-
-3. **Pagination for EmailMessage** — The test script handles pagination via `nextRecordsUrl`. If email volume is high (e.g., Email-to-Case accounts), this could result in many API calls. No explicit limit on EmailMessage record count.
-
-4. **PII exposure in artifacts** — Email bodies (`TextBody`, `HtmlBody`) contain full conversation threads with signatures, phone numbers, and confidential client info. These artifacts persist on disk. Is that acceptable given downstream LLM consumption and potential logging?
-
-5. **Date filtering inconsistency** — ActivityHistories uses `LAST_N_DAYS:60` in SOQL (when supported) or Python-side filtering (when not). EmailMessage uses `LAST_N_DAYS:60` in SOQL. If the org doesn't support WHERE on ActivityHistories but does on EmailMessage, the date ranges could drift if cutoffs are calculated differently.
-
-6. **No deduplication with existing signals** — If Salesforce logged emails duplicate information already captured via OSINT or news sources, the signal extraction step could double-count. This is a downstream concern but worth noting.
-
----
-
-## Cursor Prompt
-
-```cursor
-I need to integrate Salesforce activity history and email message fetching into the existing AccountIntel pipeline.
-
-## Context
-- Working extraction code exists in `salesforceTestAccountActivities.py` — use these exact query patterns
-- Target file: `data_sources/internal/salesforceClient.py`
-- Artifact output: `source_salesforce.json` under `outputs/temp/<run_id>/`
-- Must follow AccountIntel artifact conventions: `objects` dict with per-endpoint `status`, `record_count`, `error`, `data`
-
-## Requirements
-1. Add `activity_histories` key to the `objects` dict in `source_salesforce.json`
-   - Use ActivityHistories subquery on Account with 60-day window, 500 record limit
-   - Implement the fallback pattern (no WHERE in subquery → Python-side date filtering) as shown in test script
-   - Strip `attributes` recursively from all records
-
-2. Add `email_messages` key to the `objects` dict
-   - Query Contact IDs for the Account first
-   - Query EmailMessage WHERE RelatedToId IN (contact_ids) AND MessageDate = LAST_N_DAYS:60
-   - Handle pagination via nextRecordsUrl
-   - If EmailMessage query fails (org doesn't have Enhanced Email), set `status: skipped` with error message explaining why, NOT `status: fail`
-
-3. Preserve existing functionality — do not break current Account/Opportunity queries
-
-4. Match the error handling and artifact writing patterns already in the codebase (single-write, finally block, never exit without writing artifact)
-
-## Questions to answer in implementation
-- How is the Salesforce Account ID currently resolved? Adapt the activity/email queries to use the same lookup.
-- What fields are currently fetched on Account? Add Owner.Name if not present.
-
-## Do not
-- Implement report-side consumption (downstream task)
-- Filter bot/automated activities (that happens at report time)
-- Add new dependencies
-```
+### Do not touch
+- Opportunity LLM extractor
+- commercial posture aggregator  
+- people.py / contacts flow
+- Report rendering (downstream task)
