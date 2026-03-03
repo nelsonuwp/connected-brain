@@ -1,8 +1,10 @@
 ---
 created: 2026-03-02
-status: absorbed to [[2026-03-02-salesforce email ingestion for account intel]]
+status: absorbed
 type: idea
 ---
+
+absorbed into [[2026-03-02-salesforce email ingestion for account intel]]
 
 # AI Report Updates
 

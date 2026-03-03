@@ -426,8 +426,15 @@ def _set_killed_frontmatter(content: str) -> str:
 
 
 def _set_absorbed_frontmatter(content: str, root_stem: str) -> str:
-    """Set status: absorbed to [[root_stem]] in frontmatter. For source notes after absorb."""
-    return _set_frontmatter_status(content, f"absorbed to [[{root_stem}]]")
+    """Set status: absorbed in frontmatter and prepend 'absorbed into [[root_stem]]' as first line of body."""
+    result = _set_frontmatter_status(content, "absorbed")
+    # Insert "absorbed into [[root_stem]]" as first line of content (after frontmatter)
+    sep = "\n---\n\n"
+    idx = result.find(sep)
+    if idx >= 0:
+        after_sep = idx + len(sep)
+        return result[:after_sep] + f"absorbed into [[{root_stem}]]\n\n" + result[after_sep:]
+    return result
 
 
 def resolve_model_and_temp(

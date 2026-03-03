@@ -12,22 +12,25 @@ Add the ability to pull emails from Salesforce activity history for a given acco
 ## Why Now
 The current pipeline pulls structured data (Jira, Ocean, ZoomInfo) but misses unstructured relationship signals that live in email threads. Account managers and sales have context in Salesforce emails that never makes it into the intel brief. Adding this would meaningfully improve signal quality for existing customers where email history exists.
 
+
+
+
 ## Absorbed — [[2026-03-02-AI Report Updates]]
 
 ### Key Points
 
-- **Objective**: Update AI report to include Account Owners, Last Touched date, and Roll-In Emails & Activities
-- **Enhancement scope**: Three new data fields to be added to existing AI reporting functionality
-- **Timing**: Flagged as current priority (status: raw, created 2026-03-02)
-- **Context gap**: No explicit rationale provided for "Why Now" - timing drivers unclear
-- **Next steps**: Requires definition of data sources, field specifications, and implementation approach
+- **Update Requirements**: AI report needs three new data points: Account Owners, Last Touched date, and Roll-In Emails & Activities
+- **Status**: Marked as "absorbed" (already implemented or integrated into workflow)
+- **Context**: Created March 2026 as an idea-type note, suggesting these were feature requests rather than bugs
+- **Scope**: Enhancements focused on account management visibility and activity tracking
+- **No Constraints Mentioned**: No technical limitations, deadlines, or dependencies documented
 
 ### Raw Context
 
 ---
-type: idea
 created: 2026-03-02
-status: raw
+status: absorbed
+type: idea
 ---
 
 # AI Report Updates
