@@ -6,7 +6,7 @@ status: raw
 # type-aware injectable context blocks
 
 ## The Idea
-Add a `type` field (code | business | content) to note frontmatter so brain.py auto-injects the matching context block from `20-context/types/` on every command, ensuring type-specific criteria are always present without manual `--context` flags.
+Add a type field (code | business | content) to note frontmatter so brain.py auto-injects the matching context block from 20-context/types/ — one block per type × command combination (explore vs. critique), ensuring type-specific criteria are always present without manual --context flags.
 
 ## Why This Matters
 Without type awareness, a code task gets critiqued the same way as a content piece—generic output that misses the real criteria (security, maintainability for code; narrative flow for content). Tasks are being added to the pipeline now, making this the right time to design type-aware behavior before the prompts are written. One injectable block per type works across the whole pipeline without duplicating type logic into every prompt file.
@@ -19,10 +19,10 @@ Without type awareness, a code task gets critiqued the same way as a content pie
 - Type blocks should stay under 200 tokens to avoid auto-pollution.
 - Implementation estimate: 2–4 hours to add dynamic context loading to brain.py.
 
-## What I Don't Know
-- Whether three types will prove too coarse in practice (code splits into architecture vs. implementation vs. debugging; business splits into strategy vs. operations).
-- Whether "code thinking" and "code task" using the same type block will cause tasks to get too much exploratory framing.
-- Whether type × command variation will become necessary (e.g., `explore` on a code note needing different context than `critique` on the same note).
+## What I Need to Test
+- Write code/business/content blocks for both explore and critique (6 blocks). Apply each to 2–3 existing notes. Where does the block fail to add useful context?
+- Do code-thinking and code-task actually need different type blocks, or does the command split handle it?
+- Is "business" one coherent type or a catch-all? Write the business blocks and see if they hold.
 
 ## Assumptions I'm Making
 - ~~Type is primary and command is secondary~~ — Q3 invalidated this. Explore and critique need different context on the same note. Type × command is the correct model.
@@ -35,7 +35,7 @@ Without type awareness, a code task gets critiqued the same way as a content pie
 - If three types prove too coarse, the system may need hierarchical types (e.g., `type: code/architecture`) with fallback, adding complexity.
 
 ## Next Step
-Run `thinking explore` on this note to stress-test the type granularity decision and the assumption that command-specific variation isn't needed.
+Draft the 6 type × command blocks (code/business/content × explore/critique). Apply each to existing notes. Document failures. Use failure patterns to decide if type subdivision is needed before implementing in brain.py.
 
 ## Working Answers
 
@@ -129,3 +129,54 @@ Rework suggested — approach is defined but key assumptions need testing before
 ### Next Step
 **Weak:** "Run explore to stress-test" is recursive — you just did that. The actual next step is to write the blocks and test them.
 **Fix:** Change to: "Draft code/business/content type blocks. Apply each to three existing notes. Document where generic context fails. Decide type-only vs. type × command based on failure patterns."
+
+---
+
+# Critique — 2026-03-02 19:43 ET
+
+## Score: 6/10
+Rework suggested — approach is directionally sound but critical design question remains unresolved despite being testable now.
+
+## Section Breakdown
+
+### The Idea
+**Strong:** Type in frontmatter is well-justified (explicit, portable, avoids inference fragility).
+**Weak:** "One injectable block per type works across the whole pipeline" directly conflicts with your Q3 conclusion that explore/critique need different context. You've identified the conflict but haven't resolved it.
+**Fix:** Commit to either type-only (3 blocks) or type × command (6 blocks). Write one code block under each model. If the type-only version requires hedging or conditional language, that's your answer.
+
+### Why This Matters
+**Weak:** "Tasks are being added now" is timing-based justification that doesn't validate the design. The real problem (generic output missing type-specific criteria) is mentioned but not demonstrated.
+**Fix:** Name 2-3 specific instances where generic critique failed on code/business/content notes. What did it miss? What would type-aware context have caught? This grounds the whole proposal.
+
+### What I Know
+**Strong:** Token budget (200), implementation estimate (2-4 hours), and injection-not-substitution are concrete constraints.
+**Weak:** "Type affects system context only for v1; output structure and command availability are separate ideas" — this separation breaks if Q3 is true. Explore and critique needing different context means command isn't separable from type.
+**Fix:** Test Q3 immediately. Write a code-explore block and code-critique block. If they're 90% identical, command variation is premature. If they're fundamentally different, the separation assumption is wrong.
+
+### What I Need to Test
+**Strong:** You've identified the right experiments — write blocks, apply to existing notes, look for failures.
+**Weak:** "Do code-thinking and code-task actually need different type blocks" is secondary to the explore/critique split, but you're treating them as equal priority.
+**Fix:** Reorder: (1) Test explore vs. critique on same note first — this determines the fundamental architecture. (2) Then test thinking vs. task variation within that model.
+
+### Assumptions I'm Making
+**Strong:** You've surfaced and questioned the core assumption (type primary, command secondary).
+**Weak:** The strikethrough on "Type is primary and command is secondary" plus "Q3 invalidated this" means you know the assumption is wrong, but the design hasn't changed. The note still proposes type-only blocks.
+**Fix:** Either defend type-only despite Q3 (explain why explore/critique can share context even though you think they can't), or redesign around type × command and update the implementation estimate.
+
+### Risks and Constraints
+**Strong:** Auto-pollution risk and mitigation (200 tokens, quarterly review) are concrete.
+**Weak:** "If three types prove too coarse, the system may need hierarchical types" — but you haven't tested whether three types work at all. Hierarchical types are a second-order problem.
+**Fix:** Remove hierarchical types from risks. The actual risk is: "If type-only blocks prove insufficient (e.g., explore/critique need different context), the implementation must be redone for type × command."
+
+### Next Step
+**Weak:** "Draft the 6 type × command blocks" assumes you've already decided type × command is necessary, but the note hasn't committed to that design.
+**Fix:** Make the next step resolve the design question: "Write code-explore and code-critique blocks (200 tokens each). Apply both to the same code note. If they provide redundant context, type-only is sufficient. If they're meaningfully different, implement type × command."
+
+### Working Answers
+**Strong:** Q3 is the most valuable part of the note — you've identified that explore needs expansive thinking while critique needs checklists, and these aren't the same context.
+**Weak:** The implication says "type × command is probably necessary" and "6 blocks not 3," but this conclusion doesn't propagate back to the design. The note still hedges.
+**Fix:** Promote Q3 from "working answer" to "resolved question" and update the design accordingly. If you believe type × command is necessary, the proposal should reflect that. If you're uncertain, the next step must test it before any implementation.
+
+### Missing Section: Concrete Examples
+**Weak:** The entire note operates at the design level without showing what a type block would actually contain or how it would improve output.
+**Fix:** Add a section with draft blocks. Even rough versions of code-explore, code-critique, and business-explore would clarify whether the type × command split is real or imagined.
