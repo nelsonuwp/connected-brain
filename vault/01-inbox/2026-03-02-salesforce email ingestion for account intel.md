@@ -44,6 +44,14 @@ Need to make updates to the AI report to show:
 ## Why Now
 
 
+## What I Now Know
+- Working extraction code exists (salesforceTestAccountActivities.py) — OAuth2 + httpx, no simple_salesforce dependency, matches existing salesforceClient pattern
+- Two data streams: ActivityHistories (Tasks/Events — logged emails, calls, meetings) and EmailMessage (Enhanced Email / Email-to-Case object)
+- ActivityHistories come back nested on the Account object; EmailMessage requires separate query via Contact/Case IDs
+- Sample data confirmed for account 0018000000ufgnjAAA
+- Scope answer: all activity history, not emails only — ActivityType field distinguishes email/call/meeting
+- Delivery surface: signals pipeline (feed into unified_signals.json) AND report surface (Roll-In Emails & Activities section)
+
 ---
 
 # Explore — 2026-03-02 21:42 ET
@@ -72,3 +80,10 @@ Need to make updates to the AI report to show:
 - Recency weighting: a 2019 email thread vs. last month's exchange
 - Permission and visibility: not all Salesforce users can see all email activity
 - Who consumes this and how it changes their workflow (the absorbed note mentions AI report updates — is that the delivery surface?)
+## What I Now Know
+- Working extraction code exists (salesforceTestAccountActivities.py) — OAuth2 + httpx, no simple_salesforce dependency, matches existing salesforceClient pattern
+- Two data streams: ActivityHistories (Tasks/Events — logged emails, calls, meetings) and EmailMessage (Enhanced Email / Email-to-Case object)
+- ActivityHistories come back nested on the Account object; EmailMessage requires separate query via Contact/Case IDs
+- Sample data confirmed for account 0018000000ufgnjAAA
+- Scope answer: all activity history, not emails only — ActivityType field distinguishes email/call/meeting
+- Delivery surface: signals pipeline (feed into unified_signals.json) AND report surface (Roll-In Emails & Activities section)
