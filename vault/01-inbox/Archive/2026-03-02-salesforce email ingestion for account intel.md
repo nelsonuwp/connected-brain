@@ -1,7 +1,7 @@
 ---
-type: idea
 created: 2026-03-02
-status: raw
+status: promoted-to-task
+type: idea
 ---
 
 # salesforce email ingestion for account intel
