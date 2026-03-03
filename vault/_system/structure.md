@@ -17,6 +17,10 @@
 │   │   ├── drafting/         ← specs being developed
 │   │   ├── active/           ← in execution
 │   │   └── completed/        ← completed items
+│   ├── 31-tasks/             ← tasks (code/business/content); same archive-per-stage pattern as 30-initiatives
+│   │   ├── drafting/         ← from idea promote (route: task or --as-task)
+│   │   ├── active/           ← brain task activate
+│   │   └── completed/        ← brain task complete
 │   ├── 40-people/            ← person notes and 1:1 logs
 │   ├── 50-services/          ← internal service delivery units
 │   ├── 51-catalog/           ← external products and offerings
@@ -122,6 +126,17 @@ those live in `80-sessions/` or `90-meeting-notes/`.
 
 **Sub-folder per initiative:** `drafting/archive/` and `active/archive/`
 for originals moved on promote.
+
+### `31-tasks/`
+Tasks at three stages. Notes have `type: code | business | content` in frontmatter; type selects the prompt file loaded (`task-{command}-{type}.md`) — no injected type blocks. Created by `brain idea promote` when critique recommends task or `--as-task` is passed.
+
+**`drafting/`** — Task notes from idea promote. Developed via `brain task explore` and `brain task critique`.
+
+**`active/`** — Moved here by `brain task activate`. In execution.
+
+**`completed/`** — Moved here by `brain task complete`.
+
+**Sub-folder per stage:** `drafting/archive/`, `active/archive/`, `completed/archive/` for killed or archived tasks.
 
 ### `40-people/`
 One note per person you manage or work closely with. Contains role, delegation

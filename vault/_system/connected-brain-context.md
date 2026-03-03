@@ -63,6 +63,10 @@ At each stage the loop is:
 │   │   ├── drafting/        ← specs being developed (explore/critique/fix)
 │   │   ├── active/          ← in execution (surfaced in daily dashboard)
 │   │   └── completed/       ← completed (brain XXX complete or manual)
+│   ├── 31-tasks/             ← tasks (code/business/content); same archive-per-stage pattern as 30-initiatives
+│   │   ├── drafting/        ← task notes from idea promote (route: task or --as-task)
+│   │   ├── active/          ← brain task activate
+│   │   └── completed/       ← brain task complete
 │   ├── 40-people/            ← person notes, 1:1 logs
 │   ├── 50-services/         ← internal delivery units
 │   ├── 51-catalog/          ← external products/offerings
@@ -87,7 +91,7 @@ At each stage the loop is:
 ```
 01-inbox/           Raw idea (QuickAdd Cmd+Shift+I)
                     ↓  explore → critique → fix until score ≥ 7
-                    ↓  brain idea promote
+                    ↓  brain idea promote → 10-thinking/ OR 31-tasks/drafting/ (if critique recommends task or --as-task)
 10-thinking/        Thinking note (Why, Approach, Options, Assumptions)
                     ↓  explore → critique → fix until score ≥ 7
                     ↓  brain thinking promote
@@ -117,9 +121,10 @@ At each stage the loop is:
 
 **Commands:**
 
-- **Idea** (notes in `01-inbox/`): `brain idea explore | critique | normalize | promote | complete | kill <path>`
-- **Thinking** (notes in `10-thinking/`): `brain thinking explore | critique | spec | normalize | promote | complete | kill <path>`
-- **Initiative** (notes in `30-initiatives/drafting/` or `active/`): `brain initiative explore | critique | normalize | promote | complete | kill <path>` — promote is file move only (drafting → active).
+- **Idea** (notes in `01-inbox/`): `brain idea explore | critique | promote | complete | kill <path>`. Promote routes to `10-thinking/` or, when critique recommends task or `--as-task` is passed, to `31-tasks/drafting/`.
+- **Thinking** (notes in `10-thinking/`): `brain thinking explore | critique | spec | promote | complete | kill <path>`
+- **Initiative** (notes in `30-initiatives/drafting/` or `active/`): `brain initiative explore | critique | promote | complete | kill <path>` — promote is file move only (drafting → active).
+- **Task** (notes in `31-tasks/drafting/` or `active/`): `brain task explore | critique | activate | complete | kill <path>`. Task notes have `type: code | business | content` in frontmatter; type selects which prompt file is loaded (`task-{command}-{type}.md`) — no injected type blocks. Activate: drafting → active; complete: active → completed; kill: move to that folder's archive.
 - **Complete** (idea, thinking, initiative): sets status to complete and moves note to `30-initiatives/completed/`. No LLM call.
 - **Context** (notes in `20-context/`): `brain context <path>` — generates summary and appends to file.
 - **Absorb** (any paths): `brain absorb <root> <source1> [source2...]` — consolidates source notes into root, appends Key Points + Raw Context, archives sources.
@@ -154,9 +159,10 @@ Write once, inject instead of re-explaining. Run `brain context <path>` after wr
 
 | Stage | Explore | Critique | Promote | Complete | Kill |
 |-------|---------|----------|---------|----------|------|
-| Idea | `brain idea explore` | `brain idea critique` | `brain idea promote` | `brain idea complete` | `brain idea kill` |
+| Idea | `brain idea explore` | `brain idea critique` | `brain idea promote` (→ thinking or 31-tasks/drafting) | `brain idea complete` | `brain idea kill` |
 | Thinking | `brain thinking explore` | `brain thinking critique` | `brain thinking promote` | `brain thinking complete` | `brain thinking kill` |
 | Initiative (drafting) | `brain initiative explore` | `brain initiative critique` | `brain initiative promote` | `brain initiative complete` | `brain initiative kill` |
+| Task | `brain task explore` | `brain task critique` | `brain task activate` (drafting→active) | `brain task complete` | `brain task kill` |
 | Context | — | — | `brain context` | — | — |
 | Absorb | — | — | `brain absorb <root> <source...>` | — | — |
 

@@ -75,14 +75,6 @@ def temp_vault(tmp_path_factory):
             )
         else:
             (prompts_dir / name).write_text(f"System prompt: {name}\n", encoding="utf-8")
-    for task_prompt in [
-        "task-explore-code.md", "task-explore-business.md", "task-explore-content.md",
-        "task-critique-code.md", "task-critique-business.md", "task-critique-content.md",
-        "promote-idea-to-task.md",
-    ]:
-        path = prompts_dir / task_prompt
-        if not path.exists():
-            path.write_text(f"System prompt: {task_prompt}\n", encoding="utf-8")
     return vault
 
 
@@ -793,4 +785,165 @@ def test_append_section_order(env_with_vault):
     assert full.count("# Critique") == 2
     assert "First." in full
     assert "Second." in full
+
+
+# ---------------------------------------------------------------------------
+# Task
+# ---------------------------------------------------------------------------
+
+def test_task_activate_happy_path(env_with_vault):
+    vault = env_with_vault
+    task_file = vault / "31-tasks" / "drafting" / "task-activate-test.md"
+    task_file.write_text("---\ntype: code\nstatus: drafting\n---\n# Test Task\n", encoding="utf-8")
+    result = _run_brain(
+        {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"},
+        "task", "activate", "31-tasks/drafting/task-activate-test.md",
+    )
+    assert result.returncode == 0
+    assert not task_file.exists()
+    active_file = vault / "31-tasks" / "active" / "task-activate-test.md"
+    assert active_file.exists()
+    content = active_file.read_text()
+    assert "status: active" in content
+
+
+def test_task_activate_wrong_folder_error(env_with_vault):
+    vault = env_with_vault
+    (vault / "01-inbox" / "task-activate-wrong.md").write_text("---\ntype: code\n---\n# Idea\n", encoding="utf-8")
+    result = _run_brain(
+        {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"},
+        "task", "activate", "01-inbox/task-activate-wrong.md",
+    )
+    assert result.returncode == 1
+    assert "drafting" in result.stderr or "drafting" in result.stdout
+
+
+def test_task_complete_happy_path(env_with_vault):
+    vault = env_with_vault
+    task_file = vault / "31-tasks" / "active" / "task-complete-test.md"
+    task_file.write_text("---\ntype: code\nstatus: active\n---\n# Task\n", encoding="utf-8")
+    result = _run_brain(
+        {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"},
+        "task", "complete", "31-tasks/active/task-complete-test.md",
+    )
+    assert result.returncode == 0
+    assert not task_file.exists()
+    completed_file = vault / "31-tasks" / "completed" / "task-complete-test.md"
+    assert completed_file.exists()
+    content = completed_file.read_text()
+    assert "status: complete" in content
+
+
+def test_task_kill_from_drafting(env_with_vault):
+    vault = env_with_vault
+    task_file = vault / "31-tasks" / "drafting" / "task-kill-test.md"
+    task_file.write_text("---\ntype: code\nstatus: drafting\n---\n# Task\n", encoding="utf-8")
+    result = _run_brain(
+        {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"},
+        "task", "kill", "31-tasks/drafting/task-kill-test.md",
+    )
+    assert result.returncode == 0
+    archive_file = vault / "31-tasks" / "drafting" / "archive" / "task-kill-test.md"
+    assert archive_file.exists()
+    content = archive_file.read_text()
+    assert "status: killed" in content
+    assert not task_file.exists()
+
+
+def test_task_explore_mocked_code_type(env_with_vault):
+    vault = env_with_vault
+    task_file = vault / "31-tasks" / "drafting" / "task-explore-test.md"
+    task_file.write_text("---\ntype: code\nstatus: drafting\n---\n# Task\n", encoding="utf-8")
+    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock("## Feasibility\nOK\n## Unknowns\nNone\n## Risks\nLow\n## Cursor Prompt\n```cursor\nprompt\n```")):
+        from typer.testing import CliRunner
+        import brain as brain_mod
+        runner = CliRunner()
+        result = runner.invoke(brain_mod.app, ["task", "explore", "31-tasks/drafting/task-explore-test.md"], env=env)
+    assert result.exit_code == 0
+    full = task_file.read_text()
+    assert "# Explore" in full
+
+
+def test_task_critique_mocked_business_type(env_with_vault):
+    vault = env_with_vault
+    task_file = vault / "31-tasks" / "drafting" / "task-critique-test.md"
+    task_file.write_text("---\ntype: business\nstatus: drafting\n---\n# Task\n", encoding="utf-8")
+    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock("## Score: 8/10\nReady.\n## Section Breakdown\n### What\n**Strong:** Clear.")):
+        from typer.testing import CliRunner
+        import brain as brain_mod
+        runner = CliRunner()
+        result = runner.invoke(brain_mod.app, ["task", "critique", "31-tasks/drafting/task-critique-test.md"], env=env)
+    assert result.exit_code == 0
+    full = task_file.read_text()
+    assert "# Critique" in full
+
+
+def test_task_explore_missing_type_warns_uses_code(env_with_vault):
+    vault = env_with_vault
+    task_file = vault / "31-tasks" / "drafting" / "task-explore-no-type.md"
+    task_file.write_text("---\nstatus: drafting\n---\n# Task\n", encoding="utf-8")
+    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock("## Feasibility\nOK\n## Unknowns\n\n## Risks\n\n## Cursor Prompt\n```cursor\nx\n```")):
+        from typer.testing import CliRunner
+        import brain as brain_mod
+        runner = CliRunner()
+        result = runner.invoke(brain_mod.app, ["task", "explore", "31-tasks/drafting/task-explore-no-type.md"], env=env)
+    assert result.exit_code == 0
+    assert "[WARN]" in result.stderr or "[WARN]" in result.stdout
+    full = task_file.read_text()
+    assert "# Explore" in full
+
+
+def test_idea_promote_routes_to_task_via_route_block(env_with_vault):
+    vault = env_with_vault
+    idea_file = vault / "01-inbox" / "task-idea-route.md"
+    content = "My idea\n\n---route\nrecommendation: task\nreason: bounded and obvious\n---\n"
+    idea_file.write_text(content, encoding="utf-8")
+    task_note = "---\ntype: code\nstatus: drafting\ncreated: 2026-03-03\nsource-idea: [[task-idea-route]]\n---\n# Title\n## What\nOne sentence.\n## Done When\nDone.\n## Notes\n"
+    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(task_note)):
+        from typer.testing import CliRunner
+        import brain as brain_mod
+        runner = CliRunner()
+        result = runner.invoke(brain_mod.app, ["idea", "promote", "01-inbox/task-idea-route.md"], env=env)
+    assert result.exit_code == 0
+    assert (vault / "31-tasks" / "drafting" / "task-idea-route.md").exists()
+    archived = vault / "01-inbox" / "archive" / "task-idea-route.md"
+    assert archived.exists()
+    assert "promoted-to-task" in archived.read_text()
+
+
+def test_idea_promote_as_task_flag(env_with_vault):
+    vault = env_with_vault
+    idea_file = vault / "01-inbox" / "task-idea-flag.md"
+    idea_file.write_text("My idea\n", encoding="utf-8")
+    task_note = "---\ntype: code\nstatus: drafting\ncreated: 2026-03-03\nsource-idea: [[task-idea-flag]]\n---\n# Title\n## What\nOne.\n## Done When\nDone.\n## Notes\n"
+    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(task_note)):
+        from typer.testing import CliRunner
+        import brain as brain_mod
+        runner = CliRunner()
+        result = runner.invoke(brain_mod.app, ["idea", "promote", "01-inbox/task-idea-flag.md", "--as-task"], env=env)
+    assert result.exit_code == 0
+    assert (vault / "31-tasks" / "drafting" / "task-idea-flag.md").exists()
+
+
+def test_idea_promote_falls_back_to_thinking_no_route_block(env_with_vault):
+    vault = env_with_vault
+    idea_file = vault / "01-inbox" / "task-idea-thinking.md"
+    idea_file.write_text("My idea\n", encoding="utf-8")
+    thinking_note = "---\ntype: thinking\nstatus: raw\n---\n# Title\n## The Idea\nX.\n## Why This Matters\nY.\n"
+    env = {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"}
+    with patch("brain.Config.VAULT_ROOT", vault), patch("brain.ai_call", return_value=_success_mock(thinking_note)):
+        from typer.testing import CliRunner
+        import brain as brain_mod
+        runner = CliRunner()
+        result = runner.invoke(brain_mod.app, ["idea", "promote", "01-inbox/task-idea-thinking.md"], env=env)
+    assert result.exit_code == 0
+    assert (vault / "10-thinking" / "task-idea-thinking.md").exists()
+    archived = vault / "01-inbox" / "archive" / "task-idea-thinking.md"
+    assert archived.exists()
+    assert "status: promoted" in archived.read_text()
 
