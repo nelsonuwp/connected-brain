@@ -25,9 +25,9 @@ Without type awareness, a code task gets critiqued the same way as a content pie
 - Whether type × command variation will become necessary (e.g., `explore` on a code note needing different context than `critique` on the same note).
 
 ## Assumptions I'm Making
-- Type is primary and command is secondary—static type blocks per note are sufficient without command-specific variation.
-- Code thinking and code task can share a type block for v1 without degrading task output quality.
-- Audience and constraint layering (technical vs. executive, time-bound vs. resource-limited) are not needed for v1.
+- ~~Type is primary and command is secondary~~ — Q3 invalidated this. Explore and critique need different context on the same note. Type × command is the correct model.
+- Code thinking and code task can share a type block for v1 — still untested, but secondary to the explore/critique split.
+- Audience and constraint layering are not needed for v1.
 
 ## Risks and Constraints
 - Type blocks could get stale and auto-injection becomes auto-pollution; mitigation is keeping blocks under 200 tokens and reviewing quarterly.
