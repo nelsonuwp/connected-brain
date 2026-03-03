@@ -421,7 +421,7 @@ def test_absorb_source_archived_with_correct_status(env_with_vault):
     assert not (vault / "01-inbox" / "status-src.md").exists()
     # Source is in archive with correct status
     archived = (vault / "01-inbox" / "archive" / "status-src.md").read_text()
-    assert "absorbed to [[status-root]]" in archived
+    assert "absorbed into [[status-root]]" in archived
 
 
 def test_absorb_multi_source(env_with_vault):
@@ -573,7 +573,7 @@ def test_thinking_spec_dry_run(env_with_vault):
     vault = env_with_vault
     (vault / "10-thinking" / "foo.md").write_text("Thinking\n", encoding="utf-8")
     result = _run_brain(
-        {"VAULT_ROOT": str(vault), "OPENROUTER_API_KEY": "sk-dummy"},
+        {"VAULT_ROOT": str(vault), "PROMPTS_ROOT": str(vault / "_prompts"), "OPENROUTER_API_KEY": "sk-dummy"},
         "thinking", "spec", "10-thinking/foo.md", "--dry-run",
     )
     assert result.returncode == 0
