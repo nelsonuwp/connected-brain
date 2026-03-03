@@ -1,6 +1,6 @@
 ---
+status: promoted
 type: thinking
-status: raw
 ---
 
 # type-aware injectable context blocks
@@ -26,11 +26,13 @@ Without type awareness, a code task gets critiqued the same way as a content pie
 
 ## Assumptions I'm Making
 - Audience and constraint layering are not needed for v1.
+- I'm betting type alone (code/business/content) is sufficient for v1. If testing shows different audiences need different blocks (junior dev vs architect), audience becomes a second dimension.
 
 ## Risks and Constraints
 - Type blocks could get stale and auto-injection becomes auto-pollution; mitigation is keeping blocks under 200 tokens and reviewing quarterly.
 - brain.py doesn't currently support dynamic context loading—this is a blocker requiring implementation work.
 - If three types prove too coarse, the system may need hierarchical types (e.g., `type: code/architecture`) with fallback, adding complexity.
+- Decision rule for type granularity: if >30% of notes in a single type require manual --context overrides during testing, that type needs subdivision.
 
 ## Next Step
 Draft the 6 type × command blocks (code/business/content × explore/critique). Apply each to existing notes. Document failures. Use failure patterns to decide if type subdivision is needed before implementing in brain.py.
@@ -63,3 +65,4 @@ These are not the same context. Type × command is probably necessary, not optio
 
 ## Fallback Behavior
 If type is missing or invalid, brain.py should warn and proceed without injection — not fail silently or halt. A default type block would mask missing frontmatter, which is worse than generic output. Untyped notes are a data quality problem, not a runtime error.
+
