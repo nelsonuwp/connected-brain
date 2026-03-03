@@ -65,11 +65,13 @@ Currently all notes receive identical generic context regardless of domain—a c
 - Injection over substitution—simpler implementation, blocks remain static
 - Warning on missing type rather than default block—surfacing data quality issues is better than masking them
 - No fallback to generic block—untyped notes should produce generic output, not pretend to be typed
+- Warning on missing type rather than silent fallback — user notified via stderr, execution continues with generic context. Surfaces data quality gap without blocking workflow.
 
 ## Delegation State
 | Person | Owns | By When | Level | Status |
 | ------ | ---- | ------- | ----- | ------ |
 | Solo | All steps | 2026-03-16 | Full ownership | Not started |
+| Solo | All steps | 2026-03-16 | Full ownership | Not started — Step 0: 0.5d, Step 1: 2d, Step 2: 4d, Step 3: 0.5d, Step 4: 4d, Step 5: 1d = 12d + 2d buffer |
 
 ## Definition of Done
 - All 6 block files exist in 20-context/types/ and are under 200 tokens each
@@ -77,4 +79,75 @@ Currently all notes receive identical generic context regardless of domain—a c
 - testing-log.md documents 50+ invocations with <30% aggregate override rate
 - Warnings print to stderr for missing/invalid type; execution continues with exit 0
 - spike-report.md documents context structure and confirms additive approach
+- Warnings for missing/invalid type print to stderr and do not change exit code (remains 0)
 
+
+---
+
+# Critique — 2026-03-02 20:03 ET
+
+## Score: 6/10
+Rework suggested — execution would stall on ambiguous success criteria and missing implementation details.
+
+## Section Breakdown
+
+### One-Line Purpose
+**Strong:** Clear value proposition — type-aware context improves domain relevance without manual intervention.
+
+### Success Looks Like
+**Weak:** Criterion 3 has contradictory logic. "Initiative ships regardless of outcome" conflicts with "if any single type shows ≥40% override rate, document subdivision plan." Does the initiative ship if business shows 45% override? The 30% aggregate vs 40% per-type thresholds create confusion about what blocks shipping.
+
+**Fix:** Separate shipping criteria from post-ship analysis. Rewrite criterion 3 as: "Aggregate override rate measured across minimum 50 invocations (5 notes × 3 types × 2 commands = 30 base + 20 repeat). Initiative ships regardless of rate. Post-ship: if aggregate >30% OR any single type ≥40%, document findings in analysis-report.md and create follow-up initiative for refinement."
+
+**Weak:** Criterion 4 specifies warning text but doesn't define what "proceeds without type-specific context" means for the output. Does the LLM receive a placeholder block? Generic context only? Nothing?
+
+**Fix:** Add to criterion 4: "Command executes using only generic context (no type-specific block injected). LLM receives standard system prompt without type augmentation."
+
+### Constraints
+**Weak:** "Assume additive unless 30-minute spike reveals restructuring needed" creates a hidden dependency. If the spike fails, the entire initiative halts, but this isn't reflected in Success Looks Like or Definition of Done.
+
+**Fix:** Move spike to Success Looks Like as criterion 0: "Step 0 spike confirms brain.py context loading is additive (documented in spike-report.md). If restructuring required, halt and create new initiative." Make it a go/no-go gate before step 1.
+
+**Weak:** "Injected block lands before command-specific prompt" — where exactly? Before all system context? After generic context? Between two existing blocks?
+
+**Fix:** Specify exact insertion point: "Injected block is inserted into system context immediately before the command-specific prompt, after any existing generic context. Order: [generic context] → [type block] → [command prompt]."
+
+### Open Questions
+**Weak:** "Override rate measured per invocation" is stated here but not defined in Success Looks Like. What constitutes an override? Manual flag addition? Block content rejection?
+
+**Fix:** Move definition to Success Looks Like criterion 3: "Override = any invocation where user manually adds flags or edits block content before execution. Measured per invocation (not per note) to avoid skew from single problematic notes."
+
+### Work Breakdown - Sequence
+**Weak:** Step 0 says "halt and create new initiative" but doesn't specify who decides or what the decision criteria are. Is any restructuring a halt, or only major restructuring?
+
+**Fix:** Add decision rule to step 0: "Spike is go/no-go gate. If brain.py requires >4 hours of refactoring to support dynamic loading (e.g., rewriting prompt system), halt and create new initiative. Proceed to step 1 only if additive changes confirmed. Spike documents current context structure in spike-report.md."
+
+**Weak:** Step 2 says "Add type to any notes used in testing" — this modifies production data during testing. What if those types are wrong?
+
+**Fix:** Clarify scope: "Add type: frontmatter only to notes lacking it that will be used in testing. Document additions in audit-report.md. If uncertain about correct type, flag note in testing-log.md and exclude from override rate calculation."
+
+**Weak:** Step 4 says "Test with one note per type confirming block content appears in LLM input" but doesn't specify how to verify this. Does brain.py log the full prompt? Is this manual inspection?
+
+**Fix:** Add verification method: "Verification: add temporary debug logging to print full system message to stderr. Confirm block text appears between generic context and command prompt. Remove debug logging after verification."
+
+**Weak:** Step 5 says "Test: (a) note with type: invalid produces invalid-type warning" but Constraints say "Warning on invalid type (not just missing)" without defining what "invalid" means. Is `type: foo` invalid? Or only malformed YAML?
+
+**Fix:** Define invalid in Constraints: "Invalid type = any value other than code|business|content. Malformed YAML (e.g., missing colon) is a parse error, not an invalid type — brain.py should handle per existing error behavior."
+
+### Delegation State
+**Weak:** "Step 0: 0.5d, Step 1: 2d, Step 2: 4d..." — these estimates don't account for the halt scenario in step 0. If spike fails, is 0.5d wasted or does it count toward a new initiative?
+
+**Fix:** Clarify step 0 accounting: "Step 0: 0.5d (counts toward this initiative even if halt triggered). Remaining estimates assume additive path. If restructuring required, new initiative gets separate budget."
+
+**Weak:** Two identical rows in the table — likely a copy-paste error.
+
+**Fix:** Remove duplicate row. Keep single row: "Solo | All steps | 2026-03-16 | Full ownership | Not started — Step 0: 0.5d, Step 1: 2d, Step 2: 4d, Step 3: 0.5d, Step 4: 4d, Step 5: 1d = 12d + 2d buffer"
+
+### Definition of Done
+**Weak:** "testing-log.md documents 50+ invocations with <30% aggregate override rate" — this contradicts Success Looks Like criterion 3 which says "ships regardless of outcome."
+
+**Fix:** Remove rate requirement from DoD: "testing-log.md documents 50+ invocations with calculated override rate (initiative ships regardless of rate)."
+
+**Weak:** Missing verification that warnings actually print to stderr (not stdout) and don't change exit code.
+
+**Fix:** Add: "Warnings for missing/invalid type print to stderr and do not change exit code (remains 0). Verified by testing both cases and checking $? = 0."
