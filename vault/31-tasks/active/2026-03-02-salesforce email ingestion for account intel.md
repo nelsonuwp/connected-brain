@@ -229,3 +229,173 @@ An implementation plan covering exact function signatures,
 where each change goes in each file, and any edge cases. 
 No code yet — plan only.
 ```
+
+---
+
+# Critique — 2026-03-03 07:42 ET
+
+## Score: 9/10
+Exceptionally well-prepared task with comprehensive specification, clear gate criteria, and detailed implementation plan.
+
+## Section Breakdown
+
+### Done When
+**Strong:** 
+- All 9 criteria are observable and verifiable with specific technical outcomes
+- Includes both functional requirements (data in artifacts, signals extracted) and quality gates (existing behavior unchanged, tests, docs)
+- Explicitly addresses the "skipped" vs "fail" distinction for EmailMessage
+- Specifies correlation mechanism for Jira ticket cross-referencing
+
+**Weak:** 
+- Criterion 7 ("existing behavior unchanged") relies on manual verification rather than automated regression tests
+- No explicit acceptance criteria for bot detection accuracy threshold
+
+**Fix:** 
+Consider adding: "Bot detection unit tests achieve 100% accuracy on provided test cases" and "Regression test suite passes (if exists) or manual smoke test documented in PR"
+
+---
+
+### Notes - Architecture Decisions
+**Strong:**
+- All major architectural questions pre-resolved (single artifact, legacy envelope mapping, signal extraction strategy)
+- Clear integration points identified (fetch_data, _map_to_legacy_envelope, _extract_deterministic_signals)
+- Follows existing patterns (SourceObject schema, make_source_object utility)
+
+**Weak:**
+- No mention of transaction/rollback strategy if partial writes occur
+- Doesn't specify whether activity_histories and email_messages should be added to CHANGELOG as new data sources
+
+**Fix:**
+Clarify: "Single atomic write in finally block ensures partial state never persists" and add CHANGELOG entry format example
+
+---
+
+### Notes - Extraction Spec
+**Strong:**
+- Precise query specifications with fallback patterns for org variations
+- Clear pagination, filtering, and capping rules (120 days, 20 non-bot records, 200 email cap)
+- Explicit handling of Enhanced Email unavailability
+- Recursive attributes stripping specified
+
+**Weak:**
+- "Whichever comes first" logic for 120 days OR 20 non-bot records could create ambiguity in implementation (fetch 500, then trim—but what if 500 doesn't cover 120 days?)
+- No specification for handling ActivityHistories with null ActivityDate
+
+**Fix:**
+Clarify: "Fetch up to 500 records within 120-day window, then filter to first 20 non-bot by ActivityDate DESC (null dates sorted last)"
+
+---
+
+### Notes - Signal Extraction Spec
+**Strong:**
+- Detailed signal primitive schema with example JSON
+- Bot detection patterns explicitly listed with test cases
+- Jira ticket correlation mechanism well-specified (shared jira_ticket_id field)
+- Clear exclusion rules (bots excluded from signals but counted for ratio)
+
+**Weak:**
+- "open_threads" definition (subjects appearing 2+ times) doesn't specify whether to count across all time or just last 30 days
+- Escalation keyword list includes "priorit" (prefix match?) but doesn't specify if partial word matches count
+
+**Fix:**
+Specify: "open_threads counts subject occurrences within last 30 days only" and "escalation keywords use whole-word matching (e.g., 'priority' matches, 'deprioritize' does not)"
+
+---
+
+### Notes - Report Context Bar
+**Strong:**
+- Minimal, targeted change scope
+- Clear source path (objects.account.data.Owner.Name)
+- Graceful degradation (omit if null/absent)
+
+**Weak:**
+- Doesn't specify ordering relative to existing Client ID and ZoomInfo ID items
+
+**Fix:**
+Add: "Display order: Client ID, Account Owner, ZoomInfo ID"
+
+---
+
+### Notes - Error Handling
+**Strong:**
+- Clear status semantics (partial vs fail vs skipped)
+- Logging levels specified (INFO for skipped, WARNING for partial/fail)
+- No-retry policy with rationale
+
+**Weak:**
+- Doesn't specify whether partial status should trigger alerts/monitoring
+- No guidance on what to log in the error message for debugging
+
+**Fix:**
+Add: "Log full exception traceback at DEBUG level; include query text in WARNING messages for fetch failures"
+
+---
+
+### Notes - Cursor Implementation Plan
+**Strong:**
+- Comprehensive prompt with clear file reading order
+- Structured by implementation area with specific constraints
+- Includes exact mapping code snippets
+- Explicitly forbids touching unrelated code
+
+**Weak:**
+- Prompt asks for "implementation plan only—no code yet" but the task already contains a detailed implementation plan in Notes, creating potential confusion
+- Doesn't specify test file locations or test framework (unittest/pytest)
+
+**Fix:**
+Revise prompt to: "Read the files, validate the implementation plan in the Notes section against actual code structure, then produce a step-by-step execution checklist with any adjustments needed"
+
+---
+
+### Files to Touch
+**Strong:**
+- Complete list with specific functions/sections to modify
+- Clear exclusion list (Do not touch section)
+
+**Weak:**
+- Missing test file paths (e.g., tests/test_salesforce_client.py, tests/test_signal_primitives.py)
+- No mention of whether salesforceTestAccountActivities.py should be updated or is reference-only
+
+**Fix:**
+Add: "tests/test_salesforce_client.py, tests/test_signal_primitives.py (create if missing)" and clarify "salesforceTestAccountActivities.py is reference only—do not modify"
+
+---
+
+### Test Coverage (Done When #8)
+**Strong:**
+- Specific test scenarios listed (bot detection, signal extraction, EmailMessage unavailable, Jira regex)
+- Aligns with main functional areas
+
+**Weak:**
+- No test for ActivityHistories fallback query pattern (critical for org compatibility)
+- No test for partial failure scenario (activity fetch fails but contacts succeed)
+- No integration test mentioned
+
+**Fix:**
+Add to Done When #8: "Fallback query pattern tested against mock org that rejects WHERE in subquery; partial failure scenario produces correct artifact structure"
+
+---
+
+### Documentation (Done When #9)
+**Strong:**
+- Requires docstrings on all new functions
+- CHANGELOG.md update required
+
+**Weak:**
+- Doesn't specify CHANGELOG format or which section (Added/Changed)
+- No mention of README updates if new signals affect user-facing documentation
+
+**Fix:**
+Add: "CHANGELOG.md entry under 'Added' section following existing format; update README.md signal catalog if present"
+
+---
+
+## Overall Assessment
+This task is **production-ready** with minor clarifications needed. The specification is unusually thorough—extraction logic, error handling, signal schema, and integration points are all well-defined. The Cursor prompt provides a complete implementation roadmap. 
+
+**Why not 10/10:**
+- A few edge cases need tightening (null dates, partial word matching, test file locations)
+- The Cursor prompt duplicates rather than validates the existing plan
+- Test coverage could explicitly include fallback patterns and partial failure
+
+**Recommended action:** Address the "Fix" items in a 15-minute review pass, then activate. This is exemplary task preparation.
