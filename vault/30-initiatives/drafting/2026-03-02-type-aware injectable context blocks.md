@@ -14,8 +14,8 @@ Currently all notes receive identical generic context regardless of domain—a c
 ## Success Looks Like
 1. Notes with `type: code|business|content` in frontmatter automatically receive the matching context block when running explore or critique commands
 2. Each of the 6 blocks (3 types × 2 commands) stays under 200 tokens
-3. Fewer than 30% of notes in any single type require manual `--context` overrides during testing
-4. Missing or invalid type produces a warning and proceeds without injection—no silent failures, no halts
+3. Across 50+ invocations spanning 20+ notes (minimum 5 per type), fewer than 30% of invocations require --context overrides. If any single type exceeds 40% override rate, that type is flagged for subdivision in a follow-up initiative — this initiative still ships with 3 types.
+4. Missing or invalid type prints to stderr: [WARN] Note has no type specified — proceeding without type-specific context or [WARN] Note has invalid type '{value}' — proceeding without type-specific context. Execution continues in both cases.
 
 ## Constraints
 - Three types only for v1: code, business, content
@@ -27,12 +27,19 @@ Currently all notes receive identical generic context regardless of domain—a c
 - - Block file path convention: 20-context/types/{type}-{command}.md — direct lookup, no registry for v1
 - Injected block lands before command-specific prompt in system context
 - Warning on invalid type (not just missing) — different message than missing, same behavior (proceed without injection)
+- - Injected block is inserted into system context immediately before the command-specific prompt, after any existing generic context
+- brain.py currently uses static prompt templates loaded at startup. Dynamic loading requires adding frontmatter parsing and runtime block lookup. Assume additive unless 30-minute spike reveals restructuring needed — if restructuring required, halt and re-scope.
+
+## Non-Goals
+- No type taxonomy beyond the initial 3 for v1
+- No custom user-defined types
+- No context injection for commands other than explore and critique
+- No audience or constraint layering
 
 ## Open Questions
 - Is "business" a coherent single type or a catch-all that will need subdivision? Testing against real notes will reveal this.
 - If testing shows >30% override rate for a type, what subdivision scheme works best (hierarchical like `code/architecture` with fallback, or flat expansion)?
-- - How many existing notes have type: in frontmatter? Audit before step 2 — low adoption means testing phase becomes frontmatter-adding phase, not block-testing phase.
-- Is dynamic context loading additive to brain.py or does it require restructuring? Determines whether 2–4 hour estimate holds.
+- Is "business" coherent or a catch-all? Testing will answer this. If >40% override rate, flag for subdivision in follow-up.
 - Override rate measured per note or per invocation? Recommend per invocation — single problematic note skews note-based metrics.
 
 ## Work Breakdown
@@ -48,18 +55,18 @@ Currently all notes receive identical generic context regardless of domain—a c
 
 ### Sequence
 1. Draft all 6 type × command blocks using the partial drafts as starting points
-2. Audit existing notes for type: frontmatter. Add type to any notes used in testing. Apply each block to 2–3 notes per type manually; document where blocks fail.
-3. Analyze failure patterns to determine if type subdivision is needed before code changes
-4. Implement dynamic context loading in brain.py (reads type from frontmatter, loads matching block from `20-context/types/`)
-5. Add warning behavior for missing/invalid type
+2. Audit existing notes for type: frontmatter. Produce audit-report.md: count of notes by type, list of notes needing type added. Add type to any notes used in testing. Create testing-log.md documenting each test: note path, type, command, whether override was needed, why. Minimum 2 notes per type × command pair (12 total invocations).
+3. Analyze testing-log.md. Analysis complete when: (a) override rate <30% for all types → proceed to step 4, or (b) override rate >30% for any type → document subdivision plan and decide whether to proceed or re-scope.
+4. Implement dynamic loading: (a) parse frontmatter for type: field, (b) construct path 20-context/types/{type}-{command}.md, (c) read file if exists, (d) inject into system context immediately before command prompt. Test with one note per type confirming block content appears in LLM input.
+5. Add warning behavior. Test: (a) note with type: invalid produces invalid-type warning, (b) note with no type: produces missing-type warning, (c) both cases proceed without injected block.
 
 ## Decisions Made
 - Type × command matrix (6 blocks) over type-only (3 blocks)—explore needs expansive thinking while critique needs checklists, these are fundamentally different lenses
 - Injection over substitution—simpler implementation, blocks remain static
 - Warning on missing type rather than default block—surfacing data quality issues is better than masking them
 - No fallback to generic block—untyped notes should produce generic output, not pretend to be typed
-- Quarterly review cadence for block staleness
 
 ## Delegation State
 | Person | Owns | By When | Level | Status |
-| ------ | ---- | ------- | ----- | ------ |
+| Solo | All steps | 2026-03-16 | Full ownership | Not started |
+
