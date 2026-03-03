@@ -27,7 +27,7 @@ Currently all notes receive identical generic context regardless of domain—a c
 - - Block file path convention: 20-context/types/{type}-{command}.md — direct lookup, no registry for v1
 - Injected block lands before command-specific prompt in system context
 - Warning on invalid type (not just missing) — different message than missing, same behavior (proceed without injection)
-- - Injected block is inserted into system context immediately before the command-specific prompt, after any existing generic context
+- Injected block is inserted into system context immediately before the command-specific prompt, after any existing generic context
 - brain.py currently uses static prompt templates loaded at startup. Dynamic loading requires adding frontmatter parsing and runtime block lookup. Assume additive unless 30-minute spike reveals restructuring needed — if restructuring required, halt and re-scope.
 
 ## Non-Goals
@@ -37,10 +37,8 @@ Currently all notes receive identical generic context regardless of domain—a c
 - No audience or constraint layering
 
 ## Open Questions
-- Is "business" a coherent single type or a catch-all that will need subdivision? Testing against real notes will reveal this.
-- If testing shows >30% override rate for a type, what subdivision scheme works best (hierarchical like `code/architecture` with fallback, or flat expansion)?
-- Is "business" coherent or a catch-all? Testing will answer this. If >40% override rate, flag for subdivision in follow-up.
-- Override rate measured per note or per invocation? Recommend per invocation — single problematic note skews note-based metrics.
+- Is "business" coherent or a catch-all? Testing will answer this. If >40% override rate per invocation, flag for subdivision in a follow-up initiative.
+- Override rate measured per invocation — single problematic note shouldn't skew results.
 
 ## Work Breakdown
 
@@ -68,5 +66,66 @@ Currently all notes receive identical generic context regardless of domain—a c
 
 ## Delegation State
 | Person | Owns | By When | Level | Status |
+| ------ | ---- | ------- | ----- | ------ |
 | Solo | All steps | 2026-03-16 | Full ownership | Not started |
 
+
+
+---
+
+# Critique — 2026-03-02 19:56 ET
+
+## Score: 6/10
+Rework suggested — execution would stall on vague success criteria and missing implementation details.
+
+## Section Breakdown
+
+### One-Line Purpose
+**Strong:** Clear scope — type-aware injection for specific commands only.
+**Weak:** "domain-specific context" and "appropriate criteria" are abstract. What makes code context different from business context?
+**Fix:** Add one concrete example: "e.g., code notes get evaluated against architectural principles and maintainability; business notes against strategic alignment and resource constraints."
+
+### Success Looks Like
+**Weak:** Criterion 3 has contradictory logic. "Fewer than 30% require overrides" is the success threshold, but "if any single type exceeds 40%" triggers flagging. Which number gates shipping? Also, "50+ invocations spanning 20+ notes (minimum 5 per type)" — does this mean 5 notes per type (15 total) or 5 invocations per type (15 invocations minimum, contradicting "50+ invocations")?
+**Fix:** Clarify: "Success = aggregate override rate <30% across all types. Ship regardless. Post-ship: if any single type shows >40% override rate in that same dataset, create follow-up initiative to subdivide that type." Specify: "Minimum 50 invocations total, distributed as: at least 15 notes (5 per type), each tested with both explore and critique (30 invocations minimum), plus 20+ additional invocations on repeat notes to test consistency."
+
+**Weak:** Criterion 4 specifies warning messages but not where they print or whether they block execution. "Execution continues" is stated but not whether the command runs with generic context or no context.
+**Fix:** Add: "Warnings print to stderr before command execution. Command proceeds using only generic context (no type-specific block injected). Exit code remains 0."
+
+### Constraints
+**Strong:** Token budget per block is testable. Three-type limit is clear.
+**Weak:** "Assume additive unless 30-minute spike reveals restructuring needed — if restructuring required, halt and re-scope" — this makes the initiative conditional on a spike outcome, but the spike isn't in the work breakdown. When does the spike happen? Who decides "restructuring needed"?
+**Fix:** Move spike to Work Breakdown step 0: "Conduct 30-minute spike on brain.py prompt loading. If current architecture allows additive dynamic loading, proceed. If restructuring required (e.g., prompt system rewrite), halt and create new initiative scoping the restructure. Document spike findings in spike-report.md before proceeding to step 1."
+
+**Weak:** "Injected block is inserted into system context immediately before the command-specific prompt, after any existing generic context" — what is "generic context"? Is this documented somewhere? If brain.py changes its context structure, does this spec break?
+**Fix:** Reference the actual context structure: "Injected block is inserted into the system message after [specific existing context file/section] and before [specific command prompt file/section]. Document current context structure in spike-report.md to establish baseline."
+
+### Work Breakdown
+**Weak:** Step 2 says "Minimum 2 notes per type × command pair (12 total invocations)" but Success Looks Like says "50+ invocations spanning 20+ notes (minimum 5 per type)." These numbers don't align.
+**Fix:** Reconcile with Success criterion 3 fix above. Step 2 should say: "Test each type × command pair on at least 5 notes (30 invocations minimum). Add 20+ invocations on repeat notes. Target 50+ total invocations. Log each in testing-log.md: note path, type, command, override needed (yes/no), reason if yes."
+
+**Weak:** Step 3 says "decide whether to proceed or re-scope" but Delegation State says "Full ownership" for solo execution. Who makes the re-scope decision if override rate fails?
+**Fix:** Either: (a) add decision criteria: "If override rate >30%, solo decides: ship with flagging plan documented, or halt and re-scope. Document decision in analysis-report.md." Or (b) remove re-scope option: "If override rate >30%, ship anyway and document subdivision plan for follow-up initiative."
+
+**Weak:** Step 4 says "Test with one note per type confirming block content appears in LLM input" — how do you confirm this? Does brain.py log the full system message? Is there a --debug flag?
+**Fix:** Specify verification method: "Add --debug flag to brain.py that prints full system message to stderr, or manually inspect LLM API call logs. Confirm each type's block text appears verbatim in system message."
+
+**Weak:** Step 5 tests warning behavior but doesn't test that warnings don't break execution. "Both cases proceed without injected block" — does this mean the command runs successfully and produces output?
+**Fix:** Add to step 5: "Verify both warning cases: (a) command completes successfully (exit 0), (b) output is generated using generic context only, (c) warning appears in stderr but not in command output."
+
+### Decisions Made
+**Strong:** Rationale for type × command matrix is clear and defensible.
+**Weak:** "Warning on missing type rather than default block — surfacing data quality issues is better than masking them" contradicts the behavior in Success criterion 4 and step 5, which say execution continues. If execution continues with generic context, you ARE using a default (generic context), not surfacing a blocking issue.
+**Fix:** Clarify the decision: "Warning on missing type rather than silent fallback — user sees data quality issue but execution continues with generic context. This surfaces the gap without blocking workflow."
+
+### Delegation State
+**Weak:** "By When: 2026-03-16" is 14 days away. Work breakdown has 5 steps including drafting 6 blocks, auditing all notes, 50+ test invocations, implementation, and testing. No time estimates per step. Is 14 days realistic?
+**Fix:** Add time estimates: "Step 1: 3 days. Step 2: 4 days. Step 3: 1 day. Step 4: 4 days. Step 5: 2 days. Total: 14 days. If spike in step 0 reveals restructuring needed, timeline invalid — re-scope before proceeding."
+
+### Missing Sections
+**Fix:** Add "Definition of Done" section:
+- All 6 block files exist in 20-context/types/ and are under 200 tokens each
+- brain.py parses frontmatter and injects blocks per spec
+- testing-log.md documents 50+ invocations with <30% aggregate override rate
+- Warnings print correctly for missing/invalid type
+- spike-report.md documents current context structure and confirms additive approach
