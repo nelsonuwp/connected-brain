@@ -555,14 +555,14 @@ def idea_explore(
 
 @idea_app.command("normalize")
 def idea_normalize(
-    file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
     dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
     temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
     snapshot: bool = typer.Option(False, "--snapshot", help="Snapshot note to archive before overwriting"),
 ) -> None:
     """Rewrite # Current Version only for clarity. Preserves # Critique / # Explore."""
-    _, vault_rel = resolve_under_vault(file)
-    full_content = read_file(file)
+    full_path, display_path = resolve_path(file)
+    full_content = full_path.read_text(encoding="utf-8")
     current_text, prefix, suffix, had_header = extract_current_version(full_content)
     prompt = load_prompt("normalize.md")
     user_content = f"[CURRENT VERSION CONTENT]\n{current_text}"
@@ -572,7 +572,7 @@ def idea_normalize(
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
     if snapshot:
-        snapshot_note_for_llm(vault_rel)
+        snapshot_note_for_llm(full_path)
     _log_llm_call(model_string, temp, "normalize.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
@@ -583,22 +583,22 @@ def idea_normalize(
         new_content = prefix + "# Current Version\n\n" + normalized + suffix
     else:
         new_content = prefix + normalized + suffix
-    write_new_file(vault_rel, new_content)
+    write_to_path(full_path, new_content)
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
-    console.print(f"Normalized {vault_rel}")
+    console.print(f"Normalized {display_path}")
 
 
 @idea_app.command("promote")
 def idea_promote(
-    file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """LLM transforms idea → thinking note. Archive original, write new file to 10-thinking/."""
-    _, vault_rel = resolve_under_vault(file)
-    note_content = read_file(file)
+    full_path, display_path = resolve_path(file)
+    note_content = full_path.read_text(encoding="utf-8")
     prompt = load_prompt("promote-idea-to-thinking.md")
-    user_content = f"[NOTE: {vault_rel}]\n{note_content}"
+    user_content = f"[NOTE: {display_path}]\n{note_content}"
     messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
@@ -609,43 +609,43 @@ def idea_promote(
     if result is None:
         console.print("[red]LLM call failed; original untouched.[/red]")
         raise typer.Exit(1)
-    filename = Path(vault_rel).name
+    filename = full_path.name
     promoted_content = _set_frontmatter_status(note_content, "promoted")
-    write_new_file(vault_rel, promoted_content)
-    archive_file(vault_rel, filename)
+    write_to_path(full_path, promoted_content)
+    archive_file(full_path, filename)
     dest = f"10-thinking/{filename}"
     write_new_file(dest, result["content"])
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
-    archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
+    archive_path = f"{full_path.parent}/archive/{filename}"
     console.print(f"Promoted → {dest} (original archived to {archive_path})")
 
 
 @idea_app.command("kill")
 def idea_kill(
-    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
 ) -> None:
     """Move idea to archive and mark as killed. No LLM call."""
-    _, vault_rel = resolve_under_vault(file)
-    content = read_file(file)
+    full_path, _ = resolve_path(file)
+    content = full_path.read_text(encoding="utf-8")
     new_content = _set_killed_frontmatter(content)
-    write_new_file(vault_rel, new_content)
-    filename = Path(vault_rel).name
-    archive_file(vault_rel, filename)
-    archive_path = f"{Path(vault_rel).parent}/archive/{filename}"
+    write_to_path(full_path, new_content)
+    filename = full_path.name
+    archive_file(full_path, filename)
+    archive_path = f"{full_path.parent}/archive/{filename}"
     console.print(f"Killed → {archive_path}")
 
 
 @idea_app.command("complete")
 def idea_complete(
-    file: str = typer.Argument(..., help="Path: vault-relative or repo-relative"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
 ) -> None:
     """Mark idea complete and move to 30-initiatives/completed/. No LLM call."""
-    _, vault_rel = resolve_under_vault(file)
-    content = read_file(file)
+    full_path, _ = resolve_path(file)
+    content = full_path.read_text(encoding="utf-8")
     new_content = _set_frontmatter_status(content, "complete")
-    dest = f"30-initiatives/completed/{Path(vault_rel).name}"
+    dest = f"30-initiatives/completed/{full_path.name}"
     write_new_file(dest, new_content)
-    (Config.VAULT_ROOT / vault_rel).unlink()
+    full_path.unlink()
     console.print(f"Completed → {dest}")
 
 
@@ -660,19 +660,19 @@ app.add_typer(thinking_app, name="thinking")
 @thinking_app.command("critique")
 def thinking_critique(
     ctx: typer.Context,
-    file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
-    context: list[str] = typer.Option([], "--context", "-c"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+    context: list[str] = typer.Option([], "--context", "-c", help=CONTEXT_ARG_HELP),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """Audit thinking note. Append # Critique section."""
-    _, vault_rel = resolve_under_vault(file)
-    note_content = read_file(file)
-    context_rel = [resolve_under_vault(c)[1] for c in context]
+    full_path, display_path = resolve_path(file)
+    note_content = full_path.read_text(encoding="utf-8")
+    context_resolved = [resolve_path(c) for c in context]
     prompt = load_prompt("critique-thinking.md")
     type_block = _resolve_type_block_and_warn(note_content, "critique")
     system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
-    user_content = build_user_message(note_content, context_rel, vault_rel)
+    user_content = build_user_message(note_content, context_resolved, display_path)
     messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
@@ -685,27 +685,27 @@ def thinking_critique(
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_section(vault_rel, result["content"], "Critique")
+    append_section(full_path, result["content"], "Critique")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
-    console.print(f"Appended to {vault_rel}")
+    console.print(f"Appended to {display_path}")
 
 
 @thinking_app.command("explore")
 def thinking_explore(
     ctx: typer.Context,
-    file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
-    context: list[str] = typer.Option([], "--context", "-c"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+    context: list[str] = typer.Option([], "--context", "-c", help=CONTEXT_ARG_HELP),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """Deepen reasoning on thinking note. Append # Explore section."""
-    _, vault_rel = resolve_under_vault(file)
-    note_content = read_file(file)
-    context_rel = [resolve_under_vault(c)[1] for c in context]
+    full_path, display_path = resolve_path(file)
+    note_content = full_path.read_text(encoding="utf-8")
+    context_resolved = [resolve_path(c) for c in context]
     prompt = load_prompt("explore.md")
     type_block = _resolve_type_block_and_warn(note_content, "explore")
     system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
-    base_user = build_user_message(note_content, context_rel, vault_rel)
+    base_user = build_user_message(note_content, context_resolved, display_path)
     user_content = f"[STAGE: thinking]\n\n{base_user}"
     messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
@@ -719,24 +719,24 @@ def thinking_explore(
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_section(vault_rel, result["content"], "Explore")
+    append_section(full_path, result["content"], "Explore")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
-    console.print(f"Appended to {vault_rel}")
+    console.print(f"Appended to {display_path}")
 
 
 @thinking_app.command("spec")
 def thinking_spec(
-    file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
-    context: list[str] = typer.Option([], "--context", "-c"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+    context: list[str] = typer.Option([], "--context", "-c", help=CONTEXT_ARG_HELP),
     dry_run: bool = typer.Option(False, "--dry-run"),
     temperature: float | None = typer.Option(None, "--temperature", "-t"),
 ) -> None:
     """Generate initiative spec content. Append # Spec section."""
-    _, vault_rel = resolve_under_vault(file)
-    note_content = read_file(file)
-    context_rel = [resolve_under_vault(c)[1] for c in context]
+    full_path, display_path = resolve_path(file)
+    note_content = full_path.read_text(encoding="utf-8")
+    context_resolved = [resolve_path(c) for c in context]
     prompt = load_prompt("specify-mode.md")
-    user_content = build_user_message(note_content, context_rel, vault_rel)
+    user_content = build_user_message(note_content, context_resolved, display_path)
     messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
@@ -747,9 +747,9 @@ def thinking_spec(
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_section(vault_rel, result["content"], "Spec")
+    append_section(full_path, result["content"], "Spec")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
-    console.print(f"Appended to {vault_rel}")
+    console.print(f"Appended to {display_path}")
 
 
 @thinking_app.command("normalize")
