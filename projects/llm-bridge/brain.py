@@ -299,6 +299,64 @@ def load_prompt(name: str) -> dict:
     return {"content": content, "model": model_alias, "temperature": temperature_val}
 
 
+def _parse_note_frontmatter(note_content: str) -> dict | None:
+    """
+    Parse YAML frontmatter from note content (leading --- ... ---).
+    Returns frontmatter dict or None if no frontmatter or invalid YAML.
+    """
+    raw = note_content.strip()
+    if not raw.startswith("---"):
+        return None
+    rest = raw[3:].lstrip("\n")
+    idx = rest.find("\n---")
+    if idx < 0:
+        return None
+    block = rest[:idx].strip()
+    if not block:
+        return None
+    try:
+        fm = yaml.safe_load(block)
+        return fm if isinstance(fm, dict) else None
+    except yaml.YAMLError:
+        return None
+
+
+def _load_type_block(vault_root: Path, type_value: str, command: str) -> str | None:
+    """Load type block from vault 20-context/types/{type}-{command}.md if file exists. UTF-8."""
+    path = vault_root / "20-context" / "types" / f"{type_value}-{command}.md"
+    if not path.exists():
+        return None
+    return path.read_text(encoding="utf-8").strip() or None
+
+
+def _resolve_type_block_and_warn(note_content: str, command: str) -> str | None:
+    """
+    Parse note frontmatter for type; if valid load type block, else print warning to stderr and return None.
+    Command is 'critique' or 'explore'. Returns type block content or None.
+    """
+    fm = _parse_note_frontmatter(note_content)
+    type_val = (fm.get("type") if fm else None) or None
+    if type_val is not None and isinstance(type_val, str):
+        type_val = type_val.strip() or None
+    if type_val is None:
+        print("[WARN] Note has no type specified — proceeding without type-specific context", file=sys.stderr)
+        return None
+    if type_val not in VALID_NOTE_TYPES:
+        print(f"[WARN] Note has invalid type '{type_val}' — proceeding without type-specific context", file=sys.stderr)
+        return None
+    return _load_type_block(Config.VAULT_ROOT.resolve(), type_val, command)
+
+
+def _build_system_content_for_type_command(
+    generic_context: str | None,
+    type_block: str | None,
+    command_prompt: str,
+) -> str:
+    """Assemble system message: [generic context] → [type block] → [command prompt]. Segmented join for future generic slot."""
+    segments = [generic_context or "", type_block or "", command_prompt]
+    return "\n\n".join(filter(None, segments))
+
+
 def _set_frontmatter_status(content: str, status: str) -> str:
     """
     Set status in frontmatter (add or overwrite). If no frontmatter, prepend minimal ---\\nstatus: {status}\\n---\\n\\n.
@@ -395,6 +453,7 @@ app.add_typer(idea_app, name="idea")
 
 @idea_app.command("critique")
 def idea_critique(
+    ctx: typer.Context,
     file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c", help="Context file(s), repeatable"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
@@ -405,12 +464,16 @@ def idea_critique(
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
     prompt = load_prompt("critique-idea.md")
+    type_block = _resolve_type_block_and_warn(note_content, "critique")
+    system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
     user_content = build_user_message(note_content, context_rel, vault_rel)
-    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    if ctx.obj and ctx.obj.get("debug"):
+        print(system_content, file=sys.stderr)  # Temporary: verify type-block injection; remove after verification
     _log_llm_call(model_string, temp, "critique-idea.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
@@ -423,6 +486,7 @@ def idea_critique(
 
 @idea_app.command("explore")
 def idea_explore(
+    ctx: typer.Context,
     file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c", help="Context file(s), repeatable"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
@@ -433,13 +497,17 @@ def idea_explore(
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
     prompt = load_prompt("explore.md")
+    type_block = _resolve_type_block_and_warn(note_content, "explore")
+    system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
     base_user = build_user_message(note_content, context_rel, vault_rel)
     user_content = f"[STAGE: idea]\n\n{base_user}"
-    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    if ctx.obj and ctx.obj.get("debug"):
+        print(system_content, file=sys.stderr)  # Temporary: verify type-block injection; remove after verification
     _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
@@ -556,6 +624,7 @@ app.add_typer(thinking_app, name="thinking")
 
 @thinking_app.command("critique")
 def thinking_critique(
+    ctx: typer.Context,
     file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
@@ -566,12 +635,16 @@ def thinking_critique(
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
     prompt = load_prompt("critique-thinking.md")
+    type_block = _resolve_type_block_and_warn(note_content, "critique")
+    system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
     user_content = build_user_message(note_content, context_rel, vault_rel)
-    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    if ctx.obj and ctx.obj.get("debug"):
+        print(system_content, file=sys.stderr)  # Temporary: verify type-block injection; remove after verification
     _log_llm_call(model_string, temp, "critique-thinking.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
@@ -584,6 +657,7 @@ def thinking_critique(
 
 @thinking_app.command("explore")
 def thinking_explore(
+    ctx: typer.Context,
     file: str = typer.Argument(..., help="Path: vault-relative (10-thinking/foo.md) or repo-relative (vault/10-thinking/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
@@ -594,13 +668,17 @@ def thinking_explore(
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
     prompt = load_prompt("explore.md")
+    type_block = _resolve_type_block_and_warn(note_content, "explore")
+    system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
     base_user = build_user_message(note_content, context_rel, vault_rel)
     user_content = f"[STAGE: thinking]\n\n{base_user}"
-    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    if ctx.obj and ctx.obj.get("debug"):
+        print(system_content, file=sys.stderr)  # Temporary: verify type-block injection; remove after verification
     _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
@@ -745,6 +823,7 @@ app.add_typer(initiative_app, name="initiative")
 
 @initiative_app.command("critique")
 def initiative_critique(
+    ctx: typer.Context,
     file: str = typer.Argument(..., help="Path: vault-relative (30-initiatives/foo.md) or repo-relative (vault/30-initiatives/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
@@ -755,12 +834,16 @@ def initiative_critique(
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
     prompt = load_prompt("critique-initiative.md")
+    type_block = _resolve_type_block_and_warn(note_content, "critique")
+    system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
     user_content = build_user_message(note_content, context_rel, vault_rel)
-    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    if ctx.obj and ctx.obj.get("debug"):
+        print(system_content, file=sys.stderr)  # Temporary: verify type-block injection; remove after verification
     _log_llm_call(model_string, temp, "critique-initiative.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
@@ -773,6 +856,7 @@ def initiative_critique(
 
 @initiative_app.command("explore")
 def initiative_explore(
+    ctx: typer.Context,
     file: str = typer.Argument(..., help="Path: vault-relative (30-initiatives/foo.md) or repo-relative (vault/30-initiatives/foo.md)"),
     context: list[str] = typer.Option([], "--context", "-c"),
     dry_run: bool = typer.Option(False, "--dry-run"),
@@ -783,13 +867,17 @@ def initiative_explore(
     note_content = read_file(file)
     context_rel = [resolve_under_vault(c)[1] for c in context]
     prompt = load_prompt("explore.md")
+    type_block = _resolve_type_block_and_warn(note_content, "explore")
+    system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
     base_user = build_user_message(note_content, context_rel, vault_rel)
     user_content = f"[STAGE: initiative]\n\n{base_user}"
-    messages = [{"role": "system", "content": prompt["content"]}, {"role": "user", "content": user_content}]
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
         print_dry_run_payload(model_string, temp, messages)
         raise typer.Exit(0)
+    if ctx.obj and ctx.obj.get("debug"):
+        print(system_content, file=sys.stderr)  # Temporary: verify type-block injection; remove after verification
     _log_llm_call(model_string, temp, "explore.md")
     result = ai_call(model_string, temp, messages)
     if result is None:
