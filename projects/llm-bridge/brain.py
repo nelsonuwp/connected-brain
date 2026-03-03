@@ -40,6 +40,10 @@ TEMPERATURE_ALIAS_TO_FLOAT = {
 # Type-aware context: valid note types for 20-context/types/{type}-{command}.md
 VALID_NOTE_TYPES = frozenset({"code", "business", "content"})
 
+# Help text: note and context accept absolute or vault-relative paths (drag-and-drop friendly).
+PATH_ARG_HELP = "Absolute path or vault-relative path to the note file (e.g. drag-and-drop)."
+CONTEXT_ARG_HELP = "Absolute path or vault-relative path to a context file; repeatable (e.g. drag-and-drop)."
+
 
 @app.callback()
 def _app_callback(
@@ -76,47 +80,68 @@ def resolve_under_vault(path_arg: str) -> tuple[Path, str]:
     return full, str(vault_rel)
 
 
+def resolve_path(path_arg: str) -> tuple[Path, str]:
+    """
+    Resolve note or context path: accepts absolute path or vault-relative.
+    Returns (full_path, display_str). Use full_path for I/O, display_str for [NOTE]/[CONTEXT] labels.
+    """
+    p = Path(path_arg.strip())
+    if p.is_absolute():
+        full = p.resolve()
+        if not full.exists():
+            raise FileNotFoundError(f"File not found: {path_arg}")
+        if not full.is_file():
+            raise FileNotFoundError(f"Not a file: {path_arg}")
+        return full, str(full)
+    full, vault_rel = resolve_under_vault(path_arg)
+    return full, vault_rel
+
+
 def read_file(path_arg: str) -> str:
-    """Resolve path (vault-relative or vault/...) and read file. UTF-8. Raises on missing file."""
+    """Resolve path (absolute, vault-relative, or vault/...) and read file. UTF-8. Raises on missing file."""
+    p = Path(path_arg.strip())
+    if p.is_absolute():
+        full = p.resolve()
+        if not full.exists() or not full.is_file():
+            raise FileNotFoundError(f"File not found: {path_arg}")
+        return full.read_text(encoding="utf-8")
     full, _ = resolve_under_vault(path_arg)
     return full.read_text(encoding="utf-8")
 
 
-def archive_file(vault_relative_path: str, archive_filename: str) -> None:
-    """Move file to {parent_folder}/archive/{archive_filename}. Creates archive/ if needed. Raises on failure."""
-    full = Config.VAULT_ROOT / vault_relative_path
-    parent = full.parent
+def archive_file(full_path: Path, archive_filename: str) -> None:
+    """Move file to {parent_folder}/archive/{archive_filename}. full_path may be anywhere."""
+    parent = full_path.parent
     archive_dir = parent / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
     dest = archive_dir / archive_filename
-    shutil.move(str(full), str(dest))
+    shutil.move(str(full_path), str(dest))
 
 
-def snapshot_note_for_llm(note_path: str) -> None:
-    """Copy note to {folder}/archive/{stem}-{YYYYMMDD-HHMMSS}.md. Raises on failure. Caller aborts if this fails."""
-    full = Config.VAULT_ROOT / note_path
-    parent = full.parent
+def snapshot_note_for_llm(full_path: Path) -> None:
+    """Copy file to {parent_folder}/archive/{stem}-{YYYYMMDD-HHMMSS}.md. full_path may be anywhere."""
+    parent = full_path.parent
     archive_dir = parent / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
-    stem = full.stem
+    stem = full_path.stem
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     dest_name = f"{stem}-{timestamp}.md"
     dest = archive_dir / dest_name
-    shutil.copy2(str(full), str(dest))
+    shutil.copy2(str(full_path), str(dest))
 
 
 def build_user_message(
     note_content: str,
-    context_files: list[str],
-    note_path: str,
+    context_files: list[tuple[Path, str]],
+    note_display_path: str,
 ) -> str:
-    """Assemble user message: [CONTEXT: path] blocks first, then [NOTE: note_path]. Not used by context command."""
+    """Assemble user message: [CONTEXT: path] blocks first, then [NOTE: note_display_path]. context_files are (path, label)."""
     parts = []
-    for path in context_files:
-        content = read_file(path)
-        console.print(f"[dim]Context loaded: {path} ({len(content)} chars)[/dim]")
-        parts.append(f"[CONTEXT: {path}]\n{content}")
-    parts.append(f"[NOTE: {note_path}]\n{note_content}")
+    for path, label in context_files:
+        content = path.read_text(encoding="utf-8")
+        console.print(f"[dim]Context loaded: {label} ({len(content)} chars)[/dim]")
+        parts.append(f"[CONTEXT: {label}]\n{content}")
+    parts.append(f"[NOTE: {note_display_path}]\n{note_content}")
     return "\n\n---\n\n".join(parts)
 
 
@@ -137,17 +162,16 @@ def append_to_note(note_path: str, llm_output: str, mode: str) -> None:
         raise
 
 
-def append_to_file(vault_relative_path: str, llm_output: str, mode: str) -> None:
-    """Same atomic pattern as append_to_note; used by context command."""
-    full = Config.VAULT_ROOT / vault_relative_path
-    original = full.read_text(encoding="utf-8")
+def append_to_file(full_path: Path, llm_output: str, mode: str) -> None:
+    """Atomic append with timestamp/section. Used by context command. full_path may be anywhere."""
+    original = full_path.read_text(encoding="utf-8")
     ts = datetime.now(SECTION_TZ).strftime("%Y-%m-%d %H:%M")
     section = f"\n\n---\n\n## LLM Output — {mode} — {ts} {SECTION_TZ_LABEL}\n\n{llm_output}"
     new_content = original + section
-    tmp_path = full.with_suffix(full.suffix + ".tmp")
+    tmp_path = full_path.with_suffix(full_path.suffix + ".tmp")
     try:
         tmp_path.write_text(new_content, encoding="utf-8")
-        os.replace(tmp_path, full)
+        os.replace(tmp_path, full_path)
     except Exception:
         if tmp_path.exists():
             tmp_path.unlink()
@@ -171,21 +195,20 @@ def append_raw_to_file(vault_relative_path: str, content: str) -> None:
         raise
 
 
-def append_section(note_path: str, content: str, section_title: str) -> None:
+def append_section(full_path: Path, content: str, section_title: str) -> None:
     """
-    Atomic append of a named heading section to a note.
+    Atomic append of a named heading section to a note. full_path may be anywhere.
     Format: \\n\\n---\\n\\n# {section_title} — {YYYY-MM-DD HH:MM} ET\\n\\n{content}
     Atomic via .tmp + os.replace. Removes .tmp on exception.
     """
-    full = Config.VAULT_ROOT / note_path
-    original = full.read_text(encoding="utf-8")
+    original = full_path.read_text(encoding="utf-8")
     ts = datetime.now(SECTION_TZ).strftime("%Y-%m-%d %H:%M")
     section = f"\n\n---\n\n# {section_title} — {ts} {SECTION_TZ_LABEL}\n\n{content}"
     new_content = original + section
-    tmp_path = full.with_suffix(full.suffix + ".tmp")
+    tmp_path = full_path.with_suffix(full_path.suffix + ".tmp")
     try:
         tmp_path.write_text(new_content, encoding="utf-8")
-        os.replace(tmp_path, full)
+        os.replace(tmp_path, full_path)
     except Exception:
         if tmp_path.exists():
             tmp_path.unlink()
@@ -250,6 +273,18 @@ def extract_current_version(full_content: str) -> tuple[str, str, str, bool]:
         suffix = remainder[boundary_idx:] if boundary_idx < len(remainder) else ""
 
     return current_text, prefix, suffix, had_header
+
+
+def write_to_path(full_path: Path, content: str) -> None:
+    """Atomic overwrite of a file. full_path may be anywhere."""
+    tmp_path = full_path.with_suffix(full_path.suffix + ".tmp")
+    try:
+        tmp_path.write_text(content, encoding="utf-8")
+        os.replace(tmp_path, full_path)
+    except Exception:
+        if tmp_path.exists():
+            tmp_path.unlink()
+        raise
 
 
 def write_new_file(vault_relative_path: str, content: str) -> None:
@@ -454,19 +489,19 @@ app.add_typer(idea_app, name="idea")
 @idea_app.command("critique")
 def idea_critique(
     ctx: typer.Context,
-    file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
-    context: list[str] = typer.Option([], "--context", "-c", help="Context file(s), repeatable"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+    context: list[str] = typer.Option([], "--context", "-c", help=CONTEXT_ARG_HELP),
     dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
     temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
 ) -> None:
     """Audit raw idea. Append # Critique section."""
-    _, vault_rel = resolve_under_vault(file)
-    note_content = read_file(file)
-    context_rel = [resolve_under_vault(c)[1] for c in context]
+    full_path, display_path = resolve_path(file)
+    note_content = full_path.read_text(encoding="utf-8")
+    context_resolved = [resolve_path(c) for c in context]
     prompt = load_prompt("critique-idea.md")
     type_block = _resolve_type_block_and_warn(note_content, "critique")
     system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
-    user_content = build_user_message(note_content, context_rel, vault_rel)
+    user_content = build_user_message(note_content, context_resolved, display_path)
     messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
     if dry_run:
@@ -479,27 +514,27 @@ def idea_critique(
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_section(vault_rel, result["content"], "Critique")
+    append_section(full_path, result["content"], "Critique")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
-    console.print(f"Appended to {vault_rel}")
+    console.print(f"Appended to {display_path}")
 
 
 @idea_app.command("explore")
 def idea_explore(
     ctx: typer.Context,
-    file: str = typer.Argument(..., help="Path: vault-relative (01-inbox/foo.md) or repo-relative (vault/01-inbox/foo.md)"),
-    context: list[str] = typer.Option([], "--context", "-c", help="Context file(s), repeatable"),
+    file: str = typer.Argument(..., help=PATH_ARG_HELP),
+    context: list[str] = typer.Option([], "--context", "-c", help=CONTEXT_ARG_HELP),
     dry_run: bool = typer.Option(False, "--dry-run", help="Print payload only"),
     temperature: float | None = typer.Option(None, "--temperature", "-t", help="Override temperature"),
 ) -> None:
     """Expand possibilities on idea. Append # Explore section."""
-    _, vault_rel = resolve_under_vault(file)
-    note_content = read_file(file)
-    context_rel = [resolve_under_vault(c)[1] for c in context]
+    full_path, display_path = resolve_path(file)
+    note_content = full_path.read_text(encoding="utf-8")
+    context_resolved = [resolve_path(c) for c in context]
     prompt = load_prompt("explore.md")
     type_block = _resolve_type_block_and_warn(note_content, "explore")
     system_content = _build_system_content_for_type_command("", type_block, prompt["content"])
-    base_user = build_user_message(note_content, context_rel, vault_rel)
+    base_user = build_user_message(note_content, context_resolved, display_path)
     user_content = f"[STAGE: idea]\n\n{base_user}"
     messages = [{"role": "system", "content": system_content}, {"role": "user", "content": user_content}]
     model_string, temp = resolve_model_and_temp(prompt, temperature)
@@ -513,9 +548,9 @@ def idea_explore(
     if result is None:
         console.print("[red]LLM call failed; note unchanged.[/red]")
         raise typer.Exit(1)
-    append_section(vault_rel, result["content"], "Explore")
+    append_section(full_path, result["content"], "Explore")
     console.print(f"Tokens: prompt={result['tokens']['prompt']}, completion={result['tokens']['completion']}, total={result['tokens']['total']}")
-    console.print(f"Appended to {vault_rel}")
+    console.print(f"Appended to {display_path}")
 
 
 @idea_app.command("normalize")
