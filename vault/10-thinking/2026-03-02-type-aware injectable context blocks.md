@@ -12,12 +12,13 @@ Add a type field (code | business | content) to note frontmatter so brain.py aut
 Without type awareness, a code task gets critiqued the same way as a content piece—generic output that misses the real criteria (security, maintainability for code; narrative flow for content). Tasks are being added to the pipeline now, making this the right time to design type-aware behavior before the prompts are written. One injectable block per type works across the whole pipeline without duplicating type logic into every prompt file.
 
 ## What I Know
-- Three types for v1: code, business, content—mapping to technical implementation, strategic decisions, and written output.
-- Type lives in frontmatter (explicit and portable; folder inference breaks when projects mix types; content analysis is fragile).
-- Injection not substitution—simpler to implement, sufficient because type blocks are static and don't need per-command variation.
-- Type affects system context only for v1; output structure and command availability are separate ideas.
-- Type blocks should stay under 200 tokens to avoid auto-pollution.
-- Implementation estimate: 2–4 hours to add dynamic context loading to brain.py.
+- Three types for v1: code, business, content — technical implementation, strategic decisions, written output.
+- Type lives in frontmatter — explicit and portable.
+- Type × command is the correct model: 6 blocks (3 types × explore/critique). Type sets the domain, command sets the lens.
+- Explore blocks: expansive — options, tradeoffs, unknowns. Critique blocks: checklist — security, maintainability, test coverage, docs (for code).
+- Injection not substitution — simpler to implement, blocks are static per type × command pair.
+- Type affects system context only for v1.
+- Token budget: 200 per block. Implementation estimate: 2–4 hours.
 
 ## What I Need to Test
 - Write code/business/content blocks for both explore and critique (6 blocks). Apply each to 2–3 existing notes. Where does the block fail to add useful context?
@@ -49,134 +50,65 @@ These are not the same context. Type × command is probably necessary, not optio
 
 **Implication:** If Q3 is true, static type blocks are wrong. The right design is a small matrix: type sets the domain (what kind of work), command sets the lens (what to look for). 6 blocks (3 types × explore/critique) not 3. Implementation difference is probably 30 minutes, not 4 hours.
 
+## Draft Blocks (Partial)
+
+**code-explore:** Surface architecture options and tradeoffs. Identify unknowns around dependencies, APIs, and edge cases. Flag integration risks. Do not evaluate correctness or completeness.
+
+**code-critique:** Evaluate for correctness and edge case coverage, security and auth implications, test coverage, documentation impact. Do not explore alternatives — assess the proposal as stated.
+
+**business-explore:** Surface strategic options and tradeoffs. Identify stakeholder dependencies and timing risks. Flag assumptions about resources or priorities.
+
+**business-critique:** Evaluate for measurability of success criteria, clarity of ownership, and whether blockers are resolved. Do not reopen strategic options.
+
 
 ---
 
-# Explore — 2026-03-02 18:57 ET
-
-## Explore — 2025-03-02
-
-### The Central Tension
-
-You're betting that **type is stable and command-agnostic** — that a note's category (code/business/content) determines what criteria matter, regardless of what you're doing with that note. But your own uncertainty list suggests the opposite: "code thinking" vs. "code task" might need different framing, and `explore` vs. `critique` on the same note might need different context.
-
-The design assumes type is the dominant axis. But the actual quality degradation you're trying to prevent (generic output missing real criteria) might be driven more by **what you're asking for** than **what the note is about**. A code note being explored needs expansive architectural thinking; the same note being critiqued needs security/maintainability checklists. Those aren't the same context block.
-
-### What I'd Push On
-
-**The "injection not substitution" decision hides the real question.** You chose injection because "type blocks are static and don't need per-command variation" — but that's the assumption under examination, not a known fact. If type × command variation becomes necessary, injection becomes insufficient and you've built infrastructure that needs rework.
-
-**"Code thinking and code task can share a type block" is testable now.** Write the code type block. Apply it mentally to a thinking note and a task note you've already run through the system. Does the same 200 tokens serve both? If you're hedging while writing it, that's data.
-
-**Three types maps to your current work, not to the domain.** Code/business/content is how *you* currently use the system. But "business" is doing a lot of work — strategy, operations, process design, people decisions. These have wildly different evaluation criteria. "Is this operationally sound?" vs. "Is this strategically coherent?" are not the same question.
-
-**The 200-token constraint may be doing your thinking for you.** You set it to prevent auto-pollution, but it also prevents type blocks from being genuinely useful. If a meaningful code context block needs 400 tokens, the constraint forces you toward generic criteria — which is the problem you're solving.
-
-### Questions You Need to Answer
-
-1. What specific criteria are missing from current outputs that type blocks would add? Name three examples where generic critique failed and what type-aware critique would have caught.
-
-2. If you wrote the code type block today, what would it say? Write it. Does it apply equally well to architecture thinking, implementation tasks, and debugging notes?
-
-3. When you imagine running `critique` vs. `explore` on the same code note, do you want the same type context injected? If not, type × command is already necessary.
-
-4. Is "business" actually one type, or is it a bucket for "not code, not content"? What happens when you try to write a single business type block that serves strategy notes and operational notes?
-
-5. What's the cost of starting with type × command (6-9 blocks) vs. type-only (3 blocks)? If the implementation difference is small, the "simpler" argument weakens.
-
----
-
-# Critique — 2026-03-02 18:59 ET
+# Critique — 2026-03-02 19:45 ET
 
 ## Score: 7/10
-Rework suggested — approach is defined but key assumptions need testing before implementation.
+Rework suggested — approach is defined and assumptions are surfaced, but options analysis is incomplete and several blocks remain unwritten.
 
 ## Section Breakdown
 
 ### The Idea
-**Strong:** Type in frontmatter is the right choice — explicit, portable, avoids fragile inference.
-**Weak:** "One injectable block per type works across the whole pipeline" is stated as fact but contradicted by your own uncertainty in Q3.
-**Fix:** Reframe as hypothesis: "Static type blocks may be sufficient for v1" — then test it by writing the actual blocks.
+**Strong:** The core mechanism is clear — frontmatter type field triggers auto-injection of matching context blocks.
+**Weak:** "one block per type × command combination" contradicts the earlier claim that "type is primary and command is secondary" — this tension is resolved later but creates confusion up front.
+**Fix:** Remove the crossed-out assumption from "Assumptions I'm Making" and state clearly in The Idea that the design uses a 6-block matrix (3 types × 2 commands).
 
 ### Why This Matters
-**Weak:** "Tasks are being added to the pipeline now" creates false urgency. The timing argument doesn't validate the design.
-**Fix:** Remove the timing justification. The real reason is: current outputs are too generic. State what specific quality problems you've observed that type blocks would solve.
+**Strong:** Clear motivation tied to current pipeline state.
+**Weak:** "One injectable block per type works across the whole pipeline" is stated as fact but contradicts the type × command model you've already committed to.
+**Fix:** Rewrite to say "One injectable block per type × command pair works across the whole pipeline" or remove the sentence entirely.
 
 ### What I Know
-**Strong:** Implementation estimate and token budget are concrete constraints.
-**Weak:** "Type affects system context only for v1; output structure and command availability are separate ideas" — this separation may be artificial. If explore vs. critique need different context, they're not separate.
-**Fix:** Test whether explore/critique on the same note actually need different type context. If yes, this bullet is wrong.
-
-### What I Don't Know
-**Strong:** You've identified the right uncertainties — type granularity and command variation are the core questions.
-**Weak:** These aren't unknowns to explore later — they're testable now and should block implementation.
-**Fix:** Move these to "What I Need to Test" and make them blockers, not future concerns.
-
-### Assumptions I'm Making
-**Strong:** You've surfaced the critical assumption: "Type is primary and command is secondary."
-**Weak:** This assumption directly contradicts your Q3 working answer, but you haven't resolved the conflict.
-**Fix:** Either defend why type-only is sufficient despite Q3, or accept that the assumption is wrong and redesign around type × command.
-
-### Working Answers
-**Strong:** Q3 is excellent — you've identified that explore and critique need different context, which invalidates static type blocks.
-**Weak:** The implication stops at "6 blocks not 3" but doesn't explore what those blocks would contain or whether the matrix is the right structure.
-**Fix:** Draft one explore block and one critique block for code. If they're 80% the same, maybe command variation is overkill. If they're fundamentally different, the matrix is necessary.
-
-### Missing Section: Validation Plan
-**Weak:** You have no concrete test for whether three types are sufficient or whether type × command is necessary.
-**Fix:** Add a section that specifies: (1) Write all three type blocks. (2) Apply each to 2-3 existing notes of that type. (3) Identify where the block fails to provide useful context. (4) Use failures to decide if command variation or type subdivision is needed.
-
-### Next Step
-**Weak:** "Run explore to stress-test" is recursive — you just did that. The actual next step is to write the blocks and test them.
-**Fix:** Change to: "Draft code/business/content type blocks. Apply each to three existing notes. Document where generic context fails. Decide type-only vs. type × command based on failure patterns."
-
----
-
-# Critique — 2026-03-02 19:43 ET
-
-## Score: 6/10
-Rework suggested — approach is directionally sound but critical design question remains unresolved despite being testable now.
-
-## Section Breakdown
-
-### The Idea
-**Strong:** Type in frontmatter is well-justified (explicit, portable, avoids inference fragility).
-**Weak:** "One injectable block per type works across the whole pipeline" directly conflicts with your Q3 conclusion that explore/critique need different context. You've identified the conflict but haven't resolved it.
-**Fix:** Commit to either type-only (3 blocks) or type × command (6 blocks). Write one code block under each model. If the type-only version requires hedging or conditional language, that's your answer.
-
-### Why This Matters
-**Weak:** "Tasks are being added now" is timing-based justification that doesn't validate the design. The real problem (generic output missing type-specific criteria) is mentioned but not demonstrated.
-**Fix:** Name 2-3 specific instances where generic critique failed on code/business/content notes. What did it miss? What would type-aware context have caught? This grounds the whole proposal.
-
-### What I Know
-**Strong:** Token budget (200), implementation estimate (2-4 hours), and injection-not-substitution are concrete constraints.
-**Weak:** "Type affects system context only for v1; output structure and command availability are separate ideas" — this separation breaks if Q3 is true. Explore and critique needing different context means command isn't separable from type.
-**Fix:** Test Q3 immediately. Write a code-explore block and code-critique block. If they're 90% identical, command variation is premature. If they're fundamentally different, the separation assumption is wrong.
+**Strong:** Type × command model is explicitly stated. Token budget and implementation estimate are concrete.
+**Weak:** "Type affects system context only for v1" — what else could it affect in v2? This constraint is vague.
+**Fix:** Either specify what v2 might add (e.g., "v2 may extend type to affect user context or output formatting") or remove the constraint if it's not load-bearing.
 
 ### What I Need to Test
-**Strong:** You've identified the right experiments — write blocks, apply to existing notes, look for failures.
-**Weak:** "Do code-thinking and code-task actually need different type blocks" is secondary to the explore/critique split, but you're treating them as equal priority.
-**Fix:** Reorder: (1) Test explore vs. critique on same note first — this determines the fundamental architecture. (2) Then test thinking vs. task variation within that model.
+**Strong:** All three test questions are specific and answerable.
+**Weak:** "Do code-thinking and code-task actually need different type blocks" — this question is orthogonal to the type × command model. If command already splits explore/critique, what new split would thinking/task introduce?
+**Fix:** Clarify what dimension thinking vs. task would add beyond explore vs. critique. If there's no clear answer, drop this test question.
 
 ### Assumptions I'm Making
-**Strong:** You've surfaced and questioned the core assumption (type primary, command secondary).
-**Weak:** The strikethrough on "Type is primary and command is secondary" plus "Q3 invalidated this" means you know the assumption is wrong, but the design hasn't changed. The note still proposes type-only blocks.
-**Fix:** Either defend type-only despite Q3 (explain why explore/critique can share context even though you think they can't), or redesign around type × command and update the implementation estimate.
+**Weak:** The crossed-out assumption creates noise. The second assumption ("Code thinking and code task can share a type block for v1") is untested and potentially contradicts the type × command model.
+**Fix:** Remove the crossed-out line entirely. Either test the thinking/task assumption or drop it — it's currently blocking clarity without adding value.
 
 ### Risks and Constraints
-**Strong:** Auto-pollution risk and mitigation (200 tokens, quarterly review) are concrete.
-**Weak:** "If three types prove too coarse, the system may need hierarchical types" — but you haven't tested whether three types work at all. Hierarchical types are a second-order problem.
-**Fix:** Remove hierarchical types from risks. The actual risk is: "If type-only blocks prove insufficient (e.g., explore/critique need different context), the implementation must be redone for type × command."
+**Strong:** Stale block risk is identified with a concrete mitigation.
+**Weak:** "brain.py doesn't currently support dynamic context loading" — is this actually a blocker or just implementation work? The note treats it as both.
+**Fix:** Clarify whether this is a technical blocker (requires research or external dependency) or just unimplemented (requires 2–4 hours of work as stated earlier).
 
 ### Next Step
-**Weak:** "Draft the 6 type × command blocks" assumes you've already decided type × command is necessary, but the note hasn't committed to that design.
-**Fix:** Make the next step resolve the design question: "Write code-explore and code-critique blocks (200 tokens each). Apply both to the same code note. If they provide redundant context, type-only is sufficient. If they're meaningfully different, implement type × command."
+**Strong:** Clear action with a decision gate.
+**Weak:** "Draft the 6 type × command blocks" but only 4 blocks are drafted below. The next step is incomplete.
+**Fix:** Either draft all 6 blocks now or change Next Step to "Draft the remaining 2 blocks (content-explore and content-critique) and apply all 6 to existing notes."
 
-### Working Answers
-**Strong:** Q3 is the most valuable part of the note — you've identified that explore needs expansive thinking while critique needs checklists, and these aren't the same context.
-**Weak:** The implication says "type × command is probably necessary" and "6 blocks not 3," but this conclusion doesn't propagate back to the design. The note still hedges.
-**Fix:** Promote Q3 from "working answer" to "resolved question" and update the design accordingly. If you believe type × command is necessary, the proposal should reflect that. If you're uncertain, the next step must test it before any implementation.
+### Draft Blocks (Partial)
+**Strong:** The 4 drafted blocks are concrete and show clear differentiation between explore and critique.
+**Weak:** Content type is entirely missing. Without content blocks, you cannot test whether the type × command model holds across all three types.
+**Fix:** Draft content-explore and content-critique blocks before proceeding to testing. If you cannot write coherent content blocks, that's evidence the type model is wrong.
 
-### Missing Section: Concrete Examples
-**Weak:** The entire note operates at the design level without showing what a type block would actually contain or how it would improve output.
-**Fix:** Add a section with draft blocks. Even rough versions of code-explore, code-critique, and business-explore would clarify whether the type × command split is real or imagined.
+### Missing Section
+**What's missing:** No section on "What happens if type is missing or invalid?" Does brain.py fail, warn, or fall back to a default block?
+**Fix:** Add a brief section on fallback behavior — this will surface whether the system needs a default type or should reject untyped notes.
