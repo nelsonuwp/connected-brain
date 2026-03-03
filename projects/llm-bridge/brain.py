@@ -6,6 +6,7 @@ import json
 import os
 import re
 import shutil
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -35,6 +36,20 @@ TEMPERATURE_ALIAS_TO_FLOAT = {
     "workhorse": Config.TEMPERATURE_WORKHORSE,
     "nano": Config.TEMPERATURE_NANO,
 }
+
+# Type-aware context: valid note types for 20-context/types/{type}-{command}.md
+VALID_NOTE_TYPES = frozenset({"code", "business", "content"})
+
+
+@app.callback()
+def _app_callback(
+    ctx: typer.Context,
+    debug: bool = typer.Option(False, "--debug", help="Print full system message to stderr (explore/critique only). Temporary."),
+) -> None:
+    """Root callback: pass debug flag to commands via context."""
+    ctx.obj = ctx.obj or {}
+    ctx.obj["debug"] = debug
+
 
 # ---------------------------------------------------------------------------
 # Helpers
