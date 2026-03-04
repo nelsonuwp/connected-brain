@@ -10,7 +10,7 @@ status: raw
 
 We are transitioning Aptum from a passive hardware host into an actively managed service provider by establishing a strict, enforceable hardware lifecycle policy. This initiative consists of two core pillars:
 
-- **Pillar 1: Legal & Commercial Enforcement (Operationalizing Section 5.5)** We will leverage Section 5.5 (End of Life Support) of our existing Terms of Business to stop providing "free" life-support for obsolete equipment. We will implement a standardized playbook that automatically issues 30-day EOL Notices. If a customer refuses to upgrade, we will legally void their SLAs, drop support to "as-is", and apply a mandatory **Legacy Support Surcharge** (e.g., 20-30% of MRC) to cover the excessive engineering overhead.
+- **Pillar 1: Legal & Commercial Enforcement (Operationalizing Section 5.5)** We will leverage Section 5.5 (End of Life Support) of our existing Terms of Business to stop providing "free" life-support for obsolete equipment. We will implement a standardized playbook that automatically issues 30-day (TBD) EOL Notices. If a customer refuses to upgrade, we will legally void their SLAs, drop support to "as-is", and apply a mandatory **Legacy Support Surcharge** (e.g., 20-30% of MRC) to cover the excessive engineering overhead.
     
 - **Pillar 2: The Source of Truth (Centralized Lifecycle Database)** We will build a Product-owned, centralized Component Lifecycle Database. This will bridge the current gap in our data architecture by mapping our billing identifiers (`fusion_id` in _dimServices_ and `component_id` in _dimComponents_) directly to vendor lifecycle dates. This system will automate 90-day proactive EOL flags and trigger Account Management workflows.
     
