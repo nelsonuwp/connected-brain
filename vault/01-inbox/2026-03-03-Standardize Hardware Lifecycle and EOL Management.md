@@ -49,9 +49,24 @@ Currently, once customer hardware is fully depreciated (typically after 3 years)
     
 
 **C. The Data Architecture & Lifecycle Definitions** To build the "Source of Truth" database, Product must track three critical ITAM (IT Asset Management) vendor dates against our internal IDs:
-
 1. **End of Sale (EoSale):** The product can no longer be quoted/sold to new customers.
-    
 2. **End of Support (EoST):** The vendor stops providing standard tech support, bug fixes, and security patches. _Context constraint: This is the legal trigger for sending our Section 5.5 EOL Notice and voiding the SLA._
-    
 3. **End of Service Life (EOSL):** The vendor completely abandons the product and stops manufacturing spare parts. _Context constraint: This is the "Danger Zone." No customer should reach EOSL without paying a massive Legacy Support fee, or facing network disconnection._
+
+
+## Contractual Context:
+https://aptum.com/documents/legal/terms-of-business.pdf
+**5.5. End of Life Support:**
+
+When a necessary component of the Services, including hardware, software, licensing, etc. (each a **“Service Component”**) is for any reason no longer supported (including software updates and patching) by Aptum or the applicable third-party supplier (the **“Supplier”**), or the Supplier discontinues or adversely alters the program or policy under which it makes a Service Component available, Aptum will identify that Service Component to the Customer as being “End-of-Life” (each, an **“EOL Product”**).
+
+Once the Customer has been notified by Aptum in writing of the EOL Product (**“EOL Product Notice”**), Aptum may, at its discretion do the following:
+
+**(a) If the EOL Product is owned and/or operated by Aptum in connection with the Service**, Aptum may:
+- **(i)** Discontinue the Service or affected part thereof upon thirty (30) days written notice to the Customer; or
+- **(ii)** Replace the EOL Product with an alternative Service Component and pass-through to the Customer any associated cost increase therefor as a one-time Fee or as an increase to the monthly Fees of the Services for the remainder of the Term; or
+**(b) If the EOL Product is owned and/or operated by Customer in connection with the Service**, Aptum may require the Customer to replace EOL Product within thirty (30) days after written notice to the Customer or as otherwise agreed to the Parties in writing. After the date the EOL Product Notice is provided to the Customer and for any duration thereafter that such EOL Product continues to be used by the Customer in connection with the Services for any reason:
+- **(i)** Aptum’s Service Level Agreements and performance guarantees will cease to apply to the Service;
+- **(ii)** Aptum may only be able to provide limited support with respect to the EOL Product and to the extent that such support is provided, it will be done so on an “as-is” basis and without warranty of any kind;
+- **(iii)** Aptum will not be liable to Customer or any other User for any loss or damage that may be suffered from any impact to the Services arising in connection with the EOL Product even if Aptum consented to the Customer’s continued use of such EOL product; and
+- **(iv)** Aptum may, once per calendar year, conduct a pricing review and adjust the monthly Fees of the Services in respect of the EOL Product to account for the additional cost to Aptum associated with provisioning of the Services during the Customer’s continued use of the EOL Product.
