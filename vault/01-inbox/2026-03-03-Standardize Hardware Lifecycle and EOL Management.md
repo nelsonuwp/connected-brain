@@ -80,3 +80,50 @@ To resolve the Winston Data situation and roll this out company-wide, we propose
     - Present the hardware refresh quote as the _only_ path to restoring their SLA.
         
     - Inform them that failure to accept the refresh within 30 days will result in an automatic Legacy Support Surcharge being applied to their monthly invoice to cover our Network Engineering overhead.
+
+## Phase 2: Building the "Source of Truth" (Centralized Lifecycle Database)
+
+To effectively enforce Section 5.5, we must remove the manual guesswork from identifying legacy hardware. Currently, Aptum lacks a centralized, authoritative database that maps our provisioned services and components to their vendor lifecycle dates (End of Sale, End of Support, End of Service Life).
+
+While we have successfully modeled a proof-of-concept JSON database using AI to extract these dates, a production-level strategy requires an official "Component Lifecycle Database" owned and maintained by the Product Team.
+
+### The Data Architecture Gap
+
+Right now, our provisioning and billing data exist in silos:
+
+- **dimServices:** Tracks the overall service (e.g., Winston Data’s Firewall) using `fusion_id` (Column X).
+    
+- **dimComponents:** Tracks the granular hardware and software components making up that service using `component_id` (Column T).
+    
+
+Because these IDs are not systematically linked to vendor EOL timelines, we only discover a component is dead when it fails (as seen with Winston Data's Web1 server) or when an engineer tries to configure it (as seen with their SSG 5 Firewall).
+
+### The Proposed Infrastructure Solution
+
+We propose building a centralized relational database that acts as the absolute Source of Truth for hardware and software lifecycles.
+
+**1. Data Mapping & Standardization:** The database will map our internal commercial identifiers (`fusion_id` and `component_id`) directly to vendor-verified lifecycle milestones:
+
+- **Release Date**
+    
+- **End of Sale (EOS):** No longer sold to new customers.
+    
+- **End of Support (EOST):** Vendor stops releasing standard firmware/security updates. _(This is the primary trigger for our Section 5.5 EOL Notice)._
+    
+- **End of Service Life (EOSL):** Vendor entirely ceases support and part manufacturing.
+    
+
+**2. Product Team Ownership:** This cannot be managed via ad-hoc scripts. The Product Team must own this database, ensuring that whenever a new component is added to our catalog (or an existing one reaches a new lifecycle phase), the database is updated. The AI-generated JSON file we have already created can serve as the foundational seed data to accelerate this build.
+
+**3. Automation and Workflow Integration:** Once this database is live and linked to our CRM/Billing platforms, we can automate the enforcement strategy:
+
+- **Proactive Flagging:** The system will automatically flag services 90 days before their underlying `component_id` hits End of Support.
+    
+- **Automated Section 5.5 Notices:** Account Managers will be automatically prompted to send the formal EOL Notice and the associated hardware refresh quote.
+    
+- **Billing Triggers:** If the upgrade quote is not accepted within 30 days, the billing system can automatically apply the "Legacy Support Surcharge" to the affected `fusion_id`.
+    
+
+### Summary of Impact
+
+By centralizing this data, we transform hardware lifecycle management from a reactive, emergency-driven process into a predictable, automated revenue-protection engine. We stop relying on engineers to memorize vendor support dates and instead rely on systemic alerts to drive customer upgrades or enforce our Legacy Support fees.
