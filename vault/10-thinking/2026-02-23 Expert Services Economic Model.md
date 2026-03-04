@@ -47,3 +47,9 @@ A two-part "Operating Manual" for Expert Services:
 ## My Answers
 <!-- Answer the questions the LLM raised before promoting to initiative -->
 
+
+
+Startup fees (provisioning NRC)
+Networking costs
+George has the DCO costs
+Martin's team
