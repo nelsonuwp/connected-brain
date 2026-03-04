@@ -127,3 +127,59 @@ We propose building a centralized relational database that acts as the absolute 
 ### Summary of Impact
 
 By centralizing this data, we transform hardware lifecycle management from a reactive, emergency-driven process into a predictable, automated revenue-protection engine. We stop relying on engineers to memorize vendor support dates and instead rely on systemic alerts to drive customer upgrades or enforce our Legacy Support fees.
+
+Here are the industry best practice terms, defined chronologically, and how they apply to your Section 5.5 enforcement strategy:
+
+### 1. General Availability (GA)
+
+- **What it means:** The date the hardware or software was officially released and made available for purchase by the general public.
+    
+- **Business Impact:** This is the start of the clock.
+    
+
+### 2. End of Life Announcement (EOLA)
+
+- **What it means:** The date the vendor officially announces that a product will eventually be retired. This announcement contains the timeline for all the dates listed below.
+    
+- **Business Impact:** This is when your proposed automated database should first flag a component so Account Managers can start softly discussing future refresh cycles with customers.
+    
+
+### 3. End of Sale (EOS or EoSale)
+
+- **What it means:** The last date you can order the product through standard vendor channels.
+    
+- **Business Impact:** You can no longer provision this hardware for _new_ customers, but the vendor is still fully supporting it, issuing firmware updates, and supplying replacement parts for existing customers.
+    
+
+### 4. End of Software Maintenance (EoSM or EoSW)
+
+- **What it means:** The vendor stops writing _new_ features for the device.
+    
+- **Business Impact:** The product is effectively frozen in time. The vendor will usually still provide critical security patches and bug fixes, but the operating system will not advance. The device is still safe to use, but becoming dated.
+    
+
+### 5. End of Support (EoST or EoS) — _The Critical Trigger_
+
+- **What it means:** The vendor officially stops providing standard technical support, routine bug fixes, and regular security patches. Depending on the vendor, they may also stop honoring hardware RMAs (Return Merchandise Authorizations) for replacement parts.
+    
+- **Business Impact for Aptum:** **This is the legal trigger for Section 5.5.** Once a device hits EoST, it becomes a security risk (no patches) and an operational risk (no vendor support for your engineers to call when things break). This is the exact date you should send the formal 30-day "EOL Product Notice" and void the SLA.
+    
+
+### 6. End of Service Life (EOSL) — _The Danger Zone_
+
+- **What it means:** The absolute final phase. The vendor completely wipes their hands of the product. They will no longer offer even paid "extended support" contracts. They stop manufacturing spare parts entirely.
+    
+- **Business Impact for Aptum:** This is where the Winston Data server (Web 1) was. If a power supply dies, you cannot buy a new one from the vendor; you are forced to scavenge parts from eBay or other deprovisioned servers. **No customer should ever be allowed to reach EOSL on your network without paying a massive Legacy Support fee**, as you hold 100% of the operational burden.
+    
+
+---
+
+### How to use this in your Database & Proposal
+
+For your Product-owned "Component Lifecycle Database," you only really need to track three main dates to drive your automation:
+
+1. **End of Sale (EoSale):** _(To stop sales from quoting it)_
+    
+2. **End of Support (EoST):** _(To trigger the Section 5.5 SLA void, force the upgrade, or start the Legacy Surcharge)_
+    
+3. **End of Service Life (EOSL):** _(To trigger mandatory network disconnection if they refuse to upgrade, due to severe security/part availability risks)_
