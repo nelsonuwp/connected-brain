@@ -9,7 +9,8 @@
 vault/**/.obsidian/workspace.json
 vault/**/.obsidian/workspace-mobile.json
 vault/**/.obsidian/cache
-vault/**/.obsidian/plugins/*/data.json
+# Ignore Whisper API key
+vault/.obsidian/plugins/whisper/data.json
 
 # ── PYTHON ────────────────────────────────────────────────────────────────────
 __pycache__/
@@ -29,4 +30,4 @@ desktop.ini
 # ── EDITOR ────────────────────────────────────────────────────────────────────
 .vscode/
 *.swp
-*.swo
+*.swovault/.obsidian/plugins/whisper/data.json

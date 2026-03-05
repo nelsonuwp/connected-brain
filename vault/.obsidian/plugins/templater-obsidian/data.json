@@ -1,0 +1,54 @@
+{
+  "command_timeout": 5,
+  "templates_folder": "_templates",
+  "templates_pairs": [
+    [
+      "",
+      ""
+    ]
+  ],
+  "trigger_on_file_creation": true,
+  "auto_jump_to_cursor": true,
+  "enable_system_commands": false,
+  "shell_path": "",
+  "user_scripts_folder": "",
+  "enable_folder_templates": true,
+  "folder_templates": [
+    {
+      "folder": "00-daily",
+      "template": "_templates/daily-briefing.md"
+    },
+    {
+      "folder": "10-thinking",
+      "template": "_templates/thinking-note.md"
+    },
+    {
+      "folder": "30-initiatives",
+      "template": "_templates/initiative-spec.md"
+    },
+    {
+      "folder": "40-people",
+      "template": "_templates/person-note.md"
+    },
+    {
+      "folder": "90-meeting-notes",
+      "template": "_templates/meeting-note.md"
+    }
+  ],
+  "enable_file_templates": false,
+  "file_templates": [
+    {
+      "regex": ".*",
+      "template": ""
+    }
+  ],
+  "syntax_highlighting": true,
+  "syntax_highlighting_mobile": false,
+  "enabled_templates_hotkeys": [
+    ""
+  ],
+  "startup_templates": [
+    ""
+  ],
+  "intellisense_render": 1
+}
