@@ -16,6 +16,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Ensure the project directory is on the path regardless of where script is invoked from
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 from dotenv import load_dotenv
 
 # .env lives at ~/connected-brain/.env — two levels up from projects/db-sync/
