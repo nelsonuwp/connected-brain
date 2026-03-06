@@ -1,90 +1,52 @@
 """
 MSSQL connector using pymssql via SQLAlchemy.
 
-Env vars (from .env):
-  OCEAN_DB_USERNAME   (supports domain usernames like CORP\\user)
-  OCEAN_DB_PASSWORD
-  OCEAN_DB_SERVER
-  OCEAN_DB_NAME
+Matches oceanClient.get_db_engine() exactly — same env vars and URI pattern.
 
-Uses URI with quote_plus so domain usernames (CORP\\user) are passed as
-SQL auth, not Windows Integrated auth. Passing user= directly to pymssql
-triggers Integrated auth on Mac, causing "untrusted domain" errors.
+Env vars (from .env):
+  OCEAN_DB_USER      (or OCEAN_DB_USERNAME for backwards compat; fallback: DB_USER)
+  OCEAN_DB_PASSWORD  (fallback: DB_PASSWORD)
+  OCEAN_DB_SERVER    (fallback: DB_SERVER)
+  OCEAN_DB_NAME      (fallback: DB_NAME)
+
+URI: mssql+pymssql://{quote_plus(user)}:{quote_plus(pw)}@{server}/{db}
 """
 
 import os
-import json
-import time
 import urllib.parse
-from pathlib import Path
 
 from sqlalchemy import create_engine, text
 
 from .base import BaseConnector
 
 
-# region agent log helper
-def _agent_debug_log(hypothesis_id, message, data=None, run_id="pre-fix"):
-    try:
-        # Repo root: connectors/mssql.py -> parents[3] = connected-brain
-        _log_path = Path(__file__).resolve().parents[3] / ".cursor" / "debug-4ea72c.log"
-        _log_path.parent.mkdir(parents=True, exist_ok=True)
-        payload = {
-            "sessionId": "4ea72c",
-            "runId": run_id,
-            "hypothesisId": str(hypothesis_id),
-            "location": "projects/db-sync/connectors/mssql.py",
-            "message": str(message),
-            "data": data or {},
-            "timestamp": int(time.time() * 1000),
-        }
-        with open(_log_path, "a", encoding="utf-8") as f:
-            f.write(json.dumps(payload) + "\n")
-    except Exception:
-        # Swallow logging errors to avoid impacting main flow
-        pass
-
-
-# endregion
-
-
 class MSSQLConnector(BaseConnector):
     def __init__(self, config: dict):
         prefix = config.get("env_prefix", "OCEAN")
 
-        user     = os.getenv(f"{prefix}_DB_USERNAME", "")
-        password = os.getenv(f"{prefix}_DB_PASSWORD", "")
-        server   = os.getenv(f"{prefix}_DB_SERVER", "")
-        db       = os.getenv(f"{prefix}_DB_NAME", "")
+        # Same env var pattern as oceanClient.get_db_engine()
+        user = (
+            os.getenv(f"{prefix}_DB_USER")
+            or os.getenv(f"{prefix}_DB_USERNAME")
+            or os.getenv("DB_USER", "")
+        )
+        pw = os.getenv(f"{prefix}_DB_PASSWORD") or os.getenv("DB_PASSWORD", "")
+        server = os.getenv(f"{prefix}_DB_SERVER") or os.getenv("DB_SERVER", "")
+        db = os.getenv(f"{prefix}_DB_NAME") or os.getenv("DB_NAME", "")
 
-        missing = [k for k, v in {
-            f"{prefix}_DB_USERNAME": user,
-            f"{prefix}_DB_SERVER":   server,
-            f"{prefix}_DB_NAME":     db,
-        }.items() if not v]
-
+        missing = []
+        if not user:
+            missing.append(f"{prefix}_DB_USER or {prefix}_DB_USERNAME")
+        if not server:
+            missing.append(f"{prefix}_DB_SERVER")
+        if not db:
+            missing.append(f"{prefix}_DB_NAME")
         if missing:
             raise RuntimeError(f"Missing env vars: {', '.join(missing)}")
 
-        # region agent log
-        _agent_debug_log(
-            "H1",
-            "MSSQLConnector env vars loaded",
-            {
-                "prefix": prefix,
-                "has_user": bool(user),
-                "has_password": bool(password),
-                "server": server,
-                "db": db,
-            },
-        )
-        # endregion
-
-        # Use URI with quote_plus (like oceanClient). Passing user= directly
-        # to pymssql.connect() triggers Windows Integrated auth on Mac, causing
-        # "Login from untrusted domain" failures. URI + SQL auth works.
+        # Identical to oceanClient: quote_plus + URI, no port (default 1433)
         user_enc = urllib.parse.quote_plus(user)
-        pw_enc = urllib.parse.quote_plus(password)
+        pw_enc = urllib.parse.quote_plus(pw)
         uri = f"mssql+pymssql://{user_enc}:{pw_enc}@{server}/{db}"
         self._engine = create_engine(uri)
 
