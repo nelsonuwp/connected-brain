@@ -51,4 +51,13 @@ updated: 2026-03-06
 
 ## Usage Notes
 
-<!-- Hand-written: join keys, gotchas, common filters. Preserved on sync. -->
+- **Primary key:** service_id (int)
+- **Always filter by client_id** — table contains all clients
+- Active services only: `WHERE service_status = 'Online'`
+- Join to dimComponents on `service_id` (LEFT JOIN — not all services have components)
+- Join to ocean_services_renewal_date on `service_id` (LEFT JOIN — not all services have a renewal row)
+- Join to finance_revenue_mapping on `client_id AND CAST(service_id AS varchar) = f.service_id` — type mismatch, CAST required
+- Join to dimProductAttributes on `CAST(fusion_id AS nvarchar) = p.fusion_id` — type mismatch, CAST required
+- Join to dimdatacenterattributes on `datacenter_code`
+- `currency` varies per client (GBP, USD, CAD) — use `cad_mrc` for cross-client comparisons
+- `contract_months_remaining = -1` means month-to-month or no fixed term

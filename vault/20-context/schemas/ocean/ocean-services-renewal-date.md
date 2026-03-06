@@ -35,4 +35,10 @@ updated: 2026-03-06
 
 ## Usage Notes
 
-<!-- Hand-written: join keys, gotchas, common filters. Preserved on sync. -->
+- **Foreign key:** service_id (int) → dimServices.service_id
+- One row per service — LEFT JOIN to dimServices
+- `m2m = 'yes'` means month-to-month (no fixed expiry)
+- `expiration_date` is unreliable when `m2m = 'yes'` — treat as legacy/placeholder date
+- `first_term = 'yes'` means the service is still in its first contract term
+- Renewal risk filter: `WHERE expiration_date BETWEEN GETDATE() AND DATEADD(day, 90, GETDATE()) AND m2m = 'no'`
+- Join to finance_revenue_mapping via dimServices (not directly) to get billing amounts for expiring services

@@ -55,4 +55,10 @@ updated: 2026-03-06
 
 ## Usage Notes
 
-<!-- Hand-written: join keys, gotchas, common filters. Preserved on sync. -->
+- **Foreign key:** service_id (int) → dimServices.service_id
+- Many rows per service — always GROUP BY or nest when joining to dimServices
+- Use `cad_component_mrc` for cross-currency comparisons
+- `component_category` groups components (Hardware, Software, Network, Backup & Storage, etc.)
+- `add_on = 1` means this is an add-on component, not the base service
+- `is_online = 'Yes'` for active components — filter to this when you only want live components
+- Does not need client_id filter if already joined to dimServices with client_id filter

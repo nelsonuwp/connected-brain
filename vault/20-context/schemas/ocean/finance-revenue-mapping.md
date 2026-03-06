@@ -52,4 +52,12 @@ updated: 2026-03-06
 
 ## Usage Notes
 
-<!-- Hand-written: join keys, gotchas, common filters. Preserved on sync. -->
+- **service_id is varchar(20) here** — always `CAST(dimServices.service_id AS varchar)` when joining
+- Join to dimServices: `ON s.client_id = f.client_id AND CAST(s.service_id AS varchar) = f.service_id`
+- Always filter to current period: `WHERE revenue_period = (SELECT MAX(revenue_period) FROM [FinancialReporting].[dbo].[finance_revenue_mapping] WHERE client_id = :client_id)`
+- `xtndprce_period_nx` is the **next-period** billed amount — use this for current MRC reporting
+- `xtndprce_period` is the current-period billed amount
+- `revenue_period` is a date column formatted as first-of-month (e.g. 2025-12-01)
+- `Category` is the GL revenue category (e.g. 'Revenue - Managed Hosting')
+- Multiple rows per service per period are possible — `SUM(xtndprce_period_nx)` when aggregating
+- `gpinstance` identifies the GP instance (P1UK, P1USA, etc.) — useful for multi-region clients

@@ -38,4 +38,8 @@ updated: 2026-03-06
 
 ## Usage Notes
 
-<!-- Hand-written: join keys, gotchas, common filters. Preserved on sync. -->
+- **Primary key:** datacenter_code — join from dimServices or dimComponents on `datacenter_code`
+- `datacenter_status = 'Active'` or `'Decommissioned'` — filter to Active for current footprint queries
+- `datacenter_region` groups datacenters for regional analysis (Canada, US, EMEA, etc.)
+- Includes Azure virtual datacenters (AZURE-CAN, AZURE-US, AZURE-UK, etc.)
+- `cp1_datacenter_code` is the legacy Peer 1 code for historical cross-reference

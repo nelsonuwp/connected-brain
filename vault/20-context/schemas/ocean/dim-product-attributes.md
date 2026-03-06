@@ -52,4 +52,10 @@ updated: 2026-03-06
 
 ## Usage Notes
 
-<!-- Hand-written: join keys, gotchas, common filters. Preserved on sync. -->
+- **Primary key:** fusion_id (nvarchar) — join from dimServices using `CAST(s.fusion_id AS nvarchar) = p.fusion_id`
+- fusion_id is **not unique** in this table — multiple rows per fusion_id with different `level` values (Component vs TLS)
+- Filter to `level = 'TLS'` for top-level service product attributes when joining to dimServices
+- `lifecycle` indicates product maturity: End of Life, End of Sale, Discontinuation of Support, Active
+- `product_group` is the high-level grouping (Servers, Software, etc.)
+- `functional_group_bi` is the BI-aligned line of business label — prefer this over `functional_group` for reporting
+- `is_active = '1'` means the product is currently sold
