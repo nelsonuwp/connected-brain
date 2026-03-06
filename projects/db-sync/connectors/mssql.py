@@ -7,16 +7,17 @@ Env vars (from .env):
   OCEAN_DB_SERVER
   OCEAN_DB_NAME
 
-Uses creator= instead of a URI string so the backslash in domain
-usernames (CORP\\user) is never URL-encoded by urllib.
+Uses URI with quote_plus so domain usernames (CORP\\user) are passed as
+SQL auth, not Windows Integrated auth. Passing user= directly to pymssql
+triggers Integrated auth on Mac, causing "untrusted domain" errors.
 """
 
 import os
 import json
 import time
+import urllib.parse
 from pathlib import Path
 
-import pymssql
 from sqlalchemy import create_engine, text
 
 from .base import BaseConnector
@@ -79,52 +80,13 @@ class MSSQLConnector(BaseConnector):
         )
         # endregion
 
-        # Pass credentials directly to pymssql — do NOT build a URI string.
-        # urllib.quote_plus would encode CORP\\user as CORP%5Cuser, breaking
-        # domain authentication entirely.
-        _user, _password, _server, _db = user, password, server, db
-
-        def creator():
-            # region agent log
-            _agent_debug_log(
-                "H2",
-                "MSSQLConnector creator() connecting",
-                {
-                    "server": _server,
-                    "db": _db,
-                    "user_present": bool(_user),
-                },
-            )
-            # endregion
-            try:
-                conn = pymssql.connect(
-                    server=_server,
-                    user=_user,
-                    password=_password,
-                    database=_db,
-                )
-                # region agent log
-                _agent_debug_log(
-                    "H2",
-                    "MSSQLConnector creator() connected",
-                    {"server": _server, "db": _db},
-                )
-                # endregion
-                return conn
-            except Exception as e:
-                # region agent log
-                _agent_debug_log(
-                    "H2",
-                    "MSSQLConnector creator() connect failed",
-                    {
-                        "error_type": type(e).__name__,
-                        "error": str(e),
-                    },
-                )
-                # endregion
-                raise
-
-        self._engine = create_engine("mssql+pymssql://", creator=creator)
+        # Use URI with quote_plus (like oceanClient). Passing user= directly
+        # to pymssql.connect() triggers Windows Integrated auth on Mac, causing
+        # "Login from untrusted domain" failures. URI + SQL auth works.
+        user_enc = urllib.parse.quote_plus(user)
+        pw_enc = urllib.parse.quote_plus(password)
+        uri = f"mssql+pymssql://{user_enc}:{pw_enc}@{server}/{db}"
+        self._engine = create_engine(uri)
 
     def get_schema(self, entry: dict) -> list[dict]:
         database = entry["database"]
