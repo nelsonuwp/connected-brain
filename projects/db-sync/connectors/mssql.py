@@ -1,20 +1,19 @@
 """
 MSSQL connector using pymssql via SQLAlchemy.
 
-Matches oceanClient.get_db_engine() exactly — same env vars and URI pattern.
-
 Env vars (from .env):
-  OCEAN_DB_USER      (or OCEAN_DB_USERNAME for backwards compat; fallback: DB_USER)
-  OCEAN_DB_PASSWORD  (fallback: DB_PASSWORD)
-  OCEAN_DB_SERVER    (fallback: DB_SERVER)
-  OCEAN_DB_NAME      (fallback: DB_NAME)
+  OCEAN_DB_USERNAME   (supports domain usernames like CORP\\user)
+  OCEAN_DB_PASSWORD
+  OCEAN_DB_SERVER
+  OCEAN_DB_NAME
 
-URI: mssql+pymssql://{quote_plus(user)}:{quote_plus(pw)}@{server}/{db}
+Uses creator= instead of a URI string so the backslash in domain
+usernames (CORP\\user) is never URL-encoded by urllib.
 """
 
 import os
-import urllib.parse
 
+import pymssql
 from sqlalchemy import create_engine, text
 
 from .base import BaseConnector
@@ -24,31 +23,31 @@ class MSSQLConnector(BaseConnector):
     def __init__(self, config: dict):
         prefix = config.get("env_prefix", "OCEAN")
 
-        # Same env var pattern as oceanClient.get_db_engine()
-        user = (
-            os.getenv(f"{prefix}_DB_USER")
-            or os.getenv(f"{prefix}_DB_USERNAME")
-            or os.getenv("DB_USER", "")
-        )
-        pw = os.getenv(f"{prefix}_DB_PASSWORD") or os.getenv("DB_PASSWORD", "")
-        server = os.getenv(f"{prefix}_DB_SERVER") or os.getenv("DB_SERVER", "")
-        db = os.getenv(f"{prefix}_DB_NAME") or os.getenv("DB_NAME", "")
+        user     = os.getenv(f"{prefix}_DB_USERNAME", "")
+        password = os.getenv(f"{prefix}_DB_PASSWORD", "")
+        server   = os.getenv(f"{prefix}_DB_SERVER", "")
+        db       = os.getenv(f"{prefix}_DB_NAME", "")
 
-        missing = []
-        if not user:
-            missing.append(f"{prefix}_DB_USER or {prefix}_DB_USERNAME")
-        if not server:
-            missing.append(f"{prefix}_DB_SERVER")
-        if not db:
-            missing.append(f"{prefix}_DB_NAME")
+        missing = [k for k, v in {
+            f"{prefix}_DB_USERNAME": user,
+            f"{prefix}_DB_SERVER":   server,
+            f"{prefix}_DB_NAME":     db,
+        }.items() if not v]
+
         if missing:
             raise RuntimeError(f"Missing env vars: {', '.join(missing)}")
 
-        # Identical to oceanClient: quote_plus + URI, no port (default 1433)
-        user_enc = urllib.parse.quote_plus(user)
-        pw_enc = urllib.parse.quote_plus(pw)
-        uri = f"mssql+pymssql://{user_enc}:{pw_enc}@{server}/{db}"
-        self._engine = create_engine(uri)
+        _user, _password, _server, _db = user, password, server, db
+
+        def creator():
+            return pymssql.connect(
+                server=_server,
+                user=_user,
+                password=_password,
+                database=_db,
+            )
+
+        self._engine = create_engine("mssql+pymssql://", creator=creator)
 
     def get_schema(self, entry: dict) -> list[dict]:
         database = entry["database"]
