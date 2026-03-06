@@ -6,5 +6,6 @@
   "dataview",
   "obsidian-tasks-plugin",
   "quickadd",
-  "whisper"
+  "whisper",
+  "obsidian-shellcommands"
 ]
