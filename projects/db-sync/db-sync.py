@@ -28,11 +28,11 @@ load_dotenv(_ENV_PATH)
 
 
 # region agent log helper
-_DEBUG_LOG_PATH = "/Users/anelson-macbook-air/connected-brain/.cursor/debug-4ea72c.log"
-
-
 def _agent_debug_log(hypothesis_id, message, data=None, run_id="pre-fix"):
     try:
+        # Repo root: db-sync.py -> parents[2] = connected-brain
+        _log_path = Path(__file__).resolve().parents[2] / ".cursor" / "debug-4ea72c.log"
+        _log_path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
             "sessionId": "4ea72c",
             "runId": run_id,
@@ -42,7 +42,7 @@ def _agent_debug_log(hypothesis_id, message, data=None, run_id="pre-fix"):
             "data": data or {},
             "timestamp": int(time.time() * 1000),
         }
-        with open(_DEBUG_LOG_PATH, "a", encoding="utf-8") as f:
+        with open(_log_path, "a", encoding="utf-8") as f:
             f.write(json.dumps(payload) + "\n")
     except Exception:
         # Swallow logging errors to avoid impacting main flow
