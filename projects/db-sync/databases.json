@@ -10,7 +10,7 @@
           "table": "dimServices",
           "target": "20-context/schemas/ocean/dim-services.md",
           "description": "All active services per client. Join to dimComponents on service_id.",
-          "last_synced": "2026-03-06T11:41:41.348198+00:00"
+          "last_synced": "2026-03-06T11:45:56.935933+00:00"
         },
         {
           "database": "DM_BusinessInsights",
@@ -18,7 +18,7 @@
           "table": "ocean_services_renewal_date",
           "target": "20-context/schemas/ocean/ocean-services-renewal-date.md",
           "description": "Renewal dates and m2m flag per service. Left-join to dimServices on service_id.",
-          "last_synced": null
+          "last_synced": "2026-03-06T11:45:56.935933+00:00"
         },
         {
           "database": "DM_BusinessInsights",
@@ -26,7 +26,7 @@
           "table": "dimComponents",
           "target": "20-context/schemas/ocean/dim-components.md",
           "description": "Component-level breakdown per service. Grouped by service_id.",
-          "last_synced": null
+          "last_synced": "2026-03-06T11:45:56.935933+00:00"
         },
         {
           "database": "DM_BusinessInsights",
@@ -34,7 +34,7 @@
           "table": "Churn",
           "target": "20-context/schemas/ocean/churn.md",
           "description": "Churned services with cancel_date, product, cad_mrc, line_of_business.",
-          "last_synced": null
+          "last_synced": "2026-03-06T11:45:56.935933+00:00"
         },
         {
           "database": "DM_BusinessInsights",
@@ -42,7 +42,7 @@
           "table": "dimProductAttributes",
           "target": "20-context/schemas/ocean/dim-product-attributes.md",
           "description": "Product attribute dimension.",
-          "last_synced": null
+          "last_synced": "2026-03-06T11:45:56.935933+00:00"
         },
         {
           "database": "DM_BusinessInsights",
@@ -50,7 +50,7 @@
           "table": "dimdatacenterattributes",
           "target": "20-context/schemas/ocean/dim-datacenter-attributes.md",
           "description": "Datacenter attribute dimension.",
-          "last_synced": null
+          "last_synced": "2026-03-06T11:45:56.935933+00:00"
         },
         {
           "database": "FinancialReporting",
@@ -58,7 +58,7 @@
           "table": "finance_revenue_mapping",
           "target": "20-context/schemas/ocean/finance-revenue-mapping.md",
           "description": "Revenue line items by client_id and revenue_period. Most queries filter to MAX(revenue_period).",
-          "last_synced": null
+          "last_synced": "2026-03-06T11:45:56.935933+00:00"
         }
       ]
     }
