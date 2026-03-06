@@ -1,0 +1,66 @@
+{
+  "groups": {
+    "ocean": {
+      "type": "mssql",
+      "env_prefix": "OCEAN",
+      "tables": [
+        {
+          "database": "DM_BusinessInsights",
+          "schema": "dbo",
+          "table": "dimServices",
+          "target": "20-context/schemas/ocean/dim-services.md",
+          "description": "All active services per client. Join to dimComponents on service_id.",
+          "last_synced": null
+        },
+        {
+          "database": "DM_BusinessInsights",
+          "schema": "renewals",
+          "table": "ocean_services_renewal_date",
+          "target": "20-context/schemas/ocean/ocean-services-renewal-date.md",
+          "description": "Renewal dates and m2m flag per service. Left-join to dimServices on service_id.",
+          "last_synced": null
+        },
+        {
+          "database": "DM_BusinessInsights",
+          "schema": "dbo",
+          "table": "dimComponents",
+          "target": "20-context/schemas/ocean/dim-components.md",
+          "description": "Component-level breakdown per service. Grouped by service_id.",
+          "last_synced": null
+        },
+        {
+          "database": "DM_BusinessInsights",
+          "schema": "dbo",
+          "table": "Churn",
+          "target": "20-context/schemas/ocean/churn.md",
+          "description": "Churned services with cancel_date, product, cad_mrc, line_of_business.",
+          "last_synced": null
+        },
+        {
+          "database": "DM_BusinessInsights",
+          "schema": "dbo",
+          "table": "dimProductAttributes",
+          "target": "20-context/schemas/ocean/dim-product-attributes.md",
+          "description": "Product attribute dimension.",
+          "last_synced": null
+        },
+        {
+          "database": "DM_BusinessInsights",
+          "schema": "dbo",
+          "table": "dimdatacenterattributes",
+          "target": "20-context/schemas/ocean/dim-datacenter-attributes.md",
+          "description": "Datacenter attribute dimension.",
+          "last_synced": null
+        },
+        {
+          "database": "FinancialReporting",
+          "schema": "dbo",
+          "table": "finance_revenue_mapping",
+          "target": "20-context/schemas/ocean/finance-revenue-mapping.md",
+          "description": "Revenue line items by client_id and revenue_period. Most queries filter to MAX(revenue_period).",
+          "last_synced": null
+        }
+      ]
+    }
+  }
+}
