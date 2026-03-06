@@ -1,17 +1,19 @@
 """
 MSSQL connector using pymssql via SQLAlchemy.
-Connection pattern matches oceanClient.py exactly.
 
 Env vars (from .env):
-  OCEAN_DB_USER      ← matches oceanClient.py (not OCEAN_DB_USERNAME)
+  OCEAN_DB_USERNAME   (supports domain usernames like CORP\\user)
   OCEAN_DB_PASSWORD
   OCEAN_DB_SERVER
   OCEAN_DB_NAME
+
+Uses creator= instead of a URI string so the backslash in domain
+usernames (CORP\\user) is never URL-encoded by urllib.
 """
 
 import os
-import urllib.parse
 
+import pymssql
 from sqlalchemy import create_engine, text
 
 from .base import BaseConnector
@@ -21,14 +23,13 @@ class MSSQLConnector(BaseConnector):
     def __init__(self, config: dict):
         prefix = config.get("env_prefix", "OCEAN")
 
-        # Match oceanClient.py exactly: OCEAN_DB_USER (not OCEAN_DB_USERNAME)
-        user     = urllib.parse.quote_plus(os.getenv(f"{prefix}_DB_USERNAME", ""))
-        password = urllib.parse.quote_plus(os.getenv(f"{prefix}_DB_PASSWORD", ""))
+        user     = os.getenv(f"{prefix}_DB_USERNAME", "")
+        password = os.getenv(f"{prefix}_DB_PASSWORD", "")
         server   = os.getenv(f"{prefix}_DB_SERVER", "")
         db       = os.getenv(f"{prefix}_DB_NAME", "")
 
         missing = [k for k, v in {
-            f"{prefix}_DB_USERNAME": user,   # ← was DB_USER
+            f"{prefix}_DB_USERNAME": user,
             f"{prefix}_DB_SERVER":   server,
             f"{prefix}_DB_NAME":     db,
         }.items() if not v]
@@ -36,8 +37,20 @@ class MSSQLConnector(BaseConnector):
         if missing:
             raise RuntimeError(f"Missing env vars: {', '.join(missing)}")
 
-        uri = f"mssql+pymssql://{user}:{password}@{server}/{db}"
-        self._engine = create_engine(uri)
+        # Pass credentials directly to pymssql — do NOT build a URI string.
+        # urllib.quote_plus would encode CORP\\user as CORP%5Cuser, breaking
+        # domain authentication entirely.
+        _user, _password, _server, _db = user, password, server, db
+
+        def creator():
+            return pymssql.connect(
+                server=_server,
+                user=_user,
+                password=_password,
+                database=_db,
+            )
+
+        self._engine = create_engine("mssql+pymssql://", creator=creator)
 
     def get_schema(self, entry: dict) -> list[dict]:
         database = entry["database"]
