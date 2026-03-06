@@ -22,15 +22,15 @@ class MSSQLConnector(BaseConnector):
         prefix = config.get("env_prefix", "OCEAN")
 
         # Match oceanClient.py exactly: OCEAN_DB_USER (not OCEAN_DB_USERNAME)
-        user     = urllib.parse.quote_plus(os.getenv(f"{prefix}_DB_USER", ""))
+        user     = urllib.parse.quote_plus(os.getenv(f"{prefix}_DB_USERNAME", ""))
         password = urllib.parse.quote_plus(os.getenv(f"{prefix}_DB_PASSWORD", ""))
         server   = os.getenv(f"{prefix}_DB_SERVER", "")
         db       = os.getenv(f"{prefix}_DB_NAME", "")
 
         missing = [k for k, v in {
-            f"{prefix}_DB_USER":   user,
-            f"{prefix}_DB_SERVER": server,
-            f"{prefix}_DB_NAME":   db,
+            f"{prefix}_DB_USERNAME": user,   # ← was DB_USER
+            f"{prefix}_DB_SERVER":   server,
+            f"{prefix}_DB_NAME":     db,
         }.items() if not v]
 
         if missing:
