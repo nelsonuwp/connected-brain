@@ -12,11 +12,38 @@ usernames (CORP\\user) is never URL-encoded by urllib.
 """
 
 import os
+import json
+import time
 
 import pymssql
 from sqlalchemy import create_engine, text
 
 from .base import BaseConnector
+
+
+# region agent log helper
+_DEBUG_LOG_PATH = "/Users/anelson-macbook-air/connected-brain/.cursor/debug-4ea72c.log"
+
+
+def _agent_debug_log(hypothesis_id, message, data=None, run_id="pre-fix"):
+    try:
+        payload = {
+            "sessionId": "4ea72c",
+            "runId": run_id,
+            "hypothesisId": str(hypothesis_id),
+            "location": "projects/db-sync/connectors/mssql.py",
+            "message": str(message),
+            "data": data or {},
+            "timestamp": int(time.time() * 1000),
+        }
+        with open(_DEBUG_LOG_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(payload) + "\n")
+    except Exception:
+        # Swallow logging errors to avoid impacting main flow
+        pass
+
+
+# endregion
 
 
 class MSSQLConnector(BaseConnector):
@@ -37,18 +64,64 @@ class MSSQLConnector(BaseConnector):
         if missing:
             raise RuntimeError(f"Missing env vars: {', '.join(missing)}")
 
+        # region agent log
+        _agent_debug_log(
+            "H1",
+            "MSSQLConnector env vars loaded",
+            {
+                "prefix": prefix,
+                "has_user": bool(user),
+                "has_password": bool(password),
+                "server": server,
+                "db": db,
+            },
+        )
+        # endregion
+
         # Pass credentials directly to pymssql — do NOT build a URI string.
         # urllib.quote_plus would encode CORP\\user as CORP%5Cuser, breaking
         # domain authentication entirely.
         _user, _password, _server, _db = user, password, server, db
 
         def creator():
-            return pymssql.connect(
-                server=_server,
-                user=_user,
-                password=_password,
-                database=_db,
+            # region agent log
+            _agent_debug_log(
+                "H2",
+                "MSSQLConnector creator() connecting",
+                {
+                    "server": _server,
+                    "db": _db,
+                    "user_present": bool(_user),
+                },
             )
+            # endregion
+            try:
+                conn = pymssql.connect(
+                    server=_server,
+                    user=_user,
+                    password=_password,
+                    database=_db,
+                )
+                # region agent log
+                _agent_debug_log(
+                    "H2",
+                    "MSSQLConnector creator() connected",
+                    {"server": _server, "db": _db},
+                )
+                # endregion
+                return conn
+            except Exception as e:
+                # region agent log
+                _agent_debug_log(
+                    "H2",
+                    "MSSQLConnector creator() connect failed",
+                    {
+                        "error_type": type(e).__name__,
+                        "error": str(e),
+                    },
+                )
+                # endregion
+                raise
 
         self._engine = create_engine("mssql+pymssql://", creator=creator)
 

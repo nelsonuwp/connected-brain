@@ -13,6 +13,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -24,6 +25,31 @@ from dotenv import load_dotenv
 # .env lives at ~/connected-brain/.env — two levels up from projects/db-sync/
 _ENV_PATH = Path(__file__).resolve().parents[2] / ".env"
 load_dotenv(_ENV_PATH)
+
+
+# region agent log helper
+_DEBUG_LOG_PATH = "/Users/anelson-macbook-air/connected-brain/.cursor/debug-4ea72c.log"
+
+
+def _agent_debug_log(hypothesis_id, message, data=None, run_id="pre-fix"):
+    try:
+        payload = {
+            "sessionId": "4ea72c",
+            "runId": run_id,
+            "hypothesisId": str(hypothesis_id),
+            "location": "projects/db-sync/db-sync.py",
+            "message": str(message),
+            "data": data or {},
+            "timestamp": int(time.time() * 1000),
+        }
+        with open(_DEBUG_LOG_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(payload) + "\n")
+    except Exception:
+        # Swallow logging errors to avoid impacting main flow
+        pass
+
+
+# endregion
 
 
 def load_connector(group_type: str, group_config: dict):
@@ -114,6 +140,19 @@ def main():
         print(f"[{group_name}]  type={group_type}")
 
         entries = group_config.get("tables", [])
+
+        # region agent log
+        _agent_debug_log(
+            "H3",
+            "Attempting to load connector",
+            {
+                "group_name": group_name,
+                "group_type": group_type,
+                "env_prefix": group_config.get("env_prefix"),
+                "entries_count": len(entries),
+            },
+        )
+        # endregion
         if args.table:
             entries = [e for e in entries if entry_label(e) == args.table]
             if not entries:
@@ -122,7 +161,29 @@ def main():
 
         try:
             connector = load_connector(group_type, group_config)
+            # region agent log
+            _agent_debug_log(
+                "H3",
+                "Connector loaded successfully",
+                {
+                    "group_name": group_name,
+                    "group_type": group_type,
+                },
+            )
+            # endregion
         except Exception as e:
+            # region agent log
+            _agent_debug_log(
+                "H3",
+                "Connector load failed",
+                {
+                    "group_name": group_name,
+                    "group_type": group_type,
+                    "error_type": type(e).__name__,
+                    "error": str(e),
+                },
+            )
+            # endregion
             print(f"  ✗ Connection failed: {type(e).__name__}: {e}")
             total_err += len(entries)
             continue
