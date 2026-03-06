@@ -10,7 +10,7 @@
           "table": "dimServices",
           "target": "20-context/schemas/ocean/dim-services.md",
           "description": "All active services per client. Join to dimComponents on service_id.",
-          "last_synced": null
+          "last_synced": "2026-03-06T11:41:41.348198+00:00"
         },
         {
           "database": "DM_BusinessInsights",
