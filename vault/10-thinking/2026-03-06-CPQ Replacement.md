@@ -235,7 +235,8 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 - **FX rate gap at go-live**: The CPQ has Ocean/Spot rates. The new schema adds `budget` as a third type. Someone needs to backfill historical budget rates (at least 12 months) for the CapEx CAD derivation to work on existing assets.
 	- It's ok, but I got off the phone with Finance and they said they are ok just having:
 		- Rate off CAD and then USD, EUR, GBP and then whatever the rate identified by the bank of canada is ... so at the time of this document: USD is 1.3651, GBP is 1.8533, EUR is 1.6138... so we put those in there then we can go back and forth from that ... we can evne add CAD as 1 if we want.
-		- We can add a type like 'spot' or 'budget' or whatever if we want.. 
+		- We can add a type like 'spot' or 'budget' or whatever if we want.. so lets go spot for now
+		- Date
 - **Supabase free tier pausing**: If the POC isn't actively used, the project pauses after 1 week. Not a problem for active development, but could surprise someone picking it up after a holiday week.
 - **No financial model in POC**: The CPQ's EBIT/IRR/NPV calculations are real business logic that sales and finance depend on. The POC won't replicate this. There will be a gap period where pricing comes from the new system but EBIT modeling still uses Excel.
 - **Colo deprioritized**: Scoped out for POC. Colo clients at MIA and POR will still need the Excel tool during the POC phase.
@@ -265,15 +266,15 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 
 ## Decisions Still Open
 
-| Decision | Options | Blocking? |
-|---|---|---|
-| FX rate direction confirmation | "units of foreign per 1 CAD" vs "units of CAD per 1 foreign" | Yes — determines all conversion math |
-| fusion_id for new SKUs (7.0, Cluster, Atomic) | Block on fusion_id assignment vs. allow nullable temporarily | Yes — affects seed data |
-| Multiple CapEx records per product | Allow many (per procurement batch) vs. one current row | No — can change later |
-| CapEx model uses latest vs. weighted average | Latest row only vs. weighted average of batches | No — affects financial model which is out of POC scope |
-| Front-end for POC | Raw Supabase table editor vs. minimal web UI | No — can start with table editor |
-| Who owns each table for updates | RACI for pricing, FX, lifecycle, CapEx | No for POC, yes before prod |
-| Salesforce integration | Scope and direction of sync | No for POC |
+| Decision                                      | Options                                                      | Blocking?                                              |
+| --------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
+| FX rate direction confirmation                | "units of foreign per 1 CAD" vs "units of CAD per 1 foreign" | Yes — determines all conversion math                   |
+| fusion_id for new SKUs (7.0, Cluster, Atomic) | Block on fusion_id assignment vs. allow nullable temporarily | Yes — affects seed data                                |
+| Multiple CapEx records per product            | Allow many (per procurement batch) vs. one current row       | No — can change later                                  |
+| CapEx model uses latest vs. weighted average  | Latest row only vs. weighted average of batches              | No — affects financial model which is out of POC scope |
+| Front-end for POC                             | Raw Supabase table editor vs. minimal web UI                 | No — can start with table editor                       |
+| Who owns each table for updates               | RACI for pricing, FX, lifecycle, CapEx                       | No for POC, yes before prod                            |
+| Salesforce integration                        | Scope and direction of sync                                  | No for POC                                             |
 
 ## Next Step
 
