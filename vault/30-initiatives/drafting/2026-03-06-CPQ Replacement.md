@@ -22,7 +22,7 @@ The current CPQ is a 20-sheet Excel file with VBA macros, formula dependencies t
 - CPQ v28 remains read-only fallback for entire POC phase
 - Cannot promote to production until all TEMP- placeholder fusion_ids are resolved
 - No DELETE operations — soft-delete only (is_active = false)
-- CAD is root currency; FX direction is "units of foreign currency per 1 CAD"
+- CAD is root currency; FX direction: 1 foreign = N CAD (as displayed on bankofcanada.ca — Finance enters the value directly as seen)
 
 ## Open Questions
 - **Promo server NRC (null vs. zero)**: Both Promo Server NA and UK have `nrc = null` in extracted data. Must confirm with Sales Ops whether this is genuinely zero or a data gap — blocks seed data generation.
@@ -49,7 +49,7 @@ The current CPQ is a 20-sheet Excel file with VBA macros, formula dependencies t
 - Database: Supabase (Postgres) — portable via pg_dump; standard SQL; table editor for non-technical users
 - ID type: BIGSERIAL integers — simpler, smaller, faster joins
 - Root currency: CAD = 1 (is_base = true; never appears in fx_rates as target)
-- FX direction: 1 CAD = N foreign (multiply CAD→foreign, divide foreign→CAD); confirmed by Finance: 1 CAD = 1.3651 USD
+- FX direction: 1 foreign = N CAD (as shown on bankofcanada.ca, e.g. 1 USD = 1.3651 CAD); Finance enters the BoC value directly — no inversion needed; CAD→foreign: divide by rate; foreign→CAD: multiply by rate
 - CAD pricing: Stored explicitly in product_pricing, not derived — prevents quoted prices shifting when FX moves
 - FX governance: Finance-maintained with cad_pricing_rebased audit flag for intentional repricing vs. passive drift
 - CapEx model: Time-series with procured_price/currency/date; CAD derived via LATERAL join to fx_rates; use_as_baseline flag for excluding discounted batches

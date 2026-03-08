@@ -112,10 +112,12 @@ def section(title: str) -> str:
 
 
 def gen_fx_rates(lines: list) -> None:
-    lines.append(section("FX RATES (ocean → spot; budget rates need manual backfill)"))
-    lines.append("-- Rate direction: units of foreign currency per 1 CAD")
-    lines.append("-- 1 CAD = rate USD  |  CAD→foreign: × rate  |  foreign→CAD: ÷ rate")
-    lines.append("-- NOTE: 'ocean' rate type removed — Finance confirmed spot = quote rate.\n")
+    lines.append(section("FX RATES — Bank of Canada monthly averages (spot)"))
+    lines.append("-- Rate direction: 1 foreign = N CAD  (as shown on bankofcanada.ca)")
+    lines.append("-- e.g. rate=1.3651 means 1 USD = 1.3651 CAD  |  CAD->foreign: divide by rate  |  foreign->CAD: multiply by rate")
+    lines.append("-- Source: Bank of Canada Valet API monthly averages (FXMUSDCAD, FXMGBPCAD, FXMEURCAD). NOT inverted.")
+    lines.append("-- NOTE: 2025-08 and 2025-09 missing from this seed (API fetch truncated — add manually).")
+    lines.append("-- NOTE: 'budget' rates not seeded — add annually from Finance-approved budget FX.\n")
 
     fx_path = CPQ_DIR / "10_fx_rates.csv"
     if not fx_path.exists():
@@ -129,9 +131,10 @@ def gen_fx_rates(lines: list) -> None:
         lines.append("-- WARNING: 10_fx_rates.csv is empty — fx_rates table not seeded.\n")
         return
 
-    # Normalise: drop 'ocean', rename to 'spot' if present; keep 'budget'
+    # Normalise rate_type: 'ocean' (legacy) → 'spot'; 'budget' kept as-is
     type_map = {"ocean": "spot", "spot": "spot", "budget": "budget"}
 
+    # Dedup by (currency, rate_type, rate_date) — allows multiple months per currency
     seen = set()
     for _, row in df.iterrows():
         raw_type = str(row.get("rate_type", "")).strip().lower()
@@ -140,25 +143,30 @@ def gen_fx_rates(lines: list) -> None:
             continue
         currency = str(row.get("currency_code", "")).strip().upper()
         if not currency or currency == "CAD":
-            continue  # CAD is root; never inserted. Skip blank rows.
+            continue  # CAD is the base currency; never stored in fx_rates
 
-        key = (currency, rate_type)
+        rate_date = str(row.get("rate_date", "")).strip()
+        if not rate_date:
+            continue
+
+        key = (currency, rate_type, rate_date)
         if key in seen:
             continue
         seen.add(key)
 
         rate = row.get("rate")
-        rate_date = row.get("rate_date", "2026-01-01")
+        notes = str(row.get("notes", f"Seeded from 10_fx_rates.csv")).strip()
 
         lines.append(insert("fx_rates", {
             "currency_code": currency,
             "rate_type":     rate_type,
             "rate_date":     rate_date,
             "rate":          rate,
-            "notes":         f"Seeded from CPQ v28 extraction; original type was '{raw_type}'",
+            "notes":         notes,
         }))
 
-    lines.append("\n-- TODO: backfill 12+ months of 'budget' rates for CapEx CAD derivation.")
+    lines.append(f"\n-- Seeded {len(seen)} fx_rate rows ({len(seen)//3} months × 3 currencies: USD, GBP, EUR).")
+    lines.append("-- TODO: add annual 'budget' rates from Finance before CapEx CAD derivation goes live.")
 
 
 def gen_product_catalog(lines: list, merged: pd.DataFrame, skip_unmatched: bool) -> dict:
