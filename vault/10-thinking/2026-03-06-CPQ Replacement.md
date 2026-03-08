@@ -169,8 +169,10 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 ### Schema questions not yet resolved:
 
 - **`fusion_id` for CPQ-only new products** (Pro Series 7.0, Cluster 5.0, Atomic 5.0 — in `dimProductAttributes` but with blank lifecycle): Do they get `fusion_id` assigned by whoever manages that system before they can be inserted? Or do we allow a nullable `fusion_id` temporarily? Risk: if we allow nulls, we lose the external join guarantee.
+	- Answer: fusion_id will only be locked in when we release a new product. We will not be able to have a fusion_id that is null.
 
 - **FX rate direction double-check**: Schema uses "units of foreign per 1 CAD" (USD ≈ 0.69, meaning 1 CAD buys $0.69 USD). Need to verify this matches how CFO/finance team wants to enter and read rates. If they think "1 USD = 1.45 CAD," the direction is inverted — the math changes from divide to multiply.
+	- Answer: Fixing on 
 
 - **Multiple CapEx records per product**: Right now `product_capex` allows multiple rows per product (each procurement batch gets its own record). This is correct for asset tracking. But does the financial model need the "current" CapEx or a weighted average across batches? The CPQ uses a single CapEx figure per product SKU, not per physical unit.
 
