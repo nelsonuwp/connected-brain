@@ -249,4 +249,4 @@ If wrong prices are sent to a client: (1) revert to CPQ v28 for all new quotes i
 
 
 My questions:
-OK, reading through the schema's the currencies looks
+OK, reading through the schema's the currencies looks good. The FX rates. I have a question on I will first statement is the right type. Let's just keep spot and budget and get rid of ocean I've been told by finance that the spot will be the affordable rate and then they do need a budget rate for like beginning of the year type stuff for how to report to the board or investors. I'm curious about the CAD pricing rebased confirm override in the product types I don't see any reference diffusion ID that seems to be our main unique identifier here, but I think it might be handled in the product catalogue. I see servers.
