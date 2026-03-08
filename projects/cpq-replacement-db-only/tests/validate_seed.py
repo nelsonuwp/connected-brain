@@ -20,7 +20,7 @@ Exit codes:
 import json
 import os
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -378,7 +378,7 @@ def main():
     passed = sum(1 for r in results if r["passed"])
     total  = len(results)
     summary = {
-        "run_at": datetime.now(datetime.UTC).isoformat().replace("+00:00", "Z"),
+        "run_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "passed": passed,
         "failed": total - passed,
         "total":  total,
