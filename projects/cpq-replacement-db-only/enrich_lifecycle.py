@@ -122,9 +122,19 @@ def _is_default_variant(sku: str) -> bool:
 
 
 def _base_sku(sku: str) -> str:
-    """Strip 'Default ' prefix to get the canonical SKU for cache lookup."""
+    """Strip 'Default ' prefix to get the canonical SKU for cache lookup.
+
+    Handles the naming inconsistency where some SKUs are stored as
+    'Default Xeon Bronze 3106...' but the base SKU is 'Intel Xeon Bronze 3106...'.
+    """
     if sku.lower().startswith("default "):
-        return sku[8:].strip()
+        stripped = sku[8:].strip()
+        # Re-add "Intel" prefix if the SKU starts with a known Intel brand name
+        # e.g. "Default Xeon Bronze 3106" -> "Intel Xeon Bronze 3106"
+        intel_brands = ("xeon", "celeron", "core i", "pentium", "itanium")
+        if stripped.lower().startswith(intel_brands):
+            return "Intel " + stripped
+        return stripped
     return sku
 
 
