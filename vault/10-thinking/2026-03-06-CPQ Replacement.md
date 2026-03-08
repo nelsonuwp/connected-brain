@@ -198,11 +198,15 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 ### Architecture questions not yet resolved:
 
 - **What does the front-end look like for POC?** Options: (a) raw Supabase table editor for internal use only, (b) simple React/Next.js form using Supabase auto-generated REST API, (c) nothing yet — just validate the data with queries
-	* For now, C. I just want to get the schema in there and figured out correctly. 
+	* For now, C. I just want to get the schema in there and figured out correctly via the SQL commands and then we can put a UI on it. 
 - **Quote generation**: The CPQ produces a formatted customer-facing quote. Does the replacement need to generate a PDF/Word doc, or just produce structured data that gets pasted somewhere?
+	- No, I ONLY want this. to be the backend for now. 
 - **Financial model (EBIT/IRR/NPV)**: The CPQ has a multi-period financial model. Does the POC need this, or just pricing lookups?
+	- We can handle the pricing lookups. For the multi-period financial model another tool can extract the data and build that. 
 - **Who uses this**: Internal only (sales reps, sales ops, finance)? Or does it eventually face the customer?
+	- Internal only. 
 - **Integration with Salesforce**: The CPQ apparently connects to Salesforce (there's a "Deal Desk request in Salesforce" reference in the Connectivity Calculator). What data flows between them now, and what should flow in the replacement?
+	- CPQ absolutely does not connect with salesforce. The team will attached the gigantic CPQ excel shee
 
 ### Product catalog questions:
 
