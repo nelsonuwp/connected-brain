@@ -229,8 +229,11 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 ## Risks and Constraints
 
 - **`fusion_id` gaps**: Newer server SKUs in the CPQ don't have assigned `fusion_ids` yet. POC can proceed with placeholder IDs, but production requires reconciliation with whatever system manages the `fusion_id` namespace.
+	- This is known issue and most likely won't happen.
 - **Price staleness**: The extracted data is from CPQ v28. If pricing has changed since the last file version, the seed data will be wrong. Need a "day zero" validation where finance confirms current pricing before go-live.
+	- I'm ok with that. By the time we get there we will have so FEW things to manually update it will be easy. 
 - **FX rate gap at go-live**: The CPQ has Ocean/Spot rates. The new schema adds `budget` as a third type. Someone needs to backfill historical budget rates (at least 12 months) for the CapEx CAD derivation to work on existing assets.
+	- It's ok, but I got off the phone with Finance and they say th
 - **Supabase free tier pausing**: If the POC isn't actively used, the project pauses after 1 week. Not a problem for active development, but could surprise someone picking it up after a holiday week.
 - **No financial model in POC**: The CPQ's EBIT/IRR/NPV calculations are real business logic that sales and finance depend on. The POC won't replicate this. There will be a gap period where pricing comes from the new system but EBIT modeling still uses Excel.
 - **Colo deprioritized**: Scoped out for POC. Colo clients at MIA and POR will still need the Excel tool during the POC phase.
