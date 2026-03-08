@@ -206,13 +206,16 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 - **Who uses this**: Internal only (sales reps, sales ops, finance)? Or does it eventually face the customer?
 	- Internal only. 
 - **Integration with Salesforce**: The CPQ apparently connects to Salesforce (there's a "Deal Desk request in Salesforce" reference in the Connectivity Calculator). What data flows between them now, and what should flow in the replacement?
-	- CPQ absolutely does not connect with salesforce. The team will attached the gigantic CPQ excel shee
+	- CPQ absolutely does not connect with salesforce. The team will attached the gigantic CPQ excel sheet to the DD request. 
 
 ### Product catalog questions:
 
 - **Colo scope**: Colo is currently out of scope for POC, but `dimProductAttributes` has colo products (cabinets, cross-connects, power). Leave them in the catalog with `is_active = false`, or exclude entirely?
+	- Keep them in there for now, we can use them later. 
 - **Firewall SKUs**: Juniper SRX 300/340/345/380 are in `dimProductAttributes` with `fusion_id`. They're not in scope for the server POC but will be needed soon. Include the rows, just don't build the configurator logic yet?
+	- Include them for now but don't build into the logic.
 - **Promo server NRC**: Both Promo Server NA and Promo Server UK have `nrc_usd = null` and `nrc_gbp = null` in the extracted data. Is there genuinely no setup fee, or is it bundled/zero?
+	- I legit don't know what promo server is. I would exclude that for now. All promo stuff we can handle exceptionally. 
 
 ## Assumptions I'm Making
 
