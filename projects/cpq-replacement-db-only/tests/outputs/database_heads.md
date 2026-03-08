@@ -204,7 +204,15 @@ Column names, datatypes, and **pandas-style head**: first few rows of real data.
 | created_at | timestamp with time zone | NO |
 | updated_at | timestamp with time zone | NO |
 
-**Row count:** 18
+#### Head (first 5 rows, total 18)
+
+| id | fusion_id | sku_name | product_type_code | level | is_active |
+|----|-----------|----------|-------------------|-------|-----------|
+| 1 | TEMP-promo-server-na | Promo Server - NA | server | TLS | true |
+| 2 | TEMP-promo-server-uk | Promo Server - UK | server | TLS | true |
+| 3 | 1290 | Pro Series 7.0 | server | TLS | true |
+| 4 | 1288 | Cluster 5.0 (Dell R440) | server | TLS | true |
+| 5 | 1289 | Atomic 5.0 (Dell R650xs) | server | TLS | true |
 
 ---
 
@@ -224,7 +232,15 @@ Column names, datatypes, and **pandas-style head**: first few rows of real data.
 | effective_from | date | YES |
 | notes | text | YES |
 
-**Row count:** 204
+#### Head (first 5 rows, total 204)
+
+| id | product_id | currency_code | term_months | mrc | nrc | pricing_model | effective_from | notes |
+|----|------------|---------------|-------------|-----|-----|---------------|----------------|-------|
+| 1 | 1 | USD | 0 | — | 0.00 | flat | — | — |
+| 2 | 1 | USD | 12 | 399.00 | 0.00 | flat | — | — |
+| 3 | 1 | USD | 24 | 349.00 | 0.00 | flat | — | — |
+| 4 | 1 | USD | 36 | 299.00 | 0.00 | flat | — | — |
+| 5 | 1 | CAD | 0 | — | 0.00 | flat | — | — |
 
 ---
 
@@ -239,7 +255,20 @@ Column names, datatypes, and **pandas-style head**: first few rows of real data.
 | parent_code | text | YES |
 | level | text | NO |
 
-**Row count:** 31
+#### Head (first 10 rows, total 31)
+
+| type_code | type_label | parent_code | level |
+|-----------|------------|-------------|-------|
+| server | Server | — | TLS |
+| colocation | Colocation | — | TLS |
+| firewall | Firewall | — | TLS |
+| switch | Network Switch | — | TLS |
+| hardware_component | Hardware Component | — | Component |
+| software | Software | — | Component |
+| network_component | Network Component | — | Component |
+| cpu | CPU / Processor | hardware_component | Component |
+| ram | RAM | hardware_component | Component |
+| storage_component | Storage | hardware_component | Component |
 
 ---
 
@@ -252,7 +281,15 @@ Column names, datatypes, and **pandas-style head**: first few rows of real data.
 | server_product_id | bigint | NO |
 | dc_code | character(3) | NO |
 
-**Row count:** 88
+#### Head (first 5 rows, total 88)
+
+| server_product_id | dc_code |
+|-------------------|---------|
+| 3 | ATL |
+| 3 | MIA |
+| 3 | LAX |
+| 3 | IAD |
+| 3 | TOR |
 
 ---
 
@@ -273,7 +310,15 @@ Column names, datatypes, and **pandas-style head**: first few rows of real data.
 | allow_customization | boolean | NO |
 | notes | text | YES |
 
-**Row count:** 18
+#### Head (first 5 rows, total 18)
+
+| product_id | processor_sockets | drive_bays | default_cpu_qty | default_drive_qty | is_vhost | is_promo | min_contract_months | allow_customization | notes |
+|------------|-------------------|------------|-----------------|-------------------|----------|----------|---------------------|---------------------|-------|
+| 1 | — | 16 | 2 | — | false | true | 12 | false | — |
+| 2 | — | 8 | 2 | — | false | true | 12 | false | — |
+| 3 | — | 10 | 2 | — | false | false | — | true | — |
+| 4 | — | 4 | 2 | — | true | false | — | true | — |
+| 5 | — | 8 | 1 | — | true | false | — | true | — |
 
 ---
 
@@ -343,7 +388,12 @@ Column names, datatypes, and **pandas-style head**: first few rows of real data.
 | created_at | timestamp with time zone | YES |
 | is_active | boolean | YES |
 
-**Row count:** 2
+#### Head (first 2 rows, total 2)
+
+| id | placeholder_id | sku_name | reason | created_at | is_active |
+|----|----------------|----------|--------|------------|-----------|
+| 1 | TEMP-promo-server-na | Promo Server - NA | Product not yet formally released; fusion_id pending assignment | 2026-03-08 15:28:51+00 | true |
+| 2 | TEMP-promo-server-uk | Promo Server - UK | Product not yet formally released; fusion_id pending assignment | 2026-03-08 15:28:51+00 | true |
 
 ---
 
