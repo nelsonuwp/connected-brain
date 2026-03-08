@@ -187,14 +187,18 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
   - FX rates → Finance (CFO or team)
 	  - Correct
   - Server MRC/NRC pricing → ??? (Sales ops? Finance? Product?)
-	  - Well the _pricing_ is an aggregate of a bunch of different things: capex cost + overhead costs (DC facilities + power, DCh+ SW + addons + margin - Different teams will own 
+	  - Well the _pricing_ is an aggregate of a bunch of different things: capex cost + overhead costs (DC facilities + power, DC headcount, Networking headcount, etc) + SW + addons + margin - Different teams will own providing data to ensure it's fresh. 
   - Product lifecycle dates → ??? (whoever manages the product catalog)
+	  - Product
   - CapEx records → Procurement or Finance
+	  - Procurement
   - New product additions → needs a defined workflow
+	  - Yes, new workflow needed, but product will own.
 
 ### Architecture questions not yet resolved:
 
 - **What does the front-end look like for POC?** Options: (a) raw Supabase table editor for internal use only, (b) simple React/Next.js form using Supabase auto-generated REST API, (c) nothing yet — just validate the data with queries
+	* For now, C. I just want to get the schema in there and figured out correctly. 
 - **Quote generation**: The CPQ produces a formatted customer-facing quote. Does the replacement need to generate a PDF/Word doc, or just produce structured data that gets pasted somewhere?
 - **Financial model (EBIT/IRR/NPV)**: The CPQ has a multi-period financial model. Does the POC need this, or just pricing lookups?
 - **Who uses this**: Internal only (sales reps, sales ops, finance)? Or does it eventually face the customer?
