@@ -246,3 +246,7 @@ If wrong prices are sent to a client: (1) revert to CPQ v28 for all new quotes i
 
 ### Critique — 2026-03-08 08:54 ET
 **Score: 7/10** — Approach clear; fixes applied to note body above. Key issues resolved: POC success criteria made testable; MH/DH breakdown clarified; FX direction corrected (1 CAD = 1.3651 USD throughout); cad_pricing_rebased flag added; use_as_baseline flag added; pending_fusion_id table added; RACI-lite defined; compatibility validation process defined; rollback plan added; handoff criteria defined; Decisions Still Open pruned of resolved items.
+
+
+My questions:
+OK, reading through the schema's the currencies looks
