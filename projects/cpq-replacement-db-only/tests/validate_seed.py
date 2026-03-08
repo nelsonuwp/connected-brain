@@ -29,7 +29,7 @@ from sqlalchemy import create_engine, text
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-ROOT = Path(__file__).parent.parent
+ROOT = Path(__file__).parent.parent.parent.parent  # tests/ -> cpq-replacement-db-only/ -> projects/ -> connected-brain/
 OUTPUTS = Path(__file__).parent / "outputs"
 OUTPUTS.mkdir(parents=True, exist_ok=True)
 
