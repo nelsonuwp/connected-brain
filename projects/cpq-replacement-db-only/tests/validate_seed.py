@@ -9,11 +9,8 @@ Usage:
     python tests/validate_seed.py
 
 Env vars (same .env as the rest of the project):
-    SUPABASE_DB_URL   — full postgres:// connection string (pooler)
-                        Session mode (recommended for local scripts): port 5432
-                        Transaction mode: port 6543
-                        e.g. postgresql://postgres.xxxx:PASSWORD@aws-1-us-east-1.pooler.supabase.com:5432/postgres
-    SUPABASE_USE_SESSION_MODE — if set (e.g. 1), 6543 in SUPABASE_DB_URL is rewritten to 5432 (session mode)
+    SUPABASE_URL   — project REST URL, e.g. https://xxxx.supabase.co
+    SUPABASE_KEY   — anon key (or service-role key if RLS blocks anon reads)
 
 Exit codes:
     0 — all assertions passed
@@ -27,8 +24,7 @@ from datetime import date, datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, event, text
-from sqlalchemy.pool import NullPool
+from supabase import create_client
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -85,25 +81,51 @@ def json_serial(obj):
     raise TypeError(f"Type {type(obj)} not serializable")
 
 
-def run_query(conn, sql, params=None):
-    result = conn.execute(text(sql), params or {})
-    cols = list(result.keys())
-    rows = [dict(zip(cols, row)) for row in result.fetchall()]
-    return rows
+# ---------------------------------------------------------------------------
+# Tests  (each receives `client` — a supabase.Client)
+# ---------------------------------------------------------------------------
+def test_row_counts(client):
+    """Sanity check expected row counts for every seeded table."""
+    expected = {
+        "fx_rates":               330,
+        "product_catalog":         18,
+        "server_specs":            18,
+        "product_pricing":        204,
+        "server_dc_availability":  88,
+        "dc_cost_drivers":         54,
+        "overhead_constants":       8,
+        "pending_fusion_id":        2,
+    }
+    rows = []
+    failures = []
+    for table, exp in expected.items():
+        resp = client.table(table).select("*", count="exact").limit(0).execute()
+        actual = resp.count
+        ok = actual == exp
+        rows.append({"table": table, "expected": exp, "actual": actual, "ok": ok})
+        if not ok:
+            failures.append(f"{table}: expected {exp}, got {actual}")
+
+    return {
+        "test": "row_counts",
+        "description": "All seeded tables have expected row counts",
+        "passed": len(failures) == 0,
+        "failures": failures,
+        "rows": rows,
+    }
 
 
-# ---------------------------------------------------------------------------
-# Tests
-# ---------------------------------------------------------------------------
-def test_pro6_cad_pricing(conn):
-    rows = run_query(conn, """
-        SELECT pp.term_months, pp.mrc, pp.nrc
-        FROM product_catalog pc
-        JOIN product_pricing pp ON pp.product_id = pc.id
-        WHERE pc.sku_name    = :sku
-          AND pp.currency_code = 'CAD'
-        ORDER BY pp.term_months
-    """, {"sku": REFERENCE["pro_6_cad"]["sku"]})
+def test_pro6_cad_pricing(client):
+    sku = REFERENCE["pro_6_cad"]["sku"]
+    resp = (
+        client.table("product_pricing")
+        .select("term_months, mrc, nrc, product_catalog!inner(sku_name)")
+        .eq("product_catalog.sku_name", sku)
+        .eq("currency_code", "CAD")
+        .order("term_months")
+        .execute()
+    )
+    rows = [{"term_months": r["term_months"], "mrc": r["mrc"], "nrc": r["nrc"]} for r in resp.data]
 
     ref = REFERENCE["pro_6_cad"]["pricing"]
     failures = []
@@ -111,9 +133,9 @@ def test_pro6_cad_pricing(conn):
         term = row["term_months"]
         if term in ref:
             exp_mrc, exp_nrc = ref[term]
-            if row["mrc"] != exp_mrc:
+            if float(row["mrc"]) != exp_mrc:
                 failures.append(f"term={term} mrc={row['mrc']} expected={exp_mrc}")
-            if row["nrc"] != exp_nrc:
+            if float(row["nrc"]) != exp_nrc:
                 failures.append(f"term={term} nrc={row['nrc']} expected={exp_nrc}")
         else:
             failures.append(f"Unexpected term_months={term} in result")
@@ -131,19 +153,19 @@ def test_pro6_cad_pricing(conn):
     }
 
 
-def test_cluster_atomic_no_por(conn):
+def test_cluster_atomic_no_por(client):
     failures = []
     rows_out = {}
     for key in ("cluster_no_por", "atomic_no_por"):
         ref = REFERENCE[key]
-        rows = run_query(conn, """
-            SELECT sda.dc_code
-            FROM product_catalog pc
-            JOIN server_dc_availability sda ON sda.server_product_id = pc.id
-            WHERE pc.sku_name = :sku
-            ORDER BY sda.dc_code
-        """, {"sku": ref["sku"]})
-        dcs = {r["dc_code"] for r in rows}
+        resp = (
+            client.table("server_dc_availability")
+            .select("dc_code, product_catalog!inner(sku_name)")
+            .eq("product_catalog.sku_name", ref["sku"])
+            .order("dc_code")
+            .execute()
+        )
+        dcs = {r["dc_code"] for r in resp.data}
         rows_out[ref["sku"]] = sorted(dcs)
         if ref["forbidden_dc"] in dcs:
             failures.append(f"{ref['sku']} has {ref['forbidden_dc']} — should be NA-only hardware")
@@ -157,14 +179,17 @@ def test_cluster_atomic_no_por(conn):
     }
 
 
-def test_fx_usd_feb2026(conn):
+def test_fx_usd_feb2026(client):
     ref = REFERENCE["fx_usd_feb2026"]
-    rows = run_query(conn, """
-        SELECT currency_code, rate_date, rate, rate_type
-        FROM fx_rates
-        WHERE currency_code = :ccy AND rate_date = :dt
-        ORDER BY rate_type
-    """, {"ccy": ref["currency"], "dt": ref["date"]})
+    resp = (
+        client.table("fx_rates")
+        .select("currency_code, rate_date, rate, rate_type")
+        .eq("currency_code", ref["currency"])
+        .eq("rate_date", ref["date"])
+        .order("rate_type")
+        .execute()
+    )
+    rows = resp.data
 
     failures = []
     if not rows:
@@ -185,26 +210,28 @@ def test_fx_usd_feb2026(conn):
     }
 
 
-def test_view_capex_math(conn):
-    """v_product_capex_cad: capex_cad should = procured_price * rate, not / rate."""
-    rows = run_query(conn, """
-        SELECT sku_name, procured_price, procured_currency, rate, capex_cad
-        FROM v_product_capex_cad
-        WHERE procured_currency IS NOT NULL
-          AND procured_price IS NOT NULL
-          AND procured_currency != 'CAD'
-        LIMIT 5
-    """)
+def test_view_capex_math(client):
+    """v_product_capex_cad: procured_price_cad should = procured_price * fx_budget_rate_used."""
+    resp = (
+        client.table("v_product_capex_cad")
+        .select("product_id, procured_price, procured_currency, fx_budget_rate_used, procured_price_cad")
+        .not_.is_("procured_currency", "null")
+        .not_.is_("procured_price", "null")
+        .neq("procured_currency", "CAD")
+        .limit(5)
+        .execute()
+    )
+    rows = resp.data
 
     failures = []
     for row in rows:
-        if row["rate"] and row["procured_price"] and row["capex_cad"]:
-            expected = round(float(row["procured_price"]) * float(row["rate"]), 2)
-            actual   = round(float(row["capex_cad"]), 2)
+        if row["fx_budget_rate_used"] and row["procured_price"] and row["procured_price_cad"]:
+            expected = round(float(row["procured_price"]) * float(row["fx_budget_rate_used"]), 2)
+            actual   = round(float(row["procured_price_cad"]), 2)
             if abs(expected - actual) > 0.10:
                 failures.append(
-                    f"{row['sku_name']}: {row['procured_price']} × {row['rate']} "
-                    f"= {expected} but capex_cad={actual}"
+                    f"product_id={row['product_id']}: {row['procured_price']} × {row['fx_budget_rate_used']} "
+                    f"= {expected} but procured_price_cad={actual}"
                 )
 
     return {
@@ -217,8 +244,14 @@ def test_view_capex_math(conn):
     }
 
 
-def test_overhead_constants(conn):
-    rows = run_query(conn, "SELECT key, value FROM overhead_constants ORDER BY key")
+def test_overhead_constants(client):
+    resp = (
+        client.table("overhead_constants")
+        .select("key, value")
+        .order("key")
+        .execute()
+    )
+    rows = resp.data
     kv = {r["key"]: float(r["value"]) for r in rows}
 
     failures = []
@@ -240,17 +273,16 @@ def test_overhead_constants(conn):
     }
 
 
-def test_pro6_dc_availability(conn):
+def test_pro6_dc_availability(client):
     ref = REFERENCE["pro6_dcs"]
-    rows = run_query(conn, """
-        SELECT sda.dc_code
-        FROM product_catalog pc
-        JOIN server_dc_availability sda ON sda.server_product_id = pc.id
-        WHERE pc.sku_name = :sku
-        ORDER BY sda.dc_code
-    """, {"sku": ref["sku"]})
-
-    actual = {r["dc_code"] for r in rows}
+    resp = (
+        client.table("server_dc_availability")
+        .select("dc_code, product_catalog!inner(sku_name)")
+        .eq("product_catalog.sku_name", ref["sku"])
+        .order("dc_code")
+        .execute()
+    )
+    actual = {r["dc_code"] for r in resp.data}
     missing = ref["expected_dcs"] - actual
     extra   = actual - ref["expected_dcs"]
     failures = []
@@ -266,13 +298,16 @@ def test_pro6_dc_availability(conn):
     }
 
 
-def test_tor_power_driver(conn):
+def test_tor_power_driver(client):
     ref = REFERENCE["tor_power"]
-    rows = run_query(conn, """
-        SELECT dc_code, cost_category, amount, currency_code
-        FROM dc_cost_drivers
-        WHERE dc_code = :dc AND cost_category = :cat
-    """, {"dc": ref["dc"], "cat": ref["category"]})
+    resp = (
+        client.table("dc_cost_drivers")
+        .select("dc_code, cost_category, amount, currency_code")
+        .eq("dc_code", ref["dc"])
+        .eq("cost_category", ref["category"])
+        .execute()
+    )
+    rows = resp.data
 
     failures = []
     if not rows:
@@ -293,63 +328,23 @@ def test_tor_power_driver(conn):
     }
 
 
-def test_row_counts(conn):
-    """Sanity check expected row counts for every seeded table."""
-    expected = {
-        "fx_rates":               330,
-        "product_catalog":         18,
-        "server_specs":            18,
-        "product_pricing":        204,
-        "server_dc_availability":  88,
-        "dc_cost_drivers":         54,
-        "overhead_constants":       8,
-        "pending_fusion_id":        2,
-    }
-    rows = []
-    failures = []
-    for table, exp in expected.items():
-        result = run_query(conn, f"SELECT COUNT(*) AS n FROM {table}")
-        actual = result[0]["n"]
-        passed = actual == exp
-        rows.append({"table": table, "expected": exp, "actual": actual, "ok": passed})
-        if not passed:
-            failures.append(f"{table}: expected {exp}, got {actual}")
-
-    return {
-        "test": "row_counts",
-        "description": "All seeded tables have expected row counts",
-        "passed": len(failures) == 0,
-        "failures": failures,
-        "rows": rows,
-    }
-
-
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
-    db_url = os.getenv("SUPABASE_DB_URL")
-    if not db_url:
-        print("ERROR: SUPABASE_DB_URL not set in .env")
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_KEY")
+    if not url or not key:
+        print("ERROR: SUPABASE_URL and SUPABASE_KEY must be set in .env")
+        print("  SUPABASE_URL  — https://<project-ref>.supabase.co")
+        print("  SUPABASE_KEY  — anon key from Dashboard → API Settings")
         sys.exit(1)
 
-    # Optional: force session mode (port 5432) for local scripts; avoids transaction-mode pooler issues.
-    if os.getenv("SUPABASE_USE_SESSION_MODE", "").strip() and ":6543/" in db_url:
-        db_url = db_url.replace(":6543/", ":5432/")
-        print("Using session-mode pooler (port 5432).")
-
-    # Transaction-mode pooler (port 6543) requires NullPool and no prepared statements.
-    # Session mode (5432) works with default pool; NullPool is safe for both.
-    engine = create_engine(
-        db_url,
-        connect_args={"sslmode": "require"},
-        poolclass=NullPool,
-    )
-
-    if ":6543" in db_url:
-        @event.listens_for(engine.pool, "connect")
-        def _disable_prepared_statements(dbapi_conn, connection_record):
-            dbapi_conn.prepare_threshold = 0  # Supavisor transaction mode doesn't support prepared statements
+    try:
+        client = create_client(url, key)
+    except Exception as e:
+        print(f"ERROR: Could not create Supabase client: {e}")
+        sys.exit(1)
 
     tests = [
         test_row_counts,
@@ -363,39 +358,27 @@ def main():
     ]
 
     results = []
-    try:
-        with engine.connect() as conn:
-            for fn in tests:
-                try:
-                    result = fn(conn)
-                except Exception as e:
-                    result = {
-                        "test": fn.__name__,
-                        "passed": False,
-                        "failures": [f"Exception: {e}"],
-                        "rows": [],
-                    }
-                status = "✓ PASS" if result["passed"] else "✗ FAIL"
-                print(f"  {status}  {result['test']}")
-                if result["failures"]:
-                    for f in result["failures"]:
-                        print(f"           → {f}")
-                results.append(result)
-    except Exception as e:
-        err = str(e).split("\n")[0]
-        print(f"ERROR: Could not connect to database: {err}")
-        print()
-        print("Suggestions:")
-        print("  1. Use session mode (port 5432) for local scripts: set SUPABASE_USE_SESSION_MODE=1")
-        print("     and ensure SUPABASE_DB_URL uses the session pooler (port 5432 from Dashboard → Connect).")
-        print("  2. Check username is postgres.<project-ref>, not just postgres.")
-        print("  3. Confirm project is not paused (Supabase Dashboard).")
-        sys.exit(1)
+    for fn in tests:
+        try:
+            result = fn(client)
+        except Exception as e:
+            result = {
+                "test": fn.__name__,
+                "passed": False,
+                "failures": [f"Exception: {e}"],
+                "rows": [],
+            }
+        status = "✓ PASS" if result["passed"] else "✗ FAIL"
+        print(f"  {status}  {result['test']}")
+        if result["failures"]:
+            for f in result["failures"]:
+                print(f"           → {f}")
+        results.append(result)
 
     passed = sum(1 for r in results if r["passed"])
     total  = len(results)
     summary = {
-        "run_at": datetime.utcnow().isoformat() + "Z",
+        "run_at": datetime.now(datetime.UTC).isoformat().replace("+00:00", "Z"),
         "passed": passed,
         "failed": total - passed,
         "total":  total,

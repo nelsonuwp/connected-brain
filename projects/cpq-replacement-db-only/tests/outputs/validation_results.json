@@ -1,0 +1,205 @@
+{
+  "run_at": "2026-03-08T17:33:15.153739Z",
+  "passed": 8,
+  "failed": 0,
+  "total": 8,
+  "all_passed": true,
+  "tests": [
+    {
+      "test": "row_counts",
+      "description": "All seeded tables have expected row counts",
+      "passed": true,
+      "failures": [],
+      "rows": [
+        {
+          "table": "fx_rates",
+          "expected": 330,
+          "actual": 330,
+          "ok": true
+        },
+        {
+          "table": "product_catalog",
+          "expected": 18,
+          "actual": 18,
+          "ok": true
+        },
+        {
+          "table": "server_specs",
+          "expected": 18,
+          "actual": 18,
+          "ok": true
+        },
+        {
+          "table": "product_pricing",
+          "expected": 204,
+          "actual": 204,
+          "ok": true
+        },
+        {
+          "table": "server_dc_availability",
+          "expected": 88,
+          "actual": 88,
+          "ok": true
+        },
+        {
+          "table": "dc_cost_drivers",
+          "expected": 54,
+          "actual": 54,
+          "ok": true
+        },
+        {
+          "table": "overhead_constants",
+          "expected": 8,
+          "actual": 8,
+          "ok": true
+        },
+        {
+          "table": "pending_fusion_id",
+          "expected": 2,
+          "actual": 2,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "test": "pro6_cad_pricing",
+      "description": "Pro Series 6.0 - M CAD pricing matches CPQ v28 Products-Hosting",
+      "passed": true,
+      "failures": [],
+      "rows": [
+        {
+          "term_months": 0,
+          "mrc": 1249.0,
+          "nrc": 1249.0
+        },
+        {
+          "term_months": 12,
+          "mrc": 1249.0,
+          "nrc": 1249.0
+        },
+        {
+          "term_months": 24,
+          "mrc": 969.0,
+          "nrc": 1249.0
+        },
+        {
+          "term_months": 36,
+          "mrc": 829.0,
+          "nrc": 1249.0
+        }
+      ]
+    },
+    {
+      "test": "cluster_atomic_no_por",
+      "description": "Cluster 5.0 and Atomic 5.0 must NOT be available in POR (NA hardware only)",
+      "passed": true,
+      "failures": [],
+      "rows": {
+        "Cluster 5.0 (Dell R440)": [
+          "ATL",
+          "IAD",
+          "LAX",
+          "MIA",
+          "TOR"
+        ],
+        "Atomic 5.0 (Dell R650xs)": [
+          "ATL",
+          "IAD",
+          "LAX",
+          "MIA",
+          "TOR"
+        ]
+      }
+    },
+    {
+      "test": "fx_usd_feb2026",
+      "description": "USD Feb 2026 spot rate matches Bank of Canada (1.3651)",
+      "passed": true,
+      "failures": [],
+      "rows": [
+        {
+          "currency_code": "USD",
+          "rate_date": "2026-02-01",
+          "rate": 1.3651,
+          "rate_type": "spot"
+        }
+      ]
+    },
+    {
+      "test": "view_capex_math",
+      "description": "v_product_capex_cad uses multiply (foreign \u00d7 rate = CAD), not divide",
+      "passed": true,
+      "failures": [],
+      "rows": [],
+      "note": "No rows = procured_price/currency not yet populated in product_catalog (expected at this stage)"
+    },
+    {
+      "test": "overhead_constants",
+      "description": "8 overhead rows present; sga_pct, inflation, capital_intensity match CPQ v28",
+      "passed": true,
+      "failures": [],
+      "rows": [
+        {
+          "key": "annual_cost_inflation",
+          "value": 0.03
+        },
+        {
+          "key": "capital_intensity_threshold",
+          "value": 0.5
+        },
+        {
+          "key": "ebit_good_target",
+          "value": 0.375
+        },
+        {
+          "key": "ebit_moderate_target",
+          "value": 0.35
+        },
+        {
+          "key": "ebit_poor_threshold",
+          "value": -0.1
+        },
+        {
+          "key": "ebit_strong_threshold",
+          "value": 0.4
+        },
+        {
+          "key": "sga_pct",
+          "value": 0.08199743735763099
+        },
+        {
+          "key": "software_markup_pct",
+          "value": 0.15
+        }
+      ]
+    },
+    {
+      "test": "pro6_dc_availability",
+      "description": "Pro Series 6.0 - M available in all 6 DCs (ATL MIA LAX IAD TOR POR)",
+      "passed": true,
+      "failures": [],
+      "rows": [
+        "ATL",
+        "IAD",
+        "LAX",
+        "MIA",
+        "POR",
+        "TOR"
+      ]
+    },
+    {
+      "test": "tor_power_driver",
+      "description": "TOR power_per_kw \u2248 218.27 CAD (highest-cost NA DC)",
+      "passed": true,
+      "failures": [],
+      "rows": [
+        {
+          "dc_code": "TOR",
+          "cost_category": "power_per_kw",
+          "amount": 218.2749,
+          "currency_code": "CAD"
+        }
+      ]
+    }
+  ]
+}
