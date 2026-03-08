@@ -176,9 +176,11 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 		- E.g. US Dollar = 1.3651 for 2026-02
 
 - **Multiple CapEx records per product**: Right now `product_capex` allows multiple rows per product (each procurement batch gets its own record). This is correct for asset tracking. But does the financial model need the "current" CapEx or a weighted average across batches? The CPQ uses a single CapEx figure per product SKU, not per physical unit.
-	- When they procure. Add a 
+	- When they procure. Add a row for what they bought (fusion ID), how many, price, currency, date.
+	- That way we can look up the most recent date purchased and use THAT as the capex rate. We should probably add some sort of field to identify if it was bught on a discount, not to reestablish the capex rate. So like "use as new capex baseline" and then we can put in the UI that we will be entering this as the actual new rate (total price/units = capex price)
 
 - **Lifecycle date source of truth**: We have dates in `dimProductAttributes` (spotty), the hardware lifecycle JSON (more complete for hardware), and vendor documentation. Who owns keeping these current? Is there a feed from somewhere, or manual maintenance?
+	- Once we have product attributes migrated over to the dat
 
 - **Who updates what in Supabase**:
   - FX rates → Finance (CFO or team)
