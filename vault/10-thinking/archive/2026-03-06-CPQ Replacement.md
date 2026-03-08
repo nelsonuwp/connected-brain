@@ -1,9 +1,15 @@
 ---
-type: thinking
-status: active
-tags: [cpq, database, supabase, architecture, pricing, infrastructure]
 created: 2026-03-08
 last_updated: 2026-03-08
+status: promoted
+tags:
+- cpq
+- database
+- supabase
+- architecture
+- pricing
+- infrastructure
+type: thinking
 ---
 
 # CPQ Replacement — Database Architecture & Migration
