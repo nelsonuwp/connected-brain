@@ -1,7 +1,7 @@
 ---
-type: idea
 created: 2026-03-06
-status: raw
+status: promoted
+type: idea
 ---
 
 # CPQ Replacement
