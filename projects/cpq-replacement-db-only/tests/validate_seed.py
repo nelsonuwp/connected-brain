@@ -329,7 +329,7 @@ def main():
         print("ERROR: SUPABASE_DB_URL not set in .env")
         sys.exit(1)
 
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, connect_args={"sslmode": "require"})
 
     tests = [
         test_row_counts,
