@@ -72,10 +72,10 @@ REFERENCE = {
 
     # -- Component catalog spot checks -------------------------------------
     "component_catalog": {
-        "processor_count":    19,
+        "processor_count":    21,   # 19 from 05 + 2 stubs (6517P, Gold 6326)
         "ram_count":          23,
-        "drive_count":        14,
-        "psu_count":           1,
+        "drive_count":        16,   # 14 from 05 + 2 stubs (960 GB SSD, 8 TB SATA)
+        "psu_count":           6,   # 1 from 05 + 5 stubs (Dual/Single/Redundant PSUs)
         "nic_count":           2,
         "os_count":           25,
         "sql_count":           5,
@@ -503,9 +503,10 @@ def test_server_default_components_spot_checks(client):
     for key, ref in REFERENCE["server_defaults"].items():
         sku = ref["sku"]
         resp = (client.table("server_default_components")
-                .select("component_type, product_catalog!inner(sku_name), "
-                        "component:component_product_id(sku_name)")
-                .eq("product_catalog.sku_name", sku).execute())
+                .select("component_type, "
+                        "server:product_catalog!server_default_components_server_product_id_fkey(sku_name), "
+                        "component:product_catalog!server_default_components_component_product_id_fkey(sku_name)")
+                .eq("server.sku_name", sku).execute())
         count = len(resp.data)
         rows.append({"server": sku, "count": count})
         if count != ref["count"]:
@@ -539,9 +540,10 @@ def test_selectable_options_spot_checks(client):
     failures, rows = [], []
     ref = REFERENCE["selectable_options"]["adv_6_vhost_cpus"]
     resp = (client.table("server_selectable_options")
-            .select("category, product_catalog!inner(sku_name), "
-                    "component:component_product_id(sku_name)")
-            .eq("product_catalog.sku_name", ref["sku"])
+            .select("category, "
+                    "server:product_catalog!server_selectable_options_server_product_id_fkey(sku_name), "
+                    "component:product_catalog!server_selectable_options_component_product_id_fkey(sku_name)")
+            .eq("server.sku_name", ref["sku"])
             .eq("category", ref["category"]).execute())
     count = len(resp.data)
     actual_skus = {r["component"]["sku_name"] for r in resp.data}
@@ -560,11 +562,17 @@ def test_no_placeholder_options(client):
     forbidden = REFERENCE["selectable_options"]["forbidden_values"]
     failures, rows = [], []
     for val in forbidden:
+        # Look up the catalog id for this placeholder sku first
+        cat_resp = (client.table("product_catalog")
+                    .select("id").eq("sku_name", val).limit(1).execute())
+        if not cat_resp.data:
+            continue  # placeholder not in catalog at all — pass
+        comp_id = cat_resp.data[0]["id"]
         resp = (client.table("server_selectable_options")
-                .select("id, component:component_product_id(sku_name)")
-                .eq("component.sku_name", val).execute())
+                .select("id, component_product_id")
+                .eq("component_product_id", comp_id).execute())
         if resp.data:
-            failures.append(f"Placeholder found in selectable options: '{val}' ({len(resp.data)} rows)")
+            failures.append(f"Placeholder in selectable options: '{val}' ({len(resp.data)} rows)")
             rows.extend(resp.data)
     return _result("no_placeholder_options",
                    "No 'No Upgrades Available' or 'IPMI Card' rows in server_selectable_options",
@@ -573,10 +581,10 @@ def test_no_placeholder_options(client):
 
 def test_selectable_options_display_order(client):
     resp = (client.table("server_selectable_options")
-            .select("id, product_catalog!inner(sku_name)")
+            .select("id, server:product_catalog!server_selectable_options_server_product_id_fkey(sku_name)")
             .is_("display_order", "null").execute())
     bad = resp.data
-    failures = [f"NULL display_order: id={r['id']} server={r['product_catalog']['sku_name']}"
+    failures = [f"NULL display_order: id={r['id']} server={r['server']['sku_name']}"
                 for r in bad]
     return _result("selectable_options_display_order",
                    "All server_selectable_options rows have a non-null display_order",
