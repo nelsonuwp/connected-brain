@@ -1,15 +1,18 @@
 {
-  "run_at": "2026-03-08T17:33:43.677796Z",
-  "passed": 8,
-  "failed": 0,
+  "run_at": "2026-03-08T22:48:57.763795Z",
+  "passed": 7,
+  "failed": 1,
   "total": 8,
-  "all_passed": true,
+  "all_passed": false,
   "tests": [
     {
       "test": "row_counts",
       "description": "All seeded tables have expected row counts",
-      "passed": true,
-      "failures": [],
+      "passed": false,
+      "failures": [
+        "product_catalog: expected 18, got 173",
+        "product_pricing: expected 204, got 680"
+      ],
       "rows": [
         {
           "table": "fx_rates",
@@ -20,8 +23,8 @@
         {
           "table": "product_catalog",
           "expected": 18,
-          "actual": 18,
-          "ok": true
+          "actual": 173,
+          "ok": false
         },
         {
           "table": "server_specs",
@@ -32,8 +35,8 @@
         {
           "table": "product_pricing",
           "expected": 204,
-          "actual": 204,
-          "ok": true
+          "actual": 680,
+          "ok": false
         },
         {
           "table": "server_dc_availability",
@@ -130,7 +133,43 @@
       "description": "v_product_capex_cad uses multiply (foreign \u00d7 rate = CAD), not divide",
       "passed": true,
       "failures": [],
-      "rows": [],
+      "rows": [
+        {
+          "product_id": 1,
+          "procured_price": 580.0,
+          "procured_currency": "USD",
+          "fx_budget_rate_used": null,
+          "procured_price_cad": null
+        },
+        {
+          "product_id": 2,
+          "procured_price": 580.0,
+          "procured_currency": "USD",
+          "fx_budget_rate_used": null,
+          "procured_price_cad": null
+        },
+        {
+          "product_id": 3,
+          "procured_price": 12056.0,
+          "procured_currency": "USD",
+          "fx_budget_rate_used": null,
+          "procured_price_cad": null
+        },
+        {
+          "product_id": 6,
+          "procured_price": 7569.0,
+          "procured_currency": "USD",
+          "fx_budget_rate_used": null,
+          "procured_price_cad": null
+        },
+        {
+          "product_id": 7,
+          "procured_price": 7569.0,
+          "procured_currency": "USD",
+          "fx_budget_rate_used": null,
+          "procured_price_cad": null
+        }
+      ],
       "note": "No rows = procured_price/currency not yet populated in product_catalog (expected at this stage)"
     },
     {
