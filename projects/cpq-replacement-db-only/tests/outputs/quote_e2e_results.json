@@ -1,0 +1,81 @@
+{
+  "run_at": "2026-03-08T23:57:22.634182Z",
+  "passed": 4,
+  "failed": 0,
+  "total": 4,
+  "all_passed": true,
+  "results": [
+    {
+      "id": "pro6m_cad_tor_12m",
+      "description": "Pro Series 6.0 - M, default config, CAD, Toronto, 12 mo",
+      "passed": true,
+      "expected_mrc": 1249.0,
+      "expected_nrc": 1249.0,
+      "actual_mrc": 1249.0,
+      "actual_nrc": 1249.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 1249.0,
+        "totals_nrc": 1249.0,
+        "line_items_count": 1,
+        "addon_lines_count": 0,
+        "has_capex": true,
+        "has_overhead": true
+      }
+    },
+    {
+      "id": "pro6m_cad_tor_24m",
+      "description": "Pro Series 6.0 - M, default config, CAD, Toronto, 24 mo",
+      "passed": true,
+      "expected_mrc": 969.0,
+      "expected_nrc": 1249.0,
+      "actual_mrc": 969.0,
+      "actual_nrc": 1249.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 969.0,
+        "totals_nrc": 1249.0,
+        "line_items_count": 1,
+        "addon_lines_count": 0,
+        "has_capex": true,
+        "has_overhead": true
+      }
+    },
+    {
+      "id": "pro6m_cad_tor_36m",
+      "description": "Pro Series 6.0 - M, default config, CAD, Toronto, 36 mo",
+      "passed": true,
+      "expected_mrc": 829.0,
+      "expected_nrc": 1249.0,
+      "actual_mrc": 829.0,
+      "actual_nrc": 1249.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 829.0,
+        "totals_nrc": 1249.0,
+        "line_items_count": 1,
+        "addon_lines_count": 0,
+        "has_capex": true,
+        "has_overhead": true
+      }
+    },
+    {
+      "id": "adv6m_cpu_drives_cad",
+      "description": "Advanced Series 6.0 - M + 2x Gold 6526Y CPU + 2x 1.92 TB SSD, CAD",
+      "passed": true,
+      "expected_mrc": 1789.0,
+      "expected_nrc": 969.0,
+      "actual_mrc": 1788.08,
+      "actual_nrc": 969.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 1788.08,
+        "totals_nrc": 969.0,
+        "line_items_count": 3,
+        "addon_lines_count": 2,
+        "has_capex": true,
+        "has_overhead": true
+      }
+    }
+  ]
+}

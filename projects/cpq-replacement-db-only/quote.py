@@ -260,7 +260,7 @@ def build_quote(
     if include_overhead and dc_code:
         constants = _get_overhead_constants(client)
         drivers = _get_dc_cost_drivers(client, dc_code)
-        total_kw = (total_watts / 1000) if total_watts else Decimal("0")
+        total_kw = (Decimal(total_watts) / 1000) if total_watts else Decimal("0")
         by_category = []
         for d in drivers:
             amt = _decimal(d["amount"])
