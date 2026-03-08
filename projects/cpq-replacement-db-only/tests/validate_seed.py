@@ -9,8 +9,11 @@ Usage:
     python tests/validate_seed.py
 
 Env vars (same .env as the rest of the project):
-    SUPABASE_DB_URL   — full postgres:// connection string (session pooler, port 6543)
-                        e.g. postgresql://postgres.xxxx:PASSWORD@aws-1-us-east-1.pooler.supabase.com:6543/postgres
+    SUPABASE_DB_URL   — full postgres:// connection string (pooler)
+                        Session mode (recommended for local scripts): port 5432
+                        Transaction mode: port 6543
+                        e.g. postgresql://postgres.xxxx:PASSWORD@aws-1-us-east-1.pooler.supabase.com:5432/postgres
+    SUPABASE_USE_SESSION_MODE — if set (e.g. 1), 6543 in SUPABASE_DB_URL is rewritten to 5432 (session mode)
 
 Exit codes:
     0 — all assertions passed
@@ -24,7 +27,8 @@ from datetime import date, datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, event, text
+from sqlalchemy.pool import NullPool
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -329,7 +333,23 @@ def main():
         print("ERROR: SUPABASE_DB_URL not set in .env")
         sys.exit(1)
 
-    engine = create_engine(db_url, connect_args={"sslmode": "require"})
+    # Optional: force session mode (port 5432) for local scripts; avoids transaction-mode pooler issues.
+    if os.getenv("SUPABASE_USE_SESSION_MODE", "").strip() and ":6543/" in db_url:
+        db_url = db_url.replace(":6543/", ":5432/")
+        print("Using session-mode pooler (port 5432).")
+
+    # Transaction-mode pooler (port 6543) requires NullPool and no prepared statements.
+    # Session mode (5432) works with default pool; NullPool is safe for both.
+    engine = create_engine(
+        db_url,
+        connect_args={"sslmode": "require"},
+        poolclass=NullPool,
+    )
+
+    if ":6543" in db_url:
+        @event.listens_for(engine.pool, "connect")
+        def _disable_prepared_statements(dbapi_conn, connection_record):
+            dbapi_conn.prepare_threshold = 0  # Supavisor transaction mode doesn't support prepared statements
 
     tests = [
         test_row_counts,
@@ -343,23 +363,34 @@ def main():
     ]
 
     results = []
-    with engine.connect() as conn:
-        for fn in tests:
-            try:
-                result = fn(conn)
-            except Exception as e:
-                result = {
-                    "test": fn.__name__,
-                    "passed": False,
-                    "failures": [f"Exception: {e}"],
-                    "rows": [],
-                }
-            status = "✓ PASS" if result["passed"] else "✗ FAIL"
-            print(f"  {status}  {result['test']}")
-            if result["failures"]:
-                for f in result["failures"]:
-                    print(f"           → {f}")
-            results.append(result)
+    try:
+        with engine.connect() as conn:
+            for fn in tests:
+                try:
+                    result = fn(conn)
+                except Exception as e:
+                    result = {
+                        "test": fn.__name__,
+                        "passed": False,
+                        "failures": [f"Exception: {e}"],
+                        "rows": [],
+                    }
+                status = "✓ PASS" if result["passed"] else "✗ FAIL"
+                print(f"  {status}  {result['test']}")
+                if result["failures"]:
+                    for f in result["failures"]:
+                        print(f"           → {f}")
+                results.append(result)
+    except Exception as e:
+        err = str(e).split("\n")[0]
+        print(f"ERROR: Could not connect to database: {err}")
+        print()
+        print("Suggestions:")
+        print("  1. Use session mode (port 5432) for local scripts: set SUPABASE_USE_SESSION_MODE=1")
+        print("     and ensure SUPABASE_DB_URL uses the session pooler (port 5432 from Dashboard → Connect).")
+        print("  2. Check username is postgres.<project-ref>, not just postgres.")
+        print("  3. Confirm project is not paused (Supabase Dashboard).")
+        sys.exit(1)
 
     passed = sum(1 for r in results if r["passed"])
     total  = len(results)
