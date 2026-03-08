@@ -224,13 +224,15 @@ def gen_pricing(lines: list, merged: pd.DataFrame) -> None:
     lines.append(section("PRODUCT PRICING — Server MRC/NRC"))
     lines.append("-- term_months: 0=MTM, 12, 24, 36. Flat rates — NOT multipliers.\n")
 
+    # Columns in 01_servers.csv (new naming convention)
+    # mrc_mtm_*, mrc_12m_*, mrc_24m_*, mrc_36m_*, nrc_*
     currency_term_cols = {
-        "USD": {0: ("mrc_usd_monthly", "nrc_usd"), 12: ("mrc_usd_12", "nrc_usd"),
-                24: ("mrc_usd_24", "nrc_usd"),      36: ("mrc_usd_36", "nrc_usd")},
-        "CAD": {0: ("mrc_cad_monthly", "nrc_cad"), 12: ("mrc_cad_12", "nrc_cad"),
-                24: ("mrc_cad_24", "nrc_cad"),      36: ("mrc_cad_36", "nrc_cad")},
-        "GBP": {0: ("mrc_gbp_monthly", "nrc_gbp"), 12: ("mrc_gbp_12", "nrc_gbp"),
-                24: ("mrc_gbp_24", "nrc_gbp"),      36: ("mrc_gbp_36", "nrc_gbp")},
+        "USD": {0:  ("mrc_mtm_usd", "nrc_usd"), 12: ("mrc_12m_usd", "nrc_usd"),
+                24: ("mrc_24m_usd", "nrc_usd"), 36: ("mrc_36m_usd", "nrc_usd")},
+        "CAD": {0:  ("mrc_mtm_cad", "nrc_cad"), 12: ("mrc_12m_cad", "nrc_cad"),
+                24: ("mrc_24m_cad", "nrc_cad"), 36: ("mrc_36m_cad", "nrc_cad")},
+        "GBP": {0:  ("mrc_mtm_gbp", "nrc_gbp"), 12: ("mrc_12m_gbp", "nrc_gbp"),
+                24: ("mrc_24m_gbp", "nrc_gbp"), 36: ("mrc_36m_gbp", "nrc_gbp")},
     }
 
     for _, row in merged.iterrows():
@@ -242,16 +244,23 @@ def gen_pricing(lines: list, merged: pd.DataFrame) -> None:
                 mrc = row.get(mrc_col)
                 nrc = row.get(nrc_col)
 
-                # Skip if column doesn't exist in this CSV (not all servers have all currencies)
+                # Skip rows where the column doesn't exist in this CSV at all
                 if mrc_col not in row.index and nrc_col not in row.index:
+                    continue
+
+                mrc_val = mrc if (mrc is not None and pd.notna(mrc)) else None
+                nrc_val = nrc if (nrc is not None and pd.notna(nrc)) else None
+
+                # Skip entirely if both are NULL — no pricing to seed
+                if mrc_val is None and nrc_val is None:
                     continue
 
                 lines.append(insert("product_pricing", {
                     "product_id":     product_ref,
                     "currency_code":  currency,
                     "term_months":    term_months,
-                    "mrc":            mrc if pd.notna(mrc) else None,
-                    "nrc":            nrc if pd.notna(nrc) else None,
+                    "mrc":            mrc_val,
+                    "nrc":            nrc_val,
                     "pricing_model":  "flat",
                 }))
 

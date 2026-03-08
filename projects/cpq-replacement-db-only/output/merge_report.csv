@@ -1,0 +1,4 @@
+sku_name,match_confidence,fuzzy_score,matched_dim_sku,fusion_id,dim_lifecycle,dim_adjusted_lob,dim_vendor
+Promo Server - NA,unmatched,66.66666666666667,nas server,TEMP-promo-server-na,,,
+Promo Server - UK,unmatched,70.58823529411764,pro series 2.0 uk,TEMP-promo-server-uk,,,
+Atomic 5.0 (Dell R650xs),fuzzy,90.0,Atomix 5.0,1289,,,

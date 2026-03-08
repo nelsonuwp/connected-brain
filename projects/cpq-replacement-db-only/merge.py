@@ -47,7 +47,8 @@ def load_cpq_servers() -> pd.DataFrame:
     if not path.exists():
         sys.exit(f"ERROR: {path} not found. Run from project root.")
     df = pd.read_csv(path)
-    df["sku_name"] = df["sku_name"].astype(str).str.strip()
+    # Primary key column is 'sku' in the extracted CSV
+    df["sku_name"] = df["sku"].astype(str).str.strip()
     print(f"  CPQ servers loaded:         {len(df):>4} rows")
     return df
 
@@ -61,6 +62,23 @@ def load_dim_attributes() -> pd.DataFrame:
     df["fusion_id"] = df["fusion_id"].astype(str).str.strip()
     print(f"  dimProductAttributes loaded: {len(df):>4} rows (active TLS)")
     return df
+
+
+def normalise_cpq_name(name: str) -> str:
+    """
+    Strip CPQ-specific suffixes before matching against dimProductAttributes.
+    Examples:
+      "Pro Series 6.0 - M"       → "pro series 6.0"
+      "Pro Series 6.0 vHost"     → "pro series 6.0 vhost"
+      "Cluster 5.0 (Dell R440)"  → "cluster 5.0"
+      "Advanced Series 6.0 - D"  → "advanced series 6.0"
+    """
+    n = name.strip().lower()
+    # Remove " - M" and " - D" managed/dedicated suffixes
+    n = re.sub(r"\s*-\s*[md]\s*$", "", n)
+    # Remove parenthetical hardware specs e.g. "(Dell R440)"
+    n = re.sub(r"\s*\([^)]+\)\s*$", "", n)
+    return n.strip()
 
 
 def match_servers(cpq: pd.DataFrame, dim: pd.DataFrame, fuzzy_threshold: int) -> pd.DataFrame:
@@ -77,7 +95,7 @@ def match_servers(cpq: pd.DataFrame, dim: pd.DataFrame, fuzzy_threshold: int) ->
     results = []
 
     for _, cpq_row in cpq.iterrows():
-        cpq_name_lower = cpq_row["sku_name"].lower()
+        cpq_name_lower = normalise_cpq_name(cpq_row["sku_name"])
         result = {
             "sku_name":          cpq_row["sku_name"],
             "fusion_id":         None,

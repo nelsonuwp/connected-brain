@@ -1,0 +1,60 @@
+sku,is_vhost,notes,processor_sockets,default_cpu_qty,drive_bays,default_drive_qty,watts,nrc_usd,nrc_gbp,nrc_cad,mrc_mtm_usd,mrc_mtm_gbp,mrc_mtm_cad,mrc_12m_usd,mrc_12m_gbp,mrc_12m_cad,mrc_24m_usd,mrc_24m_gbp,mrc_24m_cad,mrc_36m_usd,mrc_36m_gbp,mrc_36m_cad,capex_usd,residual_value_12m,residual_value_24m,sku_name,fusion_id,match_confidence,matched_dim_sku,fuzzy_score,dim_lifecycle,dim_adjusted_lob,dim_vendor,dim_product_type
+Promo Server - NA,False,"Minimum 12 month contract 
+New clients only 
+No CPU or RAM changes
+As supplies last",2.0,2.0,16.0,2.0,224.0,0.0,0.0,0.0,,,,399.0,309.0,529.0,349.0,269.0,459.0,299.0,229.0,399.0,580.0,,,Promo Server - NA,TEMP-promo-server-na,unmatched,nas server,66.66666666666667,,,,
+Promo Server - UK,False,"Minimum 12 month contract 
+New clients only 
+No CPU or RAM changes
+As supplies last",2.0,2.0,8.0,4.0,224.0,0.0,0.0,0.0,,,,389.0,269.0,499.0,329.0,249.0,459.0,299.0,229.0,429.0,580.0,,,Promo Server - UK,TEMP-promo-server-uk,unmatched,pro series 2.0 uk,70.58823529411764,,,,
+Pro Series 7.0,False,"Lead Time: 
+3 weeks",2.0,2.0,10.0,2.0,400.0,1719.0,1429.0,1989.0,1719.0,1429.0,1989.0,1719.0,1429.0,1989.0,1339.0,1109.0,1539.0,1149.0,949.0,1319.0,12056.0,0.4,0.2,Pro Series 7.0,1290,exact,Pro Series 7.0,,,,,
+Cluster 5.0 (Dell R440),True,"Must be Sold in 
+Clusters of 3
+ 
+North America Only 
+New Logos Only 
+Min 12 Month Contract 
+As Supplies Last 
+
+Contact Product for Proxmox Support Pricing",2.0,2.0,4.0,2.0,200.0,,,,,,,399.0,,554.67,349.0,,485.33,299.0,,415.67,,,,Cluster 5.0 (Dell R440),1288,exact,Cluster 5.0,,,,,
+Atomic 5.0 (Dell R650xs),True,"Must be Sold in 
+Clusters of 3
+ 
+North America Only 
+New Logos Only 
+Min 12 Month Contract 
+As Supplies Last 
+
+Contact Product for Proxmox Support Pricing",2.0,1.0,8.0,2.0,300.0,,,,,,,449.0,,624.0,399.0,,554.67,349.0,,485.33,,,,Atomic 5.0 (Dell R650xs),1289,fuzzy,Atomix 5.0,90.0,,,,
+Pro Series 6.0 - M,False,"Lead Time: 
+3 weeks",2.0,2.0,10.0,2.0,400.0,1079.0,899.0,1249.0,1079.0,899.0,1249.0,1079.0,899.0,1249.0,839.0,699.0,969.0,719.0,599.0,829.0,7569.0,0.4,0.2,Pro Series 6.0 - M,1254,exact,Pro Series 6.0,,,,,
+Pro Series 6.0 vHost,True,"Lead Time: 
+3 weeks",2.0,2.0,10.0,2.0,400.0,1079.0,899.0,1249.0,1079.0,899.0,1249.0,1079.0,899.0,1249.0,839.0,699.0,969.0,719.0,599.0,829.0,7569.0,0.4,0.2,Pro Series 6.0 vHost,1259,exact,Pro Series 6.0 vHost,,,,,
+Advanced Series 6.0 - M,False,"Lead Time: 
+3 weeks",2.0,1.0,4.0,2.0,280.0,839.0,699.0,969.0,839.0,699.0,969.0,839.0,699.0,969.0,659.0,549.0,759.0,559.0,459.0,639.0,5901.0,0.4,0.2,Advanced Series 6.0 - M,1255,exact,Advanced Series 6.0,,,,,
+Advanced Series 6.0 vHost,True,"Lead Time: 
+3 weeks",2.0,1.0,4.0,2.0,280.0,839.0,699.0,969.0,839.0,699.0,969.0,839.0,699.0,969.0,659.0,549.0,759.0,559.0,459.0,639.0,5901.0,0.4,0.2,Advanced Series 6.0 vHost,1258,exact,Advanced Series 6.0 vHost,,,,,
+Storage Series 6.0 - M,False,"Lead Time: 
+3 weeks",2.0,1.0,12.0,2.0,280.0,939.0,779.0,1079.0,939.0,779.0,1079.0,939.0,779.0,1079.0,729.0,599.0,829.0,619.0,509.0,709.0,6560.0,0.4,0.2,Storage Series 6.0 - M,1263,exact,Storage Series 6.0,,,,,
+Essential Series 6.0 - M,False,"Lead Time: 
+3 weeks",1.0,1.0,2.0,2.0,147.0,309.0,259.0,359.0,309.0,259.0,359.0,309.0,259.0,359.0,239.0,199.0,279.0,209.0,169.0,229.0,2201.0,0.4,0.2,Essential Series 6.0 - M,1262,exact,Essential Series 6.0,,,,,
+Pro Series 5.0 - M,False,"Validate availability with Supply Chain 
+
+RPS required in Atlanta DC",2.0,2.0,8.0,2.0,224.0,849.0,637.0,1147.0,849.0,637.0,1147.0,679.0,499.0,919.0,679.0,499.0,919.0,679.0,499.0,919.0,3500.0,0.4,0.1,Pro Series 5.0 - M,943,exact,Pro Series 5.0,,Active Inventory,Hosting,,Dedicated Hosting
+Pro Series 5.0 vHost,True,"Validate availability with Supply Chain 
+
+RPS required in Atlanta DC",2.0,2.0,8.0,2.0,224.0,849.0,637.0,1147.0,849.0,637.0,1147.0,679.0,499.0,919.0,679.0,499.0,919.0,679.0,499.0,919.0,3500.0,,,Pro Series 5.0 vHost,944,exact,Pro Series 5.0 vHost,,Active Inventory,Hosting,,Hosted Private Cloud
+Storage Series 5.0 - M,False,"Validate availability with Supply Chain 
+
+RPS required in Atlanta DC",2.0,1.0,16.0,2.0,120.0,749.0,562.0,1012.0,749.0,562.0,1012.0,599.0,449.0,809.0,599.0,449.0,809.0,599.0,449.0,809.0,3000.0,0.3,0.1,Storage Series 5.0 - M,945,exact,Storage Series 5.0,,Active Inventory,Hosting,,Storage
+Storage Series 5.0 vHost,True,"Validate availability with Supply Chain 
+
+RPS required in Atlanta DC",2.0,1.0,16.0,2.0,120.0,749.0,562.0,1012.0,749.0,562.0,1012.0,599.0,449.0,809.0,599.0,449.0,809.0,599.0,449.0,809.0,3000.0,,,Storage Series 5.0 vHost,946,exact,Storage Series 5.0 vHost,,Active Inventory,Hosting,,Storage
+Advanced Series 5.0 - M,False,"Validate availability with Supply Chain 
+
+RPS required in Atlanta DC",2.0,1.0,4.0,2.0,120.0,560.0,420.0,756.0,560.0,420.0,756.0,449.0,329.0,609.0,449.0,329.0,609.0,449.0,329.0,609.0,1200.0,0.1,,Advanced Series 5.0 - M,957,exact,Advanced Series 5.0,,Active Inventory,Hosting,,Dedicated Hosting
+Advanced Series 5.0 vHost,True,"Validate availability with Supply Chain 
+
+RPS required in Atlanta DC",2.0,1.0,4.0,2.0,120.0,560.0,420.0,756.0,560.0,420.0,756.0,449.0,329.0,609.0,449.0,329.0,609.0,449.0,329.0,609.0,1200.0,,,Advanced Series 5.0 vHost,959,exact,Advanced Series 5.0 vHost,,Active Inventory,Hosting,,Hosted Private Cloud
+Essential Series 5.0 - M,False,Validate availability with Supply Chain,1.0,1.0,4.0,2.0,85.0,389.0,309.0,529.0,389.0,309.0,529.0,319.0,249.0,429.0,319.0,249.0,429.0,319.0,249.0,429.0,450.0,,,Essential Series 5.0 - M,975,exact,Essential Series 5.0,,Active Inventory,Hosting,,Dedicated Hosting
