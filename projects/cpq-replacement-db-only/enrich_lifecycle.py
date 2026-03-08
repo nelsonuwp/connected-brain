@@ -508,7 +508,7 @@ def main():
         print("ERROR: OPENROUTER_API_KEY not set in .env (use --dry-run to skip API calls)")
         sys.exit(1)
 
-    existing = load_existing() if not args.force else {}
+    existing = load_existing() if (not args.force and not args.dry_run) else {}
     if existing:
         print(f"  Loaded {len(existing)} cached lifecycle rows (--force to re-fetch all)")
 
@@ -593,7 +593,12 @@ def main():
             time.sleep(0.5)   # rate limit courtesy
 
     print()
-    write_lifecycle_csv(results)
+    if not args.dry_run:
+        write_lifecycle_csv(results)
+    else:
+        flagged = sum(1 for r in results if str(r.get("needs_review")).lower() == "true")
+        print(f"  Dry-run complete — {len(results)} items routed, nothing written to disk")
+        print(f"  (would flag {flagged} for review on a real run)")
 
     print(f"\n{'='*60}")
     print(f"  Total rows     : {len(results)}")
