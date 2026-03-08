@@ -282,3 +282,94 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 2. **Confirm fusion_id assignment** for the CPQ-only new server SKUs — can these be requested from whoever manages that namespace, or do we use placeholder IDs for POC?
 3. **Generate the DDL** — `schema.sql` with all CREATE TABLE statements, seed data, and indexes. Ready to run against a fresh Supabase project.
 4. **Run validation query**: "What is the MRC for Pro Series 6.0 - M, 36-month term, CAD, available at TOR?" Expected: matches the value currently in CPQ v28. If it matches, the data model is correct.
+
+---
+
+# Critique — 2026-03-08 08:54 ET
+
+## Score: 7/10
+Rework suggested — approach is clear and options were considered, but several assumptions remain unvalidated and the POC success criteria are vague.
+
+## Section Breakdown
+
+### The Idea
+**Strong:** Scope is clearly bounded — POC as portable Postgres artifact, production architecture deferred.
+**Weak:** "Allows pricing and product updates without releasing a new .xlsm file" is the outcome, but what specifically validates success? Is it "finance can change a server MRC and sales sees it immediately" or "we can generate a quote that matches CPQ v28 output"?
+**Fix:** Add one concrete POC success criterion — e.g., "Finance updates Pro Series 6.0 MRC in Supabase; sales rep queries via SQL and gets correct price for 36-month CAD term at TOR within 5 seconds."
+
+### Why This Matters
+**Strong:** Business pain is concrete and well-articulated — version distribution, silent breakage, no audit trail.
+
+### What I Know — About the Current CPQ (v28)
+**Strong:** Comprehensive inventory of sheets, SKUs, data centers, pricing structure. The two-layer pricing system (customer-facing vs. internal cost drivers) is surfaced explicitly.
+**Weak:** "18 server SKUs in scope (MH focus)" — does this mean DH and Colo servers are excluded from the POC entirely, or just deprioritized? The note later says "MH and DH unified under Hosting" but doesn't clarify whether all 18 SKUs are MH-only or a mix.
+**Fix:** State explicitly: "POC includes X MH servers, Y DH servers. Colo servers excluded." If the 18 SKUs span both MH and DH, list the breakdown.
+
+### What I Know — About the Product Catalog Source
+**Weak:** "Newer CPQ server SKUs (6.0 series, 7.0, Cluster 5.0, Atomic 5.0) exist in the attributes data but with blank lifecycle — they're newly added" — this contradicts the later statement "fusion_id will only be locked in when we release a new product." If these SKUs are in CPQ v28 and being quoted, they must have some identifier. Are they using a temporary SKU name instead of fusion_id?
+**Fix:** Clarify: Are these SKUs being quoted today in CPQ v28? If yes, what identifier is used in the Excel file? If fusion_id is truly blank, how does the CPQ reference them internally?
+
+### The Schema Design (Decided) — CAD as root currency
+**Strong:** Clear rationale for CAD = 1, division-based conversion, and explicit storage of CAD prices in product_pricing.
+**Weak:** "When FX rates change, finance decides separately whether to rebase the CAD prices" — this is a critical business rule that affects quote stability, but it's mentioned once and never operationalized. Does the schema enforce this? Is there a flag on fx_rates rows that says "CAD prices were rebased on this date"?
+**Fix:** Add a column to fx_rates: `cad_pricing_rebased BOOLEAN DEFAULT false`. When finance updates CAD prices in product_pricing, they also flip this flag. This creates an audit trail of when CAD pricing was intentionally changed vs. when FX rates drifted.
+
+### The Schema Design (Decided) — CapEx time-series model
+**Strong:** LATERAL join approach for deriving CAD equivalent from historical budget rates is elegant and preserves re-derivability.
+**Weak:** "Adding a new FX rate row retroactively updates any procurement between that date and the prior rate date" — this is true, but it also means a finance mistake (entering the wrong budget rate) silently corrupts all CapEx CAD calculations until someone notices. Is there a validation step?
+**Fix:** Add a CHECK constraint or trigger: when inserting a new fx_rates row with rate_type = 'budget', require that the rate is within ±10% of the prior budget rate for that currency. If it's outside that range, force a manual confirmation (e.g., a `confirmed_override BOOLEAN` column).
+
+### The Schema Design (Decided) — Component compatibility
+**Weak:** "NIC-to-processor compatibility is application logic, not DB" — this is fine for POC, but it's a landmine. If the schema allows inserting a 25GbE NIC on a server that only has 10GbE-capable processors, the quote will be invalid. The CPQ v28 presumably prevents this via VBA.
+**Fix:** Document the specific compatibility rules that are deferred to application logic. Example: "Intel X710 NIC requires Intel Xeon Silver or higher; AMD NICs require EPYC." This becomes the spec for the configurator layer.
+
+### What I Don't Know / Open Questions — fusion_id for CPQ-only new products
+**Strong:** You surfaced the question and got an answer ("fusion_id will only be locked in when we release a new product").
+**Weak:** The answer contradicts the earlier statement that these SKUs are "in CPQ v28." If they're in the CPQ and being quoted, they must have some identifier. This needs reconciliation.
+**Fix:** Go back to the CPQ v28 file. Open the "Products - Hosting" sheet. What is in the ID column for Pro Series 7.0, Cluster 5.0, Atomic 5.0? If it's a placeholder (e.g., "TBD-7.0"), document that. If it's blank, how does the configurator reference them?
+
+### What I Don't Know / Open Questions — FX rate direction double-check
+**Strong:** You identified the risk and got clarity ("CAD always 1:1, then USD = 1.3651 means 1 CAD = 1.3651 USD").
+**Weak:** This is the opposite of what you wrote earlier ("1 CAD = $0.69 USD"). The note now has contradictory FX direction statements.
+**Fix:** Rewrite the FX section with the confirmed direction: "1 CAD = 1.3651 USD (multiply to convert CAD → USD, divide to convert USD → CAD). Example: $1,000 USD ÷ 1.3651 = $732.77 CAD." Update all examples to match.
+
+### What I Don't Know / Open Questions — Multiple CapEx records per product
+**Strong:** You got clarity on the model ("add a row for each procurement batch; use most recent date purchased as baseline; flag discounted purchases separately").
+**Weak:** "Use as new capex baseline" is a boolean flag, but the logic isn't specified. If procurement buys 10 units at $5,000 (normal) and then 5 units at $4,000 (discount), which CapEx does the financial model use? The most recent non-discounted? The weighted average of all non-discounted?
+**Fix:** Add a column: `use_as_baseline BOOLEAN DEFAULT true`. Document the query logic: "Financial model uses the most recent product_capex row where use_as_baseline = true AND procured_date <= quote_date."
+
+### What I Don't Know / Open Questions — Who updates what in Supabase
+**Weak:** "Different teams will own providing data to ensure it's fresh" — this is not a plan. The POC will fail if no one knows they're responsible for updating a table.
+**Fix:** Create a RACI-lite table: FX rates (Finance, monthly), Server MRC/NRC (Product, quarterly), Lifecycle dates (Product, on product release), CapEx (Procurement, on purchase), New products (Product, on release). Get one name per row before you build the schema.
+
+### Assumptions I'm Making
+**Weak:** "The POC scope is: server pricing lookups + DC availability + component relationships. Not: financial modeling (IRR/NPV), quote document generation, Salesforce integration." — This is stated, but the success criteria don't reflect it. What does "server pricing lookups" mean operationally? A SQL query? A REST API call? A web form?
+**Fix:** Rewrite as testable acceptance criteria: "POC is successful if: (1) Finance can update a server MRC via Supabase table editor and the change is visible in a SQL query within 1 minute. (2) A sales rep can query 'Pro Series 6.0 - M, 36-month CAD, TOR' and get the correct MRC/NRC. (3) The schema can be exported via pg_dump and restored on a different Postgres instance without errors."
+
+### Risks and Constraints — fusion_id gaps
+**Weak:** "This is known issue and most likely won't happen" — this is wishful thinking, not risk mitigation. If it does happen (new product launched mid-POC without fusion_id), what's the fallback?
+**Fix:** Add a mitigation: "If a new product must be added to the POC without a fusion_id, use a temporary placeholder (e.g., 'TEMP-001') and document it in a `pending_fusion_id` table. Block promotion to production until all placeholders are resolved."
+
+### Risks and Constraints — Component compatibility depth
+**Strong:** You identified the risk that the 655-row server_selectable_options table is the source of truth for valid configurations.
+**Weak:** "This data needs careful validation against what's actually configurable today" — who does this validation, and what does "careful" mean?
+**Fix:** Define the validation process: "Sales ops to test-configure 5 representative servers (Pro 6.0, Advanced 6.0, Cluster 5.0, Atomic 5.0, Promo NA) in CPQ v28 and export the valid option combinations. Compare against server_selectable_options.csv. Flag any mismatches for review before seed data load."
+
+### Decisions Made
+**Strong:** Table is comprehensive and rationale is clear for each decision.
+
+### Decisions Still Open — FX rate direction confirmation
+**Weak:** This is marked as "Yes — determines all conversion math" but you already got an answer in the Open Questions section. This table is stale.
+**Fix:** Remove this row or update it to "Resolved — 1 CAD = 1.3651 USD (multiply for CAD→USD)."
+
+### Next Step
+**Weak:** Step 4 ("Run validation query") is good, but it assumes the schema is correct. What if the query returns the wrong value? There's no debug plan.
+**Fix:** Add Step 5: "If validation query fails, compare the SQL query logic against the CPQ v28 formula in the 'Model - MH' sheet. Document any discrepancies in a 'formula_mapping.md' file."
+
+---
+
+## Missing Sections
+
+**POC Handoff Criteria**: What does "portable Postgres artifact" mean in practice? Is it a .sql file + README? A Docker Compose file? A Supabase project export? Define the deliverable format before you start building.
+
+**Rollback Plan**: If the POC is promoted to production and something breaks (e.g., a sales rep quotes the wrong price), how do you roll back? Is the Excel CPQ v28 kept as a fallback, or is it retired immediately?
