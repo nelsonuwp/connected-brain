@@ -72,7 +72,6 @@ import openrouter  # noqa: E402
 # ---------------------------------------------------------------------------
 # I/O
 # ---------------------------------------------------------------------------
-SERVERS_CSV   = EXTRACTED / "01_servers.csv"
 HARDWARE_CSV  = EXTRACTED / "05_hardware_components.csv"
 SOFTWARE_CSV  = EXTRACTED / "06_software_licenses.csv"
 LIFECYCLE_CSV = OUTPUT / "07c_product_lifecycle.csv"
@@ -447,14 +446,6 @@ def _dry_run_result(sku: str, category: str) -> dict:
 def load_items() -> list:
     """Load all skus that need lifecycle enrichment across all sources."""
     items = []
-
-    # Servers
-    if SERVERS_CSV.exists():
-        with open(SERVERS_CSV, newline="", encoding="utf-8-sig") as f:
-            for row in csv.DictReader(f):
-                sku = (row.get("product_name") or row.get("sku") or "").strip()
-                if sku:
-                    items.append({"sku": sku, "category": "server"})
 
     # Hardware components (05)
     if HARDWARE_CSV.exists():
