@@ -4,10 +4,11 @@
 -- Scope: Server pricing (MH/DH unified as Hosting), DC availability,
 --        component relationships. Firewalls, switches, colo: deferred.
 --
--- FX convention: all rates = units of foreign currency per 1 CAD (CAD is root)
---   CAD → foreign : cad_amount × rate
---   Foreign → CAD : foreign_amount ÷ rate
---   Example: USD rate 1.3651 → $1,000 CAD × 1.3651 = $1,365.10 USD
+-- FX convention: rate = units of CAD per 1 foreign currency (as shown on bankofcanada.ca)
+--   Finance enters the BoC value directly — no inversion needed.
+--   Foreign → CAD : foreign_amount × rate
+--   CAD → foreign : cad_amount ÷ rate
+--   Example: USD rate 1.3651 → $1,000 USD × 1.3651 = $1,365.10 CAD
 --
 -- Restore: psql -d <dbname> -f schema.sql
 -- =============================================================================
@@ -41,22 +42,22 @@ INSERT INTO currencies (currency_code, currency_name, symbol, is_base) VALUES
 CREATE TABLE fx_rates (
     id                      BIGSERIAL    PRIMARY KEY,
     currency_code           CHAR(3)      NOT NULL REFERENCES currencies(currency_code),
-    rate_type               TEXT         NOT NULL,   -- 'ocean' | 'spot' | 'budget'
+    rate_type               TEXT         NOT NULL,   -- 'spot' | 'budget'
     rate_date               DATE         NOT NULL,
-    rate                    NUMERIC(12,6) NOT NULL,  -- units of foreign per 1 CAD
+    rate                    NUMERIC(12,6) NOT NULL,  -- units of CAD per 1 foreign (e.g. 1.3651 = 1 USD buys 1.3651 CAD)
     cad_pricing_rebased     BOOLEAN      NOT NULL DEFAULT false,
     confirmed_override      BOOLEAN      NOT NULL DEFAULT false,
     notes                   TEXT,
     created_at              TIMESTAMPTZ  NOT NULL DEFAULT now(),
     CONSTRAINT uq_fx_rate   UNIQUE (currency_code, rate_type, rate_date),
     CONSTRAINT chk_rate_pos CHECK (rate > 0),
-    CONSTRAINT chk_rate_type CHECK (rate_type IN ('ocean', 'spot', 'budget')),
+    CONSTRAINT chk_rate_type CHECK (rate_type IN ('spot', 'budget')),
     CONSTRAINT chk_not_cad  CHECK (currency_code <> 'CAD')
 );
 
-COMMENT ON TABLE fx_rates IS 'Finance-maintained FX rates. Append-only — never update rows, always insert new. Rate = units of foreign currency per 1 CAD.';
-COMMENT ON COLUMN fx_rates.rate IS 'Units of foreign currency per 1 CAD. Example: USD 1.3651 means 1 CAD = 1.3651 USD.';
-COMMENT ON COLUMN fx_rates.rate_type IS 'ocean = locked rate for customer quotes. spot = current market for financial model. budget = internal planning rate for CapEx CAD derivation.';
+COMMENT ON TABLE fx_rates IS 'Finance-maintained FX rates. Append-only — never update rows, always insert new. Rate = units of CAD per 1 foreign currency (as displayed on bankofcanada.ca).';
+COMMENT ON COLUMN fx_rates.rate IS 'Units of CAD per 1 foreign currency, as shown on bankofcanada.ca. Example: USD 1.3651 means 1 USD = 1.3651 CAD. Foreign→CAD: multiply by rate. CAD→foreign: divide by rate.';
+COMMENT ON COLUMN fx_rates.rate_type IS 'spot = current market rate (used for financial model and customer quotes). budget = Finance-approved annual planning rate for CapEx CAD derivation.';
 COMMENT ON COLUMN fx_rates.cad_pricing_rebased IS 'Set to true when finance intentionally updates CAD prices in product_pricing in response to this rate change. Audit trail for repricing events.';
 COMMENT ON COLUMN fx_rates.confirmed_override IS 'Set to true when a new budget rate differs from the prior rate by >10% and finance explicitly confirms the change is correct.';
 
@@ -301,7 +302,7 @@ SELECT
     pc.residual_pct_24m,
     CASE
         WHEN pc.procured_currency = 'CAD' THEN pc.procured_price
-        ELSE pc.procured_price / fx.rate
+        ELSE pc.procured_price * fx.rate
     END AS procured_price_cad,
     fx.rate AS fx_budget_rate_used,
     fx.rate_date AS fx_rate_date
