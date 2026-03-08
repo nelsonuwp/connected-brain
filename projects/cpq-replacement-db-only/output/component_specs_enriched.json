@@ -1,0 +1,3284 @@
+[
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 6226 2.7GHz 12 Cores/24T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 12,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 24,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.7,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 50,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Bronze 3106 1.7 GHz 8 Cores/8T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 8,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 8,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 1.7,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 40,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 160.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Default Xeon Bronze 3106 1.7 GHz 8 Cores/8T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 8,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 8,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 1.7,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 40,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 160.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 8,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 16,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.1,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 40,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 200.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 5118 2.3 GHz 12 Cores/24T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 12,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 24,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.3,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 50,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1300.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Default Xeon Gold 5118 2.3 GHz 12 Cores/24T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 12,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 24,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.3,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 50,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1300.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 5122 3.6 GHz 4 Cores/8T (MTO)",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 4,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 8,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 3.6,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 50,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1100.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 6130 2.1 GHz 16 Cores/32T (MTO)",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 16,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 32,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.1,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 70,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1600.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 6138 2.0 GHz 20 Cores/40T (MTO)",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 20,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 40,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.0,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 70,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1800.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 6238R 2.2 GHz 28C/56T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 28,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 56,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.2,
+        "source": "parsed",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon E-2146G 3.5GHz 6C/12T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 6,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 12,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 3.5,
+        "source": "parsed",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon E-2468 2.6GHz 8C/16T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 8,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 16,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.6,
+        "source": "parsed",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Silver 4514Y 2G, 16C/32T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 16,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 32,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 150,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 890.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Default Intel Xeon Silver 4514Y 2G, 16C/32T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 16,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 32,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 150,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 890.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 6534 4G, 8C/16T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 8,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 16,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 195,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 3190.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 6526Y 2.9G, 16/32T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "clock_ghz": {
+        "value": 2.9,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 195,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1725.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Default Intel Xeon Gold 6526Y 2.9G, 16/32T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "clock_ghz": {
+        "value": 2.9,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 195,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1725.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Gold 6548Y+ 2.5G, 32C/64T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 32,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 64,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "clock_ghz": {
+        "value": 2.5,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 250,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 4220.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Processor",
+    "sku": "Intel Xeon Platinum 8558U 2G, 48C/96T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "cores": {
+        "value": 48,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "threads": {
+        "value": 96,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "tdp_watts": {
+        "value": 300,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 4215.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "16 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 16,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 160.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "32 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 32,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 320.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "64 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 64,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 640.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "96 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 96,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 960.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "128 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 128,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1280.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "192 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 192,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1920.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "256 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 256,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 2560.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "384 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 384,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 3840.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "512 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 512,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 5120.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "768 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 768,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 7680.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "1536 GB DDR4 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 1536,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR4",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 15360.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "16 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 16,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 67.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "32 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 32,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 107.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "64 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 64,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 268.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "128 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 128,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 536.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "192 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 192,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 804.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "256 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 256,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 856.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "384 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 384,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1284.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "512 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 512,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1768.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "768 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 768,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 2652.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "1024 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 1024,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 3536.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "1536 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 1536,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 5304.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "RAM",
+    "sku": "2048 GB DDR5 RAM",
+    "product_type": "ram",
+    "is_software": false,
+    "specs": {
+      "ram_gb": {
+        "value": 2048,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ram_type": {
+        "value": "DDR5",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 7072.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "1 TB 7200 6 Gb/s SATA",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 1.0,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "hdd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 80.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "2 TB 7200 6 Gb/s SATA",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 2.0,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "hdd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 145.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "4 TB 7200 6 Gb/s SATA",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 4.0,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "hdd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 180.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "12 TB 7200 6 Gb/s SATA",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 12.0,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "hdd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 300.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "480 GB SSD",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 0.4688,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "ssd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 85.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "480 GB SATA 2.5in SSD",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 0.4688,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "ssd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 149.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "960 GB SATA 2.5in SSD",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 0.9375,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "ssd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 185.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "1.92 TB SATA 2.5in SSD",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 1.92,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "ssd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 349.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "3.84 TB SATA 2.5in SSD",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 3.84,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "ssd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 379.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "7.6 TB Micron 9400 SSD",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 7.6,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "ssd",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 430.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "960 GB NVMe u.2 2.5in",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 0.9375,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "nvme",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 300.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "3.84 TB NVMe u.2 2.5in",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 3.84,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "nvme",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 680.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "6.4 TB NVMe u.2 2.5in",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 6.4,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "nvme",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1260.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Drive",
+    "sku": "15.36 TB NVMe u.2 2.5in",
+    "product_type": "drive",
+    "is_software": false,
+    "specs": {
+      "drive_capacity_tb": {
+        "value": 15.36,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "drive_type": {
+        "value": "nvme",
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 2100.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "PSU",
+    "sku": "750W Redundant Power Supply",
+    "product_type": "psu",
+    "is_software": false,
+    "specs": {
+      "watts": {
+        "value": 750,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 150.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Network Card",
+    "sku": "Intel X710-DA2 10 GbE NIC with 2 x SFP+",
+    "product_type": "network_component",
+    "is_software": false,
+    "specs": {
+      "speed_gbe": {
+        "value": 10,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "ports": {
+        "value": 2,
+        "source": "parsed",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 295.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Network Card",
+    "sku": "Intel X710 Quad Port 10Gb DA/SFP+ Ethernet, NDC",
+    "product_type": "network_component",
+    "is_software": false,
+    "specs": {
+      "capex_usd": {
+        "value": 530.0,
+        "source": "csv",
+        "confidence": 1.0
+      }
+    },
+    "source_url": null,
+    "grounded": false,
+    "overall_confidence": 1.0,
+    "needs_review": false,
+    "tokens": {}
+  },
+  {
+    "category": "Monitoring",
+    "sku": "LM Basic Monitoring",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 4.58
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Monitoring",
+    "sku": "LM Dedicated Monitoring",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 4.58
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Monitoring",
+    "sku": "LM Standard Monitoring",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 25.0,
+      "mrc_12m": 25.0,
+      "mrc_24m": 25.0,
+      "mrc_36m": 25.0,
+      "software_cost_actual_usd": 4.58
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Monitoring",
+    "sku": "Monitoring Opt-out",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": null
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "SQL",
+    "sku": "SQL Server 2022 Standard Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 103.75,
+      "mrc_12m": 103.75,
+      "mrc_24m": 103.75,
+      "mrc_36m": 103.75,
+      "software_cost_actual_usd": 72.595
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "SQL",
+    "sku": "SQL Server 2022 Enterprise Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 390.5,
+      "mrc_12m": 390.5,
+      "mrc_24m": 390.5,
+      "mrc_36m": 390.5,
+      "software_cost_actual_usd": 278.9046
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "SQL",
+    "sku": "SQL Server 2019 Web Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 6.5,
+      "mrc_12m": 6.5,
+      "mrc_24m": 6.5,
+      "mrc_36m": 6.5,
+      "software_cost_actual_usd": 4.54
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "SQL",
+    "sku": "SQL Server 2019 Standard Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 103.75,
+      "mrc_12m": 103.75,
+      "mrc_24m": 103.75,
+      "mrc_36m": 103.75,
+      "software_cost_actual_usd": 72.595
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "SQL",
+    "sku": "SQL Server 2019 Enterprise Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 390.5,
+      "mrc_12m": 390.5,
+      "mrc_24m": 390.5,
+      "mrc_36m": 390.5,
+      "software_cost_actual_usd": 273.325
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Remote Access",
+    "sku": "1 pack - Windows Remote Desktop Service SAL",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 10.0,
+      "mrc_12m": 10.0,
+      "mrc_24m": 10.0,
+      "mrc_36m": 10.0,
+      "software_cost_actual_usd": 6.69
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Remote Access",
+    "sku": "5 pack - Windows Remote Desktop Service SAL",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 48.0,
+      "mrc_12m": 48.0,
+      "mrc_24m": 48.0,
+      "mrc_36m": 48.0,
+      "software_cost_actual_usd": 33.45
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Remote Access",
+    "sku": "10 pack - Windows Remote Desktop Service SAL",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 96.0,
+      "mrc_12m": 96.0,
+      "mrc_24m": 96.0,
+      "mrc_36m": 96.0,
+      "software_cost_actual_usd": 66.9
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Remote Access",
+    "sku": "20 pack - Windows Remote Desktop Service SAL",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 192.0,
+      "mrc_12m": 192.0,
+      "mrc_24m": 192.0,
+      "mrc_36m": 192.0,
+      "software_cost_actual_usd": 133.8
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Alma Linux 8",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Alma Linux 9",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Rocky Linux 8",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Rocky Linux 9",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Rocky Linux 10",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL 9.x",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 116.0,
+      "mrc_12m": 116.0,
+      "mrc_24m": 116.0,
+      "mrc_36m": 116.0,
+      "software_cost_actual_usd": 86.9
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL 9.x VDC for Unlimited Linux Guests",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 314.0,
+      "mrc_12m": 314.0,
+      "mrc_24m": 314.0,
+      "mrc_36m": 314.0,
+      "software_cost_actual_usd": 235.4
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL 9.x for VMs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 21.0,
+      "mrc_12m": 21.0,
+      "mrc_24m": 21.0,
+      "mrc_36m": 21.0,
+      "software_cost_actual_usd": 15.4
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL 8.x",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 116.0,
+      "mrc_12m": 116.0,
+      "mrc_24m": 116.0,
+      "mrc_36m": 116.0,
+      "software_cost_actual_usd": 86.9
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL 8.x VDC for Unlimited Linux Guests",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 314.0,
+      "mrc_12m": 314.0,
+      "mrc_24m": 314.0,
+      "mrc_36m": 314.0,
+      "software_cost_actual_usd": 235.4
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL 8.x for VMs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 21.0,
+      "mrc_12m": 21.0,
+      "mrc_24m": 21.0,
+      "mrc_36m": 21.0,
+      "software_cost_actual_usd": 15.4
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL for VMs - 1 to 8 vCPUs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 13.0,
+      "mrc_12m": 13.0,
+      "mrc_24m": 13.0,
+      "mrc_36m": 13.0,
+      "software_cost_actual_usd": 9.743
+    },
+    "notes": "pricing / costs are per vCPU",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL for VMs - 9 to 127 vCPUs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 10.0,
+      "mrc_12m": 10.0,
+      "mrc_24m": 10.0,
+      "mrc_36m": 10.0,
+      "software_cost_actual_usd": 7.307
+    },
+    "notes": "pricing / costs are per vCPU",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "RHEL for VMs - 128 to Unlimited vCPUs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 8.0,
+      "mrc_12m": 8.0,
+      "mrc_24m": 8.0,
+      "mrc_36m": 8.0,
+      "software_cost_actual_usd": 6.333
+    },
+    "notes": "pricing / costs are per vCPU",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "CentOS 8",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Debian 12",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Debian 13",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Ubuntu 22.04 LTS",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Ubuntu 24.04 LTS",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Windows Server 2025 Standard Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 3.5,
+      "mrc_12m": 3.5,
+      "mrc_24m": 3.5,
+      "mrc_36m": 3.5,
+      "software_cost_actual_usd": 2.45
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Windows Server 2025 Data Center Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 24.25,
+      "mrc_12m": 24.25,
+      "mrc_24m": 24.25,
+      "mrc_36m": 24.25,
+      "software_cost_actual_usd": 16.975
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Windows Server 2022 Standard Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 3.5,
+      "mrc_12m": 3.5,
+      "mrc_24m": 3.5,
+      "mrc_36m": 3.5,
+      "software_cost_actual_usd": 2.45
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Windows Server 2022 Data Center Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 24.25,
+      "mrc_12m": 24.25,
+      "mrc_24m": 24.25,
+      "mrc_36m": 24.25,
+      "software_cost_actual_usd": 16.975
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Windows Server 2019 Standard Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 3.5,
+      "mrc_12m": 3.5,
+      "mrc_24m": 3.5,
+      "mrc_36m": 3.5,
+      "software_cost_actual_usd": 2.45
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "OS",
+    "sku": "Windows Server 2019 Data Center Edition",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 24.25,
+      "mrc_12m": 24.25,
+      "mrc_24m": 24.25,
+      "mrc_36m": 24.25,
+      "software_cost_actual_usd": 16.975
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "VMWare",
+    "sku": "VMWare ESXi 8.x",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "VMWare",
+    "sku": "VMWare ESXi 7.x",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "VMWare",
+    "sku": "VMWare License",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 32.0,
+      "mrc_12m": 27.43,
+      "mrc_24m": 25.0,
+      "mrc_36m": 23.26,
+      "software_cost_actual_usd": 20.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Proxmox",
+    "sku": "Proxmox VE License",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.0,
+      "mrc_12m": 0.0,
+      "mrc_24m": 0.0,
+      "mrc_36m": 0.0,
+      "software_cost_actual_usd": 0.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Managed Veeam",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 35.0,
+      "mrc_12m": 35.0,
+      "mrc_24m": 35.0,
+      "mrc_36m": 35.0,
+      "software_cost_actual_usd": 17.0457471
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Veeam - Local Storage",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.154,
+      "mrc_12m": 0.154,
+      "mrc_24m": 0.154,
+      "mrc_36m": 0.154,
+      "software_cost_actual_usd": 0.009636678
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Veeam - Offsite Storage",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 0.308,
+      "mrc_12m": 0.308,
+      "mrc_24m": 0.308,
+      "mrc_36m": 0.308,
+      "software_cost_actual_usd": 0.019273356
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Daily Incremental",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 99.95,
+      "mrc_12m": 99.95,
+      "mrc_24m": 99.95,
+      "mrc_36m": 99.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Daily Incremental Offsite to Atlanta - Low",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 149.95,
+      "mrc_12m": 149.95,
+      "mrc_24m": 149.95,
+      "mrc_36m": 149.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Daily Incremental Remote",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 99.95,
+      "mrc_12m": 99.95,
+      "mrc_24m": 99.95,
+      "mrc_36m": 99.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Daily Incremental with Offsite to Atlanta",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 149.95,
+      "mrc_12m": 149.95,
+      "mrc_24m": 149.95,
+      "mrc_36m": 149.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Daily Incremental with Offsite to Miami",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 149.95,
+      "mrc_12m": 149.95,
+      "mrc_24m": 149.95,
+      "mrc_36m": 149.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Daily Incremental with Offsite to Toronto",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 149.95,
+      "mrc_12m": 149.95,
+      "mrc_24m": 149.95,
+      "mrc_36m": 149.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Daily Low",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 99.95,
+      "mrc_12m": 99.95,
+      "mrc_24m": 99.95,
+      "mrc_36m": 99.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Weekly Incremental",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 74.95,
+      "mrc_12m": 74.95,
+      "mrc_24m": 74.95,
+      "mrc_36m": 74.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Weekly Incremental Remote",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 74.95,
+      "mrc_12m": 74.95,
+      "mrc_24m": 74.95,
+      "mrc_36m": 74.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Weekly Incremental with Offsite to Atlanta",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 124.95,
+      "mrc_12m": 124.95,
+      "mrc_24m": 124.95,
+      "mrc_36m": 124.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Weekly Incremental with Offsite to Miami",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 124.95,
+      "mrc_12m": 124.95,
+      "mrc_24m": 124.95,
+      "mrc_36m": 124.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli Backup - Weekly Incremental with Offsite to Toronto",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 124.95,
+      "mrc_12m": 124.95,
+      "mrc_24m": 124.95,
+      "mrc_36m": 124.95,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli TDP for MS-SQL - Daily 1Hr Logs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 99.0,
+      "mrc_12m": 99.0,
+      "mrc_24m": 99.0,
+      "mrc_36m": 99.0,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli TDP for MS-SQL - Daily 2Hr Logs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 99.0,
+      "mrc_12m": 99.0,
+      "mrc_24m": 99.0,
+      "mrc_36m": 99.0,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli TDP for MS-SQL - Daily 4Hr Logs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 99.0,
+      "mrc_12m": 99.0,
+      "mrc_24m": 99.0,
+      "mrc_36m": 99.0,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Tivoli TDP for MS-SQL - Weekly 4Hr Logs",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 75.0,
+      "mrc_12m": 75.0,
+      "mrc_24m": 75.0,
+      "mrc_36m": 75.0,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "Cristie - Bare Metal Recovery Service",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 50.0,
+      "mrc_12m": 50.0,
+      "mrc_24m": 50.0,
+      "mrc_36m": 50.0,
+      "software_cost_actual_usd": 19.38
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "10 GB Backup Blocks",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 5.0,
+      "mrc_12m": 5.0,
+      "mrc_24m": 5.0,
+      "mrc_36m": 5.0,
+      "software_cost_actual_usd": 0.56
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "25 GB Backup Blocks",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 13.0,
+      "mrc_12m": 13.0,
+      "mrc_24m": 13.0,
+      "mrc_36m": 13.0,
+      "software_cost_actual_usd": 1.4000000000000001
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "50 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 25.0,
+      "mrc_12m": 25.0,
+      "mrc_24m": 25.0,
+      "mrc_36m": 25.0,
+      "software_cost_actual_usd": 2.8000000000000003
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "100 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 50.0,
+      "mrc_12m": 50.0,
+      "mrc_24m": 50.0,
+      "mrc_36m": 50.0,
+      "software_cost_actual_usd": 5.6000000000000005
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "200 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 100.0,
+      "mrc_12m": 100.0,
+      "mrc_24m": 100.0,
+      "mrc_36m": 100.0,
+      "software_cost_actual_usd": 11.200000000000001
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "300 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 150.0,
+      "mrc_12m": 150.0,
+      "mrc_24m": 150.0,
+      "mrc_36m": 150.0,
+      "software_cost_actual_usd": 16.8
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "400 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 200.0,
+      "mrc_12m": 200.0,
+      "mrc_24m": 200.0,
+      "mrc_36m": 200.0,
+      "software_cost_actual_usd": 22.400000000000002
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "500 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 250.0,
+      "mrc_12m": 250.0,
+      "mrc_24m": 250.0,
+      "mrc_36m": 250.0,
+      "software_cost_actual_usd": 28.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "600 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 300.0,
+      "mrc_12m": 300.0,
+      "mrc_24m": 300.0,
+      "mrc_36m": 300.0,
+      "software_cost_actual_usd": 33.6
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "700 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 350.0,
+      "mrc_12m": 350.0,
+      "mrc_24m": 350.0,
+      "mrc_36m": 350.0,
+      "software_cost_actual_usd": 39.2
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "800 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 400.0,
+      "mrc_12m": 400.0,
+      "mrc_24m": 400.0,
+      "mrc_36m": 400.0,
+      "software_cost_actual_usd": 44.800000000000004
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "900 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 450.0,
+      "mrc_12m": 450.0,
+      "mrc_24m": 450.0,
+      "mrc_36m": 450.0,
+      "software_cost_actual_usd": 50.4
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1000 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 500.0,
+      "mrc_12m": 500.0,
+      "mrc_24m": 500.0,
+      "mrc_36m": 500.0,
+      "software_cost_actual_usd": 56.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1100 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 550.0,
+      "mrc_12m": 550.0,
+      "mrc_24m": 550.0,
+      "mrc_36m": 550.0,
+      "software_cost_actual_usd": 61.6
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1200 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 600.0,
+      "mrc_12m": 600.0,
+      "mrc_24m": 600.0,
+      "mrc_36m": 600.0,
+      "software_cost_actual_usd": 67.2
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1300 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 650.0,
+      "mrc_12m": 650.0,
+      "mrc_24m": 650.0,
+      "mrc_36m": 650.0,
+      "software_cost_actual_usd": 72.8
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1400 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 700.0,
+      "mrc_12m": 700.0,
+      "mrc_24m": 700.0,
+      "mrc_36m": 700.0,
+      "software_cost_actual_usd": 78.4
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1500 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 750.0,
+      "mrc_12m": 750.0,
+      "mrc_24m": 750.0,
+      "mrc_36m": 750.0,
+      "software_cost_actual_usd": 84.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1600 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 800.0,
+      "mrc_12m": 800.0,
+      "mrc_24m": 800.0,
+      "mrc_36m": 800.0,
+      "software_cost_actual_usd": 89.60000000000001
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1700 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 850.0,
+      "mrc_12m": 850.0,
+      "mrc_24m": 850.0,
+      "mrc_36m": 850.0,
+      "software_cost_actual_usd": 95.2
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1800 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 900.0,
+      "mrc_12m": 900.0,
+      "mrc_24m": 900.0,
+      "mrc_36m": 900.0,
+      "software_cost_actual_usd": 100.8
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "1900 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 950.0,
+      "mrc_12m": 950.0,
+      "mrc_24m": 950.0,
+      "mrc_36m": 950.0,
+      "software_cost_actual_usd": 106.4
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  },
+  {
+    "category": "Backup",
+    "sku": "2000 GB Backup Block",
+    "product_type": "software",
+    "is_software": true,
+    "specs": {},
+    "pricing": {
+      "nrc_usd": 0.0,
+      "mrc_mtm": 1000.0,
+      "mrc_12m": 1000.0,
+      "mrc_24m": 1000.0,
+      "mrc_36m": 1000.0,
+      "software_cost_actual_usd": 112.0
+    },
+    "notes": "",
+    "needs_review": false,
+    "overall_confidence": 1.0
+  }
+]

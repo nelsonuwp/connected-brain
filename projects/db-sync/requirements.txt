@@ -1,3 +1,23 @@
-pymssql>=2.2.0
-sqlalchemy>=2.0
+# Core data pipeline
+pandas>=2.0
+rapidfuzz>=3.0
 python-dotenv>=1.0
+sqlalchemy>=2.0
+
+# Database clients
+supabase>=2.0
+psycopg2-binary>=2.9
+pymssql>=2.2
+
+# HTTP / scraping
+requests>=2.31
+trafilatura>=1.6
+beautifulsoup4>=4.12
+lxml>=4.9
+
+# Browser automation (for stubborn SPAs — optional, install separately)
+# pip install playwright && playwright install chromium
+# playwright>=1.40
+
+# Async HTTP with TLS spoofing (optional, used by news_engine pattern)
+# pip install curl-cffi
