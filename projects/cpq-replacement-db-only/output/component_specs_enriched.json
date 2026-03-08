@@ -21,22 +21,13 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": {
-          "provided": 50,
-          "actual": 125,
-          "note": "TDP is 125W, not 50W"
-        },
+        "value": 125,
         "source": "llm_correction",
         "confidence": 0.75,
         "original_parsed": 50
       },
-      "boost_ghz": {
-        "value": 3.7,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
       "generation": {
-        "value": "2nd Generation Intel Xeon Scalable Processors",
+        "value": "2nd Generation Intel\u00ae Xeon\u00ae Scalable",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -50,33 +41,13 @@
         "source": "llm_grounded",
         "confidence": 0.85
       },
+      "boost_ghz": {
+        "value": 3.7,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
       "ecc_support": {
         "value": true,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "cache_mb": {
-        "value": 19.25,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "memory_type": {
-        "value": "DDR4-2933",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "max_memory_gb": {
-        "value": 1024,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "lithography_nm": {
-        "value": 14,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "launch_date": {
-        "value": "Q2 2019",
         "source": "llm_grounded",
         "confidence": 0.85
       }
@@ -86,9 +57,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4607,
-      "completion": 273,
-      "total": 4880
+      "prompt": 4636,
+      "completion": 104,
+      "total": 4740
     }
   },
   {
@@ -129,7 +100,7 @@
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Skylake (server)",
+        "value": "Skylake-SP",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -149,9 +120,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 5101,
+      "prompt": 4246,
       "completion": 97,
-      "total": 5198
+      "total": 4343
     }
   },
   {
@@ -192,7 +163,7 @@
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Skylake (server)",
+        "value": "x86-64",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -212,9 +183,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4455,
-      "completion": 97,
-      "total": 4552
+      "prompt": 4326,
+      "completion": 96,
+      "total": 4422
     }
   },
   {
@@ -307,7 +278,7 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 105,
+        "value": "Provided value of 50W is incorrect; actual TDP is 105W",
         "source": "llm_correction",
         "confidence": 0.75,
         "original_parsed": 50
@@ -317,13 +288,18 @@
         "source": "csv",
         "confidence": 1.0
       },
+      "boost_ghz": {
+        "value": 3.2,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
       "generation": {
         "value": "Skylake",
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Skylake (server)",
+        "value": "Skylake (Server)",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -332,13 +308,23 @@
         "source": "llm_grounded",
         "confidence": 0.85
       },
-      "boost_ghz": {
-        "value": 3.2,
+      "ecc_support": {
+        "value": true,
         "source": "llm_grounded",
         "confidence": 0.85
       },
-      "ecc_support": {
-        "value": true,
+      "cache_mb": {
+        "value": 16.5,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "lithography_nm": {
+        "value": 14,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "launch_date": {
+        "value": "Q3 2017",
         "source": "llm_grounded",
         "confidence": 0.85
       }
@@ -348,9 +334,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4304,
-      "completion": 100,
-      "total": 4404
+      "prompt": 5134,
+      "completion": 225,
+      "total": 5359
     }
   },
   {
@@ -416,9 +402,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4303,
+      "prompt": 4631,
       "completion": 100,
-      "total": 4403
+      "total": 4731
     }
   },
   {
@@ -459,7 +445,7 @@
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Skylake (server)",
+        "value": "Products formerly Skylake",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -484,9 +470,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4803,
-      "completion": 100,
-      "total": 4903
+      "prompt": 4657,
+      "completion": 99,
+      "total": 4756
     }
   },
   {
@@ -527,7 +513,7 @@
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Skylake-SP",
+        "value": "Skylake (server)",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -547,14 +533,14 @@
         "confidence": 0.85
       }
     },
-    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/120492/intel-xeon-gold-6130-processor-22m-cache-2-10-ghz.html",
+    "source_url": "https://www.intel.com/content/www/us/en/products/sku/120492/intel-xeon-gold-6130-processor-22m-cache-2-10-ghz/specifications.html",
     "grounded": true,
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
       "prompt": 4077,
-      "completion": 98,
-      "total": 4175
+      "completion": 101,
+      "total": 4178
     }
   },
   {
@@ -647,7 +633,7 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "2nd Gen Intel Xeon Scalable",
+        "value": "2nd Gen",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -675,61 +661,6 @@
         "value": true,
         "source": "llm_grounded",
         "confidence": 0.85
-      },
-      "cache_mb": {
-        "value": 38.5,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "lithography_nm": {
-        "value": 14,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "max_memory_gb": {
-        "value": 1024,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "memory_type": {
-        "value": "DDR4-2933",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "memory_channels": {
-        "value": 6,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "pcie_revision": {
-        "value": "3.0",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "max_pcie_lanes": {
-        "value": 48,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "upi_links": {
-        "value": 2,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "launch_date": {
-        "value": "Q1 2020",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "marketing_status": {
-        "value": "Discontinued",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "end_of_servicing": {
-        "value": "2025-06-30",
-        "source": "llm_grounded",
-        "confidence": 0.85
       }
     },
     "source_url": "https://ark.intel.com/content/www/us/en/ark/products/199345/intel-xeon-gold-6238r-processor-38-5m-cache-2-20-ghz.html",
@@ -738,8 +669,8 @@
     "needs_review": false,
     "tokens": {
       "prompt": 4326,
-      "completion": 290,
-      "total": 4616
+      "completion": 100,
+      "total": 4426
     }
   },
   {
@@ -792,36 +723,6 @@
         "value": true,
         "source": "llm_grounded",
         "confidence": 0.85
-      },
-      "cache_mb": {
-        "value": 12,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "lithography_nm": {
-        "value": 14,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "max_memory_gb": {
-        "value": 128,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "memory_type": {
-        "value": "DDR4-2666",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "gpu": {
-        "value": "Intel UHD Graphics P630",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "launch_date": {
-        "value": "Q3 2018",
-        "source": "llm_grounded",
-        "confidence": 0.85
       }
     },
     "source_url": "https://www.intel.com/content/www/us/en/products/sku/134866/intel-xeon-e2146g-processor-12m-cache-up-to-4-50-ghz/specifications.html",
@@ -830,8 +731,8 @@
     "needs_review": false,
     "tokens": {
       "prompt": 4655,
-      "completion": 229,
-      "total": 4884
+      "completion": 101,
+      "total": 4756
     }
   },
   {
@@ -953,9 +854,9 @@
     "overall_confidence": 0.85,
     "needs_review": false,
     "tokens": {
-      "prompt": 4153,
+      "prompt": 4391,
       "completion": 90,
-      "total": 4243
+      "total": 4481
     }
   },
   {
@@ -1047,7 +948,7 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": 5,
+        "value": "5th Generation Intel Xeon Scalable",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -1070,6 +971,26 @@
         "value": true,
         "source": "llm_grounded",
         "confidence": 0.85
+      },
+      "base_frequency_ghz": {
+        "value": 3.9,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "cache_mb": {
+        "value": 22.5,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "lithography": {
+        "value": "Intel 7",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "memory_support": {
+        "value": "DDR5 4800 MT/s",
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
     "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237555/intel-xeon-gold-6534-processor-22-5m-cache-3-90-ghz.html",
@@ -1077,14 +998,72 @@
     "overall_confidence": 0.85,
     "needs_review": false,
     "tokens": {
-      "prompt": 4089,
-      "completion": 91,
-      "total": 4180
+      "prompt": 4361,
+      "completion": 208,
+      "total": 4569
     }
   },
   {
     "category": "Processor",
     "sku": "Intel Xeon Gold 6526Y 2.9G, 16/32T",
+    "product_type": "cpu",
+    "is_software": false,
+    "specs": {
+      "clock_ghz": {
+        "value": 2.8,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 2.9
+      },
+      "tdp_watts": {
+        "value": 195,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "capex_usd": {
+        "value": 1725.0,
+        "source": "csv",
+        "confidence": 1.0
+      },
+      "generation": {
+        "value": "5th Gen Intel\u00ae Xeon\u00ae Scalable",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Emerald Rapids",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA4677",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.9,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      }
+    },
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237560/intel-xeon-gold-6526y-processor-37-5m-cache-2-80-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
+    "needs_review": false,
+    "tokens": {
+      "prompt": 4920,
+      "completion": 108,
+      "total": 5028
+    }
+  },
+  {
+    "category": "Processor",
+    "sku": "Default Intel Xeon Gold 6526Y 2.9G, 16/32T",
     "product_type": "cpu",
     "is_software": false,
     "specs": {
@@ -1135,67 +1114,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 5526,
+      "prompt": 5941,
       "completion": 101,
-      "total": 5627
-    }
-  },
-  {
-    "category": "Processor",
-    "sku": "Default Intel Xeon Gold 6526Y 2.9G, 16/32T",
-    "product_type": "cpu",
-    "is_software": false,
-    "specs": {
-      "clock_ghz": {
-        "value": 2.8,
-        "source": "llm_correction",
-        "confidence": 0.75,
-        "original_parsed": 2.9
-      },
-      "tdp_watts": {
-        "value": 195,
-        "source": "csv",
-        "confidence": 1.0
-      },
-      "capex_usd": {
-        "value": 1725.0,
-        "source": "csv",
-        "confidence": 1.0
-      },
-      "generation": {
-        "value": 5,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "architecture": {
-        "value": "Emerald Rapids",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "socket": {
-        "value": "FCLGA4677",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "boost_ghz": {
-        "value": 3.9,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "ecc_support": {
-        "value": true,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      }
-    },
-    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237560/intel-xeon-gold-6526y-processor-37-5m-cache-2-80-ghz.html",
-    "grounded": true,
-    "overall_confidence": 0.75,
-    "needs_review": false,
-    "tokens": {
-      "prompt": 5468,
-      "completion": 99,
-      "total": 5567
+      "total": 6042
     }
   },
   {
@@ -1292,12 +1213,12 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "5th Gen Intel\u00ae Xeon\u00ae Scalable",
+        "value": "Emerald Rapids",
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Emerald Rapids",
+        "value": "Intel 7",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -1307,12 +1228,32 @@
         "confidence": 0.85
       },
       "boost_ghz": {
-        "value": 4,
+        "value": 4.0,
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "ecc_support": {
         "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "base_frequency_ghz": {
+        "value": 2.0,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "cache_mb": {
+        "value": 260,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "launch_date": {
+        "value": "Q4 2023",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "recommended_customer_price_usd": {
+        "value": 3720,
         "source": "llm_grounded",
         "confidence": 0.85
       }
@@ -1322,9 +1263,9 @@
     "overall_confidence": 0.85,
     "needs_review": false,
     "tokens": {
-      "prompt": 3711,
-      "completion": 100,
-      "total": 3811
+      "prompt": 4191,
+      "completion": 200,
+      "total": 4391
     }
   }
 ]
