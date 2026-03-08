@@ -98,6 +98,72 @@ REVIEW_THRESHOLD   = 0.80
 # ---------------------------------------------------------------------------
 SKIP_CATEGORIES = {"RAM", "PSU"}
 
+# Drive skus that are too generic to have published EOL dates
+# (manufacturer-specific drives like "7.6 TB Micron 9400 SSD" are ok)
+GENERIC_DRIVE_PATTERNS = [
+    r"^\d+[\d.]* ?(GB|TB) ?7200",       # e.g. "1 TB 7200 6 Gb/s SATA"
+    r"^\d+[\d.]* ?(GB|TB) ?SATA 2\.5",  # e.g. "480 GB SATA 2.5in SSD"
+    r"^\d+[\d.]* ?(GB|TB) ?NVMe u\.2",  # e.g. "960 GB NVMe u.2 2.5in"
+    r"^\d+[\d.]* ?(GB|TB) SSD$",        # e.g. "480 GB SSD"
+]
+
+
+def _is_generic_drive(sku: str) -> bool:
+    import re as _re
+    for pattern in GENERIC_DRIVE_PATTERNS:
+        if _re.match(pattern, sku, _re.IGNORECASE):
+            return True
+    return False
+
+
+def _is_default_variant(sku: str) -> bool:
+    """Returns True for 'Default Xeon ...' style SKUs that duplicate a real SKU."""
+    return sku.lower().startswith("default ")
+
+
+def _base_sku(sku: str) -> str:
+    """Strip 'Default ' prefix to get the canonical SKU for cache lookup."""
+    if sku.lower().startswith("default "):
+        return sku[8:].strip()
+    return sku
+
+
+def _clean_date(value: str) -> str:
+    """
+    Extract ISO date from LLM responses that may include explanatory text.
+    e.g. "End of support: 2024-12-31" -> "2024-12-31"
+         "2024-12-31 (extended)" -> "2024-12-31"
+         "December 31, 2024" -> "2024-12-31" (best effort)
+    Returns "" if no valid date found.
+    """
+    import re as _re
+    if not value:
+        return ""
+    # Already clean ISO
+    m = _re.search(r"(\d{4}-\d{2}-\d{2})", str(value))
+    if m:
+        return m.group(1)
+    # Try "Month DD, YYYY" or "Month YYYY"
+    months = {"january":"01","february":"02","march":"03","april":"04",
+              "may":"05","june":"06","july":"07","august":"08",
+              "september":"09","october":"10","november":"11","december":"12"}
+    m = _re.search(
+        r"(january|february|march|april|may|june|july|august|"
+        r"september|october|november|december)\s+(\d{1,2}),?\s+(\d{4})",
+        str(value).lower()
+    )
+    if m:
+        mon, day, year = m.group(1), m.group(2).zfill(2), m.group(3)
+        return f"{year}-{months[mon]}-{day}"
+    # "Q4 2025" → last day of that quarter (approximate)
+    m = _re.search(r"Q([1-4])\s+(\d{4})", str(value), _re.IGNORECASE)
+    if m:
+        q, yr = int(m.group(1)), m.group(2)
+        last_month = {1:"03",2:"06",3:"09",4:"12"}[q]
+        last_day = {1:"31",2:"30",3:"30",4:"31"}[q]
+        return f"{yr}-{last_month}-{last_day}"
+    return ""
+
 # Categories routed to Microsoft Lifecycle API
 MS_LIFECYCLE_CATEGORIES = {"OS", "SQL"}
 MS_LIFECYCLE_SKUS = {
@@ -134,10 +200,10 @@ def _fetch_ms_lifecycle(sku: str) -> dict:
         # Take the best match — first result Microsoft returns
         item = results[0]
         return {
-            "launch_date":                    item.get("startDate") or item.get("releaseDate") or "",
+            "launch_date":                    _clean_date(item.get("startDate") or item.get("releaseDate") or ""),
             "end_of_sale_date":               "",   # MS API doesn't surface EOS directly
-            "end_of_standard_support_date":   item.get("maintenanceEndDate") or "",
-            "end_of_life_date":               item.get("extendedEndDate") or "",
+            "end_of_standard_support_date":   _clean_date(item.get("maintenanceEndDate") or ""),
+            "end_of_life_date":               _clean_date(item.get("extendedEndDate") or ""),
             "source_method":                  "ms_lifecycle_api",
             "source_url":                     f"https://learn.microsoft.com/en-us/lifecycle/products/?terms={sku.replace(' ', '+')}",
             "confidence":                     CONF_DETERMINISTIC,
@@ -289,8 +355,9 @@ def _fetch_perplexity_lifecycle(sku: str, category: str) -> dict:
     for field in ("launch_date", "end_of_sale_date",
                   "end_of_standard_support_date", "end_of_life_date"):
         val = parsed.get(field, "")
-        if val and re.match(r"\d{4}-\d{2}-\d{2}", str(val)):
-            dates[field] = val
+        cleaned = _clean_date(str(val)) if val else ""
+        if cleaned:
+            dates[field] = cleaned
 
     if not dates:
         return {}
@@ -322,6 +389,10 @@ def fetch_lifecycle(sku: str, category: str, dry_run: bool) -> dict:
 
     # Skip categories with no EOL concept
     if category in SKIP_CATEGORIES:
+        return {}
+
+    # Skip generic drives — no manufacturer-specific EOL data published
+    if category == "Drive" and _is_generic_drive(sku):
         return {}
 
     # Microsoft API — Windows Server, SQL Server
@@ -455,12 +526,26 @@ def main():
     total_tokens = 0
     by_source    = {}
 
+    # Build a result lookup for dedup (base_sku → result)
+    base_sku_results = {}
+
     for i, item in enumerate(items, 1):
         sku      = item["sku"]
         category = item["category"]
 
         if sku in seen and not args.force:
             continue
+
+        # Default variants: inherit from base SKU instead of separate API call
+        if _is_default_variant(sku):
+            base = _base_sku(sku)
+            if base in base_sku_results:
+                inherited = {**base_sku_results[base], "sku": sku,
+                             "notes": f"Inherited from '{base}'"}
+                results.append(inherited)
+                seen.add(sku)
+                print(f"  [{i:3d}/{len(items)}] [inherit      ] {sku}")
+                continue
 
         # Route label for display
         if category in SKIP_CATEGORIES:
@@ -496,6 +581,9 @@ def main():
 
         results.append(row)
         seen.add(sku)
+        # Register for Default variant inheritance
+        if not _is_default_variant(sku) and lifecycle:
+            base_sku_results[sku] = row
 
         by_source[lifecycle.get("source_method", "unknown")] = (
             by_source.get(lifecycle.get("source_method", "unknown"), 0) + 1
