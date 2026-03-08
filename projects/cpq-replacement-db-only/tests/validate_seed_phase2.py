@@ -502,11 +502,18 @@ def test_server_default_components_spot_checks(client):
     failures, rows = [], []
     for key, ref in REFERENCE["server_defaults"].items():
         sku = ref["sku"]
+        cat_resp = (client.table("product_catalog")
+                    .select("id").eq("sku_name", sku).limit(1).execute())
+        if not cat_resp.data:
+            failures.append(f"{sku}: server not found in product_catalog")
+            rows.append({"server": sku, "count": 0})
+            continue
+        server_product_id = cat_resp.data[0]["id"]
         resp = (client.table("server_default_components")
                 .select("component_type, "
                         "server:product_catalog!server_default_components_server_product_id_fkey(sku_name), "
                         "component:product_catalog!server_default_components_component_product_id_fkey(sku_name)")
-                .eq("server.sku_name", sku).execute())
+                .eq("server_product_id", server_product_id).execute())
         count = len(resp.data)
         rows.append({"server": sku, "count": count})
         if count != ref["count"]:
@@ -539,11 +546,19 @@ def test_no_monitoring_in_defaults(client):
 def test_selectable_options_spot_checks(client):
     failures, rows = [], []
     ref = REFERENCE["selectable_options"]["adv_6_vhost_cpus"]
+    cat_resp = (client.table("product_catalog")
+                .select("id").eq("sku_name", ref["sku"]).limit(1).execute())
+    if not cat_resp.data:
+        failures.append(f"{ref['sku']}: server not found in product_catalog")
+        rows.append({"server": ref["sku"], "category": ref["category"], "count": 0, "skus": []})
+        return _result("selectable_options_spot_checks",
+                       "Advanced Series 6.0 vHost CPU options match CPQ v28", failures, rows)
+    server_product_id = cat_resp.data[0]["id"]
     resp = (client.table("server_selectable_options")
             .select("category, "
                     "server:product_catalog!server_selectable_options_server_product_id_fkey(sku_name), "
                     "component:product_catalog!server_selectable_options_component_product_id_fkey(sku_name)")
-            .eq("server.sku_name", ref["sku"])
+            .eq("server_product_id", server_product_id)
             .eq("category", ref["category"]).execute())
     count = len(resp.data)
     actual_skus = {r["component"]["sku_name"] for r in resp.data}

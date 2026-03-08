@@ -1,9 +1,9 @@
 {
-  "run_at": "2026-03-08T22:54:30.306859Z",
-  "passed": 22,
-  "failed": 2,
+  "run_at": "2026-03-08T23:41:26.441672Z",
+  "passed": 24,
+  "failed": 0,
   "total": 24,
-  "all_passed": false,
+  "all_passed": true,
   "tests": [
     {
       "test": "phase1_row_counts",
@@ -350,19 +350,16 @@
     {
       "test": "server_default_components_spot_checks",
       "description": "Pro 7.0 and Essential 6.0-M default component counts and SKUs match CPQ v28",
-      "passed": false,
-      "failures": [
-        "Pro Series 7.0: expected 6 defaults, got 108",
-        "Essential Series 6.0 - M: expected 6 defaults, got 108"
-      ],
+      "passed": true,
+      "failures": [],
       "rows": [
         {
           "server": "Pro Series 7.0",
-          "count": 108
+          "count": 6
         },
         {
           "server": "Essential Series 6.0 - M",
-          "count": 108
+          "count": 6
         }
       ]
     },
@@ -376,26 +373,16 @@
     {
       "test": "selectable_options_spot_checks",
       "description": "Advanced Series 6.0 vHost CPU options match CPQ v28",
-      "passed": false,
-      "failures": [
-        "Advanced 6.0 vHost CPU options: expected 3, got 47"
-      ],
+      "passed": true,
+      "failures": [],
       "rows": [
         {
           "server": "Advanced Series 6.0 vHost",
           "category": "cpu",
-          "count": 47,
+          "count": 3,
           "skus": [
-            "Intel Xeon Bronze 3106 1.7 GHz 8 Cores/8T",
-            "Intel Xeon Gold 5118 2.3 GHz 12 Cores/24T",
-            "Intel Xeon Gold 5122 3.6 GHz 4 Cores/8T (MTO)",
-            "Intel Xeon Gold 6130 2.1 GHz 16 Cores/32T (MTO)",
-            "Intel Xeon Gold 6138 2.0 GHz 20 Cores/40T (MTO)",
             "Intel Xeon Gold 6526Y 2.9G, 16/32T",
             "Intel Xeon Gold 6534 4G, 8C/16T",
-            "Intel Xeon Gold 6548Y+ 2.5G, 32C/64T",
-            "Intel Xeon Platinum 8558U 2G, 48C/96T",
-            "Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T",
             "Intel Xeon Silver 4514Y 2G, 16C/32T"
           ]
         }
