@@ -180,11 +180,14 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 	- That way we can look up the most recent date purchased and use THAT as the capex rate. We should probably add some sort of field to identify if it was bught on a discount, not to reestablish the capex rate. So like "use as new capex baseline" and then we can put in the UI that we will be entering this as the actual new rate (total price/units = capex price)
 
 - **Lifecycle date source of truth**: We have dates in `dimProductAttributes` (spotty), the hardware lifecycle JSON (more complete for hardware), and vendor documentation. Who owns keeping these current? Is there a feed from somewhere, or manual maintenance?
-	- Once we have product attributes migrated over to the dat
+	- Once we have product attributes migrated over to the postgres database, I don't have to navigate my EOL json file anymore, nor does dimproductattributes need to be maintained.
+	- The actual source of truth gets maintained ONCE when we add new products and services. Or when a new service date or something happens. Ideally when we add a new product all of this is entered. 
 
 - **Who updates what in Supabase**:
   - FX rates → Finance (CFO or team)
+	  - Correct
   - Server MRC/NRC pricing → ??? (Sales ops? Finance? Product?)
+	  - Well the _pricing_ is an aggregate of a bunch of different things: capex cost + overhead costs (DC facilities + power, DCh+ SW + addons + margin - Different teams will own 
   - Product lifecycle dates → ??? (whoever manages the product catalog)
   - CapEx records → Procurement or Finance
   - New product additions → needs a defined workflow
