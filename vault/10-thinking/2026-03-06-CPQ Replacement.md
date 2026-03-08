@@ -172,9 +172,11 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 	- Answer: fusion_id will only be locked in when we release a new product. We will not be able to have a fusion_id that is null.
 
 - **FX rate direction double-check**: Schema uses "units of foreign per 1 CAD" (USD ≈ 0.69, meaning 1 CAD buys $0.69 USD). Need to verify this matches how CFO/finance team wants to enter and read rates. If they think "1 USD = 1.45 CAD," the direction is inverted — the math changes from divide to multiply.
-	- Answer: Fixing on 
+	- Answer: Fixing on CAD always 1:1. Then everything will go from the bank of canada exchange rates (https://www.bankofcanada.ca/rates/exchange/monthly-exchange-rates/)
+		- E.g. US Dollar = 1.3651 for 2026-02
 
 - **Multiple CapEx records per product**: Right now `product_capex` allows multiple rows per product (each procurement batch gets its own record). This is correct for asset tracking. But does the financial model need the "current" CapEx or a weighted average across batches? The CPQ uses a single CapEx figure per product SKU, not per physical unit.
+	- When they procure. Add a 
 
 - **Lifecycle date source of truth**: We have dates in `dimProductAttributes` (spotty), the hardware lifecycle JSON (more complete for hardware), and vendor documentation. Who owns keeping these current? Is there a feed from somewhere, or manual maintenance?
 
