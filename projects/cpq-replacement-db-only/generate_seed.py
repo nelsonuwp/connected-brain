@@ -41,8 +41,24 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 # SQL helpers
 # ---------------------------------------------------------------------------
 
+class RawSQL:
+    """Wrapper for SQL expressions that should not be quoted (e.g. subselects)."""
+    def __init__(self, expr: str):
+        self.expr = expr
+
+    def __str__(self):
+        return self.expr
+
+
+def subselect(table: str, col: str, val: str) -> RawSQL:
+    """Return a subselect expression for FK lookups."""
+    return RawSQL(f"(SELECT id FROM {table} WHERE {col} = '{val}')")
+
+
 def sql_val(v) -> str:
     """Render a Python value as a SQL literal."""
+    if isinstance(v, RawSQL):
+        return str(v)
     if v is None or (isinstance(v, float) and math.isnan(v)):
         return "NULL"
     if isinstance(v, bool):
@@ -101,7 +117,17 @@ def gen_fx_rates(lines: list) -> None:
     lines.append("-- 1 CAD = rate USD  |  CAD→foreign: × rate  |  foreign→CAD: ÷ rate")
     lines.append("-- NOTE: 'ocean' rate type removed — Finance confirmed spot = quote rate.\n")
 
-    df = load_csv("10_fx_rates.csv")
+    fx_path = CPQ_DIR / "10_fx_rates.csv"
+    if not fx_path.exists():
+        lines.append("-- WARNING: 10_fx_rates.csv not found — fx_rates table not seeded.")
+        lines.append("-- Add spot and budget rates manually before production go-live.\n")
+        return
+
+    df = pd.read_csv(fx_path)
+
+    if df.empty:
+        lines.append("-- WARNING: 10_fx_rates.csv is empty — fx_rates table not seeded.\n")
+        return
 
     # Normalise: drop 'ocean', rename to 'spot' if present; keep 'budget'
     type_map = {"ocean": "spot", "spot": "spot", "budget": "budget"}
@@ -113,8 +139,8 @@ def gen_fx_rates(lines: list) -> None:
         if rate_type is None:
             continue
         currency = str(row.get("currency_code", "")).strip().upper()
-        if currency == "CAD":
-            continue  # CAD is root; never inserted into fx_rates
+        if not currency or currency == "CAD":
+            continue  # CAD is root; never inserted. Skip blank rows.
 
         key = (currency, rate_type)
         if key in seen:
@@ -190,12 +216,11 @@ def gen_pending_fusion_ids(lines: list, merged: pd.DataFrame) -> None:
         sku_name = str(row["sku_name"]).strip()
         fusion_id = str(row.get("fusion_id", "")).strip()
         lines.append(insert("pending_fusion_id", {
-            "product_id":    f"(SELECT id FROM product_catalog WHERE fusion_id = {sql_val(fusion_id)})",
+            "product_id":     subselect("product_catalog", "fusion_id", fusion_id),
             "placeholder_id": fusion_id,
             "sku_name":       sku_name,
             "reason":         "Product not yet formally released; fusion_id pending assignment",
         }))
-        # Note: product_id uses a subselect — we'll clean this up in post-processing
 
 
 def gen_server_specs(lines: list, merged: pd.DataFrame) -> None:
@@ -204,13 +229,13 @@ def gen_server_specs(lines: list, merged: pd.DataFrame) -> None:
 
     for _, row in merged.iterrows():
         fusion_id = str(row.get("fusion_id", "")).strip()
-        sku_name  = str(row.get("sku_name", "")).strip().lower()
 
-        is_promo = "promo" in sku_name
-        is_vhost = "vhost" in sku_name
+        is_promo = "promo" in str(row.get("sku_name", "")).lower()
+        # Read is_vhost directly from the CSV boolean column
+        is_vhost = bool(row.get("is_vhost", False))
 
         lines.append(insert("server_specs", {
-            "product_id":           f"(SELECT id FROM product_catalog WHERE fusion_id = {sql_val(fusion_id)})",
+            "product_id":           subselect("product_catalog", "fusion_id", fusion_id),
             "drive_bays":           row.get("drive_bays") or None,
             "default_cpu_qty":      row.get("default_cpu_qty") or None,
             "is_vhost":             is_vhost,
@@ -237,7 +262,7 @@ def gen_pricing(lines: list, merged: pd.DataFrame) -> None:
 
     for _, row in merged.iterrows():
         fusion_id = str(row.get("fusion_id", "")).strip()
-        product_ref = f"(SELECT id FROM product_catalog WHERE fusion_id = {sql_val(fusion_id)})"
+        product_ref = subselect("product_catalog", "fusion_id", fusion_id)
 
         for currency, terms in currency_term_cols.items():
             for term_months, (mrc_col, nrc_col) in terms.items():
@@ -272,7 +297,7 @@ def gen_dc_availability(lines: list) -> None:
         sku = str(row.get("sku_name", "")).strip()
         dc  = str(row.get("dc_code", "")).strip().upper()
         lines.append(insert("server_dc_availability", {
-            "server_product_id": f"(SELECT id FROM product_catalog WHERE sku_name = {sql_val(sku)} AND level = 'TLS')",
+            "server_product_id": subselect("product_catalog", "sku_name", sku),
             "dc_code":           dc,
         }))
 
