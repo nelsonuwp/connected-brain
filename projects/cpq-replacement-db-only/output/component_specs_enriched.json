@@ -26,8 +26,13 @@
         "confidence": 0.75,
         "original_parsed": 50
       },
+      "boost_ghz": {
+        "value": 3.7,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
       "generation": {
-        "value": "2nd Generation Intel\u00ae Xeon\u00ae Scalable",
+        "value": 2,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -37,17 +42,52 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "boost_ghz": {
-        "value": 3.7,
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "ecc_support": {
         "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "cache_mb": {
+        "value": 19.25,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "memory_type": {
+        "value": -2933,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "max_memory_gb": {
+        "value": 1024,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "memory_channels": {
+        "value": 6,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "pcie_version": {
+        "value": 3.0,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "pcie_lanes": {
+        "value": 48,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "lithography_nm": {
+        "value": 14,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "launch_date": {
+        "value": 2019,
         "source": "llm_grounded",
         "confidence": 0.85
       }
@@ -58,8 +98,8 @@
     "needs_review": false,
     "tokens": {
       "prompt": 4636,
-      "completion": 104,
-      "total": 4740
+      "completion": 287,
+      "total": 4923
     }
   },
   {
@@ -95,17 +135,17 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "Skylake",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "architecture": {
         "value": "Skylake-SP",
         "source": "llm_grounded",
         "confidence": 0.85
       },
+      "architecture": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -120,9 +160,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4246,
+      "prompt": 4296,
       "completion": 97,
-      "total": 4343
+      "total": 4393
     }
   },
   {
@@ -163,12 +203,12 @@
         "confidence": 0.85
       },
       "architecture": {
-        "value": "x86-64",
+        "value": "Skylake",
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -183,9 +223,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4326,
-      "completion": 96,
-      "total": 4422
+      "prompt": 4079,
+      "completion": 95,
+      "total": 4174
     }
   },
   {
@@ -221,7 +261,7 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "1st",
+        "value": "Skylake",
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -231,7 +271,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -251,9 +291,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 3935,
-      "completion": 95,
-      "total": 4030
+      "prompt": 4135,
+      "completion": 96,
+      "total": 4231
     }
   },
   {
@@ -278,7 +318,7 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": "Provided value of 50W is incorrect; actual TDP is 105W",
+        "value": 105,
         "source": "llm_correction",
         "confidence": 0.75,
         "original_parsed": 50
@@ -288,43 +328,28 @@
         "source": "csv",
         "confidence": 1.0
       },
-      "boost_ghz": {
-        "value": 3.2,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
       "generation": {
         "value": "Skylake",
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Skylake (Server)",
+        "value": "Skylake (server)",
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.2,
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "ecc_support": {
         "value": true,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "cache_mb": {
-        "value": 16.5,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "lithography_nm": {
-        "value": 14,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "launch_date": {
-        "value": "Q3 2017",
         "source": "llm_grounded",
         "confidence": 0.85
       }
@@ -334,9 +359,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 5134,
-      "completion": 225,
-      "total": 5359
+      "prompt": 5284,
+      "completion": 100,
+      "total": 5384
     }
   },
   {
@@ -382,7 +407,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -445,12 +470,12 @@
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Products formerly Skylake",
+        "value": -64,
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -470,9 +495,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4657,
+      "prompt": 4381,
       "completion": 99,
-      "total": 4756
+      "total": 4480
     }
   },
   {
@@ -518,7 +543,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -538,9 +563,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4077,
+      "prompt": 4492,
       "completion": 101,
-      "total": 4178
+      "total": 4593
     }
   },
   {
@@ -586,7 +611,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -633,7 +658,7 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "2nd Gen",
+        "value": 2,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -643,7 +668,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA3647",
+        "value": 3647,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -705,7 +730,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA1151",
+        "value": 1151,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -762,12 +787,12 @@
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Intel 7",
+        "value": 7,
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA1700",
+        "value": 1700,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -785,6 +810,26 @@
         "value": true,
         "source": "llm_grounded",
         "confidence": 0.85
+      },
+      "cache_mb": {
+        "value": 24,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "memory_support": {
+        "value": -4800,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "max_memory_gb": {
+        "value": 128,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "launch_date": {
+        "value": 2023,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
     "source_url": "https://ark.intel.com/content/www/us/en/ark/products/236184/intel-xeon-e-2468-processor-24m-cache-2-60-ghz.html",
@@ -792,9 +837,9 @@
     "overall_confidence": 0.85,
     "needs_review": false,
     "tokens": {
-      "prompt": 4555,
-      "completion": 97,
-      "total": 4652
+      "prompt": 4339,
+      "completion": 204,
+      "total": 4543
     }
   },
   {
@@ -834,7 +879,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA4677",
+        "value": 4677,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -849,14 +894,14 @@
         "confidence": 0.85
       }
     },
-    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237557/intel-xeon-silver-4514y-processor-30m-cache-2-00-ghz.html",
+    "source_url": "https://www.intel.com/content/www/us/en/products/sku/237557/intel-xeon-silver-4514y-processor-30m-cache-2-00-ghz/specifications.html",
     "grounded": true,
     "overall_confidence": 0.85,
     "needs_review": false,
     "tokens": {
-      "prompt": 4391,
-      "completion": 90,
-      "total": 4481
+      "prompt": 4276,
+      "completion": 95,
+      "total": 4371
     }
   },
   {
@@ -886,7 +931,7 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "5th Gen",
+        "value": 5,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -896,7 +941,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA4677",
+        "value": 4677,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -916,9 +961,9 @@
     "overall_confidence": 0.85,
     "needs_review": false,
     "tokens": {
-      "prompt": 4406,
-      "completion": 92,
-      "total": 4498
+      "prompt": 3882,
+      "completion": 90,
+      "total": 3972
     }
   },
   {
@@ -948,7 +993,7 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "5th Generation Intel Xeon Scalable",
+        "value": 5,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -958,7 +1003,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA4677",
+        "value": 4677,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -971,26 +1016,6 @@
         "value": true,
         "source": "llm_grounded",
         "confidence": 0.85
-      },
-      "base_frequency_ghz": {
-        "value": 3.9,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "cache_mb": {
-        "value": 22.5,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "lithography": {
-        "value": "Intel 7",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "memory_support": {
-        "value": "DDR5 4800 MT/s",
-        "source": "llm_grounded",
-        "confidence": 0.85
       }
     },
     "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237555/intel-xeon-gold-6534-processor-22-5m-cache-3-90-ghz.html",
@@ -998,9 +1023,9 @@
     "overall_confidence": 0.85,
     "needs_review": false,
     "tokens": {
-      "prompt": 4361,
-      "completion": 208,
-      "total": 4569
+      "prompt": 3662,
+      "completion": 100,
+      "total": 3762
     }
   },
   {
@@ -1026,7 +1051,7 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "5th Gen Intel\u00ae Xeon\u00ae Scalable",
+        "value": 5,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -1036,7 +1061,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA4677",
+        "value": 4677,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -1056,9 +1081,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 4920,
-      "completion": 108,
-      "total": 5028
+      "prompt": 5467,
+      "completion": 101,
+      "total": 5568
     }
   },
   {
@@ -1084,7 +1109,7 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "5th Gen",
+        "value": 5,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -1094,7 +1119,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA4677",
+        "value": 4677,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -1114,9 +1139,9 @@
     "overall_confidence": 0.75,
     "needs_review": false,
     "tokens": {
-      "prompt": 5941,
-      "completion": 101,
-      "total": 6042
+      "prompt": 4001,
+      "completion": 108,
+      "total": 4109
     }
   },
   {
@@ -1161,7 +1186,7 @@
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA4677",
+        "value": 4677,
         "source": "llm_grounded",
         "confidence": 0.85
       },
@@ -1213,47 +1238,27 @@
         "confidence": 1.0
       },
       "generation": {
-        "value": "Emerald Rapids",
+        "value": 5,
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "architecture": {
-        "value": "Intel 7",
+        "value": "Emerald Rapids",
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "socket": {
-        "value": "FCLGA4677",
+        "value": 4677,
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "boost_ghz": {
-        "value": 4.0,
+        "value": 4,
         "source": "llm_grounded",
         "confidence": 0.85
       },
       "ecc_support": {
         "value": true,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "base_frequency_ghz": {
-        "value": 2.0,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "cache_mb": {
-        "value": 260,
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "launch_date": {
-        "value": "Q4 2023",
-        "source": "llm_grounded",
-        "confidence": 0.85
-      },
-      "recommended_customer_price_usd": {
-        "value": 3720,
         "source": "llm_grounded",
         "confidence": 0.85
       }
@@ -1263,9 +1268,9 @@
     "overall_confidence": 0.85,
     "needs_review": false,
     "tokens": {
-      "prompt": 4191,
-      "completion": 200,
-      "total": 4391
+      "prompt": 3711,
+      "completion": 100,
+      "total": 3811
     }
   }
 ]
