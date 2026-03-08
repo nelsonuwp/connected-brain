@@ -778,12 +778,18 @@ INSERT INTO dc_cost_drivers (dc_code, cost_category, amount, currency_code, note
 
 -- Schema already seeds defaults. This block updates with CPQ v28 values.
 
-INSERT INTO overhead_constants (key, value, description) VALUES ('sga_pct_of_revenue', 0.08199743735763099, 'From CPQ v28 extraction') ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
-INSERT INTO overhead_constants (key, value, description) VALUES ('annual_cost_inflation_rate', 0.03, 'From CPQ v28 extraction') ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
-INSERT INTO overhead_constants (key, value, description) VALUES ('software_markup_over_cost', 0.15, 'From CPQ v28 extraction') ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
-INSERT INTO overhead_constants (key, value, description) VALUES ('ebit_thresholds', '{''poor_below'': -0.1, ''moderate'': 0.35, ''good'': 0.375, ''strong'': 0.4}', 'From CPQ v28 extraction') ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
-INSERT INTO overhead_constants (key, value, description) VALUES ('capital_intensity_threshold', 0.5, 'From CPQ v28 extraction') ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
-INSERT INTO overhead_constants (key, value, description) VALUES ('notes', '{''sga'': ''SG&A as % of Revenue - sourced from Model-Hosting!D8 and Model-Drivers row 10 (8.2%)'', ''inflation'': ''Annual cost inflation applied to per-server/per-kW cost drivers - sourced from Model-Hosting!D9'', ''software_markup'': ''Software costs in Products-Hosting col AC are wholesale/actual; col AD is adjusted. Model-Hosting uses 15% markup over actual cost to arrive at revenue (Model-Hosting!C72)'', ''ebit_thresholds'': "Approval gate thresholds. Deals below ''poor'' require Finance; ''moderate'' requires Director; ''good'' is standard approval; ''strong'' auto-approve", ''capital_intensity'': ''CI = CapEx / TCV. Target CI threshold is 0.50 (50%)''}', 'From CPQ v28 extraction') ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+-- Update schema-seeded values with CPQ v28 precision.
+-- Keys match schema exactly so ON CONFLICT correctly updates existing rows.
+-- ebit_thresholds and notes from CPQ v28 are not stored here (non-numeric) —
+--   they are fully covered by the individual ebit_* rows the schema already seeds.
+INSERT INTO overhead_constants (key, value, description) VALUES ('sga_pct',               0.08199743735763099, 'SG&A as % of revenue — CPQ v28 Model-Drivers row 10')               ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
+INSERT INTO overhead_constants (key, value, description) VALUES ('annual_cost_inflation',  0.03,               'Annual cost inflation rate — CPQ v28 Model-Drivers')                  ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
+INSERT INTO overhead_constants (key, value, description) VALUES ('software_markup_pct',    0.15,               'Markup over wholesale software cost — CPQ v28 Model-Hosting C72')     ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
+INSERT INTO overhead_constants (key, value, description) VALUES ('ebit_poor_threshold',    -0.1,              'EBIT % below which deal is Poor — CPQ v28')                           ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
+INSERT INTO overhead_constants (key, value, description) VALUES ('ebit_moderate_target',   0.35,              'EBIT % for Moderate rating — CPQ v28')                                ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
+INSERT INTO overhead_constants (key, value, description) VALUES ('ebit_good_target',       0.375,             'EBIT % for Good rating — CPQ v28')                                    ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
+INSERT INTO overhead_constants (key, value, description) VALUES ('ebit_strong_threshold',  0.4,               'EBIT % at or above which deal is Strong — CPQ v28')                   ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
+INSERT INTO overhead_constants (key, value, description) VALUES ('capital_intensity_threshold', 0.5,          'CapEx / TCV target threshold — CPQ v28')                              ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
 
 COMMIT;
 
