@@ -230,7 +230,8 @@ LLM_FIELDS = {
 
 SYSTEM_PROMPT = (
     "You are a hardware specification database. "
-    "Return ONLY valid JSON with no markdown, no preamble. "
+    "Your entire response must be a single raw JSON object — no markdown, no code fences, "
+    "no explanation before or after. Start your response with { and end with }. "
     "All numeric values must be numbers, not strings. "
     "Omit any field you cannot find a reliable source for — do not guess. "
     "Include source_url (Intel ARK, manufacturer spec page, etc.). "

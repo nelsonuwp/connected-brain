@@ -237,9 +237,10 @@ def _is_rhel(sku: str) -> bool:
 
 LIFECYCLE_SYSTEM = (
     "You are a product lifecycle database assistant. "
-    "Return ONLY valid JSON, no markdown, no preamble. "
+    "Your entire response must be a single raw JSON object — no markdown, no code fences, "
+    "no explanation before or after. Start your response with { and end with }. "
     "All dates must be ISO format YYYY-MM-DD. "
-    "If you cannot find a specific date with confidence, omit that field entirely. "
+    "If you cannot find a specific date with confidence, omit that field entirely — do not guess. "
     "Set grounded=true only if you found a primary vendor source (Dell, Intel ARK, "
     "Microsoft, manufacturer site). "
     "Include source_url pointing to the primary source."

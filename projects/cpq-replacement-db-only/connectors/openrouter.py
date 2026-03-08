@@ -64,6 +64,17 @@ def _default_search_temperature() -> float:
 # Core transport
 # ---------------------------------------------------------------------------
 
+# Models that support OpenAI-style response_format: {"type": "json_object"}
+# Perplexity and Gemini do NOT — they need prompt-based JSON instructions instead
+_JSON_MODE_MODELS = {
+    "openai/", "anthropic/", "meta-llama/", "mistralai/", "x-ai/",
+}
+
+def _supports_json_mode(model: str) -> bool:
+    """Return True only for models known to accept response_format: json_object."""
+    return any(model.startswith(prefix) for prefix in _JSON_MODE_MODELS)
+
+
 def call(
     model: str,
     messages: list,
@@ -78,6 +89,9 @@ def call(
     Returns:
         {"content": str, "tokens": {...}, "source_urls": [...], "model": str}
         or None on unrecoverable failure.
+
+    Note: response_format is silently dropped for Perplexity/Gemini models that
+    don't support it. Use prompt instructions + call_json() parsing instead.
     """
     payload = {
         "model":       model,
@@ -85,7 +99,8 @@ def call(
         "messages":    messages,
         "max_tokens":  max_tokens,
     }
-    if response_format:
+    # Only pass response_format for models that actually support it
+    if response_format and _supports_json_mode(model):
         payload["response_format"] = response_format
     if plugins:
         payload["plugins"] = plugins
