@@ -1,0 +1,42 @@
+ref_id,category,pricing_type,description_1,description_2,price_usd,price_gbp
+0,Cabinet Bundles,MRC,Octal Cabinet,Cabinet Fee,100,135
+1,Cabinet Bundles,MRC,Octal Cabinet,Port Access Fee,75,50
+2,Cabinet Bundles,MRC,Quarter Cabinet,Cabinet Fee,190,100
+3,Cabinet Bundles,MRC,Quarter Cabinet,Port Access Fee,75,50
+4,Cabinet Bundles,MRC,Half Cabinet,Cabinet Fee,255,100
+5,Cabinet Bundles,MRC,Half Cabinet,Port Access Fee,75,50
+6,Cabinet Bundles,MRC,Full Cabinet,Cabinet Fee,278,200
+7,Cabinet Bundles,MRC,Full Cabinet,Port Access Fee,75,50
+0,Cabinet Bundles,NRC / Setup,Octal Cabinet,Cabinet Fee,300,250
+1,Cabinet Bundles,NRC / Setup,Octal Cabinet,Port Access Fee,0,0
+2,Cabinet Bundles,NRC / Setup,Quarter Cabinet,Cabinet Fee,400,250
+3,Cabinet Bundles,NRC / Setup,Quarter Cabinet,Port Access Fee,0,0
+4,Cabinet Bundles,NRC / Setup,Half Cabinet,Cabinet Fee,500,500
+5,Cabinet Bundles,NRC / Setup,Half Cabinet,Port Access Fee,0,0
+6,Cabinet Bundles,NRC / Setup,Full Cabinet,Cabinet Fee,500,500
+7,Cabinet Bundles,NRC / Setup,Full Cabinet,Port Access Fee,0,0
+0,Power,MRC,[A] Power Flat-rate (kW),Per kW,150,200
+1,Power,MRC,[A + B] Power Flat-rate (kW),Per kW,200,280
+0,Power,NRC / Setup,[A] Power Flat-rate (kW),Per kW,120,120
+1,Power,NRC / Setup,[A + B] Power Flat-rate (kW),Per kW,120,120
+0,Bandwidth,MRC,95th Percentile: 5 Mbps Commit Total,,60.949999999999996,40.650000000000006
+1,Bandwidth,MRC,95th Percentile: 10 Mbps Commit Total,,121.89999999999999,81.30000000000001
+2,Bandwidth,MRC,95th Percentile: 25 Mbps Commit Total,,178.25,118.75
+3,Bandwidth,MRC,95th Percentile: 50 Mbps Commit Total,,234.50000000000003,156.5
+4,Bandwidth,MRC,95th Percentile: 100 Mbps Commit Total,,240.00000000000003,179.99999999999997
+5,Bandwidth,MRC,95th Percentile: 200 Mbps Commit Total,,360,270
+6,Bandwidth,MRC,95th Percentile: 250 Mbps Commit Total,,400,300
+7,Bandwidth,MRC,95th Percentile: 500 Mbps Commit Total,,600.0000000000001,449.99999999999994
+8,Bandwidth,MRC,95th Percentile: 1000 Mbps Commit Total,,919.9999999999999,690
+0,Cross-Connects,MRC,Fiber - to MMR or 3rd party,,250,150
+1,Cross-Connects,MRC,Fiber - Client to same Client,,0,25
+2,Cross-Connects,MRC,Fiber - Client to different Client,,50,50
+3,Cross-Connects,MRC,Copper - to MMR or 3rd party,,100,50
+4,Cross-Connects,MRC,Copper - Client to same Client,,0,50
+5,Cross-Connects,MRC,Copper - Client to different Client,,50,50
+0,Cross-Connects,NRC / Setup,Fiber - to MMR or 3rd party,,250,325
+1,Cross-Connects,NRC / Setup,Fiber - Client to same Client,,250,200
+2,Cross-Connects,NRC / Setup,Fiber - Client to different Client,,250,200
+3,Cross-Connects,NRC / Setup,Copper - to MMR or 3rd party,,200,200
+4,Cross-Connects,NRC / Setup,Copper - Client to same Client,,200,200
+5,Cross-Connects,NRC / Setup,Copper - Client to different Client,,200,200

@@ -1,0 +1,127 @@
+server_sku,component_type,default_value
+Pro Series 7.0,CPU,Default Intel Xeon 6517P 16 core
+Pro Series 7.0,RAM,256 GB DDR5 RAM
+Pro Series 7.0,Drive,960 GB SSD
+Pro Series 7.0,RAID Card,Hardware RAID Controller
+Pro Series 7.0,PSU,Redundant 1100W Power Supply
+Pro Series 7.0,Network,1000 Mbit Connection - GigE
+Pro Series 7.0,Monitoring,LM Basic Monitoring
+Cluster 5.0 (Dell R440),CPU,Intel Xeon Gold 6226 2.7GHz 12 Cores/24T
+Cluster 5.0 (Dell R440),RAM,128 GB DDR4 RAM
+Cluster 5.0 (Dell R440),Drive,480 GB SSD
+Cluster 5.0 (Dell R440),RAID Card,Hardware RAID Controller
+Cluster 5.0 (Dell R440),PSU,Dual 550W PSU
+Cluster 5.0 (Dell R440),Network,1000 Mbit Connection - GigE
+Cluster 5.0 (Dell R440),Monitoring,LM Basic Monitoring
+Atomic 5.0 (Dell R650xs),CPU,Intel Xeon Gold 6326 2.9GHz 16 Cores/32T
+Atomic 5.0 (Dell R650xs),RAM,128 GB DDR4 RAM
+Atomic 5.0 (Dell R650xs),Drive,960 GB SSD
+Atomic 5.0 (Dell R650xs),RAID Card,Hardware RAID Controller
+Atomic 5.0 (Dell R650xs),PSU,Dual 800W PSU
+Atomic 5.0 (Dell R650xs),Network,1000 Mbit Connection - GigE
+Atomic 5.0 (Dell R650xs),Monitoring,LM Basic Monitoring
+Promo Server - NA,CPU,Intel Xeon Gold 6238R 2.2 GHz 28C/56T
+Promo Server - NA,RAM,768 GB DDR4 RAM
+Promo Server - NA,Drive,8 TB SATA
+Promo Server - NA,RAID Card,Hardware RAID Controller
+Promo Server - NA,PSU,Redundant Power Supply (750W / 1100W)
+Promo Server - NA,Network,1000 Mbit Connection - GigE
+Promo Server - NA,Monitoring,LM Basic Monitoring
+Promo Server - UK,CPU,Default Xeon Gold 5118 2.3 GHz 12 Cores/24T
+Promo Server - UK,RAM,256 GB DDR4 RAM
+Promo Server - UK,Drive,480 GB SSD
+Promo Server - UK,RAID Card,Hardware RAID Controller
+Promo Server - UK,PSU,Redundant Power Supply (750W / 1100W)
+Promo Server - UK,Network,1000 Mbit Connection - GigE
+Promo Server - UK,Monitoring,LM Basic Monitoring
+Pro Series 6.0 - M,CPU,"Default Intel Xeon Gold 6526Y 2.9G, 16/32T"
+Pro Series 6.0 - M,RAM,128 GB DDR5 RAM
+Pro Series 6.0 - M,Drive,480 GB SSD
+Pro Series 6.0 - M,RAID Card,Hardware RAID Controller
+Pro Series 6.0 - M,PSU,Redundant 1100W Power Supply
+Pro Series 6.0 - M,Network,1000 Mbit Connection - GigE
+Pro Series 6.0 - M,Monitoring,LM Basic Monitoring
+Advanced Series 6.0 - M,CPU,"Default Intel Xeon Silver 4514Y 2G, 16C/32T"
+Advanced Series 6.0 - M,RAM,64 GB DDR5 RAM
+Advanced Series 6.0 - M,Drive,480 GB SSD
+Advanced Series 6.0 - M,RAID Card,Hardware RAID Controller
+Advanced Series 6.0 - M,PSU,Redundant 1100W Power Supply
+Advanced Series 6.0 - M,Network,1000 Mbit Connection - GigE
+Advanced Series 6.0 - M,Monitoring,LM Basic Monitoring
+Storage Series 6.0 - M,CPU,"Default Intel Xeon Silver 4514Y 2G, 16C/32T"
+Storage Series 6.0 - M,RAM,32 GB DDR5 RAM
+Storage Series 6.0 - M,Drive,480 GB SSD
+Storage Series 6.0 - M,RAID Card,Hardware RAID Controller
+Storage Series 6.0 - M,PSU,Redundant 1100W Power Supply
+Storage Series 6.0 - M,Network,1000 Mbit Connection - GigE
+Storage Series 6.0 - M,Monitoring,LM Basic Monitoring
+Essential Series 6.0 - M,CPU,Intel Xeon E-2468 2.6GHz 8C/16T
+Essential Series 6.0 - M,RAM,16 GB DDR5 RAM
+Essential Series 6.0 - M,Drive,2 TB 7200 6 Gb/s SATA
+Essential Series 6.0 - M,RAID Card,Hardware RAID Controller
+Essential Series 6.0 - M,PSU,Single Power Supply
+Essential Series 6.0 - M,Network,1000 Mbit Connection - GigE
+Essential Series 6.0 - M,Monitoring,LM Basic Monitoring
+Pro Series 5.0 - M,CPU,Default Xeon Gold 5118 2.3 GHz 12 Cores/24T
+Pro Series 5.0 - M,RAM,64 GB DDR4 RAM
+Pro Series 5.0 - M,Drive,480 GB SSD
+Pro Series 5.0 - M,RAID Card,Hardware RAID Controller
+Pro Series 5.0 - M,PSU,Single Power Supply
+Pro Series 5.0 - M,Network,1000 Mbit Connection - GigE
+Pro Series 5.0 - M,Monitoring,LM Basic Monitoring
+Advanced Series 5.0 - M,CPU,Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T
+Advanced Series 5.0 - M,RAM,32 GB DDR4 RAM
+Advanced Series 5.0 - M,Drive,1 TB 7200 6 Gb/s SATA
+Advanced Series 5.0 - M,RAID Card,Hardware RAID Controller
+Advanced Series 5.0 - M,PSU,Single Power Supply
+Advanced Series 5.0 - M,Network,1000 Mbit Connection - GigE
+Advanced Series 5.0 - M,Monitoring,LM Basic Monitoring
+Essential Series 5.0 - M,CPU,Intel Xeon E-2146G 3.5GHz 6C/12T
+Essential Series 5.0 - M,RAM,16 GB DDR4 RAM
+Essential Series 5.0 - M,Drive,1 TB 7200 6 Gb/s SATA
+Essential Series 5.0 - M,RAID Card,Hardware RAID Controller
+Essential Series 5.0 - M,PSU,Single Power Supply
+Essential Series 5.0 - M,Network,1000 Mbit Connection - GigE
+Essential Series 5.0 - M,Monitoring,LM Basic Monitoring
+Storage Series 5.0 - M,CPU,Default Xeon Bronze 3106 1.7 GHz 8 Cores/8T
+Storage Series 5.0 - M,RAM,64 GB DDR4 RAM
+Storage Series 5.0 - M,Drive,1 TB 7200 6 Gb/s SATA
+Storage Series 5.0 - M,RAID Card,Hardware RAID Controller
+Storage Series 5.0 - M,PSU,Single Power Supply
+Storage Series 5.0 - M,Network,1000 Mbit Connection - GigE
+Storage Series 5.0 - M,Monitoring,LM Basic Monitoring
+Pro Series 6.0 vHost,CPU,"Default Intel Xeon Gold 6526Y 2.9G, 16/32T"
+Pro Series 6.0 vHost,RAM,128 GB DDR5 RAM
+Pro Series 6.0 vHost,Drive,480 GB SSD
+Pro Series 6.0 vHost,RAID Card,Hardware RAID Controller
+Pro Series 6.0 vHost,PSU,Redundant 1100W Power Supply
+Pro Series 6.0 vHost,Network,1000 Mbit Connection - GigE
+Pro Series 6.0 vHost,Monitoring,LM Basic Monitoring
+Advanced Series 6.0 vHost,CPU,"Default Intel Xeon Silver 4514Y 2G, 16C/32T"
+Advanced Series 6.0 vHost,RAM,64 GB DDR5 RAM
+Advanced Series 6.0 vHost,Drive,480 GB SSD
+Advanced Series 6.0 vHost,RAID Card,Hardware RAID Controller
+Advanced Series 6.0 vHost,PSU,Redundant 1100W Power Supply
+Advanced Series 6.0 vHost,Network,1000 Mbit Connection - GigE
+Advanced Series 6.0 vHost,Monitoring,LM Basic Monitoring
+Pro Series 5.0 vHost,CPU,Default Xeon Gold 5118 2.3 GHz 12 Cores/24T
+Pro Series 5.0 vHost,RAM,64 GB DDR4 RAM
+Pro Series 5.0 vHost,Drive,480 GB SSD
+Pro Series 5.0 vHost,RAID Card,Hardware RAID Controller
+Pro Series 5.0 vHost,PSU,Single Power Supply
+Pro Series 5.0 vHost,Network,1000 Mbit Connection - GigE
+Pro Series 5.0 vHost,Monitoring,LM Basic Monitoring
+Advanced Series 5.0 vHost,CPU,Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T
+Advanced Series 5.0 vHost,RAM,32 GB DDR4 RAM
+Advanced Series 5.0 vHost,Drive,480 GB SSD
+Advanced Series 5.0 vHost,RAID Card,Hardware RAID Controller
+Advanced Series 5.0 vHost,PSU,Single Power Supply
+Advanced Series 5.0 vHost,Network,1000 Mbit Connection - GigE
+Advanced Series 5.0 vHost,Monitoring,LM Basic Monitoring
+Storage Series 5.0 vHost,CPU,Default Xeon Bronze 3106 1.7 GHz 8 Cores/8T
+Storage Series 5.0 vHost,RAM,64 GB DDR4 RAM
+Storage Series 5.0 vHost,Drive,480 GB SSD
+Storage Series 5.0 vHost,RAID Card,Hardware RAID Controller
+Storage Series 5.0 vHost,PSU,Single Power Supply
+Storage Series 5.0 vHost,Network,1000 Mbit Connection - GigE
+Storage Series 5.0 vHost,Monitoring,LM Basic Monitoring

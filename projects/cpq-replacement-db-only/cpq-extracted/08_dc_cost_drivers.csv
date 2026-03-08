@@ -1,0 +1,49 @@
+dc_name,cost_item,measure,incremental_value
+Atlanta,Power,$ / kW,63.62326752946573
+Miami,Power,$ / kW,99.1612506177122
+Los Angeles,Power,$ / kW,80.3575570732996
+Herndon,Power,$ / kW,72.7265933617592
+Toronto,Power,$ / kW,218.27492605219862
+Portsmouth,Power,$ / kW,357.0956774479239
+Atlanta,DC R&M / Supplies,$ / kW,0
+Miami,DC R&M / Supplies,$ / kW,0
+Los Angeles,DC R&M / Supplies,$ / kW,0
+Herndon,DC R&M / Supplies,$ / kW,0
+Toronto,DC R&M / Supplies,$ / kW,0
+Portsmouth,DC R&M / Supplies,$ / kW,0
+Atlanta,Network,$ / Server,58.704268917970325
+Miami,Network,$ / Server,58.704268917970325
+Los Angeles,Network,$ / Server,58.704268917970325
+Herndon,Network,$ / Server,58.704268917970325
+Toronto,Network,$ / Server,58.704268917970325
+Portsmouth,Network,$ / Server,58.704268917970325
+Atlanta,Billing & Collections,$ / Server,4.631482516044929
+Miami,Billing & Collections,$ / Server,4.631482516044929
+Los Angeles,Billing & Collections,$ / Server,4.631482516044929
+Herndon,Billing & Collections,$ / Server,4.631482516044929
+Toronto,Billing & Collections,$ / Server,4.631482516044929
+Portsmouth,Billing & Collections,$ / Server,4.631482516044929
+Atlanta,Supply Chain,$ / Server,6.394984464285716
+Miami,Supply Chain,$ / Server,6.394984464285716
+Los Angeles,Supply Chain,$ / Server,6.394984464285716
+Herndon,Supply Chain,$ / Server,6.394984464285716
+Toronto,Supply Chain,$ / Server,6.394984464285716
+Portsmouth,Supply Chain,$ / Server,6.394984464285716
+Atlanta,DC Infrastructure/Operations,$ / Server,20.833333333333332
+Miami,DC Infrastructure/Operations,$ / Server,28.260885219907404
+Los Angeles,DC Infrastructure/Operations,$ / Server,20.833333333333332
+Herndon,DC Infrastructure/Operations,$ / Server,18.502865896226403
+Toronto,DC Infrastructure/Operations,$ / Server,6.7602356918238975
+Portsmouth,DC Infrastructure/Operations,$ / Server,26.622109728260853
+Atlanta,Support,Tech Time Hours,80.27
+Miami,Support,Tech Time Hours,80.27
+Los Angeles,Support,Tech Time Hours,80.27
+Herndon,Support,Tech Time Hours,80.27
+Toronto,Support,Tech Time Hours,80.27
+Portsmouth,Support,Tech Time Hours,80.27
+Atlanta,SG&A,% of Sales,0.08199743735763099
+Miami,SG&A,% of Sales,0.08199743735763099
+Los Angeles,SG&A,% of Sales,0.08199743735763099
+Herndon,SG&A,% of Sales,0.08199743735763099
+Toronto,SG&A,% of Sales,0.08199743735763099
+Portsmouth,SG&A,% of Sales,0.08199743735763099

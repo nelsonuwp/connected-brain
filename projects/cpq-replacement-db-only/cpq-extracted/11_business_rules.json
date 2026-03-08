@@ -1,0 +1,122 @@
+{
+  "version": "1.0",
+  "extracted_from": "CPQ v28 + v27.4 corroboration",
+  "rules": [
+    {
+      "rule_id": "promo-min-contract",
+      "applies_to_sku_pattern": "Promo Server*",
+      "constraint_type": "min_contract_months",
+      "value": 12,
+      "description": "Promo servers require a minimum 12-month contract",
+      "source": "Products-Hosting col D Notes"
+    },
+    {
+      "rule_id": "promo-new-clients-only",
+      "applies_to_sku_pattern": "Promo Server*",
+      "constraint_type": "customer_type",
+      "value": "new_only",
+      "description": "Promo servers are available to new clients only",
+      "source": "Products-Hosting col D Notes"
+    },
+    {
+      "rule_id": "promo-no-customization",
+      "applies_to_sku_pattern": "Promo Server*",
+      "constraint_type": "customization_allowed",
+      "value": false,
+      "description": "Promo servers cannot have CPU or RAM changes",
+      "source": "Products-Hosting col D Notes"
+    },
+    {
+      "rule_id": "promo-while-supplies-last",
+      "applies_to_sku_pattern": "Promo Server*",
+      "constraint_type": "availability",
+      "value": "while_supplies_last",
+      "description": "Promo servers have limited inventory",
+      "source": "Products-Hosting col D Notes"
+    },
+    {
+      "rule_id": "series6-lead-time",
+      "applies_to_sku_pattern": [
+        "Pro Series 6*",
+        "Advanced Series 6*",
+        "Storage Series 6*",
+        "Essential Series 6*",
+        "Pro Series 7*"
+      ],
+      "constraint_type": "lead_time_weeks",
+      "value": 3,
+      "description": "6.x and 7.0 series servers require 3-week lead time",
+      "source": "Products-Hosting col D Notes"
+    },
+    {
+      "rule_id": "series5-supply-chain-check",
+      "applies_to_sku_pattern": [
+        "Pro Series 5*",
+        "Advanced Series 5*",
+        "Storage Series 5*",
+        "Essential Series 5*"
+      ],
+      "constraint_type": "availability_check_required",
+      "value": "supply_chain",
+      "description": "5.x series servers require availability validation with Supply Chain",
+      "source": "Products-Hosting col D Notes"
+    },
+    {
+      "rule_id": "series5-atlanta-rps",
+      "applies_to_sku_pattern": [
+        "Pro Series 5*",
+        "Advanced Series 5*",
+        "Storage Series 5*"
+      ],
+      "constraint_type": "dc_specific_requirement",
+      "dc": "Atlanta",
+      "value": "RPS_required",
+      "description": "5.x Pro/Advanced/Storage series require Redundant Power Supply (RPS) in Atlanta DC",
+      "source": "Products-Hosting col D Notes"
+    },
+    {
+      "rule_id": "vhost-required-for-vm",
+      "applies_to_category": "Virtual",
+      "constraint_type": "requires",
+      "value": {
+        "server_attribute": "is_vhost",
+        "operator": "at_least_one"
+      },
+      "description": "Virtual machines require at least one server configured as a vHost",
+      "source": "Configurator-Hosting formula logic"
+    },
+    {
+      "rule_id": "vmware-per-core-pricing",
+      "applies_to_sku": "VMWare License",
+      "constraint_type": "pricing_model",
+      "value": "per_licensed_core",
+      "description": "VMware License is priced per licensed core, not flat-rate. Core count comes from the vHost server's CPU configuration. MRC = price_per_core \u00d7 licensed_core_count.",
+      "source": "Configurator-Hosting rows 17-20 formula: D18*D19 (licensed_cores \u00d7 price_per_core)"
+    },
+    {
+      "rule_id": "software-cost-to-revenue",
+      "applies_to_category": "all_software",
+      "constraint_type": "pricing_model",
+      "value": "actual_cost_plus_markup",
+      "markup_rate": 0.15,
+      "description": "Software revenue = SoftwareCostsActual \u00d7 1.15. Col AC is wholesale, col AD is adjusted. Model-Hosting applies 15% markup.",
+      "source": "Model-Hosting C72, Products-Hosting cols AC/AD"
+    },
+    {
+      "rule_id": "mrc-not-available-monthly",
+      "applies_to_sku_pattern": [
+        "Promo Server*",
+        "Cluster 5.0*",
+        "Atomic 5.0*"
+      ],
+      "constraint_type": "contract_terms_available",
+      "value": [
+        "12",
+        "24",
+        "36"
+      ],
+      "description": "These server SKUs show N/A for monthly pricing \u2014 they are not available without a minimum contract term",
+      "source": "Products-Hosting MRC Monthly USD col"
+    }
+  ]
+}
