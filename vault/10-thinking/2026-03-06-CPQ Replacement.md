@@ -233,7 +233,9 @@ dc_cost_drivers        48 rows      internal per-DC overhead costs
 - **Price staleness**: The extracted data is from CPQ v28. If pricing has changed since the last file version, the seed data will be wrong. Need a "day zero" validation where finance confirms current pricing before go-live.
 	- I'm ok with that. By the time we get there we will have so FEW things to manually update it will be easy. 
 - **FX rate gap at go-live**: The CPQ has Ocean/Spot rates. The new schema adds `budget` as a third type. Someone needs to backfill historical budget rates (at least 12 months) for the CapEx CAD derivation to work on existing assets.
-	- It's ok, but I got off the phone with Finance and they say th
+	- It's ok, but I got off the phone with Finance and they said they are ok just having:
+		- Rate off CAD and then USD, EUR, GBP and then whatever the rate identified by the bank of canada is ... so at the time of this document: USD is 1.3651, GBP is 1.8533, EUR is 1.6138... so we put those in there then we can go back and forth from that ... we can evne add CAD as 1 if we want.
+		- We can add a type like 'spot' or 'budget' or whatever if we want.. 
 - **Supabase free tier pausing**: If the POC isn't actively used, the project pauses after 1 week. Not a problem for active development, but could surprise someone picking it up after a holiday week.
 - **No financial model in POC**: The CPQ's EBIT/IRR/NPV calculations are real business logic that sales and finance depend on. The POC won't replicate this. There will be a gap period where pricing comes from the new system but EBIT modeling still uses Excel.
 - **Colo deprioritized**: Scoped out for POC. Colo clients at MIA and POR will still need the Excel tool during the POC phase.
