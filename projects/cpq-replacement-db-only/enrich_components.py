@@ -297,23 +297,33 @@ def enrich_with_llm(category: str, sku: str, parsed: dict, dry_run: bool) -> dic
 
 def _scalar(value):
     """
-    Flatten LLM values that came back as dicts instead of scalars.
-    Perplexity sometimes returns {"actual": 125, "note": "..."} for corrections.
-    We take the most specific numeric/string value we can find.
+    Flatten LLM values that came back as dicts or explanatory strings instead of scalars.
+
+    Handles:
+      {"actual": 125, "note": "TDP is 125W not 50W"}  → 125
+      "Provided value of 50W is incorrect; actual TDP is 105W"  → 105
+      125  → 125  (passthrough)
     """
     if isinstance(value, dict):
-        # Prefer "actual" > "value" > "corrected" > first numeric value found
         for key in ("actual", "value", "corrected", "correct"):
             if key in value and value[key] is not None:
                 return value[key]
-        # Fallback: first numeric value in the dict
         for v in value.values():
             if isinstance(v, (int, float)):
                 return v
-        # Last resort: first string value
         for v in value.values():
             if isinstance(v, str):
                 return v
+    if isinstance(value, str):
+        # If it looks like an explanatory sentence, extract the last number mentioned
+        # e.g. "Provided 50W is incorrect; actual TDP is 105W" → 105
+        nums = re.findall(r"[-+]?\d*\.?\d+", value)
+        if nums:
+            # Prefer the last number (usually the "actual" value in correction sentences)
+            try:
+                return float(nums[-1]) if "." in nums[-1] else int(nums[-1])
+            except ValueError:
+                pass
     return value
 
 
