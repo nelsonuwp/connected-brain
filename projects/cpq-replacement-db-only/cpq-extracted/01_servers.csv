@@ -1,15 +1,15 @@
-sku,default_cpu_qty,processor_sockets,drive_bays,default_drive_qty,watts,capex_usd,nrc_usd,mrc_monthly_usd,mrc_12m_usd,mrc_24m_usd,mrc_36m_usd,nrc_gbp,mrc_12m_gbp,nrc_cad,mrc_12m_cad,residual_value_12m_usd,residual_value_24m_usd,is_vhost,is_promo,notes
-Promo Server - NA,2,2,16,2,224,580,0,N/A,399,349,299,0,309,0,529,0,,False,True,"Minimum 12 month contract 
+sku,is_vhost,notes,processor_sockets,default_cpu_qty,drive_bays,default_drive_qty,watts,nrc_usd,nrc_gbp,nrc_cad,mrc_mtm_usd,mrc_mtm_gbp,mrc_mtm_cad,mrc_12m_usd,mrc_12m_gbp,mrc_12m_cad,mrc_24m_usd,mrc_24m_gbp,mrc_24m_cad,mrc_36m_usd,mrc_36m_gbp,mrc_36m_cad,capex_usd,residual_value_12m,residual_value_24m
+Promo Server - NA,False,"Minimum 12 month contract 
 New clients only 
 No CPU or RAM changes
-As supplies last"
-Promo Server - UK,2,2,8,4,224,580,0,N/A,389,329,299,0,269,0,499,0,,False,True,"Minimum 12 month contract 
+As supplies last",2.0,2.0,16.0,2.0,224.0,0.0,0.0,0.0,,,,399.0,309.0,529.0,349.0,269.0,459.0,299.0,229.0,399.0,580.0,,
+Promo Server - UK,False,"Minimum 12 month contract 
 New clients only 
 No CPU or RAM changes
-As supplies last"
-Pro Series 7.0,2,2,10,2,400,12056,1719,1719,1719,1339,1149,1429,1429,1989,1989,0.2,,False,False,"Lead Time: 
-3 weeks"
-Cluster 5.0 (Dell R440),2,2,4,2,200,0,0,N/A,399,349,299,0,N/A,0,554.6666666666666,0,,False,False,"Must be Sold in 
+As supplies last",2.0,2.0,8.0,4.0,224.0,0.0,0.0,0.0,,,,389.0,269.0,499.0,329.0,249.0,459.0,299.0,229.0,429.0,580.0,,
+Pro Series 7.0,False,"Lead Time: 
+3 weeks",2.0,2.0,10.0,2.0,400.0,1719.0,1429.0,1989.0,1719.0,1429.0,1989.0,1719.0,1429.0,1989.0,1339.0,1109.0,1539.0,1149.0,949.0,1319.0,12056.0,0.4,0.2
+Cluster 5.0 (Dell R440),True,"Must be Sold in 
 Clusters of 3
  
 North America Only 
@@ -17,8 +17,8 @@ New Logos Only
 Min 12 Month Contract 
 As Supplies Last 
 
-Contact Product for Proxmox Support Pricing"
-Atomic 5.0 (Dell R650xs),1,2,8,2,300,0,0,N/A,449,399,349,0,N/A,0,624,0,,False,False,"Must be Sold in 
+Contact Product for Proxmox Support Pricing",2.0,2.0,4.0,2.0,200.0,,,,,,,399.0,,554.67,349.0,,485.33,299.0,,415.67,,,
+Atomic 5.0 (Dell R650xs),True,"Must be Sold in 
 Clusters of 3
  
 North America Only 
@@ -26,35 +26,35 @@ New Logos Only
 Min 12 Month Contract 
 As Supplies Last 
 
-Contact Product for Proxmox Support Pricing"
-Pro Series 6.0 - M,2,2,10,2,400,7568.62,1079,1079,1079,839,719,899,899,1249,1249,0.2,,False,False,"Lead Time: 
-3 weeks"
-Pro Series 6.0 vHost,2,2,10,2,400,7568.62,1079,1079,1079,839,719,899,899,1249,1249,0.2,,True,False,"Lead Time: 
-3 weeks"
-Advanced Series 6.0 - M,1,2,4,2,280,5901,839,839,839,659,559,699,699,969,969,0.2,,False,False,"Lead Time: 
-3 weeks"
-Advanced Series 6.0 vHost,1,2,4,2,280,5901,839,839,839,659,559,699,699,969,969,0.2,,True,False,"Lead Time: 
-3 weeks"
-Storage Series 6.0 - M,1,2,12,2,280,6560,939,939,939,729,619,779,779,1079,1079,0.2,,False,False,"Lead Time: 
-3 weeks"
-Essential Series 6.0 - M,1,1,2,2,147,2201,309,309,309,239,209,259,259,359,359,0.2,,False,False,"Lead Time: 
-3 weeks"
-Pro Series 5.0 - M,2,2,8,2,224,3500,849,849,679,679,679,637,499,1147,919,0.1,900,False,False,"Validate availability with Supply Chain 
+Contact Product for Proxmox Support Pricing",2.0,1.0,8.0,2.0,300.0,,,,,,,449.0,,624.0,399.0,,554.67,349.0,,485.33,,,
+Pro Series 6.0 - M,False,"Lead Time: 
+3 weeks",2.0,2.0,10.0,2.0,400.0,1079.0,899.0,1249.0,1079.0,899.0,1249.0,1079.0,899.0,1249.0,839.0,699.0,969.0,719.0,599.0,829.0,7569.0,0.4,0.2
+Pro Series 6.0 vHost,True,"Lead Time: 
+3 weeks",2.0,2.0,10.0,2.0,400.0,1079.0,899.0,1249.0,1079.0,899.0,1249.0,1079.0,899.0,1249.0,839.0,699.0,969.0,719.0,599.0,829.0,7569.0,0.4,0.2
+Advanced Series 6.0 - M,False,"Lead Time: 
+3 weeks",2.0,1.0,4.0,2.0,280.0,839.0,699.0,969.0,839.0,699.0,969.0,839.0,699.0,969.0,659.0,549.0,759.0,559.0,459.0,639.0,5901.0,0.4,0.2
+Advanced Series 6.0 vHost,True,"Lead Time: 
+3 weeks",2.0,1.0,4.0,2.0,280.0,839.0,699.0,969.0,839.0,699.0,969.0,839.0,699.0,969.0,659.0,549.0,759.0,559.0,459.0,639.0,5901.0,0.4,0.2
+Storage Series 6.0 - M,False,"Lead Time: 
+3 weeks",2.0,1.0,12.0,2.0,280.0,939.0,779.0,1079.0,939.0,779.0,1079.0,939.0,779.0,1079.0,729.0,599.0,829.0,619.0,509.0,709.0,6560.0,0.4,0.2
+Essential Series 6.0 - M,False,"Lead Time: 
+3 weeks",1.0,1.0,2.0,2.0,147.0,309.0,259.0,359.0,309.0,259.0,359.0,309.0,259.0,359.0,239.0,199.0,279.0,209.0,169.0,229.0,2201.0,0.4,0.2
+Pro Series 5.0 - M,False,"Validate availability with Supply Chain 
 
-RPS required in Atlanta DC"
-Pro Series 5.0 vHost,2,2,8,2,224,3500,849,849,679,679,679,637,499,1147,919,0,900,True,False,"Validate availability with Supply Chain 
+RPS required in Atlanta DC",2.0,2.0,8.0,2.0,224.0,849.0,637.0,1147.0,849.0,637.0,1147.0,679.0,499.0,919.0,679.0,499.0,919.0,679.0,499.0,919.0,3500.0,0.4,0.1
+Pro Series 5.0 vHost,True,"Validate availability with Supply Chain 
 
-RPS required in Atlanta DC"
-Storage Series 5.0 - M,1,2,16,2,120,3000,749,749,599,599,599,562,449,1012,809,0.1,916,False,False,"Validate availability with Supply Chain 
+RPS required in Atlanta DC",2.0,2.0,8.0,2.0,224.0,849.0,637.0,1147.0,849.0,637.0,1147.0,679.0,499.0,919.0,679.0,499.0,919.0,679.0,499.0,919.0,3500.0,,
+Storage Series 5.0 - M,False,"Validate availability with Supply Chain 
 
-RPS required in Atlanta DC"
-Storage Series 5.0 vHost,1,2,16,2,120,3000,749,749,599,599,599,562,449,1012,809,0,916,True,False,"Validate availability with Supply Chain 
+RPS required in Atlanta DC",2.0,1.0,16.0,2.0,120.0,749.0,562.0,1012.0,749.0,562.0,1012.0,599.0,449.0,809.0,599.0,449.0,809.0,599.0,449.0,809.0,3000.0,0.3,0.1
+Storage Series 5.0 vHost,True,"Validate availability with Supply Chain 
 
-RPS required in Atlanta DC"
-Advanced Series 5.0 - M,1,2,4,2,120,1200,560,560,449,449,449,420,329,756,609,0,900,False,False,"Validate availability with Supply Chain 
+RPS required in Atlanta DC",2.0,1.0,16.0,2.0,120.0,749.0,562.0,1012.0,749.0,562.0,1012.0,599.0,449.0,809.0,599.0,449.0,809.0,599.0,449.0,809.0,3000.0,,
+Advanced Series 5.0 - M,False,"Validate availability with Supply Chain 
 
-RPS required in Atlanta DC"
-Advanced Series 5.0 vHost,1,2,4,2,120,1200,560,560,449,449,449,420,329,756,609,0,900,True,False,"Validate availability with Supply Chain 
+RPS required in Atlanta DC",2.0,1.0,4.0,2.0,120.0,560.0,420.0,756.0,560.0,420.0,756.0,449.0,329.0,609.0,449.0,329.0,609.0,449.0,329.0,609.0,1200.0,0.1,
+Advanced Series 5.0 vHost,True,"Validate availability with Supply Chain 
 
-RPS required in Atlanta DC"
-Essential Series 5.0 - M,1,1,4,2,85,450,389,389,319,319,319,309,249,529,429,0,450,False,False,Validate availability with Supply Chain
+RPS required in Atlanta DC",2.0,1.0,4.0,2.0,120.0,560.0,420.0,756.0,560.0,420.0,756.0,449.0,329.0,609.0,449.0,329.0,609.0,449.0,329.0,609.0,1200.0,,
+Essential Series 5.0 - M,False,Validate availability with Supply Chain,1.0,1.0,4.0,2.0,85.0,389.0,309.0,529.0,389.0,309.0,529.0,319.0,249.0,429.0,319.0,249.0,429.0,319.0,249.0,429.0,450.0,,
