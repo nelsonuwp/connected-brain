@@ -91,7 +91,7 @@ def main():
     args = parser.parse_args()
 
     print("Connecting to Ocean DB...")
-    connector = MSSQLConnector({"env_prefix": "OCEAN"})
+    connector = MSSQLConnector("OCEAN")
 
     query = QUERY_ALL if args.all else QUERY_ACTIVE_TLS
     label = "all rows" if args.all else "active TLS rows"
