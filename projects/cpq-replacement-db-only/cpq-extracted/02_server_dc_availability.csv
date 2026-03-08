@@ -1,89 +1,89 @@
-server_sku,dc_name
-Pro Series 7.0,Atlanta
-Pro Series 7.0,Miami
-Pro Series 7.0,Los Angeles
-Pro Series 7.0,Herndon
-Pro Series 7.0,Toronto
-Pro Series 7.0,Portsmouth
-Cluster 5.0 (Dell R440),Atlanta
-Cluster 5.0 (Dell R440),Miami
-Cluster 5.0 (Dell R440),Los Angeles
-Cluster 5.0 (Dell R440),Herndon
-Cluster 5.0 (Dell R440),Toronto
-Atomic 5.0 (Dell R650xs),Atlanta
-Atomic 5.0 (Dell R650xs),Miami
-Atomic 5.0 (Dell R650xs),Los Angeles
-Atomic 5.0 (Dell R650xs),Herndon
-Atomic 5.0 (Dell R650xs),Toronto
-Pro Series 6.0 - M,Atlanta
-Pro Series 6.0 - M,Miami
-Pro Series 6.0 - M,Los Angeles
-Pro Series 6.0 - M,Herndon
-Pro Series 6.0 - M,Toronto
-Pro Series 6.0 - M,Portsmouth
-Advanced Series 6.0 - M,Atlanta
-Advanced Series 6.0 - M,Miami
-Advanced Series 6.0 - M,Los Angeles
-Advanced Series 6.0 - M,Herndon
-Advanced Series 6.0 - M,Toronto
-Advanced Series 6.0 - M,Portsmouth
-Storage Series 6.0 - M,Atlanta
-Storage Series 6.0 - M,Miami
-Storage Series 6.0 - M,Los Angeles
-Storage Series 6.0 - M,Herndon
-Storage Series 6.0 - M,Toronto
-Storage Series 6.0 - M,Portsmouth
-Essential Series 6.0 - M,Atlanta
-Essential Series 6.0 - M,Miami
-Essential Series 6.0 - M,Los Angeles
-Essential Series 6.0 - M,Herndon
-Essential Series 6.0 - M,Toronto
-Essential Series 6.0 - M,Portsmouth
-Pro Series 5.0 - M,Atlanta
-Pro Series 5.0 - M,Miami
-Pro Series 5.0 - M,Los Angeles
-Pro Series 5.0 - M,Herndon
-Pro Series 5.0 - M,Toronto
-Pro Series 5.0 - M,Portsmouth
-Advanced Series 5.0 - M,Atlanta
-Advanced Series 5.0 - M,Miami
-Advanced Series 5.0 - M,Los Angeles
-Advanced Series 5.0 - M,Herndon
-Advanced Series 5.0 - M,Toronto
-Advanced Series 5.0 - M,Portsmouth
-Storage Series 5.0 - M,Atlanta
-Storage Series 5.0 - M,Miami
-Storage Series 5.0 - M,Los Angeles
-Storage Series 5.0 - M,Herndon
-Storage Series 5.0 - M,Toronto
-Storage Series 5.0 - M,Portsmouth
-Pro Series 6.0 vHost,Atlanta
-Pro Series 6.0 vHost,Miami
-Pro Series 6.0 vHost,Los Angeles
-Pro Series 6.0 vHost,Herndon
-Pro Series 6.0 vHost,Toronto
-Pro Series 6.0 vHost,Portsmouth
-Advanced Series 6.0 vHost,Atlanta
-Advanced Series 6.0 vHost,Miami
-Advanced Series 6.0 vHost,Los Angeles
-Advanced Series 6.0 vHost,Herndon
-Advanced Series 6.0 vHost,Toronto
-Advanced Series 6.0 vHost,Portsmouth
-Pro Series 5.0 vHost,Atlanta
-Pro Series 5.0 vHost,Miami
-Pro Series 5.0 vHost,Los Angeles
-Pro Series 5.0 vHost,Herndon
-Pro Series 5.0 vHost,Toronto
-Pro Series 5.0 vHost,Portsmouth
-Advanced Series 5.0 vHost,Atlanta
-Advanced Series 5.0 vHost,Miami
-Advanced Series 5.0 vHost,Los Angeles
-Advanced Series 5.0 vHost,Herndon
-Advanced Series 5.0 vHost,Toronto
-Advanced Series 5.0 vHost,Portsmouth
-Storage Series 5.0 vHost,Atlanta
-Storage Series 5.0 vHost,Miami
-Storage Series 5.0 vHost,Los Angeles
-Storage Series 5.0 vHost,Herndon
-Storage Series 5.0 vHost,Toronto
-Storage Series 5.0 vHost,Portsmouth
+sku_name,dc_code
+Pro Series 7.0,ATL
+Pro Series 7.0,MIA
+Pro Series 7.0,LAX
+Pro Series 7.0,IAD
+Pro Series 7.0,TOR
+Pro Series 7.0,POR
+Cluster 5.0 (Dell R440),ATL
+Cluster 5.0 (Dell R440),MIA
+Cluster 5.0 (Dell R440),LAX
+Cluster 5.0 (Dell R440),IAD
+Cluster 5.0 (Dell R440),TOR
+Atomic 5.0 (Dell R650xs),ATL
+Atomic 5.0 (Dell R650xs),MIA
+Atomic 5.0 (Dell R650xs),LAX
+Atomic 5.0 (Dell R650xs),IAD
+Atomic 5.0 (Dell R650xs),TOR
+Pro Series 6.0 - M,ATL
+Pro Series 6.0 - M,MIA
+Pro Series 6.0 - M,LAX
+Pro Series 6.0 - M,IAD
+Pro Series 6.0 - M,TOR
+Pro Series 6.0 - M,POR
+Advanced Series 6.0 - M,ATL
+Advanced Series 6.0 - M,MIA
+Advanced Series 6.0 - M,LAX
+Advanced Series 6.0 - M,IAD
+Advanced Series 6.0 - M,TOR
+Advanced Series 6.0 - M,POR
+Storage Series 6.0 - M,ATL
+Storage Series 6.0 - M,MIA
+Storage Series 6.0 - M,LAX
+Storage Series 6.0 - M,IAD
+Storage Series 6.0 - M,TOR
+Storage Series 6.0 - M,POR
+Essential Series 6.0 - M,ATL
+Essential Series 6.0 - M,MIA
+Essential Series 6.0 - M,LAX
+Essential Series 6.0 - M,IAD
+Essential Series 6.0 - M,TOR
+Essential Series 6.0 - M,POR
+Pro Series 5.0 - M,ATL
+Pro Series 5.0 - M,MIA
+Pro Series 5.0 - M,LAX
+Pro Series 5.0 - M,IAD
+Pro Series 5.0 - M,TOR
+Pro Series 5.0 - M,POR
+Advanced Series 5.0 - M,ATL
+Advanced Series 5.0 - M,MIA
+Advanced Series 5.0 - M,LAX
+Advanced Series 5.0 - M,IAD
+Advanced Series 5.0 - M,TOR
+Advanced Series 5.0 - M,POR
+Storage Series 5.0 - M,ATL
+Storage Series 5.0 - M,MIA
+Storage Series 5.0 - M,LAX
+Storage Series 5.0 - M,IAD
+Storage Series 5.0 - M,TOR
+Storage Series 5.0 - M,POR
+Pro Series 6.0 vHost,ATL
+Pro Series 6.0 vHost,MIA
+Pro Series 6.0 vHost,LAX
+Pro Series 6.0 vHost,IAD
+Pro Series 6.0 vHost,TOR
+Pro Series 6.0 vHost,POR
+Advanced Series 6.0 vHost,ATL
+Advanced Series 6.0 vHost,MIA
+Advanced Series 6.0 vHost,LAX
+Advanced Series 6.0 vHost,IAD
+Advanced Series 6.0 vHost,TOR
+Advanced Series 6.0 vHost,POR
+Pro Series 5.0 vHost,ATL
+Pro Series 5.0 vHost,MIA
+Pro Series 5.0 vHost,LAX
+Pro Series 5.0 vHost,IAD
+Pro Series 5.0 vHost,TOR
+Pro Series 5.0 vHost,POR
+Advanced Series 5.0 vHost,ATL
+Advanced Series 5.0 vHost,MIA
+Advanced Series 5.0 vHost,LAX
+Advanced Series 5.0 vHost,IAD
+Advanced Series 5.0 vHost,TOR
+Advanced Series 5.0 vHost,POR
+Storage Series 5.0 vHost,ATL
+Storage Series 5.0 vHost,MIA
+Storage Series 5.0 vHost,LAX
+Storage Series 5.0 vHost,IAD
+Storage Series 5.0 vHost,TOR
+Storage Series 5.0 vHost,POR

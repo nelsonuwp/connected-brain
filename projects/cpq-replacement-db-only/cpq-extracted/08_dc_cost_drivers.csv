@@ -1,49 +1,55 @@
-dc_name,cost_item,measure,incremental_value
-Atlanta,Power,$ / kW,63.62326752946573
-Miami,Power,$ / kW,99.1612506177122
-Los Angeles,Power,$ / kW,80.3575570732996
-Herndon,Power,$ / kW,72.7265933617592
-Toronto,Power,$ / kW,218.27492605219862
-Portsmouth,Power,$ / kW,357.0956774479239
-Atlanta,DC R&M / Supplies,$ / kW,0
-Miami,DC R&M / Supplies,$ / kW,0
-Los Angeles,DC R&M / Supplies,$ / kW,0
-Herndon,DC R&M / Supplies,$ / kW,0
-Toronto,DC R&M / Supplies,$ / kW,0
-Portsmouth,DC R&M / Supplies,$ / kW,0
-Atlanta,Network,$ / Server,58.704268917970325
-Miami,Network,$ / Server,58.704268917970325
-Los Angeles,Network,$ / Server,58.704268917970325
-Herndon,Network,$ / Server,58.704268917970325
-Toronto,Network,$ / Server,58.704268917970325
-Portsmouth,Network,$ / Server,58.704268917970325
-Atlanta,Billing & Collections,$ / Server,4.631482516044929
-Miami,Billing & Collections,$ / Server,4.631482516044929
-Los Angeles,Billing & Collections,$ / Server,4.631482516044929
-Herndon,Billing & Collections,$ / Server,4.631482516044929
-Toronto,Billing & Collections,$ / Server,4.631482516044929
-Portsmouth,Billing & Collections,$ / Server,4.631482516044929
-Atlanta,Supply Chain,$ / Server,6.394984464285716
-Miami,Supply Chain,$ / Server,6.394984464285716
-Los Angeles,Supply Chain,$ / Server,6.394984464285716
-Herndon,Supply Chain,$ / Server,6.394984464285716
-Toronto,Supply Chain,$ / Server,6.394984464285716
-Portsmouth,Supply Chain,$ / Server,6.394984464285716
-Atlanta,DC Infrastructure/Operations,$ / Server,20.833333333333332
-Miami,DC Infrastructure/Operations,$ / Server,28.260885219907404
-Los Angeles,DC Infrastructure/Operations,$ / Server,20.833333333333332
-Herndon,DC Infrastructure/Operations,$ / Server,18.502865896226403
-Toronto,DC Infrastructure/Operations,$ / Server,6.7602356918238975
-Portsmouth,DC Infrastructure/Operations,$ / Server,26.622109728260853
-Atlanta,Support,Tech Time Hours,80.27
-Miami,Support,Tech Time Hours,80.27
-Los Angeles,Support,Tech Time Hours,80.27
-Herndon,Support,Tech Time Hours,80.27
-Toronto,Support,Tech Time Hours,80.27
-Portsmouth,Support,Tech Time Hours,80.27
-Atlanta,SG&A,% of Sales,0.08199743735763099
-Miami,SG&A,% of Sales,0.08199743735763099
-Los Angeles,SG&A,% of Sales,0.08199743735763099
-Herndon,SG&A,% of Sales,0.08199743735763099
-Toronto,SG&A,% of Sales,0.08199743735763099
-Portsmouth,SG&A,% of Sales,0.08199743735763099
+dc_code,cost_category,amount,currency_code,notes
+ATL,power_per_kw,63.62326753,USD,measure=$ / kW; source=Model-Drivers CPQ v28
+MIA,power_per_kw,99.16125062,USD,measure=$ / kW; source=Model-Drivers CPQ v28
+LAX,power_per_kw,80.35755707,USD,measure=$ / kW; source=Model-Drivers CPQ v28
+IAD,power_per_kw,72.72659336,USD,measure=$ / kW; source=Model-Drivers CPQ v28
+TOR,power_per_kw,218.27492605,CAD,measure=$ / kW; source=Model-Drivers CPQ v28
+POR,power_per_kw,357.09567745,GBP,measure=$ / kW; source=Model-Drivers CPQ v28
+ATL,dc_rm_supplies_per_kw,0.0,USD,measure=$ / kW; source=Model-Drivers CPQ v28
+MIA,dc_rm_supplies_per_kw,0.0,USD,measure=$ / kW; source=Model-Drivers CPQ v28
+LAX,dc_rm_supplies_per_kw,0.0,USD,measure=$ / kW; source=Model-Drivers CPQ v28
+IAD,dc_rm_supplies_per_kw,0.0,USD,measure=$ / kW; source=Model-Drivers CPQ v28
+TOR,dc_rm_supplies_per_kw,0.0,CAD,measure=$ / kW; source=Model-Drivers CPQ v28
+POR,dc_rm_supplies_per_kw,0.0,GBP,measure=$ / kW; source=Model-Drivers CPQ v28
+ATL,network_per_server,58.70426892,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+MIA,network_per_server,58.70426892,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+LAX,network_per_server,58.70426892,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+IAD,network_per_server,58.70426892,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+TOR,network_per_server,58.70426892,CAD,measure=$ / Server; source=Model-Drivers CPQ v28
+POR,network_per_server,58.70426892,GBP,measure=$ / Server; source=Model-Drivers CPQ v28
+ATL,billing_collections_per_server,4.63148252,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+MIA,billing_collections_per_server,4.63148252,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+LAX,billing_collections_per_server,4.63148252,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+IAD,billing_collections_per_server,4.63148252,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+TOR,billing_collections_per_server,4.63148252,CAD,measure=$ / Server; source=Model-Drivers CPQ v28
+POR,billing_collections_per_server,4.63148252,GBP,measure=$ / Server; source=Model-Drivers CPQ v28
+ATL,supply_chain_per_server,6.39498446,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+MIA,supply_chain_per_server,6.39498446,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+LAX,supply_chain_per_server,6.39498446,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+IAD,supply_chain_per_server,6.39498446,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+TOR,supply_chain_per_server,6.39498446,CAD,measure=$ / Server; source=Model-Drivers CPQ v28
+POR,supply_chain_per_server,6.39498446,GBP,measure=$ / Server; source=Model-Drivers CPQ v28
+ATL,dc_infra_ops_per_server,20.83333333,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+MIA,dc_infra_ops_per_server,28.26088522,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+LAX,dc_infra_ops_per_server,20.83333333,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+IAD,dc_infra_ops_per_server,18.5028659,USD,measure=$ / Server; source=Model-Drivers CPQ v28
+TOR,dc_infra_ops_per_server,6.76023569,CAD,measure=$ / Server; source=Model-Drivers CPQ v28
+POR,dc_infra_ops_per_server,26.62210973,GBP,measure=$ / Server; source=Model-Drivers CPQ v28
+ATL,support_tech_hours,80.27,USD,measure=Tech Time Hours; source=Model-Drivers CPQ v28
+MIA,support_tech_hours,80.27,USD,measure=Tech Time Hours; source=Model-Drivers CPQ v28
+LAX,support_tech_hours,80.27,USD,measure=Tech Time Hours; source=Model-Drivers CPQ v28
+IAD,support_tech_hours,80.27,USD,measure=Tech Time Hours; source=Model-Drivers CPQ v28
+TOR,support_tech_hours,80.27,CAD,measure=Tech Time Hours; source=Model-Drivers CPQ v28
+POR,support_tech_hours,80.27,GBP,measure=Tech Time Hours; source=Model-Drivers CPQ v28
+ATL,sga_pct_of_revenue,0.08199744,USD,measure=% of Sales; source=Model-Drivers CPQ v28
+MIA,sga_pct_of_revenue,0.08199744,USD,measure=% of Sales; source=Model-Drivers CPQ v28
+LAX,sga_pct_of_revenue,0.08199744,USD,measure=% of Sales; source=Model-Drivers CPQ v28
+IAD,sga_pct_of_revenue,0.08199744,USD,measure=% of Sales; source=Model-Drivers CPQ v28
+TOR,sga_pct_of_revenue,0.08199744,CAD,measure=% of Sales; source=Model-Drivers CPQ v28
+POR,sga_pct_of_revenue,0.08199744,GBP,measure=% of Sales; source=Model-Drivers CPQ v28
+ATL,colo_cost_per_server,31.85980031,USD,measure=Cost per Server; source=Model-Drivers CPQ v28
+MIA,colo_cost_per_server,39.2873522,USD,measure=Cost per Server; source=Model-Drivers CPQ v28
+LAX,colo_cost_per_server,31.85980031,USD,measure=Cost per Server; source=Model-Drivers CPQ v28
+IAD,colo_cost_per_server,29.52933288,USD,measure=Cost per Server; source=Model-Drivers CPQ v28
+TOR,colo_cost_per_server,17.78670267,CAD,measure=Cost per Server; source=Model-Drivers CPQ v28
+POR,colo_cost_per_server,37.64857671,GBP,measure=Cost per Server; source=Model-Drivers CPQ v28
