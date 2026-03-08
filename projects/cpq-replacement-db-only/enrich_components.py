@@ -295,13 +295,36 @@ def enrich_with_llm(category: str, sku: str, parsed: dict, dry_run: bool) -> dic
 # Merge
 # ---------------------------------------------------------------------------
 
+def _scalar(value):
+    """
+    Flatten LLM values that came back as dicts instead of scalars.
+    Perplexity sometimes returns {"actual": 125, "note": "..."} for corrections.
+    We take the most specific numeric/string value we can find.
+    """
+    if isinstance(value, dict):
+        # Prefer "actual" > "value" > "corrected" > first numeric value found
+        for key in ("actual", "value", "corrected", "correct"):
+            if key in value and value[key] is not None:
+                return value[key]
+        # Fallback: first numeric value in the dict
+        for v in value.values():
+            if isinstance(v, (int, float)):
+                return v
+        # Last resort: first string value
+        for v in value.values():
+            if isinstance(v, str):
+                return v
+    return value
+
+
 def merge_specs(parsed: dict, enrichment: dict):
     merged = dict(parsed)
 
     for field, corrected in (enrichment.get("corrections") or {}).items():
-        if field in merged and merged[field]["value"] != corrected:
+        corrected_scalar = _scalar(corrected)
+        if field in merged and merged[field]["value"] != corrected_scalar:
             merged[field] = {
-                "value":           corrected,
+                "value":           corrected_scalar,
                 "source":          "llm_correction",
                 "confidence":      CONFIDENCE["llm_correction"],
                 "original_parsed": merged[field]["value"],
@@ -309,6 +332,9 @@ def merge_specs(parsed: dict, enrichment: dict):
 
     for field, spec in (enrichment.get("fields") or {}).items():
         if field not in merged:
+            # Flatten any dict values from LLM fields too
+            if isinstance(spec, dict) and "value" in spec:
+                spec = {**spec, "value": _scalar(spec["value"])}
             merged[field] = spec
 
     needs_review = any(

@@ -1,20 +1,20 @@
 category,sku,product_type,cores,threads,clock_ghz,boost_ghz,tdp_watts,generation,architecture,socket,ecc_support,ram_gb,ram_type,drive_capacity_tb,drive_type,interface,form_factor,sequential_read_mbps,sequential_write_mbps,endurance_tbw,watts,speed_gbe,ports,chipset,connector_type,capex_usd,source_url,overall_confidence,needs_review
-Processor,Intel Xeon Gold 6226 2.7GHz 12 Cores/24T,cpu,12,24,2.7,,50,,,,,,,,,,,,,,,,,,,,,1.0,False
-Processor,Intel Xeon Bronze 3106 1.7 GHz 8 Cores/8T,cpu,8,8,1.7,,40,,,,,,,,,,,,,,,,,,,160.0,,1.0,False
-Processor,Default Xeon Bronze 3106 1.7 GHz 8 Cores/8T,cpu,8,8,1.7,,40,,,,,,,,,,,,,,,,,,,160.0,,1.0,False
-Processor,Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T,cpu,8,16,2.1,,40,,,,,,,,,,,,,,,,,,,200.0,,1.0,False
-Processor,Intel Xeon Gold 5118 2.3 GHz 12 Cores/24T,cpu,12,24,2.3,,50,,,,,,,,,,,,,,,,,,,1300.0,,1.0,False
-Processor,Default Xeon Gold 5118 2.3 GHz 12 Cores/24T,cpu,12,24,2.3,,50,,,,,,,,,,,,,,,,,,,1300.0,,1.0,False
-Processor,Intel Xeon Gold 5122 3.6 GHz 4 Cores/8T (MTO),cpu,4,8,3.6,,50,,,,,,,,,,,,,,,,,,,1100.0,,1.0,False
-Processor,Intel Xeon Gold 6130 2.1 GHz 16 Cores/32T (MTO),cpu,16,32,2.1,,70,,,,,,,,,,,,,,,,,,,1600.0,,1.0,False
-Processor,Intel Xeon Gold 6138 2.0 GHz 20 Cores/40T (MTO),cpu,20,40,2.0,,70,,,,,,,,,,,,,,,,,,,1800.0,,1.0,False
-Processor,Intel Xeon Gold 6238R 2.2 GHz 28C/56T,cpu,28,56,2.2,,,,,,,,,,,,,,,,,,,,,,,1.0,False
-Processor,Intel Xeon E-2146G 3.5GHz 6C/12T,cpu,6,12,3.5,,,,,,,,,,,,,,,,,,,,,,,1.0,False
-Processor,Intel Xeon E-2468 2.6GHz 8C/16T,cpu,8,16,2.6,,,,,,,,,,,,,,,,,,,,,,,1.0,False
-Processor,"Intel Xeon Silver 4514Y 2G, 16C/32T",cpu,16,32,,,150,,,,,,,,,,,,,,,,,,,890.0,,1.0,False
-Processor,"Default Intel Xeon Silver 4514Y 2G, 16C/32T",cpu,16,32,,,150,,,,,,,,,,,,,,,,,,,890.0,,1.0,False
-Processor,"Intel Xeon Gold 6534 4G, 8C/16T",cpu,8,16,,,195,,,,,,,,,,,,,,,,,,,3190.0,,1.0,False
-Processor,"Intel Xeon Gold 6526Y 2.9G, 16/32T",cpu,,,2.9,,195,,,,,,,,,,,,,,,,,,,1725.0,,1.0,False
-Processor,"Default Intel Xeon Gold 6526Y 2.9G, 16/32T",cpu,,,2.9,,195,,,,,,,,,,,,,,,,,,,1725.0,,1.0,False
-Processor,"Intel Xeon Gold 6548Y+ 2.5G, 32C/64T",cpu,32,64,2.5,,250,,,,,,,,,,,,,,,,,,,4220.0,,1.0,False
-Processor,"Intel Xeon Platinum 8558U 2G, 48C/96T",cpu,48,96,,,300,,,,,,,,,,,,,,,,,,,4215.0,,1.0,False
+Processor,Intel Xeon Gold 6226 2.7GHz 12 Cores/24T,cpu,12,24,2.7,3.7,"{'provided': 50, 'actual': 125, 'note': 'TDP is 125W, not 50W'}",2nd Generation Intel Xeon Scalable Processors,Cascade Lake,FCLGA3647,True,,,,,,,,,,,,,,,,https://ark.intel.com/content/www/us/en/ark/products/193957/intel-xeon-gold-6226-processor-19-25m-cache-2-70-ghz.html,0.75,False
+Processor,Intel Xeon Bronze 3106 1.7 GHz 8 Cores/8T,cpu,8,8,1.7,,85,Skylake,Skylake (server),FCLGA3647,True,,,,,,,,,,,,,,,160.0,https://ark.intel.com/content/www/us/en/ark/products/123540/intel-xeon-bronze-3106-processor-11m-cache-1-70-ghz.html,0.75,False
+Processor,Default Xeon Bronze 3106 1.7 GHz 8 Cores/8T,cpu,8,8,1.7,,85,Skylake,Skylake (server),FCLGA3647,True,,,,,,,,,,,,,,,160.0,https://ark.intel.com/content/www/us/en/ark/products/123540/intel-xeon-bronze-3106-processor-11m-cache-1-70-ghz.html,0.75,False
+Processor,Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T,cpu,8,16,2.1,3.0,85,1st,Skylake,FCLGA3647,True,,,,,,,,,,,,,,,200.0,https://ark.intel.com/content/www/us/en/ark/products/123547/intel-xeon-silver-4110-processor-11m-cache-2-10-ghz.html,0.75,False
+Processor,Intel Xeon Gold 5118 2.3 GHz 12 Cores/24T,cpu,12,24,2.3,3.2,105,Skylake,Skylake (server),FCLGA3647,True,,,,,,,,,,,,,,,1300.0,https://ark.intel.com/content/www/us/en/ark/products/120473/intel-xeon-gold-5118-processor-16-5m-cache-2-30-ghz.html,0.75,False
+Processor,Default Xeon Gold 5118 2.3 GHz 12 Cores/24T,cpu,12,24,2.3,3.2,105,Skylake,Skylake (server),FCLGA3647,True,,,,,,,,,,,,,,,1300.0,https://ark.intel.com/content/www/us/en/ark/products/120473/intel-xeon-gold-5118-processor-16-5m-cache-2-30-ghz.html,0.75,False
+Processor,Intel Xeon Gold 5122 3.6 GHz 4 Cores/8T (MTO),cpu,4,8,3.6,3.7,105,Skylake,Skylake (server),FCLGA3647,True,,,,,,,,,,,,,,,1100.0,https://ark.intel.com/content/www/us/en/ark/products/120475/intel-xeon-gold-5122-processor-16-5m-cache-3-60-ghz.html,0.75,False
+Processor,Intel Xeon Gold 6130 2.1 GHz 16 Cores/32T (MTO),cpu,16,32,2.1,3.7,125,Skylake,Skylake-SP,FCLGA3647,True,,,,,,,,,,,,,,,1600.0,https://ark.intel.com/content/www/us/en/ark/products/120492/intel-xeon-gold-6130-processor-22m-cache-2-10-ghz.html,0.75,False
+Processor,Intel Xeon Gold 6138 2.0 GHz 20 Cores/40T (MTO),cpu,20,40,2.0,3.7,125,Skylake,Skylake (server),FCLGA3647,True,,,,,,,,,,,,,,,1800.0,https://ark.intel.com/content/www/us/en/ark/products/120476/intel-xeon-gold-6138-processor-27-5m-cache-2-00-ghz.html,0.75,False
+Processor,Intel Xeon Gold 6238R 2.2 GHz 28C/56T,cpu,28,56,2.2,4.0,165,2nd Gen Intel Xeon Scalable,Cascade Lake,FCLGA3647,True,,,,,,,,,,,,,,,,https://ark.intel.com/content/www/us/en/ark/products/199345/intel-xeon-gold-6238r-processor-38-5m-cache-2-20-ghz.html,0.85,False
+Processor,Intel Xeon E-2146G 3.5GHz 6C/12T,cpu,6,12,3.5,4.5,80,Xeon E,Coffee Lake,FCLGA1151,True,,,,,,,,,,,,,,,,https://www.intel.com/content/www/us/en/products/sku/134866/intel-xeon-e2146g-processor-12m-cache-up-to-4-50-ghz/specifications.html,0.85,False
+Processor,Intel Xeon E-2468 2.6GHz 8C/16T,cpu,8,16,2.6,5.2,65,Raptor Lake,Intel 7,FCLGA1700,True,,,,,,,,,,,,,,,,https://ark.intel.com/content/www/us/en/ark/products/236184/intel-xeon-e-2468-processor-24m-cache-2-60-ghz.html,0.85,False
+Processor,"Intel Xeon Silver 4514Y 2G, 16C/32T",cpu,16,32,,3.4,150,5,Emerald Rapids,FCLGA4677,True,,,,,,,,,,,,,,,890.0,https://ark.intel.com/content/www/us/en/ark/products/237557/intel-xeon-silver-4514y-processor-30m-cache-2-00-ghz.html,0.85,False
+Processor,"Default Intel Xeon Silver 4514Y 2G, 16C/32T",cpu,16,32,,3.4,150,5th Gen,Emerald Rapids,FCLGA4677,True,,,,,,,,,,,,,,,890.0,https://ark.intel.com/content/www/us/en/ark/products/237557/intel-xeon-silver-4514y-processor-30m-cache-2-00-ghz.html,0.85,False
+Processor,"Intel Xeon Gold 6534 4G, 8C/16T",cpu,8,16,,4.2,195,5,Emerald Rapids,FCLGA4677,True,,,,,,,,,,,,,,,3190.0,https://ark.intel.com/content/www/us/en/ark/products/237555/intel-xeon-gold-6534-processor-22-5m-cache-3-90-ghz.html,0.85,False
+Processor,"Intel Xeon Gold 6526Y 2.9G, 16/32T",cpu,,,2.8,3.9,195,5th Gen,Emerald Rapids,FCLGA4677,True,,,,,,,,,,,,,,,1725.0,https://ark.intel.com/content/www/us/en/ark/products/237560/intel-xeon-gold-6526y-processor-37-5m-cache-2-80-ghz.html,0.75,False
+Processor,"Default Intel Xeon Gold 6526Y 2.9G, 16/32T",cpu,,,2.8,3.9,195,5,Emerald Rapids,FCLGA4677,True,,,,,,,,,,,,,,,1725.0,https://ark.intel.com/content/www/us/en/ark/products/237560/intel-xeon-gold-6526y-processor-37-5m-cache-2-80-ghz.html,0.75,False
+Processor,"Intel Xeon Gold 6548Y+ 2.5G, 32C/64T",cpu,32,64,2.5,4.1,250,5,Emerald Rapids,FCLGA4677,True,,,,,,,,,,,,,,,4220.0,https://ark.intel.com/content/www/us/en/ark/products/237564/intel-xeon-gold-6548y-processor-60m-cache-2-50-ghz.html,0.85,False
+Processor,"Intel Xeon Platinum 8558U 2G, 48C/96T",cpu,48,96,,4,300,5th Gen Intel® Xeon® Scalable,Emerald Rapids,FCLGA4677,True,,,,,,,,,,,,,,,4215.0,https://www.intel.com/content/www/us/en/products/sku/237267/intel-xeon-platinum-8558u-processor-260m-cache-2-00-ghz/specifications.html,0.85,False

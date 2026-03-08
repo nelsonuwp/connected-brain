@@ -21,16 +21,75 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 50,
-        "source": "csv",
-        "confidence": 1.0
+        "value": {
+          "provided": 50,
+          "actual": 125,
+          "note": "TDP is 125W, not 50W"
+        },
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 50
+      },
+      "boost_ghz": {
+        "value": 3.7,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "generation": {
+        "value": "2nd Generation Intel Xeon Scalable Processors",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Cascade Lake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "cache_mb": {
+        "value": 19.25,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "memory_type": {
+        "value": "DDR4-2933",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "max_memory_gb": {
+        "value": 1024,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "lithography_nm": {
+        "value": 14,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "launch_date": {
+        "value": "Q2 2019",
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/193957/intel-xeon-gold-6226-processor-19-25m-cache-2-70-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4607,
+      "completion": 273,
+      "total": 4880
+    }
   },
   {
     "category": "Processor",
@@ -54,21 +113,46 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 40,
-        "source": "csv",
-        "confidence": 1.0
+        "value": 85,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 40
       },
       "capex_usd": {
         "value": 160.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Skylake (server)",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/123540/intel-xeon-bronze-3106-processor-11m-cache-1-70-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 5101,
+      "completion": 97,
+      "total": 5198
+    }
   },
   {
     "category": "Processor",
@@ -92,21 +176,46 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 40,
-        "source": "csv",
-        "confidence": 1.0
+        "value": 85,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 40
       },
       "capex_usd": {
         "value": 160.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Skylake (server)",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/123540/intel-xeon-bronze-3106-processor-11m-cache-1-70-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4455,
+      "completion": 97,
+      "total": 4552
+    }
   },
   {
     "category": "Processor",
@@ -130,21 +239,51 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 40,
-        "source": "csv",
-        "confidence": 1.0
+        "value": 85,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 40
       },
       "capex_usd": {
         "value": 200.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "1st",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.0,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/123547/intel-xeon-silver-4110-processor-11m-cache-2-10-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 3935,
+      "completion": 95,
+      "total": 4030
+    }
   },
   {
     "category": "Processor",
@@ -168,21 +307,51 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 50,
-        "source": "csv",
-        "confidence": 1.0
+        "value": 105,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 50
       },
       "capex_usd": {
         "value": 1300.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Skylake (server)",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.2,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/120473/intel-xeon-gold-5118-processor-16-5m-cache-2-30-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4304,
+      "completion": 100,
+      "total": 4404
+    }
   },
   {
     "category": "Processor",
@@ -206,21 +375,51 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 50,
-        "source": "csv",
-        "confidence": 1.0
+        "value": 105,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 50
       },
       "capex_usd": {
         "value": 1300.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Skylake (server)",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.2,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/120473/intel-xeon-gold-5118-processor-16-5m-cache-2-30-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4303,
+      "completion": 100,
+      "total": 4403
+    }
   },
   {
     "category": "Processor",
@@ -244,21 +443,51 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 50,
-        "source": "csv",
-        "confidence": 1.0
+        "value": 105,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 50
       },
       "capex_usd": {
         "value": 1100.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Skylake (server)",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.7,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/120475/intel-xeon-gold-5122-processor-16-5m-cache-3-60-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4803,
+      "completion": 100,
+      "total": 4903
+    }
   },
   {
     "category": "Processor",
@@ -282,21 +511,51 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 70,
-        "source": "csv",
-        "confidence": 1.0
+        "value": 125,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 70
       },
       "capex_usd": {
         "value": 1600.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Skylake-SP",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.7,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/120492/intel-xeon-gold-6130-processor-22m-cache-2-10-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4077,
+      "completion": 98,
+      "total": 4175
+    }
   },
   {
     "category": "Processor",
@@ -320,21 +579,51 @@
         "confidence": 1.0
       },
       "tdp_watts": {
-        "value": 70,
-        "source": "csv",
-        "confidence": 1.0
+        "value": 125,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 70
       },
       "capex_usd": {
         "value": 1800.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Skylake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Skylake (server)",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.7,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/120476/intel-xeon-gold-6138-processor-27-5m-cache-2-00-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4660,
+      "completion": 100,
+      "total": 4760
+    }
   },
   {
     "category": "Processor",
@@ -356,13 +645,102 @@
         "value": 2.2,
         "source": "parsed",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "2nd Gen Intel Xeon Scalable",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Cascade Lake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA3647",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "tdp_watts": {
+        "value": 165,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 4.0,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "cache_mb": {
+        "value": 38.5,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "lithography_nm": {
+        "value": 14,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "max_memory_gb": {
+        "value": 1024,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "memory_type": {
+        "value": "DDR4-2933",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "memory_channels": {
+        "value": 6,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "pcie_revision": {
+        "value": "3.0",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "max_pcie_lanes": {
+        "value": 48,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "upi_links": {
+        "value": 2,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "launch_date": {
+        "value": "Q1 2020",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "marketing_status": {
+        "value": "Discontinued",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "end_of_servicing": {
+        "value": "2025-06-30",
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/199345/intel-xeon-gold-6238r-processor-38-5m-cache-2-20-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.85,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4326,
+      "completion": 290,
+      "total": 4616
+    }
   },
   {
     "category": "Processor",
@@ -384,13 +762,77 @@
         "value": 3.5,
         "source": "parsed",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Xeon E",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Coffee Lake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA1151",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "tdp_watts": {
+        "value": 80,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 4.5,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "cache_mb": {
+        "value": 12,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "lithography_nm": {
+        "value": 14,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "max_memory_gb": {
+        "value": 128,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "memory_type": {
+        "value": "DDR4-2666",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "gpu": {
+        "value": "Intel UHD Graphics P630",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "launch_date": {
+        "value": "Q3 2018",
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://www.intel.com/content/www/us/en/products/sku/134866/intel-xeon-e2146g-processor-12m-cache-up-to-4-50-ghz/specifications.html",
+    "grounded": true,
+    "overall_confidence": 0.85,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4655,
+      "completion": 229,
+      "total": 4884
+    }
   },
   {
     "category": "Processor",
@@ -412,13 +854,47 @@
         "value": 2.6,
         "source": "parsed",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "Raptor Lake",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Intel 7",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA1700",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "tdp_watts": {
+        "value": 65,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 5.2,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/236184/intel-xeon-e-2468-processor-24m-cache-2-60-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.85,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4555,
+      "completion": 97,
+      "total": 4652
+    }
   },
   {
     "category": "Processor",
@@ -445,13 +921,42 @@
         "value": 890.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": 5,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Emerald Rapids",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA4677",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.4,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237557/intel-xeon-silver-4514y-processor-30m-cache-2-00-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.85,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4153,
+      "completion": 90,
+      "total": 4243
+    }
   },
   {
     "category": "Processor",
@@ -478,13 +983,42 @@
         "value": 890.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "5th Gen",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Emerald Rapids",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA4677",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.4,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237557/intel-xeon-silver-4514y-processor-30m-cache-2-00-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.85,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4406,
+      "completion": 92,
+      "total": 4498
+    }
   },
   {
     "category": "Processor",
@@ -511,13 +1045,42 @@
         "value": 3190.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": 5,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Emerald Rapids",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA4677",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 4.2,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237555/intel-xeon-gold-6534-processor-22-5m-cache-3-90-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.85,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4089,
+      "completion": 91,
+      "total": 4180
+    }
   },
   {
     "category": "Processor",
@@ -526,9 +1089,10 @@
     "is_software": false,
     "specs": {
       "clock_ghz": {
-        "value": 2.9,
-        "source": "parsed",
-        "confidence": 1.0
+        "value": 2.8,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 2.9
       },
       "tdp_watts": {
         "value": 195,
@@ -539,13 +1103,42 @@
         "value": 1725.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "5th Gen",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Emerald Rapids",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA4677",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.9,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237560/intel-xeon-gold-6526y-processor-37-5m-cache-2-80-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 5526,
+      "completion": 101,
+      "total": 5627
+    }
   },
   {
     "category": "Processor",
@@ -554,9 +1147,10 @@
     "is_software": false,
     "specs": {
       "clock_ghz": {
-        "value": 2.9,
-        "source": "parsed",
-        "confidence": 1.0
+        "value": 2.8,
+        "source": "llm_correction",
+        "confidence": 0.75,
+        "original_parsed": 2.9
       },
       "tdp_watts": {
         "value": 195,
@@ -567,13 +1161,42 @@
         "value": 1725.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": 5,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Emerald Rapids",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA4677",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 3.9,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237560/intel-xeon-gold-6526y-processor-37-5m-cache-2-80-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.75,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 5468,
+      "completion": 99,
+      "total": 5567
+    }
   },
   {
     "category": "Processor",
@@ -605,13 +1228,42 @@
         "value": 4220.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": 5,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Emerald Rapids",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA4677",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 4.1,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://ark.intel.com/content/www/us/en/ark/products/237564/intel-xeon-gold-6548y-processor-60m-cache-2-50-ghz.html",
+    "grounded": true,
+    "overall_confidence": 0.85,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 4583,
+      "completion": 90,
+      "total": 4673
+    }
   },
   {
     "category": "Processor",
@@ -638,12 +1290,41 @@
         "value": 4215.0,
         "source": "csv",
         "confidence": 1.0
+      },
+      "generation": {
+        "value": "5th Gen Intel\u00ae Xeon\u00ae Scalable",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "architecture": {
+        "value": "Emerald Rapids",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "socket": {
+        "value": "FCLGA4677",
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "boost_ghz": {
+        "value": 4,
+        "source": "llm_grounded",
+        "confidence": 0.85
+      },
+      "ecc_support": {
+        "value": true,
+        "source": "llm_grounded",
+        "confidence": 0.85
       }
     },
-    "source_url": null,
-    "grounded": false,
-    "overall_confidence": 1.0,
+    "source_url": "https://www.intel.com/content/www/us/en/products/sku/237267/intel-xeon-platinum-8558u-processor-260m-cache-2-00-ghz/specifications.html",
+    "grounded": true,
+    "overall_confidence": 0.85,
     "needs_review": false,
-    "tokens": {}
+    "tokens": {
+      "prompt": 3711,
+      "completion": 100,
+      "total": 3811
+    }
   }
 ]
