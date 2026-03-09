@@ -41,14 +41,16 @@ NRC_TOLERANCE = Decimal("1")
 # ---------------------------------------------------------------------------
 # E2E test cases (from user spec + CPQ v28)
 # ---------------------------------------------------------------------------
-# 1. Pro Series 6.0 - M, default config, CAD, Toronto, 12 mo → MRC 1249, NRC 1249
-# 2. Same, 24 mo → MRC 969, NRC 1249
-# 3. Same, 36 mo → MRC 829, NRC 1249
-# 4. Advanced Series 6.0 - M, base + 2x CPU (Intel Xeon Gold 6526Y) + 2x 1.92 TB drive, LM Basic (included) → MRC 1789, NRC 969
-# 5. (User to add more from Excel)
+# Cases with expected_mrc/expected_nrc set: assert against those values.
+# Cases with expected_mrc=None/expected_nrc=None: FAIL until you provide
+# values from Excel — run the config in CPQ, then set expected_mrc/expected_nrc
+# below and remove the None sentinel. See QUOTE_E2E_SCENARIOS.md for config details.
 # ---------------------------------------------------------------------------
 
+PENDING_MSG = "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)"
+
 QUOTE_CASES = [
+    # --- Locked (values from user) ---
     {
         "id": "pro6m_cad_tor_12m",
         "description": "Pro Series 6.0 - M, default config, CAD, Toronto, 12 mo",
@@ -95,8 +97,80 @@ QUOTE_CASES = [
         "term_months": 12,
         "expected_mrc": Decimal("1789"),
         "expected_nrc": Decimal("969"),
-        "mrc_tolerance": MRC_TOLERANCE,  # FX on USD addons
+        "mrc_tolerance": MRC_TOLERANCE,
         "nrc_tolerance": NRC_TOLERANCE,
+    },
+    # --- Pending: provide MRC/NRC from Excel (will FAIL until set) ---
+    {
+        "id": "pro6m_usd_iad_12m",
+        "description": "Pro Series 6.0 - M, default config, USD, IAD, 12 mo",
+        "server_sku": "Pro Series 6.0 - M",
+        "addons": [],
+        "currency": "USD",
+        "dc_code": "IAD",
+        "term_months": 12,
+        "expected_mrc": None,
+        "expected_nrc": None,
+    },
+    {
+        "id": "pro6m_gbp_por_24m",
+        "description": "Pro Series 6.0 - M, default config, GBP, Portsmouth, 24 mo",
+        "server_sku": "Pro Series 6.0 - M",
+        "addons": [],
+        "currency": "GBP",
+        "dc_code": "POR",
+        "term_months": 24,
+        "expected_mrc": None,
+        "expected_nrc": None,
+    },
+    {
+        "id": "promo_na_usd_iad_12m",
+        "description": "Promo Server - NA, default config, USD, IAD, 12 mo (min term)",
+        "server_sku": "Promo Server - NA",
+        "addons": [],
+        "currency": "USD",
+        "dc_code": "IAD",
+        "term_months": 12,
+        "expected_mrc": None,
+        "expected_nrc": None,
+    },
+    {
+        "id": "adv6m_sql_lm_standard_cad",
+        "description": "Advanced 6.0 - M defaults + SQL Server 2022 Standard + LM Standard Monitoring, CAD TOR 12 mo",
+        "server_sku": "Advanced Series 6.0 - M",
+        "addons": [
+            {"sku": "SQL Server 2022 Standard Edition", "quantity": 1},
+            {"sku": "LM Standard Monitoring", "quantity": 1},
+        ],
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "expected_mrc": None,
+        "expected_nrc": None,
+    },
+    {
+        "id": "pro6m_storage_heavy_cad",
+        "description": "Pro Series 6.0 - M + 4x 1.92 TB SATA 2.5in SSD, CAD TOR 12 mo",
+        "server_sku": "Pro Series 6.0 - M",
+        "addons": [
+            {"sku": "1.92 TB SATA 2.5in SSD", "quantity": 4},
+        ],
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "expected_mrc": None,
+        "expected_nrc": None,
+    },
+    {
+        "id": "pro6_vhost_cad_tor_12m",
+        "description": "Pro Series 6.0 vHost (not -M), default config, CAD, Toronto, 12 mo",
+        "server_sku": "Pro Series 6.0 vHost",
+        "addons": [],
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "expected_mrc": None,
+        "expected_nrc": None,
     },
 ]
 
