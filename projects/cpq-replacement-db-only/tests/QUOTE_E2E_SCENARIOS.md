@@ -38,23 +38,21 @@ Cases 1–4 are already filled in. Cases 5–10 are **pending**: they are in the
 
 ---
 
-## Case 5 — **pro6m_usd_iad_12m** (PENDING)
+## Case 5 — **pro6m_usd_iad_12m** ✓
 
 - **Server:** Pro Series 6.0 - M  
 - **Config:** Same defaults as Case 1  
 - **Currency:** USD | **DC:** IAD (Washington DC) | **Term:** 12 months  
-
-**→ Give me: MRC = ______  NRC = ______**
+- Expected: MRC 1079, NRC 1079 (from screenshot)
 
 ---
 
-## Case 6 — **pro6m_gbp_por_24m** (PENDING)
+## Case 6 — **pro6m_gbp_por_24m** ✓
 
 - **Server:** Pro Series 6.0 - M  
 - **Config:** Same defaults as Case 1  
 - **Currency:** GBP | **DC:** POR (Portsmouth) | **Term:** 24 months  
-
-**→ Give me: MRC = ______  NRC = ______**
+- Expected: MRC 659, NRC 899 (from screenshot). *No tolerance — test fails until seed/quote matches (quote returns 699 MRC).*
 
 ---
 

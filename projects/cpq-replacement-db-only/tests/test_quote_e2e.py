@@ -109,8 +109,8 @@ QUOTE_CASES = [
         "currency": "USD",
         "dc_code": "IAD",
         "term_months": 12,
-        "expected_mrc": None,
-        "expected_nrc": None,
+        "expected_mrc": Decimal("1079"),
+        "expected_nrc": Decimal("1079"),
     },
     {
         "id": "pro6m_gbp_por_24m",
@@ -120,8 +120,8 @@ QUOTE_CASES = [
         "currency": "GBP",
         "dc_code": "POR",
         "term_months": 24,
-        "expected_mrc": None,
-        "expected_nrc": None,
+        "expected_mrc": Decimal("659"),
+        "expected_nrc": Decimal("899"),
     },
     {
         "id": "cluster5_cad_tor_12m",
