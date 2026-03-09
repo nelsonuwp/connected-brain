@@ -275,81 +275,65 @@ def _by_category_amount(quote: dict, category_substring: str) -> tuple[float | N
     return (None, "")
 
 
-def _build_sheet_vs_db(quote: dict, expected_sheet: dict) -> list[dict]:
-    """Build full Expected (sheet) vs Calculated (DB) table: cost | expected | calculated."""
-    curr = expected_sheet.get("currency", quote.get("currency", ""))
+def _build_quote_table(quote: dict, expected_sheet: dict | None) -> list[dict]:
+    """Build Cost | Expected (sheet) | Calculated (DB) table for every case. expected_sheet optional (— when missing)."""
+    curr = (expected_sheet or {}).get("currency", quote.get("currency", ""))
     rows = []
 
     def row(cost: str, exp, exp_unit: str, calc, calc_unit: str):
         rows.append({
             "cost": cost,
             "expected": exp,
-            "expected_unit": exp_unit,
+            "expected_unit": exp_unit or "",
             "calculated": calc,
-            "calculated_unit": calc_unit,
+            "calculated_unit": calc_unit or "",
         })
 
+    es = expected_sheet or {}
+
     # --- Component ---
-    if expected_sheet.get("server_mrc") is not None and quote.get("line_items"):
+    if quote.get("line_items"):
         li = quote["line_items"][0]
-        row("Server MRC", expected_sheet["server_mrc"], curr, float(li.get("mrc")), curr)
-    if expected_sheet.get("server_nrc") is not None and quote.get("line_items"):
-        li = quote["line_items"][0]
-        row("Server NRC", expected_sheet["server_nrc"], curr, float(li.get("nrc")), curr)
+        row("Server MRC", es.get("server_mrc"), curr, float(li.get("mrc")), curr)
+        row("Server NRC", es.get("server_nrc"), curr, float(li.get("nrc")), curr)
     addon_mrc_sum = sum(float(a.get("mrc", 0)) for a in quote.get("addon_lines", []))
     addon_nrc_sum = sum(float(a.get("nrc", 0)) for a in quote.get("addon_lines", []))
-    if expected_sheet.get("addon_mrc") is not None:
-        row("Addon MRC", expected_sheet["addon_mrc"], curr, addon_mrc_sum, curr)
-    if expected_sheet.get("addon_nrc") is not None:
-        row("Addon NRC", expected_sheet["addon_nrc"], curr, addon_nrc_sum, curr)
-    if expected_sheet.get("total_mrc") is not None:
-        row("Total MRC", expected_sheet["total_mrc"], curr, float(quote.get("totals_mrc", 0)), curr)
-    if expected_sheet.get("total_nrc") is not None:
-        row("Total NRC", expected_sheet["total_nrc"], curr, float(quote.get("totals_nrc", 0)), curr)
+    row("Addon MRC", es.get("addon_mrc"), curr, addon_mrc_sum, curr)
+    row("Addon NRC", es.get("addon_nrc"), curr, addon_nrc_sum, curr)
+    row("Total MRC", es.get("total_mrc"), curr, float(quote.get("totals_mrc", 0)), curr)
+    row("Total NRC", es.get("total_nrc"), curr, float(quote.get("totals_nrc", 0)), curr)
 
-    # --- Capex ---
-    if expected_sheet.get("capex_server_usd") is not None and quote.get("capex", {}).get("server"):
+    # --- Capex (servers only) ---
+    if (quote.get("capex") or {}).get("server"):
         s = quote["capex"]["server"]
-        row("Capex (server)", expected_sheet["capex_server_usd"], "USD", float(s.get("amount")), s.get("currency", "USD"))
-    # No "Capex (addons)" row: we only have product_capex for servers; addons have catalog + pricing but no capex when no row exists.
+        row("Capex (server)", es.get("capex_server_usd"), "USD", float(s.get("amount")), s.get("currency", "USD"))
 
     # --- Overhead ---
-    if expected_sheet.get("watts") is not None and quote.get("overhead_breakdown"):
-        row("Watts", expected_sheet["watts"], "W", quote["overhead_breakdown"].get("total_watts"), "W")
-    if expected_sheet.get("power_monthly_cad") is not None:
-        amt, c = _by_category_amount(quote, "power_per_kw")
-        row("Overhead: Power (monthly)", expected_sheet["power_monthly_cad"], curr, amt, c or curr)
-    if expected_sheet.get("network_cad") is not None:
-        amt, c = _by_category_amount(quote, "network")
-        row("Overhead: Network", expected_sheet["network_cad"], curr, amt, c or curr)
-    if expected_sheet.get("billing_cad") is not None:
-        amt, c = _by_category_amount(quote, "billing")
-        row("Overhead: Billing & Collections", expected_sheet["billing_cad"], curr, amt, c or curr)
-    if expected_sheet.get("supply_chain_cad") is not None:
-        amt, c = _by_category_amount(quote, "supply_chain")
-        row("Overhead: Supply Chain", expected_sheet["supply_chain_cad"], curr, amt, c or curr)
-    if expected_sheet.get("dc_ops_cad") is not None:
-        amt, c = _by_category_amount(quote, "dc_infra")
-        row("Overhead: DC Ops / Infrastructure", expected_sheet["dc_ops_cad"], curr, amt, c or curr)
-    if expected_sheet.get("support_cad") is not None:
-        amt, c = _by_category_amount(quote, "support")
-        row("Overhead: Support (0.5h × rate)", expected_sheet["support_cad"], curr, amt, c or curr)
-    if expected_sheet.get("colo_cad") is not None:
-        amt, c = _by_category_amount(quote, "colo")
-        row("Overhead: Colo (space)", expected_sheet["colo_cad"], curr, amt, c or curr)
+    if quote.get("overhead_breakdown"):
+        row("Watts", es.get("watts"), "W", quote["overhead_breakdown"].get("total_watts"), "W")
+    power_amt, power_c = _by_category_amount(quote, "power_per_kw")
+    row("Overhead: Power (monthly)", es.get("power_monthly_cad"), curr, power_amt, power_c or curr)
+    amt, c = _by_category_amount(quote, "network")
+    row("Overhead: Network", es.get("network_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "billing")
+    row("Overhead: Billing & Collections", es.get("billing_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "supply_chain")
+    row("Overhead: Supply Chain", es.get("supply_chain_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "dc_infra")
+    row("Overhead: DC Ops / Infrastructure", es.get("dc_ops_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "support")
+    row("Overhead: Support (0.5h × rate)", es.get("support_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "colo")
+    row("Overhead: Colo (space)", es.get("colo_cad"), curr, amt, c or curr)
 
     # --- 12m financial ---
     f = quote.get("financial_summary_12m")
-    if expected_sheet.get("revenue_12m") is not None and f:
-        row("12m: Revenue", expected_sheet["revenue_12m"], curr, f.get("revenue_12m"), f.get("currency", curr))
-    if expected_sheet.get("cost_capex_12m") is not None and f:
-        row("12m: Cost Capex", expected_sheet["cost_capex_12m"], curr, f.get("cost_capex"), f.get("currency", curr))
-    if expected_sheet.get("cost_overhead_12m") is not None and f:
-        row("12m: Cost Overhead", expected_sheet["cost_overhead_12m"], curr, f.get("cost_overhead_12m"), f.get("currency", curr))
-    if expected_sheet.get("margin_12m") is not None and f:
-        row("12m: Margin", expected_sheet["margin_12m"], curr, f.get("margin_12m"), f.get("currency", curr))
-    if expected_sheet.get("margin_pct") is not None and f:
-        row("12m: Margin %", expected_sheet["margin_pct"], "%", f.get("margin_pct"), "%")
+    if f:
+        row("12m: Revenue", es.get("revenue_12m"), curr, f.get("revenue_12m"), f.get("currency", curr))
+        row("12m: Cost Capex", es.get("cost_capex_12m"), curr, f.get("cost_capex"), f.get("currency", curr))
+        row("12m: Cost Overhead", es.get("cost_overhead_12m"), curr, f.get("cost_overhead_12m"), f.get("currency", curr))
+        row("12m: Margin", es.get("margin_12m"), curr, f.get("margin_12m"), f.get("currency", curr))
+        row("12m: Margin %", es.get("margin_pct"), "%", f.get("margin_pct"), "%")
 
     return rows
 
@@ -364,48 +348,22 @@ def _fmt_val(v, unit: str) -> str:
     return f"{v} {unit}"
 
 
-def _print_quote_breakdown(case_id: str, quote: dict, *, sheet_vs_db: list | None = None) -> None:
-    """Print breakdown. When sheet_vs_db is present: structured Cost | Expected (sheet) | Calculated (DB) + margin only."""
-    if sheet_vs_db:
-        print(f"\n  ─── {case_id}: Expected (sheet) vs Calculated (DB) ───")
-        print("  Cost                              | Expected (sheet)     | Calculated (DB)")
+def _print_quote_breakdown(case_id: str, quote: dict, table: list[dict]) -> None:
+    """Print the Cost | Expected (sheet) | Calculated (DB) table for every case. Expected shows — when no sheet."""
+    print(f"\n  ─── {case_id}: Expected (sheet) vs Calculated (DB) ───")
+    print("  Cost                              | Expected (sheet)     | Calculated (DB)")
+    print("  " + "-" * 72)
+    for r in table:
+        exp_str = _fmt_val(r.get("expected"), r.get("expected_unit", ""))
+        calc_str = _fmt_val(r.get("calculated"), r.get("calculated_unit", ""))
+        cost = (r.get("cost") or "").ljust(33)
+        print(f"  {cost} | {exp_str:<20} | {calc_str}")
+    f = quote.get("financial_summary_12m")
+    if f:
+        curr = f.get("currency", "")
         print("  " + "-" * 72)
-        for r in sheet_vs_db:
-            exp_str = _fmt_val(r.get("expected"), r.get("expected_unit", ""))
-            calc_str = _fmt_val(r.get("calculated"), r.get("calculated_unit", ""))
-            cost = (r.get("cost") or "").ljust(33)
-            print(f"  {cost} | {exp_str:<20} | {calc_str}")
-        f = quote.get("financial_summary_12m")
-        if f:
-            curr = f.get("currency", "")
-            print("  " + "-" * 72)
-            print(f"  Profitability margin (12m):   {curr} {f.get('margin_12m')}  ({f.get('margin_pct')}%)")
-        print()
-        return
-
-    print(f"\n  --- {case_id} (component + overhead) ---")
-    print("  Line items:")
-    for li in quote["line_items"]:
-        print(f"    {li['sku']} x{li['quantity']}  MRC {li['mrc']}  NRC {li['nrc']} {quote.get('currency', '')}")
-    if quote.get("addon_lines"):
-        print("  Add-on breakdown:")
-        for a in quote["addon_lines"]:
-            print(f"    {a['sku']} x{a['quantity']}  unit MRC {a['unit_mrc']}  →  MRC {a['mrc']}  NRC {a['nrc']}")
-    if quote.get("capex"):
-        c = quote["capex"]
-        if c.get("server"):
-            s = c["server"]
-            print(f"  CapEx server: {s.get('sku')}  {s.get('amount')} {s.get('currency')}")
-        for a in c.get("addons", []):
-            print(f"  CapEx addon: {a.get('sku')} x{a.get('quantity', 1)}  {a.get('amount')} {a.get('currency')}")
-    if quote.get("overhead_breakdown"):
-        o = quote["overhead_breakdown"]
-        print(f"  Overhead: {o.get('dc_code')}  wattage {o.get('total_watts')} W ({o.get('total_kw')} kW)")
-        for b in o.get("by_category", []):
-            print(f"    {b['category']}: {b['amount']} {b['currency']}")
-    if quote.get("financial_summary_12m"):
-        f = quote["financial_summary_12m"]
-        print("  12-month: Revenue", f["revenue_12m"], "| Capex", f["cost_capex"], "| Overhead (12m)", f["cost_overhead_12m"], "| Margin", f["margin_12m"], f"({f['margin_pct']}%)")
+        print(f"  Profitability margin (12m):   {curr} {f.get('margin_12m')}  ({f.get('margin_pct')}%)")
+    print()
 
 
 def run_quote_e2e(client) -> list[dict]:
@@ -446,9 +404,7 @@ def run_quote_e2e(client) -> list[dict]:
         actual_mrc = _decimal(result["totals_mrc"])
         actual_nrc = _decimal(result["totals_nrc"])
         quote_json = _quote_to_json(result)
-        sheet_vs_db = None
-        if case.get("expected_sheet"):
-            sheet_vs_db = _build_sheet_vs_db(result, case["expected_sheet"])
+        table = _build_quote_table(result, case.get("expected_sheet"))
         results.append({
             "id": case["id"],
             "description": case["description"],
@@ -461,9 +417,9 @@ def run_quote_e2e(client) -> list[dict]:
             "actual_nrc": float(actual_nrc),
             "errors": result.get("errors", []),
             "quote": quote_json,
-            "sheet_vs_db": sheet_vs_db,
+            "sheet_vs_db": table,
         })
-        _print_quote_breakdown(case["id"], result, sheet_vs_db=sheet_vs_db)
+        _print_quote_breakdown(case["id"], result, table)
     return results
 
 
