@@ -192,9 +192,9 @@ QUOTE_CASES = [
             "dc_ops_cad": 6.76,
             "support_cad": 40.14,
             "colo_cad": 17.79,
-            # 12m financial
+            # 12m financial (cost_capex_12m = server + addons in CAD; was 10332 server-only, now ~12238 with addons)
             "revenue_12m": 19597,
-            "cost_capex_12m": 10332.44,
+            "cost_capex_12m": 12238.12,
             "cost_overhead_12m": 3143.28,
             "margin_12m": 4777,
             "margin_pct": 41.0,
