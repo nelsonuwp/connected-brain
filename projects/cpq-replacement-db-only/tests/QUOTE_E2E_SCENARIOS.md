@@ -93,7 +93,7 @@ Cases 1–4 are already filled in. Cases 5–10 are **pending**: they are in the
 - **Config:** Defaults + **4× 1.92 TB SATA 2.5in SSD**  
 - **Currency:** CAD | **DC:** Toronto | **Term:** 12 months  
 - **Expected (from sheet):** MRC 1,529  NRC 1,249  (mrc_tolerance 10; quote ~1522 vs sheet 1529)
-- **expected_sheet** used for Sheet vs DB: Capex (server) USD, Watts, Power (monthly) CAD. E2E run prints **Sheet vs DB** and **12-month financial summary** (revenue, capex, overhead, margin $ and %) for this case.
+- **expected_sheet** used for full **Expected (sheet) vs Calculated (DB)** table: component (MRC/NRC), capex, every overhead line (Power, Network, Billing, Supply Chain, DC Ops, **Support 0.5h × rate**, Colo), and 12m (revenue, cost capex, cost overhead, margin, margin %). E2E run prints a single structured table (Cost | Expected | Calculated) then **Profitability margin (12m)** at the end — no long breakdown. Support is 0.5 × 80.27 (tech time rate) for -M servers.
 
 ---
 
