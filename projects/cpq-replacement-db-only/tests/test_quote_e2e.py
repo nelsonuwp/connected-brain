@@ -180,8 +180,9 @@ QUOTE_CASES = [
             "addon_nrc": 0,
             "total_mrc": 1529,
             "total_nrc": 1249,
-            # Capex (servers only; no product_capex for drives → no addon capex)
+            # Capex (server + addons; Products - Hosting.csv col AG row 193 = $349 per 1.92 TB drive)
             "capex_server_usd": 7569,
+            "capex_addons_usd": 1396,
             # Overhead
             "watts": 400,
             "power_monthly_cad": 87.31,
@@ -276,9 +277,13 @@ def _by_category_amount(quote: dict, category_substring: str) -> tuple[float | N
 
 
 def _build_quote_table(quote: dict, expected_sheet: dict | None) -> list[dict]:
-    """Build Cost | Expected (sheet) | Calculated (DB) table for every case. expected_sheet optional (— when missing)."""
+    """Build Cost | Expected (sheet) | Calculated (DB) table with section headers (12m: Revenue, Capex, Overhead, Margin) and sub-items."""
     curr = (expected_sheet or {}).get("currency", quote.get("currency", ""))
     rows = []
+    es = expected_sheet or {}
+
+    def section(title: str):
+        rows.append({"cost": title, "expected": None, "expected_unit": "", "calculated": None, "calculated_unit": "", "is_section": True})
 
     def row(cost: str, exp, exp_unit: str, calc, calc_unit: str):
         rows.append({
@@ -287,53 +292,65 @@ def _build_quote_table(quote: dict, expected_sheet: dict | None) -> list[dict]:
             "expected_unit": exp_unit or "",
             "calculated": calc,
             "calculated_unit": calc_unit or "",
+            "is_section": False,
         })
 
-    es = expected_sheet or {}
-
-    # --- Component ---
+    # --- 12m: Revenue (header then revenue items) ---
+    section("12m: Revenue")
     if quote.get("line_items"):
         li = quote["line_items"][0]
-        row("Server MRC", es.get("server_mrc"), curr, float(li.get("mrc")), curr)
-        row("Server NRC", es.get("server_nrc"), curr, float(li.get("nrc")), curr)
+        row("  Server MRC", es.get("server_mrc"), curr, float(li.get("mrc")), curr)
+        row("  Server NRC", es.get("server_nrc"), curr, float(li.get("nrc")), curr)
     addon_mrc_sum = sum(float(a.get("mrc", 0)) for a in quote.get("addon_lines", []))
     addon_nrc_sum = sum(float(a.get("nrc", 0)) for a in quote.get("addon_lines", []))
-    row("Addon MRC", es.get("addon_mrc"), curr, addon_mrc_sum, curr)
-    row("Addon NRC", es.get("addon_nrc"), curr, addon_nrc_sum, curr)
-    row("Total MRC", es.get("total_mrc"), curr, float(quote.get("totals_mrc", 0)), curr)
-    row("Total NRC", es.get("total_nrc"), curr, float(quote.get("totals_nrc", 0)), curr)
-
-    # --- Capex (servers only) ---
-    if (quote.get("capex") or {}).get("server"):
-        s = quote["capex"]["server"]
-        row("Capex (server)", es.get("capex_server_usd"), "USD", float(s.get("amount")), s.get("currency", "USD"))
-
-    # --- Overhead ---
-    if quote.get("overhead_breakdown"):
-        row("Watts", es.get("watts"), "W", quote["overhead_breakdown"].get("total_watts"), "W")
-    power_amt, power_c = _by_category_amount(quote, "power_per_kw")
-    row("Overhead: Power (monthly)", es.get("power_monthly_cad"), curr, power_amt, power_c or curr)
-    amt, c = _by_category_amount(quote, "network")
-    row("Overhead: Network", es.get("network_cad"), curr, amt, c or curr)
-    amt, c = _by_category_amount(quote, "billing")
-    row("Overhead: Billing & Collections", es.get("billing_cad"), curr, amt, c or curr)
-    amt, c = _by_category_amount(quote, "supply_chain")
-    row("Overhead: Supply Chain", es.get("supply_chain_cad"), curr, amt, c or curr)
-    amt, c = _by_category_amount(quote, "dc_infra")
-    row("Overhead: DC Ops / Infrastructure", es.get("dc_ops_cad"), curr, amt, c or curr)
-    amt, c = _by_category_amount(quote, "support")
-    row("Overhead: Support (0.5h × rate)", es.get("support_cad"), curr, amt, c or curr)
-    amt, c = _by_category_amount(quote, "colo")
-    row("Overhead: Colo (space)", es.get("colo_cad"), curr, amt, c or curr)
-
-    # --- 12m financial ---
+    row("  Addon MRC", es.get("addon_mrc"), curr, addon_mrc_sum, curr)
+    row("  Addon NRC", es.get("addon_nrc"), curr, addon_nrc_sum, curr)
+    row("  Total MRC", es.get("total_mrc"), curr, float(quote.get("totals_mrc", 0)), curr)
+    row("  Total NRC", es.get("total_nrc"), curr, float(quote.get("totals_nrc", 0)), curr)
     f = quote.get("financial_summary_12m")
     if f:
-        row("12m: Revenue", es.get("revenue_12m"), curr, f.get("revenue_12m"), f.get("currency", curr))
-        row("12m: Cost Capex", es.get("cost_capex_12m"), curr, f.get("cost_capex"), f.get("currency", curr))
-        row("12m: Cost Overhead", es.get("cost_overhead_12m"), curr, f.get("cost_overhead_12m"), f.get("currency", curr))
-        row("12m: Margin", es.get("margin_12m"), curr, f.get("margin_12m"), f.get("currency", curr))
-        row("12m: Margin %", es.get("margin_pct"), "%", f.get("margin_pct"), "%")
+        row("  Total (12m Revenue)", es.get("revenue_12m"), curr, f.get("revenue_12m"), f.get("currency", curr))
+
+    # --- 12m: Cost Capex (header then capex items) ---
+    section("12m: Cost Capex")
+    if (quote.get("capex") or {}).get("server"):
+        s = quote["capex"]["server"]
+        row("  Capex (server)", es.get("capex_server_usd"), "USD", float(s.get("amount")), s.get("currency", "USD"))
+    addon_cap = 0.0
+    addon_cap_curr = "USD"
+    for a in (quote.get("capex") or {}).get("addons", []) or []:
+        addon_cap += float(a.get("amount", 0) or 0) * int(a.get("quantity", 1))
+        addon_cap_curr = a.get("currency", "USD")
+    row("  Capex (addons)", es.get("capex_addons_usd"), "USD", addon_cap, addon_cap_curr)
+    if f:
+        row("  Total (12m Cost Capex)", es.get("cost_capex_12m"), curr, f.get("cost_capex"), f.get("currency", curr))
+
+    # --- 12m: Cost Overhead (header then overhead items) ---
+    section("12m: Cost Overhead")
+    if quote.get("overhead_breakdown"):
+        row("  Watts", es.get("watts"), "W", quote["overhead_breakdown"].get("total_watts"), "W")
+    power_amt, power_c = _by_category_amount(quote, "power_per_kw")
+    row("  Power (monthly)", es.get("power_monthly_cad"), curr, power_amt, power_c or curr)
+    amt, c = _by_category_amount(quote, "network")
+    row("  Network", es.get("network_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "billing")
+    row("  Billing & Collections", es.get("billing_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "supply_chain")
+    row("  Supply Chain", es.get("supply_chain_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "dc_infra")
+    row("  DC Ops / Infrastructure", es.get("dc_ops_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "support")
+    row("  Support (0.5h × rate)", es.get("support_cad"), curr, amt, c or curr)
+    amt, c = _by_category_amount(quote, "colo")
+    row("  Colo (space)", es.get("colo_cad"), curr, amt, c or curr)
+    if f:
+        row("  Total (12m Cost Overhead)", es.get("cost_overhead_12m"), curr, f.get("cost_overhead_12m"), f.get("currency", curr))
+
+    # --- 12m: Margin (header then margin items) ---
+    section("12m: Margin")
+    if f:
+        row("  Margin", es.get("margin_12m"), curr, f.get("margin_12m"), f.get("currency", curr))
+        row("  Margin %", es.get("margin_pct"), "%", f.get("margin_pct"), "%")
 
     return rows
 
@@ -349,20 +366,24 @@ def _fmt_val(v, unit: str) -> str:
 
 
 def _print_quote_breakdown(case_id: str, quote: dict, table: list[dict]) -> None:
-    """Print the Cost | Expected (sheet) | Calculated (DB) table for every case. Expected shows — when no sheet."""
+    """Print the Cost | Expected (sheet) | Calculated (DB) table with section headers. Expected shows — when no sheet."""
     print(f"\n  ─── {case_id}: Expected (sheet) vs Calculated (DB) ───")
     print("  Cost                              | Expected (sheet)     | Calculated (DB)")
     print("  " + "-" * 72)
     for r in table:
+        if r.get("is_section"):
+            print("  " + "-" * 72)
+            print(f"  {r.get('cost', '')}")
+            print("  " + "-" * 72)
+            continue
         exp_str = _fmt_val(r.get("expected"), r.get("expected_unit", ""))
         calc_str = _fmt_val(r.get("calculated"), r.get("calculated_unit", ""))
         cost = (r.get("cost") or "").ljust(33)
         print(f"  {cost} | {exp_str:<20} | {calc_str}")
     f = quote.get("financial_summary_12m")
     if f:
-        curr = f.get("currency", "")
         print("  " + "-" * 72)
-        print(f"  Profitability margin (12m):   {curr} {f.get('margin_12m')}  ({f.get('margin_pct')}%)")
+        print(f"  Profitability margin (12m):   {f.get('currency', '')} {f.get('margin_12m')}  ({f.get('margin_pct')}%)")
     print()
 
 
