@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-09T00:46:47.608554Z",
+  "run_at": "2026-03-09T00:56:45.644063Z",
   "passed": 6,
   "failed": 5,
   "total": 11,
@@ -77,7 +77,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -92,7 +92,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -107,9 +107,9 @@
         "financial_summary_12m": {
           "revenue_12m": 16237.0,
           "cost_capex": 10332.44,
-          "cost_overhead_12m": 3143.28,
-          "margin_12m": 2761.28,
-          "margin_pct": 17.0,
+          "cost_overhead_12m": 2661.72,
+          "margin_12m": 3242.84,
+          "margin_pct": 20.0,
           "currency": "CAD"
         }
       },
@@ -187,7 +187,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -202,7 +202,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -290,7 +290,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -305,7 +305,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -426,7 +426,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -441,7 +441,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -456,9 +456,9 @@
         "financial_summary_12m": {
           "revenue_12m": 22425.96,
           "cost_capex": 8055.46,
-          "cost_overhead_12m": 3850.44,
-          "margin_12m": 10520.06,
-          "margin_pct": 46.9,
+          "cost_overhead_12m": 3368.88,
+          "margin_12m": 11001.62,
+          "margin_pct": 49.1,
           "currency": "CAD"
         }
       },
@@ -536,7 +536,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "USD"
             },
             {
@@ -551,7 +551,7 @@
             }
           ],
           "power_per_kw_rate": 72.7266,
-          "power_per_kw_rate_currency": "USD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -566,9 +566,9 @@
         "financial_summary_12m": {
           "revenue_12m": 14027.0,
           "cost_capex": 7569.0,
-          "cost_overhead_12m": 2726.46,
-          "margin_12m": 3731.54,
-          "margin_pct": 26.6,
+          "cost_overhead_12m": 2244.9,
+          "margin_12m": 4213.1,
+          "margin_pct": 30.0,
           "currency": "USD"
         }
       },
@@ -646,7 +646,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "GBP"
             },
             {
@@ -661,7 +661,7 @@
             }
           ],
           "power_per_kw_rate": 357.0957,
-          "power_per_kw_rate_currency": "GBP",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -742,7 +742,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -757,7 +757,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -772,9 +772,9 @@
         "financial_summary_12m": {
           "revenue_12m": 6656.04,
           "cost_capex": 0.0,
-          "cost_overhead_12m": 2619.36,
-          "margin_12m": 4036.68,
-          "margin_pct": 60.6,
+          "cost_overhead_12m": 2137.8,
+          "margin_12m": 4518.24,
+          "margin_pct": 67.9,
           "currency": "CAD"
         }
       },
@@ -845,7 +845,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -860,7 +860,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -875,9 +875,9 @@
         "financial_summary_12m": {
           "revenue_12m": 7488.0,
           "cost_capex": 0.0,
-          "cost_overhead_12m": 2881.32,
-          "margin_12m": 4606.68,
-          "margin_pct": 61.5,
+          "cost_overhead_12m": 2399.76,
+          "margin_12m": 5088.24,
+          "margin_pct": 68.0,
           "currency": "CAD"
         }
       },
@@ -988,7 +988,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -1003,7 +1003,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -1018,9 +1018,9 @@
         "financial_summary_12m": {
           "revenue_12m": 14706.12,
           "cost_capex": 8055.46,
-          "cost_overhead_12m": 2829.0,
-          "margin_12m": 3821.66,
-          "margin_pct": 26.0,
+          "cost_overhead_12m": 2347.44,
+          "margin_12m": 4303.22,
+          "margin_pct": 29.3,
           "currency": "CAD"
         }
       },
@@ -1115,7 +1115,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -1130,7 +1130,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -1145,33 +1145,159 @@
         "financial_summary_12m": {
           "revenue_12m": 19513.48,
           "cost_capex": 10332.44,
-          "cost_overhead_12m": 3143.28,
-          "margin_12m": 6037.76,
-          "margin_pct": 30.9,
+          "cost_overhead_12m": 2661.72,
+          "margin_12m": 6519.32,
+          "margin_pct": 33.4,
           "currency": "CAD"
         }
       },
       "sheet_vs_db": [
         {
-          "item": "Capex (server)",
+          "cost": "Server MRC",
+          "expected": 1249,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": 1249,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": 280,
+          "expected_unit": "CAD",
+          "calculated": 273.04,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": 0,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": 1529,
+          "expected_unit": "CAD",
+          "calculated": 1522.04,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": 1249,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Capex (server)",
           "expected": 7569,
           "expected_unit": "USD",
-          "db": 7569.0,
-          "db_unit": "USD"
+          "calculated": 7569.0,
+          "calculated_unit": "USD"
         },
         {
-          "item": "Watts",
+          "cost": "Capex (addons)",
+          "expected": 1296,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Watts",
           "expected": 400,
           "expected_unit": "W",
-          "db": 400,
-          "db_unit": "W"
+          "calculated": 400,
+          "calculated_unit": "W"
         },
         {
-          "item": "Power (monthly)",
+          "cost": "Overhead: Power (monthly)",
           "expected": 87.31,
           "expected_unit": "CAD",
-          "db": 87.31,
-          "db_unit": "CAD"
+          "calculated": 87.31,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": 58.33,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": 4.63,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": 6.35,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": 6.76,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": 40.14,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": 17.79,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Revenue",
+          "expected": 19597,
+          "expected_unit": "CAD",
+          "calculated": 19513.48,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Capex",
+          "expected": 10332.44,
+          "expected_unit": "CAD",
+          "calculated": 10332.44,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Overhead",
+          "expected": 3143.28,
+          "expected_unit": "CAD",
+          "calculated": 2661.72,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin",
+          "expected": 4777,
+          "expected_unit": "CAD",
+          "calculated": 6519.32,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin %",
+          "expected": 41.0,
+          "expected_unit": "%",
+          "calculated": 33.4,
+          "calculated_unit": "%"
         }
       ]
     },
@@ -1247,7 +1373,7 @@
             },
             {
               "category": "support_tech_hours",
-              "amount": 80.27,
+              "amount": 40.14,
               "currency": "CAD"
             },
             {
@@ -1262,7 +1388,7 @@
             }
           ],
           "power_per_kw_rate": 218.2749,
-          "power_per_kw_rate_currency": "CAD",
+          "power_per_kw_rate_currency": null,
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -1277,9 +1403,9 @@
         "financial_summary_12m": {
           "revenue_12m": 16237.0,
           "cost_capex": 10332.44,
-          "cost_overhead_12m": 3143.28,
-          "margin_12m": 2761.28,
-          "margin_pct": 17.0,
+          "cost_overhead_12m": 2661.72,
+          "margin_12m": 3242.84,
+          "margin_pct": 20.0,
           "currency": "CAD"
         }
       },
