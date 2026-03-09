@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-09T01:38:56.303110Z",
+  "run_at": "2026-03-09T01:59:30.934611Z",
   "passed": 6,
   "failed": 5,
   "total": 11,
@@ -912,6 +912,12 @@
           },
           "addons": [
             {
+              "sku": "Intel Xeon Gold 6526Y 2.9G, 16/32T",
+              "quantity": 2,
+              "amount": 1725.0,
+              "currency": "USD"
+            },
+            {
               "sku": "1.92 TB SATA 2.5in SSD",
               "quantity": 2,
               "amount": 349.0,
@@ -985,10 +991,10 @@
         },
         "financial_summary_12m": {
           "revenue_12m": 22425.96,
-          "cost_capex": 9008.3,
+          "cost_capex": 13717.9,
           "cost_overhead_12m": 3368.88,
-          "margin_12m": 10048.78,
-          "margin_pct": 44.8,
+          "margin_12m": 5339.18,
+          "margin_pct": 23.8,
           "currency": "CAD"
         }
       },
@@ -1077,7 +1083,7 @@
           "cost": "  Capex (addons)",
           "expected": null,
           "expected_unit": "USD",
-          "calculated": 698.0,
+          "calculated": 4148.0,
           "calculated_unit": "USD",
           "is_section": false
         },
@@ -1085,7 +1091,7 @@
           "cost": "  Total (12m Cost Capex)",
           "expected": null,
           "expected_unit": "CAD",
-          "calculated": 9008.3,
+          "calculated": 13717.9,
           "calculated_unit": "CAD",
           "is_section": false
         },
@@ -1181,7 +1187,7 @@
           "cost": "  Margin",
           "expected": null,
           "expected_unit": "CAD",
-          "calculated": 10048.78,
+          "calculated": 5339.18,
           "calculated_unit": "CAD",
           "is_section": false
         },
@@ -1189,7 +1195,7 @@
           "cost": "  Margin %",
           "expected": null,
           "expected_unit": "%",
-          "calculated": 44.8,
+          "calculated": 23.8,
           "calculated_unit": "%",
           "is_section": false
         }
