@@ -351,6 +351,7 @@ def build_quote(
         "capex": capex_out,
         "overhead_breakdown": overhead_out,
         "financial_summary_12m": financial_12m,
+        "usd_rate": float(usd_rate) if usd_rate is not None else None,
         "errors": errors,
     }
 

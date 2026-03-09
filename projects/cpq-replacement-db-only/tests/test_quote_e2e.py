@@ -49,7 +49,7 @@ NRC_TOLERANCE = Decimal("1")
 
 PENDING_MSG = "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)"
 
-# Ocean FX Rates (sheet) — used only for Expected (sheet) column. Calculated uses DB fx_rates.
+# Ocean FX Rates (reference only; sheet uses spot rates, so Expected uses quote.usd_rate from DB).
 # From Ocean FX Rates table: Convert From → Convert To.
 OCEAN_FX = {
     "USD": {"USD": 1.0, "CAD": 1.41, "GBP": 0.76, "EUR": 0.91},
@@ -341,10 +341,13 @@ def _build_quote_table(quote: dict, expected_sheet: dict | None) -> list[dict]:
         addon_cap_curr = a.get("currency", "USD")
     row("  Capex (addons)", es.get("capex_addons_usd"), "USD", addon_cap, addon_cap_curr)
     if f:
-        # Expected Total (12m Cost Capex): use Ocean FX to convert USD capex to quote currency
+        # Expected Total (12m Cost Capex): use same spot rate as quote (sheet uses spot)
         exp_capex_usd = (es.get("capex_server_usd") or 0) + (es.get("capex_addons_usd") or 0)
-        if exp_capex_usd and curr:
-            exp_capex_quote = _ocean_convert(exp_capex_usd, "USD", curr) if curr != "USD" else exp_capex_usd
+        spot_rate = quote.get("usd_rate")
+        if exp_capex_usd and curr and curr != "USD" and spot_rate is not None:
+            exp_capex_quote = round(exp_capex_usd * spot_rate, 2)
+        elif exp_capex_usd and curr == "USD":
+            exp_capex_quote = exp_capex_usd
         else:
             exp_capex_quote = es.get("cost_capex_12m")
         row("  Total (12m Cost Capex)", exp_capex_quote, curr, f.get("cost_capex"), f.get("currency", curr))
