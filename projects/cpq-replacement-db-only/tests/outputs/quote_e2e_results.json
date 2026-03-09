@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-09T00:57:50.771704Z",
+  "run_at": "2026-03-09T01:11:03.128287Z",
   "passed": 6,
   "failed": 5,
   "total": 11,
@@ -113,7 +113,148 @@
           "currency": "CAD"
         }
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Capex (server)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 7569.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 400,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 87.31,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Revenue",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 16237.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Capex",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 10332.44,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Overhead",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 2661.72,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 3242.84,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin %",
+          "expected": null,
+          "expected_unit": "%",
+          "calculated": 20.0,
+          "calculated_unit": "%"
+        }
+      ]
     },
     {
       "id": "pro6m_cad_tor_24m",
@@ -216,7 +357,113 @@
         },
         "financial_summary_12m": null
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 969.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 969.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Capex (server)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 7569.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 400,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 87.31,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        }
+      ]
     },
     {
       "id": "pro6m_cad_tor_36m",
@@ -319,7 +566,113 @@
         },
         "financial_summary_12m": null
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 829.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 829.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Capex (server)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 7569.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 400,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 87.31,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        }
+      ]
     },
     {
       "id": "adv6m_cpu_drives_cad",
@@ -462,7 +815,148 @@
           "currency": "CAD"
         }
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 969.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 969.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 819.0799999999999,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1788.08,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 969.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Capex (server)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 5901.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 670,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 146.24,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Revenue",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 22425.96,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Capex",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 8055.46,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Overhead",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 3368.88,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 11001.62,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin %",
+          "expected": null,
+          "expected_unit": "%",
+          "calculated": 49.1,
+          "calculated_unit": "%"
+        }
+      ]
     },
     {
       "id": "pro6m_usd_iad_12m",
@@ -572,7 +1066,148 @@
           "currency": "USD"
         }
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 1079.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 1079.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 1079.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 1079.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Capex (server)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 7569.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 400,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 29.09,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 58.7043,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 4.6315,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 6.395,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 18.5029,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 40.14,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 29.5293,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "12m: Revenue",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 14027.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "12m: Cost Capex",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 7569.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "12m: Cost Overhead",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 2244.9,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "12m: Margin",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 4213.1,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "12m: Margin %",
+          "expected": null,
+          "expected_unit": "%",
+          "calculated": 30.0,
+          "calculated_unit": "%"
+        }
+      ]
     },
     {
       "id": "pro6m_gbp_por_24m",
@@ -675,7 +1310,113 @@
         },
         "financial_summary_12m": null
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 699.0,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 899.0,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 0,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 0,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 699.0,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 899.0,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Capex (server)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 7569.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 400,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 142.84,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 58.7043,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 4.6315,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 6.395,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 26.6221,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 40.14,
+          "calculated_unit": "GBP"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "GBP",
+          "calculated": 37.6486,
+          "calculated_unit": "GBP"
+        }
+      ]
     },
     {
       "id": "cluster5_cad_tor_12m",
@@ -778,7 +1519,141 @@
           "currency": "CAD"
         }
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 554.67,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 554.67,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 200,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 43.65,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Revenue",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6656.04,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Capex",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Overhead",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 2137.8,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4518.24,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin %",
+          "expected": null,
+          "expected_unit": "%",
+          "calculated": 67.9,
+          "calculated_unit": "%"
+        }
+      ]
     },
     {
       "id": "atomic5_cad_tor_12m",
@@ -881,7 +1756,141 @@
           "currency": "CAD"
         }
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 624.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 624.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 300,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 65.48,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Revenue",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 7488.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Capex",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Overhead",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 2399.76,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 5088.24,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin %",
+          "expected": null,
+          "expected_unit": "%",
+          "calculated": 68.0,
+          "calculated_unit": "%"
+        }
+      ]
     },
     {
       "id": "adv6m_sql_lm_standard_cad",
@@ -1024,7 +2033,148 @@
           "currency": "CAD"
         }
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 969.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 969.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 175.76,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1144.76,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 969.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Capex (server)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 5901.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 280,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 61.12,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Revenue",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 14706.12,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Capex",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 8055.46,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Overhead",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 2347.44,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4303.22,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin %",
+          "expected": null,
+          "expected_unit": "%",
+          "calculated": 29.3,
+          "calculated_unit": "%"
+        }
+      ]
     },
     {
       "id": "pro6m_storage_heavy_cad",
@@ -1200,13 +2350,6 @@
           "expected_unit": "USD",
           "calculated": 7569.0,
           "calculated_unit": "USD"
-        },
-        {
-          "cost": "Capex (addons)",
-          "expected": 1296,
-          "expected_unit": "CAD",
-          "calculated": 0.0,
-          "calculated_unit": "CAD"
         },
         {
           "cost": "Watts",
@@ -1409,7 +2552,148 @@
           "currency": "CAD"
         }
       },
-      "sheet_vs_db": null
+      "sheet_vs_db": [
+        {
+          "cost": "Server MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Server NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Addon NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total MRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Total NRC",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 1249.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Capex (server)",
+          "expected": null,
+          "expected_unit": "USD",
+          "calculated": 7569.0,
+          "calculated_unit": "USD"
+        },
+        {
+          "cost": "Watts",
+          "expected": null,
+          "expected_unit": "W",
+          "calculated": 400,
+          "calculated_unit": "W"
+        },
+        {
+          "cost": "Overhead: Power (monthly)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 87.31,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Network",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 58.7043,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Billing & Collections",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 4.6315,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Supply Chain",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.395,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: DC Ops / Infrastructure",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 6.7602,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Support (0.5h \u00d7 rate)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 40.14,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "Overhead: Colo (space)",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 17.7867,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Revenue",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 16237.0,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Capex",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 10332.44,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Cost Overhead",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 2661.72,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin",
+          "expected": null,
+          "expected_unit": "CAD",
+          "calculated": 3242.84,
+          "calculated_unit": "CAD"
+        },
+        {
+          "cost": "12m: Margin %",
+          "expected": null,
+          "expected_unit": "%",
+          "calculated": 20.0,
+          "calculated_unit": "%"
+        }
+      ]
     }
   ]
 }
