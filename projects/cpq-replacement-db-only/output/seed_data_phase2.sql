@@ -776,6 +776,7 @@ INSERT INTO product_capex (product_id, procured_price, procured_currency, procur
 INSERT INTO product_capex (product_id, procured_price, procured_currency, procured_date, use_as_baseline, residual_pct_12m, residual_pct_24m, notes) VALUES ((SELECT id FROM product_catalog WHERE sku_name = 'Advanced Series 5.0 - M'), 1200.0, 'USD', '2024-01-01', true, 0.1, NULL, 'Seeded from CPQ v28 — procured_date is placeholder');
 INSERT INTO product_capex (product_id, procured_price, procured_currency, procured_date, use_as_baseline, residual_pct_12m, residual_pct_24m, notes) VALUES ((SELECT id FROM product_catalog WHERE sku_name = 'Advanced Series 5.0 vHost'), 1200.0, 'USD', '2024-01-01', true, NULL, NULL, 'Seeded from CPQ v28 — procured_date is placeholder');
 INSERT INTO product_capex (product_id, procured_price, procured_currency, procured_date, use_as_baseline, residual_pct_12m, residual_pct_24m, notes) VALUES ((SELECT id FROM product_catalog WHERE sku_name = 'Essential Series 5.0 - M'), 450.0, 'USD', '2024-01-01', true, NULL, NULL, 'Seeded from CPQ v28 — procured_date is placeholder');
+INSERT INTO product_capex (product_id, procured_price, procured_currency, procured_date, use_as_baseline, residual_pct_12m, residual_pct_24m, notes) VALUES ((SELECT id FROM product_catalog WHERE sku_name = '1.92 TB SATA 2.5in SSD'), 349.0, 'USD', '2024-01-01', true, 0.5, 0.2, 'Products - Hosting.csv col AG (CapEx to Allocate USD) row 193');
 
 -- -----------------------------------------------------------------------------
 -- SERVER DEFAULT COMPONENTS
