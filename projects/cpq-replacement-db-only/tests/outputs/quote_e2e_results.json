@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-09T01:22:15.028286Z",
+  "run_at": "2026-03-09T01:34:22.100795Z",
   "passed": 6,
   "failed": 5,
   "total": 11,
@@ -2929,7 +2929,7 @@
         },
         {
           "cost": "  Total (12m Cost Capex)",
-          "expected": 10332.44,
+          "expected": 12640.65,
           "expected_unit": "CAD",
           "calculated": 12238.12,
           "calculated_unit": "CAD",

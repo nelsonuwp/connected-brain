@@ -211,9 +211,8 @@ QUOTE_CASES = [
             "dc_ops_cad": 6.76,
             "support_cad": 40.14,
             "colo_cad": 17.79,
-            # 12m financial (cost_capex_12m = server + addons in CAD; was 10332 server-only, now ~12238 with addons)
+            # 12m financial (Expected uses Ocean FX for capex total; revenue/margin from sheet)
             "revenue_12m": 19597,
-            "cost_capex_12m": 12238.12,
             "cost_overhead_12m": 3143.28,
             "margin_12m": 4777,
             "margin_pct": 41.0,
@@ -342,7 +341,13 @@ def _build_quote_table(quote: dict, expected_sheet: dict | None) -> list[dict]:
         addon_cap_curr = a.get("currency", "USD")
     row("  Capex (addons)", es.get("capex_addons_usd"), "USD", addon_cap, addon_cap_curr)
     if f:
-        row("  Total (12m Cost Capex)", es.get("cost_capex_12m"), curr, f.get("cost_capex"), f.get("currency", curr))
+        # Expected Total (12m Cost Capex): use Ocean FX to convert USD capex to quote currency
+        exp_capex_usd = (es.get("capex_server_usd") or 0) + (es.get("capex_addons_usd") or 0)
+        if exp_capex_usd and curr:
+            exp_capex_quote = _ocean_convert(exp_capex_usd, "USD", curr) if curr != "USD" else exp_capex_usd
+        else:
+            exp_capex_quote = es.get("cost_capex_12m")
+        row("  Total (12m Cost Capex)", exp_capex_quote, curr, f.get("cost_capex"), f.get("currency", curr))
 
     # --- 12m: Cost Overhead (header then overhead items) ---
     section("12m: Cost Overhead")
