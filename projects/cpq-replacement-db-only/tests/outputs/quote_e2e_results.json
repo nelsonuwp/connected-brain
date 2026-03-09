@@ -1,8 +1,8 @@
 {
-  "run_at": "2026-03-09T00:03:45.170241Z",
+  "run_at": "2026-03-09T00:30:34.025830Z",
   "passed": 4,
-  "failed": 6,
-  "total": 10,
+  "failed": 7,
+  "total": 11,
   "all_passed": false,
   "results": [
     {
@@ -42,12 +42,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "TOR",
-          "total_watts": 195,
-          "total_kw": 0.195,
+          "total_watts": 400,
+          "total_kw": 0.4,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 42.56,
+              "amount": 87.31,
               "currency": "CAD"
             },
             {
@@ -141,12 +141,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "TOR",
-          "total_watts": 195,
-          "total_kw": 0.195,
+          "total_watts": 400,
+          "total_kw": 0.4,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 42.56,
+              "amount": 87.31,
               "currency": "CAD"
             },
             {
@@ -240,12 +240,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "TOR",
-          "total_watts": 195,
-          "total_kw": 0.195,
+          "total_watts": 400,
+          "total_kw": 0.4,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 42.56,
+              "amount": 87.31,
               "currency": "CAD"
             },
             {
@@ -372,12 +372,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "TOR",
-          "total_watts": 540,
-          "total_kw": 0.54,
+          "total_watts": 670,
+          "total_kw": 0.67,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 117.87,
+              "amount": 146.24,
               "currency": "CAD"
             },
             {
@@ -471,12 +471,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "IAD",
-          "total_watts": 195,
-          "total_kw": 0.195,
+          "total_watts": 400,
+          "total_kw": 0.4,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 14.18,
+              "amount": 29.09,
               "currency": "USD"
             },
             {
@@ -570,12 +570,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "POR",
-          "total_watts": 195,
-          "total_kw": 0.195,
+          "total_watts": 400,
+          "total_kw": 0.4,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 69.63,
+              "amount": 142.84,
               "currency": "GBP"
             },
             {
@@ -633,89 +633,174 @@
       }
     },
     {
-      "id": "promo_na_usd_iad_12m",
-      "description": "Promo Server - NA, default config, USD, IAD, 12 mo (min term)",
+      "id": "cluster5_cad_tor_12m",
+      "description": "Cluster 5.0 (Dell R440), default config, CAD, Toronto, 12 mo",
       "passed": false,
       "pending": true,
       "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
       "expected_mrc": null,
       "expected_nrc": null,
-      "actual_mrc": 399.0,
+      "actual_mrc": 554.67,
       "actual_nrc": 0.0,
       "errors": [],
       "quote": {
-        "totals_mrc": 399.0,
+        "totals_mrc": 554.67,
         "totals_nrc": 0.0,
-        "currency": "USD",
-        "dc_code": "IAD",
+        "currency": "CAD",
+        "dc_code": "TOR",
         "term_months": 12,
         "line_items": [
           {
-            "sku": "Promo Server - NA",
+            "sku": "Cluster 5.0 (Dell R440)",
             "quantity": 1,
-            "mrc": 399.0,
+            "mrc": 554.67,
             "nrc": 0.0,
-            "currency": "USD"
+            "currency": "CAD"
           }
         ],
         "addon_lines": [],
-        "capex": {
-          "server": {
-            "sku": "Promo Server - NA",
-            "amount": 580.0,
-            "currency": "USD"
-          },
-          "addons": []
-        },
+        "capex": null,
         "overhead_breakdown": {
-          "dc_code": "IAD",
-          "total_watts": 165,
-          "total_kw": 0.165,
+          "dc_code": "TOR",
+          "total_watts": 200,
+          "total_kw": 0.2,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 12.0,
-              "currency": "USD"
+              "amount": 43.65,
+              "currency": "CAD"
             },
             {
               "category": "dc_rm_supplies_per_kw",
               "amount": 0.0,
-              "currency": "USD"
+              "currency": "CAD"
             },
             {
               "category": "network_per_server",
               "amount": 58.7043,
-              "currency": "USD"
+              "currency": "CAD"
             },
             {
               "category": "billing_collections_per_server",
               "amount": 4.6315,
-              "currency": "USD"
+              "currency": "CAD"
             },
             {
               "category": "supply_chain_per_server",
               "amount": 6.395,
-              "currency": "USD"
+              "currency": "CAD"
             },
             {
               "category": "dc_infra_ops_per_server",
-              "amount": 18.5029,
-              "currency": "USD"
+              "amount": 6.7602,
+              "currency": "CAD"
             },
             {
               "category": "support_tech_hours",
               "amount": 80.27,
-              "currency": "USD"
+              "currency": "CAD"
             },
             {
               "category": "sga_pct_of_revenue",
               "amount": 0.082,
-              "currency": "USD"
+              "currency": "CAD"
             },
             {
               "category": "colo_cost_per_server",
-              "amount": 29.5293,
-              "currency": "USD"
+              "amount": 17.7867,
+              "currency": "CAD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
+      }
+    },
+    {
+      "id": "atomic5_cad_tor_12m",
+      "description": "Atomic 5.0 (Dell R650xs), default config, CAD, Toronto, 12 mo",
+      "passed": false,
+      "pending": true,
+      "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
+      "expected_mrc": null,
+      "expected_nrc": null,
+      "actual_mrc": 624.0,
+      "actual_nrc": 0.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 624.0,
+        "totals_nrc": 0.0,
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "line_items": [
+          {
+            "sku": "Atomic 5.0 (Dell R650xs)",
+            "quantity": 1,
+            "mrc": 624.0,
+            "nrc": 0.0,
+            "currency": "CAD"
+          }
+        ],
+        "addon_lines": [],
+        "capex": null,
+        "overhead_breakdown": {
+          "dc_code": "TOR",
+          "total_watts": 300,
+          "total_kw": 0.3,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 65.48,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "CAD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "CAD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "CAD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 6.7602,
+              "currency": "CAD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "CAD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "CAD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 17.7867,
+              "currency": "CAD"
             }
           ],
           "overhead_constants": {
@@ -801,12 +886,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "TOR",
-          "total_watts": 150,
-          "total_kw": 0.15,
+          "total_watts": 280,
+          "total_kw": 0.28,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 32.74,
+              "amount": 61.12,
               "currency": "CAD"
             },
             {
@@ -917,12 +1002,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "TOR",
-          "total_watts": 195,
-          "total_kw": 0.195,
+          "total_watts": 400,
+          "total_kw": 0.4,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 42.56,
+              "amount": 87.31,
               "currency": "CAD"
             },
             {
@@ -1016,12 +1101,12 @@
         },
         "overhead_breakdown": {
           "dc_code": "TOR",
-          "total_watts": 195,
-          "total_kw": 0.195,
+          "total_watts": 400,
+          "total_kw": 0.4,
           "by_category": [
             {
               "category": "power_per_kw",
-              "amount": 42.56,
+              "amount": 87.31,
               "currency": "CAD"
             },
             {
