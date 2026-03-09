@@ -268,6 +268,8 @@ def build_quote(
 
     # Overhead breakdown (DC cost drivers + constants)
     overhead_out = None
+    power_per_kw_rate = None
+    power_per_kw_currency = None
     if include_overhead and dc_code:
         constants = _get_overhead_constants(client)
         drivers = _get_dc_cost_drivers(client, dc_code)
@@ -279,6 +281,9 @@ def build_quote(
             cat = d["cost_category"]
             if "per_kw" in cat or "power" in cat.lower():
                 value = _round2(amt * total_kw)
+                if "power" in cat.lower() or cat == "power_per_kw":
+                    power_per_kw_rate = amt
+                    power_per_kw_currency = curr
             elif "per_server" in cat:
                 value = amt  # 1 server
             else:
@@ -289,7 +294,47 @@ def build_quote(
             "total_watts": int(total_watts),
             "total_kw": float(total_kw),
             "by_category": by_category,
+            "power_per_kw_rate": float(power_per_kw_rate) if power_per_kw_rate is not None else None,
+            "power_per_kw_rate_currency": power_per_kw_currency,
             "overhead_constants": {k: float(v) for k, v in constants.items()},
+        }
+
+    # 12-month financial summary (revenue, costs, margin)
+    financial_12m = None
+    if term_months == 12 and currency:
+        revenue_12m = _round2(total_mrc * 12 + total_nrc)
+        cost_capex_quote = Decimal("0")
+        if capex_out and capex_out.get("server"):
+            cap_amt = capex_out["server"].get("amount") or Decimal("0")
+            cap_curr = capex_out["server"].get("currency", "USD")
+            if cap_curr == currency:
+                cost_capex_quote = cap_amt
+            elif cap_curr != currency and usd_rate:
+                cost_capex_quote = _round2(cap_amt * usd_rate) if cap_curr == "USD" else cap_amt
+            else:
+                cost_capex_quote = cap_amt  # leave in source currency for display
+        for a in (capex_out.get("addons") or []):
+            cap_amt = (a.get("amount") or Decimal("0")) * (a.get("quantity") or 1)
+            cap_curr = a.get("currency", "USD")
+            if cap_curr == currency:
+                cost_capex_quote += cap_amt
+            elif cap_curr == "USD" and usd_rate:
+                cost_capex_quote += _round2(cap_amt * usd_rate)
+            else:
+                cost_capex_quote += cap_amt
+        cost_overhead_12m = Decimal("0")
+        if overhead_out and overhead_out.get("by_category"):
+            monthly_overhead = sum(_decimal(b["amount"]) for b in overhead_out["by_category"])
+            cost_overhead_12m = _round2(monthly_overhead * 12)
+        margin_12m = _round2(revenue_12m - cost_capex_quote - cost_overhead_12m)
+        margin_pct = (float(margin_12m / revenue_12m * 100) if revenue_12m else 0)
+        financial_12m = {
+            "revenue_12m": float(revenue_12m),
+            "cost_capex": float(cost_capex_quote),
+            "cost_overhead_12m": float(cost_overhead_12m),
+            "margin_12m": float(margin_12m),
+            "margin_pct": round(margin_pct, 1),
+            "currency": currency,
         }
 
     return {
@@ -302,6 +347,7 @@ def build_quote(
         "addon_lines": addon_lines,
         "capex": capex_out,
         "overhead_breakdown": overhead_out,
+        "financial_summary_12m": financial_12m,
         "errors": errors,
     }
 
@@ -337,9 +383,19 @@ def format_quote(result: dict) -> str:
         lines.append("Overhead (internal cost breakdown):")
         o = result["overhead_breakdown"]
         lines.append(f"  Total wattage: {o.get('total_watts')} W ({o.get('total_kw')} kW)")
+        if o.get("power_per_kw_rate") is not None:
+            lines.append(f"  power_per_kw rate: {o['power_per_kw_rate']} {o.get('power_per_kw_rate_currency', '')}")
         for b in o.get("by_category", []):
             lines.append(f"  {b['category']}: {b['amount']} {b['currency']}")
         lines.append("  Constants: " + ", ".join(f"{k}={v}" for k, v in o.get("overhead_constants", {}).items()))
+    if result.get("financial_summary_12m"):
+        f = result["financial_summary_12m"]
+        lines.append("")
+        lines.append("12-month financial summary:")
+        lines.append(f"  Revenue (12m): {f['currency']} {f['revenue_12m']}")
+        lines.append(f"  Cost Capex: {f['currency']} {f['cost_capex']}")
+        lines.append(f"  Cost Overhead (12m): {f['currency']} {f['cost_overhead_12m']}")
+        lines.append(f"  Margin (12m): {f['currency']} {f['margin_12m']}  ({f['margin_pct']}%)")
     if result.get("errors"):
         lines.append("")
         lines.append("Errors: " + "; ".join(result["errors"]))

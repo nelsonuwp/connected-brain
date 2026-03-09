@@ -169,8 +169,14 @@ QUOTE_CASES = [
         "currency": "CAD",
         "dc_code": "TOR",
         "term_months": 12,
-        "expected_mrc": None,
-        "expected_nrc": None,
+        "expected_mrc": Decimal("1529"),
+        "expected_nrc": Decimal("1249"),
+        "expected_sheet": {
+            "capex_server_usd": 7569,
+            "watts": 400,
+            "power_per_kw": 87.31,
+            "power_per_kw_currency": "CAD",
+        },
     },
     {
         "id": "pro6_vhost_cad_tor_12m",
@@ -210,6 +216,7 @@ def _quote_to_json(quote: dict) -> dict:
         ],
         "capex": None,
         "overhead_breakdown": None,
+        "financial_summary_12m": None,
     }
     if quote.get("capex"):
         c = quote["capex"]
@@ -231,7 +238,47 @@ def _quote_to_json(quote: dict) -> dict:
             for b in o.get("by_category", [])
         ]
         out["overhead_breakdown"] = o
+    if quote.get("financial_summary_12m"):
+        out["financial_summary_12m"] = quote["financial_summary_12m"]
     return out
+
+
+def _build_sheet_vs_db(quote: dict, expected_sheet: dict) -> list[dict]:
+    """Build Sheet vs DB comparison rows from quote output and expected_sheet (from CPQ screenshot)."""
+    rows = []
+    # Server Capex
+    if expected_sheet.get("capex_server_usd") is not None and quote.get("capex", {}).get("server"):
+        db_val = quote["capex"]["server"].get("amount")
+        db_curr = quote["capex"]["server"].get("currency", "USD")
+        rows.append({
+            "item": "Capex (server)",
+            "expected": expected_sheet["capex_server_usd"],
+            "expected_unit": "USD",
+            "db": float(db_val) if db_val is not None else None,
+            "db_unit": db_curr,
+        })
+    # Watts
+    if expected_sheet.get("watts") is not None and quote.get("overhead_breakdown"):
+        db_val = quote["overhead_breakdown"].get("total_watts")
+        rows.append({
+            "item": "Watts",
+            "expected": expected_sheet["watts"],
+            "expected_unit": "W",
+            "db": db_val,
+            "db_unit": "W",
+        })
+    # power_per_kw (rate)
+    if expected_sheet.get("power_per_kw") is not None and quote.get("overhead_breakdown"):
+        db_val = quote["overhead_breakdown"].get("power_per_kw_rate")
+        db_curr = quote["overhead_breakdown"].get("power_per_kw_rate_currency", "")
+        rows.append({
+            "item": "power_per_kw (rate)",
+            "expected": expected_sheet["power_per_kw"],
+            "expected_unit": expected_sheet.get("power_per_kw_currency", "CAD"),
+            "db": float(db_val) if db_val is not None else None,
+            "db_unit": db_curr,
+        })
+    return rows
 
 
 def _print_quote_breakdown(case_id: str, quote: dict) -> None:
@@ -297,6 +344,9 @@ def run_quote_e2e(client) -> list[dict]:
         actual_mrc = _decimal(result["totals_mrc"])
         actual_nrc = _decimal(result["totals_nrc"])
         quote_json = _quote_to_json(result)
+        sheet_vs_db = None
+        if case.get("expected_sheet"):
+            sheet_vs_db = _build_sheet_vs_db(result, case["expected_sheet"])
         results.append({
             "id": case["id"],
             "description": case["description"],
@@ -309,8 +359,9 @@ def run_quote_e2e(client) -> list[dict]:
             "actual_nrc": float(actual_nrc),
             "errors": result.get("errors", []),
             "quote": quote_json,
+            "sheet_vs_db": sheet_vs_db,
         })
-        _print_quote_breakdown(case["id"], result)
+        _print_quote_breakdown(case["id"], result, sheet_vs_db=sheet_vs_db)
     return results
 
 
