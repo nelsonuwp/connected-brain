@@ -49,6 +49,25 @@ NRC_TOLERANCE = Decimal("1")
 
 PENDING_MSG = "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)"
 
+# Ocean FX Rates (sheet) — used only for Expected (sheet) column. Calculated uses DB fx_rates.
+# From Ocean FX Rates table: Convert From → Convert To.
+OCEAN_FX = {
+    "USD": {"USD": 1.0, "CAD": 1.41, "GBP": 0.76, "EUR": 0.91},
+    "CAD": {"USD": 0.85, "CAD": 1.0, "GBP": 0.585, "EUR": 0.74},
+    "GBP": {"USD": 1.40, "CAD": 2.07, "GBP": 1.0, "EUR": 1.23},
+    "EUR": {"USD": None, "CAD": None, "GBP": None, "EUR": 1.0},
+}
+
+
+def _ocean_convert(amount: float, from_curr: str, to_curr: str) -> float | None:
+    """Convert amount using Ocean FX. Used for Expected (sheet) column only."""
+    if from_curr == to_curr or amount is None:
+        return amount
+    rate = (OCEAN_FX.get(from_curr) or {}).get(to_curr)
+    if rate is None:
+        return None
+    return round(amount * rate, 2)
+
 QUOTE_CASES = [
     # --- Locked (values from user) ---
     {
