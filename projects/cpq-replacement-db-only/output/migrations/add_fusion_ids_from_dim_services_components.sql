@@ -109,8 +109,7 @@ UPDATE product_catalog SET fusion_id = '3182' WHERE level = 'Component' AND sku_
 UPDATE product_catalog SET fusion_id = '4039' WHERE level = 'Component' AND sku_name = 'Intel Xeon Bronze 3106 1.7 GHz 8 Cores/8T';
 UPDATE product_catalog SET fusion_id = '4030' WHERE level = 'Component' AND sku_name = 'Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T';
 UPDATE product_catalog SET fusion_id = '4040' WHERE level = 'Component' AND sku_name = 'Intel Xeon Gold 5118 2.3 GHz 12 Cores/24T';
-UPDATE product_catalog SET fusion_id = '6092' WHERE level = 'Component' AND sku_name = 'RHEL 8.x';
-UPDATE product_catalog SET fusion_id = '6091' WHERE level = 'Component' AND sku_name = 'RHEL 9.x';
+-- RHEL 8.x / RHEL 9.x: 6092/6091 already used by RHEL 8.x for VMs / RHEL 9.x for VMs (unique constraint)
 UPDATE product_catalog SET fusion_id = '5882' WHERE level = 'Component' AND sku_name = 'SQL Server 2019 Standard Edition';
 UPDATE product_catalog SET fusion_id = '5904' WHERE level = 'Component' AND sku_name = 'SQL Server 2019 Enterprise Edition';
 UPDATE product_catalog SET fusion_id = '5883' WHERE level = 'Component' AND sku_name = 'SQL Server 2022 Standard Edition';
@@ -145,6 +144,7 @@ UPDATE product_catalog SET fusion_id = '6116' WHERE level = 'Component' AND sku_
 UPDATE product_catalog SET fusion_id = '6147' WHERE level = 'Component' AND sku_name = '8 TB SATA';
 UPDATE product_catalog SET fusion_id = '6023' WHERE level = 'Component' AND sku_name = 'Debian 12';
 UPDATE product_catalog SET fusion_id = '5745' WHERE level = 'Component' AND sku_name = 'Ubuntu 22.04 LTS';
+UPDATE product_catalog SET fusion_id = '6218' WHERE level = 'Component' AND sku_name = 'Ubuntu 24.04 LTS';
 UPDATE product_catalog SET fusion_id = '4029' WHERE level = 'Component' AND sku_name = 'Default Xeon Bronze 3106 1.7 GHz 8 Cores/8T';
 UPDATE product_catalog SET fusion_id = '6106' WHERE level = 'Component' AND sku_name = 'Default Intel Xeon Silver 4514Y 2G, 16C/32T';
 UPDATE product_catalog SET fusion_id = '6021' WHERE level = 'Component' AND sku_name = 'Default Intel Xeon Gold 6526Y 2.9G, 16/32T';
@@ -153,16 +153,14 @@ UPDATE product_catalog SET fusion_id = '4032' WHERE level = 'Component' AND sku_
 UPDATE product_catalog SET fusion_id = '5156' WHERE level = 'Component' AND sku_name = 'Intel Xeon Gold 6238R 2.2 GHz 28C/56T';
 UPDATE product_catalog SET fusion_id = '6083' WHERE level = 'Component' AND sku_name = 'Intel Xeon Gold 6548Y+ 2.5G, 32C/64T';
 UPDATE product_catalog SET fusion_id = '6084' WHERE level = 'Component' AND sku_name = 'Intel Xeon Platinum 8558U 2G, 48C/96T';
-UPDATE product_catalog SET fusion_id = '945' WHERE level = 'TLS' AND sku_name = 'Storage Series 5.0 vHost';
-UPDATE product_catalog SET fusion_id = '1371' WHERE level = 'Component' AND sku_name = 'Tivoli Backup - Daily Incremental Offsite to Atlanta - Low';
-UPDATE product_catalog SET fusion_id = '1371' WHERE level = 'Component' AND sku_name = 'Tivoli Backup - Daily Incremental with Offsite to Toronto';
-UPDATE product_catalog SET fusion_id = '1397' WHERE level = 'Component' AND sku_name = 'Tivoli Backup - Weekly Incremental with Offsite to Toronto';
+-- Storage Series 5.0 vHost: 945 already used by Storage Series 5.0 - M (unique constraint)
+-- Tivoli Atlanta - Low / Toronto variants: 1371/1397 already used by Atlanta/Miami (unique constraint)
 UPDATE product_catalog SET fusion_id = '6277' WHERE level = 'Component' AND sku_name = 'Debian 13';
 UPDATE product_catalog SET fusion_id = '5941' WHERE level = 'Component' AND sku_name = 'VMWare ESXi 8.x';
 UPDATE product_catalog SET fusion_id = '6275' WHERE level = 'Component' AND sku_name = 'Proxmox VE License';
 UPDATE product_catalog SET fusion_id = '6117' WHERE level = 'Component' AND sku_name = '3.84 TB NVMe u.2 2.5in';
 UPDATE product_catalog SET fusion_id = '5935' WHERE level = 'Component' AND sku_name = '6.4 TB NVMe u.2 2.5in';
 UPDATE product_catalog SET fusion_id = '6118' WHERE level = 'Component' AND sku_name = '960 GB NVMe u.2 2.5in';
-UPDATE product_catalog SET fusion_id = '3752' WHERE level = 'Component' AND sku_name = '960 GB SATA 2.5in SSD';
+-- 960 GB SATA 2.5in SSD: 3752 already used by 960 GB SSD (unique constraint)
 
 COMMIT;

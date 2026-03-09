@@ -6,8 +6,9 @@
 
 **`output/migrations/add_fusion_ids_from_dim_services_components.sql`**
 
-- **TLS (5 rows):** Pro Series 7.0 → 1290, Pro Series 6.0 vHost → 1259, Advanced Series 6.0 vHost → 1258, Pro Series 5.0 vHost → 944, Advanced Series 5.0 vHost → 959.
-- **Components (53 rows):** All seed components whose `sku_name` appears in dimProductAttributes get the corresponding `fusion_id` (e.g. 480 GB SSD → 3704, LM Basic Monitoring → 3352, backup blocks, Tivoli, RHEL/Rocky/Alma, etc.).
+- **Exact match:** TLS and Components whose `sku_name` appears in dimProductAttributes (5 TLS, 53 Components).
+- **Aliases:** Seed names that differ from CSV (e.g. "32 GB DDR4 RAM" vs "32 GB DDR4 RAM - Total", "1 pack - Windows Remote Desktop..." vs "1 Windows Remote Desktop Service  SAL", strip " - M" for server names). Covers RAM, Windows RDS packs, CPUs, SQL/Windows Server, RHEL, Tivoli Toronto variants, drives, OS (Debian, Ubuntu), VMware ESXi 8.x, Proxmox VE License, Default CPUs, etc.
+- **Total:** 12 TLS and ~120+ Component rows updated. Remaining NULL: Promo Server - NA/UK (TEMP placeholders), plus a few components not present in dimProductAttributes (e.g. CentOS 8, some NVMe/CPU variants, VMWare ESXi 7.x, Veeam - Local/Offsite, Single Power Supply, Dual PSUs) — add manually if you have a mapping.
 
 ## Regenerating from dimProductAttributes
 
