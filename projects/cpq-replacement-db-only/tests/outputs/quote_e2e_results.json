@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-09T00:33:30.013578Z",
+  "run_at": "2026-03-09T00:46:47.608554Z",
   "passed": 6,
   "failed": 5,
   "total": 11,
@@ -91,6 +91,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -101,8 +103,17 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
+        },
+        "financial_summary_12m": {
+          "revenue_12m": 16237.0,
+          "cost_capex": 10332.44,
+          "cost_overhead_12m": 3143.28,
+          "margin_12m": 2761.28,
+          "margin_pct": 17.0,
+          "currency": "CAD"
         }
-      }
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "pro6m_cad_tor_24m",
@@ -190,6 +201,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -200,8 +213,10 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
-        }
-      }
+        },
+        "financial_summary_12m": null
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "pro6m_cad_tor_36m",
@@ -289,6 +304,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -299,8 +316,10 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
-        }
-      }
+        },
+        "financial_summary_12m": null
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "adv6m_cpu_drives_cad",
@@ -421,6 +440,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -431,8 +452,17 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
+        },
+        "financial_summary_12m": {
+          "revenue_12m": 22425.96,
+          "cost_capex": 8055.46,
+          "cost_overhead_12m": 3850.44,
+          "margin_12m": 10520.06,
+          "margin_pct": 46.9,
+          "currency": "CAD"
         }
-      }
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "pro6m_usd_iad_12m",
@@ -520,6 +550,8 @@
               "currency": "USD"
             }
           ],
+          "power_per_kw_rate": 72.7266,
+          "power_per_kw_rate_currency": "USD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -530,15 +562,24 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
+        },
+        "financial_summary_12m": {
+          "revenue_12m": 14027.0,
+          "cost_capex": 7569.0,
+          "cost_overhead_12m": 2726.46,
+          "margin_12m": 3731.54,
+          "margin_pct": 26.6,
+          "currency": "USD"
         }
-      }
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "pro6m_gbp_por_24m",
       "description": "Pro Series 6.0 - M, default config, GBP, Portsmouth, 24 mo",
-      "passed": true,
+      "passed": false,
       "pending": false,
-      "failure_reason": null,
+      "failure_reason": "MRC expected 659 got 699.00",
       "expected_mrc": 659.0,
       "expected_nrc": 899.0,
       "actual_mrc": 699.0,
@@ -619,6 +660,8 @@
               "currency": "GBP"
             }
           ],
+          "power_per_kw_rate": 357.0957,
+          "power_per_kw_rate_currency": "GBP",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -629,8 +672,10 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
-        }
-      }
+        },
+        "financial_summary_12m": null
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "cluster5_cad_tor_12m",
@@ -711,6 +756,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -721,8 +768,17 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
+        },
+        "financial_summary_12m": {
+          "revenue_12m": 6656.04,
+          "cost_capex": 0.0,
+          "cost_overhead_12m": 2619.36,
+          "margin_12m": 4036.68,
+          "margin_pct": 60.6,
+          "currency": "CAD"
         }
-      }
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "atomic5_cad_tor_12m",
@@ -803,6 +859,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -813,8 +871,17 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
+        },
+        "financial_summary_12m": {
+          "revenue_12m": 7488.0,
+          "cost_capex": 0.0,
+          "cost_overhead_12m": 2881.32,
+          "margin_12m": 4606.68,
+          "margin_pct": 61.5,
+          "currency": "CAD"
         }
-      }
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "adv6m_sql_lm_standard_cad",
@@ -935,6 +1002,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -945,17 +1014,26 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
+        },
+        "financial_summary_12m": {
+          "revenue_12m": 14706.12,
+          "cost_capex": 8055.46,
+          "cost_overhead_12m": 2829.0,
+          "margin_12m": 3821.66,
+          "margin_pct": 26.0,
+          "currency": "CAD"
         }
-      }
+      },
+      "sheet_vs_db": null
     },
     {
       "id": "pro6m_storage_heavy_cad",
       "description": "Pro Series 6.0 - M + 4x 1.92 TB SATA 2.5in SSD, CAD TOR 12 mo",
-      "passed": false,
-      "pending": true,
-      "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
-      "expected_mrc": null,
-      "expected_nrc": null,
+      "passed": true,
+      "pending": false,
+      "failure_reason": null,
+      "expected_mrc": 1529.0,
+      "expected_nrc": 1249.0,
       "actual_mrc": 1522.04,
       "actual_nrc": 1249.0,
       "errors": [],
@@ -1051,6 +1129,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -1061,8 +1141,39 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
+        },
+        "financial_summary_12m": {
+          "revenue_12m": 19513.48,
+          "cost_capex": 10332.44,
+          "cost_overhead_12m": 3143.28,
+          "margin_12m": 6037.76,
+          "margin_pct": 30.9,
+          "currency": "CAD"
         }
-      }
+      },
+      "sheet_vs_db": [
+        {
+          "item": "Capex (server)",
+          "expected": 7569,
+          "expected_unit": "USD",
+          "db": 7569.0,
+          "db_unit": "USD"
+        },
+        {
+          "item": "Watts",
+          "expected": 400,
+          "expected_unit": "W",
+          "db": 400,
+          "db_unit": "W"
+        },
+        {
+          "item": "Power (monthly)",
+          "expected": 87.31,
+          "expected_unit": "CAD",
+          "db": 87.31,
+          "db_unit": "CAD"
+        }
+      ]
     },
     {
       "id": "pro6_vhost_cad_tor_12m",
@@ -1150,6 +1261,8 @@
               "currency": "CAD"
             }
           ],
+          "power_per_kw_rate": 218.2749,
+          "power_per_kw_rate_currency": "CAD",
           "overhead_constants": {
             "sga_pct": 0.08199743735763099,
             "annual_cost_inflation": 0.03,
@@ -1160,8 +1273,17 @@
             "ebit_strong_threshold": 0.4,
             "capital_intensity_threshold": 0.5
           }
+        },
+        "financial_summary_12m": {
+          "revenue_12m": 16237.0,
+          "cost_capex": 10332.44,
+          "cost_overhead_12m": 3143.28,
+          "margin_12m": 2761.28,
+          "margin_pct": 17.0,
+          "currency": "CAD"
         }
-      }
+      },
+      "sheet_vs_db": null
     }
   ]
 }

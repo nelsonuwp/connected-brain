@@ -87,13 +87,13 @@ Cases 1–4 are already filled in. Cases 5–10 are **pending**: they are in the
 
 ---
 
-## Case 9 — **pro6m_storage_heavy_cad** (PENDING)
+## Case 9 — **pro6m_storage_heavy_cad** ✓ (Sheet vs DB + 12m margin)
 
 - **Server:** Pro Series 6.0 - M  
 - **Config:** Defaults + **4× 1.92 TB SATA 2.5in SSD**  
 - **Currency:** CAD | **DC:** Toronto | **Term:** 12 months  
-
-**→ Give me: MRC = ______  NRC = ______**
+- **Expected (from sheet):** MRC 1,529  NRC 1,249  (mrc_tolerance 10; quote ~1522 vs sheet 1529)
+- **expected_sheet** used for Sheet vs DB: Capex (server) USD, Watts, Power (monthly) CAD. E2E run prints **Sheet vs DB** and **12-month financial summary** (revenue, capex, overhead, margin $ and %) for this case.
 
 ---
 

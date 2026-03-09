@@ -174,9 +174,11 @@ QUOTE_CASES = [
         "expected_sheet": {
             "capex_server_usd": 7569,
             "watts": 400,
-            "power_per_kw": 87.31,
-            "power_per_kw_currency": "CAD",
+            "power_monthly_cad": 87.31,
+            "power_per_kw_rate_cad": None,
         },
+        "mrc_tolerance": Decimal("10"),
+        "nrc_tolerance": Decimal("0"),
     },
     {
         "id": "pro6_vhost_cad_tor_12m",
@@ -267,21 +269,36 @@ def _build_sheet_vs_db(quote: dict, expected_sheet: dict) -> list[dict]:
             "db": db_val,
             "db_unit": "W",
         })
-    # power_per_kw (rate)
-    if expected_sheet.get("power_per_kw") is not None and quote.get("overhead_breakdown"):
+    # power_per_kw rate ($/kW) if provided
+    if expected_sheet.get("power_per_kw_rate_cad") is not None and quote.get("overhead_breakdown"):
         db_val = quote["overhead_breakdown"].get("power_per_kw_rate")
         db_curr = quote["overhead_breakdown"].get("power_per_kw_rate_currency", "")
         rows.append({
             "item": "power_per_kw (rate)",
-            "expected": expected_sheet["power_per_kw"],
-            "expected_unit": expected_sheet.get("power_per_kw_currency", "CAD"),
+            "expected": expected_sheet["power_per_kw_rate_cad"],
+            "expected_unit": "CAD",
             "db": float(db_val) if db_val is not None else None,
+            "db_unit": db_curr,
+        })
+    # Power monthly cost (sheet "Driven by Power Usage - Power" = 87.31 CAD)
+    if expected_sheet.get("power_monthly_cad") is not None and quote.get("overhead_breakdown"):
+        power_cat = next(
+            (b for b in quote["overhead_breakdown"].get("by_category", []) if "power" in b.get("category", "").lower()),
+            None,
+        )
+        db_val = float(power_cat["amount"]) if power_cat else None
+        db_curr = power_cat["currency"] if power_cat else ""
+        rows.append({
+            "item": "Power (monthly)",
+            "expected": expected_sheet["power_monthly_cad"],
+            "expected_unit": "CAD",
+            "db": db_val,
             "db_unit": db_curr,
         })
     return rows
 
 
-def _print_quote_breakdown(case_id: str, quote: dict) -> None:
+def _print_quote_breakdown(case_id: str, quote: dict, *, sheet_vs_db: list | None = None) -> None:
     """Print component and overhead breakdown for one case."""
     print(f"\n  --- {case_id} (component + overhead) ---")
     print("  Line items:")
@@ -301,9 +318,20 @@ def _print_quote_breakdown(case_id: str, quote: dict) -> None:
     if quote.get("overhead_breakdown"):
         o = quote["overhead_breakdown"]
         print(f"  Overhead: {o.get('dc_code')}  wattage {o.get('total_watts')} W ({o.get('total_kw')} kW)")
+        if o.get("power_per_kw_rate") is not None:
+            print(f"    power_per_kw rate: {o['power_per_kw_rate']} {o.get('power_per_kw_rate_currency', '')}")
         for b in o.get("by_category", []):
             print(f"    {b['category']}: {b['amount']} {b['currency']}")
         print("    Constants: " + ", ".join(f"{k}={v}" for k, v in o.get("overhead_constants", {}).items()))
+    if quote.get("financial_summary_12m"):
+        f = quote["financial_summary_12m"]
+        print("  12-month financial summary:")
+        print(f"    Revenue (12m): {f['currency']} {f['revenue_12m']}  |  Capex: {f['currency']} {f['cost_capex']}  |  Overhead (12m): {f['currency']} {f['cost_overhead_12m']}")
+        print(f"    Margin (12m): {f['currency']} {f['margin_12m']}  ({f['margin_pct']}%)")
+    if sheet_vs_db:
+        print("  Sheet vs DB:")
+        for row in sheet_vs_db:
+            print(f"    {row['item']}:  Expected {row['expected']} {row['expected_unit']}  |  DB {row['db']} {row['db_unit']}")
 
 
 def run_quote_e2e(client) -> list[dict]:

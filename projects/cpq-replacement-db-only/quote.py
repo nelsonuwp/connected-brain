@@ -313,7 +313,7 @@ def build_quote(
                 cost_capex_quote = _round2(cap_amt * usd_rate) if cap_curr == "USD" else cap_amt
             else:
                 cost_capex_quote = cap_amt  # leave in source currency for display
-        for a in (capex_out.get("addons") or []):
+        for a in ((capex_out or {}).get("addons") or []):
             cap_amt = (a.get("amount") or Decimal("0")) * (a.get("quantity") or 1)
             cap_curr = a.get("currency", "USD")
             if cap_curr == currency:
