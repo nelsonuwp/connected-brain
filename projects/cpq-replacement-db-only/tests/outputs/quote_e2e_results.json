@@ -1,14 +1,16 @@
 {
-  "run_at": "2026-03-09T00:00:19.025859Z",
+  "run_at": "2026-03-09T00:03:45.170241Z",
   "passed": 4,
-  "failed": 0,
-  "total": 4,
-  "all_passed": true,
+  "failed": 6,
+  "total": 10,
+  "all_passed": false,
   "results": [
     {
       "id": "pro6m_cad_tor_12m",
       "description": "Pro Series 6.0 - M, default config, CAD, Toronto, 12 mo",
       "passed": true,
+      "pending": false,
+      "failure_reason": null,
       "expected_mrc": 1249.0,
       "expected_nrc": 1249.0,
       "actual_mrc": 1249.0,
@@ -106,6 +108,8 @@
       "id": "pro6m_cad_tor_24m",
       "description": "Pro Series 6.0 - M, default config, CAD, Toronto, 24 mo",
       "passed": true,
+      "pending": false,
+      "failure_reason": null,
       "expected_mrc": 969.0,
       "expected_nrc": 1249.0,
       "actual_mrc": 969.0,
@@ -203,6 +207,8 @@
       "id": "pro6m_cad_tor_36m",
       "description": "Pro Series 6.0 - M, default config, CAD, Toronto, 36 mo",
       "passed": true,
+      "pending": false,
+      "failure_reason": null,
       "expected_mrc": 829.0,
       "expected_nrc": 1249.0,
       "actual_mrc": 829.0,
@@ -300,6 +306,8 @@
       "id": "adv6m_cpu_drives_cad",
       "description": "Advanced Series 6.0 - M + 2x Gold 6526Y CPU + 2x 1.92 TB SSD, CAD",
       "passed": true,
+      "pending": false,
+      "failure_reason": null,
       "expected_mrc": 1789.0,
       "expected_nrc": 969.0,
       "actual_mrc": 1788.08,
@@ -370,6 +378,650 @@
             {
               "category": "power_per_kw",
               "amount": 117.87,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "CAD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "CAD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "CAD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 6.7602,
+              "currency": "CAD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "CAD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "CAD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 17.7867,
+              "currency": "CAD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
+      }
+    },
+    {
+      "id": "pro6m_usd_iad_12m",
+      "description": "Pro Series 6.0 - M, default config, USD, IAD, 12 mo",
+      "passed": false,
+      "pending": true,
+      "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
+      "expected_mrc": null,
+      "expected_nrc": null,
+      "actual_mrc": 1079.0,
+      "actual_nrc": 1079.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 1079.0,
+        "totals_nrc": 1079.0,
+        "currency": "USD",
+        "dc_code": "IAD",
+        "term_months": 12,
+        "line_items": [
+          {
+            "sku": "Pro Series 6.0 - M",
+            "quantity": 1,
+            "mrc": 1079.0,
+            "nrc": 1079.0,
+            "currency": "USD"
+          }
+        ],
+        "addon_lines": [],
+        "capex": {
+          "server": {
+            "sku": "Pro Series 6.0 - M",
+            "amount": 7569.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "IAD",
+          "total_watts": 195,
+          "total_kw": 0.195,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 14.18,
+              "currency": "USD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "USD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "USD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "USD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "USD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 18.5029,
+              "currency": "USD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "USD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "USD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 29.5293,
+              "currency": "USD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
+      }
+    },
+    {
+      "id": "pro6m_gbp_por_24m",
+      "description": "Pro Series 6.0 - M, default config, GBP, Portsmouth, 24 mo",
+      "passed": false,
+      "pending": true,
+      "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
+      "expected_mrc": null,
+      "expected_nrc": null,
+      "actual_mrc": 699.0,
+      "actual_nrc": 899.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 699.0,
+        "totals_nrc": 899.0,
+        "currency": "GBP",
+        "dc_code": "POR",
+        "term_months": 24,
+        "line_items": [
+          {
+            "sku": "Pro Series 6.0 - M",
+            "quantity": 1,
+            "mrc": 699.0,
+            "nrc": 899.0,
+            "currency": "GBP"
+          }
+        ],
+        "addon_lines": [],
+        "capex": {
+          "server": {
+            "sku": "Pro Series 6.0 - M",
+            "amount": 7569.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "POR",
+          "total_watts": 195,
+          "total_kw": 0.195,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 69.63,
+              "currency": "GBP"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "GBP"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "GBP"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "GBP"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "GBP"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 26.6221,
+              "currency": "GBP"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "GBP"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "GBP"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 37.6486,
+              "currency": "GBP"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
+      }
+    },
+    {
+      "id": "promo_na_usd_iad_12m",
+      "description": "Promo Server - NA, default config, USD, IAD, 12 mo (min term)",
+      "passed": false,
+      "pending": true,
+      "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
+      "expected_mrc": null,
+      "expected_nrc": null,
+      "actual_mrc": 399.0,
+      "actual_nrc": 0.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 399.0,
+        "totals_nrc": 0.0,
+        "currency": "USD",
+        "dc_code": "IAD",
+        "term_months": 12,
+        "line_items": [
+          {
+            "sku": "Promo Server - NA",
+            "quantity": 1,
+            "mrc": 399.0,
+            "nrc": 0.0,
+            "currency": "USD"
+          }
+        ],
+        "addon_lines": [],
+        "capex": {
+          "server": {
+            "sku": "Promo Server - NA",
+            "amount": 580.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "IAD",
+          "total_watts": 165,
+          "total_kw": 0.165,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 12.0,
+              "currency": "USD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "USD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "USD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "USD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "USD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 18.5029,
+              "currency": "USD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "USD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "USD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 29.5293,
+              "currency": "USD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
+      }
+    },
+    {
+      "id": "adv6m_sql_lm_standard_cad",
+      "description": "Advanced 6.0 - M defaults + SQL Server 2022 Standard + LM Standard Monitoring, CAD TOR 12 mo",
+      "passed": false,
+      "pending": true,
+      "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
+      "expected_mrc": null,
+      "expected_nrc": null,
+      "actual_mrc": 1144.76,
+      "actual_nrc": 969.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 1144.76,
+        "totals_nrc": 969.0,
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "line_items": [
+          {
+            "sku": "Advanced Series 6.0 - M",
+            "quantity": 1,
+            "mrc": 969.0,
+            "nrc": 969.0,
+            "currency": "CAD"
+          },
+          {
+            "sku": "SQL Server 2022 Standard Edition",
+            "quantity": 1,
+            "mrc": 141.63,
+            "nrc": 0.0,
+            "currency": "CAD"
+          },
+          {
+            "sku": "LM Standard Monitoring",
+            "quantity": 1,
+            "mrc": 34.13,
+            "nrc": 0.0,
+            "currency": "CAD"
+          }
+        ],
+        "addon_lines": [
+          {
+            "sku": "SQL Server 2022 Standard Edition",
+            "quantity": 1,
+            "unit_mrc": 141.63,
+            "unit_nrc": 0.0,
+            "mrc": 141.63,
+            "nrc": 0.0,
+            "currency": "CAD"
+          },
+          {
+            "sku": "LM Standard Monitoring",
+            "quantity": 1,
+            "unit_mrc": 34.13,
+            "unit_nrc": 0.0,
+            "mrc": 34.13,
+            "nrc": 0.0,
+            "currency": "CAD"
+          }
+        ],
+        "capex": {
+          "server": {
+            "sku": "Advanced Series 6.0 - M",
+            "amount": 5901.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "TOR",
+          "total_watts": 150,
+          "total_kw": 0.15,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 32.74,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "CAD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "CAD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "CAD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 6.7602,
+              "currency": "CAD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "CAD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "CAD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 17.7867,
+              "currency": "CAD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
+      }
+    },
+    {
+      "id": "pro6m_storage_heavy_cad",
+      "description": "Pro Series 6.0 - M + 4x 1.92 TB SATA 2.5in SSD, CAD TOR 12 mo",
+      "passed": false,
+      "pending": true,
+      "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
+      "expected_mrc": null,
+      "expected_nrc": null,
+      "actual_mrc": 1522.04,
+      "actual_nrc": 1249.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 1522.04,
+        "totals_nrc": 1249.0,
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "line_items": [
+          {
+            "sku": "Pro Series 6.0 - M",
+            "quantity": 1,
+            "mrc": 1249.0,
+            "nrc": 1249.0,
+            "currency": "CAD"
+          },
+          {
+            "sku": "1.92 TB SATA 2.5in SSD",
+            "quantity": 4,
+            "mrc": 273.04,
+            "nrc": 0.0,
+            "currency": "CAD"
+          }
+        ],
+        "addon_lines": [
+          {
+            "sku": "1.92 TB SATA 2.5in SSD",
+            "quantity": 4,
+            "unit_mrc": 68.26,
+            "unit_nrc": 0.0,
+            "mrc": 273.04,
+            "nrc": 0.0,
+            "currency": "CAD"
+          }
+        ],
+        "capex": {
+          "server": {
+            "sku": "Pro Series 6.0 - M",
+            "amount": 7569.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "TOR",
+          "total_watts": 195,
+          "total_kw": 0.195,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 42.56,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "CAD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "CAD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "CAD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 6.7602,
+              "currency": "CAD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "CAD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "CAD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 17.7867,
+              "currency": "CAD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
+      }
+    },
+    {
+      "id": "pro6_vhost_cad_tor_12m",
+      "description": "Pro Series 6.0 vHost (not -M), default config, CAD, Toronto, 12 mo",
+      "passed": false,
+      "pending": true,
+      "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
+      "expected_mrc": null,
+      "expected_nrc": null,
+      "actual_mrc": 1249.0,
+      "actual_nrc": 1249.0,
+      "errors": [],
+      "quote": {
+        "totals_mrc": 1249.0,
+        "totals_nrc": 1249.0,
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "line_items": [
+          {
+            "sku": "Pro Series 6.0 vHost",
+            "quantity": 1,
+            "mrc": 1249.0,
+            "nrc": 1249.0,
+            "currency": "CAD"
+          }
+        ],
+        "addon_lines": [],
+        "capex": {
+          "server": {
+            "sku": "Pro Series 6.0 vHost",
+            "amount": 7569.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "TOR",
+          "total_watts": 195,
+          "total_kw": 0.195,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 42.56,
               "currency": "CAD"
             },
             {

@@ -261,22 +261,39 @@ def run_quote_e2e(client) -> list[dict]:
             include_capex=True,
             include_overhead=True,
         )
-        expected_mrc = case["expected_mrc"]
-        expected_nrc = case["expected_nrc"]
-        mrc_tol = case.get("mrc_tolerance", Decimal("0"))
-        nrc_tol = case.get("nrc_tolerance", Decimal("0"))
+        expected_mrc = case.get("expected_mrc")
+        expected_nrc = case.get("expected_nrc")
+        pending = expected_mrc is None or expected_nrc is None
+        if pending:
+            passed = False
+            failure_reason = PENDING_MSG
+        else:
+            mrc_tol = case.get("mrc_tolerance", Decimal("0"))
+            nrc_tol = case.get("nrc_tolerance", Decimal("0"))
+            actual_mrc = _decimal(result["totals_mrc"])
+            actual_nrc = _decimal(result["totals_nrc"])
+            mrc_ok = abs(actual_mrc - expected_mrc) <= mrc_tol
+            nrc_ok = abs(actual_nrc - expected_nrc) <= nrc_tol
+            passed = mrc_ok and nrc_ok and not result.get("errors")
+            failure_reason = None
+            if not mrc_ok:
+                failure_reason = f"MRC expected {expected_mrc} got {actual_mrc}"
+            elif not nrc_ok:
+                failure_reason = f"NRC expected {expected_nrc} got {actual_nrc}"
+            elif result.get("errors"):
+                failure_reason = "; ".join(result["errors"])
+
         actual_mrc = _decimal(result["totals_mrc"])
         actual_nrc = _decimal(result["totals_nrc"])
-        mrc_ok = abs(actual_mrc - expected_mrc) <= mrc_tol
-        nrc_ok = abs(actual_nrc - expected_nrc) <= nrc_tol
-        passed = mrc_ok and nrc_ok and not result.get("errors")
         quote_json = _quote_to_json(result)
         results.append({
             "id": case["id"],
             "description": case["description"],
             "passed": passed,
-            "expected_mrc": float(expected_mrc),
-            "expected_nrc": float(expected_nrc),
+            "pending": pending,
+            "failure_reason": failure_reason,
+            "expected_mrc": float(expected_mrc) if expected_mrc is not None else None,
+            "expected_nrc": float(expected_nrc) if expected_nrc is not None else None,
             "actual_mrc": float(actual_mrc),
             "actual_nrc": float(actual_nrc),
             "errors": result.get("errors", []),
@@ -306,9 +323,13 @@ def main():
 
     for r in results:
         status = "✓ PASS" if r["passed"] else "✗ FAIL"
-        print(f"  {status}  {r['id']}")
+        pending_tag = " (PENDING)" if r.get("pending") else ""
+        print(f"  {status}  {r['id']}{pending_tag}")
         if not r["passed"]:
-            print(f"           expected MRC={r['expected_mrc']} NRC={r['expected_nrc']}")
+            if r.get("failure_reason"):
+                print(f"           → {r['failure_reason']}")
+            if r.get("expected_mrc") is not None and r.get("expected_nrc") is not None:
+                print(f"           expected MRC={r['expected_mrc']} NRC={r['expected_nrc']}")
             print(f"           actual   MRC={r['actual_mrc']} NRC={r['actual_nrc']}")
             if r.get("errors"):
                 print(f"           errors: {r['errors']}")
