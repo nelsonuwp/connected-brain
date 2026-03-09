@@ -107,6 +107,73 @@ def _decimal(n):
     return Decimal(str(n))
 
 
+def _quote_to_json(quote: dict) -> dict:
+    """Serialize build_quote result for JSON (Decimal -> float)."""
+    out = {
+        "totals_mrc": float(quote["totals_mrc"]),
+        "totals_nrc": float(quote["totals_nrc"]),
+        "currency": quote["currency"],
+        "dc_code": quote.get("dc_code"),
+        "term_months": quote["term_months"],
+        "line_items": [
+            {k: (float(v) if isinstance(v, Decimal) else v) for k, v in li.items()}
+            for li in quote["line_items"]
+        ],
+        "addon_lines": [
+            {k: (float(v) if isinstance(v, Decimal) else v) for k, v in a.items()}
+            for a in quote.get("addon_lines", [])
+        ],
+        "capex": None,
+        "overhead_breakdown": None,
+    }
+    if quote.get("capex"):
+        c = quote["capex"]
+        out["capex"] = {"server": None, "addons": []}
+        if c.get("server"):
+            s = c["server"].copy()
+            if isinstance(s.get("amount"), Decimal):
+                s["amount"] = float(s["amount"])
+            out["capex"]["server"] = s
+        for a in c.get("addons", []):
+            aa = a.copy()
+            if isinstance(aa.get("amount"), Decimal):
+                aa["amount"] = float(aa["amount"])
+            out["capex"]["addons"].append(aa)
+    if quote.get("overhead_breakdown"):
+        o = quote["overhead_breakdown"].copy()
+        o["by_category"] = [
+            {k: (float(v) if isinstance(v, Decimal) else v) for k, v in b.items()}
+            for b in o.get("by_category", [])
+        ]
+        out["overhead_breakdown"] = o
+    return out
+
+
+def _print_quote_breakdown(case_id: str, quote: dict) -> None:
+    """Print component and overhead breakdown for one case."""
+    print(f"\n  --- {case_id} (component + overhead) ---")
+    print("  Line items:")
+    for li in quote["line_items"]:
+        print(f"    {li['sku']} x{li['quantity']}  MRC {li['mrc']}  NRC {li['nrc']} {quote.get('currency', '')}")
+    if quote.get("addon_lines"):
+        print("  Add-on breakdown:")
+        for a in quote["addon_lines"]:
+            print(f"    {a['sku']} x{a['quantity']}  unit MRC {a['unit_mrc']}  →  MRC {a['mrc']}  NRC {a['nrc']}")
+    if quote.get("capex"):
+        c = quote["capex"]
+        if c.get("server"):
+            s = c["server"]
+            print(f"  CapEx server: {s.get('sku')}  {s.get('amount')} {s.get('currency')}")
+        for a in c.get("addons", []):
+            print(f"  CapEx addon: {a.get('sku')} x{a.get('quantity', 1)}  {a.get('amount')} {a.get('currency')}")
+    if quote.get("overhead_breakdown"):
+        o = quote["overhead_breakdown"]
+        print(f"  Overhead: {o.get('dc_code')}  wattage {o.get('total_watts')} W ({o.get('total_kw')} kW)")
+        for b in o.get("by_category", []):
+            print(f"    {b['category']}: {b['amount']} {b['currency']}")
+        print("    Constants: " + ", ".join(f"{k}={v}" for k, v in o.get("overhead_constants", {}).items()))
+
+
 def run_quote_e2e(client) -> list[dict]:
     results = []
     for case in QUOTE_CASES:
@@ -129,6 +196,7 @@ def run_quote_e2e(client) -> list[dict]:
         mrc_ok = abs(actual_mrc - expected_mrc) <= mrc_tol
         nrc_ok = abs(actual_nrc - expected_nrc) <= nrc_tol
         passed = mrc_ok and nrc_ok and not result.get("errors")
+        quote_json = _quote_to_json(result)
         results.append({
             "id": case["id"],
             "description": case["description"],
@@ -138,15 +206,9 @@ def run_quote_e2e(client) -> list[dict]:
             "actual_mrc": float(actual_mrc),
             "actual_nrc": float(actual_nrc),
             "errors": result.get("errors", []),
-            "quote": {
-                "totals_mrc": float(result["totals_mrc"]),
-                "totals_nrc": float(result["totals_nrc"]),
-                "line_items_count": len(result["line_items"]),
-                "addon_lines_count": len(result.get("addon_lines", [])),
-                "has_capex": result.get("capex") is not None,
-                "has_overhead": result.get("overhead_breakdown") is not None,
-            },
+            "quote": quote_json,
         })
+        _print_quote_breakdown(case["id"], result)
     return results
 
 
@@ -162,9 +224,10 @@ def main():
         print(f"ERROR: Could not create Supabase client: {e}")
         sys.exit(1)
 
-    print("Running quote E2E tests...\n")
+    print("Running quote E2E tests...")
     results = run_quote_e2e(client)
     passed = sum(1 for r in results if r["passed"])
+    print("")
     total = len(results)
 
     for r in results:
@@ -185,8 +248,12 @@ def main():
         "results": results,
     }
     out_path = OUTPUTS / "quote_e2e_results.json"
+    def _json_default(x):
+        if isinstance(x, Decimal):
+            return float(x)
+        raise TypeError(type(x))
     with open(out_path, "w") as f:
-        json.dump(summary, f, indent=2, default=lambda x: float(x) if isinstance(x, Decimal) else x)
+        json.dump(summary, f, indent=2, default=_json_default)
 
     print()
     print(f"{'ALL PASSED' if summary['all_passed'] else 'FAILURES FOUND'}  ({passed}/{total})")

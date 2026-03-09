@@ -1,23 +1,58 @@
-# Quote E2E — Test scenarios
+# Quote E2E — What to put for each case
 
-The suite in `test_quote_e2e.py` asserts expected MRC/NRC for fixed configs. Add new cases to `QUOTE_CASES` and set `expected_mrc` / `expected_nrc` from your Excel/CPQ output.
+Run each config below in your Excel/CPQ. Send the **MRC** and **NRC** (screenshot or numbers) and we’ll plug them in as `expected_mrc` / `expected_nrc` in `test_quote_e2e.py`.
 
-## Current cases (from user spec)
+---
 
-| # | Config | Currency | DC | Term | Expected MRC | Expected NRC |
-|---|--------|----------|-----|------|--------------|--------------|
-| 1 | Pro Series 6.0 - M (defaults only) | CAD | TOR | 12 mo | 1249 | 1249 |
-| 2 | Same | CAD | TOR | 24 mo | 969 | 1249 |
-| 3 | Same | CAD | TOR | 36 mo | 829 | 1249 |
-| 4 | Advanced Series 6.0 - M + 2× Gold 6526Y CPU + 2× 1.92 TB SSD | CAD | TOR | 12 mo | 1789 | 969 |
+## Case 1 — **pro6m_cad_tor_12m**
 
-## Suggested stress tests (add to Excel, then add here)
+- **Server:** Pro Series 6.0 - M  
+- **Config:** Defaults only (Default Intel Xeon Gold 6526Y 2.9G 16/32T, 128 GB DDR5 RAM, 480 GB SSD, Hardware RAID Controller, Redundant 1100W Power Supply, 1000 Mbit GigE, LM Basic Monitoring)  
+- **Currency:** CAD  
+- **DC:** Toronto  
+- **Term:** 12 months  
 
-- **Different DCs** — Same server/config in USD (e.g. IAD) and GBP (POR); confirm server pricing and FX for addons.
-- **Promo / min term** — Promo Server - NA or UK, 12 mo only; NRC vs MRC.
-- **Software add-ons** — e.g. SQL Server 2022 Standard, LM Standard Monitoring; confirm MRC and that software markup is applied if applicable.
-- **Multi-currency** — Pro 6.0 - M in GBP, 24 mo; expected from Excel.
-- **Storage-heavy** — Same server with multiple large drives (e.g. 4× 7.6 TB) to stress addon sum and wattage.
-- **vHost vs -M** — Pro Series 6.0 vHost vs Pro Series 6.0 - M same config; different base price.
+**→ Give me: MRC = ______  NRC = ______**
 
-To add a case: run the config in Excel, note MRC/NRC, then append to `QUOTE_CASES` in `test_quote_e2e.py` with the same structure. Use `mrc_tolerance` / `nrc_tolerance` if FX rounding is needed for converted addons.
+---
+
+## Case 2 — **pro6m_cad_tor_24m**
+
+- Same as Case 1, **Term:** 24 months  
+
+**→ Give me: MRC = ______  NRC = ______**
+
+---
+
+## Case 3 — **pro6m_cad_tor_36m**
+
+- Same as Case 1, **Term:** 36 months  
+
+**→ Give me: MRC = ______  NRC = ______**
+
+---
+
+## Case 4 — **adv6m_cpu_drives_cad**
+
+- **Server:** Advanced Series 6.0 - M  
+- **Config:** Default CPU (Default Intel Xeon Silver 4514Y 2G 16C/32T), 64 GB DDR5 RAM, 480 GB SSD, Hardware RAID Controller, Redundant 1100W Power Supply, 1000 Mbit GigE, LM Basic Monitoring  
+- **Add-ons:**  
+  - CPU upgrade: **2×** Intel Xeon Gold 6526Y 2.9G, 16/32T  
+  - Drives: **2×** 1.92 TB SATA 2.5in SSD (raid 1.92 TB)  
+- **Currency:** CAD  
+- **DC:** Toronto  
+- **Term:** 12 months  
+
+**→ Give me: MRC = ______  NRC = ______**
+
+---
+
+## Adding more cases
+
+For any new scenario:
+
+1. Run the exact config in Excel (server + components + currency + DC + term).  
+2. Send MRC and NRC (and a short label, e.g. “Pro 6 vHost GBP 24mo”).  
+3. I’ll add a new entry to `QUOTE_CASES` in `test_quote_e2e.py` with that config and your expected values.
+
+The test run writes **component costs** (each line item and addon) and **overhead breakdown** (wattage, power, network, colo, etc.) into `tests/outputs/quote_e2e_results.json` and prints them in the console.

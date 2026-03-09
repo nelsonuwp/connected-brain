@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-08T23:57:22.634182Z",
+  "run_at": "2026-03-08T23:59:51.186882Z",
   "passed": 4,
   "failed": 0,
   "total": 4,
@@ -17,10 +17,89 @@
       "quote": {
         "totals_mrc": 1249.0,
         "totals_nrc": 1249.0,
-        "line_items_count": 1,
-        "addon_lines_count": 0,
-        "has_capex": true,
-        "has_overhead": true
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "line_items": [
+          {
+            "sku": "Pro Series 6.0 - M",
+            "quantity": 1,
+            "mrc": 1249.0,
+            "nrc": 1249.0,
+            "currency": "CAD"
+          }
+        ],
+        "addon_lines": [],
+        "capex": {
+          "server": {
+            "sku": "Pro Series 6.0 - M",
+            "amount": 7569.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "TOR",
+          "total_watts": 195,
+          "total_kw": 0.195,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 42.56,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "CAD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "CAD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "CAD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 6.7602,
+              "currency": "CAD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "CAD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "CAD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 17.7867,
+              "currency": "CAD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
       }
     },
     {
@@ -35,10 +114,89 @@
       "quote": {
         "totals_mrc": 969.0,
         "totals_nrc": 1249.0,
-        "line_items_count": 1,
-        "addon_lines_count": 0,
-        "has_capex": true,
-        "has_overhead": true
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 24,
+        "line_items": [
+          {
+            "sku": "Pro Series 6.0 - M",
+            "quantity": 1,
+            "mrc": 969.0,
+            "nrc": 1249.0,
+            "currency": "CAD"
+          }
+        ],
+        "addon_lines": [],
+        "capex": {
+          "server": {
+            "sku": "Pro Series 6.0 - M",
+            "amount": 7569.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "TOR",
+          "total_watts": 195,
+          "total_kw": 0.195,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 42.56,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "CAD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "CAD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "CAD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 6.7602,
+              "currency": "CAD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "CAD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "CAD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 17.7867,
+              "currency": "CAD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
       }
     },
     {
@@ -53,10 +211,89 @@
       "quote": {
         "totals_mrc": 829.0,
         "totals_nrc": 1249.0,
-        "line_items_count": 1,
-        "addon_lines_count": 0,
-        "has_capex": true,
-        "has_overhead": true
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 36,
+        "line_items": [
+          {
+            "sku": "Pro Series 6.0 - M",
+            "quantity": 1,
+            "mrc": 829.0,
+            "nrc": 1249.0,
+            "currency": "CAD"
+          }
+        ],
+        "addon_lines": [],
+        "capex": {
+          "server": {
+            "sku": "Pro Series 6.0 - M",
+            "amount": 7569.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "TOR",
+          "total_watts": 195,
+          "total_kw": 0.195,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 42.56,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "CAD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "CAD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "CAD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 6.7602,
+              "currency": "CAD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "CAD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "CAD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 17.7867,
+              "currency": "CAD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
       }
     },
     {
@@ -71,10 +308,122 @@
       "quote": {
         "totals_mrc": 1788.08,
         "totals_nrc": 969.0,
-        "line_items_count": 3,
-        "addon_lines_count": 2,
-        "has_capex": true,
-        "has_overhead": true
+        "currency": "CAD",
+        "dc_code": "TOR",
+        "term_months": 12,
+        "line_items": [
+          {
+            "sku": "Advanced Series 6.0 - M",
+            "quantity": 1,
+            "mrc": 969.0,
+            "nrc": 969.0,
+            "currency": "CAD"
+          },
+          {
+            "sku": "Intel Xeon Gold 6526Y 2.9G, 16/32T",
+            "quantity": 2,
+            "mrc": 682.56,
+            "nrc": 0.0,
+            "currency": "CAD"
+          },
+          {
+            "sku": "1.92 TB SATA 2.5in SSD",
+            "quantity": 2,
+            "mrc": 136.52,
+            "nrc": 0.0,
+            "currency": "CAD"
+          }
+        ],
+        "addon_lines": [
+          {
+            "sku": "Intel Xeon Gold 6526Y 2.9G, 16/32T",
+            "quantity": 2,
+            "unit_mrc": 341.28,
+            "unit_nrc": 0.0,
+            "mrc": 682.56,
+            "nrc": 0.0,
+            "currency": "CAD"
+          },
+          {
+            "sku": "1.92 TB SATA 2.5in SSD",
+            "quantity": 2,
+            "unit_mrc": 68.26,
+            "unit_nrc": 0.0,
+            "mrc": 136.52,
+            "nrc": 0.0,
+            "currency": "CAD"
+          }
+        ],
+        "capex": {
+          "server": {
+            "sku": "Advanced Series 6.0 - M",
+            "amount": 5901.0,
+            "currency": "USD"
+          },
+          "addons": []
+        },
+        "overhead_breakdown": {
+          "dc_code": "TOR",
+          "total_watts": 540,
+          "total_kw": 0.54,
+          "by_category": [
+            {
+              "category": "power_per_kw",
+              "amount": 117.87,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_rm_supplies_per_kw",
+              "amount": 0.0,
+              "currency": "CAD"
+            },
+            {
+              "category": "network_per_server",
+              "amount": 58.7043,
+              "currency": "CAD"
+            },
+            {
+              "category": "billing_collections_per_server",
+              "amount": 4.6315,
+              "currency": "CAD"
+            },
+            {
+              "category": "supply_chain_per_server",
+              "amount": 6.395,
+              "currency": "CAD"
+            },
+            {
+              "category": "dc_infra_ops_per_server",
+              "amount": 6.7602,
+              "currency": "CAD"
+            },
+            {
+              "category": "support_tech_hours",
+              "amount": 80.27,
+              "currency": "CAD"
+            },
+            {
+              "category": "sga_pct_of_revenue",
+              "amount": 0.082,
+              "currency": "CAD"
+            },
+            {
+              "category": "colo_cost_per_server",
+              "amount": 17.7867,
+              "currency": "CAD"
+            }
+          ],
+          "overhead_constants": {
+            "sga_pct": 0.08199743735763099,
+            "annual_cost_inflation": 0.03,
+            "software_markup_pct": 0.15,
+            "ebit_poor_threshold": -0.1,
+            "ebit_moderate_target": 0.35,
+            "ebit_good_target": 0.375,
+            "ebit_strong_threshold": 0.4,
+            "capital_intensity_threshold": 0.5
+          }
+        }
       }
     }
   ]
