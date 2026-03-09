@@ -69,7 +69,7 @@ def _ocean_convert(amount: float, from_curr: str, to_curr: str) -> float | None:
     return round(amount * rate, 2)
 
 QUOTE_CASES = [
-    # --- Locked (values from user) ---
+    # --- Locked (values from MH Financial Summary) ---
     {
         "id": "pro6m_cad_tor_12m",
         "description": "Pro Series 6.0 - M, default config, CAD, Toronto, 12 mo",
@@ -78,8 +78,30 @@ QUOTE_CASES = [
         "currency": "CAD",
         "dc_code": "TOR",
         "term_months": 12,
-        "expected_mrc": Decimal("1249"),
-        "expected_nrc": Decimal("1249"),
+        "expected_mrc": Decimal("1249"),   # MH Financial Summary: Total MRC $1,249
+        "expected_nrc": Decimal("1249"),   # MH Financial Summary: Total NRC $1,249
+        "expected_sheet": {
+            "currency": "CAD",
+            "server_mrc": 1249,
+            "server_nrc": 1249,
+            "addon_mrc": 0,
+            "addon_nrc": 0,
+            "total_mrc": 1249,
+            "total_nrc": 1249,
+            "revenue_12m": 16237,  # TCV from MH Financial Summary
+            "capex_server_usd": 7569,
+            "capex_addons_usd": 0,
+            "cost_capex_12m": 10837,  # CapEx from MH Financial Summary
+            "watts": 400,
+            "power_monthly_cad": 87.31,
+            "network_cad": 58.70,
+            "billing_cad": 4.63,
+            "supply_chain_cad": 6.40,
+            "dc_ops_cad": 6.76,
+            "support_cad": 40.14,
+            "colo_cad": 17.79,
+            "cost_overhead_12m": 2661.72,  # ~221.81/mo × 12 from sheet overhead
+        },
     },
     {
         "id": "pro6m_cad_tor_24m",

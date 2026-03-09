@@ -10,7 +10,7 @@ Cases 1–4 are already filled in. Cases 5–10 are **pending**: they are in the
 - **Server:** Pro Series 6.0 - M  
 - **Config:** Defaults only (Default Intel Xeon Gold 6526Y 2.9G 16/32T, 128 GB DDR5 RAM, 480 GB SSD, Hardware RAID Controller, Redundant 1100W Power Supply, 1000 Mbit GigE, LM Basic Monitoring)  
 - **Currency:** CAD | **DC:** Toronto | **Term:** 12 months  
-- Expected: MRC 1249, NRC 1249  
+- **Expected:** MRC $1,249, NRC $1,249 (MH Financial Summary)  
 
 ---
 
