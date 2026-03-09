@@ -242,10 +242,16 @@ def gen_server_specs(lines: list, merged: pd.DataFrame) -> None:
         # Read is_vhost directly from the CSV boolean column
         is_vhost = bool(row.get("is_vhost", False))
 
+        watts = row.get("watts")
+        if watts is not None and (isinstance(watts, float) and math.isnan(watts)):
+            watts = None
+        if watts is not None:
+            watts = int(watts)
         lines.append(insert("server_specs", {
             "product_id":           subselect("product_catalog", "fusion_id", fusion_id),
             "drive_bays":           row.get("drive_bays") or None,
             "default_cpu_qty":      row.get("default_cpu_qty") or None,
+            "watts":                watts,
             "is_vhost":             is_vhost,
             "is_promo":             is_promo,
             "min_contract_months":  12 if is_promo else None,

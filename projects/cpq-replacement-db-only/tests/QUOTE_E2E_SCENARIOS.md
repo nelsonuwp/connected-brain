@@ -58,17 +58,28 @@ Cases 1–4 are already filled in. Cases 5–10 are **pending**: they are in the
 
 ---
 
-## Case 7 — **promo_na_usd_iad_12m** (PENDING)
+## Case 7 — **cluster5_cad_tor_12m** (PENDING)
 
-- **Server:** Promo Server - NA  
-- **Config:** Default config only (no add-ons)  
-- **Currency:** USD | **DC:** IAD | **Term:** 12 months (min term for promo)  
+- **Server:** Cluster 5.0 (Dell R440)  
+- **Config:** Default config only  
+- **Currency:** CAD | **DC:** Toronto | **Term:** 12 months  
 
 **→ Give me: MRC = ______  NRC = ______**
 
 ---
 
-## Case 8 — **adv6m_sql_lm_standard_cad** (PENDING)
+## Case 7b — **atomic5_cad_tor_12m** (PENDING)
+
+- **Server:** Atomic 5.0 (Dell R650xs)  
+- **Config:** Default config only  
+- **Currency:** CAD | **DC:** Toronto | **Term:** 12 months  
+
+**→ Give me: MRC = ______  NRC = ______**
+
+---
+
+## Case 8 — **adv6m_sql_lm_standard_cad** (PENDING)  
+*(SQL Server value under review — do not update test expected yet.)*
 
 - **Server:** Advanced Series 6.0 - M  
 - **Config:** Defaults + **SQL Server 2022 Standard Edition** (×1) + **LM Standard Monitoring** (×1)  
@@ -99,3 +110,11 @@ Cases 1–4 are already filled in. Cases 5–10 are **pending**: they are in the
 ---
 
 The test run writes **component costs** and **overhead breakdown** into `tests/outputs/quote_e2e_results.json` and prints them in the console. Once you send MRC/NRC for a pending case, we set `expected_mrc` and `expected_nrc` in `QUOTE_CASES` in `test_quote_e2e.py` (and remove the `None` values) so that case starts passing.
+
+---
+
+**Notes (from CPQ sheet review):**
+
+- **Watts:** Quote now uses server-level watts from `server_specs.watts` (per CPQ sheet, e.g. 400 for Pro 6.0 - M) when set; otherwise falls back to sum of component watts. Seed/migration backfills watts from 01_servers.
+- **Invalid config:** The sheet can flag invalid configs (e.g. CPU/drive count vs sockets/bays). Quote builder does not yet enforce these; consider adding validation so invalid configs are rejected or flagged.
+- **VMware licensing:** vHost orders include VMware (per-core, etc.). Not yet modeled in the quote builder; add when tackling VMware complexity.

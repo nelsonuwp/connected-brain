@@ -127,6 +127,14 @@ def _get_capex(client, product_id: int, currency: str = "USD") -> Optional[dict]
     return {"amount": _decimal(r["procured_price"]), "currency": r["procured_currency"]}
 
 
+def _get_server_watts(client, server_product_id: int) -> Optional[int]:
+    """Server nameplate watts from server_specs (per CPQ sheet). Used for power costing when set."""
+    resp = client.table("server_specs").select("watts").eq("product_id", server_product_id).limit(1).execute()
+    if not resp.data or resp.data[0].get("watts") is None:
+        return None
+    return int(resp.data[0]["watts"]) or None
+
+
 def _get_component_watts(client, product_id: int) -> int:
     resp = client.table("component_specs").select("watts").eq("product_id", product_id).limit(1).execute()
     if not resp.data or resp.data[0].get("watts") is None:
@@ -200,7 +208,20 @@ def build_quote(
         errors.append("No spot FX rate for USD; addon pricing may be wrong")
 
     default_ids = _get_default_component_ids(client, server_id)
-    total_watts = 0
+    # Use server nameplate watts (per CPQ sheet) when set; else sum default component watts
+    server_watts = _get_server_watts(client, server_id)
+    if server_watts is not None:
+        total_watts = server_watts
+    else:
+        total_watts = 0
+        default_watts_resp = (
+            client.table("server_default_components")
+            .select("component_product_id")
+            .eq("server_product_id", server_id)
+            .execute()
+        )
+        for r in default_watts_resp.data or []:
+            total_watts += _get_component_watts(client, r["component_product_id"])
 
     for addon in addons:
         sku = addon.get("sku") or ""
@@ -228,16 +249,6 @@ def build_quote(
         total_mrc += mrc_total
         total_nrc += nrc_total
         total_watts += _get_component_watts(client, comp_id) * qty
-
-    # Default components' wattage (for overhead power)
-    default_watts_resp = (
-        client.table("server_default_components")
-        .select("component_product_id")
-        .eq("server_product_id", server_id)
-        .execute()
-    )
-    for r in default_watts_resp.data or []:
-        total_watts += _get_component_watts(client, r["component_product_id"])
 
     total_mrc = _round2(total_mrc)
     total_nrc = _round2(total_nrc)

@@ -198,6 +198,7 @@ CREATE TABLE server_specs (
     drive_bays              SMALLINT,
     default_cpu_qty         SMALLINT,
     default_drive_qty       SMALLINT,
+    watts                   SMALLINT,    -- nameplate/design watts per CPQ sheet (power costing)
     is_vhost                BOOLEAN      NOT NULL DEFAULT false,
     is_promo                BOOLEAN      NOT NULL DEFAULT false,
     min_contract_months     SMALLINT,    -- NULL = no minimum; 12 for promo servers
@@ -209,6 +210,7 @@ COMMENT ON TABLE server_specs IS '1:1 with product_catalog for TLS server produc
 COMMENT ON COLUMN server_specs.is_promo IS 'Promo servers: min 12-month contract, new clients only, no CPU/RAM changes.';
 COMMENT ON COLUMN server_specs.min_contract_months IS 'NULL = no minimum. Promo servers = 12. Enforced by application layer.';
 COMMENT ON COLUMN server_specs.allow_customization IS 'False for promo servers (no CPU/RAM changes). True for all others.';
+COMMENT ON COLUMN server_specs.watts IS 'Server nameplate/design watts from CPQ sheet; used for power cost (per_kw) in overhead. When set, quote uses this instead of sum of default component watts.';
 
 
 -- -----------------------------------------------------------------------------
