@@ -211,11 +211,9 @@ QUOTE_CASES = [
             "dc_ops_cad": 6.76,
             "support_cad": 40.14,
             "colo_cad": 17.79,
-            # 12m financial (Expected uses Ocean FX for capex total; revenue/margin from sheet)
+            # 12m financial (revenue/overhead from sheet; margin computed = revenue − capex − overhead, not EBIT)
             "revenue_12m": 19597,
             "cost_overhead_12m": 3143.28,
-            "margin_12m": 4777,
-            "margin_pct": 41.0,
         },
         "mrc_tolerance": Decimal("10"),
         "nrc_tolerance": Decimal("0"),
@@ -373,11 +371,24 @@ def _build_quote_table(quote: dict, expected_sheet: dict | None) -> list[dict]:
     if f:
         row("  Total (12m Cost Overhead)", es.get("cost_overhead_12m"), curr, f.get("cost_overhead_12m"), f.get("currency", curr))
 
-    # --- 12m: Margin (header then margin items) ---
+    # --- 12m: Margin (header then margin items). Sheet doesn't call out margin — compute from revenue − capex − overhead. ---
     section("12m: Margin")
     if f:
-        row("  Margin", es.get("margin_12m"), curr, f.get("margin_12m"), f.get("currency", curr))
-        row("  Margin %", es.get("margin_pct"), "%", f.get("margin_pct"), "%")
+        # Expected margin = revenue − cost capex − cost overhead (calculated from sheet inputs, not EBIT/EBITA)
+        exp_capex_usd = (es.get("capex_server_usd") or 0) + (es.get("capex_addons_usd") or 0)
+        spot_rate = quote.get("usd_rate")
+        if exp_capex_usd and curr and curr != "USD" and spot_rate is not None:
+            exp_capex = round(exp_capex_usd * spot_rate, 2)
+        elif exp_capex_usd and curr == "USD":
+            exp_capex = exp_capex_usd
+        else:
+            exp_capex = es.get("cost_capex_12m") or 0
+        exp_revenue = es.get("revenue_12m") or 0
+        exp_overhead = es.get("cost_overhead_12m") or 0
+        exp_margin = round(exp_revenue - exp_capex - exp_overhead, 2) if exp_revenue else None
+        exp_margin_pct = round(exp_margin / exp_revenue * 100, 1) if (exp_revenue and exp_margin is not None) else None
+        row("  Margin", exp_margin, curr, f.get("margin_12m"), f.get("currency", curr))
+        row("  Margin %", exp_margin_pct, "%", f.get("margin_pct"), "%")
 
     return rows
 
