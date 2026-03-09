@@ -283,7 +283,10 @@ def build_quote(
                 value = _round2(amt * total_kw)
                 if "power" in cat.lower() or cat == "power_per_kw":
                     power_per_kw_rate = amt
-                    power_per_kw_currency = curr
+                    power_per_kw_rate_currency = curr
+            elif "support" in cat.lower() and "tech" in cat.lower():
+                # Tech time: rate (e.g. 80.27) × 0.5 hours per server for -M devices
+                value = _round2(amt * Decimal("0.5"))
             elif "per_server" in cat:
                 value = amt  # 1 server
             else:

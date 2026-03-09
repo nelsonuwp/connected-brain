@@ -172,10 +172,32 @@ QUOTE_CASES = [
         "expected_mrc": Decimal("1529"),
         "expected_nrc": Decimal("1249"),
         "expected_sheet": {
+            "currency": "CAD",
+            # Component (sheet)
+            "server_mrc": 1249,
+            "server_nrc": 1249,
+            "addon_mrc": 280,
+            "addon_nrc": 0,
+            "total_mrc": 1529,
+            "total_nrc": 1249,
+            # Capex
             "capex_server_usd": 7569,
+            "capex_addons_cad": 1296,
+            # Overhead
             "watts": 400,
             "power_monthly_cad": 87.31,
-            "power_per_kw_rate_cad": None,
+            "network_cad": 58.33,
+            "billing_cad": 4.63,
+            "supply_chain_cad": 6.35,
+            "dc_ops_cad": 6.76,
+            "support_cad": 40.14,
+            "colo_cad": 17.79,
+            # 12m financial
+            "revenue_12m": 19597,
+            "cost_capex_12m": 10332.44,
+            "cost_overhead_12m": 3143.28,
+            "margin_12m": 4777,
+            "margin_pct": 41.0,
         },
         "mrc_tolerance": Decimal("10"),
         "nrc_tolerance": Decimal("0"),
