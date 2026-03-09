@@ -180,9 +180,8 @@ QUOTE_CASES = [
             "addon_nrc": 0,
             "total_mrc": 1529,
             "total_nrc": 1249,
-            # Capex
+            # Capex (servers only; no product_capex for drives → no addon capex)
             "capex_server_usd": 7569,
-            "capex_addons_cad": 1296,
             # Overhead
             "watts": 400,
             "power_monthly_cad": 87.31,
@@ -312,13 +311,7 @@ def _build_sheet_vs_db(quote: dict, expected_sheet: dict) -> list[dict]:
     if expected_sheet.get("capex_server_usd") is not None and quote.get("capex", {}).get("server"):
         s = quote["capex"]["server"]
         row("Capex (server)", expected_sheet["capex_server_usd"], "USD", float(s.get("amount")), s.get("currency", "USD"))
-    if expected_sheet.get("capex_addons_cad") is not None:
-        addon_cap = 0.0
-        addon_cap_curr = curr
-        for a in (quote.get("capex") or {}).get("addons", []) or []:
-            addon_cap += float(a.get("amount", 0) or 0) * int(a.get("quantity", 1))
-            addon_cap_curr = a.get("currency", "USD")
-        row("Capex (addons)", expected_sheet["capex_addons_cad"], curr, addon_cap, addon_cap_curr)
+    # No "Capex (addons)" row: we only have product_capex for servers; addons have catalog + pricing but no capex when no row exists.
 
     # --- Overhead ---
     if expected_sheet.get("watts") is not None and quote.get("overhead_breakdown"):
