@@ -1,0 +1,346 @@
+product_sku,fusion_id,sku_name,match_type,fuzzy_score
+Promo Server - NA (Dell R640),,,no_match,56.4
+Promo Server - UK (Dell R640),,,no_match,56.4
+R670 - Pro Series 7.0,1290,Pro Series 7.0,fuzzy,84.8
+R670 - Pro Series 7.0 vHost,944,Pro Series 5.0 vHost,fuzzy,84.4
+R670 - Pro Series 7.0 vHost,1259,Pro Series 6.0 vHost,fuzzy,84.4
+R470 - Advanced Series 7.0,1292,Advanced Series 7.0,fuzzy,88.4
+R470 - Advanced Series 7.0 vHost,959,Advanced Series 5.0 vHost,fuzzy,87.3
+R470 - Advanced Series 7.0 vHost,1258,Advanced Series 6.0 vHost,fuzzy,87.3
+Cluster 5.0 (Dell R440),1288,Cluster 5.0,fuzzy,68.8
+Atomic 5.0 (Dell R650xs),,,no_match,62.5
+Pro Series 6.0,1254,Pro Series 6.0,direct,
+Pro Series 6.0 vHost,1259,Pro Series 6.0 vHost,direct,
+Advanced Series 6.0,1255,Advanced Series 6.0,direct,
+Advanced Series 6.0 vHost,1258,Advanced Series 6.0 vHost,direct,
+Storage Series 6.0,1263,Storage Series 6.0,direct,
+Essential Series 6.0,1262,Essential Series 6.0,direct,
+Pro Series 5.0,943,Pro Series 5.0,direct,
+Pro Series 5.0 vHost,944,Pro Series 5.0 vHost,direct,
+Storage Series 5.0,945,Storage Series 5.0,direct,
+Storage Series 5.0 vHost,950,Storage Series 5.0 - D,fuzzy,86.4
+Advanced Series 5.0,957,Advanced Series 5.0,direct,
+Advanced Series 5.0 vHost,959,Advanced Series 5.0 vHost,direct,
+Essential Series 5.0,1262,Essential Series 6.0,fuzzy,95.0
+Guest Virtual,336,Guest Virtual,direct,
+Juniper SRX 300,930,Juniper SRX 300,direct,
+Juniper SRX 340,931,Juniper SRX 340,direct,
+Juniper SRX 345,932,Juniper SRX 345,direct,
+Managed Citrix ADC,976,Managed Citrix ADC - VIRTUAL,fuzzy,81.8
+"Dynamic SSL VPN: 2 Concurrent Users, Included",,,no_match,64.4
+"Dynamic SSL VPN: 5 Concurrent Users, 1 Yr",6279,Active node - Remote Access VPN - 5 Concurrent Users - 1year,fuzzy,68.8
+"Dynamic SSL VPN: 25 Concurrent Users, 1 Yr",6279,Active node - Remote Access VPN - 5 Concurrent Users - 1year,fuzzy,68.1
+"Dynamic SSL VPN: 50 Concurrent Users, 1 Yr",6279,Active node - Remote Access VPN - 5 Concurrent Users - 1year,fuzzy,68.1
+"Dynamic SSL VPN: 100 Concurrent Users, 1 Yr",6288,Active node - Remote Access VPN - 100 Concurrent Users - 3year,fuzzy,68.0
+"Dynamic SSL VPN: 250 Concurrent Users, 1 Yr",6279,Active node - Remote Access VPN - 5 Concurrent Users - 1year,fuzzy,67.4
+"Dynamic SSL VPN: 5 Concurrent Users, 3 Yr",6279,Active node - Remote Access VPN - 5 Concurrent Users - 1year,fuzzy,66.7
+"Dynamic SSL VPN: 25 Concurrent Users, 3 Yr",6279,Active node - Remote Access VPN - 5 Concurrent Users - 1year,fuzzy,66.0
+"Dynamic SSL VPN: 50 Concurrent Users, 3 Yr",6288,Active node - Remote Access VPN - 100 Concurrent Users - 3year,fuzzy,66.7
+"Dynamic SSL VPN: 100 Concurrent Users, 3 Yr",6288,Active node - Remote Access VPN - 100 Concurrent Users - 3year,fuzzy,70.1
+"Dynamic SSL VPN: 250 Concurrent Users, 3 Yr",6288,Active node - Remote Access VPN - 100 Concurrent Users - 3year,fuzzy,66.0
+PCI Compliance,1669,PCI Compliance,direct,
+"4 x vCPU, 4 GB RAM, 20 GB Disk Space",4243,"Standard ADC Config (2x vCPU, 2G RAM, 20G Disk Space)",fuzzy,67.5
+"4 x vCPU, 4 GB RAM, 20 GB Disk Space",6320,"Standard ADC Config (2x vCPU, 4G RAM, 30G Disk Space)",fuzzy,67.5
+VPX 10 Mbps Standard License,4325,VPX 10 Mbps Standard License,direct,
+VPX 50 Mbps Standard License,4330,VPX 50 Mbps Standard License,direct,
+VPX 200 Mbps Standard License,4331,VPX 200 Mbps Standard License,direct,
+VPX 1000 Mbps Standard License,4186,VPX 1000 Mbps Standard License,direct,
+Virtual Server IP (VIP),4326,Virtual Server IP (VIP),direct,
+LM Basic Monitoring,3352,LM Basic Monitoring,direct,
+LM Dedicated Monitoring,3352,LM Basic Monitoring,fuzzy,76.2
+LM Standard Monitoring,3353,LM Standard Monitoring,direct,
+Monitoring Opt-out,4433,Monitoring Opt-out,direct,
+10 GbE Connection,3083,10 GbE Connection,direct,
+SQL Server 2022 Standard Edition,5888,SQL Server 2022 Standard  (Passive),fuzzy,81.2
+SQL Server 2022 Enterprise Edition,5891,SQL Server 2022 Enterprise Edition 4 Core license (2 x 2 pack),fuzzy,72.3
+SQL Server 2022 Enterprise Edition,5892,SQL Server 2022 Enterprise Edition 6 Core license (3 x 2 pack),fuzzy,72.3
+SQL Server 2022 Enterprise Edition,5893,SQL Server 2022 Enterprise Edition 8 Core license (4 x 2 pack),fuzzy,72.3
+SQL Server 2019 Web Edition,,,no_match,61.0
+SQL Server 2019 Standard Edition,4819,SQL Server 2019 Standard  (Passive),fuzzy,81.2
+SQL Server 2019 Enterprise Edition,4927,SQL 2019 Enterprise - Passive,fuzzy,75.4
+DBA - 2 Hour Block,953,DBA - 2 Hour Block,direct,
+DBA - 4 Hour Block,842,DBA - 4 Hour Block,direct,
+DBA - 8 Hour Block,843,DBA - 8 Hour Block,direct,
+DBA - 12 Hour Block,844,DBA - 12 Hour Block,direct,
+Aptum Technical Account Management,,,no_match,64.7
+Small (4-10 Devices),4923,Aptum TAM Small (4-10 Devices),fuzzy,78.3
+Medium (11-20 Devices),4924,Aptum TAM Medium (11-20 Devices),fuzzy,80.0
+Large (20+ Devices),4925,Aptum TAM Large (20+ Devices),fuzzy,76.2
+Administrative Package for Small Only,4922,Administrative Package Add-on (Small Only),fuzzy,90.9
+1 pack - Windows Remote Desktop Service SAL,1247,10 pack Windows Remote Desktop Service SAL,fuzzy,98.8
+5 pack - Windows Remote Desktop Service SAL,1246,5 pack Windows Remote Desktop Service SAL,direct,
+10 pack - Windows Remote Desktop Service SAL,1247,10 pack Windows Remote Desktop Service SAL,direct,
+20 pack - Windows Remote Desktop Service SAL,1248,20 pack Windows Remote Desktop Service SAL,direct,
+Alma Linux 8,5784,Alma Linux 8,direct,
+Alma Linux 9,5785,Alma Linux 9,direct,
+Rocky Linux 8,5786,Rocky Linux 8,direct,
+Rocky Linux 9,5787,Rocky Linux 9,direct,
+Rocky Linux 10,5786,Rocky Linux 8,fuzzy,88.9
+Rocky Linux 10,5787,Rocky Linux 9,fuzzy,88.9
+RHEL 10.x,,,no_match,61.5
+RHEL 10.x VDC for Unlimited Linux Guests,5792,RHEL 9.x VDC for Unlimited Linux Guests,fuzzy,96.2
+RHEL 10.x VDC for Unlimited Linux Guests,4693,RHEL 8.x VDC for Unlimited Linux Guests,fuzzy,96.2
+RHEL 10.x for VMs,6091,RHEL 9.x for VMs,fuzzy,90.9
+RHEL 10.x for VMs,6092,RHEL 8.x for VMs,fuzzy,90.9
+RHEL 10.x for VMs,6093,RHEL 7.x for VMs,fuzzy,90.9
+RHEL 9.x,6091,RHEL 9.x for VMs,fuzzy,66.7
+RHEL 9.x VDC for Unlimited Linux Guests,5792,RHEL 9.x VDC for Unlimited Linux Guests,direct,
+RHEL 9.x for VMs,6091,RHEL 9.x for VMs,direct,
+RHEL 8.x,6092,RHEL 8.x for VMs,fuzzy,66.7
+RHEL 8.x VDC for Unlimited Linux Guests,4693,RHEL 8.x VDC for Unlimited Linux Guests,direct,
+RHEL 8.x for VMs,6092,RHEL 8.x for VMs,direct,
+RHEL for VMs - 1 to 8 vCPUs,6094,RHEL for VMs - per vCPU - 1 to 8 vCPUs,fuzzy,84.7
+RHEL for VMs - 9 to 127 vCPUs,6095,RHEL for VMs - per vCPU - 9 to 127 vCPUs,fuzzy,85.7
+RHEL for VMs - 128 to Unlimited vCPUs,6096,RHEL for VMs - per vCPU - 128 to Unlimited vCPUs,fuzzy,88.6
+CentOS 8,,,no_match,50.0
+Debian 12,,,no_match,62.1
+Debian 13,6277,Debian 13.x Trixie,fuzzy,66.7
+Ubuntu 22.04 LTS,5942,Ubuntu 22.04 x64,fuzzy,81.2
+Ubuntu 24.04 LTS,6219,Ubuntu 24.04 x64,fuzzy,81.2
+Windows Server 2025 Standard Edition,6298,Windows Server 2025 Standard 8 vCPU,fuzzy,81.7
+Windows Server 2025 Data Center Edition,6346,Windows Server 2025 Data Center 8 vCPU,fuzzy,83.1
+Windows Server 2022 Standard Edition,3956,Windows Server 2016 Standard 22 Cores,fuzzy,82.2
+Windows Server 2022 Standard Edition,4538,Windows Server 2019 Standard 22 Cores,fuzzy,82.2
+Windows Server 2022 Data Center Edition,5854,Windows Server 2022 Data Center 8 vCPU,fuzzy,83.1
+Windows Server 2019 Standard Edition,4532,Windows Server 2019 Standard 8 Cores,fuzzy,83.3
+Windows Server 2019 Data Center Edition,4510,Windows Server 2019 Data Center Edition 8 Core (4 x 2 pack),fuzzy,81.2
+VMWare ESXi 8.x,5941,VMware ESXi 8.0,fuzzy,93.3
+VMWare ESXi 7.x,5941,VMware ESXi 8.0,fuzzy,86.7
+Proxmox 9 VE,6276,Proxmox VE 9.x,fuzzy,92.3
+Proxmox 8 VE,6275,Proxmox VE 8.x,fuzzy,92.3
+Managed Veeam,1230,Managed WAF,fuzzy,75.0
+Managed Veeam,6274,Veeam Agent,fuzzy,75.0
+Veeam - Local Storage,,,no_match,62.9
+Veeam - Offsite Storage,,,no_match,59.5
+Tivoli Backup - Daily Incremental,262,Tivoli Backup - Daily Incremental,direct,
+Tivoli Backup - Daily Incremental Offsite to Atlanta - Low,1371,Tivoli Backup - Daily Incremental with Offsite to Atlanta,fuzzy,91.7
+Tivoli Backup - Daily Incremental Remote,553,Tivoli Backup - Daily Incremental Remote,direct,
+Tivoli Backup - Daily Incremental with Offsite to Atlanta,1371,Tivoli Backup - Daily Incremental with Offsite to Atlanta,direct,
+Tivoli Backup - Daily Incremental with Offsite to Miami,1396,Tivoli Backup - Daily Incremental with Offsite to Miami,direct,
+Tivoli Backup - Daily Incremental with Offsite to Toronto,1371,Tivoli Backup - Daily Incremental with Offsite to Atlanta,fuzzy,92.7
+Tivoli Backup - Daily Low,1394,Tivoli Backup - Daily Low,direct,
+Tivoli Backup - Weekly Incremental,263,Tivoli Backup - Weekly Incremental,direct,
+Tivoli Backup - Weekly Incremental Remote,554,Tivoli Backup - Weekly Incremental Remote,direct,
+Tivoli Backup - Weekly Incremental with Offsite to Atlanta,1398,Tivoli Backup - Weekly Incremental with Offsite to Atlanta,direct,
+Tivoli Backup - Weekly Incremental with Offsite to Miami,1397,Tivoli Backup - Weekly Incremental with Offsite to Miami,direct,
+Tivoli Backup - Weekly Incremental with Offsite to Toronto,1398,Tivoli Backup - Weekly Incremental with Offsite to Atlanta,fuzzy,92.9
+Tivoli TDP for MS-SQL - Daily 1Hr Logs,84,Tivoli TDP for MS-SQL - Daily 1Hr Logs,direct,
+Tivoli TDP for MS-SQL - Daily 2Hr Logs,763,Tivoli TDP for MS-SQL - Daily 2Hr Logs,direct,
+Tivoli TDP for MS-SQL - Daily 4Hr Logs,764,Tivoli TDP for MS-SQL - Daily 4Hr Logs,direct,
+Tivoli TDP for MS-SQL - Weekly 4Hr Logs,85,Tivoli TDP for MS-SQL - Weekly 4Hr Logs,direct,
+Cristie - Bare Metal Recovery Service,949,Cristie - Bare Metal Recovery Service,direct,
+10 GB Backup Blocks,55,10 GB Backup Blocks,direct,
+25 GB Backup Blocks,342,25 GB Backup Blocks,direct,
+50 GB Backup Block,343,50 GB Backup Block,direct,
+100 GB Backup Block,385,100 GB Backup Block,direct,
+200 GB Backup Block,386,200 GB Backup Block,direct,
+300 GB Backup Block,387,300 GB Backup Block,direct,
+400 GB Backup Block,388,400 GB Backup Block,direct,
+500 GB Backup Block,389,500 GB Backup Block,direct,
+600 GB Backup Block,390,600 GB Backup Block,direct,
+700 GB Backup Block,391,700 GB Backup Block,direct,
+800 GB Backup Block,393,800 GB Backup Block,direct,
+900 GB Backup Block,394,900 GB Backup Block,direct,
+1000 GB Backup Block,395,1000 GB Backup Block,direct,
+1100 GB Backup Block,397,1100 GB Backup Block,direct,
+1200 GB Backup Block,398,1200 GB Backup Block,direct,
+1300 GB Backup Block,399,1300 GB Backup Block,direct,
+1400 GB Backup Block,400,1400 GB Backup Block,direct,
+1500 GB Backup Block,401,1500 GB Backup Block,direct,
+1600 GB Backup Block,402,1600 GB Backup Block,direct,
+1700 GB Backup Block,403,1700 GB Backup Block,direct,
+1800 GB Backup Block,404,1800 GB Backup Block,direct,
+1900 GB Backup Block,405,1900 GB Backup Block,direct,
+2000 GB Backup Block,396,2000 GB Backup Block,direct,
+Intel Xeon Gold 6226 2.7GHz 12 Cores/24T,4864,Intel Xeon Gold 6226 2.7 GHz 12 Cores/24T (125W TDP),fuzzy,88.9
+Intel Xeon Bronze 3106 1.7 GHz 8 Cores/8T,4039,Intel Xeon Bronze 3106 1.7 GHz 8 Cores/8T (85W TDP),fuzzy,91.1
+Default Xeon Bronze 3106 1.7 GHz 8 Cores/8T,4029,Default Intel Xeon Bronze 3106 1.7 GHz 8 Cores/8T (85W TDP),fuzzy,86.0
+Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T,4030,Intel Xeon Silver 4110 2.1 GHz 8 Cores/16T (85W TDP),fuzzy,91.3
+Intel Xeon Gold 5118 2.3 GHz 12 Cores/24T,4040,Intel Xeon Gold 5118 2.3 GHz 12 Cores/24T (105W TDP),fuzzy,90.1
+Default Xeon Gold 5118 2.3 GHz 12 Cores/24T,4040,Intel Xeon Gold 5118 2.3 GHz 12 Cores/24T (105W TDP),fuzzy,81.7
+Intel Xeon Gold 5122 3.6 GHz 4 Cores/8T (MTO),4031,Intel Xeon Gold 5122 3.6 GHz 4 Cores/8T (105W TDP),fuzzy,90.1
+Intel Xeon Gold 6130 2.1 GHz 16 Cores/32T (MTO),4032,Intel Xeon Gold 6130 2.1 GHz 16 Cores/32T (125W TDP),fuzzy,90.5
+Intel Xeon Gold 6138 2.0 GHz 20 Cores/40T (MTO),4051,Intel Xeon Gold 6136 3.0 GHz 12 cores/24T (105W TDP),fuzzy,82.1
+Intel Xeon Gold 6238R 2.2 GHz 28C/56T,5156,Intel Xeon Gold 6238R 2.20GHz 28 Cores/56T (165W TDP),fuzzy,81.8
+Intel Xeon E-2146G 3.5GHz 6C/12T,4181,Default Intel Xeon E-2146G 3.5 GHz 6 Cores/12T (80W TDP),fuzzy,74.4
+Default Intel Xeon 6517P 16 core,4799,Default Intel Xeon 3204 1.9 GHz 6 Cores/6T (85W TDP),fuzzy,70.7
+Default Intel Xeon E-2468/6353P 2.6/2.7 GHz 8 Core/16T (65W TDP),6322,Default Intel Xeon E-2468/6353P 2.6/2.7 GHz 8 Core/16T (65W TDP),direct,
+"Intel Xeon Silver 4514Y 2G, 16C/32T",6148,Default Intel Xeon Silver 4514Y 2 GHz 16 Cores/32T (150W TDP),fuzzy,73.1
+"Default Intel Xeon Silver 4514Y 2G, 16C/32T",6148,Default Intel Xeon Silver 4514Y 2 GHz 16 Cores/32T (150W TDP),fuzzy,83.2
+"Intel Xeon Gold 6534 4G, 8C/16T",6082,Intel Xeon Gold 6534 4.0 GHz 8 Cores/16T (195W TDP),fuzzy,75.9
+"Intel Xeon Gold 6526Y 2.9G, 16/32T",6017,Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP),fuzzy,76.2
+"Default Intel Xeon Gold 6526Y 2.9G, 16/32T",6021,Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP),fuzzy,80.0
+"Intel Xeon Gold 6548Y+ 2.5G, 32C/64T",6083,Intel Xeon Gold 6548Y+ 2.5 GHz  32 Cores/64T (250W TDP),fuzzy,80.0
+"Intel Xeon Platinum 8558U 2G, 48C/96T",6084,Intel Xeon Platinum 8558U 2.0 GHz 48 Cores/96T (300W TDP),fuzzy,79.1
+16 GB DDR4 RAM,3057,16 GB DDR4 RAM - Total,fuzzy,82.4
+32 GB DDR4 RAM,3034,32 GB DDR4 RAM - Total,fuzzy,82.4
+64 GB DDR4 RAM,3027,64 GB DDR4  RAM - Total,fuzzy,82.4
+96 GB DDR4 RAM,4174,96 GB DDR4  RAM - Total,fuzzy,82.4
+128 GB DDR4 RAM,3102,128 GB DDR4 RAM - Included,fuzzy,76.9
+192 GB DDR4 RAM,2785,192 GB RAM Dell,fuzzy,80.0
+256 GB DDR4 RAM,3342,256 GB DDR4 RAM - Included,fuzzy,76.9
+384 GB DDR4 RAM,2787,384 GB RAM Dell,fuzzy,80.0
+384 GB DDR4 RAM,3218,384 GB RAM,fuzzy,80.0
+512 GB DDR4 RAM,3343,512 GB DDR4 RAM - Included,fuzzy,76.9
+768 GB DDR4 RAM,6189,768 GB DDR4 RAM - Included,fuzzy,76.9
+1536 GB DDR4 RAM,3057,16 GB DDR4 RAM - Total,fuzzy,77.8
+16 GB DDR5 RAM,2803,16 GB RAM,fuzzy,78.3
+32 GB DDR5 RAM,2804,32 GB RAM,fuzzy,78.3
+64 GB DDR5 RAM,5345,4 GB RAM - DC,fuzzy,80.0
+128 GB DDR5 RAM,6022,128 GB DDR5 RAM - Included,fuzzy,76.9
+192 GB DDR5 RAM,2785,192 GB RAM Dell,fuzzy,80.0
+256 GB DDR5 RAM,6231,256 GB DDR5 RAM - Included,fuzzy,76.9
+384 GB DDR5 RAM,2787,384 GB RAM Dell,fuzzy,80.0
+384 GB DDR5 RAM,3218,384 GB RAM,fuzzy,80.0
+512 GB DDR5 RAM,2785,192 GB RAM Dell,fuzzy,73.3
+768 GB DDR5 RAM,6189,768 GB DDR4 RAM - Included,fuzzy,71.8
+1024 GB DDR5 RAM,5345,4 GB RAM - DC,fuzzy,74.1
+1536 GB DDR5 RAM,2951,16 GB DDR3  RAM - Total,fuzzy,72.2
+1536 GB DDR5 RAM,3057,16 GB DDR4 RAM - Total,fuzzy,72.2
+2048 GB DDR5 RAM,5345,4 GB RAM - DC,fuzzy,74.1
+1 TB 7200 6 Gb/s SATA,1810,1 TB 7200 SATA,fuzzy,80.0
+2 TB 7200 6 Gb/s SATA,1810,1 TB 7200 SATA,fuzzy,74.3
+4 TB 7200 6 Gb/s SATA,1810,1 TB 7200 SATA,fuzzy,74.3
+8 TB 7200 6 Gb/s SATA,1810,1 TB 7200 SATA,fuzzy,74.3
+12 TB 7200 6 Gb/s SATA,1810,1 TB 7200 SATA,fuzzy,77.8
+24 TB 7200 6 Gb/s SATA,1810,1 TB 7200 SATA,fuzzy,72.2
+480 GB SSD,3704,480 GB SSD,direct,
+480 GB SATA 2.5in SSD,,,no_match,64.5
+960 GB SATA 2.5in SSD,,,no_match,64.5
+1.92 TB SATA 2.5in SSD,3397,1.8 TB 10K 2.5 Inch SAS,fuzzy,66.7
+1.92 TB SATA 2.5in SSD,6090,1.92 TB SSD,fuzzy,66.7
+3.84 TB SATA 2.5in SSD,3397,1.8 TB 10K 2.5 Inch SAS,fuzzy,66.7
+3.84 TB SATA 2.5in SSD,5178,3.84 TB SSD,fuzzy,66.7
+7.6 TB Micron 9400 SSD,5777,3.2 TB Micron SSD,fuzzy,76.9
+960 GB NVMe u.2 2.5in,6179,960 GB SSD NVMe,fuzzy,66.7
+3.84 TB NVMe u.2 2.5in,,,no_match,55.8
+6.4 TB NVMe u.2 2.5in,,,no_match,55.6
+15.36 TB NVMe u.2 2.5in,4099,Micron 9200 MAX 1.6 TB U.2  SSD NVMe,fuzzy,65.5
+750W Redundant Power Supply,1778,750W Redundant Power Supply,direct,
+Intel X710-DA2 10 GbE NIC with 2 x SFP+,3182,Intel  X710-DA2 10 GbE NIC with  2 x SFP+,direct,
+"Intel X710 Quad Port 10Gb DA/SFP+ Ethernet, NDC",4042,"Intel X710 Quad Port 10Gb DA/SFP+ Ethernet, NDC",direct,
+Standard Storage,1164,vSphere Standard,fuzzy,75.0
+Performance Storage,1267,SAN - SSD - Performance,fuzzy,73.7
+Compliance Standard Storage,,,no_match,61.2
+Compliance Performance Storage,,,no_match,59.5
+SAN - HDD - Basic Performance,1265,SAN - HDD - Basic Performance,direct,
+SAN - SSD - Standard,1266,SAN - SSD - Standard,direct,
+SAN - SSD - Performance,1267,SAN - SSD - Performance,direct,
+HDD - Basic - 10 GiB / 0.5 IOPS,6175,HDD - Basic - 10 GiB / 0.5 IOPS,direct,
+HDD - Basic - 100 GiB / 5 IOPS,6154,HDD - Basic - 100 GiB / 5 IOPS,direct,
+HDD - Basic - 1000 GiB / 50 IOPS,6157,HDD - Basic - 1000 GiB / 50 IOPS,direct,
+HDD - Basic - 10000 GiB / 500 IOPS,6160,HDD - Basic - 10000 GiB / 500 IOPS,direct,
+SSD - Std - 10 GiB / 20 IOPS,6176,SSD - Std - 10 GiB / 20 IOPS,direct,
+SSD - Std - 100 GiB / 200 IOPS,6161,SSD - Std - 100 GiB / 200 IOPS,direct,
+SSD - Std - 1000 GiB / 2000 IOPS,6164,SSD - Std - 1000 GiB / 2000 IOPS,direct,
+SSD - Std - 10000 GiB / 20000 IOPS,6167,SSD - Std - 10000 GiB / 20000 IOPS,direct,
+SSD - Perf - 10 GiB / 60 IOPS,6177,SSD - Perf - 10 GiB / 60 IOPS,direct,
+SSD - Perf - 100 GiB / 600 IOPS,6168,SSD - Perf - 100 GiB / 600 IOPS,direct,
+SSD - Perf - 1000 GiB / 6000 IOPS,6171,SSD - Perf - 1000 GiB / 6000 IOPS,direct,
+SSD - Perf - 10000 GiB / 60000 IOPS,6174,SSD - Perf - 10000 GiB / 60000 IOPS,direct,
+Managed WAF - App Protect Essentials: 20 Mbps Base Plan,5586,App Protect Essentials: 20 Mbps Base Plan,fuzzy,87.0
+Managed WAF - App Protect Essentials: 50 Mbps Base Plan,5587,App Protect Essentials: 50 Mbps Base Plan,fuzzy,87.0
+Managed WAF - App Protect Essentials: 100 Mbps Base Plan,5588,App Protect Essentials: 100 Mbps Base Plan,fuzzy,87.2
+Managed WAF - App Protect Professional: 20 Mbps Base Plan,5589,App Protect Professional: 20 Mbps Base Plan,fuzzy,87.5
+Managed WAF - App Protect Professional: 50 Mbps Base Plan,5580,App Protect Professional: 50 Mbps Base Plan,fuzzy,87.5
+Managed WAF - App Protect Professional: 100 Mbps Base Plan,5590,App Protect Professional: 100 Mbps Base Plan,fuzzy,87.8
+Managed WAF - App Protect Enterprise: 20 Mbps Base Plan,5591,App Protect Enterprise: 20 Mbps Base Plan,fuzzy,87.0
+Managed WAF - App Protect Enterprise: 50 Mbps Base Plan,5592,App Protect Enterprise: 50 Mbps Base Plan,fuzzy,87.0
+Managed WAF - App Protect Enterprise: 100 Mbps Base Plan,5593,App Protect Enterprise: 100 Mbps Base Plan,fuzzy,87.2
+Managed WAF - App Protect 360: 20 Mbps Base Plan,5594,App Protect 360: 20 Mbps Base Plan,fuzzy,84.6
+Managed WAF - App Protect 360: 50 Mbps Base Plan,5595,App Protect 360: 50 Mbps Base Plan,fuzzy,84.6
+Managed WAF - App Protect 360: 100 Mbps Base Plan,5596,App Protect 360: 100 Mbps Base Plan,fuzzy,85.0
+App Protect Essentials: Additional 100 Mbps,5597,App Protect Essentials: Additional 100 Mbps,direct,
+App Protect Essentials: Additional 250 Mbps,5598,App Protect Essentials: Additional 250 Mbps,direct,
+App Protect Essentials: Additional 500 Mbps,5599,App Protect Essentials: Additional 500 Mbps,direct,
+App Protect Essentials: Additional 1 Gbps,5600,App Protect Essentials: Additional 1 Gbps,direct,
+App Protect Professional: Additional 100 Mbps,5601,App Protect Professional: Additional 100 Mbps,direct,
+App Protect Professional: Additional 250 Mbps,5602,App Protect Professional: Additional 250 Mbps,direct,
+App Protect Professional: Additional 500 Mbps,5603,App Protect Professional: Additional 500 Mbps,direct,
+App Protect Professional: Additional 1 Gbps,5604,App Protect Professional: Additional 1 Gbps,direct,
+App Protect Enterprise: Additional 100 Mbps,5605,App Protect Enterprise: Additional 100 Mbps,direct,
+App Protect Enterprise: Additional 250 Mbps,5606,App Protect Enterprise: Additional 250 Mbps,direct,
+App Protect Enterprise: Additional 500 Mbps,5607,App Protect Enterprise: Additional 500 Mbps,direct,
+App Protect Enterprise: Additional 1 Gbps,5608,App Protect Enterprise: Additional 1 Gbps,direct,
+App Protect 360: Additional 100 Mbps,5609,App Protect 360: Additional 100 Mbps,direct,
+App Protect 360: Additional 250 Mbps,5610,App Protect 360: Additional 250 Mbps,direct,
+App Protect 360: Additional 500 Mbps,5611,App Protect 360: Additional 500 Mbps,direct,
+App Protect 360: Additional 1 Gbps,5612,App Protect 360: Additional 1 Gbps,direct,
+Add-on: Advanced Website DDoS Protection - 20 Mbps Base Plan,5616,Add-on: Advanced Website DDoS Protection - 20 Mbps Base Plan,direct,
+Add-on: Advanced Website DDoS Protection - 50 Mbps Base Plan,5617,Add-on: Advanced Website DDoS Protection - 50 Mbps Base Plan,direct,
+Add-on: Advanced Website DDoS Protection - 100 Mbps Base Plan,5618,Add-on: Advanced Website DDoS Protection - 100 Mbps Base Plan,direct,
+Add-on: Advanced Website DDoS Protection - Additional 100 Mbps,5619,Add-on: Advanced Website DDoS Protection - Additional 100 Mbps,direct,
+Add-on: Advanced Website DDoS Protection - Additional 250 Mbps,5620,Add-on: Advanced Website DDoS Protection - Additional 250 Mbps,direct,
+Add-on: Advanced Website DDoS Protection - Additional 500 Mbps,5621,Add-on: Advanced Website DDoS Protection - Additional 500 Mbps,direct,
+Add-on: Advanced Website DDoS Protection - Additional 1 Gbps,5622,Add-on: Advanced Website DDoS Protection - Additional 1 Gbps,direct,
+Add-on: Edge Load Balancing for App Protect 20 Mbps Base Plan,5623,Add-on: Edge Load Balancing for App Protect 20 Mbps Base Plan,direct,
+Add-on: Edge Load Balancing for App Protect 50 Mbps Base Plan,5624,Add-on: Edge Load Balancing for App Protect 50 Mbps Base Plan,direct,
+Add-on: Edge Load Balancing for App Protect 100 Mbps Base Plan,5625,Add-on: Edge Load Balancing for App Protect 100 Mbps Base Plan,direct,
+Add-on: Edge Load Balancing for App Protect - Additional 100Mbps,5626,Add-on: Edge Load Balancing for App Protect - Additional 100Mbps,direct,
+Add-on: Edge Load Balancing for App Protect - Additional 250Mbps,5627,Add-on: Edge Load Balancing for App Protect - Additional 250Mbps,direct,
+Add-on: Edge Load Balancing for App Protect - Additional 500Mbps,5628,Add-on: Edge Load Balancing for App Protect - Additional 500Mbps,direct,
+Add-on: Edge Load Balancing for App Protect - Additional 1 Gbps,5629,Add-on: Edge Load Balancing for App Protect - Additional 1 Gbps,direct,
+Add-on: App Protect - 1 Additional Site,5613,Add-on: App Protect - 1 Additional Site,direct,
+Add-on: App Protect - 5 Additional Sites,5583,Add-on: App Protect - 5 Additional Sites,direct,
+Add-on: App Protect - 10 Additional Sites,5581,Add-on: App Protect - 10 Additional Sites,direct,
+Add-on: App Protect - 20 Additional Sites,5582,Add-on: App Protect - 20 Additional Sites,direct,
+Add-on: App Protect - 50 Additional Sites,5614,Add-on: App Protect - 50 Additional Sites,direct,
+Add-on: App Protect - 100 Additional Sites,5615,Add-on: App Protect - 100 Additional Sites,direct,
+Add-on: Client Side Protection for App Protect - 1 Site,5708,Add-on: Client Side Protection for App Protect - 1 Site,direct,
+Add-on: Client Side Protection for App Protect - 5 Sites,5709,Add-on: Client Side Protection for App Protect - 5 Sites,direct,
+Add-on: Client Side Protection for App Protect - 10 Sites,5710,Add-on: Client Side Protection for App Protect - 10 Sites,direct,
+Add-on: Client Side Protection for App Protect - 20 Sites,5711,Add-on: Client Side Protection for App Protect - 20 Sites,direct,
+Alert Logic MDR - Essentials: 25 Nodes,4837,Alert Logic MDR - Essentials: 25 Nodes,direct,
+Alert Logic MDR - Essentials: 50 Nodes,4838,Alert Logic MDR - Essentials: 50 Nodes,direct,
+Alert Logic MDR - Essentials: 100 Nodes,4839,Alert Logic MDR - Essentials: 100 Nodes,direct,
+Alert Logic MDR - Essentials: 150 Nodes,4840,Alert Logic MDR - Essentials: 150 Nodes,direct,
+Alert Logic MDR - Essentials: 250 Nodes,4841,Alert Logic MDR - Essentials: 250 Nodes,direct,
+Alert Logic MDR - Professional: 5 Nodes,4854,Alert Logic MDR - Professional: 5 Nodes,direct,
+Alert Logic MDR - Professional: 10 Nodes,4844,Alert Logic MDR - Professional: 100 Nodes,fuzzy,98.7
+Alert Logic MDR - Professional: 10 Nodes,4845,Alert Logic MDR - Professional: 150 Nodes,fuzzy,98.7
+Alert Logic MDR - Professional: 15 Nodes,4845,Alert Logic MDR - Professional: 150 Nodes,fuzzy,98.7
+Alert Logic MDR - Professional: 20 Nodes,4846,Alert Logic MDR - Professional: 250 Nodes,fuzzy,98.7
+Alert Logic MDR - Professional: 25 Nodes,4842,Alert Logic MDR - Professional: 25 Nodes,direct,
+Alert Logic MDR - Professional: 50 Nodes,4843,Alert Logic MDR - Professional: 50 Nodes,direct,
+Alert Logic MDR - Professional: 100 Nodes,4844,Alert Logic MDR - Professional: 100 Nodes,direct,
+Alert Logic MDR - Professional: 150 Nodes,4845,Alert Logic MDR - Professional: 150 Nodes,direct,
+Alert Logic MDR - Professional: 250 Nodes,4846,Alert Logic MDR - Professional: 250 Nodes,direct,
+Alert Logic MDR - Professional: 500 Nodes,4847,Alert Logic MDR - Professional: 500 Nodes,direct,
+Alert Logic MDR - Professional: 750 Nodes,4848,Alert Logic MDR - Professional: 750 Nodes,direct,
+Alert Logic MDR - Professional: 1000 Nodes,4849,Alert Logic MDR - Professional: 1000 Nodes,direct,
+Alert Logic MDR - Enterprise: ActiveWatch,4850,Alert Logic MDR - Enterprise: ActiveWatch,direct,
+Alert Logic MDR - Virtual Appliance,4836,Alert Logic MDR - Virtual Appliance,direct,
+Alert Logic Remote Collector,4851,Alert Logic Remote Collector,direct,
+Alert Logic Agent,3744,Alert Logic agent for Linux,fuzzy,77.3
+Alert Logic Agent,5191,Alert Logic Agent for Cloud,fuzzy,77.3
+IPMI Card,690,IPMI Card,direct,
+Network DDoS Protection,1049,Network DDoS Protection,direct,
+5 Mbps Clean Traffic Commit,4950,5 Mbps Clean Traffic Commit,direct,
+10 Mbps Clean Traffic Commit,4951,10 Mbps Clean Traffic Commit,direct,
+25 Mbps Clean Traffic Commit,4952,25 Mbps Clean Traffic Commit,direct,
+50 Mbps Clean Traffic Commit,4953,50 Mbps Clean Traffic Commit,direct,
+100 Mbps Clean Traffic Commit,4954,100 Mbps Clean Traffic Commit,direct,
+250 Mbps Clean Traffic Commit,4955,250 Mbps Clean Traffic Commit,direct,
+500 Mbps Clean Traffic Commit,4956,500 Mbps Clean Traffic Commit,direct,
+1000 Mbps Clean Traffic Commit,4957,1000 Mbps Clean Traffic Commit,direct,
+1250 Mbps Clean Traffic Commit,4958,1250 Mbps Clean Traffic Commit,direct,
+1500 Mbps Clean Traffic Commit,4959,1500 Mbps Clean Traffic Commit,direct,
+1750 Mbps Clean Traffic Commit,4960,1750 Mbps Clean Traffic Commit,direct,
+2000 Mbps Clean Traffic Commit,4961,2000 Mbps Clean Traffic Commit,direct,
+/28 - Protected IP Range (14 Usable),4962,/28 - Protected IP Range (14 Usable),direct,
+/27 - Protected IP Range (30 Usable),4963,/27 - Protected IP Range (30 Usable),direct,
+/26 - Protected IP Range (62 Usable),4964,/26 - Protected IP Range (62 Usable),direct,
+/25 - Protected IP Range (126 Usable),4965,/25 - Protected IP Range (126 Usable),direct,
+/24 - Protected IP Range (254 Usable),4966,/24 - Protected IP Range (254 Usable),direct,
+/24 - Customer Supplied IP Range,4967,/24 - Customer Supplied IP Range,direct,
+Rush set-up (within 24 hours) additional charge,,,no_match,53.2
+Additional Web Application,,,no_match,63.0
+Additional SSL Certificate,3122,Global SSL Certificate,fuzzy,79.2
+"/30 IPv4 block (4 total, 1 customer-usable)",4866,"/26 IPv4 block (64 total,61 customer-usable addresses)",fuzzy,82.2
+"/29 IPv4 block (8 total, 5 customer-usable)",4332,"/29 IPv4 block (8 total,5 customer-usable addresses)",fuzzy,88.6
+"/28 IPv4 block (16 total, 13 customer-usable)",4425,"/28 IPv4 block (16 total,13 customer-usable addresses)",fuzzy,89.1
+"/27 IPv4 block (32 total, 29 customer usable)",4452,"/27 IPv4 block (32 total,29 customer-usable addresses)",fuzzy,89.1
+"/26 IPv4 block (64 total, 61 customer usable)",4866,"/26 IPv4 block (64 total,61 customer-usable addresses)",fuzzy,89.1
+"/25 IPv4 block (128 total, 125 customer usable)",4351,"/25 IPv4 block (128 total, 125 customer usable addresses)",fuzzy,89.6
+1 GigE - Primary Access Port,1152,1 GigE - POP Access Port Fiber (On Net),fuzzy,65.6
+10 GigE - Primary Access Port,1154,10 GigE - POP Access Port Fiber (On Net),fuzzy,66.7
