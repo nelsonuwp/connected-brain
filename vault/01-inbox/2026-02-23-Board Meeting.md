@@ -207,4 +207,9 @@ Below are the notes from Sarah:
 
 
 ## Convo w/ Sarah
-### 
+### Board is 3 hours
+10 mins each for JP and Ian to give overview...but these are typically useless
+Rapid fire for Finance, Sales, Operations
+* Lookback on H1 
+	* H1 operational projects we delivered on, DC strategy, License cost savings 
+* Look forward on H2
