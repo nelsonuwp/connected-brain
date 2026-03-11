@@ -209,7 +209,15 @@ Below are the notes from Sarah:
 ## Convo w/ Sarah
 ### Board is 3 hours
 * 10 mins each for JP and Ian to give overview...but these are typically useless
-Rapid fire for Finance, Sales, Operations
-* Lookback on H1 
-	* H1 operational projects we delivered on, DC strategy, License cost savings 
-* Look forward on H2
+* Rapid fire for Finance, Sales, Operations
+	* Lookback on H1 
+		* H1 operational projects we delivered on, DC strategy, License cost savings 
+	* Look forward on H2
+* Strategy
+
+Growth 10%
+Retention 10%
+Ebitda > 25%
+Capex cant be more than 25% EBITDA
+Cash flow capita is increasing :check
+Cross sell across customer base
