@@ -204,3 +204,7 @@ Below are the notes from Sarah:
 - What does Dave actually want from you before the meeting? The note reads like information capture, not a request.
 
 - The "pre-packaged offerings" problem is concrete and actionable. Worth pulling that thread separately — it might be the highest-leverage operational fix regardless of exit timing.
+
+
+## Convo w/ Sarah
+### 
