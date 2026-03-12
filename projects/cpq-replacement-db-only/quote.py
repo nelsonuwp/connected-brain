@@ -19,6 +19,7 @@ from __future__ import annotations
 from datetime import date
 from decimal import Decimal
 from typing import Any, Optional
+import math
 
 # ---------------------------------------------------------------------------
 # Types
@@ -142,6 +143,102 @@ def _get_component_watts(client, product_id: int) -> int:
     return int(resp.data[0]["watts"]) or 0
 
 
+def _get_pricing_rule(client, product_id: int) -> Optional[dict]:
+    """Fetch pricing rule for a product. Returns None if product uses flat pricing."""
+    resp = (
+        client.table("pricing_rules")
+        .select("cost_driver, min_units_per_socket, min_units_per_server, unit_increment, mrc_represents")
+        .eq("product_id", product_id)
+        .limit(1)
+        .execute()
+    )
+    if not resp.data:
+        return None
+    return resp.data[0]
+
+
+def _get_server_cpu_config(client, server_product_id: int) -> dict:
+    """Resolve cores-per-socket and socket count for a server's CPU config.
+
+    Returns {"cores_per_socket": int, "num_sockets": int, "total_physical_cores": int}.
+    Uses server_default_components to find the default CPU, then component_specs for cores.
+    Falls back to server_specs.default_cpu_qty / processor_sockets for socket count.
+    """
+    ss_resp = (
+        client.table("server_specs")
+        .select("default_cpu_qty, processor_sockets")
+        .eq("product_id", server_product_id)
+        .limit(1)
+        .execute()
+    )
+    num_sockets = 1
+    if ss_resp.data:
+        num_sockets = (
+            ss_resp.data[0].get("processor_sockets")
+            or ss_resp.data[0].get("default_cpu_qty")
+            or 1
+        )
+
+    sdc_resp = (
+        client.table("server_default_components")
+        .select("component_product_id, quantity")
+        .eq("server_product_id", server_product_id)
+        .eq("component_type", "cpu")
+        .limit(1)
+        .execute()
+    )
+    cores_per_socket = 0
+    if sdc_resp.data:
+        cpu_id = sdc_resp.data[0]["component_product_id"]
+        cs_resp = (
+            client.table("component_specs")
+            .select("cores")
+            .eq("product_id", cpu_id)
+            .limit(1)
+            .execute()
+        )
+        if cs_resp.data and cs_resp.data[0].get("cores"):
+            cores_per_socket = int(cs_resp.data[0]["cores"])
+
+    return {
+        "cores_per_socket": cores_per_socket,
+        "num_sockets": int(num_sockets) if num_sockets is not None else 1,
+        "total_physical_cores": (int(cores_per_socket) if cores_per_socket else 0)
+        * (int(num_sockets) if num_sockets else 1),
+    }
+
+
+def compute_licensed_units(
+    rule: dict, cores_per_socket: int, num_sockets: int, vcpu_count: int = 0
+) -> int:
+    """Given a pricing rule and server CPU config, return the billable unit count."""
+    driver = rule["cost_driver"]
+
+    if driver == "flat":
+        return 1
+
+    if driver == "vcpu_count":
+        return max(int(vcpu_count or 0), 0)
+
+    # Core-based drivers: licensed_cores, raw_cores, core_packs
+    floor_per_socket = int(rule.get("min_units_per_socket") or 0)
+    floor_per_server = int(rule.get("min_units_per_server") or 0)
+    increment = int(rule.get("unit_increment") or 1)
+
+    effective_per_socket = max(int(cores_per_socket or 0), floor_per_socket)
+    total = effective_per_socket * max(int(num_sockets or 0), 1)
+    total = max(total, floor_per_server)
+
+    if increment > 1:
+        total = int(math.ceil(total / increment) * increment)
+
+    mrc_repr = rule.get("mrc_represents", "per_unit")
+    if mrc_repr == "per_pack" and increment > 0:
+        return int(total // increment)
+
+    return int(total)
+
+
 def _get_overhead_constants(client) -> dict[str, Decimal]:
     resp = client.table("overhead_constants").select("key, value").execute()
     return {r["key"]: _decimal(r["value"]) for r in resp.data}
@@ -208,6 +305,7 @@ def build_quote(
         errors.append("No spot FX rate for USD; addon pricing may be wrong")
 
     default_ids = _get_default_component_ids(client, server_id)
+    server_cpu_config = _get_server_cpu_config(client, server_id)
     # Use server nameplate watts (per CPQ sheet) when set; else sum default component watts
     server_watts = _get_server_watts(client, server_id)
     if server_watts is not None:
@@ -230,12 +328,27 @@ def build_quote(
         if not comp_id:
             errors.append(f"Addon not found: {sku}")
             continue
+        rule = _get_pricing_rule(client, comp_id)
         mrc, nrc = _get_component_pricing(client, comp_id, term_months, "USD")
         if currency != "USD" and usd_rate:
             mrc = _round2(mrc * usd_rate)
             nrc = _round2(nrc * usd_rate)
-        mrc_total = _round2(mrc * qty)
-        nrc_total = _round2(nrc * qty)
+
+        licensed_units = None
+        if rule and rule.get("cost_driver") and rule["cost_driver"] != "flat":
+            vcpu_count = int(addon.get("vcpu_count") or 0)
+            licensed_units = compute_licensed_units(
+                rule,
+                cores_per_socket=server_cpu_config["cores_per_socket"],
+                num_sockets=server_cpu_config["num_sockets"],
+                vcpu_count=vcpu_count,
+            )
+            mrc_total = _round2(mrc * licensed_units)
+            nrc_total = _round2(nrc * qty)
+        else:
+            mrc_total = _round2(mrc * qty)
+            nrc_total = _round2(nrc * qty)
+
         addon_lines.append({
             "sku": sku,
             "quantity": qty,
@@ -244,6 +357,8 @@ def build_quote(
             "mrc": mrc_total,
             "nrc": nrc_total,
             "currency": currency,
+            "licensed_units": licensed_units,
+            "pricing_rule": (rule or {}).get("cost_driver", "flat"),
         })
         line_items.append({"sku": sku, "quantity": qty, "mrc": mrc_total, "nrc": nrc_total, "currency": currency})
         total_mrc += mrc_total
@@ -372,7 +487,12 @@ def format_quote(result: dict) -> str:
         lines.append("")
         lines.append("Add-on breakdown:")
         for a in result["addon_lines"]:
-            lines.append(f"  {a['sku']} x{a['quantity']}  unit MRC {a['unit_mrc']}  →  MRC {a['mrc']}  NRC {a['nrc']}")
+            units_info = ""
+            if a.get("licensed_units") is not None:
+                units_info = f"  [{a.get('pricing_rule', 'flat')}: {a['licensed_units']} units]"
+            lines.append(
+                f"  {a['sku']} x{a['quantity']}  unit MRC {a['unit_mrc']}  →  MRC {a['mrc']}  NRC {a['nrc']}{units_info}"
+            )
     if result.get("capex"):
         lines.append("")
         lines.append("CapEx:")

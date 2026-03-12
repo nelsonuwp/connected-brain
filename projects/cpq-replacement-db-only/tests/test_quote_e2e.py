@@ -254,6 +254,84 @@ QUOTE_CASES = [
 ]
 
 
+def test_compute_licensed_units():
+    """Unit tests for compute_licensed_units -- no DB needed."""
+    from quote import compute_licensed_units
+
+    # VMware: 8-core CPU, 1 socket -> floor to 16
+    rule_vmware = {
+        "cost_driver": "licensed_cores",
+        "min_units_per_socket": 16,
+        "min_units_per_server": None,
+        "unit_increment": 2,
+        "mrc_represents": "per_unit",
+    }
+    assert compute_licensed_units(rule_vmware, cores_per_socket=8, num_sockets=1) == 16
+
+    # VMware: 16-core CPU, 2 sockets -> 32
+    assert compute_licensed_units(rule_vmware, cores_per_socket=16, num_sockets=2) == 32
+
+    # VMware: 20-core CPU, 1 socket -> 20 (already above 16, already even)
+    assert compute_licensed_units(rule_vmware, cores_per_socket=20, num_sockets=1) == 20
+
+    # VMware: 21-core CPU, 1 socket -> 22 (round up to nearest 2)
+    assert compute_licensed_units(rule_vmware, cores_per_socket=21, num_sockets=1) == 22
+
+    # SQL Server: 12-core CPU, 2 sockets -> 24 cores -> 12 packs
+    rule_sql = {
+        "cost_driver": "raw_cores",
+        "min_units_per_socket": 4,
+        "min_units_per_server": None,
+        "unit_increment": 2,
+        "mrc_represents": "per_pack",
+    }
+    assert compute_licensed_units(rule_sql, cores_per_socket=12, num_sockets=2) == 12
+
+    # SQL Server: 4-core CPU, 1 socket -> floor 4 -> 2 packs
+    assert compute_licensed_units(rule_sql, cores_per_socket=4, num_sockets=1) == 2
+
+    # SQL Server: 2-core CPU, 1 socket -> floor to 4 -> 2 packs
+    assert compute_licensed_units(rule_sql, cores_per_socket=2, num_sockets=1) == 2
+
+    # Windows Server: 8-core, 1 socket -> floor to 16 (server min) -> 8 packs
+    rule_win = {
+        "cost_driver": "core_packs",
+        "min_units_per_socket": 8,
+        "min_units_per_server": 16,
+        "unit_increment": 2,
+        "mrc_represents": "per_pack",
+    }
+    assert compute_licensed_units(rule_win, cores_per_socket=8, num_sockets=1) == 8
+
+    # Windows Server: 16-core, 2 sockets -> 32 cores -> 16 packs
+    assert compute_licensed_units(rule_win, cores_per_socket=16, num_sockets=2) == 16
+
+    # RHEL for VMs: 4 vCPUs
+    rule_rhel = {
+        "cost_driver": "vcpu_count",
+        "min_units_per_socket": None,
+        "min_units_per_server": None,
+        "unit_increment": 1,
+        "mrc_represents": "per_tier_unit",
+    }
+    assert (
+        compute_licensed_units(
+            rule_rhel, cores_per_socket=0, num_sockets=0, vcpu_count=4
+        )
+        == 4
+    )
+
+    # Flat: always 1
+    rule_flat = {
+        "cost_driver": "flat",
+        "min_units_per_socket": None,
+        "min_units_per_server": None,
+        "unit_increment": None,
+        "mrc_represents": "flat_total",
+    }
+    assert compute_licensed_units(rule_flat, cores_per_socket=48, num_sockets=2) == 1
+
+
 def _decimal(n):
     if n is None:
         return Decimal("0")
@@ -515,6 +593,9 @@ def main():
     except Exception as e:
         print(f"ERROR: Could not create Supabase client: {e}")
         sys.exit(1)
+
+    # Run core licensing unit tests first (no Supabase calls inside).
+    test_compute_licensed_units()
 
     print("Running quote E2E tests...")
     results = run_quote_e2e(client)

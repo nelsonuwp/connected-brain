@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-11T19:41:46.238699Z",
+  "run_at": "2026-03-12T09:53:16.647686Z",
   "passed": 6,
   "failed": 5,
   "total": 11,
@@ -892,7 +892,9 @@
             "unit_nrc": 0.0,
             "mrc": 682.56,
             "nrc": 0.0,
-            "currency": "CAD"
+            "currency": "CAD",
+            "licensed_units": null,
+            "pricing_rule": "flat"
           },
           {
             "sku": "1.92 TB SATA 2.5in SSD",
@@ -901,7 +903,9 @@
             "unit_nrc": 0.0,
             "mrc": 136.52,
             "nrc": 0.0,
-            "currency": "CAD"
+            "currency": "CAD",
+            "licensed_units": null,
+            "pricing_rule": "flat"
           }
         ],
         "capex": {
@@ -2376,11 +2380,11 @@
       "failure_reason": "PENDING: set expected_mrc and expected_nrc from Excel (see tests/QUOTE_E2E_SCENARIOS.md)",
       "expected_mrc": null,
       "expected_nrc": null,
-      "actual_mrc": 1144.76,
+      "actual_mrc": 2136.17,
       "actual_nrc": 969.0,
       "errors": [],
       "quote": {
-        "totals_mrc": 1144.76,
+        "totals_mrc": 2136.17,
         "totals_nrc": 969.0,
         "currency": "CAD",
         "dc_code": "TOR",
@@ -2396,7 +2400,7 @@
           {
             "sku": "SQL Server 2022 Standard Edition",
             "quantity": 1,
-            "mrc": 141.63,
+            "mrc": 1133.04,
             "nrc": 0.0,
             "currency": "CAD"
           },
@@ -2414,9 +2418,11 @@
             "quantity": 1,
             "unit_mrc": 141.63,
             "unit_nrc": 0.0,
-            "mrc": 141.63,
+            "mrc": 1133.04,
             "nrc": 0.0,
-            "currency": "CAD"
+            "currency": "CAD",
+            "licensed_units": 8,
+            "pricing_rule": "raw_cores"
           },
           {
             "sku": "LM Standard Monitoring",
@@ -2425,7 +2431,9 @@
             "unit_nrc": 0.0,
             "mrc": 34.13,
             "nrc": 0.0,
-            "currency": "CAD"
+            "currency": "CAD",
+            "licensed_units": null,
+            "pricing_rule": "flat"
           }
         ],
         "capex": {
@@ -2501,11 +2509,11 @@
           }
         },
         "financial_summary_12m": {
-          "revenue_12m": 14706.12,
+          "revenue_12m": 26603.04,
           "cost_capex": 8055.46,
           "cost_overhead_12m": 2347.44,
-          "margin_12m": 4303.22,
-          "margin_pct": 29.3,
+          "margin_12m": 16200.14,
+          "margin_pct": 60.9,
           "currency": "CAD"
         }
       },
@@ -2538,7 +2546,7 @@
           "cost": "  Addon MRC",
           "expected": null,
           "expected_unit": "CAD",
-          "calculated": 175.76,
+          "calculated": 1167.17,
           "calculated_unit": "CAD",
           "is_section": false
         },
@@ -2554,7 +2562,7 @@
           "cost": "  Total MRC",
           "expected": null,
           "expected_unit": "CAD",
-          "calculated": 1144.76,
+          "calculated": 2136.17,
           "calculated_unit": "CAD",
           "is_section": false
         },
@@ -2570,7 +2578,7 @@
           "cost": "  Total (12m Revenue)",
           "expected": null,
           "expected_unit": "CAD",
-          "calculated": 14706.12,
+          "calculated": 26603.04,
           "calculated_unit": "CAD",
           "is_section": false
         },
@@ -2698,7 +2706,7 @@
           "cost": "  Margin",
           "expected": null,
           "expected_unit": "CAD",
-          "calculated": 4303.22,
+          "calculated": 16200.14,
           "calculated_unit": "CAD",
           "is_section": false
         },
@@ -2706,7 +2714,7 @@
           "cost": "  Margin %",
           "expected": null,
           "expected_unit": "%",
-          "calculated": 29.3,
+          "calculated": 60.9,
           "calculated_unit": "%",
           "is_section": false
         }
@@ -2753,7 +2761,9 @@
             "unit_nrc": 0.0,
             "mrc": 273.04,
             "nrc": 0.0,
-            "currency": "CAD"
+            "currency": "CAD",
+            "licensed_units": null,
+            "pricing_rule": "flat"
           }
         ],
         "capex": {
