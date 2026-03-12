@@ -331,6 +331,8 @@ def test_compute_licensed_units():
     }
     assert compute_licensed_units(rule_flat, cores_per_socket=48, num_sockets=2) == 1
 
+    print("  compute_licensed_units: all assertions passed")
+
 
 def _decimal(n):
     if n is None:

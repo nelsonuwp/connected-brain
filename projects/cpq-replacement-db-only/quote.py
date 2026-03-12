@@ -305,7 +305,16 @@ def build_quote(
         errors.append("No spot FX rate for USD; addon pricing may be wrong")
 
     default_ids = _get_default_component_ids(client, server_id)
-    server_cpu_config = _get_server_cpu_config(client, server_id)
+    # CPU config is only needed for core-driven addons (VMware, SQL, Windows, RHEL for VMs).
+    # Fetch lazily to avoid 3 extra round-trips on quotes with no core-driven software.
+    _cpu_config_cache: Optional[dict] = None
+
+    def _cpu_config() -> dict:
+        nonlocal _cpu_config_cache
+        if _cpu_config_cache is None:
+            _cpu_config_cache = _get_server_cpu_config(client, server_id)
+        return _cpu_config_cache
+
     # Use server nameplate watts (per CPQ sheet) when set; else sum default component watts
     server_watts = _get_server_watts(client, server_id)
     if server_watts is not None:
@@ -337,10 +346,20 @@ def build_quote(
         licensed_units = None
         if rule and rule.get("cost_driver") and rule["cost_driver"] != "flat":
             vcpu_count = int(addon.get("vcpu_count") or 0)
+            config = _cpu_config()
+            if (
+                rule["cost_driver"] not in ("flat", "vcpu_count")
+                and config["cores_per_socket"] == 0
+            ):
+                errors.append(
+                    f"Warning: {sku} uses core-driven pricing ({rule['cost_driver']}) but "
+                    f"server '{server_sku}' has no CPU core count resolved — "
+                    f"defaulting to floor ({rule.get('min_units_per_socket') or 0} cores/socket)"
+                )
             licensed_units = compute_licensed_units(
                 rule,
-                cores_per_socket=server_cpu_config["cores_per_socket"],
-                num_sockets=server_cpu_config["num_sockets"],
+                cores_per_socket=config["cores_per_socket"],
+                num_sockets=config["num_sockets"],
                 vcpu_count=vcpu_count,
             )
             mrc_total = _round2(mrc * licensed_units)
