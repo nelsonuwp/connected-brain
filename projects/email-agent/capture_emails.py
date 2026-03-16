@@ -4,6 +4,7 @@ import os
 from datetime import datetime, date, timedelta
 import json
 import requests
+from typing import Any, Dict, List, Optional, Tuple
 import webbrowser
 import http.server
 import threading
@@ -25,7 +26,7 @@ def parse_yyyymmdd(value: str) -> date:
         )
 
 
-def compute_date_range(start_arg: str | None, end_arg: str | None) -> tuple[date, date]:
+def compute_date_range(start_arg: Optional[str], end_arg: Optional[str]) -> Tuple[date, date]:
     """
     Decide start/end dates based on CLI args.
 
@@ -58,10 +59,10 @@ def get_user_email() -> str:
     return user_email
 
 
-_auth_code: str | None = None
+_auth_code: Optional[str] = None
 
 
-def _generate_pkce() -> tuple[str, str]:
+def _generate_pkce() -> Tuple[str, str]:
     code_verifier = "".join(
         random.choice(string.ascii_letters + string.digits) for _ in range(128)
     )
@@ -102,7 +103,7 @@ def _get_auth_code(
     client_id: str,
     redirect_uri: str,
     code_challenge: str,
-) -> str | None:
+) -> Optional[str]:
     global _auth_code
     _auth_code = None
 
@@ -144,11 +145,11 @@ def _exchange_code_for_token(
     *,
     token_url: str,
     client_id: str,
-    client_secret: str | None,
+    client_secret: Optional[str],
     redirect_uri: str,
     code: str,
     code_verifier: str,
-) -> str | None:
+) -> Optional[str]:
     token_data = {
         "client_id": client_id,
         "scope": "Mail.Read User.Read",
@@ -207,7 +208,7 @@ def fetch_messages_for_range(
     start_date: date,
     end_date: date,
     access_token: str,
-) -> list[dict]:
+) -> List[Dict[str, Any]]:
     """
     Fetch messages from Microsoft Graph for an inclusive date range [start_date, end_date].
     Uses sentDateTime filter with UTC midnights.
