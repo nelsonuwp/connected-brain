@@ -5,6 +5,7 @@ from datetime import datetime, date, timedelta
 import json
 import requests
 from typing import Any, Dict, List, Optional, Tuple
+from pathlib import Path
 import webbrowser
 import http.server
 import threading
@@ -24,6 +25,53 @@ def parse_yyyymmdd(value: str) -> date:
         raise argparse.ArgumentTypeError(
             f"Invalid date '{value}'. Expected format: YYYY-MM-DD (e.g. 2026-03-10)."
         )
+
+
+def _strip_optional_quotes(value: str) -> str:
+    v = value.strip()
+    if len(v) >= 2 and ((v[0] == v[-1] == '"') or (v[0] == v[-1] == "'")):
+        return v[1:-1]
+    return v
+
+
+def _load_env_file(path: Path) -> None:
+    """
+    Minimal .env loader (no dependency on python-dotenv).
+    Sets os.environ[key] only if not already set.
+    """
+    try:
+        text = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return
+    except OSError:
+        return
+
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if "=" not in line:
+            continue
+        key, val = line.split("=", 1)
+        key = key.strip()
+        if not key:
+            continue
+        val = _strip_optional_quotes(val)
+        if key not in os.environ:
+            os.environ[key] = val
+
+
+def load_env() -> None:
+    """
+    Load environment variables from the repo root `.env` (and current working dir `.env`).
+    This lets the script work even when variables aren't exported in the shell.
+    """
+    script_dir = Path(__file__).resolve().parent
+    repo_root = script_dir.parents[1]  # .../connected-brain
+
+    # Prefer already-exported env vars; only fill missing keys.
+    _load_env_file(Path.cwd() / ".env")
+    _load_env_file(repo_root / ".env")
 
 
 def compute_date_range(start_arg: Optional[str], end_arg: Optional[str]) -> Tuple[date, date]:
@@ -120,8 +168,22 @@ def _get_auth_code(
     }
     auth_request_url = f"{auth_url}?{urllib.parse.urlencode(params)}"
 
-    server_address = ("localhost", 3000)
-    httpd = http.server.HTTPServer(server_address, _OAuthRedirectHandler)
+    parsed_redirect = urllib.parse.urlparse(redirect_uri)
+    callback_port = parsed_redirect.port or 3000
+
+    server_address = ("localhost", callback_port)
+    try:
+        httpd = http.server.HTTPServer(server_address, _OAuthRedirectHandler)
+    except OSError as e:
+        # Common case on macOS when another process already uses the port.
+        if getattr(e, "errno", None) == 48:
+            raise RuntimeError(
+                f"OAuth callback port {callback_port} is already in use. "
+                f"Free up that port or set MS_REDIRECT_URI to a different port "
+                f"(and update your Azure app redirect URI to match). "
+                f"Current MS_REDIRECT_URI: {redirect_uri}"
+            )
+        raise
     server_thread = threading.Thread(target=httpd.serve_forever, daemon=True)
     server_thread.start()
 
@@ -227,6 +289,7 @@ def fetch_messages_for_range(
         "Content-Type": "application/json",
     }
     params = {
+        # Only include fields that are valid on v1.0 Message
         "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients",
         "$filter": (
             f"sentDateTime ge {start_of_range} and "
@@ -239,7 +302,21 @@ def fetch_messages_for_range(
         resp = requests.get(url, headers=headers, params=params)
         resp.raise_for_status()
         data = resp.json()
-        return data.get("value", [])
+        messages = data.get("value", [])
+
+        # Graph automatically sets @odata.type = "#microsoft.graph.eventMessage"
+        # on meeting requests, calendar invites, and task notifications.
+        # Filter these out so only plain emails remain.
+        before = len(messages)
+        messages = [
+            m for m in messages
+            if m.get("@odata.type", "") != "#microsoft.graph.eventMessage"
+        ]
+        dropped = before - len(messages)
+        if dropped:
+            print(f"  Filtered out {dropped} meeting/calendar/task item(s).")
+
+        return messages
     except requests.exceptions.RequestException as e:
         print(f"Error fetching messages from Graph API: {e}")
         try:
@@ -252,6 +329,8 @@ def fetch_messages_for_range(
 
 
 def main() -> int:
+    load_env()
+
     parser = argparse.ArgumentParser(
         description=(
             "Capture emails from Microsoft Graph for a date range.\n\n"
@@ -267,11 +346,12 @@ def main() -> int:
         "--end-date",
         help="End date (YYYY-MM-DD). Defaults to today if only start-date is provided.",
     )
+    default_output = Path(__file__).resolve().parent / "outputs" / "emails_capture.json"
     parser.add_argument(
         "-o",
         "--output",
-        default="emails_capture.json",
-        help="Output JSON file for captured emails (default: emails_capture.json).",
+        default=str(default_output),
+        help="Output JSON file (default: projects/email-agent/outputs/emails_capture.json).",
     )
 
     args = parser.parse_args()
@@ -294,9 +374,11 @@ def main() -> int:
     print(f"Fetched {len(messages)} messages.")
 
     try:
-        with open(args.output, "w", encoding="utf-8") as f:
+        output_path = Path(args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(messages, f, indent=2, ensure_ascii=False)
-        print(f"Wrote messages to {args.output}")
+        print(f"Wrote messages to {output_path}")
     except OSError as e:
         print(f"Failed to write output file {args.output}: {e}")
         return 1

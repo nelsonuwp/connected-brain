@@ -1,0 +1,248 @@
+{
+  "run_id": "",
+  "model": "anthropic/claude-sonnet-4-5",
+  "generated_at": "2026-03-16T19:12:19.000538Z",
+  "mode": "inbox_triage",
+  "status": "success",
+  "output": {
+    "important": [
+      {
+        "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARrT5OtAAA=",
+        "sent_at": "2026-03-15T20:12:00Z",
+        "subject": "RE: Thoughts on improving forecasting",
+        "category": "important",
+        "category_reason": "Active internal thread requiring awareness or response",
+        "source_system": "human",
+        "is_reply": true,
+        "is_forward": false,
+        "from": {
+          "name": "Marc Alex Forget",
+          "address": "Marc-Alexandre.Forget@aptum.com"
+        },
+        "to": [
+          {
+            "name": "Frederic Gingras",
+            "address": "Frederic.Gingras@aptum.com"
+          },
+          {
+            "name": "Ian Rae",
+            "address": "Ian.Rae@aptum.com"
+          },
+          {
+            "name": "Sarah Blanchard",
+            "address": "Sarah.Blanchard@aptum.com"
+          },
+          {
+            "name": "Adam Nelson",
+            "address": "Adam.Nelson@aptum.com"
+          },
+          {
+            "name": "Marc Pare",
+            "address": "Marc.Pare@aptum.com"
+          }
+        ],
+        "cc": [
+          {
+            "name": "Tom Kelsch",
+            "address": "Tom.Kelsch@aptum.com"
+          },
+          {
+            "name": "Jorge Quintero",
+            "address": "Jorge.Quintero@aptum.com"
+          }
+        ],
+        "bcc": [],
+        "body": "Team,\n\nFred and I met last week to discuss areas for improvement in our forecasting process. I plan to meet with Tom this week to review a few ideas, after which Fred and I will regroup and prepare recommendations for the broader team.\n\nIn the meantime, if you’d like to explore different forecasting approaches, here is a useful blog post: 12 proven sales forecasting methods to predict revenue | Outreach\n\nThank you,\nMA\n\nMarc Alex Forget\n\nSenior Vice-President of Sales and Marketing | Vice‑président principal, Ventes et Marketing\n\n437-500-2700\naptum.com | LinkedIn",
+        "body_word_count": 92,
+        "has_thread": true,
+        "thread_history": "From: Frederic Gingras <Frederic.Gingras@aptum.com>\nSent: Tuesday, February 24, 2026 8:19 PM\nTo: Ian Rae <Ian.Rae@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>; Marc Pare <Marc.Pare@aptum.com>\nCc: Tom Kelsch <Tom.Kelsch@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>\nSubject: Thoughts on improving forecasting\n\nHi team,\n\nI've been thinking about our forecasting calls, how the forecast changes so much between the start and end of the month, and I've been collecting some thoughts around this. Keen to hear your thoughts...\n\n@Marc Alex Forget, the following may or may not apply in your case, as I understand that defining timelines with partners involved can be... complex... but keen to get your feedback on this.\n\nWe often see:\n\nOpportunities in wrong stages\n\nClose dates that are wrong\n\nDeals constantly slipping\n\nIssue 1: Since the stages are pretty well defined, then there is an issue with the understanding of the rep of each stage. It is most likely attributable to either slowness to change (stages were slightly different before, especially with legacy Aptum stages), or they haven't gone through understanding the sales stages thoroughly (just skimmed over).\n\nRemediation: FG to go through sale stages definition thoroughly with the team.\n\nIssue 2: I repeated multiple time the importance to tie the close date to the sequence of event, what needs to happen before signature, and how it fits in the customer process. Yet, not much changes.\n\nIf you can't answer these questions, the deal cannot be in a later stage, not can it be closing this month:\n\nWhen is the customer making the decision?\n\nWho signs?\n\nWhat happens if it doesn’t get approved this month?\n\nWhat priority is this compared to other projects?\n\nI already told the team \"if you don't have a timeline defined with the customer, push it\". If customer is \"hoping\", don't put it this month.\n\nRemediation: No evidence = No commit\n\nFor a deal to sit in the current month commit, it must have:\n\nIdentified Economic Buyer\n\nConfirmed Decision Criteria\n\nDocumented Decision Process\n\nMutually Agreed Timeline\n\nNext meeting scheduled\n\nYes, I'm wondering if I should bring back MEDDPICC... or part of it, at least.\n\nIf the Economic Buyer, Decision criteria and Paper process are not identified, then you cannot have a close date this month, or you cannot move to stage 4... to be discussed.\n\nIssue 3: pushing close date...\n\nIn addition to what I covered earlier, with tying the close date to specific timeline/sequence of events, some date slippage can be inevitable (shouldn't be the majority). Things change and shift at customers.\n\nWe have \"close lost\" reasons/details, what if we have \"Close date push details\" ?\n\nMA and I explain pushed opportunities weekly on the forecast call, which requires constant awareness and knowledge of the opportunities progress. What if we could have this in an easier way?\n\nRemediation: Enforce \"Why is it pushed\"\n\nWhat if we make it structured. Not as a free-text (excuse) box.\n\nIf close date moves:\n\nRequired field: Reason for push\n\nBudget not approved\n\nEconomic buyer not engaged\n\nLegal delay\n\nCompeting priority\n\nNo confirmed timeline\n\nRep error (which forces accountability)\n\nWe can then review patterns monthly.\n\nAnd then we can orient the coaching around the pattern.\n\nGranted, this is limited details. Maybe there is a field for details...\n\nI don't want to make this more complicated, but I think we need to bring more evidence and make the reps more accountable.\n\nFrederic Gingras\n\nSr Director, Account Management\n\n514-913-9153\n\naptum.com | LinkedIn\n\nBook time to meet with me",
+        "llm_summary": {
+          "one_line": "Marc Alex meeting Tom this week on forecasting improvements; recommendations coming soon.",
+          "summary": "Marc Alex and Fred met to discuss forecasting process improvements. Marc Alex is meeting with Tom this week to review ideas, then will regroup with Fred to prepare recommendations for the broader team. Fred's original email outlined three core issues: opportunities in wrong stages, incorrect close dates, and constant deal slippage, proposing remediation steps including enforcing MEDDPICC criteria and requiring documented evidence before commit.",
+          "my_actions": [
+            "Review the linked Outreach blog post on forecasting methods before recommendations are presented",
+            "Prepare for upcoming team discussion on forecasting recommendations from Marc Alex and Fred"
+          ],
+          "tracked_actions": [
+            "Marc Alex meeting with Tom this week to review forecasting improvement ideas",
+            "Marc Alex and Fred regrouping after Tom meeting to prepare broader team recommendations",
+            "Fred conducting sales stages definition review with team"
+          ],
+          "sentiment": "neutral",
+          "suggested_reply": null
+        },
+        "llm_status": "success"
+      }
+    ],
+    "useful": [],
+    "not_important": [],
+    "spam": [
+      {
+        "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAARpd66fAAA=",
+        "sent_at": "2026-03-15T06:37:48Z",
+        "subject": "[JIRA] (CUS-1) INT - Time Tracking",
+        "category": "spam",
+        "category_reason": "Automated notification or marketing digest",
+        "source_system": "jira",
+        "is_reply": false,
+        "is_forward": false,
+        "from": {
+          "name": "Luis Cruz (JIRA)",
+          "address": "jira@aptum.atlassian.net"
+        },
+        "to": [
+          {
+            "name": "Adam Nelson",
+            "address": "adam.nelson@aptum.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body": "Luis Cruz added a worklog.\n\nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\nLuis Cruz 02:34 AM ET\n\nAdded\n\nDescription :\n\nMonitored Atlassian queues, email, phones, LM & teams. Monitored NOC queues.\n\nTime logged : 3 hours\n\nWork log\n\nLuis Cruz02:34 AM\nEdited\n\nView work item\n\nOpen the work item to view attachments over 100 KB\n\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\n\nManage Notifications Give feedback Privacy Policy",
+        "body_word_count": 79,
+        "has_thread": false,
+        "thread_history": null
+      },
+      {
+        "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARrT5OsAAA=",
+        "sent_at": "2026-03-15T12:00:32Z",
+        "subject": "FW: Daily Sales FY18 BI-2679 was executed at 3/15/2026 8:00:01 AM",
+        "category": "spam",
+        "category_reason": "Automated notification or marketing digest",
+        "source_system": "human",
+        "is_reply": false,
+        "is_forward": true,
+        "from": {
+          "name": "Lacie Allen-Morley",
+          "address": "Lacie.Kemp@aptum.com"
+        },
+        "to": [
+          {
+            "name": "Professional Services Request",
+            "address": "PSR@aptum.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body": "From: reports@aptum.com <reports@aptum.com>\nSent: Sunday, 15 March 2026 12:00:15 (UTC+00:00) Dublin, Edinburgh, Lisbon, London\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Lacie Allen-Morley <Lacie.Kemp@aptum.com>; Sarah Blanchard <sblanchard@cloudops.com>\nCc: Paul Billard <paul.billard@aptum.com>; DCSalesOPS <dcsalesops@aptum.com>\nSubject: Daily Sales FY18 BI-2679 was executed at 3/15/2026 8:00:01 AM",
+        "body_word_count": 41,
+        "has_thread": false,
+        "thread_history": null
+      },
+      {
+        "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEUAABAscG_D3c-SI-xeA_iWIqgAARrjJyuAAA=",
+        "sent_at": "2026-03-15T12:15:25Z",
+        "subject": "I’m 48 and I’ve started removing the graduation dates from my resume and...",
+        "category": "spam",
+        "category_reason": "Automated notification or marketing digest",
+        "source_system": "automated",
+        "is_reply": false,
+        "is_forward": false,
+        "from": {
+          "name": "Glassdoor Community",
+          "address": "noreply@glassdoor.com"
+        },
+        "to": [
+          {
+            "name": "Adam Nelson",
+            "address": "anelson@cloudops.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body": "Adam, check out the latest trending posts from the community 🔥\n‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279; ‌​‍‎‏&#65279;\n\nBowl Buzz\n\nHey Adam,\nCatch up on the latest trending posts from the community.\n\nJob Hunting in Tech\n\nDeveloper\n\nI’m 48 and I’ve started removing the graduation dates from my resume and shortening my experience to just the last 15 years. Since I made those...read more\n\n75\n\n60 comments\n\nInterview Tips\n\nLaboratory Supervisor\n\nWould you accept a position if you liked the company, pay, and location and maybe even coworkers/team, but weren’t sure you’d really like the tasks...read more\n\n24\n\n59 comments\n\nThe Worklife Bowl\n\nProject Manager\n\nWhat’s the latest you’re OK with having a call on a Friday? I have a 3 PM call today and I immediately thought to myself “why the person who scheduled...read more\n\n5\n\n35 comments\n\nFIRE Financial Independence Retire Early\n\nEY-Parthenon\n\nAt what Net Worth would you buy a Rolex?\n\n4\n\n27 comments\n\nThe Water Cooler\n\nTech Specialist\n\nI have ADHD - when in the interview process is a good time to bring this up? Or not at all? Should I wait until I start? I would need a few reasonable...read more\n\n7\n\n26 comments\n\nJob Hunting in Tech\n\nProduct Manager\n\nShould we be stressing about AI and our jobs? It’s part of every single conversation these days and no one seems to acknowledge what happens to all of...read more\n\n7\n\n21 comments\n\nBig Law\n\nAssociate\n\nI knew this industry was brutal and it would end sooner rather than later, but I never imagined it would be like this. One day the group slows down...read more\n\n27\n\n19 comments\n\nThe Worklife Bowl\n\nWells Fargo\n\nI had to take bereavement for the first time in my career this week for three days for my grandmother‘s funeral, but our company offers up to two...read more\n\n7\n\n19 comments\n\nJob Searching in Accounting\n\nAccountant\n\nWhat’s the actual reason for wanting employees to be in the office full-time rather than having hybrid working? Productivity is just as good from...read more\n\n8\n\n15 comments\n\nSalaries in Tech\n\nSpotify\n\nLast year Spotify pushed back the date they give comp increases from March 1st till May 1st with seemingly no reason. Has anyone else's company done...read more\n\n5\n\n11 comments\n\nView more posts\n\nThis message was sent to anelson@cloudops.com\n\nPrivacy Policy | Manage Settings | Unsubscribe\n\nGlassdoor\n2261 Market Street STE 10389, San Francisco, CA 94114\n\nCopyright © 2008-2026, Glassdoor LLC. “Glassdoor,” “Worklife Pro,” “Bowls,” and logo are proprietary trademarks of Glassdoor LLC.",
+        "body_word_count": 500,
+        "has_thread": false,
+        "thread_history": null
+      },
+      {
+        "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEUAABAscG_D3c-SI-xeA_iWIqgAARrjJyvAAA=",
+        "sent_at": "2026-03-15T12:54:08Z",
+        "subject": "AI prototype for CloudOps",
+        "category": "spam",
+        "category_reason": "Cold outreach / unsolicited sales email",
+        "source_system": "human",
+        "is_reply": false,
+        "is_forward": false,
+        "from": {
+          "name": "Noaman Faisal",
+          "address": "noaman.faisal@solutionsloft-mail.co"
+        },
+        "to": [
+          {
+            "name": "Adam Nelson",
+            "address": "anelson@cloudops.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body": "You don't often get email from noaman.faisal@solutionsloft-mail.co. Learn why this is important\n\nHi Adam,\n\nI just wanted to connect to see if you're interested in 40 free hours of AI powered software dev at CloudOps?\n\nAt Solutionsloft, we are a team of experts who use AI tools (Claude code, Cursor etc.) to build software at 3x speed compared to an average developer.\n\nTo build trust, we also offer free forty hours so you can test our skills without spending any money.\n\nIf this sounds good to you, please let me know a suitable time for a short intro call.\n\nBest regard,\nNoaman Faisal\nSolutionsloft\n\nP.S. Simply reply with 'Stop' to opt out.",
+        "body_word_count": 112,
+        "has_thread": false,
+        "thread_history": null
+      },
+      {
+        "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEUAABAscG_D3c-SI-xeA_iWIqgAARrjJywAAA=",
+        "sent_at": "2026-03-15T13:34:48Z",
+        "subject": "short intro call",
+        "category": "spam",
+        "category_reason": "Cold outreach / unsolicited sales email",
+        "source_system": "human",
+        "is_reply": false,
+        "is_forward": false,
+        "from": {
+          "name": "Emma Wilson",
+          "address": "emmawilson.seektal@gmail.com"
+        },
+        "to": [
+          {
+            "name": "Adam Nelson",
+            "address": "adam.nelson@aptum.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body": "You don't often get email from emmawilson.seektal@gmail.com. Learn why this is important\n\nHi Adam,\n\nI wanted to quickly reach out to see if Aptum ever needs additional support with Drupal development.\n\nAt Seektal, our team works with companies that need help with Drupal builds, upgrades, and ongoing development without having to expand their internal team.\n\nIf helpful, we’re happy to start with a small pilot project so you can get a feel for how we work.\n\nIf this sounds good to you, please let me know a suitable time for a short intro call.\n\nBest regard,\nEmma Wilson\nSeektal\n\nP.S. Simply reply with 'Stop' to opt out.",
+        "body_word_count": 107,
+        "has_thread": false,
+        "thread_history": null
+      },
+      {
+        "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARrT5OuAAA=",
+        "sent_at": "2026-03-15T20:32:08Z",
+        "subject": "Payout notification: A payment has been submitted to your account",
+        "category": "spam",
+        "category_reason": "Automated notification or marketing digest",
+        "source_system": "automated",
+        "is_reply": false,
+        "is_forward": false,
+        "from": {
+          "name": "Microsoft",
+          "address": "microsoft-noreply@microsoft.com"
+        },
+        "to": [
+          {
+            "name": "Adam Nelson",
+            "address": "adam.nelson@aptum.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body": "See the details in this email about the payment.\n\nA payment has been submitted to your account\n\nWe've submitted a USD1034 Microsoft Commerce Incentives payment to your account on March 12, 2026 for Partner Program 5231236. The payment should be available within 1-10 days.\n\nFor more details about the payment or applicable taxes and/or fees, sign in to Partner Center and view the payment summary section on the Earnings page.\n\nPrivacy Statement\n\nMicrosoft Corporation, One Microsoft Way, ​Redmond, WA 98052​",
+        "body_word_count": 80,
+        "has_thread": false,
+        "thread_history": null
+      }
+    ]
+  },
+  "error": null,
+  "sources_used": [
+    "important",
+    "useful"
+  ],
+  "tokens": {
+    "prompt": 1448,
+    "completion": 249,
+    "total": 1697
+  }
+}
