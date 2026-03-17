@@ -314,10 +314,18 @@ def _skip_llm(thread: Dict) -> Optional[Dict]:
         }
 
     return None
+
+def build_messages(thread: Dict) -> List[Dict]:
+    """
+    Build chat messages for the structured LLM call.
+
+    Uses a cached system prompt variant plus a single user [NOTE:] payload that
+    includes the thread metadata block and a trimmed conversation transcript.
+    """
     user_content = build_user_message(
-        note_content   = _note_content(thread),
-        context_blocks = {"thread_metadata": _context_block(thread)},
-        note_path      = f"thread/{thread.get('thread_id', 'unknown')}",
+        note_content=_note_content(thread),
+        context_blocks={"thread_metadata": _context_block(thread)},
+        note_path=f"thread/{thread.get('thread_id', 'unknown')}",
     )
     return [
         select_system_prompt(thread),
