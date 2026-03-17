@@ -1,6 +1,6 @@
 {
   "source": "email_processor",
-  "collected_at": "2026-03-17T12:25:53.589162Z",
+  "collected_at": "2026-03-17T12:46:17.651150Z",
   "status": "success",
   "objects": {
     "threads": {
@@ -25,8 +25,40 @@
               "address": "matthew.carter@aptum.com"
             },
             {
+              "name": "Tom Kelsch",
+              "address": "tom.kelsch@aptum.com"
+            },
+            {
+              "name": "Kathy Wu",
+              "address": "kathy.wu@aptum.com"
+            },
+            {
               "name": "Roger Gonzales",
               "address": "roger.gonzales@aptum.com"
+            },
+            {
+              "name": "Frederic Gingras",
+              "address": "frederic.gingras@aptum.com"
+            },
+            {
+              "name": "Sarah Blanchard",
+              "address": "sarah.blanchard@aptum.com"
+            },
+            {
+              "name": "Carlton Currey",
+              "address": "carlton.currey@aptum.com"
+            },
+            {
+              "name": "Noe Ibarra",
+              "address": "noe.ibarra@aptum.com"
+            },
+            {
+              "name": "Jorge Quintero",
+              "address": "jorge.quintero@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARz1XS6AAA%3D",
@@ -88,6 +120,38 @@
             {
               "name": "Thomson, Christine",
               "address": "christine.thomson@tdsynnex.com"
+            },
+            {
+              "name": "Matthew Carter",
+              "address": "matthew.carter@aptum.com"
+            },
+            {
+              "name": "Sankar, Rupesh",
+              "address": "rupesh.sankar@tdsynnex.com"
+            },
+            {
+              "name": "Roodi, Maz",
+              "address": "maz.roodi@tdsynnex.com"
+            },
+            {
+              "name": "Tammo, Gina",
+              "address": "gina.tammo@tdsynnex.com"
+            },
+            {
+              "name": "Marc Pare",
+              "address": "marc.pare@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Perkins, Ciara",
+              "address": "ciara.perkins@tdsynnex.com"
+            },
+            {
+              "name": "Neumeier, Debra",
+              "address": "debra.neumeier@tdsynnex.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARujPTBAAA%3D",
@@ -121,12 +185,28 @@
               "address": "matthew.carter@aptum.com"
             },
             {
+              "name": "Marc Pare",
+              "address": "marc.pare@aptum.com"
+            },
+            {
               "name": "Adam Nelson",
               "address": "adam.nelson@aptum.com"
             },
             {
-              "name": "Marc Pare",
-              "address": "marc.pare@aptum.com"
+              "name": "Sarah Blanchard",
+              "address": "sarah.blanchard@aptum.com"
+            },
+            {
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
+            },
+            {
+              "name": "Erik Tanguay",
+              "address": "erik.tanguay@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "andrei.ianouchkevitch@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR3ryWLAAA%3D",
@@ -224,8 +304,28 @@
               "address": "dennis.lam@aptum.com"
             },
             {
+              "name": "Paul Billard",
+              "address": "paul.billard@aptum.com"
+            },
+            {
+              "name": "Jorge Quintero",
+              "address": "jorge.quintero@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Kathy Wu",
+              "address": "kathy.wu@aptum.com"
+            },
+            {
               "name": "Tom Kelsch",
               "address": "tom.kelsch@aptum.com"
+            },
+            {
+              "name": "George Revie",
+              "address": "george.revie@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARujPS_AAA%3D",
@@ -277,6 +377,10 @@
             {
               "name": "Frederic Gingras",
               "address": "frederic.gingras@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARujPS9AAA%3D",
@@ -318,6 +422,18 @@
             {
               "name": "Melvin Ching",
               "address": "melvin.ching@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Nedim Deovic",
+              "address": "nedim.deovic@aptum.com"
+            },
+            {
+              "name": "Fred Taylor-Young",
+              "address": "fred.taylor-young@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARujPS7AAA%3D",
@@ -349,6 +465,30 @@
             {
               "name": "Matthew Carter",
               "address": "matthew.carter@aptum.com"
+            },
+            {
+              "name": "Sankar, Rupesh",
+              "address": "rupesh.sankar@tdsynnex.com"
+            },
+            {
+              "name": "Mohammadi, Maz",
+              "address": "mazyar.mohammadi@tdsynnex.com"
+            },
+            {
+              "name": "Tammo, Gina",
+              "address": "gina.tammo@tdsynnex.com"
+            },
+            {
+              "name": "Marc Pare",
+              "address": "marc.pare@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Thomson, Christine",
+              "address": "christine.thomson@tdsynnex.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARujPS3AAA%3D",
@@ -384,6 +524,22 @@
             {
               "name": "Paul Billard",
               "address": "paul.billard@aptum.com"
+            },
+            {
+              "name": "Sarah Blanchard",
+              "address": "sarah.blanchard@aptum.com"
+            },
+            {
+              "name": "Dennis Lam",
+              "address": "dennis.lam@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Jorge Quintero",
+              "address": "jorge.quintero@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARujPSyAAA%3D",
@@ -427,12 +583,32 @@
               "address": "barbara.krzywoszanski@aptum.com"
             },
             {
+              "name": "Frederic Gingras",
+              "address": "frederic.gingras@aptum.com"
+            },
+            {
+              "name": "Elizabeth Perez",
+              "address": "elizabeth.perez@aptum.com"
+            },
+            {
               "name": "Adam Nelson",
               "address": "adam.nelson@aptum.com"
             },
             {
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
+            },
+            {
+              "name": "Charles Rutledge",
+              "address": "charles.rutledge@aptum.com"
+            },
+            {
               "name": "Fred Taylor-Young",
               "address": "fred.taylor-young@aptum.com"
+            },
+            {
+              "name": "Information Security",
+              "address": "information_security@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARujPSqAAA%3D",
@@ -484,6 +660,10 @@
             {
               "name": "Adam Nelson",
               "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "andrei.ianouchkevitch@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAARwdUgSAAA%3D",
@@ -515,6 +695,10 @@
             {
               "name": "Adam Nelson",
               "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "andrei.ianouchkevitch@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAARwdUgRAAA%3D",
@@ -546,6 +730,38 @@
             {
               "name": "Brad Wong",
               "address": "brad.wong@aptum.com"
+            },
+            {
+              "name": "Matthew Carter",
+              "address": "matthew.carter@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Andy Petterson",
+              "address": "andy.petterson@aptum.com"
+            },
+            {
+              "name": "Jorge Quintero",
+              "address": "jorge.quintero@aptum.com"
+            },
+            {
+              "name": "Eric Lafreniere",
+              "address": "eric.lafreniere@aptum.com"
+            },
+            {
+              "name": "Bryan Gough",
+              "address": "bryan.gough@aptum.com"
+            },
+            {
+              "name": "Marc Pare",
+              "address": "marc.pare@aptum.com"
+            },
+            {
+              "name": "Will Stevens",
+              "address": "will.stevens@aptum.com"
             }
           ],
           "thread_url": "https://outlook.office.com/mail/inbox/id/AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARujPSUAAA%3D",
