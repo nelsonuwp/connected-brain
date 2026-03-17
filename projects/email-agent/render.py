@@ -43,7 +43,6 @@ DEFAULT_INPUT = Path(__file__).resolve().parent / "outputs" / "emails_summary.js
 
 
 def _default_vault_path() -> Path:
-    # connected-brain/vault (repo root is parents[2] from projects/email-agent/render.py)
     return Path(__file__).resolve().parents[2] / "vault"
 
 
@@ -54,108 +53,97 @@ def _resolve_daily_note_path(date_str: str) -> Path:
 
 # ── Rendering helpers ─────────────────────────────────────────────────────────
 
-_SIGNAL_EMOJI = {
-    "it_ticket": "ticket",
-    "doc_share": "doc",
-    "crm_lead": "lead",
-    "hr_report": "HR",
-    "jira_notification": "JIRA",
-    "auto_reply": "auto-reply",
-    "scheduled_report": "report",
-    "partner_notification": "partner",
-    "crm_notification": "CRM",
-    "it_notification": "IT",
-    "auto_forward": "fwd",
-}
-
-
-def _signal_detail(sig: Dict[str, Any]) -> str:
-    ext = sig.get("extracted") or {}
-    if isinstance(ext, dict):
-        if ext.get("ticket_id"):
-            desc = (ext.get("description") or "").strip()
-            return f"{ext.get('ticket_id')} {desc}".strip()
-        if ext.get("contact") and ext.get("company"):
-            return f"{ext.get('contact')} @ {ext.get('company')}".strip()
-        if ext.get("document"):
-            return str(ext.get("document"))
-        if ext.get("original_subject"):
-            return str(ext.get("original_subject"))
-        if ext.get("subject"):
-            return str(ext.get("subject"))
-    return (sig.get("subject") or "")[:100]
-
-
-def _truncate_reply(text: str, limit: int = 150) -> str:
-    t = (text or "").strip()
-    if not t:
-        return ""
-    if len(t) <= limit:
-        return t
-    return t[:limit].rstrip() + "..."
+def _linked_subject(thread: Dict[str, Any]) -> str:
+    """Subject as an Outlook deep link."""
+    subject = (thread.get("subject") or "").strip()
+    url = thread.get("thread_url") or ""
+    if url:
+        return f"[{subject}]({url})"
+    return subject
 
 
 def _render_thread_block(thread: Dict[str, Any]) -> List[str]:
     llm = thread.get("llm_summary") or {}
     lines: List[str] = []
 
-    lines.append(f"#### {thread.get('subject', '').strip()}")
-    one_line = (llm.get("one_line") or "").strip()
-    if one_line:
-        lines.append(f"**{one_line}**")
+    # Subject as linked header
+    lines.append(f"#### {_linked_subject(thread)}")
 
-    for action in (llm.get("my_actions") or []):
-        a = str(action).strip()
-        if a:
-            lines.append(f"- [ ] {a}")
+    # Full summary (not one_line)
+    summary = (llm.get("summary") or "").strip()
+    if summary:
+        lines.append(summary)
 
-    for taction in (llm.get("tracked_actions") or []):
-        ta = str(taction).strip()
-        if ta:
+    # My Actions — explicit sub-header with task checkboxes
+    my_actions = [str(a).strip() for a in (llm.get("my_actions") or []) if str(a).strip()]
+    if my_actions:
+        lines.append("")
+        lines.append("##### My Actions")
+        for action in my_actions:
+            lines.append(f"- [ ] {action}")
+
+    # Tracked Actions — explicit sub-header
+    tracked = [str(a).strip() for a in (llm.get("tracked_actions") or []) if str(a).strip()]
+    if tracked:
+        lines.append("")
+        lines.append("##### Tracking")
+        for ta in tracked:
             lines.append(f"- {ta}")
 
+    # Suggested reply — full text, no truncation
     suggested = (llm.get("suggested_reply") or "").strip() if llm.get("suggested_reply") else ""
     if suggested:
-        url = thread.get("thread_url") or ""
-        preview = _truncate_reply(suggested, 150)
-        if url:
-            lines.append(f'> *"{preview}"* → [Open in Outlook]({url})')
-        else:
-            lines.append(f'> *"{preview}"*')
+        lines.append("")
+        lines.append(f'> *"{suggested}"*')
 
-    lines.append(f'> `{thread.get("email_count", 0)} emails · {thread.get("last_sent", "")}`')
+    # Thread metadata
+    lines.append("")
+    lines.append(f'`{thread.get("email_count", 0)} emails · {thread.get("last_sent", "")}`')
     return lines
 
 
-def _render_new_info_callout(thread: Dict[str, Any]) -> List[str]:
+def _render_new_info_block(thread: Dict[str, Any]) -> List[str]:
+    """New information threads — plain readable sections, no callout syntax."""
     llm = thread.get("llm_summary") or {}
-    subject = (thread.get("subject") or "").strip()
-    one_line = (llm.get("one_line") or "").strip()
-    summary = (llm.get("summary") or "").strip()
-
     lines: List[str] = []
-    lines.append(f"> [!info]- {subject}")
-    if one_line:
-        lines.append(f"> **{one_line}**")
 
+    # Subject as linked header
+    lines.append(f"#### {_linked_subject(thread)}")
+
+    # Full summary
+    summary = (llm.get("summary") or "").strip()
     if summary:
-        # Ensure every line remains in the callout
-        for ln in summary.splitlines():
-            lines.append(f"> {ln}")
+        lines.append(summary)
 
-    for taction in (llm.get("tracked_actions") or []):
-        ta = str(taction).strip()
-        if ta:
-            lines.append(f"> - {ta}")
+    # Tracked Actions if any
+    tracked = [str(a).strip() for a in (llm.get("tracked_actions") or []) if str(a).strip()]
+    if tracked:
+        lines.append("")
+        lines.append("##### Tracking")
+        for ta in tracked:
+            lines.append(f"- {ta}")
 
-    url = thread.get("thread_url") or ""
-    if url:
-        lines.append(f"> [Open in Outlook]({url})")
-
+    # Thread metadata
+    lines.append("")
+    lines.append(f'`{thread.get("email_count", 0)} emails · {thread.get("last_sent", "")}`')
     return lines
 
 
-def render_markdown(summary_json: Dict[str, Any]) -> Tuple[List[str], Dict[str, Any]]:
+def _derive_date_label(threads: List[Dict[str, Any]]) -> str:
+    """Derive a date or date range string from thread last_sent fields."""
+    dates = sorted(set(
+        (t.get("last_sent") or "")[:10]
+        for t in threads
+        if (t.get("last_sent") or "")[:10]
+    ))
+    if not dates:
+        return ""
+    if len(dates) == 1:
+        return dates[0]
+    return f"{dates[0]} → {dates[-1]}"
+
+
+def render_markdown(summary_json: Dict[str, Any]) -> List[str]:
     output = summary_json.get("output") or {}
     threads = output.get("threads") or []
     signals = output.get("system_notifications") or []
@@ -166,58 +154,37 @@ def render_markdown(summary_json: Dict[str, Any]) -> Tuple[List[str], Dict[str, 
     waiting_on_others = [t for t in threads if (t.get("llm_summary") or {}).get("category") == "waiting_on_others"]
     new_information = [t for t in threads if (t.get("llm_summary") or {}).get("category") == "new_information"]
 
+    date_label = _derive_date_label(threads)
+
     lines: List[str] = []
-    lines.append("## Email Summary")
+    lines.append(f"## Email Summary — {date_label}")
     lines.append(f"> {len(threads)} threads · {len(signals)} signals · {discard_count} discarded · {total_tokens:,} tokens")
 
+    # ── Waiting on Me ─────────────────────────────────────────────────────
     if waiting_on_me:
         lines.append("")
         lines.append(f"### Waiting on Me ({len(waiting_on_me)})")
-        lines.append("")
-        for idx, t in enumerate(waiting_on_me):
+        for t in waiting_on_me:
+            lines.append("")
             lines.extend(_render_thread_block(t))
-            if idx < len(waiting_on_me) - 1:
-                lines.append("")
 
+    # ── Waiting on Others ─────────────────────────────────────────────────
     if waiting_on_others:
         lines.append("")
         lines.append(f"### Waiting on Others ({len(waiting_on_others)})")
-        lines.append("")
-        for idx, t in enumerate(waiting_on_others):
+        for t in waiting_on_others:
+            lines.append("")
             lines.extend(_render_thread_block(t))
-            if idx < len(waiting_on_others) - 1:
-                lines.append("")
 
+    # ── New Information ───────────────────────────────────────────────────
     if new_information:
         lines.append("")
         lines.append(f"### New Information ({len(new_information)})")
-        lines.append("")
-        for idx, t in enumerate(new_information):
-            # No blank lines inside callout blocks; callout lines are contiguous.
-            lines.extend(_render_new_info_callout(t))
-            if idx < len(new_information) - 1:
-                lines.append("")
+        for t in new_information:
+            lines.append("")
+            lines.extend(_render_new_info_block(t))
 
-    if signals:
-        lines.append("")
-        lines.append("### Signals")
-        lines.append("| Type | Detail | Link |")
-        lines.append("|------|--------|------|")
-        for sig in signals:
-            stype = (sig.get("signal_type") or "").strip()
-            label = _SIGNAL_EMOJI.get(stype, stype or "signal")
-            detail = _signal_detail(sig).replace("\n", " ").strip()
-            url = sig.get("outlook_url") or ""
-            link = f"[link]({url})" if url else ""
-            lines.append(f"| {label} | {detail} | {link} |")
-
-    meta = {
-        "threads": threads,
-        "signals": signals,
-        "discard_count": discard_count,
-        "total_tokens": total_tokens,
-    }
-    return lines, meta
+    return lines
 
 
 # ── Injection ─────────────────────────────────────────────────────────────────
@@ -226,16 +193,17 @@ def inject_email_summary(note_path: Path, rendered_lines: List[str]) -> None:
     content = note_path.read_text(encoding="utf-8")
     lines = content.split("\n")
 
+    # Find existing ## Email Summary section (match prefix to handle date suffix)
     start_idx: Optional[int] = None
     for i, line in enumerate(lines):
-        if line.strip() == "## Email Summary":
+        if line.strip().startswith("## Email Summary"):
             start_idx = i
             break
 
     if start_idx is not None:
         end_idx: Optional[int] = None
         for i in range(start_idx + 1, len(lines)):
-            if lines[i].startswith("## ") and lines[i].strip() != "## Email Summary":
+            if lines[i].startswith("## ") and not lines[i].strip().startswith("## Email Summary"):
                 end_idx = i
                 break
         if end_idx is None:
@@ -285,7 +253,7 @@ def main(file_override: str = None) -> int:
         print(f"  render failed reading input: {e}")
         return 1
 
-    rendered_lines, _ = render_markdown(summary_json)
+    rendered_lines = render_markdown(summary_json)
 
     if target_file_arg == "auto":
         threads = (summary_json.get("output") or {}).get("threads") or []
@@ -315,4 +283,3 @@ def main(file_override: str = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
