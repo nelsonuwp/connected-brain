@@ -307,13 +307,19 @@ def call_json(
     verbosity: str = "low",
 ):
     """
-    Like call() but parses the response as JSON using json_object mode.
-    Less strict than call_structured() — use when json_schema isn't supported.
+    Like call() but parses the response as JSON.
+    Uses assistant prefill '{' to force JSON output regardless of model support
+    for response_format — prevents models like Haiku from returning markdown.
     Returns (parsed_dict, raw_response). parsed_dict is None on parse failure.
     """
+    # Assistant prefill forces the model to begin mid-JSON, same trick as call_structured.
+    # Works on all OpenRouter models including those that ignore response_format.
+    messages_with_prefill = list(messages) + [
+        {"role": "assistant", "content": "{"}
+    ]
     raw = call(
         model=model,
-        messages=messages,
+        messages=messages_with_prefill,
         temperature=temperature,
         max_tokens=max_tokens,
         response_format={"type": "json_object"} if _supports_json_object(model) else None,
@@ -323,7 +329,10 @@ def call_json(
     if raw is None:
         return None, None
 
+    # Prepend the prefill character back
     content = raw["content"]
+    content = "{" + content if not content.startswith("{") else content
+
     if content.startswith("```"):
         lines   = content.splitlines()
         content = "\n".join(l for l in lines if not l.strip().startswith("```")).strip()

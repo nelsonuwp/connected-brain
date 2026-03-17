@@ -118,20 +118,32 @@ def sender_domain_str(raw: Dict) -> str:
 INTERNAL_DOMAINS = {"aptum.com", "cloudops.com"}
 
 _DISCARD_SENDERS = re.compile(
-    r"(noreply|no-reply|donotreply|mailer@|bounce@|glassdoor\.com|microsoft-noreply)", re.I)
+    r"(noreply|no-reply|donotreply|mailer@|bounce@|glassdoor\.com|microsoft-noreply|"
+    r"adpdonotreply|@connect\.media|@contex\.ca|@groupecontex|communications@now\.|"
+    r"support@wheniwork|mscnm@microsoft\.com|@salesforce\.com|@marketo|@hubspot\.com|"
+    r"@mailchimp|@constantcontact|evenements)", re.I)
 _DISCARD_SUBJECTS = re.compile(
-    r"(newsletter|digest|bowl buzz|unsubscribe|daily sales|payout notification)", re.I)
+    r"(newsletter|digest|bowl buzz|unsubscribe|daily sales|payout notification|"
+    r"breaking news:|statement of account|it.s account check in|last chance!|"
+    r"webinar|free .*(session|training)|you.re invited to)", re.I)
 _COLD_OUTREACH = re.compile(
     r"(opt.?out|reply.{0,10}stop|pilot project|free hours?|intro call|"
     r"book a (call|demo|meeting)|reach out to see if)", re.I)
+# Outlook external-sender warning — reliable signal for external marketing
+_OUTLOOK_EXTERNAL_WARNING = re.compile(
+    r"you don.t often get email from", re.I)
 
 def is_discard(raw: Dict, body: str) -> bool:
     addr     = sender_addr_str(raw)
     subj     = raw.get("subject") or ""
-    internal = sender_domain_str(raw) in INTERNAL_DOMAINS
+    domain   = sender_domain_str(raw)
+    internal = domain in INTERNAL_DOMAINS
     if _DISCARD_SENDERS.search(addr):    return True
     if _DISCARD_SUBJECTS.search(subj):   return True
     if not internal and _COLD_OUTREACH.search(body): return True
+    # Any external sender that triggers Outlook's "you don't often get email from"
+    # banner is definitionally low-trust / marketing / cold contact
+    if not internal and _OUTLOOK_EXTERNAL_WARNING.search(body[:500]): return True
     return False
 
 # ── System notification detection ─────────────────────────────────────────────
@@ -239,8 +251,35 @@ def build_threads(candidates: List[Dict]) -> List[Dict]:
             ],
         })
 
+    # Filter threads with no usable content (empty Graph responses)
+    threads = [
+        t for t in threads
+        if t.get("subject") or any(e.get("body") for e in t.get("emails", []))
+    ]
     threads.sort(key=lambda t: t.get("last_sent") or "", reverse=True)
     return threads
+
+def _dedup_signals(signals: List[Dict]) -> List[Dict]:
+    """
+    Remove duplicate system notifications.
+    Dedup key: (signal_type, day, canonical_id)
+    where canonical_id = ticket_id | contact+company | document | subject[:40]
+    Keep the latest occurrence of each key.
+    """
+    seen: Dict[tuple, Dict] = {}
+    for s in signals:
+        day     = (s.get("sent_at") or "")[:10]
+        stype   = s.get("signal_type", "")
+        ext     = s.get("extracted") or {}
+        cid     = (ext.get("ticket_id")
+                   or (ext.get("contact", "") + "|" + ext.get("company", ""))
+                   or ext.get("document", "")
+                   or (s.get("subject") or "")[:40])
+        key     = (stype, day, cid.lower())
+        # later occurrence wins (keeps last update of the day)
+        seen[key] = s
+    return list(seen.values())
+
 
 # ── Per-message router ────────────────────────────────────────────────────────
 
@@ -310,8 +349,10 @@ def main() -> int:
             else:                     discards.append(data)
 
         threads = build_threads(thread_candidates)
+        signals = _dedup_signals(signals)
 
         print(f"  threads              → {len(threads):3d}  ({len(thread_candidates)} emails)")
+        print(f"  system_notifications → {len(signals):3d}  (before dedup: raw count)")
         print(f"  system_notifications → {len(signals):3d}")
         print(f"  discard              → {len(discards):3d}")
 
