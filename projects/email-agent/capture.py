@@ -8,8 +8,8 @@ Writes a SourceArtifact JSON - raw payload, never reshaped.
 Output: outputs/source_emails.json
 
 Usage:
-  python 1_capture_emails.py
-  python 1_capture_emails.py --start-date 2026-03-10 --end-date 2026-03-15
+  python capture.py
+  python capture.py --start-date 2026-03-10 --end-date 2026-03-15
 """
 
 import argparse
@@ -192,17 +192,29 @@ def fetch_messages(start: date, end: date, token: str) -> List[Dict[str, Any]]:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def main() -> int:
+def main(start_date_override: str = None, end_date_override: str = None) -> int:
+    """
+    Run capture. When called from run_pipeline.py, date overrides are passed
+    directly. When run standalone, dates come from argparse.
+    """
     load_env()
 
-    parser = argparse.ArgumentParser(description="Capture emails → SourceArtifact JSON.")
-    parser.add_argument("--start-date")
-    parser.add_argument("--end-date")
-    parser.add_argument("-o", "--output", default=str(OUTPUT_PATH))
-    args = parser.parse_args()
+    if start_date_override is not None:
+        start_str = start_date_override
+        end_str   = end_date_override
+        output    = str(OUTPUT_PATH)
+    else:
+        parser = argparse.ArgumentParser(description="Capture emails → SourceArtifact JSON.")
+        parser.add_argument("--start-date")
+        parser.add_argument("--end-date")
+        parser.add_argument("-o", "--output", default=str(OUTPUT_PATH))
+        args = parser.parse_args()
+        start_str = args.start_date
+        end_str   = args.end_date
+        output    = args.output
 
     try:
-        start, end = compute_date_range(args.start_date, args.end_date)
+        start, end = compute_date_range(start_str, end_str)
     except (argparse.ArgumentTypeError, ValueError) as e:
         print(f"Date error: {e}")
         return 1
@@ -210,9 +222,8 @@ def main() -> int:
     print(f"Capturing emails {start} → {end}")
 
     artifact = make_source_artifact("microsoft_graph_email")
-    # Domain-level extension fields
     artifact["date_range"] = {"start": start.isoformat(), "end": end.isoformat()}
-    output_path = Path(args.output)
+    output_path = Path(output)
 
     try:
         token    = get_access_token()

@@ -1,7 +1,7 @@
 {
   "run_id": "",
   "model": "anthropic/claude-sonnet-4-5",
-  "generated_at": "2026-03-17T14:52:43.471009Z",
+  "generated_at": "2026-03-17T15:16:20.186968Z",
   "mode": "inbox_triage",
   "status": "success",
   "output": {
@@ -46,21 +46,21 @@
         "model_used": "anthropic/claude-sonnet-4-5",
         "llm_summary": {
           "category": "waiting_on_me",
-          "one_line": "Matthew asking if Adam completed required Wufoo paperwork for AWS supplier transition.",
-          "summary": "Team approved switching US AWS customers from Ingram to TD Synnex. Adam committed to booking a coordination call with Lacie, Erik, Andrei, and Kristina to plan customer migration. Matthew now asks two outstanding questions: the US region APN number and whether Adam completed the required Wufoo paperwork for the transition.",
+          "one_line": "Matthew needs APN for US region, cutover date confirmation, and Wufoo paperwork completion.",
+          "summary": "Team approved TD Synnex as supplier to replace Ingram for US AWS customers. Adam looped in Andrei, Lacie, and Erik for customer migration planning and said he'd book a coordination call. Matthew now needs three items from Adam: the US region APN number, confirmation of March 22 cutover date, and completion of required Wufoo paperwork.",
           "my_actions": [
             "Provide US region APN number to Matthew",
-            "Confirm whether Wufoo paperwork was completed or complete it",
-            "Book coordination call with Lacie, Erik, Andrei, Kristina, and Matthew"
+            "Confirm or adjust March 22 cutover date",
+            "Complete required Wufoo paperwork",
+            "Book coordination call with Andrei, Lacie, Erik, and Kristina"
           ],
           "tracked_actions": [
-            "Matthew proceeding with TD Synnex as supplier",
-            "Lacie's team (Kristina) to lead customer migration documentation",
-            "Erik to handle billing transition at month-end",
-            "Andrei to manage customer impact communications"
+            "Lacie's team (Kristina) to lead customer-by-customer migration documentation",
+            "Andrei to manage customer impact communications (billing/CloudCheckr access)",
+            "Erik to handle billing coordination at month boundaries"
           ],
-          "sentiment": "neutral",
-          "suggested_reply": "Hi Matthew, I'll get you the US APN by end of day. On the Wufoo paperwork — can you send me the link? I want to make sure I'm completing the right form. Also booking that coordination call for this week to align everyone on timeline and customer migration process."
+          "sentiment": "urgent",
+          "suggested_reply": "Hi Matthew, I'll get you the US APN and confirm the 3/22 date by end of day. I need to track down the Wufoo paperwork details—can you send me the link or specifics on what's required? I'm booking the coordination call with the team for this week to align on the migration plan and timeline."
         },
         "llm_status": "success"
       },
@@ -108,19 +108,19 @@
         "model_used": "anthropic/claude-sonnet-4-5",
         "llm_summary": {
           "category": "waiting_on_me",
-          "one_line": "Digital Bridge info request: Adam tagged to provide contract expiry data for top 10 clients.",
-          "summary": "Sarah requested updated information for Digital Bridge by EOD tomorrow. Adam is specifically tagged to provide contract expiry dates for top 10 clients (along with Kathy Wu or Tom Kelsch). Dennis and Tom have already responded with their portions. Adam needs to confirm he can deliver contract expiry data by the deadline or indicate alternate timing.",
+          "one_line": "Digital Bridge info request: Adam tagged to provide contract expiry data for top 10 clients by EOD tomorrow.",
+          "summary": "Sarah requested updated information for Digital Bridge with EOD tomorrow deadline. Adam is specifically tagged to provide contract expiry dates for top 10 clients (along with Kathy Wu or Tom Kelsch). Dennis responded about contribution margin approach, and Tom delivered sales pipeline data. Adam has not yet responded regarding the contract expiry information he was asked to provide.",
           "my_actions": [
-            "Provide contract expiry dates for top 10 clients by EOD tomorrow, or confirm alternate timing with Sarah",
-            "Coordinate with Kathy Wu or Tom Kelsch if needed to compile contract expiry information"
+            "Provide contract expiry dates for top 10 clients by EOD tomorrow (March 17)",
+            "Coordinate with Kathy Wu or Tom Kelsch if needed to compile contract expiry data"
           ],
           "tracked_actions": [
-            "Paul Billard providing MRR, scope, margin, and customer demographics",
-            "Dennis Lam collaborating on contribution margin definition and data",
-            "Tom Kelsch already delivered sales pipeline data"
+            "Dennis Lam providing contribution margin data using Jorge's profitability analysis",
+            "Paul Billard providing MRR, LOB scope, and customer demographics",
+            "Tom Kelsch providing customer demographics and has already delivered sales pipeline data"
           ],
           "sentiment": "urgent",
-          "suggested_reply": "Hi Sarah, I can provide the contract expiry data for the top 10 clients. I'll coordinate with Kathy and Tom to ensure we have complete information and will have this to you by EOD tomorrow. Let me know if you need anything else from my end."
+          "suggested_reply": "Hi Sarah, I'll work with Kathy and Tom to pull together the contract expiry dates for the top 10 clients and get that to you by EOD tomorrow. Tom, can you confirm you have the client list so we're all working from the same top 10? Thanks."
         },
         "llm_status": "success"
       },
@@ -209,18 +209,18 @@
         "llm_summary": {
           "category": "waiting_on_me",
           "one_line": "Matthew confirms DSA/CTA sponsorship move to TDSynnex US by March 22; needs Adam's awareness/approval.",
-          "summary": "Matthew Carter is proceeding with transitioning the DSA/CTA sponsorship from the current provider to TDSynnex in the US region, with a requested move date of March 22. This follows a meeting about AWS partner program changes effective April 1st that include new discount structures and incentive deprecations. Matthew is asking what additional information or documentation is needed to complete the transition, and has already contacted Amazon's distribution program team.",
+          "summary": "Matthew Carter is proceeding with transitioning the DSA/CTA sponsorship from the current provider to TDSynnex in the US region, with a requested move date of March 22, 2026. He has contacted Amazon's distribution program team and is asking Rupesh what additional documentation is needed. This follows a meeting about AWS partner program changes effective April 1st that include new discount structures and incentive changes. Adam is copied as VP of Operations and may need to approve or be aware of this strategic partnership transition.",
           "my_actions": [
             "Review and approve the DSA/CTA sponsorship transition to TDSynnex by March 22",
-            "Confirm any additional documentation or information requirements Matthew needs to provide"
+            "Confirm Matthew has authority to proceed or provide guidance on next steps"
           ],
           "tracked_actions": [
             "Matthew Carter coordinating transition details with TDSynnex and Amazon",
-            "TDSynnex team (Rupesh, Maz, Gina, Christine) supporting the sponsorship change",
-            "March 22 move date pending with Amazon distribution program team"
+            "Rupesh Sankar to provide required documentation for sponsorship change",
+            "TDSynnex team implementing new AWS partner program changes by April 1st"
           ],
           "sentiment": "neutral",
-          "suggested_reply": "Matthew, thanks for the update. The March 22 transition date to TDSynnex works from my perspective. Please coordinate directly with Marc and finance on any documentation requirements, and keep me posted if any issues arise with Amazon's approval. Let me know if you need anything else to move this forward."
+          "suggested_reply": "Matthew, thanks for the update. The March 22 transition timeline works. Please keep me posted on any documentation requirements from Rupesh and flag if there are any blockers. Also, let's schedule a brief sync on the April 1st AWS program changes and how they impact our partnership economics."
         },
         "llm_status": "success"
       },
@@ -268,19 +268,20 @@
         "model_used": "anthropic/claude-sonnet-4-5",
         "llm_summary": {
           "category": "waiting_on_me",
-          "one_line": "Customer SQL Server license violation: clarify Aptum's liability and ownership for policing software licenses.",
-          "summary": "Barbara raised concern that Aptum could be liable and fined if Microsoft audits a customer's SQL Server license misuse. Adam looped in Fred Taylor-Young from InfoSec/former Abuse team. Fred clarified that Abuse historically handled service misuse (bitcoin mining, illegal sites), not software license violations, and questions whether Aptum should police customer license compliance at all given potential liability from misinterpretation. The issue appears to have fallen through cracks after the Abuse manager departed. Adam needs to decide: who owns this issue, what Aptum's policy should be on customer license compliance, and how to proceed with this specific customer situation.",
+          "one_line": "Customer SQL Server license violation: clarify Aptum's liability and ownership for enforcement.",
+          "summary": "Barbara raised concern that Aptum could be liable and fined if Microsoft audits a customer's SQL Server license misuse. Adam looped in Fred Taylor-Young from InfoSec/former Abuse team. Fred clarified that Abuse historically handled service misuse (bitcoin mining, illegal sites), not software license violations, and questions whether Aptum should police customer license compliance at all given potential liability from misinterpretation. The ticket fell through cracks after the Abuse manager departed. Adam needs to decide: who owns this issue, what Aptum's policy should be on customer license violations, and how to proceed with this specific customer.",
           "my_actions": [
-            "Decide whether customer software license compliance falls under Abuse, InfoSec, Service Delivery, or another team",
-            "Clarify Aptum's policy and liability exposure when customers violate third-party software licenses",
-            "Provide direction on how to handle this specific Smart Scale SQL Server license issue"
+            "Determine whether customer software license violations are Aptum's responsibility to police or report",
+            "Clarify Aptum's liability exposure if customer is audited by Microsoft for license misuse",
+            "Decide which team (Service Delivery, InfoSec, Legal, Account Management) should own customer license compliance issues",
+            "Provide direction on how to handle this specific Smart Scale SQL Server license case"
           ],
           "tracked_actions": [
-            "Fred Taylor-Young and InfoSec team awaiting guidance on whether license issues should be their responsibility",
-            "Barbara and Service Delivery team need to know how to proceed with the customer"
+            "Fred Taylor-Young and InfoSec team awaiting policy guidance on handling license violation tickets",
+            "Barbara and Service Delivery team need clarity on their obligations when discovering customer license issues"
           ],
           "sentiment": "negative",
-          "suggested_reply": "Thanks Fred for the context. I agree license compliance shouldn't fall under Abuse/InfoSec. Barbara, can you clarify the specific license violation and whether the customer has been notified? Let's discuss our liability exposure and whether we need legal input before deciding next steps. In general, we should notify customers of potential violations but not actively police their license compliance unless it creates direct liability for Aptum."
+          "suggested_reply": "Thanks Fred for the context. You're right that customer software license compliance shouldn't fall under Abuse. I'll loop in Legal to clarify our liability exposure and contractual obligations here. My initial take: we should notify customers of potential violations we discover, but policing their license compliance isn't our responsibility unless it creates direct risk to Aptum. Let me confirm our position and get back to the team with clear ownership and process. Barbara, hold on this specific ticket until we have guidance."
         },
         "llm_status": "success"
       },
@@ -337,7 +338,7 @@
         "llm_summary": {
           "category": "new_information",
           "one_line": "Matthew reminds Roger to recover $2K/mo margin on eBoards Imperva renewals going forward.",
-          "summary": "Matthew Carter flagged that Aptum is losing money on Imperva services for the eBoards account and requested the team recover an additional $2K/mo on future renewals. Roger questioned how the margin issue occurred despite deal desk approvals, but Matthew clarified they're focused on solving it going forward, not root-causing. Roger acknowledged and committed to keeping the $2K/mo recovery in mind for eBoard renewals. Adam is CC'd for awareness.",
+          "summary": "Matthew Carter flagged that Aptum is losing money on Imperva services for the eBoards account and requested the team recover an additional $2K/mo on future renewals. Roger questioned how the margin issue occurred despite deal desk approvals, but Matthew redirected focus to solving it going forward rather than root-causing. Roger acknowledged and committed to keeping the $2K/mo recovery in mind for eBoard renewals. Adam is CC'd for visibility.",
           "my_actions": [],
           "tracked_actions": [
             "Roger Gonzales to incorporate $2K/mo margin recovery into future eBoards renewals"
@@ -396,13 +397,12 @@
         "llm_summary": {
           "category": "new_information",
           "one_line": "TD SYNNEX confirms partnership, assigns US contacts for AWS CTA transfer by March 22.",
-          "summary": "Christine Thomson from TD SYNNEX confirms Aptum's decision to move forward with them as AWS partner. She assigns Ciara Perkins and Deb Neumeier as US contacts for the CTA transfer requested for March 22, while her team continues supporting Canadian operations. She proposes activating the Canadian account in parallel to prepare for future expansion.",
+          "summary": "Christine Thomson from TD SYNNEX confirms Aptum's decision to move forward with them as AWS partner. She assigns Ciara Perkins and Deb Neumeier as US contacts for AWS support, with CTA transfer requested for March 22. Canadian team (Rupesh, Maz, Christine) will continue supporting Canadian region while pushing ahead with account activation there.",
           "my_actions": [],
           "tracked_actions": [
-            "Matthew Carter leading TD SYNNEX partnership transition",
-            "Rupesh sending background information to US TD SYNNEX contacts",
-            "TD SYNNEX team onboarding Aptum for AWS CTA transfer by March 22",
-            "Canadian account activation proceeding in parallel"
+            "TD SYNNEX US team (Ciara Perkins, Deb Neumeier) to support US onboarding and CTA transfer by March 22",
+            "Rupesh to send background information to US team",
+            "TD SYNNEX to activate Aptum account in Canada for future business"
           ],
           "sentiment": "positive",
           "suggested_reply": null
@@ -429,12 +429,12 @@
         "model_used": "anthropic/claude-sonnet-4-5",
         "llm_summary": {
           "category": "new_information",
-          "one_line": "Customer compliance doc request escalated; GSE-306 opened, Steve meeting Andy tomorrow.",
-          "summary": "Frederic forwarded an internal thread about a customer (Charles/OBDS) requesting SOC 2 Type II and ISO 27001 documentation. The team initially missed that Matt Carter continued engaging the customer directly. A GSE (GSE-306) has been opened to track this. Steve Rioux will discuss with Andy Petterson tomorrow morning to coordinate the response.",
+          "one_line": "Customer compliance request escalated; GSE-306 opened, Steve meeting Andy tomorrow.",
+          "summary": "Frederic forwarded an internal escalation about a customer (Charles/OBDS) requesting SOC 2 Type II and ISO 27001 documentation. The team initially missed that Matt Carter continued the conversation directly with the customer. A GSE (GSE-306) has been opened to track this. Steve Rioux will discuss with Andy Petterson tomorrow morning.",
           "my_actions": [],
           "tracked_actions": [
-            "Steve Rioux meeting with Andy Petterson tomorrow AM to discuss customer compliance documentation request",
-            "GSE-306 tracking the vendor compliance documentation request for OBDS customer"
+            "Steve Rioux meeting with Andy Petterson tomorrow AM regarding customer compliance documentation",
+            "GSE-306 tracking the SOC 2/ISO 27001 request resolution"
           ],
           "sentiment": "neutral",
           "suggested_reply": null
@@ -478,10 +478,10 @@
         "llm_summary": {
           "category": "new_information",
           "one_line": "Paul confirms Lacie's churn report with service IDs and ticket links fills the gap.",
-          "summary": "Paul requested churn analysis for large February 2026 revenue losses. Lacie updated the spreadsheet with comments and ticket links, noting some customers lack Ocean documentation. Paul confirmed the report meets their needs. Lacie also shared BI Report (BI-53) for Paul's input to improve churn tracking alongside Ocean cancellation category improvements.",
+          "summary": "Paul requested churn analysis for large February 2026 revenue losses. Lacie updated the spreadsheet with comments and ticket links, noting some customers lack Ocean documentation. Paul confirmed the report meets their needs. Lacie also shared BI Report (BI-53) for Paul's input to improve future churn tracking alongside Ocean cancellation category improvements.",
           "my_actions": [],
           "tracked_actions": [
-            "Paul to review BI Report (BI-53) that Lacie shared via Teams for potential churn tracking improvements"
+            "Paul to review BI Report (BI-53) that Lacie shared via Teams for improving churn tracking processes"
           ],
           "sentiment": "neutral",
           "suggested_reply": null
@@ -537,11 +537,11 @@
         "model_used": "anthropic/claude-sonnet-4-5",
         "llm_summary": {
           "category": "new_information",
-          "one_line": "Paul Billard provided Feb 2025 Azure/M365/AWS/GCP management analysis data as requested.",
-          "summary": "Adam previously requested the most recent cloud management analysis data and asked about a SharePoint location. Paul has now delivered the February 2025 Azure/M365/AWS/GCP data. The SharePoint location question remains unanswered. This is a routine data delivery in an ongoing reporting relationship.",
+          "one_line": "Paul sent Feb 2025 Azure/M365/AWS/GCP management analysis data as requested.",
+          "summary": "Adam previously requested the most recent cloud management analysis data and asked about a SharePoint location. Paul has now provided the February 2025 Azure/M365/AWS/GCP data file. The SharePoint location question remains unanswered.",
           "my_actions": [],
           "tracked_actions": [
-            "SharePoint location question to Paul Billard still outstanding"
+            "Paul still hasn't answered whether there's a SharePoint location for these recurring reports"
           ],
           "sentiment": "neutral",
           "suggested_reply": null
@@ -597,9 +597,12 @@
         "llm_summary": {
           "category": "new_information",
           "one_line": "Azure invoices now released mid-month (15th); MO365 remains end-of-month.",
-          "summary": "Brad Wong confirms that Azure invoices are now being released on the 15th of each month, with a new GP batch naming format (AZUREMMYYYY) to distinguish them from MO365 services. MO365 invoices will continue to be released at month-end. This change was coordinated with Tim and Andy as previously discussed.",
+          "summary": "Brad Wong confirms that Microsoft Azure invoices are now being released on the 15th of each month, with a new GP batch naming format (AZUREMMYYYY) to distinguish them from MO365 services. MO365 invoices will continue to be released at month-end. This change was coordinated with Tim and Andy to provide earlier cloud billing visibility as previously requested.",
           "my_actions": [],
-          "tracked_actions": [],
+          "tracked_actions": [
+            "Jorge Quintero implementing new Azure GP batch format",
+            "Brad coordinating ongoing mid-month Azure invoice releases"
+          ],
           "sentiment": "positive",
           "suggested_reply": null
         },
@@ -725,7 +728,7 @@
   ],
   "tokens": {
     "prompt": 20065,
-    "completion": 2719,
-    "total": 22784
+    "completion": 2831,
+    "total": 22896
   }
 }
