@@ -1,0 +1,19 @@
+{
+  "run_id": "",
+  "model": "anthropic/claude-sonnet-4-5",
+  "generated_at": "2026-03-17T13:59:57.971745Z",
+  "mode": "inbox_triage",
+  "status": "fail",
+  "output": null,
+  "error": {
+    "type": "NameError",
+    "message": "name 'build_messages' is not defined",
+    "retryable": false
+  },
+  "sources_used": [],
+  "tokens": {
+    "prompt": 0,
+    "completion": 0,
+    "total": 0
+  }
+}

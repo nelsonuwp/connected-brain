@@ -170,7 +170,7 @@ def fetch_messages(start: date, end: date, token: str) -> List[Dict[str, Any]]:
     url     = f"https://graph.microsoft.com/v1.0/users/{user_email}/messages"
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     params  = {
-        "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients,meetingMessageType",
+        "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients,webLink",
         "$filter": f"sentDateTime ge {start.isoformat()}T00:00:00Z and sentDateTime le {end.isoformat()}T23:59:59Z",
         "$top":    1000,
     }

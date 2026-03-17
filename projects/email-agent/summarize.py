@@ -314,6 +314,8 @@ def _skip_llm(thread: Dict) -> Optional[Dict]:
         }
 
     return None
+
+def build_messages(thread: Dict) -> List[Dict]:
     user_content = build_user_message(
         note_content   = _note_content(thread),
         context_blocks = {"thread_metadata": _context_block(thread)},
