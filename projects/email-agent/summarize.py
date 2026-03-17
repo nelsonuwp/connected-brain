@@ -194,18 +194,19 @@ def select_system_prompt(thread: Dict) -> Dict:
 
 def select_model(thread: Dict) -> Tuple[str, float]:
     """
-    Route to nano for simple threads, workhorse for complex.
-    Simple = 1 email with a short body (likely a signal or brief note).
+    Route to nano for simple single-email threads, workhorse for conversations.
+    Temperature is intentionally low (0.1) for both — this is extraction, not
+    generation. We want the most probable interpretation, not creative variation.
     """
     total_body = sum(len(e.get("body") or "") for e in thread.get("emails", []))
     if thread.get("email_count", 1) == 1 and total_body < 800:
         return (
-            os.getenv("MODEL_NANO",          "anthropic/claude-haiku-4-5"),
-            float(os.getenv("TEMPERATURE_NANO", "0.3")),
+            os.getenv("MODEL_NANO", "anthropic/claude-haiku-4-5"),
+            0.1,
         )
     return (
-        os.getenv("MODEL_WORKHORSE",          "anthropic/claude-sonnet-4-5"),
-        float(os.getenv("TEMPERATURE_WORKHORSE", "0.4")),
+        os.getenv("MODEL_WORKHORSE", "anthropic/claude-sonnet-4-5"),
+        0.1,
     )
 
 # ── Message builders ──────────────────────────────────────────────────────────
@@ -226,19 +227,93 @@ def _context_block(thread: Dict) -> str:
     ])
 
 def _note_content(thread: Dict) -> str:
-    """Format the thread as a numbered conversation for the [NOTE:] block."""
-    n = thread.get("email_count", 1)
-    parts = []
-    for i, e in enumerate(thread.get("emails", []), 1):
-        f = e.get("from") or {}
+    """
+    Format thread as a numbered conversation for the [NOTE:] block.
+
+    Outlook embeds the entire prior thread in every reply, so a 7-email thread
+    would send the same paragraphs 6 times at full length. Instead:
+      - Last 2 emails: full body (up to 1500 chars) — these are current and relevant
+      - Earlier emails: header + first 200 chars — enough for context, not repetition
+
+    This cuts input tokens on long threads by ~60% while keeping the LLM focused
+    on what's actually new.
+    """
+    emails  = thread.get("emails", [])
+    n       = len(emails)
+    cutoff  = max(0, n - 2)   # index at which "full body" emails begin
+    parts   = []
+
+    for i, e in enumerate(emails):
+        f        = e.get("from") or {}
+        sender   = f.get("name") or f.get("address", "Unknown")
+        date_str = (e.get("sent_at") or "")[:10]
+        body     = e.get("body") or "(no body)"
+
+        if i >= cutoff:
+            # Recent email — full body
+            snippet = body[:1500]
+        else:
+            # Older email — header + brief excerpt for context only
+            snippet = body[:200] + ("…" if len(body) > 200 else "")
+
+        label = "[FULL]" if i >= cutoff else "[SUMMARY]"
         parts.append(
-            f"[{i}/{n}] {(e.get('sent_at') or '')[:10]}  "
-            f"{f.get('name') or f.get('address', 'Unknown')}\n"
-            f"{e.get('body') or '(no body)'}"
+            f"[{i+1}/{n}] {label} {date_str}  {sender}\n{snippet}"
         )
+
     return "\n\n---\n\n".join(parts)
 
-def build_messages(thread: Dict) -> List[Dict]:
+def _skip_llm(thread: Dict) -> Optional[Dict]:
+    """
+    Deterministically assign category for threads where the LLM adds no value.
+    Returns a pre-built llm_summary dict if skippable, None if LLM is needed.
+
+    Skip cases:
+      1. Single-email forward/report FROM Adam to himself — always new_information,
+         no actions. These are Adam forwarding something to his own inbox.
+      2. No internal participants at all — external sender, Adam didn't initiate.
+         These are unsolicited external contacts that slipped past discard.
+    """
+    adam    = os.getenv("USER_EMAIL", "").lower()
+    emails  = thread.get("emails", [])
+    n       = thread.get("email_count", 1)
+
+    # Case 1: Single email where Adam is the sender (self-forward / FYI forward)
+    if n == 1 and emails:
+        sender = (emails[0].get("from") or {}).get("address", "").lower()
+        if adam and sender == adam:
+            return {
+                "category":        "new_information",
+                "one_line":        "Report or forward — no reply needed.",
+                "summary":         "Adam forwarded this to himself for reference.",
+                "my_actions":      [],
+                "tracked_actions": [],
+                "sentiment":       "neutral",
+                "suggested_reply": None,
+            }
+
+    # Case 2: No internal participants (external-only thread)
+    internal_domains = {"aptum.com", "cloudops.com"}
+    participants = thread.get("participants", [])
+    has_internal = any(
+        (p.get("address") or "").lower().split("@")[-1] in internal_domains
+        for p in participants
+    )
+    last_sender_addr = (thread.get("last_sender") or {}).get("address", "").lower()
+    last_is_internal = last_sender_addr.split("@")[-1] in internal_domains if last_sender_addr else False
+
+    if not has_internal and not last_is_internal:
+        return {
+            "category":        "new_information",
+            "one_line":        "External-only thread — no internal action expected.",
+            "summary":         "All participants are external. No response expected from Adam.",
+            "my_actions":      [],
+            "tracked_actions": [],
+            "sentiment":       "neutral",
+            "suggested_reply": None,
+        }
+
+    return None
     user_content = build_user_message(
         note_content   = _note_content(thread),
         context_blocks = {"thread_metadata": _context_block(thread)},
@@ -254,16 +329,7 @@ def build_messages(thread: Dict) -> List[Dict]:
 def summarize_thread(thread: Dict) -> Tuple[Dict, Optional[Dict], str]:
     """Returns (lean_output, token_dict | None, model_used)."""
     model, temp = select_model(thread)
-    parsed, raw = call_structured(
-        model             = model,
-        messages          = build_messages(thread),
-        schema            = THREAD_SUMMARY_SCHEMA,
-        schema_name       = "thread_summary",
-        temperature       = temp,
-        max_tokens        = 500,
-        verbosity         = "low",
-        frequency_penalty = 0.1,
-    )
+
     lean = {
         "thread_id":           thread["thread_id"],
         "subject":             thread["subject"],
@@ -274,6 +340,26 @@ def summarize_thread(thread: Dict) -> Tuple[Dict, Optional[Dict], str]:
         "thread_url":          thread.get("thread_url"),
         "model_used":          model,
     }
+
+    # Check if we can skip the LLM entirely
+    skip = _skip_llm(thread)
+    if skip:
+        lean["llm_summary"] = skip
+        lean["llm_status"]  = "skipped"
+        return lean, None, "skipped"
+
+    parsed, raw = call_structured(
+        model             = model,
+        messages          = build_messages(thread),
+        schema            = THREAD_SUMMARY_SCHEMA,
+        schema_name       = "thread_summary",
+        temperature       = temp,
+        max_tokens        = 500,
+        verbosity         = "low",
+        frequency_penalty = 0.1,
+        seed              = 42,     # reproducibility — same input → same output
+    )
+
     if parsed:
         lean["llm_summary"] = {
             "category":        parsed.get("category",        "new_information"),
@@ -327,7 +413,7 @@ def main() -> int:
         summarized   = []
         total_tokens = {"prompt": 0, "completion": 0, "total": 0}
         any_failure  = False
-        nano_ct = workhorse_ct = 0
+        nano_ct = workhorse_ct = skipped_ct = 0
 
         for i, thread in enumerate(threads):
             model, _ = select_model(thread)
@@ -338,14 +424,16 @@ def main() -> int:
             lean, tokens, used_model = summarize_thread(thread)
             summarized.append(lean)
 
-            if tokens:
+            if used_model == "skipped":
+                skipped_ct += 1
+            elif tokens:
                 for k in total_tokens:
                     total_tokens[k] += tokens.get(k, 0)
+                if is_nano: nano_ct      += 1
+                else:       workhorse_ct += 1
+
             if lean.get("llm_status") == "failed":
                 any_failure = True
-
-            if is_nano: nano_ct      += 1
-            else:       workhorse_ct += 1
 
             if i < len(threads) - 1:
                 time.sleep(0.2)
@@ -374,7 +462,7 @@ def main() -> int:
                   if (t.get("llm_summary") or {}).get("category") == "new_information")
 
         print(f"\n  Categories:    waiting_on_me={wom}  waiting_on_others={woo}  new_information={ni}")
-        print(f"  Model routing: {nano_ct} nano  +  {workhorse_ct} workhorse")
+        print(f"  Model routing: {skipped_ct} skipped  +  {nano_ct} nano  +  {workhorse_ct} workhorse")
         print(f"  Tokens:        prompt={total_tokens['prompt']}  "
               f"completion={total_tokens['completion']}  total={total_tokens['total']}")
 
