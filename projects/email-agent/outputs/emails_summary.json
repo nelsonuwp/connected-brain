@@ -1,609 +1,169 @@
 {
   "run_id": "",
   "model": "anthropic/claude-sonnet-4-5",
-  "generated_at": "2026-03-17T15:16:20.186968Z",
+  "generated_at": "2026-03-17T15:20:18.008431Z",
   "mode": "inbox_triage",
   "status": "success",
   "output": {
     "threads": [
       {
-        "thread_id": "7ae0ba47",
-        "subject": "AWS Cloud Marketplace",
-        "email_count": 7,
-        "last_sent": "2026-03-16",
+        "thread_id": "cacca746",
+        "subject": "Thoughts on improving forecasting",
+        "email_count": 1,
+        "last_sent": "2026-03-15",
         "last_sender_is_adam": false,
         "participants": [
           {
-            "name": "Matthew Carter",
-            "address": "matthew.carter@aptum.com"
+            "name": "Marc Alex Forget",
+            "address": "marc-alexandre.forget@aptum.com"
+          },
+          {
+            "name": "Frederic Gingras",
+            "address": "frederic.gingras@aptum.com"
+          },
+          {
+            "name": "Ian Rae",
+            "address": "ian.rae@aptum.com"
+          },
+          {
+            "name": "Sarah Blanchard",
+            "address": "sarah.blanchard@aptum.com"
+          },
+          {
+            "name": "Adam Nelson",
+            "address": "adam.nelson@aptum.com"
           },
           {
             "name": "Marc Pare",
             "address": "marc.pare@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Sarah Blanchard",
-            "address": "sarah.blanchard@aptum.com"
-          },
-          {
-            "name": "Lacie Allen-Morley",
-            "address": "lacie.allen-morley@aptum.com"
-          },
-          {
-            "name": "Erik Tanguay",
-            "address": "erik.tanguay@aptum.com"
-          },
-          {
-            "name": "Andrei Ianouchkevitch",
-            "address": "andrei.ianouchkevitch@aptum.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryWLAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-sonnet-4-5",
-        "llm_summary": {
-          "category": "waiting_on_me",
-          "one_line": "Matthew needs APN for US region, cutover date confirmation, and Wufoo paperwork completion.",
-          "summary": "Team approved TD Synnex as supplier to replace Ingram for US AWS customers. Adam looped in Andrei, Lacie, and Erik for customer migration planning and said he'd book a coordination call. Matthew now needs three items from Adam: the US region APN number, confirmation of March 22 cutover date, and completion of required Wufoo paperwork.",
-          "my_actions": [
-            "Provide US region APN number to Matthew",
-            "Confirm or adjust March 22 cutover date",
-            "Complete required Wufoo paperwork",
-            "Book coordination call with Andrei, Lacie, Erik, and Kristina"
-          ],
-          "tracked_actions": [
-            "Lacie's team (Kristina) to lead customer-by-customer migration documentation",
-            "Andrei to manage customer impact communications (billing/CloudCheckr access)",
-            "Erik to handle billing coordination at month boundaries"
-          ],
-          "sentiment": "urgent",
-          "suggested_reply": "Hi Matthew, I'll get you the US APN and confirm the 3/22 date by end of day. I need to track down the Wufoo paperwork details—can you send me the link or specifics on what's required? I'm booking the coordination call with the team for this week to align on the migration plan and timeline."
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "e6ddf865",
-        "subject": "information request - DB",
-        "email_count": 3,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Sarah Blanchard",
-            "address": "sarah.blanchard@aptum.com"
-          },
-          {
-            "name": "Dennis Lam",
-            "address": "dennis.lam@aptum.com"
-          },
-          {
-            "name": "Paul Billard",
-            "address": "paul.billard@aptum.com"
-          },
-          {
-            "name": "Jorge Quintero",
-            "address": "jorge.quintero@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Kathy Wu",
-            "address": "kathy.wu@aptum.com"
           },
           {
             "name": "Tom Kelsch",
             "address": "tom.kelsch@aptum.com"
           },
           {
-            "name": "George Revie",
-            "address": "george.revie@aptum.com"
+            "name": "Jorge Quintero",
+            "address": "jorge.quintero@aptum.com"
           }
         ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPS%2BAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARrT5OtAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
         "model_used": "anthropic/claude-sonnet-4-5",
         "llm_summary": {
-          "category": "waiting_on_me",
-          "one_line": "Digital Bridge info request: Adam tagged to provide contract expiry data for top 10 clients by EOD tomorrow.",
-          "summary": "Sarah requested updated information for Digital Bridge with EOD tomorrow deadline. Adam is specifically tagged to provide contract expiry dates for top 10 clients (along with Kathy Wu or Tom Kelsch). Dennis responded about contribution margin approach, and Tom delivered sales pipeline data. Adam has not yet responded regarding the contract expiry information he was asked to provide.",
-          "my_actions": [
-            "Provide contract expiry dates for top 10 clients by EOD tomorrow (March 17)",
-            "Coordinate with Kathy Wu or Tom Kelsch if needed to compile contract expiry data"
-          ],
+          "category": "new_information",
+          "one_line": "Marc Alex updating team on forecasting improvement initiative; meeting with Tom, then recommendations coming.",
+          "summary": "Marc Alex and Fred met to discuss forecasting process improvements. Marc Alex is meeting with Tom this week to review ideas, after which he and Fred will prepare recommendations for the broader team. This is an FYI update on an ongoing initiative; no action required from Adam at this time.",
+          "my_actions": [],
           "tracked_actions": [
-            "Dennis Lam providing contribution margin data using Jorge's profitability analysis",
-            "Paul Billard providing MRR, LOB scope, and customer demographics",
-            "Tom Kelsch providing customer demographics and has already delivered sales pipeline data"
-          ],
-          "sentiment": "urgent",
-          "suggested_reply": "Hi Sarah, I'll work with Kathy and Tom to pull together the contract expiry dates for the top 10 clients and get that to you by EOD tomorrow. Tom, can you confirm you have the client list so we're all working from the same top 10? Thanks."
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "f351b868",
-        "subject": "2026 annual security and compliance vendor review - PagerDuty",
-        "email_count": 1,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Melvin Ching",
-            "address": "melvin.ching@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Nedim Deovic",
-            "address": "nedim.deovic@aptum.com"
-          },
-          {
-            "name": "Fred Taylor-Young",
-            "address": "fred.taylor-young@aptum.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPS7AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-sonnet-4-5",
-        "llm_summary": {
-          "category": "waiting_on_me",
-          "one_line": "Melvin following up on PagerDuty vendor security review from February 20th.",
-          "summary": "Melvin Ching sent a PagerDuty security and compliance vendor review on February 20, 2026, requesting Adam review the report and provide comments or approval via Appendix B or email reply. Nearly a month later (March 16), Melvin is following up asking if Adam completed the review, agreed with Melvin's comments, and documented any actions. Adam has not yet responded.",
-          "my_actions": [
-            "Review the PagerDuty security and compliance vendor report prepared by Melvin",
-            "Complete Appendix B with comments or reply via email with approval/comments",
-            "Document any actions identified during the review"
-          ],
-          "tracked_actions": [
-            "Nedim Deovic available to assist if Adam decides to conduct full annual business review",
-            "Fred Taylor-Young available to discuss specific security issues in Aptum's PagerDuty use"
+            "Marc Alex meeting with Tom to review forecasting ideas",
+            "Marc Alex and Fred preparing recommendations for the team"
           ],
           "sentiment": "neutral",
-          "suggested_reply": "Hi Melvin, apologies for the delay on this. I'll review the PagerDuty report and get you my comments by end of week. Will reach out to Fred if any security concerns come up during my review. Thanks for the follow-up."
+          "suggested_reply": null
         },
         "llm_status": "success"
       },
       {
-        "thread_id": "c3509c9b",
-        "subject": "Placeholder Event: Preview of the new program through TD SYNNEX along with all the new incentives",
-        "email_count": 1,
-        "last_sent": "2026-03-16",
+        "thread_id": "a76e49e5",
+        "subject": "STG x Aptum Outreach email",
+        "email_count": 2,
+        "last_sent": "2026-03-14",
         "last_sender_is_adam": false,
         "participants": [
           {
-            "name": "Matthew Carter",
-            "address": "matthew.carter@aptum.com"
+            "name": "Vicki Patten",
+            "address": "vicki.patten@aptum.com"
           },
           {
-            "name": "Sankar, Rupesh",
-            "address": "rupesh.sankar@tdsynnex.com"
+            "name": "Emma Kopang",
+            "address": "emma.kopang@aptum.com"
           },
           {
-            "name": "Mohammadi, Maz",
-            "address": "mazyar.mohammadi@tdsynnex.com"
-          },
-          {
-            "name": "Tammo, Gina",
-            "address": "gina.tammo@tdsynnex.com"
-          },
-          {
-            "name": "Marc Pare",
-            "address": "marc.pare@aptum.com"
+            "name": "Jim Sallusto",
+            "address": "jim@sciengroup.com"
           },
           {
             "name": "Adam Nelson",
             "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Thomson, Christine",
-            "address": "christine.thomson@tdsynnex.com"
           }
         ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPS3AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARl%2F5UTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
         "model_used": "anthropic/claude-sonnet-4-5",
         "llm_summary": {
-          "category": "waiting_on_me",
-          "one_line": "Matthew confirms DSA/CTA sponsorship move to TDSynnex US by March 22; needs Adam's awareness/approval.",
-          "summary": "Matthew Carter is proceeding with transitioning the DSA/CTA sponsorship from the current provider to TDSynnex in the US region, with a requested move date of March 22, 2026. He has contacted Amazon's distribution program team and is asking Rupesh what additional documentation is needed. This follows a meeting about AWS partner program changes effective April 1st that include new discount structures and incentive changes. Adam is copied as VP of Operations and may need to approve or be aware of this strategic partnership transition.",
-          "my_actions": [
-            "Review and approve the DSA/CTA sponsorship transition to TDSynnex by March 22",
-            "Confirm Matthew has authority to proceed or provide guidance on next steps"
-          ],
+          "category": "new_information",
+          "one_line": "Jim traveling next Friday; will provide updates via spreadsheet instead of call.",
+          "summary": "This is a partnership outreach campaign between STG (ScienGroup) and Aptum targeting customer accounts. Jim has contacted the first three accounts and will follow up Monday. Emma has action items for collateral organization and account research. Jim is notifying the team he'll be traveling next Friday and will provide updates via spreadsheet rather than the usual format.",
+          "my_actions": [],
           "tracked_actions": [
-            "Matthew Carter coordinating transition details with TDSynnex and Amazon",
-            "Rupesh Sankar to provide required documentation for sponsorship change",
-            "TDSynnex team implementing new AWS partner program changes by April 1st"
+            "Jim following up with first three accounts via phone on Monday",
+            "Emma organizing collateral in OneDrive",
+            "Emma researching next 6 accounts highlighted in tracker",
+            "Jim providing weekly feedback via spreadsheet next Friday"
           ],
           "sentiment": "neutral",
-          "suggested_reply": "Matthew, thanks for the update. The March 22 transition timeline works. Please keep me posted on any documentation requirements from Rupesh and flag if there are any blockers. Also, let's schedule a brief sync on the April 1st AWS program changes and how they impact our partnership economics."
+          "suggested_reply": null
         },
         "llm_status": "success"
       },
       {
-        "thread_id": "8d60af21",
-        "subject": "Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification",
-        "email_count": 3,
-        "last_sent": "2026-03-16",
+        "thread_id": "71499eb4",
+        "subject": "Sales Forecast & Pipeline - March 13th Update",
+        "email_count": 1,
+        "last_sent": "2026-03-13",
         "last_sender_is_adam": false,
         "participants": [
-          {
-            "name": "Barbara Krzywoszanski",
-            "address": "barbara.krzywoszanski@aptum.com"
-          },
-          {
-            "name": "Frederic Gingras",
-            "address": "frederic.gingras@aptum.com"
-          },
-          {
-            "name": "Elizabeth Perez",
-            "address": "elizabeth.perez@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Lacie Allen-Morley",
-            "address": "lacie.allen-morley@aptum.com"
-          },
-          {
-            "name": "Charles Rutledge",
-            "address": "charles.rutledge@aptum.com"
-          },
-          {
-            "name": "Fred Taylor-Young",
-            "address": "fred.taylor-young@aptum.com"
-          },
-          {
-            "name": "Information Security",
-            "address": "information_security@aptum.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPSqAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-sonnet-4-5",
-        "llm_summary": {
-          "category": "waiting_on_me",
-          "one_line": "Customer SQL Server license violation: clarify Aptum's liability and ownership for enforcement.",
-          "summary": "Barbara raised concern that Aptum could be liable and fined if Microsoft audits a customer's SQL Server license misuse. Adam looped in Fred Taylor-Young from InfoSec/former Abuse team. Fred clarified that Abuse historically handled service misuse (bitcoin mining, illegal sites), not software license violations, and questions whether Aptum should police customer license compliance at all given potential liability from misinterpretation. The ticket fell through cracks after the Abuse manager departed. Adam needs to decide: who owns this issue, what Aptum's policy should be on customer license violations, and how to proceed with this specific customer.",
-          "my_actions": [
-            "Determine whether customer software license violations are Aptum's responsibility to police or report",
-            "Clarify Aptum's liability exposure if customer is audited by Microsoft for license misuse",
-            "Decide which team (Service Delivery, InfoSec, Legal, Account Management) should own customer license compliance issues",
-            "Provide direction on how to handle this specific Smart Scale SQL Server license case"
-          ],
-          "tracked_actions": [
-            "Fred Taylor-Young and InfoSec team awaiting policy guidance on handling license violation tickets",
-            "Barbara and Service Delivery team need clarity on their obligations when discovering customer license issues"
-          ],
-          "sentiment": "negative",
-          "suggested_reply": "Thanks Fred for the context. You're right that customer software license compliance shouldn't fall under Abuse. I'll loop in Legal to clarify our liability exposure and contractual obligations here. My initial take: we should notify customers of potential violations we discover, but policing their license compliance isn't our responsibility unless it creates direct risk to Aptum. Let me confirm our position and get back to the team with clear ownership and process. Barbara, hold on this specific ticket until we have guidance."
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "8818320f",
-        "subject": "eBOARDs Margin Recovery on Future Orders",
-        "email_count": 4,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Matthew Carter",
-            "address": "matthew.carter@aptum.com"
-          },
           {
             "name": "Tom Kelsch",
             "address": "tom.kelsch@aptum.com"
           },
           {
+            "name": "Marc Alex Forget",
+            "address": "marc-alexandre.forget@aptum.com"
+          },
+          {
+            "name": "Frederic Gingras",
+            "address": "frederic.gingras@aptum.com"
+          },
+          {
+            "name": "Vicki Patten",
+            "address": "vicki.patten@aptum.com"
+          },
+          {
+            "name": "Marc Pare",
+            "address": "marc.pare@aptum.com"
+          },
+          {
+            "name": "Ian Rae",
+            "address": "ian.rae@aptum.com"
+          },
+          {
+            "name": "Sarah Blanchard",
+            "address": "sarah.blanchard@aptum.com"
+          },
+          {
+            "name": "Adam Nelson",
+            "address": "adam.nelson@aptum.com"
+          },
+          {
+            "name": "Jorge Quintero",
+            "address": "jorge.quintero@aptum.com"
+          },
+          {
             "name": "Kathy Wu",
             "address": "kathy.wu@aptum.com"
-          },
-          {
-            "name": "Roger Gonzales",
-            "address": "roger.gonzales@aptum.com"
-          },
-          {
-            "name": "Frederic Gingras",
-            "address": "frederic.gingras@aptum.com"
-          },
-          {
-            "name": "Sarah Blanchard",
-            "address": "sarah.blanchard@aptum.com"
-          },
-          {
-            "name": "Carlton Currey",
-            "address": "carlton.currey@aptum.com"
-          },
-          {
-            "name": "Noe Ibarra",
-            "address": "noe.ibarra@aptum.com"
-          },
-          {
-            "name": "Jorge Quintero",
-            "address": "jorge.quintero@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
           }
         ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARz1XS6AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARhlR2NAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
         "model_used": "anthropic/claude-sonnet-4-5",
         "llm_summary": {
           "category": "new_information",
-          "one_line": "Matthew reminds Roger to recover $2K/mo margin on eBoards Imperva renewals going forward.",
-          "summary": "Matthew Carter flagged that Aptum is losing money on Imperva services for the eBoards account and requested the team recover an additional $2K/mo on future renewals. Roger questioned how the margin issue occurred despite deal desk approvals, but Matthew redirected focus to solving it going forward rather than root-causing. Roger acknowledged and committed to keeping the $2K/mo recovery in mind for eBoard renewals. Adam is CC'd for visibility.",
+          "one_line": "Q3 sales pipeline update: one win, two losses, three date pushes.",
+          "summary": "Tom provides the weekly sales forecast update for Q3. Just Energy closed for $45K MRC (3-month temp licensing). Two opportunities closed lost (US Signal $27K, National Relief $20K). Three deals had close dates pushed out, and one new Just Energy opportunity created for $75K MRC in Q4. Power BI dashboards available for detailed analysis.",
           "my_actions": [],
           "tracked_actions": [
-            "Roger Gonzales to incorporate $2K/mo margin recovery into future eBoards renewals"
+            "Monitor Q3 pipeline performance against targets via Power BI dashboards",
+            "Track pushed deals: Iguana Solutions (Mar→Apr), AC Foods (May→Jun), EBOARDsolutions (Apr→Sep)"
           ],
           "sentiment": "neutral",
-          "suggested_reply": null
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "ae1014f3",
-        "subject": "APTUM/AWS CTA transfer",
-        "email_count": 1,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Thomson, Christine",
-            "address": "christine.thomson@tdsynnex.com"
-          },
-          {
-            "name": "Matthew Carter",
-            "address": "matthew.carter@aptum.com"
-          },
-          {
-            "name": "Sankar, Rupesh",
-            "address": "rupesh.sankar@tdsynnex.com"
-          },
-          {
-            "name": "Roodi, Maz",
-            "address": "maz.roodi@tdsynnex.com"
-          },
-          {
-            "name": "Tammo, Gina",
-            "address": "gina.tammo@tdsynnex.com"
-          },
-          {
-            "name": "Marc Pare",
-            "address": "marc.pare@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Perkins, Ciara",
-            "address": "ciara.perkins@tdsynnex.com"
-          },
-          {
-            "name": "Neumeier, Debra",
-            "address": "debra.neumeier@tdsynnex.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPTBAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-sonnet-4-5",
-        "llm_summary": {
-          "category": "new_information",
-          "one_line": "TD SYNNEX confirms partnership, assigns US contacts for AWS CTA transfer by March 22.",
-          "summary": "Christine Thomson from TD SYNNEX confirms Aptum's decision to move forward with them as AWS partner. She assigns Ciara Perkins and Deb Neumeier as US contacts for AWS support, with CTA transfer requested for March 22. Canadian team (Rupesh, Maz, Christine) will continue supporting Canadian region while pushing ahead with account activation there.",
-          "my_actions": [],
-          "tracked_actions": [
-            "TD SYNNEX US team (Ciara Perkins, Deb Neumeier) to support US onboarding and CTA transfer by March 22",
-            "Rupesh to send background information to US team",
-            "TD SYNNEX to activate Aptum account in Canada for future business"
-          ],
-          "sentiment": "positive",
-          "suggested_reply": null
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "c785ae12",
-        "subject": "Request for SOC 2 Type II Report and ISO 27001 Certificate - Vendor Compliance Documentation",
-        "email_count": 2,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Frederic Gingras",
-            "address": "frederic.gingras@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPS9AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-sonnet-4-5",
-        "llm_summary": {
-          "category": "new_information",
-          "one_line": "Customer compliance request escalated; GSE-306 opened, Steve meeting Andy tomorrow.",
-          "summary": "Frederic forwarded an internal escalation about a customer (Charles/OBDS) requesting SOC 2 Type II and ISO 27001 documentation. The team initially missed that Matt Carter continued the conversation directly with the customer. A GSE (GSE-306) has been opened to track this. Steve Rioux will discuss with Andy Petterson tomorrow morning.",
-          "my_actions": [],
-          "tracked_actions": [
-            "Steve Rioux meeting with Andy Petterson tomorrow AM regarding customer compliance documentation",
-            "GSE-306 tracking the SOC 2/ISO 27001 request resolution"
-          ],
-          "sentiment": "neutral",
-          "suggested_reply": null
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "85ca97e3",
-        "subject": "Large Churn Story - Feb 2026",
-        "email_count": 2,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Lacie Allen-Morley",
-            "address": "lacie.allen-morley@aptum.com"
-          },
-          {
-            "name": "Paul Billard",
-            "address": "paul.billard@aptum.com"
-          },
-          {
-            "name": "Sarah Blanchard",
-            "address": "sarah.blanchard@aptum.com"
-          },
-          {
-            "name": "Dennis Lam",
-            "address": "dennis.lam@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Jorge Quintero",
-            "address": "jorge.quintero@aptum.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPSyAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-sonnet-4-5",
-        "llm_summary": {
-          "category": "new_information",
-          "one_line": "Paul confirms Lacie's churn report with service IDs and ticket links fills the gap.",
-          "summary": "Paul requested churn analysis for large February 2026 revenue losses. Lacie updated the spreadsheet with comments and ticket links, noting some customers lack Ocean documentation. Paul confirmed the report meets their needs. Lacie also shared BI Report (BI-53) for Paul's input to improve future churn tracking alongside Ocean cancellation category improvements.",
-          "my_actions": [],
-          "tracked_actions": [
-            "Paul to review BI Report (BI-53) that Lacie shared via Teams for improving churn tracking processes"
-          ],
-          "sentiment": "neutral",
-          "suggested_reply": null
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "f9925ce2",
-        "subject": "CP & Infra LOB + Expert services reports  - Jan 2026",
-        "email_count": 1,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Andrei Ianouchkevitch",
-            "address": "andrei.ianouchkevitch@aptum.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARwdUgSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-haiku-4-5",
-        "llm_summary": {
-          "category": "new_information",
-          "one_line": "",
-          "summary": "",
-          "my_actions": [],
-          "tracked_actions": [],
-          "sentiment": "neutral",
-          "suggested_reply": null
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "11f21728",
-        "subject": "Azure-MO365-AWS-GCP Mgmt Analysis - Sep 2025",
-        "email_count": 1,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Andrei Ianouchkevitch",
-            "address": "andrei.ianouchkevitch@aptum.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARwdUgRAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-sonnet-4-5",
-        "llm_summary": {
-          "category": "new_information",
-          "one_line": "Paul sent Feb 2025 Azure/M365/AWS/GCP management analysis data as requested.",
-          "summary": "Adam previously requested the most recent cloud management analysis data and asked about a SharePoint location. Paul has now provided the February 2025 Azure/M365/AWS/GCP data file. The SharePoint location question remains unanswered.",
-          "my_actions": [],
-          "tracked_actions": [
-            "Paul still hasn't answered whether there's a SharePoint location for these recurring reports"
-          ],
-          "sentiment": "neutral",
-          "suggested_reply": null
-        },
-        "llm_status": "success"
-      },
-      {
-        "thread_id": "5254d364",
-        "subject": "Request for Earlier Cloud Billing Visibility",
-        "email_count": 1,
-        "last_sent": "2026-03-16",
-        "last_sender_is_adam": false,
-        "participants": [
-          {
-            "name": "Brad Wong",
-            "address": "brad.wong@aptum.com"
-          },
-          {
-            "name": "Matthew Carter",
-            "address": "matthew.carter@aptum.com"
-          },
-          {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          {
-            "name": "Andy Petterson",
-            "address": "andy.petterson@aptum.com"
-          },
-          {
-            "name": "Jorge Quintero",
-            "address": "jorge.quintero@aptum.com"
-          },
-          {
-            "name": "Eric Lafreniere",
-            "address": "eric.lafreniere@aptum.com"
-          },
-          {
-            "name": "Bryan Gough",
-            "address": "bryan.gough@aptum.com"
-          },
-          {
-            "name": "Marc Pare",
-            "address": "marc.pare@aptum.com"
-          },
-          {
-            "name": "Will Stevens",
-            "address": "will.stevens@aptum.com"
-          }
-        ],
-        "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPSUAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "model_used": "anthropic/claude-sonnet-4-5",
-        "llm_summary": {
-          "category": "new_information",
-          "one_line": "Azure invoices now released mid-month (15th); MO365 remains end-of-month.",
-          "summary": "Brad Wong confirms that Microsoft Azure invoices are now being released on the 15th of each month, with a new GP batch naming format (AZUREMMYYYY) to distinguish them from MO365 services. MO365 invoices will continue to be released at month-end. This change was coordinated with Tim and Andy to provide earlier cloud billing visibility as previously requested.",
-          "my_actions": [],
-          "tracked_actions": [
-            "Jorge Quintero implementing new Azure GP batch format",
-            "Brad coordinating ongoing mid-month Azure invoice releases"
-          ],
-          "sentiment": "positive",
           "suggested_reply": null
         },
         "llm_status": "success"
@@ -612,123 +172,96 @@
     "system_notifications": [
       {
         "signal_type": "jira_notification",
-        "sent_at": "2026-03-16T20:10:21Z",
-        "subject": "[JIRA] (PMO-1992) [GSE-281] Triton - API Gateway",
+        "sent_at": "2026-03-13T18:06:15Z",
+        "subject": "[JIRA] (CUS-1) INT - Time Tracking",
         "from": {
-          "name": "Erik Tanguay (JIRA)",
+          "name": "Sam Messer (JIRA)",
           "address": "jira@aptum.atlassian.net"
         },
-        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARvvizlAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARiTDiSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
         "extracted": {
-          "subject": "[JIRA] (PMO-1992) [GSE-281] Triton - API Gateway"
-        }
-      },
-      {
-        "signal_type": "hr_report",
-        "sent_at": "2026-03-16T11:26:50Z",
-        "subject": "Time Off Requested Report - 16-03-2026",
-        "from": {
-          "name": "Anita Parbhudial",
-          "address": "Anita.Parbhudial@aptum.com"
-        },
-        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPShAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "extracted": {
-          "subject": "Time Off Requested Report - 16-03-2026"
+          "subject": "[JIRA] (CUS-1) INT - Time Tracking"
         }
       },
       {
         "signal_type": "crm_lead",
-        "sent_at": "2026-03-16T12:22:52Z",
-        "subject": "Hubspot Account Created a Lead for Michele Reynolds at Ensign Laboratories",
+        "sent_at": "2026-03-13T20:18:14Z",
+        "subject": "Hubspot Account Created a Lead for Jason Jason at Commercial Energy",
         "from": {
           "name": "Adam Nelson",
-          "address": "Adam.Nelson@aptum.com"
+          "address": "adam.nelson@aptum.com"
         },
-        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARwdUgNAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARjMSDVAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
         "extracted": {
           "created_by": "Hubspot Account",
-          "contact": "Michele Reynolds",
-          "company": "Ensign Laboratories"
-        }
-      },
-      {
-        "signal_type": "it_ticket",
-        "sent_at": "2026-03-16T15:06:14Z",
-        "subject": "ITSUPPORT-5335 Teams showing that I need to login, but when i do, it says \"you cannot access this right now\"",
-        "from": {
-          "name": "IT Support",
-          "address": "itsupport@aptum.com"
-        },
-        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARvvizdAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "extracted": {
-          "ticket_id": "ITSUPPORT-5335",
-          "description": "Teams showing that I need to login, but when i do, it says \"you cannot access this right now\""
+          "contact": "Jason Jason",
+          "company": "Commercial Energy"
         }
       },
       {
         "signal_type": "auto_reply",
-        "sent_at": "2026-03-16T12:59:25Z",
-        "subject": "Automatic reply: Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification",
+        "sent_at": "2026-03-13T20:18:25Z",
+        "subject": "Automatic reply: Hubspot Account Created a Lead for Jason Jason at Commercial Energy",
         "from": {
-          "name": "Charles Rutledge",
-          "address": "Charles.Rutledge@aptum.com"
+          "name": "Martin Tessier",
+          "address": "Martin.Tessier@aptum.com"
         },
-        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPSoAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARhlR2MAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
         "extracted": {
-          "original_subject": "Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification"
+          "original_subject": "Hubspot Account Created a Lead for Jason Jason at Commercial Energy"
         }
       },
       {
-        "signal_type": "doc_share",
-        "sent_at": "2026-03-16T13:05:14Z",
-        "subject": "Sarah Blanchard shared \"Q2 Board Agenda (march 2026)\" with you",
+        "signal_type": "jira_notification",
+        "sent_at": "2026-03-14T09:40:52Z",
+        "subject": "[JIRA] A friendly reminder: Your space(s) will be permanently deleted from trash",
         "from": {
-          "name": "Sarah Blanchard",
-          "address": "Sarah.Blanchard@aptum.com"
+          "name": "Admin (Jira)",
+          "address": "jira@aptum.atlassian.net"
         },
-        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPSpAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARlV7hLAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
         "extracted": {
-          "document": "Q2 Board Agenda (march 2026)"
-        }
-      },
-      {
-        "signal_type": "partner_notification",
-        "sent_at": "2026-03-16T20:34:16Z",
-        "subject": "AWS Distributor Transfer - DSA/CTA Sponsorship Change: 22-MAR-2026",
-        "from": {
-          "name": "Matthew Carter",
-          "address": "Matthew.Carter@aptum.com"
-        },
-        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARujPS2AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-        "extracted": {
-          "subject": "AWS Distributor Transfer - DSA/CTA Sponsorship Change: 22-MAR-2026"
+          "subject": "[JIRA] A friendly reminder: Your space(s) will be permanently deleted from trash"
         }
       },
       {
         "signal_type": "crm_lead",
-        "sent_at": "2026-03-16T22:46:13Z",
-        "subject": "Ryan Walsh Created a Lead for Brendan Skoreyko at Trace Associates Inc.",
+        "sent_at": "2026-03-14T17:45:11Z",
+        "subject": "David Blankinship Created a Lead for Ikram Nagdawala at Aptum",
         "from": {
           "name": "Adam Nelson",
-          "address": "Adam.Nelson@aptum.com"
+          "address": "adam.nelson@aptum.com"
         },
-        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARwdUgYAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARnjE%2F9AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
         "extracted": {
-          "created_by": "Ryan Walsh",
-          "contact": "Brendan Skoreyko",
-          "company": "Trace Associates Inc."
+          "created_by": "David Blankinship",
+          "contact": "Ikram Nagdawala",
+          "company": "Aptum"
+        }
+      },
+      {
+        "signal_type": "jira_notification",
+        "sent_at": "2026-03-15T06:37:48Z",
+        "subject": "[JIRA] (CUS-1) INT - Time Tracking",
+        "from": {
+          "name": "Luis Cruz (JIRA)",
+          "address": "jira@aptum.atlassian.net"
+        },
+        "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARpd66fAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+        "extracted": {
+          "subject": "[JIRA] (CUS-1) INT - Time Tracking"
         }
       }
     ],
-    "discard_count": 25
+    "discard_count": 26
   },
   "error": null,
   "sources_used": [
     "threads"
   ],
   "tokens": {
-    "prompt": 20065,
-    "completion": 2831,
-    "total": 22896
+    "prompt": 4489,
+    "completion": 493,
+    "total": 4982
   }
 }

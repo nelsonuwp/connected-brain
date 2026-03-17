@@ -21,6 +21,7 @@ Usage:
 
 import argparse
 import os
+import sys
 import time
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -92,11 +93,16 @@ def main() -> int:
     start_idx = STAGES.index(args.from_stage)
     stages_to_run = STAGES[start_idx:]
 
+    # Save and clear sys.argv so child scripts' argparse doesn't see
+    # the orchestrator's flags (e.g. --date)
+    saved_argv = sys.argv
+
     for stage_name in stages_to_run:
         print(f"\n{'='*60}")
         print(f"  STAGE: {stage_name}")
         print(f"{'='*60}\n")
 
+        sys.argv = [stage_name + ".py"]
         t0 = time.time()
 
         if stage_name == "capture":
@@ -116,6 +122,7 @@ def main() -> int:
             rc = render_main(file_override=str(note_path))
         else:
             print(f"  Unknown stage: {stage_name}")
+            sys.argv = saved_argv
             return 1
 
         elapsed = time.time() - t0
@@ -123,7 +130,10 @@ def main() -> int:
 
         if rc != 0:
             print(f"\n  Pipeline stopped: {stage_name} failed with exit code {rc}")
+            sys.argv = saved_argv
             return rc
+
+    sys.argv = saved_argv
 
     print(f"\n{'='*60}")
     print("  Pipeline complete")
