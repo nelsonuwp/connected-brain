@@ -57,7 +57,7 @@ def _load_env_file(path: Path) -> None:
             continue
         k, v = line.split("=", 1)
         k = k.strip()
-        if k and k not in os.environ:
+        if k and (k not in os.environ or os.environ[k] == ""):
             os.environ[k] = _strip_optional_quotes(v)
 
 def load_env() -> None:

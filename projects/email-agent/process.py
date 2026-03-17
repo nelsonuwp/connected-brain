@@ -46,7 +46,7 @@ def load_env() -> None:
                     continue
                 k, v = line.split("=", 1)
                 k = k.strip()
-                if k and k not in os.environ:
+                if k and (k not in os.environ or os.environ[k] == ""):
                     os.environ[k] = _sq(v)
         except OSError:
             pass
@@ -241,6 +241,9 @@ def build_threads(candidates: List[Dict]) -> List[Dict]:
     for tid, emails in groups.items():
         emails.sort(key=lambda x: x.get("sent_at") or "")
 
+        first_raw_subj = emails[0].get("subject", "")
+        is_forward = bool(re.match(r"^(fw|fwd)\s*:", first_raw_subj, re.I))
+
         # Unique participants (excluding Adam) — from senders AND recipients
         seen: Dict[str, str] = {}
         for e in emails:
@@ -261,12 +264,21 @@ def build_threads(candidates: List[Dict]) -> List[Dict]:
         l_from = last.get("from") or {}
         l_addr = l_from.get("address", "").lower()
 
-        # Display subject: normalize the first raw subject, then title-case
-        display = normalize_subject(emails[0].get("subject") or "").title()
+        raw_subject = emails[0].get("subject") or ""
+        # Strip Re:/Fw:/[TAG] prefixes but preserve original casing
+        s = raw_subject.strip()
+        while True:
+            s2 = re.sub(r"^\[.*?\]\s*", "", s).strip()
+            s2 = re.sub(r"^(re|fw|fwd)\s*:\s*", "", s2, flags=re.I).strip()
+            if s2 == s:
+                break
+            s = s2
+        display = s if s else raw_subject
 
         threads.append({
             "thread_id":           tid,
             "subject":             display,
+            "is_forward":          is_forward,
             "email_count":         len(emails),
             "first_sent":          emails[0].get("sent_at"),
             "last_sent":           last.get("sent_at"),

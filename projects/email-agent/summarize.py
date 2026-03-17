@@ -56,7 +56,7 @@ def load_env() -> None:
                     continue
                 k, v = line.split("=", 1)
                 k = k.strip()
-                if k and k not in os.environ:
+                if k and (k not in os.environ or os.environ[k] == ""):
                     os.environ[k] = _sq(v)
         except OSError:
             pass
@@ -172,23 +172,13 @@ THREAD_SUMMARY_SCHEMA = {
 # ── Routing helpers ───────────────────────────────────────────────────────────
 
 def _is_forward(thread: Dict) -> bool:
-    """True if the originating email is a forward (no back-and-forth yet)."""
-    for e in thread.get("emails", []):
-        subj = (e.get("from", {}).get("address", "") or "").lower()  # wrong field
-        # Check via thread subject instead
-        break
-    # Check the first email subject in the thread for Fw:/Fwd:
-    first_email = thread.get("emails", [{}])[0]
-    first_raw_subj = first_email.get("from", {})  # not right
-    # Actually check thread email_count and last_sender_is_adam
-    # A forward is typically: email_count == 1, subject came in as Fw:
-    # We don't store original raw subject here, so use email_count as proxy
-    return thread.get("email_count", 1) == 1
+    """True if the thread originated as a forward (Fw:/Fwd: prefix on first email)."""
+    return thread.get("is_forward", False)
 
 def select_system_prompt(thread: Dict) -> Dict:
     if thread.get("last_sender_is_adam"):
         return _SYSTEM_TRACKING
-    if _is_forward(thread) or thread.get("email_count", 1) == 1:
+    if _is_forward(thread):
         return _SYSTEM_INFORMATION
     return _SYSTEM_NEEDS_RESPONSE
 
@@ -438,7 +428,7 @@ def main() -> int:
                 any_failure = True
 
             if i < len(threads) - 1:
-                time.sleep(0.2)
+                time.sleep(0.05)
 
         # Sort: category priority ASC, then last_sent DESC within each category
         # Two stable sorts (Python guarantees stability)
