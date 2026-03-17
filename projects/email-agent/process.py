@@ -19,6 +19,7 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -98,6 +99,24 @@ def thread_key(subject: str) -> str:
     return hashlib.md5(normalize_subject(subject).encode()).hexdigest()[:8]
 
 # ── Address helpers ───────────────────────────────────────────────────────────
+
+# ── Outlook deep-link builder ─────────────────────────────────────────────────
+
+def outlook_url(msg_id: str) -> Optional[str]:
+    """
+    Build a clickable Outlook web deep link from a Graph message ID.
+
+    The Graph REST ID (AAMk...) works directly — just URL-encode it.
+    Set OUTLOOK_BASE_URL in .env to your org's Outlook URL, e.g.:
+      OUTLOOK_BASE_URL=https://outlook.cloud.microsoft.mcas.ms
+    Defaults to https://outlook.office.com
+    """
+    if not msg_id:
+        return None
+    base    = os.getenv("OUTLOOK_BASE_URL", "https://outlook.office.com").rstrip("/")
+    encoded = urllib.parse.quote(msg_id, safe="")
+    return f"{base}/mail/inbox/id/{encoded}"
+
 
 def norm_addr(obj: Dict) -> Dict:
     ea = obj.get("emailAddress") or {}
@@ -239,13 +258,15 @@ def build_threads(candidates: List[Dict]) -> List[Dict]:
             "last_sender":         l_from,
             "last_sender_is_adam": bool(adam and l_addr == adam),
             "participants":        [{"name": n, "address": a} for a, n in seen.items()],
+            # Deeplink to the most recent email in the thread
+            "thread_url":          outlook_url(last.get("id")),
             "emails": [
                 {
-                    "id":      e.get("id"),
-                    "sent_at": e.get("sent_at"),
-                    "from":    e.get("from"),
-                    # Body capped here — this is the last time the full body exists downstream
-                    "body":    (e.get("body") or "")[:1500],
+                    "id":          e.get("id"),
+                    "sent_at":     e.get("sent_at"),
+                    "from":        e.get("from"),
+                    "body":        (e.get("body") or "")[:1500],
+                    "outlook_url": outlook_url(e.get("id")),
                 }
                 for e in emails
             ],

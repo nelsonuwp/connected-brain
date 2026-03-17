@@ -271,6 +271,7 @@ def summarize_thread(thread: Dict) -> Tuple[Dict, Optional[Dict], str]:
         "last_sent":           (thread.get("last_sent") or "")[:10],
         "last_sender_is_adam": thread.get("last_sender_is_adam", False),
         "participants":        thread.get("participants", []),
+        "thread_url":          thread.get("thread_url"),
         "model_used":          model,
     }
     if parsed:
