@@ -32,7 +32,7 @@ import requests
 
 # ── Project imports ───────────────────────────────────────────────────────────
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[3]))  # connected-brain root
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # connected-brain root
 from connectors.source_artifact import (
     make_source_artifact, record_count, utc_now, write_artifact
 )
@@ -62,7 +62,7 @@ def _load_env_file(path: Path) -> None:
 
 def load_env() -> None:
     script_dir = Path(__file__).resolve().parent
-    repo_root  = script_dir.parents[2]
+    repo_root  = script_dir.parents[1]
     _load_env_file(Path.cwd() / ".env")
     _load_env_file(repo_root / ".env")
 

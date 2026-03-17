@@ -1,11 +1,11 @@
 {
   "source": "microsoft_graph_email",
-  "collected_at": "2026-03-17T13:56:24.014820Z",
+  "collected_at": "2026-03-17T13:57:43.519758Z",
   "status": "fail",
   "objects": null,
   "error": {
-    "type": "RuntimeError",
-    "message": "MS_CLIENT_ID and MS_TENANT_ID must be set.",
+    "type": "HTTPError",
+    "message": "400 Client Error: Bad Request for url: https://graph.microsoft.com/v1.0/users/adam.nelson@disks.onmicrosoft.com/messages?%24select=id%2Csubject%2CsentDateTime%2Cbody%2Cfrom%2CtoRecipients%2CccRecipients%2CmeetingMessageType&%24filter=sentDateTime+ge+2026-03-16T00%3A00%3A00Z+and+sentDateTime+le+2026-03-16T23%3A59%3A59Z&%24top=1000",
     "retryable": false
   },
   "date_range": {
