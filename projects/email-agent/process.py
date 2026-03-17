@@ -102,15 +102,19 @@ def thread_key(subject: str) -> str:
 
 # ── Outlook deep-link builder ─────────────────────────────────────────────────
 
-def outlook_url(msg_id: str) -> Optional[str]:
+def outlook_url(msg_id: str, web_link: str = None) -> Optional[str]:
     """
-    Build a clickable Outlook web deep link from a Graph message ID.
+    Return the Outlook web deep link for a message.
 
-    The Graph REST ID (AAMk...) works directly — just URL-encode it.
-    Set OUTLOOK_BASE_URL in .env to your org's Outlook URL, e.g.:
-      OUTLOOK_BASE_URL=https://outlook.cloud.microsoft.mcas.ms
-    Defaults to https://outlook.office.com
+    Prefers webLink from the Graph API response — this is a pre-built OWA URL
+    using the correct EWS ID format (AAQk...) that opens the exact message.
+
+    Falls back to constructing a URL from the REST ID (AAMk...) only if webLink
+    is absent, but note: this fallback opens the mailbox root, not the message,
+    because OWA and Graph use different ID encoding schemes.
     """
+    if web_link:
+        return web_link
     if not msg_id:
         return None
     base    = os.getenv("OUTLOOK_BASE_URL", "https://outlook.office.com").rstrip("/")
@@ -267,14 +271,14 @@ def build_threads(candidates: List[Dict]) -> List[Dict]:
             "last_sender_is_adam": bool(adam and l_addr == adam),
             "participants":        [{"name": n, "address": a} for a, n in seen.items()],
             # Deeplink to the most recent email in the thread
-            "thread_url":          outlook_url(last.get("id")),
+            "thread_url":          outlook_url(last.get("id"), last.get("web_link")),
             "emails": [
                 {
                     "id":          e.get("id"),
                     "sent_at":     e.get("sent_at"),
                     "from":        e.get("from"),
                     "body":        (e.get("body") or "")[:1500],
-                    "outlook_url": outlook_url(e.get("id")),
+                    "outlook_url": outlook_url(e.get("id"), e.get("web_link")),
                 }
                 for e in emails
             ],
@@ -334,17 +338,19 @@ def route_message(raw: Dict) -> Tuple[str, Any]:
             "sent_at":     sent_at,
             "subject":     subject,
             "from":        norm_addr(raw.get("from") or {}),
+            "outlook_url": outlook_url(raw.get("id"), raw.get("webLink")),
             "extracted":   extracted,
         }
 
     return "thread", {
-        "id":      raw.get("id"),
-        "sent_at": sent_at,
-        "subject": subject,
-        "from":    norm_addr(raw.get("from") or {}),
-        "to":      norm_addr_list(raw.get("toRecipients") or []),
-        "cc":      norm_addr_list(raw.get("ccRecipients") or []),
-        "body":    body[:1500],
+        "id":       raw.get("id"),
+        "web_link": raw.get("webLink"),   # pre-built OWA URL with correct ID format
+        "sent_at":  sent_at,
+        "subject":  subject,
+        "from":     norm_addr(raw.get("from") or {}),
+        "to":       norm_addr_list(raw.get("toRecipients") or []),
+        "cc":       norm_addr_list(raw.get("ccRecipients") or []),
+        "body":     body[:1500],
     }
 
 # ── Main ──────────────────────────────────────────────────────────────────────

@@ -100,19 +100,17 @@ class _OAuthHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         global _auth_code
         self.send_response(200)
-        self.send_header("Content-type", "text/html")
+        self.send_header("Content-type", "text/html; charset=utf-8")
         self.end_headers()
         parsed = urllib.parse.urlparse(self.path)
-        if parsed.path == "/auth/login/callback" and "code=" in parsed.query:
-            _auth_code = urllib.parse.parse_qs(parsed.query).get("code", [None])[0]
-            # Use pure ASCII in the bytes literal to satisfy Python's parser.
-            self.wfile.write(
-                b"<html><body><h1>Auth successful - you can close this window.</h1></body></html>"
-            )
+        qs = urllib.parse.parse_qs(parsed.query)
+        if parsed.path == "/auth/login/callback" and qs.get("code"):
+            _auth_code = qs["code"][0]
+            html = "<html><body><h1>Auth successful — close this window.</h1></body></html>"
+            self.wfile.write(html.encode("utf-8"))
         else:
-            self.wfile.write(
-                b"<html><body><h1>Auth failed - no code received.</h1></body></html>"
-            )
+            html = "<html><body><h1>Auth failed — no code received.</h1></body></html>"
+            self.wfile.write(html.encode("utf-8"))
     def log_message(self, *_): pass
 
 def get_access_token() -> str:
