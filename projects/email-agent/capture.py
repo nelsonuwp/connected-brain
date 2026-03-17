@@ -3,7 +3,7 @@
 1_capture_emails.py
 
 Fetches emails from Microsoft Graph for a date range.
-Writes a SourceArtifact JSON — raw payload, never reshaped.
+Writes a SourceArtifact JSON - raw payload, never reshaped.
 
 Output: outputs/source_emails.json
 
@@ -105,9 +105,9 @@ class _OAuthHandler(http.server.BaseHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         if parsed.path == "/auth/login/callback" and "code=" in parsed.query:
             _auth_code = urllib.parse.parse_qs(parsed.query).get("code", [None])[0]
-            self.wfile.write(b"<html><body><h1>Auth successful — close this window.</h1></body></html>")
+            self.wfile.write(b"<html><body><h1>Auth successful - close this window.</h1></body></html>")
         else:
-            self.wfile.write(b"<html><body><h1>Auth failed — no code received.</h1></body></html>")
+            self.wfile.write(b"<html><body><h1>Auth failed - no code received.</h1></body></html>")
     def log_message(self, *_): pass
 
 def get_access_token() -> str:
@@ -159,7 +159,7 @@ def get_access_token() -> str:
 
 def fetch_messages(start: date, end: date, token: str) -> List[Dict[str, Any]]:
     """
-    One API call per run — returns up to 1000 messages.
+    One API call per run - returns up to 1000 messages.
     Graph paginates via @odata.nextLink if >1000; uncomment the loop below
     to handle high-volume days (not needed for typical daily runs).
     """
