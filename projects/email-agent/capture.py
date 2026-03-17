@@ -32,12 +32,7 @@ import requests
 
 # ── Project imports ───────────────────────────────────────────────────────────
 import sys
-_SCRIPT_DIR = Path(__file__).resolve().parent  # .../projects/email-agent
-_REPO_ROOT = _SCRIPT_DIR.parents[2]            # .../connected-brain
-# Ensure local project modules (connectors/) are importable even when executed via importlib.
-sys.path.insert(0, str(_SCRIPT_DIR))
-# Also allow loading shared repo-level modules if needed.
-sys.path.insert(0, str(_REPO_ROOT))
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # email-agent root
 from connectors.source_artifact import (
     make_source_artifact, record_count, utc_now, write_artifact
 )
@@ -62,17 +57,12 @@ def _load_env_file(path: Path) -> None:
             continue
         k, v = line.split("=", 1)
         k = k.strip()
-        if k.startswith("export "):
-            k = k[len("export ") :].strip()
-        if not k:
-            continue
-        # Only set if missing OR present-but-empty (common when shells export empty vars).
-        if os.environ.get(k) in (None, ""):
-            os.environ[k] = _strip_optional_quotes(v.strip())
+        if k and k not in os.environ:
+            os.environ[k] = _strip_optional_quotes(v)
 
 def load_env() -> None:
-    script_dir = Path(__file__).resolve().parent
-    repo_root  = script_dir.parents[2]
+    script_dir = Path(__file__).resolve().parent  # .../projects/email-agent
+    repo_root  = script_dir.parents[1]            # .../connected-brain
     _load_env_file(Path.cwd() / ".env")
     _load_env_file(repo_root / ".env")
 
@@ -110,17 +100,19 @@ class _OAuthHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         global _auth_code
         self.send_response(200)
-        self.send_header("Content-type", "text/html; charset=utf-8")
+        self.send_header("Content-type", "text/html")
         self.end_headers()
         parsed = urllib.parse.urlparse(self.path)
-        qs = urllib.parse.parse_qs(parsed.query)
-        if parsed.path == "/auth/login/callback" and qs.get("code"):
-            _auth_code = qs["code"][0]
-            html = "<html><body><h1>Auth successful — close this window.</h1></body></html>"
-            self.wfile.write(html.encode("utf-8"))
+        if parsed.path == "/auth/login/callback" and "code=" in parsed.query:
+            _auth_code = urllib.parse.parse_qs(parsed.query).get("code", [None])[0]
+            # Use pure ASCII in the bytes literal to satisfy Python's parser.
+            self.wfile.write(
+                b"<html><body><h1>Auth successful - you can close this window.</h1></body></html>"
+            )
         else:
-            html = "<html><body><h1>Auth failed — no code received.</h1></body></html>"
-            self.wfile.write(html.encode("utf-8"))
+            self.wfile.write(
+                b"<html><body><h1>Auth failed - no code received.</h1></body></html>"
+            )
     def log_message(self, *_): pass
 
 def get_access_token() -> str:
@@ -183,7 +175,7 @@ def fetch_messages(start: date, end: date, token: str) -> List[Dict[str, Any]]:
     url     = f"https://graph.microsoft.com/v1.0/users/{user_email}/messages"
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     params  = {
-        "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients,meetingMessageType",
+        "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients",
         "$filter": f"sentDateTime ge {start.isoformat()}T00:00:00Z and sentDateTime le {end.isoformat()}T23:59:59Z",
         "$top":    1000,
     }
