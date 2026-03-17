@@ -32,7 +32,12 @@ import requests
 
 # ── Project imports ───────────────────────────────────────────────────────────
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[3]))  # connected-brain root
+_SCRIPT_DIR = Path(__file__).resolve().parent  # .../projects/email-agent
+_REPO_ROOT = _SCRIPT_DIR.parents[2]            # .../connected-brain
+# Ensure local project modules (connectors/) are importable even when executed via importlib.
+sys.path.insert(0, str(_SCRIPT_DIR))
+# Also allow loading shared repo-level modules if needed.
+sys.path.insert(0, str(_REPO_ROOT))
 from connectors.source_artifact import (
     make_source_artifact, record_count, utc_now, write_artifact
 )
@@ -57,8 +62,13 @@ def _load_env_file(path: Path) -> None:
             continue
         k, v = line.split("=", 1)
         k = k.strip()
-        if k and k not in os.environ:
-            os.environ[k] = _strip_optional_quotes(v)
+        if k.startswith("export "):
+            k = k[len("export ") :].strip()
+        if not k:
+            continue
+        # Only set if missing OR present-but-empty (common when shells export empty vars).
+        if os.environ.get(k) in (None, ""):
+            os.environ[k] = _strip_optional_quotes(v.strip())
 
 def load_env() -> None:
     script_dir = Path(__file__).resolve().parent
@@ -100,7 +110,7 @@ class _OAuthHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         global _auth_code
         self.send_response(200)
-        self.send_header("Content-type", "text/html")
+        self.send_header("Content-type", "text/html; charset=utf-8")
         self.end_headers()
         parsed = urllib.parse.urlparse(self.path)
         qs = urllib.parse.parse_qs(parsed.query)

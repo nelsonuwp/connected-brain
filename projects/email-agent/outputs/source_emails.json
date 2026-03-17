@@ -1,0 +1,15 @@
+{
+  "source": "microsoft_graph_email",
+  "collected_at": "2026-03-17T13:42:57.262221Z",
+  "status": "fail",
+  "objects": null,
+  "error": {
+    "type": "RuntimeError",
+    "message": "MS_CLIENT_ID and MS_TENANT_ID must be set.",
+    "retryable": false
+  },
+  "date_range": {
+    "start": "2026-03-16",
+    "end": "2026-03-16"
+  }
+}
