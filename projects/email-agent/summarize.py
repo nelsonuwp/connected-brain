@@ -35,13 +35,13 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))  # email-agent root
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 from connectors.llm_io import (
     build_user_message,
     make_llm_response,
     write_llm_response,
 )
-from connectors.openrouter import call_json
+from connectors.openrouter import call_structured
 
 # ── Env loading ───────────────────────────────────────────────────────────────
 
@@ -50,7 +50,7 @@ def _strip_quotes(v: str) -> str:
     return v[1:-1] if len(v) >= 2 and v[0] == v[-1] in ('"', "'") else v
 
 def load_env() -> None:
-    root = Path(__file__).resolve().parents[2]  # .../connected-brain
+    root = Path(__file__).resolve().parents[3]
     for path in (Path.cwd() / ".env", root / ".env"):
         try:
             for raw in path.read_text(encoding="utf-8").splitlines():
@@ -70,32 +70,65 @@ MODE                  = "inbox_triage"
 CATEGORIES_TO_PROCESS = {"important", "useful"}
 
 # ── Prompt ────────────────────────────────────────────────────────────────────
+# NOTE: The system prompt no longer repeats the JSON schema — that is enforced
+# at the API level via response_format: json_schema + strict: true.
+# The prompt focuses purely on identity, context, and semantic rules.
 
 SYSTEM_PROMPT = """\
-You are an executive assistant for Adam Nelson. Adam is in a senior sales and \
-operations leadership role at Aptum (a managed cloud services company) and CloudOps.
+You are an executive assistant for Adam Nelson.
+Adam is the Vice President of Opeations Aptum and CloudOps.
 
-Your job is to read a single email and return a structured JSON object. \
-Be direct and concise. Do not pad. Do not add preamble or sign-offs.
+Your job: read one email and extract exactly what matters to Adam.
 
-Rules:
-- Internal emails from @aptum.com or @cloudops.com are work-critical.
-- "my_actions" = things Adam himself must do or decide.
-- "tracked_actions" = things others are doing that Adam should monitor or follow up on.
-- "suggested_reply" = a short draft reply (2–5 sentences) only when my_actions is \
-non-empty and a reply is appropriate. Otherwise null.
-- "sentiment" must be exactly one of: neutral, positive, negative, urgent.
-
-Respond ONLY with a valid JSON object — no markdown fences, no commentary:
-{
-  "one_line":        "<max 15-word TL;DR>",
-  "summary":         "<2–4 sentence narrative of what this email is about>",
-  "my_actions":      ["<action item for Adam>"],
-  "tracked_actions": ["<thing someone else is doing that Adam should watch>"],
-  "sentiment":       "neutral|positive|negative|urgent",
-  "suggested_reply": "<draft reply or null>"
-}\
+Semantic rules:
+- Emails from @aptum.com or @cloudops.com are internal and work-critical.
+- my_actions: things Adam himself must do, respond to, or decide.
+- tracked_actions: things others are doing that Adam should monitor or follow up on later.
+- suggested_reply: a 2–5 sentence draft only when my_actions is non-empty and \
+a reply is clearly appropriate. Omit (null) for FYIs, read-only updates, or threads \
+where no response from Adam is expected.
+- sentiment: the functional tone of the email — urgent if time-sensitive, \
+negative if there is a problem or complaint, positive if it's good news, \
+neutral otherwise.\
 """
+
+# ── JSON schema (enforced at API level, not in prompt) ────────────────────────
+# strict: true + additionalProperties: false = no hallucinated fields possible.
+# Descriptions guide the model on semantics; the schema guarantees the shape.
+
+EMAIL_SUMMARY_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "one_line": {
+            "type": "string",
+            "description": "A single TL;DR sentence, 15 words maximum.",
+        },
+        "summary": {
+            "type": "string",
+            "description": "2–4 sentences explaining what this email is about and why it matters.",
+        },
+        "my_actions": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Action items that Adam himself must complete. Empty array if none.",
+        },
+        "tracked_actions": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Things others are doing that Adam should track. Empty array if none.",
+        },
+        "sentiment": {
+            "type": "string",
+            "enum": ["neutral", "positive", "negative", "urgent"],
+            "description": "The functional tone of the email.",
+        },
+        "suggested_reply": {
+            "type": ["string", "null"],
+            "description": "A short reply draft (2–5 sentences) if Adam needs to respond. Null otherwise.",
+        },
+    },
+    "required": ["one_line", "summary", "my_actions", "tracked_actions", "sentiment", "suggested_reply"],
+}
 
 # ── Message builders ──────────────────────────────────────────────────────────
 
@@ -165,13 +198,20 @@ def build_messages_for_email(email: Dict) -> list:
 
 def summarize_one(email: Dict, model: str, temperature: float) -> tuple[Dict, Optional[Dict]]:
     """
-    Calls LLM for a single email.
+    Calls LLM for a single email using strict structured output.
     Returns (enriched_email, token_dict | None).
-    enriched_email always has llm_summary (or None) and llm_status.
     """
     messages            = build_messages_for_email(email)
-    parsed, raw         = call_json(model=model, messages=messages,
-                                    temperature=temperature, max_tokens=600)
+    parsed, raw         = call_structured(
+        model=model,
+        messages=messages,
+        schema=EMAIL_SUMMARY_SCHEMA,
+        schema_name="email_summary",
+        temperature=temperature,
+        max_tokens=600,
+        verbosity="low",            # maps to Anthropic output_config.effort=low
+        frequency_penalty=0.1,      # mild penalty to reduce repetitive phrasing
+    )
     enriched            = {**email}
 
     if parsed:
