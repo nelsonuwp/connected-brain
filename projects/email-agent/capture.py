@@ -32,7 +32,7 @@ import requests
 
 # ── Project imports ───────────────────────────────────────────────────────────
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parent))  # email-agent root
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))  # connected-brain root
 from connectors.source_artifact import (
     make_source_artifact, record_count, utc_now, write_artifact
 )
@@ -61,8 +61,8 @@ def _load_env_file(path: Path) -> None:
             os.environ[k] = _strip_optional_quotes(v)
 
 def load_env() -> None:
-    script_dir = Path(__file__).resolve().parent  # .../projects/email-agent
-    repo_root  = script_dir.parents[1]            # .../connected-brain
+    script_dir = Path(__file__).resolve().parent
+    repo_root  = script_dir.parents[2]
     _load_env_file(Path.cwd() / ".env")
     _load_env_file(repo_root / ".env")
 
@@ -100,7 +100,7 @@ class _OAuthHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         global _auth_code
         self.send_response(200)
-        self.send_header("Content-type", "text/html; charset=utf-8")
+        self.send_header("Content-type", "text/html")
         self.end_headers()
         parsed = urllib.parse.urlparse(self.path)
         qs = urllib.parse.parse_qs(parsed.query)
@@ -173,7 +173,7 @@ def fetch_messages(start: date, end: date, token: str) -> List[Dict[str, Any]]:
     url     = f"https://graph.microsoft.com/v1.0/users/{user_email}/messages"
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     params  = {
-        "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients",
+        "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients,meetingMessageType",
         "$filter": f"sentDateTime ge {start.isoformat()}T00:00:00Z and sentDateTime le {end.isoformat()}T23:59:59Z",
         "$top":    1000,
     }
