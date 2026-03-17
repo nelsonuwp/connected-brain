@@ -1,81 +1,57 @@
 #!/usr/bin/env python3
 """
-2_process_emails.py
+process.py
 
-Reads source_emails.json (SourceArtifact), cleans HTML, and deterministically
-categorizes every email into one of four buckets:
+Reads source_emails.json → groups into threads, extracts system notification
+signals, and builds a compact SourceArtifact ready for the LLM step.
 
-  important     — needs Adam's attention or a response
-  useful        — worth reading, no action required
-  not_important — informational; Adam is peripherally involved
-  spam          — cold outreach, automated noise, marketing
-
-Writes a SourceArtifact JSON.  The LLM step (script 3) only reads
-important + useful — the rest is retained for audit trail only.
+Output objects:
+  threads              — human conversations clustered by normalized subject
+  system_notifications — tool/automated signals with deterministically extracted data
+  discard              — audit list only (subject + sender + date, no bodies)
 
 Output: outputs/emails_processed.json
-
-Usage:
-  python 2_process_emails.py
-  python 2_process_emails.py -i outputs/source_emails.json -o outputs/emails_processed.json
 """
 
 import argparse
+import hashlib
 import json
+import os
 import re
 import sys
+from collections import defaultdict
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
-from connectors.source_artifact import (
-    make_source_artifact, record_count, write_artifact
-)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from connectors.source_artifact import make_source_artifact, record_count, write_artifact
 
-# ── Config ────────────────────────────────────────────────────────────────────
+# ── Env ───────────────────────────────────────────────────────────────────────
 
-# Adam's internal domains — emails from these are never spam
-INTERNAL_DOMAINS = {"aptum.com", "cloudops.com"}
+def _sq(v: str) -> str:
+    v = v.strip()
+    return v[1:-1] if len(v) >= 2 and v[0] == v[-1] in ('"', "'") else v
 
-# Domains that are definitionally noise regardless of content
-NOISE_SENDER_RE = re.compile(
-    r"(noreply|no-reply|donotreply|notifications?@|alerts?@|reports?@|"
-    r"mailer@|bounce@|glassdoor\.com|atlassian\.net|microsoft-noreply)",
-    re.I,
-)
-NOISE_SUBJECT_RE = re.compile(
-    r"(newsletter|digest|bowl buzz|was executed at|daily sales|payout notification|"
-    r"unsubscribe)",
-    re.I,
-)
+def load_env() -> None:
+    root = Path(__file__).resolve().parents[1]
+    for p in (Path.cwd() / ".env", root / ".env"):
+        try:
+            for raw in p.read_text(encoding="utf-8").splitlines():
+                line = raw.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                k = k.strip()
+                if k and k not in os.environ:
+                    os.environ[k] = _sq(v)
+        except OSError:
+            pass
 
-# Body patterns that indicate cold outreach (not just automated noise)
-COLD_OUTREACH_RE = re.compile(
-    r"(opt.?out|reply.{0,10}stop|unsubscribe|pilot project|free hours?|intro call|"
-    r"book a (call|demo|meeting)|reach out to see if)",
-    re.I,
-)
-
-# Source system detection
-_SOURCE_PATTERNS = [
-    (re.compile(r"atlassian\.net|jira@",         re.I), "jira"),
-    (re.compile(r"github\.com|noreply@github",   re.I), "github"),
-    (re.compile(r"salesforce\.com",              re.I), "salesforce"),
-    (re.compile(r"servicenow\.com",              re.I), "servicenow"),
-    (re.compile(r"zendesk\.com",                 re.I), "zendesk"),
-    (re.compile(r"slack\.com",                   re.I), "slack"),
-    (re.compile(r"reports?@|noreply@|no-reply@|donotreply@|notifications?@|"
-                r"alerts?@|mailer@|bounce@",     re.I), "automated"),
-    (re.compile(r"@linkedin|@twitter|@facebook|glassdoor",  re.I), "social"),
-]
-
-# ── HTML → text ───────────────────────────────────────────────────────────────
+# ── HTML → plain text ─────────────────────────────────────────────────────────
 
 _STRIP_BLOCKS = re.compile(r"<(style|script|head)[^>]*>.*?</\1>", re.I | re.S)
 _BLOCK_TAGS   = re.compile(
-    r"<(br\s*/?\s*|/?(p|div|tr|li|h[1-6]|blockquote|pre|table|hr)(\s[^>]*)?)[\s/]*>",
-    re.I,
-)
+    r"<(br\s*/?\s*|/?(p|div|tr|li|h[1-6]|blockquote|pre|table|hr)(\s[^>]*)?)[\s/]*>", re.I)
 _STRIP_TAGS   = re.compile(r"<[^>]+>")
 _MULTI_SPACE  = re.compile(r"[ \t]+")
 
@@ -84,35 +60,42 @@ def html_to_text(html: str) -> str:
     t = _BLOCK_TAGS.sub("\n", t)
     t = _STRIP_TAGS.sub("", t)
     t = (t.replace("&nbsp;", " ").replace("&amp;", "&")
-          .replace("&lt;", "<").replace("&gt;", ">")
-          .replace("&quot;", '"').replace("&#39;", "'"))
-    lines = [_MULTI_SPACE.sub(" ", ln).strip() for ln in t.splitlines()]
-    out, prev_blank = [], False
+          .replace("&lt;",   "<").replace("&gt;",  ">")
+          .replace("&quot;", '"').replace("&#39;",  "'"))
+    lines, out, prev = [_MULTI_SPACE.sub(" ", ln).strip() for ln in t.splitlines()], [], False
     for ln in lines:
-        blank = ln == ""
-        if blank and prev_blank:
+        b = ln == ""
+        if b and prev:
             continue
         out.append(ln)
-        prev_blank = blank
+        prev = b
     return "\n".join(out).strip()
 
-# ── Thread splitting ──────────────────────────────────────────────────────────
+def extract_body(raw: Dict) -> str:
+    body    = raw.get("body") or {}
+    content = body.get("content") or ""
+    ctype   = (body.get("contentType") or "").lower()
+    if not content:
+        return ""
+    return html_to_text(content) if (ctype == "html" or content.lstrip().startswith("<")) else content.strip()
 
-_THREAD_BOUNDARY = re.compile(
-    r"(?:^|\n)[ \t]*[-_]{3,}[ \t]*(?:\n|$)"
-    r"|(?:^|\n)From:\s+\S.*?\nSent:\s+\S",
-    re.I | re.S,
-)
+# ── Subject normalization ─────────────────────────────────────────────────────
 
-def split_thread(text: str):
-    m = _THREAD_BOUNDARY.search(text)
-    if m:
-        latest  = text[:m.start()].strip()
-        history = text[m.start():].strip()
-        parts   = [latest, history] if latest else [history]
-    else:
-        parts   = [text]
-    return [p for p in parts if p.strip()]
+_PREFIX_RE = re.compile(r'^(re|fw|fwd)\s*:\s*', re.I)
+_TAG_RE    = re.compile(r'^\[.*?\]\s*')
+
+def normalize_subject(subject: str) -> str:
+    """Strip Re:/Fw:/[TAGS] prefixes for clustering. Multi-level aware."""
+    s = subject.strip()
+    while True:
+        s2 = _PREFIX_RE.sub("", _TAG_RE.sub("", s)).strip()
+        if s2 == s:
+            break
+        s = s2
+    return s.lower()
+
+def thread_key(subject: str) -> str:
+    return hashlib.md5(normalize_subject(subject).encode()).hexdigest()[:8]
 
 # ── Address helpers ───────────────────────────────────────────────────────────
 
@@ -123,128 +106,177 @@ def norm_addr(obj: Dict) -> Dict:
 def norm_addr_list(lst: List) -> List:
     return [norm_addr(x) for x in (lst or [])]
 
-def sender_domain(raw: Dict) -> str:
-    addr = (raw.get("from") or {}).get("emailAddress", {}).get("address", "")
-    return addr.split("@")[-1].lower() if "@" in addr else ""
+def sender_addr_str(raw: Dict) -> str:
+    return (raw.get("from") or {}).get("emailAddress", {}).get("address", "").lower()
 
-def is_internal(raw: Dict) -> bool:
-    return sender_domain(raw) in INTERNAL_DOMAINS
+def sender_domain_str(raw: Dict) -> str:
+    addr = sender_addr_str(raw)
+    return addr.split("@")[-1] if "@" in addr else ""
 
-def adam_is_to(raw: Dict, adam_domains: set) -> bool:
-    to_addrs = [r.get("emailAddress", {}).get("address", "").lower()
-                for r in (raw.get("toRecipients") or [])]
-    return any(a.split("@")[-1] in adam_domains for a in to_addrs)
+# ── Discard detection ─────────────────────────────────────────────────────────
 
-def adam_is_cc(raw: Dict, adam_domains: set) -> bool:
-    cc_addrs = [r.get("emailAddress", {}).get("address", "").lower()
-                for r in (raw.get("ccRecipients") or [])]
-    return any(a.split("@")[-1] in adam_domains for a in cc_addrs)
+INTERNAL_DOMAINS = {"aptum.com", "cloudops.com"}
 
-# ── Source system ─────────────────────────────────────────────────────────────
+_DISCARD_SENDERS = re.compile(
+    r"(noreply|no-reply|donotreply|mailer@|bounce@|glassdoor\.com|microsoft-noreply)", re.I)
+_DISCARD_SUBJECTS = re.compile(
+    r"(newsletter|digest|bowl buzz|unsubscribe|daily sales|payout notification)", re.I)
+_COLD_OUTREACH = re.compile(
+    r"(opt.?out|reply.{0,10}stop|pilot project|free hours?|intro call|"
+    r"book a (call|demo|meeting)|reach out to see if)", re.I)
 
-def detect_source_system(raw: Dict) -> str:
-    addr = (raw.get("from") or {}).get("emailAddress", {}).get("address", "")
-    for pat, label in _SOURCE_PATTERNS:
+def is_discard(raw: Dict, body: str) -> bool:
+    addr     = sender_addr_str(raw)
+    subj     = raw.get("subject") or ""
+    internal = sender_domain_str(raw) in INTERNAL_DOMAINS
+    if _DISCARD_SENDERS.search(addr):    return True
+    if _DISCARD_SUBJECTS.search(subj):   return True
+    if not internal and _COLD_OUTREACH.search(body): return True
+    return False
+
+# ── System notification detection ─────────────────────────────────────────────
+
+_SIG_SUBJECT: List[Tuple[re.Pattern, str]] = [
+    (re.compile(r'^automatic reply:',                                  re.I), "auto_reply"),
+    (re.compile(r'\b(ITSUPPORT|INC|CHG|PRB|REQ|TASK|SD)-\d+\b',      re.I), "it_ticket"),
+    (re.compile(r'created a lead for',                                 re.I), "crm_lead"),
+    (re.compile(r'shared\s+"[^"]+"',                                   re.I), "doc_share"),
+    (re.compile(r'time off requested report',                          re.I), "hr_report"),
+    (re.compile(r'was executed at',                                    re.I), "scheduled_report"),
+    (re.compile(r'distributor transfer|dsa.?cta sponsorship',         re.I), "partner_notification"),
+]
+_SIG_SENDER: List[Tuple[re.Pattern, str]] = [
+    (re.compile(r'hubspot|@hs-',          re.I), "crm_notification"),
+    (re.compile(r'servicenow',            re.I), "it_notification"),
+    (re.compile(r'atlassian\.net|jira@',  re.I), "jira_notification"),
+    (re.compile(r'reports?@',             re.I), "scheduled_report"),
+]
+
+def _extract_signal_data(sig_type: str, subject: str) -> Dict:
+    if sig_type == "it_ticket":
+        m = re.search(r'((ITSUPPORT|INC|CHG|PRB|REQ|TASK|SD)-\d+)\s*(.*)', subject, re.I)
+        return {"ticket_id": m.group(1) if m else "", "description": (m.group(3) or "").strip()[:100]}
+    if sig_type == "crm_lead":
+        m = re.search(r'([\w][\w\s]+?)\s+created a lead for\s+([\w\s]+?)\s+at\s+(.+)', subject, re.I)
+        return {
+            "created_by": m.group(1).strip() if m else "",
+            "contact":    m.group(2).strip() if m else "",
+            "company":    m.group(3).strip()[:80] if m else "",
+        }
+    if sig_type == "doc_share":
+        m = re.search(r'"([^"]+)"', subject)
+        return {"document": m.group(1)[:100] if m else subject[:80]}
+    if sig_type == "auto_reply":
+        return {"original_subject": re.sub(r'^automatic reply:\s*', '', subject, flags=re.I)[:100]}
+    return {"subject": subject[:100]}
+
+def detect_signal(raw: Dict) -> Optional[Tuple[str, Dict]]:
+    """Returns (signal_type, extracted_data) or None."""
+    addr  = sender_addr_str(raw)
+    subj  = raw.get("subject") or ""
+    adam  = os.getenv("USER_EMAIL", "").lower()
+
+    if adam and addr == adam:
+        return "auto_forward", {"subject": subj[:100]}
+
+    for pat, sig_type in _SIG_SUBJECT:
+        if pat.search(subj):
+            return sig_type, _extract_signal_data(sig_type, subj)
+
+    for pat, sig_type in _SIG_SENDER:
         if pat.search(addr):
-            return label
-    return "human"
+            return sig_type, {"subject": subj[:100]}
 
-# ── Classification ────────────────────────────────────────────────────────────
+    return None
 
-CATEGORIES = ("important", "useful", "not_important", "spam")
+# ── Thread building ───────────────────────────────────────────────────────────
 
-def classify(raw: Dict, body_text: str) -> tuple[str, str]:
-    """
-    Returns (category, reason).
+def build_threads(candidates: List[Dict]) -> List[Dict]:
+    """Cluster email dicts by normalized subject, sort chronologically within each thread."""
+    adam   = os.getenv("USER_EMAIL", "").lower()
+    groups: Dict[str, List[Dict]] = defaultdict(list)
 
-    Decision tree — first match wins:
-    1. Meeting/event items → not_important (handled by capture filter already,
-       but keep as defence-in-depth)
-    2. Noise sender / noise subject → spam
-    3. Automated system (jira, servicenow, etc.) → spam
-    4. Social digest → spam
-    5. Cold outreach patterns in body → spam
-    6. Internal sender + Adam in TO + has thread history → important
-    7. Internal sender + Adam in TO → useful (might need response, LLM decides)
-    8. Internal sender + Adam in CC → useful
-    9. External human sender + Adam in TO → not_important (no prior relationship)
-    10. Everything else → not_important
-    """
-    subject    = raw.get("subject") or ""
-    subj_lower = subject.lower()
-    source_sys = detect_source_system(raw)
-    internal   = is_internal(raw)
-    in_to      = adam_is_to(raw, INTERNAL_DOMAINS)
-    in_cc      = adam_is_cc(raw, INTERNAL_DOMAINS)
-    is_reply   = subj_lower.lstrip().startswith("re:")
-    is_fwd     = subj_lower.lstrip().startswith(("fw:", "fwd:"))
-    odata_type = (raw.get("@odata.type") or "").lower()
+    for e in candidates:
+        groups[thread_key(e.get("subject") or "")].append(e)
 
-    # 1. Meeting/event items
-    if "eventmessage" in odata_type:
-        return "not_important", "Meeting/calendar item"
+    threads = []
+    for tid, emails in groups.items():
+        emails.sort(key=lambda x: x.get("sent_at") or "")
 
-    # 2. Noise sender or noise subject
-    sender_addr = (raw.get("from") or {}).get("emailAddress", {}).get("address", "")
-    if NOISE_SENDER_RE.search(sender_addr) or NOISE_SUBJECT_RE.search(subject):
-        return "spam", "Automated notification or marketing digest"
+        # Unique participants (excluding Adam)
+        seen: Dict[str, str] = {}
+        for e in emails:
+            f = e.get("from") or {}
+            a = f.get("address", "").lower()
+            if a and a != adam:
+                seen[a] = f.get("name") or a
 
-    # 3. Automated system source
-    if source_sys in ("jira", "github", "servicenow", "zendesk", "automated", "social"):
-        return "spam", f"Automated message from {source_sys}"
+        last   = emails[-1]
+        l_from = last.get("from") or {}
+        l_addr = l_from.get("address", "").lower()
 
-    # 4. Cold outreach patterns
-    if COLD_OUTREACH_RE.search(body_text) and not internal:
-        return "spam", "Cold outreach / unsolicited sales email"
+        # Display subject: normalize the first raw subject, then title-case
+        display = normalize_subject(emails[0].get("subject") or "").title()
 
-    # 5. Internal sender, Adam in TO, ongoing thread → important
-    if internal and in_to and (is_reply or is_fwd):
-        return "important", "Active internal thread requiring awareness or response"
+        threads.append({
+            "thread_id":           tid,
+            "subject":             display,
+            "email_count":         len(emails),
+            "first_sent":          emails[0].get("sent_at"),
+            "last_sent":           last.get("sent_at"),
+            "last_sender":         l_from,
+            "last_sender_is_adam": bool(adam and l_addr == adam),
+            "participants":        [{"name": n, "address": a} for a, n in seen.items()],
+            "emails": [
+                {
+                    "id":      e.get("id"),
+                    "sent_at": e.get("sent_at"),
+                    "from":    e.get("from"),
+                    # Body capped here — this is the last time the full body exists downstream
+                    "body":    (e.get("body") or "")[:1500],
+                }
+                for e in emails
+            ],
+        })
 
-    # 6. Internal sender, Adam in TO, new thread → useful (LLM will decide)
-    if internal and in_to:
-        return "useful", "Internal email addressed to Adam"
+    threads.sort(key=lambda t: t.get("last_sent") or "", reverse=True)
+    return threads
 
-    # 7. Internal sender, Adam in CC → useful
-    if internal and in_cc:
-        return "useful", "Internal thread; Adam copied for visibility"
+# ── Per-message router ────────────────────────────────────────────────────────
 
-    # 8. External human, in TO → not_important (unknown relationship)
-    if not internal and in_to and source_sys == "human":
-        return "not_important", "External sender, no established internal relationship"
+def route_message(raw: Dict) -> Tuple[str, Any]:
+    """Returns ('thread' | 'signal' | 'discard', data)."""
+    subject = raw.get("subject") or ""
+    body    = extract_body(raw)
+    addr    = sender_addr_str(raw)
+    sent_at = raw.get("sentDateTime") or ""
+    odata   = (raw.get("@odata.type") or "").lower()
 
-    return "not_important", "Peripheral or unclassified"
+    if "eventmessage" in odata:
+        return "discard", {"subject": subject, "sender": addr, "sent_at": sent_at}
 
-# ── Email cleaning ────────────────────────────────────────────────────────────
+    if is_discard(raw, body):
+        return "discard", {"subject": subject, "sender": addr, "sent_at": sent_at}
 
-def clean_email(raw: Dict) -> Dict:
-    subject    = raw.get("subject") or ""
-    body_raw   = raw.get("body") or {}
-    content    = body_raw.get("content") or ""
-    ctype      = (body_raw.get("contentType") or "").lower()
-    body_text  = html_to_text(content) if (ctype == "html" or content.lstrip().startswith("<")) else content.strip()
-    parts      = split_thread(body_text)
-    body       = parts[0] if parts else ""
-    history    = parts[1] if len(parts) > 1 else None
-    category, reason = classify(raw, body_text)
+    sig = detect_signal(raw)
+    if sig:
+        sig_type, extracted = sig
+        return "signal", {
+            "signal_type": sig_type,
+            "sent_at":     sent_at,
+            "subject":     subject,
+            "from":        norm_addr(raw.get("from") or {}),
+            "extracted":   extracted,
+        }
 
-    return {
-        "id":              raw.get("id"),
-        "sent_at":         raw.get("sentDateTime"),
-        "subject":         subject,
-        "category":        category,
-        "category_reason": reason,
-        "source_system":   detect_source_system(raw),
-        "is_reply":        subject.lstrip().lower().startswith("re:"),
-        "is_forward":      subject.lstrip().lower().startswith(("fw:", "fwd:")),
-        "from":            norm_addr(raw.get("from") or {}),
-        "to":              norm_addr_list(raw.get("toRecipients") or []),
-        "cc":              norm_addr_list(raw.get("ccRecipients") or []),
-        "bcc":             norm_addr_list(raw.get("bccRecipients") or []),
-        "body":            body,
-        "body_word_count": len(body.split()) if body else 0,
-        "has_thread":      history is not None,
-        "thread_history":  history,
+    return "thread", {
+        "id":      raw.get("id"),
+        "sent_at": sent_at,
+        "subject": subject,
+        "from":    norm_addr(raw.get("from") or {}),
+        "to":      norm_addr_list(raw.get("toRecipients") or []),
+        "cc":      norm_addr_list(raw.get("ccRecipients") or []),
+        "body":    body[:1500],
     }
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -253,38 +285,49 @@ DEFAULT_INPUT  = Path(__file__).resolve().parent / "outputs" / "source_emails.js
 DEFAULT_OUTPUT = Path(__file__).resolve().parent / "outputs" / "emails_processed.json"
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Clean + categorize emails → SourceArtifact JSON.")
+    load_env()
+    p = argparse.ArgumentParser(description="Group + clean emails → SourceArtifact JSON.")
     p.add_argument("-i", "--input",  default=str(DEFAULT_INPUT))
     p.add_argument("-o", "--output", default=str(DEFAULT_OUTPUT))
     args = p.parse_args()
 
-    input_path  = Path(args.input)
-    output_path = Path(args.output)
-
     artifact = make_source_artifact("email_processor")
-    artifact["input_file"] = str(input_path)
+    artifact["input_file"] = str(args.input)
 
     try:
-        raw_artifact: Dict = json.loads(input_path.read_text(encoding="utf-8"))
-        raw_messages: List = (raw_artifact.get("objects") or {}).get("messages", {}).get("data") or []
-        print(f"  Processing {len(raw_messages)} raw messages from {input_path.name}")
+        raw_artifact = json.loads(Path(args.input).read_text(encoding="utf-8"))
+        raw_messages = (raw_artifact.get("objects") or {}).get("messages", {}).get("data") or []
+        print(f"  Processing {len(raw_messages)} raw messages")
 
-        buckets: Dict[str, List] = {cat: [] for cat in CATEGORIES}
+        thread_candidates: List[Dict] = []
+        signals:           List[Dict] = []
+        discards:          List[Dict] = []
+
         for raw in raw_messages:
-            cleaned = clean_email(raw)
-            buckets[cleaned["category"]].append(cleaned)
+            bucket, data = route_message(raw)
+            if   bucket == "thread":  thread_candidates.append(data)
+            elif bucket == "signal":  signals.append(data)
+            else:                     discards.append(data)
 
-        for cat, items in buckets.items():
-            print(f"  {cat:15s} → {len(items)}")
+        threads = build_threads(thread_candidates)
+
+        print(f"  threads              → {len(threads):3d}  ({len(thread_candidates)} emails)")
+        print(f"  system_notifications → {len(signals):3d}")
+        print(f"  discard              → {len(discards):3d}")
 
         artifact["objects"] = {
-            cat: {
-                "status":       "success",
-                "record_count": record_count(items),
-                "error":        None,
-                "data":         items,
-            }
-            for cat, items in buckets.items()
+            "threads": {
+                "status": "success", "record_count": record_count(threads),
+                "error": None, "data": threads,
+            },
+            "system_notifications": {
+                "status": "success", "record_count": record_count(signals),
+                "error": None, "data": signals,
+            },
+            "discard": {
+                "status": "success", "record_count": record_count(discards),
+                "error": None, "data": discards,
+            },
         }
         artifact["status"] = "success"
 
@@ -292,10 +335,11 @@ def main() -> int:
         artifact["status"] = "fail"
         artifact["error"]  = {"type": type(e).__name__, "message": str(e), "retryable": False}
         print(f"  Processing failed: {e}")
+        import traceback; traceback.print_exc()
 
     finally:
-        write_artifact(artifact, output_path)
-        print(f"  Wrote → {output_path}")
+        write_artifact(artifact, Path(args.output))
+        print(f"  Wrote → {args.output}")
 
     return 0 if artifact["status"] == "success" else 1
 
