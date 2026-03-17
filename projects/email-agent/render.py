@@ -10,6 +10,7 @@ Idempotent: replaces an existing '## Email Summary' section instead of appending
 import argparse
 import json
 import os
+from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -69,7 +70,7 @@ def _render_thread_block(thread: Dict[str, Any]) -> List[str]:
     # Subject as linked header
     lines.append(f"#### {_linked_subject(thread)}")
 
-    # Full summary (not one_line)
+    # Full summary
     summary = (llm.get("summary") or "").strip()
     if summary:
         lines.append(summary)
@@ -103,7 +104,7 @@ def _render_thread_block(thread: Dict[str, Any]) -> List[str]:
 
 
 def _render_new_info_block(thread: Dict[str, Any]) -> List[str]:
-    """New information threads — plain readable sections, no callout syntax."""
+    """New information threads — plain readable sections."""
     llm = thread.get("llm_summary") or {}
     lines: List[str] = []
 
@@ -160,7 +161,6 @@ def render_markdown(summary_json: Dict[str, Any]) -> List[str]:
     lines.append(f"## Email Summary — {date_label}")
     lines.append(f"> {len(threads)} threads · {len(signals)} signals · {discard_count} discarded · {total_tokens:,} tokens")
 
-    # ── Waiting on Me ─────────────────────────────────────────────────────
     if waiting_on_me:
         lines.append("")
         lines.append(f"### Waiting on Me ({len(waiting_on_me)})")
@@ -168,7 +168,6 @@ def render_markdown(summary_json: Dict[str, Any]) -> List[str]:
             lines.append("")
             lines.extend(_render_thread_block(t))
 
-    # ── Waiting on Others ─────────────────────────────────────────────────
     if waiting_on_others:
         lines.append("")
         lines.append(f"### Waiting on Others ({len(waiting_on_others)})")
@@ -176,7 +175,6 @@ def render_markdown(summary_json: Dict[str, Any]) -> List[str]:
             lines.append("")
             lines.extend(_render_thread_block(t))
 
-    # ── New Information ───────────────────────────────────────────────────
     if new_information:
         lines.append("")
         lines.append(f"### New Information ({len(new_information)})")
@@ -193,7 +191,6 @@ def inject_email_summary(note_path: Path, rendered_lines: List[str]) -> None:
     content = note_path.read_text(encoding="utf-8")
     lines = content.split("\n")
 
-    # Find existing ## Email Summary section (match prefix to handle date suffix)
     start_idx: Optional[int] = None
     for i, line in enumerate(lines):
         if line.strip().startswith("## Email Summary"):
@@ -232,7 +229,7 @@ def main(file_override: str = None) -> int:
     p.add_argument(
         "--file",
         required=False,
-        help="Path to daily note .md file, or 'auto' to derive from summary date range",
+        help="Path to daily note .md file, or 'auto' to use today's daily note",
     )
     p.add_argument("-i", "--input", default=str(DEFAULT_INPUT))
 
@@ -256,15 +253,8 @@ def main(file_override: str = None) -> int:
     rendered_lines = render_markdown(summary_json)
 
     if target_file_arg == "auto":
-        threads = (summary_json.get("output") or {}).get("threads") or []
-        if not threads:
-            print("  render failed: no threads in summary JSON (cannot derive date)")
-            return 1
-        date_str = (threads[0].get("last_sent") or "")[:10]
-        if not date_str:
-            print("  render failed: missing last_sent on first thread")
-            return 1
-        note_path = _resolve_daily_note_path(date_str)
+        # Auto resolves to today's daily note
+        note_path = _resolve_daily_note_path(date.today().isoformat())
     else:
         note_path = Path(target_file_arg)
 
