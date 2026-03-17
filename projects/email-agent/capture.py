@@ -32,7 +32,7 @@ import requests
 
 # ── Project imports ───────────────────────────────────────────────────────────
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parent))  # email-agent root
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))  # connected-brain root
 from connectors.source_artifact import (
     make_source_artifact, record_count, utc_now, write_artifact
 )
@@ -61,8 +61,8 @@ def _load_env_file(path: Path) -> None:
             os.environ[k] = _strip_optional_quotes(v)
 
 def load_env() -> None:
-    script_dir = Path(__file__).resolve().parent  # .../projects/email-agent
-    repo_root  = script_dir.parents[1]            # .../connected-brain
+    script_dir = Path(__file__).resolve().parent
+    repo_root  = script_dir.parents[2]
     _load_env_file(Path.cwd() / ".env")
     _load_env_file(repo_root / ".env")
 
@@ -105,14 +105,9 @@ class _OAuthHandler(http.server.BaseHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         if parsed.path == "/auth/login/callback" and "code=" in parsed.query:
             _auth_code = urllib.parse.parse_qs(parsed.query).get("code", [None])[0]
-            # Use pure ASCII in the bytes literal to satisfy Python's parser.
-            self.wfile.write(
-                b"<html><body><h1>Auth successful - you can close this window.</h1></body></html>"
-            )
+            self.wfile.write(b"<html><body><h1>Auth successful — close this window.</h1></body></html>")
         else:
-            self.wfile.write(
-                b"<html><body><h1>Auth failed - no code received.</h1></body></html>"
-            )
+            self.wfile.write(b"<html><body><h1>Auth failed — no code received.</h1></body></html>")
     def log_message(self, *_): pass
 
 def get_access_token() -> str:
@@ -175,7 +170,7 @@ def fetch_messages(start: date, end: date, token: str) -> List[Dict[str, Any]]:
     url     = f"https://graph.microsoft.com/v1.0/users/{user_email}/messages"
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     params  = {
-        "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients",
+        "$select": "id,subject,sentDateTime,body,from,toRecipients,ccRecipients,meetingMessageType",
         "$filter": f"sentDateTime ge {start.isoformat()}T00:00:00Z and sentDateTime le {end.isoformat()}T23:59:59Z",
         "$top":    1000,
     }

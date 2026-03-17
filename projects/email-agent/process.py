@@ -34,8 +34,11 @@ def _sq(v: str) -> str:
     return v[1:-1] if len(v) >= 2 and v[0] == v[-1] in ('"', "'") else v
 
 def load_env() -> None:
-    root = Path(__file__).resolve().parents[1]
-    for p in (Path.cwd() / ".env", root / ".env"):
+    # .parent  → .../connected-brain/projects/email-agent  (directory)
+    # parents[1] → .../connected-brain                     (repo root)
+    script_dir = Path(__file__).resolve().parent
+    repo_root  = script_dir.parents[1]
+    for p in (Path.cwd() / ".env", repo_root / ".env"):
         try:
             for raw in p.read_text(encoding="utf-8").splitlines():
                 line = raw.strip()
