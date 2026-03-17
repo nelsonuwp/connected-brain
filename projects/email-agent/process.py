@@ -234,13 +234,21 @@ def build_threads(candidates: List[Dict]) -> List[Dict]:
     for tid, emails in groups.items():
         emails.sort(key=lambda x: x.get("sent_at") or "")
 
-        # Unique participants (excluding Adam)
+        # Unique participants (excluding Adam) — from senders AND recipients
         seen: Dict[str, str] = {}
         for e in emails:
+            # Sender
             f = e.get("from") or {}
             a = f.get("address", "").lower()
             if a and a != adam:
                 seen[a] = f.get("name") or a
+            # TO and CC recipients — needed to detect internal threads
+            # where the sender is external but the recipients are internal
+            for field in ("to", "cc"):
+                for r in (e.get(field) or []):
+                    ra = (r.get("address") or "").lower()
+                    if ra and ra != adam:
+                        seen[ra] = r.get("name") or ra
 
         last   = emails[-1]
         l_from = last.get("from") or {}
