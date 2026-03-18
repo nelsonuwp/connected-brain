@@ -43,3 +43,11 @@ It’s an intelligence layer for the company.
 The leaders who understand this now will build teams that are still relevant in 2030.  
   
 The others will still be reporting on ticket backlog.
+
+
+
+## Centrilogic Discussion
+Peter Bell, Mark Moore (UK - The guy), Joshua Justice
+George, MA, Brad Petrie, Sarah
+
+What can we offer to help these customers move?
