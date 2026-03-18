@@ -67,9 +67,11 @@ The total MRC across all customers is approximately **£65,057 GBP** (£51,573 c
 
 **The Visio file** is a Data Hall 1 floor plan for the Portsmouth facility showing cabinet positions — looks like the planned layout for receiving these migrations. It references customer-supplied cabinets, network cabinets, and ROFR (right of first refusal) space.
 
-Meeting Wednesday March 18 8am:
+**Meeting Wednesday March 18 8am:**
 Peter Bell, Mark Moore (UK - The guy), Joshua Justice
 George, MA, Brad Petrie, Sarah
 
 What can we offer to help these customers move?
 90 days migration notice (you need to migrate w/i 90 days)
+
+"Presume we "
