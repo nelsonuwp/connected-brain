@@ -75,3 +75,9 @@ What can we offer to help these customers move?
 90 days migration notice (you need to migrate w/i 90 days)
 
 "Presume we will have to re-IP" - Marc Moore
+
+Things to do:
+- need a migration team
+- rent a vehicle, insure vehicle, hardware, etc.
+- boxes
+- do we have the team
