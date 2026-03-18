@@ -1,192 +1,1108 @@
 {
   "source": "email_processor",
-  "collected_at": "2026-03-17T15:20:17.873034Z",
+  "collected_at": "2026-03-18T16:05:07.691920Z",
   "status": "success",
   "objects": {
     "threads": {
       "status": "success",
-      "record_count": 3,
+      "record_count": 18,
       "error": null,
       "data": [
         {
-          "thread_id": "cacca746",
-          "subject": "Thoughts on improving forecasting",
+          "thread_id": "78926457",
+          "subject": "AWS Cloud Operations Competency App-0059154 - Aptum",
           "is_forward": false,
           "email_count": 1,
-          "first_sent": "2026-03-15T20:12:00Z",
-          "last_sent": "2026-03-15T20:12:00Z",
+          "first_sent": "2026-03-17T23:24:05Z",
+          "last_sent": "2026-03-17T23:24:05Z",
           "last_sender": {
-            "name": "Marc Alex Forget",
-            "address": "Marc-Alexandre.Forget@aptum.com"
+            "name": "Lacie Allen-Morley",
+            "address": "Lacie.Allen-Morley@aptum.com"
           },
           "last_sender_is_adam": false,
           "participants": [
             {
-              "name": "Marc Alex Forget",
-              "address": "marc-alexandre.forget@aptum.com"
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
             },
             {
-              "name": "Frederic Gingras",
-              "address": "frederic.gingras@aptum.com"
+              "name": "Lorenzo Fernandez-Shaw, Francisco",
+              "address": "pacolor@amazon.es"
             },
             {
-              "name": "Ian Rae",
-              "address": "ian.rae@aptum.com"
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.kemp@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "andrei.ianouchkevitch@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2BdcHAAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR_dcHAAAA=",
+              "sent_at": "2026-03-17T23:24:05Z",
+              "from": {
+                "name": "Lacie Allen-Morley",
+                "address": "Lacie.Allen-Morley@aptum.com"
+              },
+              "body": "Good Afternoon Francisco,\n\nThank you for your feedback. I just wanted to confirm that the recommended remediation actions have been completed and I have resubmitted our program application in the APN portal.\n\nKind Regards,\n\nLacie Allen-Morley\n\nManager, Service Delivery\n\n+442380926163\naptum.com | LinkedIn\n\nFrom: Lorenzo Fernandez-Shaw, Francisco <pacolor@amazon.es>\nSent: Wednesday, March 11, 2026 10:32\nTo: Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>; Lacie Allen-Morley <Lacie.Kemp@aptum.com>\nCc: Adam Nelson <adam.nelson@aptum.com>; Andrei Ianouchkevitch <Andrei.Ianouchkevitch@aptum.com>\nSubject: RE: AWS Cloud Operations Competency App-0059154 - Aptum\n\nHi Lacie,\n\nI'm afraid I don't have visibility into the details of the upcoming partner program changes. For any questions related to funding, I'd recommend opening a case in Partner Central and selecting the Funding Team — they will be best placed to help you with this.\n\nBest regards,\n\nFrancisco Lorenzo Fernández-Shaw\n\nTech Business Developer – PPS Team\n\nAmazon Web Services – Spain | Madrid\n\npacolor@amazon.es\n\nFrom: Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>\nSent: Tuesday, March 10, 2026 7:07 PM\nTo: Lacie Allen-Morley <Lacie.Kemp@aptum.com>; Lorenzo Fernandez-Shaw, Francisco <pacolor@amazon.es>\nCc: Adam Nelson <adam.nelson@aptum.com>; Andrei Ianouchkevitch <Andrei.Ianouchkevitch@aptum.com>\nSubject: RE: [EXTERNAL] AWS Cloud Operations Competency App-0059154 - Aptum\n\nCAUTION: This email originated from outside of the o",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2BdcHAAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "e6ddf865",
+          "subject": "information request - DB",
+          "is_forward": false,
+          "email_count": 5,
+          "first_sent": "2026-03-17T13:31:02Z",
+          "last_sent": "2026-03-17T22:56:37Z",
+          "last_sender": {
+            "name": "George Revie",
+            "address": "George.Revie@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Paul Billard",
+              "address": "paul.billard@aptum.com"
+            },
+            {
+              "name": "Dennis Lam",
+              "address": "dennis.lam@aptum.com"
             },
             {
               "name": "Sarah Blanchard",
               "address": "sarah.blanchard@aptum.com"
             },
             {
-              "name": "Adam Nelson",
-              "address": "adam.nelson@aptum.com"
-            },
-            {
-              "name": "Marc Pare",
-              "address": "marc.pare@aptum.com"
-            },
-            {
-              "name": "Tom Kelsch",
-              "address": "tom.kelsch@aptum.com"
-            },
-            {
               "name": "Jorge Quintero",
               "address": "jorge.quintero@aptum.com"
-            }
-          ],
-          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARrT5OtAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-          "emails": [
-            {
-              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARrT5OtAAA=",
-              "sent_at": "2026-03-15T20:12:00Z",
-              "from": {
-                "name": "Marc Alex Forget",
-                "address": "Marc-Alexandre.Forget@aptum.com"
-              },
-              "body": "Team,\n\nFred and I met last week to discuss areas for improvement in our forecasting process. I plan to meet with Tom this week to review a few ideas, after which Fred and I will regroup and prepare recommendations for the broader team.\n\nIn the meantime, if you’d like to explore different forecasting approaches, here is a useful blog post: 12 proven sales forecasting methods to predict revenue | Outreach\n\nThank you,\nMA\n\nMarc Alex Forget\n\nSenior Vice-President of Sales and Marketing | Vice‑président principal, Ventes et Marketing\n\n437-500-2700\naptum.com | LinkedIn\n\nFrom: Frederic Gingras <Frederic.Gingras@aptum.com>\nSent: Tuesday, February 24, 2026 8:19 PM\nTo: Ian Rae <Ian.Rae@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>; Marc Pare <Marc.Pare@aptum.com>\nCc: Tom Kelsch <Tom.Kelsch@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>\nSubject: Thoughts on improving forecasting\n\nHi team,\n\nI've been thinking about our forecasting calls, how the forecast changes so much between the start and end of the month, and I've been collecting some thoughts around this. Keen to hear your thoughts...\n\n@Marc Alex Forget, the following may or may not apply in your case, as I understand that defining timelines with partners involved can be... complex... but keen to get your feedback on this.\n\nWe often see:\n\nOpportunities in wrong stages\n\nClose dates that are wrong\n\nDeals constantly slipping\n\nIssue ",
-              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARrT5OtAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-            }
-          ]
-        },
-        {
-          "thread_id": "a76e49e5",
-          "subject": "STG x Aptum Outreach email",
-          "is_forward": false,
-          "email_count": 2,
-          "first_sent": "2026-03-13T15:45:48Z",
-          "last_sent": "2026-03-14T13:39:22Z",
-          "last_sender": {
-            "name": "Jim Sallusto",
-            "address": "jim@sciengroup.com"
-          },
-          "last_sender_is_adam": false,
-          "participants": [
-            {
-              "name": "Vicki Patten",
-              "address": "vicki.patten@aptum.com"
-            },
-            {
-              "name": "Emma Kopang",
-              "address": "emma.kopang@aptum.com"
-            },
-            {
-              "name": "Jim Sallusto",
-              "address": "jim@sciengroup.com"
             },
             {
               "name": "Adam Nelson",
               "address": "adam.nelson@aptum.com"
-            }
-          ],
-          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARl%2F5UTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-          "emails": [
-            {
-              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARhlR2HAAA=",
-              "sent_at": "2026-03-13T15:45:48Z",
-              "from": {
-                "name": "Vicki Patten",
-                "address": "Vicki.Patten@aptum.com"
-              },
-              "body": "Thanks so much for the call this morning Jim!\n\nTo summarize:\n\nYou have reached out to the first three accounts via email and will be following up with phone calls on Monday.\n\nOur action items are:\n\n@Emma Kopang please put the work doc below into the Collateral folder on the OneDrive.\n\n@Emma Kopang please do the AM research for the next 6 accounts highlighted in yellow on the Tracker in the OneDrive.\n\nJim has color coded the accounts for his weekly reach out. We will get the feedback weekly and adjust as necessary.\n\nI appreciate the teamwork by everyone here!!\n\nHave a great weekend!\n\nVicki\n\nVicki Patten\n\nDirector, Global Channel Development\n\n+1 (303) 898-9131\naptum.com | LinkedIn\n\nFrom: Emma Kopang <Emma.Kopang@aptum.com>\nSent: Monday, March 9, 2026 2:59 PM\nTo: Jim Sallusto <jim@sciengroup.com>\nCc: Vicki Patten <Vicki.Patten@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: STG x Aptum Outreach email\n\nHi Jim,\n\nI took another pass at your outreach email. The goal of this email isn’t to fully explain the partnership or the platform, it’s to earn the right to a conversation.\n\nWith a CXO audience, I’ve found shorter messages perform significantly better, so I intentionally kept the body concise and structured it around a few principles that tend to drive replies:\n\nOh, they know we work with Aptum (why Jim is reaching out vs. Aptum)\n↓\nThey actually looked at our environment (referenced current Aptum footprint)\n↓\nOther companies are having this conversation (peer credibility ",
-              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARhlR2HAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-            },
-            {
-              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARl-5UTAAA=",
-              "sent_at": "2026-03-14T13:39:22Z",
-              "from": {
-                "name": "Jim Sallusto",
-                "address": "jim@sciengroup.com"
-              },
-              "body": "Hi\n\nNext Friday I will be traveling so updates via spreadsheet.\n\nThanks\n\nJim\n\nwww.ScienGroup.com\n\nFrom: Vicki Patten <Vicki.Patten@aptum.com>\nDate: Friday, March 13, 2026 at 11:46 AM\nTo: Emma Kopang <Emma.Kopang@aptum.com>, Jim Sallusto <jim@sciengroup.com>\nCc: Adam Nelson <Adam.Nelson@aptum.com>\nSubject: RE: STG x Aptum Outreach email\n\nThanks so much for the call this morning Jim!\n\nTo summarize:\n\nYou have reached out to the first three accounts via email and will be following up with phone calls on Monday.\n\nOur action items are:\n\n@Emma Kopang please put the work doc below into the Collateral folder on the OneDrive.\n\n@Emma Kopang please do the AM research for the next 6 accounts highlighted in yellow on the Tracker in the OneDrive.\n\nJim has color coded the accounts for his weekly reach out. We will get the feedback weekly and adjust as necessary.\n\nI appreciate the teamwork by everyone here!!\n\nHave a great weekend!\n\nVicki\n\nVicki Patten\n\nDirector, Global Channel Development\n\n+1 (303) 898-9131\naptum.com | LinkedIn\n\nFrom: Emma Kopang <Emma.Kopang@aptum.com>\nSent: Monday, March 9, 2026 2:59 PM\nTo: Jim Sallusto <jim@sciengroup.com>\nCc: Vicki Patten <Vicki.Patten@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: STG x Aptum Outreach email\n\nHi Jim,\n\nI took another pass at your outreach email. The goal of this email isn’t to fully explain the partnership or the platform, it’s to earn the right to a conversation.\n\nWith a CXO audience, I’ve found shorter messages perform signific",
-              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARl%2F5UTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-            }
-          ]
-        },
-        {
-          "thread_id": "71499eb4",
-          "subject": "Sales Forecast & Pipeline - March 13th Update",
-          "is_forward": false,
-          "email_count": 1,
-          "first_sent": "2026-03-13T23:42:56Z",
-          "last_sent": "2026-03-13T23:42:56Z",
-          "last_sender": {
-            "name": "Tom Kelsch",
-            "address": "Tom.Kelsch@aptum.com"
-          },
-          "last_sender_is_adam": false,
-          "participants": [
-            {
-              "name": "Tom Kelsch",
-              "address": "tom.kelsch@aptum.com"
-            },
-            {
-              "name": "Marc Alex Forget",
-              "address": "marc-alexandre.forget@aptum.com"
-            },
-            {
-              "name": "Frederic Gingras",
-              "address": "frederic.gingras@aptum.com"
-            },
-            {
-              "name": "Vicki Patten",
-              "address": "vicki.patten@aptum.com"
-            },
-            {
-              "name": "Marc Pare",
-              "address": "marc.pare@aptum.com"
-            },
-            {
-              "name": "Ian Rae",
-              "address": "ian.rae@aptum.com"
-            },
-            {
-              "name": "Sarah Blanchard",
-              "address": "sarah.blanchard@aptum.com"
-            },
-            {
-              "name": "Adam Nelson",
-              "address": "adam.nelson@aptum.com"
-            },
-            {
-              "name": "Jorge Quintero",
-              "address": "jorge.quintero@aptum.com"
             },
             {
               "name": "Kathy Wu",
               "address": "kathy.wu@aptum.com"
+            },
+            {
+              "name": "Tom Kelsch",
+              "address": "tom.kelsch@aptum.com"
+            },
+            {
+              "name": "George Revie",
+              "address": "george.revie@aptum.com"
             }
           ],
-          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARhlR2NAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FtAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
           "emails": [
             {
-              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAARhlR2NAAA=",
-              "sent_at": "2026-03-13T23:42:56Z",
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-CAAA=",
+              "sent_at": "2026-03-17T13:31:02Z",
               "from": {
-                "name": "Tom Kelsch",
-                "address": "Tom.Kelsch@aptum.com"
+                "name": "Paul Billard",
+                "address": "Paul.Billard@aptum.com"
               },
-              "body": "Hi team,\n\nThe following is a summary of Sales Pipeline & Forecast for Q3. Changes from last week's figures are noted. All figures in CAD.\n\nNotable changes to opportunities in the past week are detailed below.\n\nClosed Won\n\nJust Energy - $45K MRC - Install Base, Hosting\n\n3 month contract for temporary licensing\n\nClosed Lost\n\nUS Signal - $27K MRC - New Logo, SaaS\n\nNational Relief Telecom - $20K MRC - New Logo, SaaS\n\nNewly Created\n\nJust Energy - $75K MRC - Install Base, Managed Services, Q4\n\nClose Date Pushed\n\nIguana Solutions - $12K MRC (New Logo, Hosting, pushed from Mar to Apr)\n\nAC Foods - $75K NRC (New Logo, PS, pushed from May to Jun)\n\nEBOARDsolutions - $33K NRC (Install Base, PS, pushed from Apr to Sep)\n\nMRC or NRC Changed\n\nNo notable changes\n\n***\n\nTo see performance against targets, opportunity details, or other sales analysis please refer to the Power BI Dashboards (updated daily):\n\nSales Forecasting & Analysis - Power BI Dashboards\n\nThanks,\n\nTom Kelsch\n\nSenior Decision Support Analyst\n\naptum.com | LinkedIn",
-              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARhlR2NAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+              "body": "Hi Kathy/Tom,\n\nI'm not sure if you are the correct person to ask this, but do either of you maintain the renewals tracker? If so, can you please send the most up-to-date version of this file? This would be required to get a sense of how much of our revenues is contracted vs on a month to month basis.\n\n@Jorge Quintero do we have a report that can provide remaining term per Service ID#?\n\nThanks,\n\nPaul Billard\n\nFinancial Analyst\n\naptum.com | LinkedIn\n\nFrom: Dennis Lam <Dennis.Lam@aptum.com>\nSent: March 16, 2026 4:55 PM\nTo: Sarah Blanchard <Sarah.Blanchard@aptum.com>; Paul Billard <Paul.Billard@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; George Revie <George.Revie@aptum.com>\nSubject: Re: information request - DB\n\nHI Sarah,\n\nFor contribution margin, I only have the high level general margins by LOB.\n\nIf DB wants it per customer's MRR, I think utilizing the profitability data Jorge put together will be best. And contribution margin would be Revenues less any direct costs associated with customer, excluding rent and other overheads that isnt captured by Jorge.\n\nDennis Lam\n\nManager, Finance\n\n+1 (604) 909-6386\naptum.com | LinkedIn\n\nFrom: Sarah Blanchard <Sarah.Blanchard@aptum.com>\nSent: Monday, March 16, 2026 1:44 PM\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Paul Billard <Paul.Billard@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; ",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FCAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAAR4R8A3AAA=",
+              "sent_at": "2026-03-17T15:36:35Z",
+              "from": {
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              },
+              "body": "Is this sufficient for the expiration for top 10 customers? I used what was in the datamart for expiration dates for each service.\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Tom Kelsch <Tom.Kelsch@aptum.com>\nSent: March 16, 2026 17:26\nTo: Sarah Blanchard <Sarah.Blanchard@aptum.com>; Dennis Lam <Dennis.Lam@aptum.com>; Paul Billard <Paul.Billard@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>; George Revie <George.Revie@aptum.com>\nSubject: Re: information request - DB\n\nHi Sarah,\n\nSales Pipeline data is attached with a view of total open MRC, NRC, and TCV for the remainder of FY26.\n\nFigures are shown by fiscal quarter/month, and the table can be expanded to view the opps with detail on LOB/Type/Stage etc.\n\nPlease let me know if you would like to see the data in a different format.\n\nThanks,\n\nTom Kelsch\n\nSenior Decision Support Analyst\n\naptum.com | LinkedIn\n\nFrom: Sarah Blanchard <Sarah.Blanchard@aptum.com>\nSent: Monday, March 16, 2026 1:44 PM\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Paul Billard <Paul.Billard@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; George Revie <George.Revie@aptum.com>\nSubject: information request - DB\n\nHey Team,\n\nWe do have a request coming in for updated information for Digital Bridge. For each of the below please indicate ",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A3AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-kAAA=",
+              "sent_at": "2026-03-17T19:40:02Z",
+              "from": {
+                "name": "Paul Billard",
+                "address": "Paul.Billard@aptum.com"
+              },
+              "body": "Hi Sarah,\n\nPlease find attached requested information. Please note the following:\n\nTop 10 Customer MRR details includes the details for the top 10 customers as of Feb 2026. MRR tab includes MRR amount for each customer by LOB for period starting Sep 2024 to Feb 2026. I've also included several details in contact info tab.\n\nBacklog & Sales Tracker data file includes data I've leveraged from the Sales Tracker (Sep 2021 to Feb 2026) and MRR files to gather details regarding backlog and remaining contracted revenue deals as % of MRR.\n\nBacklog:\n\nBacklog includes amounts for MRC ($46M). This was gathered based on remaining term for each contract that extends beyond Feb 2026.\n\nBacklog for NRC (excluding PS) is ($141K). This was based on completions of NRC deals.\n\nFor the PS backlog I've used the data from PS revenue sheet ($431K). This would be the remaining amounts unrecognized from the sheet.\n\n% customer revenue on contract vs MRR:\n\nWhile leveraging the sales results file and looking up contracted amounts that have remaining term, this shows these orders consist of $3.1M of our $5.8M MRR for Feb 2026. This would constitute 54% of our MRR. If 54% of our MRC is still under contract, would that mean that remaining 46% of MRR would have services which are on a Month to Month term?\n\nThe total % of MRR for these customers would constitute 67% of our MRR, but some of the services for these customers may have come out of contract.\n\nThe average contract term for these deals (excludes HWM, ",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FkAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-rAAA=",
+              "sent_at": "2026-03-17T21:53:33Z",
+              "from": {
+                "name": "George Revie",
+                "address": "George.Revie@aptum.com"
+              },
+              "body": "Hi Sarah, attached is the CAPEX forecast as requested, I am still working on the Pro Forma for the lease renewals (Dennis is assisting).\n\nGeorge Revie\n\nDirector, Data Center Infrastructure & Operations\n\n+1 (647) 826-3048\naptum.com | LinkedIn\n\nFrom: Sarah Blanchard <Sarah.Blanchard@aptum.com>\nSent: Monday, March 16, 2026 4:44 PM\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Paul Billard <Paul.Billard@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; George Revie <George.Revie@aptum.com>\nSubject: information request - DB\n\nHey Team,\n\nWe do have a request coming in for updated information for Digital Bridge. For each of the below please indicate timing to which you can provide the requested information if you can’t provide it by EOD tomorrow. I tagged who can provide the info to the best of my knowledge, but feel free to collaborate on these.\n\nDetails on top 10 clients, including MRR (@Paul Billard), scope (what LOB @Paul Billard), contract expiry (@Adam Nelson and @Kathy Wu or @Tom Kelsch) and margin (For margin let’s use the contribution margin here please and add a note to what is the contribution margin (@Paul Billard and @Dennis Lam)\n\nAlso include customer demographics (e.g. Industry and region) @Paul Billard and @Tom Kelsch please collaborate on this\n\n% of revenue on contract vs month-to-month and average remaining contract term @Paul Billard you can leverage the Run Rate fi",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FrAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-tAAA=",
+              "sent_at": "2026-03-17T22:56:37Z",
+              "from": {
+                "name": "George Revie",
+                "address": "George.Revie@aptum.com"
+              },
+              "body": "Hi Sarah, attached is the lease proforma (Thanks Dennis).\n\nGeorge Revie\n\nDirector, Data Center Infrastructure & Operations\n\n+1 (647) 826-3048\naptum.com | LinkedIn\n\nFrom: Sarah Blanchard <Sarah.Blanchard@aptum.com>\nSent: Monday, March 16, 2026 4:44 PM\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Paul Billard <Paul.Billard@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; George Revie <George.Revie@aptum.com>\nSubject: information request - DB\n\nHey Team,\n\nWe do have a request coming in for updated information for Digital Bridge. For each of the below please indicate timing to which you can provide the requested information if you can’t provide it by EOD tomorrow. I tagged who can provide the info to the best of my knowledge, but feel free to collaborate on these.\n\nDetails on top 10 clients, including MRR (@Paul Billard), scope (what LOB @Paul Billard), contract expiry (@Adam Nelson and @Kathy Wu or @Tom Kelsch) and margin (For margin let’s use the contribution margin here please and add a note to what is the contribution margin (@Paul Billard and @Dennis Lam)\n\nAlso include customer demographics (e.g. Industry and region) @Paul Billard and @Tom Kelsch please collaborate on this\n\n% of revenue on contract vs month-to-month and average remaining contract term @Paul Billard you can leverage the Run Rate file and the renewal tracker.\n\nCurrent booked backlog and sales pipeline @Tom Kel",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FtAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "8d60af21",
+          "subject": "Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification",
+          "is_forward": false,
+          "email_count": 2,
+          "first_sent": "2026-03-17T19:51:44Z",
+          "last_sent": "2026-03-17T20:16:16Z",
+          "last_sender": {
+            "name": "Adam Nelson",
+            "address": "Adam.Nelson@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Frederic Gingras",
+              "address": "frederic.gingras@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Barbara Krzywoszanski",
+              "address": "barbara.krzywoszanski@aptum.com"
+            },
+            {
+              "name": "Elizabeth Perez",
+              "address": "elizabeth.perez@aptum.com"
+            },
+            {
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
+            },
+            {
+              "name": "Charles Rutledge",
+              "address": "charles.rutledge@aptum.com"
+            },
+            {
+              "name": "Andy Petterson",
+              "address": "andy.petterson@aptum.com"
+            },
+            {
+              "name": "Fred Taylor-Young",
+              "address": "fred.taylor-young@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A%2FAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-lAAA=",
+              "sent_at": "2026-03-17T19:51:44Z",
+              "from": {
+                "name": "Frederic Gingras",
+                "address": "Frederic.Gingras@aptum.com"
+              },
+              "body": "What should be our recommended approach here?\n\nIt seems we either need to:\n\nTell the customer it can't continue, in which case they will churn (they have expressed the stance to keep the same licence - \"it's always been that way\")\n\nStay as is and hope for the best.\n\nI don't think that the second option is an option.\n\nFrederic Gingras\n\nSenior Director, Account Management\n\nm: +1 514-913-9153 teams: +1 514-673-7553\naptum.com | LinkedIn\n\nFrom: Fred Taylor-Young <Fred.Taylor-Young@aptum.com>\nSent: March 16, 2026 9:20 AM\nTo: Adam Nelson <Adam.Nelson@aptum.com>; Barbara Krzywoszanski <Barbara.Krzywoszanski@aptum.com>; Frederic Gingras <Frederic.Gingras@aptum.com>; Elizabeth Perez <Elizabeth.Perez@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>; Charles Rutledge <Charles.Rutledge@aptum.com>\nCc: Information Security <information_security@aptum.com>\nSubject: Re: Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification\n\nWhen the previous manager of Abuse (Joseph) was exited last year, a lot of historical knowledge was lost. It's also worth clarifying that he was a 1-man team; he had no reports. His Abuse responsibilities were given to InfoSec to handle as best we can, and since then, we have been trying to document some of that knowledge based on our interpretation of what Abuse should handle, which does align with what Adam said: the mis-use of our services.\n\nI don't believe license (mis-)use should fall under the purview of Abuse. If a customer has in",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FlAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAAR4R8A-AAA=",
+              "sent_at": "2026-03-17T20:16:16Z",
+              "from": {
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              },
+              "body": "All,\n\nI want to close the loop on this. This ticket has been open for nearly a year, it's been passed around between multiple people (several of whom are no longer here).\n\nA few things I want to clarify up front:\n\nThis is not an Abuse issue. Abuse handles misuse of our services illegal activity like bitcoin mining. This is a commercial licensing gap. Fred TY, your team can stand down on this one. That said, we do need to clearly define what routes to Abuse vs. what's a commercial matter so we don't repeat this.\n\nSomeone needs to own this. @Elizabeth Perez since you're already in communication with the customer, can you take the lead? Frederic and Barbara, please support as needed from the commercial and SDM side.\n\nThe economics are what they are. Smart Scale pays us roughly $2,500/month. The compliant licensing would cost them ~$7,900/month on top of that. They're not going to pay that. Threatening suspension hasn't worked for a year and it's not going to start working now.\n\nWe are currently liable and at risk as an organization if we do nothing!\n\nHere's what I think we should do:\n\n@Elizabeth Perez, schedule a call with Mario (let's stop the back and forth email chains). He clearly doesn't understand (or doesn't want to understand) the issue, and a year of back-and-forth hasn't helped. I feel like we should present the following options:\n\nThey can purchase per-core licenses through us (the expensive path, don't lead with it, but it is an option)\n\nThey can procure Software Ass",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A%2FAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "63899f31",
+          "subject": "Centrilogic Details",
+          "is_forward": false,
+          "email_count": 1,
+          "first_sent": "2026-03-17T20:05:23Z",
+          "last_sent": "2026-03-17T20:05:23Z",
+          "last_sender": {
+            "name": "George Revie",
+            "address": "George.Revie@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "George Revie",
+              "address": "george.revie@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Marc Alex Forget",
+              "address": "marc-alexandre.forget@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FoAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-oAAA=",
+              "sent_at": "2026-03-17T20:05:23Z",
+              "from": {
+                "name": "George Revie",
+                "address": "George.Revie@aptum.com"
+              },
+              "body": "George Revie\n\nDirector, Data Center Infrastructure & Operations\n\n+1 (647) 826-3048\naptum.com | LinkedIn",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FoAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "56987c5d",
+          "subject": "Action Required: 1 items need your input",
+          "is_forward": true,
+          "email_count": 3,
+          "first_sent": "2026-03-17T19:09:06Z",
+          "last_sent": "2026-03-17T19:54:59Z",
+          "last_sender": {
+            "name": "Frederic Gingras",
+            "address": "Frederic.Gingras@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Frederic Gingras",
+              "address": "frederic.gingras@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Patrick Wolthausen",
+              "address": "patrick.wolthausen@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW9AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR3ryW0AAA=",
+              "sent_at": "2026-03-17T19:09:06Z",
+              "from": {
+                "name": "Frederic Gingras",
+                "address": "Frederic.Gingras@aptum.com"
+              },
+              "body": "I'm not fully understanding why this is sent to Ian Crosby, I can't find anywhere in the ticket why this would be.\n\nAlso, Marko did propose something to the customer\n\nMarko should update the ticket as such\n\nShouldn't this then be put in Completed on the board?\n\nFrederic Gingras\n\nSenior Director, Account Management\n\nm: +1 514-913-9153 teams: +1 514-673-7553\naptum.com | LinkedIn\n\nFrom: Jira automation <automation@aptum.atlassian.net>\nSent: March 16, 2026 7:00 AM\nTo: Ian Crosby <ian.crosby@aptum.com>\nCc: Adam Nelson <Adam.Nelson@aptum.com>; Frederic Gingras <Frederic.Gingras@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>\nSubject: Action Required: 1 items need your input\n\nHi Ian Crosby,\n\nThe following items are currently blocked and no work will proceed until we receive your input.\n\nPlease click the issue link to add a comment directly in the portal and unblock the request.\n\n(Note: These items are flagged because they are associated with Salesforce opportunities in Stages 3 to 5. If the timing is uncertain, next steps are not yet defined, or there is no clear path to closure, please move the opportunity to the appropriate earlier stage to better reflect the current state.)\n\nIssueSummaryStatusLast Activity\n\nGSE-190vmware upgrade - CenovusWaiting for FeedbackFeb 19, 2026\n\nPlease review these at your earliest convenience.\n\nTo Unsubscribe: You cannot. I am automation. I am inevitable. I will return next Monday unless the blockers are addressed.",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW0AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAAR4R8A8AAA=",
+              "sent_at": "2026-03-17T19:10:34Z",
+              "from": {
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              },
+              "body": "We changed it to marko while you were on the call.\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Frederic Gingras <Frederic.Gingras@aptum.com>\nSent: March 17, 2026 15:09\nTo: Adam Nelson <Adam.Nelson@aptum.com>; Patrick Wolthausen <Patrick.Wolthausen@aptum.com>\nSubject: Fw: Action Required: 1 items need your input\n\nI'm not fully understanding why this is sent to Ian Crosby, I can't find anywhere in the ticket why this would be.\n\nAlso, Marko did propose something to the customer\n\nMarko should update the ticket as such\n\nShouldn't this then be put in Completed on the board?\n\nFrederic Gingras\n\nSenior Director, Account Management\n\nm: +1 514-913-9153 teams: +1 514-673-7553\naptum.com | LinkedIn\n\nFrom: Jira automation <automation@aptum.atlassian.net>\nSent: March 16, 2026 7:00 AM\nTo: Ian Crosby <ian.crosby@aptum.com>\nCc: Adam Nelson <Adam.Nelson@aptum.com>; Frederic Gingras <Frederic.Gingras@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>\nSubject: Action Required: 1 items need your input\n\nHi Ian Crosby,\n\nThe following items are currently blocked and no work will proceed until we receive your input.\n\nPlease click the issue link to add a comment directly in the portal and unblock the request.\n\n(Note: These items are flagged because they are associated with Salesforce opportunities in Stages 3 to 5. If the timing is uncertain, next steps are not yet defined, or there is no clear path to closure, please move the opportunity to",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A8AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR3ryW9AAA=",
+              "sent_at": "2026-03-17T19:54:59Z",
+              "from": {
+                "name": "Frederic Gingras",
+                "address": "Frederic.Gingras@aptum.com"
+              },
+              "body": "<facepalm>\n\nFrom: Adam Nelson <Adam.Nelson@aptum.com>\nSent: March 17, 2026 3:10 PM\nTo: Frederic Gingras <Frederic.Gingras@aptum.com>; Patrick Wolthausen <Patrick.Wolthausen@aptum.com>\nSubject: Re: Action Required: 1 items need your input\n\nWe changed it to marko while you were on the call.\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Frederic Gingras <Frederic.Gingras@aptum.com>\nSent: March 17, 2026 15:09\nTo: Adam Nelson <Adam.Nelson@aptum.com>; Patrick Wolthausen <Patrick.Wolthausen@aptum.com>\nSubject: Fw: Action Required: 1 items need your input\n\nI'm not fully understanding why this is sent to Ian Crosby, I can't find anywhere in the ticket why this would be.\n\nAlso, Marko did propose something to the customer\n\nMarko should update the ticket as such\n\nShouldn't this then be put in Completed on the board?\n\nFrederic Gingras\n\nSenior Director, Account Management\n\nm: +1 514-913-9153 teams: +1 514-673-7553\naptum.com | LinkedIn\n\nFrom: Jira automation <automation@aptum.atlassian.net>\nSent: March 16, 2026 7:00 AM\nTo: Ian Crosby <ian.crosby@aptum.com>\nCc: Adam Nelson <Adam.Nelson@aptum.com>; Frederic Gingras <Frederic.Gingras@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>\nSubject: Action Required: 1 items need your input\n\nHi Ian Crosby,\n\nThe following items are currently blocked and no work will proceed until we receive your input.\n\nPlease click the issue link to add a comment directly in the portal and unblock the reques",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW9AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "386667c7",
+          "subject": "Voice Mail (9 seconds)",
+          "is_forward": false,
+          "email_count": 1,
+          "first_sent": "2026-03-17T19:23:55Z",
+          "last_sent": "2026-03-17T19:23:55Z",
+          "last_sender": {
+            "name": "George Revie",
+            "address": "George.Revie@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "George Revie",
+              "address": "george.revie@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FiAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-iAAA=",
+              "sent_at": "2026-03-17T19:23:55Z",
+              "from": {
+                "name": "George Revie",
+                "address": "George.Revie@aptum.com"
+              },
+              "body": "hey adam it's george just tried to call you umm want the voicemail can you give me a call back it's kind of important that we speak thanks bye\n\nYou received a voice mail from George Revie at George.Revie@aptum.com.\n\nJob Title:Director, DC Infrastructure & Operations\n\nCompany:Aptum Technologies\n\nWork:+1 647-826-3048\n\nMobile:+1 905-251-2759\n\nEmail:George.Revie@aptum.com\n\nThank you for using Transcription! If you don't see a transcript above, it's because the audio quality was not clear enough to transcribe.\n\nSet Up Voice Mail",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FiAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "64613d94",
+          "subject": "Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT with customized billing",
+          "is_forward": true,
+          "email_count": 3,
+          "first_sent": "2026-03-17T17:01:48Z",
+          "last_sent": "2026-03-17T19:15:29Z",
+          "last_sender": {
+            "name": "Aptum Payables",
+            "address": "Aptum.Payables@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Aptum Payables",
+              "address": "aptum.payables@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
+            },
+            {
+              "name": "Pamela Narain",
+              "address": "pamela.narain@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW4AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR3ryW2AAA=",
+              "sent_at": "2026-03-17T17:01:48Z",
+              "from": {
+                "name": "Aptum Payables",
+                "address": "Aptum.Payables@aptum.com"
+              },
+              "body": "Hi Adam,\n\nPlease approve the payment and provide the coding details on the attached invoice.\n\nKindly action on or before Mar 19.\n\nThank you,\n\nWilma Sibal\n\nAccounts Payable\n\n+1 (678) 365-2821\naptum.com | LinkedIn\n\nFrom: Accounting - ScalableOS <accounting@scalableos.com>\nSent: Tuesday, March 10, 2026 3:12 AM\nTo: Aptum Payables <aptum.payables@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nCc: Accounting - ScalableOS <accounting@scalableos.com>\nSubject: Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT with customized billing\n\nDear All,\n\nPlease find attached the customized Finance report for February 2026.\n\nAccounting\n\naccounting@scalableos.com\n\n206-594-5784 ext. 104\n\nwww.scalableos.com\n\nManila, Philippines\n\nFrom: Accounting - ScalableOS <accounting@scalableos.com>\nSent: Friday, March 6, 2026 11:56 PM\nTo: aptum.payables@aptum.com <aptum.payables@aptum.com>; Adam.Nelson@aptum.com <Adam.Nelson@aptum.com>\nSubject: Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT\n\nHello,\n\nAttached is your invoice and timesheet for services rendered in February 2026 for your review and payment.\n\nPlease use the below bank details for the wire transfer of your payment.\n\nAccount Name: ScalableOS LLC\nAccount Number: 470101013881\nRouting Number (for domestic): 125000574\nSwift Code (for international): keybus33\nBank Name: KeyBank NA\nBranch Address: 4910 Tiedeman Road, Brooklyn, Ohio 44144\n\nOr you may send your check to our PO Box:\n\nScalableOS LLC\nP",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW2AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAAR4R8A9AAA=",
+              "sent_at": "2026-03-17T19:14:18Z",
+              "from": {
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              },
+              "body": "I approve this one.\n\nIs it possible to get these approvals routed to @Lacie Allen-Morley in the future?\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Aptum Payables <Aptum.Payables@aptum.com>\nSent: March 17, 2026 13:01\nTo: Adam Nelson <Adam.Nelson@aptum.com>\nSubject: Fw: Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT with customized billing\n\nHi Adam,\n\nPlease approve the payment and provide the coding details on the attached invoice.\n\nKindly action on or before Mar 19.\n\nThank you,\n\nWilma Sibal\n\nAccounts Payable\n\n+1 (678) 365-2821\naptum.com | LinkedIn\n\nFrom: Accounting - ScalableOS <accounting@scalableos.com>\nSent: Tuesday, March 10, 2026 3:12 AM\nTo: Aptum Payables <aptum.payables@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nCc: Accounting - ScalableOS <accounting@scalableos.com>\nSubject: Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT with customized billing\n\nDear All,\n\nPlease find attached the customized Finance report for February 2026.\n\nAccounting\n\naccounting@scalableos.com\n\n206-594-5784 ext. 104\n\nwww.scalableos.com\n\nManila, Philippines\n\nFrom: Accounting - ScalableOS <accounting@scalableos.com>\nSent: Friday, March 6, 2026 11:56 PM\nTo: aptum.payables@aptum.com <aptum.payables@aptum.com>; Adam.Nelson@aptum.com <Adam.Nelson@aptum.com>\nSubject: Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT\n\nHello,\n\nAttached is your invoice and timeshee",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A9AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR3ryW4AAA=",
+              "sent_at": "2026-03-17T19:15:29Z",
+              "from": {
+                "name": "Aptum Payables",
+                "address": "Aptum.Payables@aptum.com"
+              },
+              "body": "Thank you for your approval, Adam.\n\nWill take note of this going forward.\n\nThank you,\n\nWilma Sibal\n\nAccounts Payable\n\n+1 (678) 365-2821\naptum.com | LinkedIn\n\nFrom: Adam Nelson <Adam.Nelson@aptum.com>\nSent: Tuesday, March 17, 2026 3:14 PM\nTo: Aptum Payables <Aptum.Payables@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>\nSubject: Re: Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT with customized billing\n\nI approve this one.\n\nIs it possible to get these approvals routed to @Lacie Allen-Morley in the future?\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Aptum Payables <Aptum.Payables@aptum.com>\nSent: March 17, 2026 13:01\nTo: Adam Nelson <Adam.Nelson@aptum.com>\nSubject: Fw: Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT with customized billing\n\nHi Adam,\n\nPlease approve the payment and provide the coding details on the attached invoice.\n\nKindly action on or before Mar 19.\n\nThank you,\n\nWilma Sibal\n\nAccounts Payable\n\n+1 (678) 365-2821\naptum.com | LinkedIn\n\nFrom: Accounting - ScalableOS <accounting@scalableos.com>\nSent: Tuesday, March 10, 2026 3:12 AM\nTo: Aptum Payables <aptum.payables@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nCc: Accounting - ScalableOS <accounting@scalableos.com>\nSubject: Invoice 13682 from ScalableOS LLC for Aptum Managed Services (Canada) Inc. IT with customized billing\n\nDear All,\n\nPlease find attached the customized Finance report for",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW4AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "4c98b4e8",
+          "subject": "Meet the Frontier Suite: Microsoft 365 E7 and Agent 365 are here",
+          "is_forward": false,
+          "email_count": 2,
+          "first_sent": "2026-03-17T17:04:36Z",
+          "last_sent": "2026-03-17T19:04:25Z",
+          "last_sender": {
+            "name": "Microsoft AI Cloud Partner Program",
+            "address": "MicrosoftAICloudPartnerProgram@email.microsoft.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Microsoft AI Cloud Partner Program",
+              "address": "microsoftaicloudpartnerprogram@email.microsoft.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW5AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-XAAA=",
+              "sent_at": "2026-03-17T17:04:36Z",
+              "from": {
+                "name": "Microsoft AI Cloud Partner Program",
+                "address": "MicrosoftAICloudPartnerProgram@email.microsoft.com"
+              },
+              "body": "Plus: Explore the latest renewal resources, incentives, and skilling.\n\nHaving trouble viewing this email? | View as a web page\n\nIntroducing Microsoft 365 E7—the productivity suite for Frontier Transformation\n\nWe’re equipping partners and customers with new capabilities to advance Frontier Transformation—grounded in intelligence and trust.\n\nRead more\n\nOn March 9, we introduced the Frontier Suite called Microsoft 365 E7, with general availability of Microsoft 365 E7 and Agent 365—the control plane for agents that enables partners and customers to manage and secure agents with confidence.\n\nMicrosoft 365 E7 is the productivity suite for a human‑led, agent‑operated enterprise, turning human intent into action with AI that runs securely at scale. Microsoft 365 E7 brings together Microsoft 365 E5, Microsoft 365 Copilot, and built-in governance through Agent 365—creating a powerful opportunity for partners to drive successful AI deployments and adoption.\n\nDuring the month of March, there will be several opportunities to gain insight into this new announcement. You are encouraged to participate in the Agent 365 \"Ask Microsoft Anything\" session on March 18 and to register for the Digital Partner Airlift on March 31 to further your understanding of the Agentic System of Work.\n\nTo accelerate your Microsoft 365 E5 to E7 upsell and Agent 365 purchase conversations, we've made two updates to further support customer engagements through Copilot + Power Accelerate starting April 1:\n\nAgent 365",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FXAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR3ryW5AAA=",
+              "sent_at": "2026-03-17T19:04:25Z",
+              "from": {
+                "name": "Microsoft AI Cloud Partner Program",
+                "address": "MicrosoftAICloudPartnerProgram@email.microsoft.com"
+              },
+              "body": "Plus: Explore the latest renewal resources, incentives, and skilling.\n\nHaving trouble viewing this email? | View as a web page\n\nIntroducing Microsoft 365 E7—the productivity suite for Frontier Transformation\n\nWe’re equipping partners and customers with new capabilities to advance Frontier Transformation—grounded in intelligence and trust.\n\nRead more\n\nOn March 9, we introduced the Frontier Suite called Microsoft 365 E7, with general availability of Microsoft 365 E7 and Agent 365—the control plane for agents that enables partners and customers to manage and secure agents with confidence.\n\nMicrosoft 365 E7 is the productivity suite for a human‑led, agent‑operated enterprise, turning human intent into action with AI that runs securely at scale. Microsoft 365 E7 brings together Microsoft 365 E5, Microsoft 365 Copilot, and built-in governance through Agent 365—creating a powerful opportunity for partners to drive successful AI deployments and adoption.\n\nDuring the month of March, there will be several opportunities to gain insight into this new announcement. You are encouraged to participate in the Agent 365 \"Ask Microsoft Anything\" session on March 18 and to register for the Digital Partner Airlift on March 31 to further your understanding of the Agentic System of Work.\n\nTo accelerate your Microsoft 365 E5 to E7 upsell and Agent 365 purchase conversations, we've made two updates to further support customer engagements through Copilot + Power Accelerate starting April 1:\n\nAgent 365",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW5AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "487afb30",
+          "subject": "Aptum | Radar Mexico Offboarding |  AWS #765843959562",
+          "is_forward": false,
+          "email_count": 1,
+          "first_sent": "2026-03-17T17:16:08Z",
+          "last_sent": "2026-03-17T17:16:08Z",
+          "last_sender": {
+            "name": "Marshbanks, Rick",
+            "address": "Rick.Marshbanks@ingrammicro.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Marshbanks, Rick",
+              "address": "rick.marshbanks@ingrammicro.com"
+            },
+            {
+              "name": "Guerrero, Ilse",
+              "address": "ilse.guerrero@ingrammicro.com"
+            },
+            {
+              "name": "Eric Lafreniere",
+              "address": "eric.lafreniere@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Erik Tanguay",
+              "address": "erik.tanguay@aptum.com"
+            },
+            {
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
+            },
+            {
+              "name": "Jaroenchonwanit, Lalita",
+              "address": "lalita.jaroenchonwanit@ingrammicro.com"
+            },
+            {
+              "name": "Matthew Carter",
+              "address": "matthew.carter@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-ZAAA=",
+              "sent_at": "2026-03-17T17:16:08Z",
+              "from": {
+                "name": "Marshbanks, Rick",
+                "address": "Rick.Marshbanks@ingrammicro.com"
+              },
+              "body": "Looping in @Guerrero, Ilse who is the IaaS Admin lead for Ingram Micro LATAM and can help advise on next steps, relative to Accounts payable.\n\nRadar Mexico consumed >$200K of AWS and is refusing to pay. AWS Account ID: 765843959562\n\nThank you,\n\nRick Marshbanks\n\nAWS Business Development Executive\n\nSt Petersburg, FL\n\n(248) 622.0869\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Tuesday, March 17, 2026 11:33 AM\nTo: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nCc: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Erik Tanguay <Erik.Tanguay@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\nLATAM\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nSent: March 17, 2026 10:21 AM\nTo: Matthew Carter <Matthew.Carter@aptum.com>\nCc: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Erik Tanguay <Erik.Tanguay@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\nHi Matt – Thank you for providing the account ID. Do you know where this is billing out of, so that I may direct to the country-specific Ingram Micro support team?\n\nRick Marshbanks\n\nAWS Business Development Executive\n\nSt Petersburg, FL\n\n(248) 622.0869\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Tuesday, March 17, 2026 10:15 AM\nT",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "65755c7e",
+          "subject": "Microsoft PSfP Premier Partner Forum - April 2026 - M365 E7",
+          "is_forward": false,
+          "email_count": 1,
+          "first_sent": "2026-03-17T17:06:30Z",
+          "last_sent": "2026-03-17T17:06:30Z",
+          "last_sender": {
+            "name": "Michael Wangenstein",
+            "address": "Michael.Wangenstein@microsoft.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Michael Wangenstein",
+              "address": "michael.wangenstein@microsoft.com"
+            },
+            {
+              "name": "Robert Grafton",
+              "address": "robert.grafton@aptum.com"
+            },
+            {
+              "name": "Jason Auer",
+              "address": "jason.auer@aptum.com"
+            },
+            {
+              "name": "David White",
+              "address": "david.white@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "aianouchkevitch@cloudops.com"
+            },
+            {
+              "name": "Andy Petterson",
+              "address": "andy.petterson@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FYAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-YAAA=",
+              "sent_at": "2026-03-17T17:06:30Z",
+              "from": {
+                "name": "Michael Wangenstein",
+                "address": "Michael.Wangenstein@microsoft.com"
+              },
+              "body": "Hello Team,\n\nPlease join us Wednesday, April 1st at 11am EST for April's Premier Partner forum. This call will be a call around M365 E7 with a Principal Partner Solution Architect.\n\nPlease prepare any questions you may have in advance for our team!\n\nWho Should Attend?\n\nBusiness Development Managers\n\nTechnical Certification Specialists\n\nPartner Admins\n\nAccount Managers\n\nEngineering Leads\n\nA one-time registration is required at the following link: Microsoft Virtual Events Powered by Teams\n\nAttached you will find the meeting invite - please let me know if you have any questions.\n\nM365 E7 Resources:\n\nIntroducing Microsoft 365 E7: The Frontier Suite\n\nM365 E7 Launch Kit\n\nM365 E7 CSP Pricelist (Available April 1st)\n\nM365 E7 Prom Readiness Guide (Available April 1st)\n\nMicrosoft 365 Blog | Latest Product Updates and Insights\n\nWe hope to see you there!\n\nThank you,",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FYAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "8818320f",
+          "subject": "eBOARDs Margin Recovery on Future Orders",
+          "is_forward": false,
+          "email_count": 4,
+          "first_sent": "2026-03-17T15:49:40Z",
+          "last_sent": "2026-03-17T16:04:28Z",
+          "last_sender": {
+            "name": "Roger Gonzales",
+            "address": "Roger.Gonzales@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Roger Gonzales",
+              "address": "roger.gonzales@aptum.com"
+            },
+            {
+              "name": "Matthew Carter",
+              "address": "matthew.carter@aptum.com"
+            },
+            {
+              "name": "Tom Kelsch",
+              "address": "tom.kelsch@aptum.com"
+            },
+            {
+              "name": "Kathy Wu",
+              "address": "kathy.wu@aptum.com"
+            },
+            {
+              "name": "Frederic Gingras",
+              "address": "frederic.gingras@aptum.com"
+            },
+            {
+              "name": "Sarah Blanchard",
+              "address": "sarah.blanchard@aptum.com"
+            },
+            {
+              "name": "Carlton Currey",
+              "address": "carlton.currey@aptum.com"
+            },
+            {
+              "name": "Noe Ibarra",
+              "address": "noe.ibarra@aptum.com"
+            },
+            {
+              "name": "Jorge Quintero",
+              "address": "jorge.quintero@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-QAAA=",
+              "sent_at": "2026-03-17T15:49:40Z",
+              "from": {
+                "name": "Roger Gonzales",
+                "address": "Roger.Gonzales@aptum.com"
+              },
+              "body": "Yeah he is going to potentially move to Managed Cloud from the legacy management packages.\n\nI can just add\n\n$167 to the monthly on a 12 month term or $90 to a 24 month term...\n\nIs this acceptable?\n\nRoger Gonzales\n\nAccount Manager\n\n+1 (210.243.3807)\naptum.com | LinkedIn\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Monday, March 16, 2026 6:18 PM\nTo: Roger Gonzales <Roger.Gonzales@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Carlton Currey <Carlton.Currey@aptum.com>; Noe Ibarra <Noe.Ibarra@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: RE: eBOARDs Margin Recovery on Future Orders\n\nHi Roger,\n\nWe’re not trying to root cause the issue, but instead, solve moving forward.\n\nPlease keep this $2K/mo in mind for any eBoard renewals.\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Roger Gonzales <Roger.Gonzales@aptum.com>\nSent: March 16, 2026 6:11 PM\nTo: Matthew Carter <Matthew.Carter@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Carlton Currey <Carlton.Currey@aptum.com>; Noe Ibarra <Noe.Ibarra@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: Re: eBOARDs Margin Recov",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FQAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-RAAA=",
+              "sent_at": "2026-03-17T16:02:01Z",
+              "from": {
+                "name": "Matthew Carter",
+                "address": "Matthew.Carter@aptum.com"
+              },
+              "body": "Yes, but another $1.9K/mo to go. 😊\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Roger Gonzales <Roger.Gonzales@aptum.com>\nSent: March 17, 2026 11:50 AM\nTo: Matthew Carter <Matthew.Carter@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Carlton Currey <Carlton.Currey@aptum.com>; Noe Ibarra <Noe.Ibarra@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: Re: eBOARDs Margin Recovery on Future Orders\n\nYeah he is going to potentially move to Managed Cloud from the legacy management packages.\n\nI can just add\n\n$167 to the monthly on a 12 month term or $90 to a 24 month term...\n\nIs this acceptable?\n\nRoger Gonzales\n\nAccount Manager\n\n+1 (210.243.3807)\naptum.com | LinkedIn\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Monday, March 16, 2026 6:18 PM\nTo: Roger Gonzales <Roger.Gonzales@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Carlton Currey <Carlton.Currey@aptum.com>; Noe Ibarra <Noe.Ibarra@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: RE: eBOARDs Margin Recovery on Future Orders\n\nHi Roger,\n\nWe’re not trying to root cause the issue, but instead, solve moving forward.\n",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FRAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-SAAA=",
+              "sent_at": "2026-03-17T16:03:20Z",
+              "from": {
+                "name": "Roger Gonzales",
+                "address": "Roger.Gonzales@aptum.com"
+              },
+              "body": "Oh right, wow sorry. We need to bake in 2K a month OK. I'll try.\n\nRoger Gonzales\n\nAccount Manager\n\n+1 (210.243.3807)\naptum.com | LinkedIn\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Tuesday, March 17, 2026 11:02:01 AM\nTo: Roger Gonzales <Roger.Gonzales@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Carlton Currey <Carlton.Currey@aptum.com>; Noe Ibarra <Noe.Ibarra@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: RE: eBOARDs Margin Recovery on Future Orders\n\nYes, but another $1.9K/mo to go. 😊\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Roger Gonzales <Roger.Gonzales@aptum.com>\nSent: March 17, 2026 11:50 AM\nTo: Matthew Carter <Matthew.Carter@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Carlton Currey <Carlton.Currey@aptum.com>; Noe Ibarra <Noe.Ibarra@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: Re: eBOARDs Margin Recovery on Future Orders\n\nYeah he is going to potentially move to Managed Cloud from the legacy management packages.\n\nI can just add\n\n$167 to the monthly on a 12 month term or $90 to a 24 month term...\n\nIs this acceptable?\n\nRoger Gonzales\n\nA",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-TAAA=",
+              "sent_at": "2026-03-17T16:04:28Z",
+              "from": {
+                "name": "Roger Gonzales",
+                "address": "Roger.Gonzales@aptum.com"
+              },
+              "body": "Sorry I was thinking he owed us $2K total... my bad\n\n$2K per month got it... wow!\n\nRoger Gonzales\n\nAccount Manager\n\n+1 (210.243.3807)\naptum.com | LinkedIn\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Tuesday, March 17, 2026 11:02 AM\nTo: Roger Gonzales <Roger.Gonzales@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Carlton Currey <Carlton.Currey@aptum.com>; Noe Ibarra <Noe.Ibarra@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: RE: eBOARDs Margin Recovery on Future Orders\n\nYes, but another $1.9K/mo to go. 😊\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Roger Gonzales <Roger.Gonzales@aptum.com>\nSent: March 17, 2026 11:50 AM\nTo: Matthew Carter <Matthew.Carter@aptum.com>; Tom Kelsch <Tom.Kelsch@aptum.com>; Kathy Wu <Kathy.Wu@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Carlton Currey <Carlton.Currey@aptum.com>; Noe Ibarra <Noe.Ibarra@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: Re: eBOARDs Margin Recovery on Future Orders\n\nYeah he is going to potentially move to Managed Cloud from the legacy management packages.\n\nI can just add\n\n$167 to the monthly on a 12 month term or $90 to a 24 month term...\n\nIs this acceptable?\n\nRog",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "983c97cf",
+          "subject": "AWS / Ingram Clawback",
+          "is_forward": false,
+          "email_count": 5,
+          "first_sent": "2026-03-17T13:46:43Z",
+          "last_sent": "2026-03-17T15:32:32Z",
+          "last_sender": {
+            "name": "Matthew Carter",
+            "address": "Matthew.Carter@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Matthew Carter",
+              "address": "matthew.carter@aptum.com"
+            },
+            {
+              "name": "Erik Tanguay",
+              "address": "erik.tanguay@aptum.com"
+            },
+            {
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
+            },
+            {
+              "name": "Bryan Gough",
+              "address": "bryan.gough@aptum.com"
+            },
+            {
+              "name": "Brad Wong",
+              "address": "brad.wong@aptum.com"
+            },
+            {
+              "name": "Eric Lafreniere",
+              "address": "eric.lafreniere@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "andrei.ianouchkevitch@aptum.com"
+            },
+            {
+              "name": "Marshbanks, Rick",
+              "address": "rick.marshbanks@ingrammicro.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FPAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-DAAA=",
+              "sent_at": "2026-03-17T13:46:43Z",
+              "from": {
+                "name": "Matthew Carter",
+                "address": "Matthew.Carter@aptum.com"
+              },
+              "body": "+adding stakeholders\n\nHi Lacie & Erik,\n\nAre you able to provide the AWS account number for RADAR APP S.A.P.I DE C.V.?\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Matthew Carter\nSent: March 10, 2026 3:59 PM\nTo: Brad Wong <Brad.Wong@aptum.com>; Eric Lafreniere <Eric.Lafreniere@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Andy Petterson <Andy.Petterson@aptum.com>\nCc: Bryan Gough <Bryan.Gough@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\nInvoice #3716550 - APTUM TECHNOLOGIES (USA) INC. - RADAR APP S.A.P.I DE C.V. - 124554-000002\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Brad Wong <Brad.Wong@aptum.com>\nSent: March 10, 2026 3:27 PM\nTo: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Matthew Carter <Matthew.Carter@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Andy Petterson <Andy.Petterson@aptum.com>\nCc: Bryan Gough <Bryan.Gough@aptum.com>\nSubject: Re: [EXTERNAL]AWS / Ingram Clawback\n\nHi Andy,\n\nThis customer doesn't appear to be in Cloudcheckr.\n\nWould you be able to locate its details in the LATAM portal? The portal link I have doesn't work.\n\nCustomer: Radar Mexico\n\nThanks,\n\nBrad Wong\n\nBilling Solutions and Process Analyst\n\n+1 (604) 909-6387\naptum.com | LinkedIn\n\nFrom: Eric Lafreniere <Eric.Lafreniere@aptum.com>\nSent: Tuesday, March 10, 2026 12:02 PM\nTo: Matthew Carter <Matthew.Carter@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nCc: Br",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FDAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-JAAA=",
+              "sent_at": "2026-03-17T14:09:39Z",
+              "from": {
+                "name": "Lacie Allen-Morley",
+                "address": "Lacie.Allen-Morley@aptum.com"
+              },
+              "body": "Hi All,\n\nI have record that the customer's AWS Account is: 765843959562.\n\nAs per their suspension all of our portals / systems show that the account is cancelled.\n\nMany Thanks,\n\nLacie Allen-Morley\n\nManager, Service Delivery\n\n+442380926163\naptum.com | LinkedIn\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Tuesday, March 17, 2026 13:46\nTo: Erik Tanguay <Erik.Tanguay@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>\nCc: Bryan Gough <Bryan.Gough@aptum.com>; Brad Wong <Brad.Wong@aptum.com>; Eric Lafreniere <Eric.Lafreniere@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Andrei Ianouchkevitch <Andrei.Ianouchkevitch@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\n+adding stakeholders\n\nHi Lacie & Erik,\n\nAre you able to provide the AWS account number for RADAR APP S.A.P.I DE C.V.?\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Matthew Carter\nSent: March 10, 2026 3:59 PM\nTo: Brad Wong <Brad.Wong@aptum.com>; Eric Lafreniere <Eric.Lafreniere@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Andy Petterson <Andy.Petterson@aptum.com>\nCc: Bryan Gough <Bryan.Gough@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\nInvoice #3716550 - APTUM TECHNOLOGIES (USA) INC. - RADAR APP S.A.P.I DE C.V. - 124554-000002\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Brad Wong <Brad.Wong@aptum.com>\nSent: March 10, 2026 3:27 PM\nTo: Eric Lafreniere <Er",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FJAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-KAAA=",
+              "sent_at": "2026-03-17T14:14:48Z",
+              "from": {
+                "name": "Matthew Carter",
+                "address": "Matthew.Carter@aptum.com"
+              },
+              "body": "+bringing stakeholders to Bcc to remove from this thread\n\nHi Rick,\n\nThe AWS account number in question is: 765843959562\n\nWhat can be done to clawback unpaid amounts?\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nSent: March 10, 2026 2:31 PM\nTo: Matthew Carter <Matthew.Carter@aptum.com>\nCc: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\nCan you please share the AWS account number(s) and (confirm?) what Ingram location is invoicing you? This will help me direct to the appropriate regional team if outside of US. Thank you,\n\nRick Marshbanks\n\nAWS Business Development Executive\n\nSt Petersburg, FL\n\n(248) 622.0869\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Tuesday, March 10, 2026 2:27 PM\nTo: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nCc: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\nHi Rick,\n\nNo, just you. Let us know who we need to speak with—\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nSent: March 10, 2026 2:01 PM\nTo: Matthew Carter <Matthew.Carter@aptum.com>\nCc: Eric Lafreniere <Eric.Lafre",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FKAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-LAAA=",
+              "sent_at": "2026-03-17T14:20:36Z",
+              "from": {
+                "name": "Marshbanks, Rick",
+                "address": "Rick.Marshbanks@ingrammicro.com"
+              },
+              "body": "Hi Matt – Thank you for providing the account ID. Do you know where this is billing out of, so that I may direct to the country-specific Ingram Micro support team?\n\nRick Marshbanks\n\nAWS Business Development Executive\n\nSt Petersburg, FL\n\n(248) 622.0869\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Tuesday, March 17, 2026 10:15 AM\nTo: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nCc: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Erik Tanguay <Erik.Tanguay@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\n+bringing stakeholders to Bcc to remove from this thread\n\nHi Rick,\n\nThe AWS account number in question is: 765843959562\n\nWhat can be done to clawback unpaid amounts?\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nSent: March 10, 2026 2:31 PM\nTo: Matthew Carter <Matthew.Carter@aptum.com>\nCc: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\nCan you please share the AWS account number(s) and (confirm?) what Ingram location is invoicing you? This will help me direct to the appropriate regional team if outside of US. Thank you,\n\nRick Marshbanks\n\nAWS Business Development Executive\n\nSt Petersburg, FL\n\n(248) 622.0869\n\nFrom: Matthew Carter <Matthew.",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FLAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-PAAA=",
+              "sent_at": "2026-03-17T15:32:32Z",
+              "from": {
+                "name": "Matthew Carter",
+                "address": "Matthew.Carter@aptum.com"
+              },
+              "body": "LATAM\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nSent: March 17, 2026 10:21 AM\nTo: Matthew Carter <Matthew.Carter@aptum.com>\nCc: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Erik Tanguay <Erik.Tanguay@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\nHi Matt – Thank you for providing the account ID. Do you know where this is billing out of, so that I may direct to the country-specific Ingram Micro support team?\n\nRick Marshbanks\n\nAWS Business Development Executive\n\nSt Petersburg, FL\n\n(248) 622.0869\n\nFrom: Matthew Carter <Matthew.Carter@aptum.com>\nSent: Tuesday, March 17, 2026 10:15 AM\nTo: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nCc: Eric Lafreniere <Eric.Lafreniere@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Erik Tanguay <Erik.Tanguay@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>\nSubject: RE: [EXTERNAL]AWS / Ingram Clawback\n\n+bringing stakeholders to Bcc to remove from this thread\n\nHi Rick,\n\nThe AWS account number in question is: 765843959562\n\nWhat can be done to clawback unpaid amounts?\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nSent: March 10, 2026 2:31 PM\nTo: Matthew Carter <Matthew.Carter@aptum.com>\nCc: Eric Lafreniere ",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FPAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "8459e5db",
+          "subject": "Invoices Pending for Approval: Adam Nelson",
+          "is_forward": false,
+          "email_count": 2,
+          "first_sent": "2026-03-17T13:49:19Z",
+          "last_sent": "2026-03-17T14:55:42Z",
+          "last_sender": {
+            "name": "Aptum Payables",
+            "address": "Aptum.Payables@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Aptum Payables",
+              "address": "aptum.payables@aptum.com"
+            },
+            {
+              "name": "Pamela Narain",
+              "address": "pamela.narain@aptum.com"
+            },
+            {
+              "name": "Alvin Tarel",
+              "address": "alvin.tarel@aptum.com"
+            },
+            {
+              "name": "Jorge Quintero",
+              "address": "jorge.quintero@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "andrei.ianouchkevitch@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FOAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAAR4R8A2AAA=",
+              "sent_at": "2026-03-17T13:49:19Z",
+              "from": {
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              },
+              "body": "I approve... but can you please send me the USD invoice for Ingram Micro?\n195201068\n\nThanks,\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Aptum Payables <Aptum.Payables@aptum.com>\nSent: March 6, 2026 15:50\nTo: Adam Nelson <Adam.Nelson@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>\nCc: Pamela Narain <Pamela.Narain@aptum.com>; Alvin Tarel <Alvin.Tarel@aptum.com>\nSubject: Re: Invoices Pending for Approval: Adam Nelson\n\nHi Adam,\n\nAdditional invoices from Microsoft for your approval, please\n\nDate Processed\n\nEntity\n\nVendor\n\nInvoice No.\n\nAmount\n\nCurrency\n\n2/17/2026\n\nOMSP\n\nINGRAM MICRO\n\n2026SICA0006055\n\n56,586.60\n\nCAD\n\n2/23/2026\n\nOUSU\n\nIngram Micro México, S.A. de C.V.\n\n000195092475\n\n3,297.50\n\nUSD\n\n2/23/2026\n\nOUSU\n\nIngram Micro México, S.A. de C.V.\n\n000195092476\n\n54.25\n\nUSD\n\n2/25/2026\n\nOUSU\n\nIngram Micro México, S.A. de C.V.\n\n000195092538\n\n2.17\n\nUSD\n\n2/25/2026\n\nOUSU\n\nIngram Micro México, S.A. de C.V.\n\n000195092537\n\n135.36\n\nUSD\n\n3/5/206\n\nOUKG\n\nIngram Micro Cloud\n\n2026SIUK0005591\n\n13,109.85\n\nGBP\n\n3/5/206\n\nOUSU\n\nINGRAM MICRO\n\n195201068\n\n258,784.48\n\nUSD\n\n3/5/206\n\nOCLC\n\nHypertec Cloud Inc.\n\nINV00238\n\n24,323.73\n\nCAD\n\n3/6/2026\n\nOMSP\n\nMICROSOFT CANADA INC.\n\nG144404098\n\n316,596.92\n\nCAD\n\n3/6/2026\n\nOUKG\n\nMICROSOFT ONLINE, INC\n\nG144403769\n\n136,983.27\n\nGBP\n\n3/6/2026\n\nOUKG\n\nMicrosoft Online, Inc -FR\n\nG144398872\n\n95,866.68\n\nEUR\n\n3/6/2026\n\nOUSU\n\nMICROSOFT CORPORATION\n\nG144402087\n\n17,618.91\n\nUSD\n\n3/6/2026\n\nOUSU\n\nMICROSOFT CORPORATION\n\nG14440192",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A2AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-OAAA=",
+              "sent_at": "2026-03-17T14:55:42Z",
+              "from": {
+                "name": "Aptum Payables",
+                "address": "Aptum.Payables@aptum.com"
+              },
+              "body": "Hi Adam,\n\nPlease see the attached copy of the invoice 195201068. Is this also approved?\n\nThank you,\n\nWilma Sibal\n\nAccounts Payable\n\n+1 (678) 365-2821\naptum.com | LinkedIn\n\nFrom: Adam Nelson <Adam.Nelson@aptum.com>\nSent: Tuesday, March 17, 2026 9:49 AM\nTo: Aptum Payables <Aptum.Payables@aptum.com>\nCc: Pamela Narain <Pamela.Narain@aptum.com>; Alvin Tarel <Alvin.Tarel@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>; Andrei Ianouchkevitch <Andrei.Ianouchkevitch@aptum.com>\nSubject: Re: Invoices Pending for Approval: Adam Nelson\n\nI approve... but can you please send me the USD invoice for Ingram Micro?\n195201068\n\nThanks,\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Aptum Payables <Aptum.Payables@aptum.com>\nSent: March 6, 2026 15:50\nTo: Adam Nelson <Adam.Nelson@aptum.com>; Jorge Quintero <Jorge.Quintero@aptum.com>\nCc: Pamela Narain <Pamela.Narain@aptum.com>; Alvin Tarel <Alvin.Tarel@aptum.com>\nSubject: Re: Invoices Pending for Approval: Adam Nelson\n\nHi Adam,\n\nAdditional invoices from Microsoft for your approval, please\n\nDate Processed\n\nEntity\n\nVendor\n\nInvoice No.\n\nAmount\n\nCurrency\n\n2/17/2026\n\nOMSP\n\nINGRAM MICRO\n\n2026SICA0006055\n\n56,586.60\n\nCAD\n\n2/23/2026\n\nOUSU\n\nIngram Micro México, S.A. de C.V.\n\n000195092475\n\n3,297.50\n\nUSD\n\n2/23/2026\n\nOUSU\n\nIngram Micro México, S.A. de C.V.\n\n000195092476\n\n54.25\n\nUSD\n\n2/25/2026\n\nOUSU\n\nIngram Micro México, S.A. de C.V.\n\n000195092538\n\n2.17\n\nUSD\n\n2/25/2026\n\nOUSU\n\nIngram Micro México, S.A. de C.V.\n\n",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FOAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "fdb3171c",
+          "subject": "Reporting Change Letters",
+          "is_forward": false,
+          "email_count": 1,
+          "first_sent": "2026-03-17T14:36:36Z",
+          "last_sent": "2026-03-17T14:36:36Z",
+          "last_sender": {
+            "name": "Nikki Thind",
+            "address": "Nikki.Thind@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Nikki Thind",
+              "address": "nikki.thind@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FNAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-NAAA=",
+              "sent_at": "2026-03-17T14:36:36Z",
+              "from": {
+                "name": "Nikki Thind",
+                "address": "Nikki.Thind@aptum.com"
+              },
+              "body": "Hi Adam,\n\nPlease find attached the reporting change letters for your org.\n\nYou can distribute to the individuals, no sign back required its more an FYI.\n\nRegards,\n\nNikki Thind\n\nDirector, People & Culture\n\n4168470721\naptum.com | LinkedIn",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FNAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "3d8664f5",
+          "subject": "Your CRM Is Holding Back Your Revenue",
+          "is_forward": false,
+          "email_count": 1,
+          "first_sent": "2026-03-17T14:36:34Z",
+          "last_sent": "2026-03-17T14:36:34Z",
+          "last_sender": {
+            "name": "Contact Science",
+            "address": "amber@contactscience.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Contact Science",
+              "address": "amber@contactscience.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "anelson@cloudops.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FMAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-MAAA=",
+              "sent_at": "2026-03-17T14:36:34Z",
+              "from": {
+                "name": "Contact Science",
+                "address": "amber@contactscience.com"
+              },
+              "body": "Website →\n\nMost CRMs were built to store contacts, not to create revenue.\n\nThat’s why so many teams find themselves exporting data, juggling multiple tools, and spending hours trying to turn static\n\ncontact lists into real conversations.\n\nYour CRM becomes a database — not a growth engine.\n\nContact Sales\n\nContact Science changes that.\n\nInstead of forcing your team to manage contacts manually, Contact Science transforms your prospecting and marketing into a data-driven system designed to create opportunities automatically.\n\nWith Contact Science, you can:\n\nDiscover and identify high-value prospects with precision\n\nLaunch targeted outreach campaigns in minutes\n\nTrack engagement and intent signals in real time\n\nAutomatically prioritize the prospects most likely to convert\n\nTurn marketing data directly into qualified pipeline\n\nJust clean data, intelligent targeting, and faster\n\npipeline growth.\n\nSmarter Prospecting\n\nIdentify and prioritize the right accounts automatically\n\nBuild custom campaigns that cut through the noise, utilize multi-touch outreach\n\nEquip sales with actionable insights, not just contact records\n\nGive managers real-time visibility into every conversation and conversion\n\nLearn more\n\nMarketing That Actually Converts\n\nCustomizable templates to align campaigns to target market\n\nImprove segmentation using real engagement signals\n\nClose the loop between outreach, engagement, and revenue\n\nCustom workflows, automated campaigns including Post Card mailings, and personaliz",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FMAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "f630ad78",
+          "subject": "Formal Notice of AWS Distribution Agreement Change",
+          "is_forward": false,
+          "email_count": 1,
+          "first_sent": "2026-03-17T13:51:08Z",
+          "last_sent": "2026-03-17T13:51:08Z",
+          "last_sender": {
+            "name": "Matthew Carter",
+            "address": "Matthew.Carter@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Matthew Carter",
+              "address": "matthew.carter@aptum.com"
+            },
+            {
+              "name": "Marshbanks, Rick",
+              "address": "rick.marshbanks@ingrammicro.com"
+            },
+            {
+              "name": "Horwath, John",
+              "address": "john.horwath@ingrammicro.com"
+            },
+            {
+              "name": "Olvera, Israel",
+              "address": "israel.olvera2@ingrammicro.com"
+            },
+            {
+              "name": "Marc Pare",
+              "address": "marc.pare@aptum.com"
+            },
+            {
+              "name": "Rosario, Jonathan",
+              "address": "jonathan.rosario@ingrammicro.com"
+            },
+            {
+              "name": "Jennings, Adam",
+              "address": "adam.jennings@ingrammicro.com"
+            },
+            {
+              "name": "Jaroenchonwanit, Lalita",
+              "address": "lalita.jaroenchonwanit@ingrammicro.com"
+            },
+            {
+              "name": "Chandrashekar, Subramanya",
+              "address": "subramanya.chandrashekar@ingrammicro.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "andrei.ianouchkevitch@aptum.com"
+            },
+            {
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
+            },
+            {
+              "name": "Erik Tanguay",
+              "address": "erik.tanguay@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FHAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-HAAA=",
+              "sent_at": "2026-03-17T13:51:08Z",
+              "from": {
+                "name": "Matthew Carter",
+                "address": "Matthew.Carter@aptum.com"
+              },
+              "body": "Hi Rick,\n\nThanks for your collaboration here, again, we’re only porting US customers, but will remain with Ingram for the UK and Canadian regions.\n\nOn that note, can you confirm steps to ensure we’ll receive the 8% discount in those geographies effective 4/1?\n\nMatthew Carter\n\nVP, Project Management & Global Supply Chain\n\n+1 (416) 847-0852\naptum.com | LinkedIn\n\nFrom: Marshbanks, Rick <Rick.Marshbanks@ingrammicro.com>\nSent: February 18, 2026 5:33 PM\nTo: Matthew Carter <Matthew.Carter@aptum.com>\nCc: Horwath, John <John.Horwath@ingrammicro.com>; Olvera, Israel <Israel.Olvera2@ingrammicro.com>; Marc Pare <marc.pare@aptum.com>; Rosario, Jonathan <Jonathan.Rosario@ingrammicro.com>; Jennings, Adam <Adam.Jennings@ingrammicro.com>; Jaroenchonwanit, Lalita <Lalita.Jaroenchonwanit@ingrammicro.com>; Chandrashekar, Subramanya <Subramanya.Chandrashekar@ingrammicro.com>; Adam Nelson <adam.nelson@aptum.com>\nSubject: RE: Formal Notice of AWS Distribution Agreement Change\n\n+@Chandrashekar, Subramanya / @Jaroenchonwanit, Lalita\n\nHi Matt, Thank you for the note and for the partnership we have built together. While I am disappointed to hear we will not be with you for the next phase of your AWS Partner Journey, I sincerely appreciate the collaboration and trust Aptum has placed in Ingram Micro throughout our relationship. Given the April 1 transition timeline, I welcome the opportunity to schedule a brief call with the broader team to review the offboarding process to help ensure everything runs s",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FHAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "ea92c4b2",
+          "subject": "Triple Jump - Contributor access in Azure for support assessment and pre-migration check",
+          "is_forward": true,
+          "email_count": 1,
+          "first_sent": "2026-03-17T13:48:01Z",
+          "last_sent": "2026-03-17T13:48:01Z",
+          "last_sender": {
+            "name": "Frederic Gingras",
+            "address": "Frederic.Gingras@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Frederic Gingras",
+              "address": "frederic.gingras@aptum.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FEAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR2UC-EAAA=",
+              "sent_at": "2026-03-17T13:48:01Z",
+              "from": {
+                "name": "Frederic Gingras",
+                "address": "Frederic.Gingras@aptum.com"
+              },
+              "body": "Is this a fair use of Andy's time?\n\nFrom: Darren Wells <Darren.Wells@aptum.com>\nSent: March 17, 2026 9:38 AM\nTo: Frederic Gingras <Frederic.Gingras@aptum.com>\nSubject: Re: Triple Jump - Contributor access in Azure for support assessment and pre-migration check\n\nNo, my understanding is that this would just be a mechanism to move their subscriptions to us, not a deeper review of how it’s all been deployed.\n\nSo there’s still potential for a WAR.\n\nDarren Wells\n\nSenior Strategic Account Manager\n\n+44 7852 926026\naptum.com | LinkedIn\n\nFrom: Frederic Gingras <Frederic.Gingras@aptum.com>\nSent: Tuesday, March 17, 2026 1:21:32 PM\nTo: Darren Wells <Darren.Wells@aptum.com>\nSubject: Re: Triple Jump - Contributor access in Azure for support assessment and pre-migration check\n\nSo this is an approach instead of the well architected review?\n\nFrederic Gingras\n\nSenior Director, Account Management\n\nm: +1 514-913-9153 teams: +1 514-673-7553\naptum.com | LinkedIn\n\nFrom: Darren Wells <Darren.Wells@aptum.com>\nSent: March 17, 2026 6:44 AM\nTo: Frederic Gingras <Frederic.Gingras@aptum.com>\nSubject: FW: Triple Jump - Contributor access in Azure for support assessment and pre-migration check\n\nFYI ref one of the fronts we’re pursuing with Triple Jump...\n\nDarren Wells\n\nSenior Strategic Account Manager\n\n+44 7852 926026\naptum.com | LinkedIn\n\nFrom: Andy Petterson <Andy.Petterson@aptum.com>\nDate: Wednesday, 4 March 2026 at 13:14\nTo: Tal Baron <tal@triplejumptech.com>\nCc: Darren Wells <Darren.Wells@aptum.com>, Ro",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FEAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
+          "thread_id": "7ae0ba47",
+          "subject": "AWS Cloud Marketplace",
+          "is_forward": false,
+          "email_count": 2,
+          "first_sent": "2026-03-17T11:31:04Z",
+          "last_sent": "2026-03-17T11:35:41Z",
+          "last_sender": {
+            "name": "Lacie Allen-Morley",
+            "address": "Lacie.Allen-Morley@aptum.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            },
+            {
+              "name": "Matthew Carter",
+              "address": "matthew.carter@aptum.com"
+            },
+            {
+              "name": "Marc Pare",
+              "address": "marc.pare@aptum.com"
+            },
+            {
+              "name": "Lacie Allen-Morley",
+              "address": "lacie.allen-morley@aptum.com"
+            },
+            {
+              "name": "Erik Tanguay",
+              "address": "erik.tanguay@aptum.com"
+            },
+            {
+              "name": "Andrei Ianouchkevitch",
+              "address": "andrei.ianouchkevitch@aptum.com"
+            },
+            {
+              "name": "Sarah Blanchard",
+              "address": "sarah.blanchard@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryWKAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAAR4R8AxAAA=",
+              "sent_at": "2026-03-17T11:31:04Z",
+              "from": {
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              },
+              "body": "@Erik Tanguay or @Lacie Allen-Morley,\n\nCan you please send the US APN? I just looked on confluence for 10 mins through the 100 pages of AWS \"documentation\" and couldn't find it.\n\nI give up.\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Adam Nelson <Adam.Nelson@aptum.com>\nSent: March 16, 2026 15:27\nTo: Matthew Carter <Matthew.Carter@aptum.com>; Marc Pare <Marc.Pare@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>; Erik Tanguay <Erik.Tanguay@aptum.com>; Andrei Ianouchkevitch <Andrei.Ianouchkevitch@aptum.com>\nCc: Sarah Blanchard <Sarah.Blanchard@aptum.com>\nSubject: Re: AWS Cloud Marketplace\n\n@Lacie Allen-Morley, @Erik Tanguay, @Andrei Ianouchkevitch\n\nWe are planning a transition of US (not any other regions right now) customers from Ingram to TD Synnex.\n\n@Andrei Ianouchkevitch, your customers will be the ones that are most impacted (because it's migrating their billing and taking away their—if they even use it—access to cloudcheckr).\n\n@Lacie Allen-Morley, we will need someone from your team (maybe Kristina?) to lead the X's and O's on this because we need to submit documents for EACH customer in the US region to get them migrated off Ingram.\n\n& @Erik Tanguay - You're probably going to need to be involved from a billing perspective at the beginning/end of the month.\n\n---\n\nI suggest we get us 5 (plus Kristina if she's the PM) in the same room and get what needs to be done and by when ASAP.\n\nI'll book the call to get eve",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8AxAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR3ryWKAAA=",
+              "sent_at": "2026-03-17T11:35:41Z",
+              "from": {
+                "name": "Lacie Allen-Morley",
+                "address": "Lacie.Allen-Morley@aptum.com"
+              },
+              "body": "HI Adam,\n\nIt is 566343 for all regions.\n\nInformation can be found on this page: https://aptum.atlassian.net/wiki/spaces/Product/pages/3233611884/AWS+-+Ordering+AWS+Accounts+with+Ingram+xVantage\n\nKind Regards,\n\nLacie Allen-Morley\n\nManager, Service Delivery\n\n+442380926163\naptum.com | LinkedIn\n\nFrom: Adam Nelson <Adam.Nelson@aptum.com>\nSent: 17 March 2026 11:31\nTo: Matthew Carter <Matthew.Carter@aptum.com>; Marc Pare <Marc.Pare@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>; Erik Tanguay <Erik.Tanguay@aptum.com>; Andrei Ianouchkevitch <Andrei.Ianouchkevitch@aptum.com>\nCc: Sarah Blanchard <Sarah.Blanchard@aptum.com>\nSubject: Re: AWS Cloud Marketplace\n\n@Erik Tanguay or @Lacie Allen-Morley,\n\nCan you please send the US APN? I just looked on confluence for 10 mins through the 100 pages of AWS \"documentation\" and couldn't find it.\n\nI give up.\n\nAdam Nelson\n\nSenior Director, Service Delivery\n\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Adam Nelson <Adam.Nelson@aptum.com>\nSent: March 16, 2026 15:27\nTo: Matthew Carter <Matthew.Carter@aptum.com>; Marc Pare <Marc.Pare@aptum.com>; Lacie Allen-Morley <Lacie.Allen-Morley@aptum.com>; Erik Tanguay <Erik.Tanguay@aptum.com>; Andrei Ianouchkevitch <Andrei.Ianouchkevitch@aptum.com>\nCc: Sarah Blanchard <Sarah.Blanchard@aptum.com>\nSubject: Re: AWS Cloud Marketplace\n\n@Lacie Allen-Morley, @Erik Tanguay, @Andrei Ianouchkevitch\n\nWe are planning a transition of US (not any other regions right now) customers from Ingram to TD Synnex.\n\n@Andr",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryWKAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
             }
           ]
         }
@@ -194,227 +1110,282 @@
     },
     "system_notifications": {
       "status": "success",
-      "record_count": 6,
+      "record_count": 8,
       "error": null,
       "data": [
         {
-          "signal_type": "jira_notification",
-          "sent_at": "2026-03-13T18:06:15Z",
-          "subject": "[JIRA] (CUS-1) INT - Time Tracking",
+          "signal_type": "partner_notification",
+          "sent_at": "2026-03-17T13:26:46Z",
+          "subject": "RE: AWS Distributor Transfer - DSA/CTA Sponsorship Change: 22-MAR-2026",
           "from": {
-            "name": "Sam Messer (JIRA)",
-            "address": "jira@aptum.atlassian.net"
+            "name": "Matthew Carter",
+            "address": "Matthew.Carter@aptum.com"
           },
-          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARiTDiSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FBAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
           "extracted": {
-            "subject": "[JIRA] (CUS-1) INT - Time Tracking"
-          }
-        },
-        {
-          "signal_type": "crm_lead",
-          "sent_at": "2026-03-13T20:18:14Z",
-          "subject": "Hubspot Account Created a Lead for Jason Jason at Commercial Energy",
-          "from": {
-            "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
-          },
-          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARjMSDVAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-          "extracted": {
-            "created_by": "Hubspot Account",
-            "contact": "Jason Jason",
-            "company": "Commercial Energy"
+            "subject": "RE: AWS Distributor Transfer - DSA/CTA Sponsorship Change: 22-MAR-2026"
           }
         },
         {
           "signal_type": "auto_reply",
-          "sent_at": "2026-03-13T20:18:25Z",
-          "subject": "Automatic reply: Hubspot Account Created a Lead for Jason Jason at Commercial Energy",
+          "sent_at": "2026-03-17T13:49:39Z",
+          "subject": "Automatic reply: Invoices Pending for Approval: Adam Nelson",
           "from": {
-            "name": "Martin Tessier",
-            "address": "Martin.Tessier@aptum.com"
+            "name": "Pamela Narain",
+            "address": "Pamela.Narain@aptum.com"
           },
-          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARhlR2MAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FGAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
           "extracted": {
-            "original_subject": "Hubspot Account Created a Lead for Jason Jason at Commercial Energy"
+            "original_subject": "Invoices Pending for Approval: Adam Nelson"
           }
         },
         {
           "signal_type": "jira_notification",
-          "sent_at": "2026-03-14T09:40:52Z",
-          "subject": "[JIRA] A friendly reminder: Your space(s) will be permanently deleted from trash",
+          "sent_at": "2026-03-17T21:01:28Z",
+          "subject": "[JIRA] (GSE-190) vmware upgrade - Cenovus",
           "from": {
-            "name": "Admin (Jira)",
+            "name": "Marko Andjelkovic (JIRA)",
             "address": "jira@aptum.atlassian.net"
           },
-          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARlV7hLAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR3ryW%2BAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
           "extracted": {
-            "subject": "[JIRA] A friendly reminder: Your space(s) will be permanently deleted from trash"
+            "subject": "[JIRA] (GSE-190) vmware upgrade - Cenovus"
           }
         },
         {
           "signal_type": "crm_lead",
-          "sent_at": "2026-03-14T17:45:11Z",
-          "subject": "David Blankinship Created a Lead for Ikram Nagdawala at Aptum",
+          "sent_at": "2026-03-17T17:20:12Z",
+          "subject": "Ryan Walsh Created a Lead for David Arthurs at Definity",
           "from": {
             "name": "Adam Nelson",
-            "address": "adam.nelson@aptum.com"
+            "address": "anelson@cloudops.com"
           },
-          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARnjE%2F9AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A4AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
           "extracted": {
-            "created_by": "David Blankinship",
-            "contact": "Ikram Nagdawala",
-            "company": "Aptum"
+            "created_by": "Ryan Walsh",
+            "contact": "David Arthurs",
+            "company": "Definity"
           }
         },
         {
-          "signal_type": "jira_notification",
-          "sent_at": "2026-03-15T06:37:48Z",
-          "subject": "[JIRA] (CUS-1) INT - Time Tracking",
+          "signal_type": "crm_lead",
+          "sent_at": "2026-03-17T17:46:25Z",
+          "subject": "Ryan Walsh Created a Lead for David Ker at MindStride.ai",
           "from": {
-            "name": "Luis Cruz (JIRA)",
-            "address": "jira@aptum.atlassian.net"
+            "name": "Adam Nelson",
+            "address": "anelson@cloudops.com"
           },
-          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAARpd66fAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A5AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
           "extracted": {
-            "subject": "[JIRA] (CUS-1) INT - Time Tracking"
+            "created_by": "Ryan Walsh",
+            "contact": "David Ker",
+            "company": "MindStride.ai"
+          }
+        },
+        {
+          "signal_type": "crm_lead",
+          "sent_at": "2026-03-17T17:47:39Z",
+          "subject": "Ryan Walsh Created a Lead for Heindrik Bernabe at GoBolt",
+          "from": {
+            "name": "Adam Nelson",
+            "address": "anelson@cloudops.com"
+          },
+          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A6AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "extracted": {
+            "created_by": "Ryan Walsh",
+            "contact": "Heindrik Bernabe",
+            "company": "GoBolt"
+          }
+        },
+        {
+          "signal_type": "crm_lead",
+          "sent_at": "2026-03-17T18:14:52Z",
+          "subject": "Ryan Walsh Created a Lead for Aun Amjad at Fairstone Bank",
+          "from": {
+            "name": "Adam Nelson",
+            "address": "anelson@cloudops.com"
+          },
+          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR4R8A7AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "extracted": {
+            "created_by": "Ryan Walsh",
+            "contact": "Aun Amjad",
+            "company": "Fairstone Bank"
+          }
+        },
+        {
+          "signal_type": "doc_share",
+          "sent_at": "2026-03-17T20:56:25Z",
+          "subject": "Sarah Blanchard shared \"APTUM_ March Q2 Board deck\" with you",
+          "from": {
+            "name": "Sarah Blanchard",
+            "address": "Sarah.Blanchard@aptum.com"
+          },
+          "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR2UC%2FqAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "extracted": {
+            "document": "APTUM_ March Q2 Board deck"
           }
         }
       ]
     },
     "discard": {
       "status": "success",
-      "record_count": 26,
+      "record_count": 31,
       "error": null,
       "data": [
         {
-          "subject": "Accepted: Hand off the P&L",
-          "sender": "adam.nelson@aptum.com",
-          "sent_at": "2026-03-13T10:46:36Z"
-        },
-        {
-          "subject": "Adam Nelson, don't miss out on your daily digest: Carlton Currey has made updates on \"Data Sheet - Hosting - Series Servers\" & more",
-          "sender": "confluence@aptum.com",
-          "sent_at": "2026-03-13T11:25:29Z"
-        },
-        {
-          "subject": "Incidents out of sync",
-          "sender": "pearsonj@recursyv.io",
-          "sent_at": "2026-03-13T11:30:36Z"
-        },
-        {
-          "subject": "FW: Daily Sales FY18 BI-2679 was executed at 3/13/2026 8:00:06 AM",
-          "sender": "lacie.kemp@aptum.com",
-          "sent_at": "2026-03-13T12:00:30Z"
-        },
-        {
-          "subject": "Strategic Session / Whiteboard ",
-          "sender": "sarah.blanchard@aptum.com",
-          "sent_at": "2026-03-13T12:20:59Z"
-        },
-        {
-          "subject": "Board Diner in NYC ",
-          "sender": "sarah.blanchard@aptum.com",
-          "sent_at": "2026-03-13T12:21:29Z"
-        },
-        {
-          "subject": "Canceled: NYC board placeholder",
-          "sender": "sarah.blanchard@aptum.com",
-          "sent_at": "2026-03-13T12:23:55Z"
-        },
-        {
-          "subject": "🧮 Calculate Your Next Move — Save up to 40%",
-          "sender": "no-reply@linuxfoundation.org",
-          "sent_at": "2026-03-13T13:17:56Z"
-        },
-        {
-          "subject": "KPMG Launches New MPDO",
-          "sender": "newsroomcanada@connect.media",
-          "sent_at": "2026-03-13T14:02:51Z"
-        },
-        {
-          "subject": "Green Market Telecom Equipment: Resilience Without OEM Dependency",
-          "sender": "info@dtc-telecom.co.uk",
-          "sent_at": "2026-03-13T14:23:45Z"
-        },
-        {
-          "subject": "Scaling service delivery at Aptum",
-          "sender": "vaibhav.verma@vlink-info.com",
-          "sent_at": "2026-03-13T14:47:20Z"
-        },
-        {
-          "subject": "Call for Submissions: Agentic AI Overlay Award — AI Networking Summit 2026",
-          "sender": "nick.lippis@onug.net",
-          "sent_at": "2026-03-13T14:49:15Z"
-        },
-        {
-          "subject": "Access request for Managed Cloud Platform Lifecycle",
-          "sender": "noreply@po.atlassian.net",
-          "sent_at": "2026-03-13T15:52:38Z"
-        },
-        {
-          "subject": "RE: Adam",
-          "sender": "linda@verlysta.com",
-          "sent_at": "2026-03-13T15:56:15Z"
-        },
-        {
-          "subject": "Aptum / second cloud option",
-          "sender": "andrew.lane@windriver.com",
-          "sent_at": "2026-03-13T17:54:03Z"
+          "subject": "[Product Update] Google Cloud: Update to default resource-based CUD sharing setting",
+          "sender": "cloudplatform-noreply@google.com",
+          "sent_at": "2026-03-17T06:46:33Z"
         },
         {
           "subject": "Alert! Your flow has been turned off since it was not running",
           "sender": "powerautomatenoreply@microsoft.com",
-          "sent_at": "2026-03-13T19:18:30Z"
+          "sent_at": "2026-03-17T07:10:27Z"
         },
         {
-          "subject": "Hi Adam, Let’s Grow Your Business Digitally",
-          "sender": "info@famepixelsoft.site",
-          "sent_at": "2026-03-14T05:51:40Z"
+          "subject": "Project Management: Skills and Techniques",
+          "sender": "lili.shepherd@skillboosters.org",
+          "sent_at": "2026-03-17T07:36:27Z"
         },
         {
-          "subject": "FW: Daily Sales FY18 BI-2679 was executed at 3/14/2026 8:00:01 AM",
+          "subject": "See Managed SIEM in action",
+          "sender": "marketing@huntress.com",
+          "sent_at": "2026-03-17T09:35:14Z"
+        },
+        {
+          "subject": "Partner Newsletter - March 17, 2026",
+          "sender": "channels@suse.com",
+          "sent_at": "2026-03-17T10:01:14Z"
+        },
+        {
+          "subject": "Accepted: AWS Cloud Marketplace",
+          "sender": "lacie.allen-morley@aptum.com",
+          "sent_at": "2026-03-17T11:16:36Z"
+        },
+        {
+          "subject": "Canceled: [INT] SD & Commercial Alignment",
           "sender": "lacie.kemp@aptum.com",
-          "sent_at": "2026-03-14T12:00:49Z"
+          "sent_at": "2026-03-17T11:16:36Z"
         },
         {
-          "subject": "short intro call",
-          "sender": "noaman.faisal@solutionsloft-mail.co",
-          "sent_at": "2026-03-14T13:31:44Z"
+          "subject": "Adam Nelson, don't miss out on your daily digest: Emma Kopang has made updates on \"Service Guides\" & more",
+          "sender": "confluence@aptum.com",
+          "sent_at": "2026-03-17T11:25:21Z"
         },
         {
-          "subject": "A thought on resource utilization",
-          "sender": "lchavez@rocketlane.com",
-          "sent_at": "2026-03-14T14:28:27Z"
-        },
-        {
-          "subject": "Canceled: STG Aptum Cadence",
-          "sender": "vicki.patten@aptum.com",
-          "sent_at": "2026-03-14T20:31:24Z"
-        },
-        {
-          "subject": "FW: Daily Sales FY18 BI-2679 was executed at 3/15/2026 8:00:01 AM",
+          "subject": "FW: Daily Sales FY18 BI-2679 was executed at 3/17/2026 8:00:06 AM",
           "sender": "lacie.kemp@aptum.com",
-          "sent_at": "2026-03-15T12:00:32Z"
+          "sent_at": "2026-03-17T12:00:31Z"
         },
         {
-          "subject": "I’m 48 and I’ve started removing the graduation dates from my resume and...",
-          "sender": "noreply@glassdoor.com",
-          "sent_at": "2026-03-15T12:15:25Z"
+          "subject": "FW: COE review",
+          "sender": "ian.rae@aptum.com",
+          "sent_at": "2026-03-17T12:07:12Z"
         },
         {
-          "subject": "AI prototype for CloudOps",
-          "sender": "noaman.faisal@solutionsloft-mail.co",
-          "sent_at": "2026-03-15T12:54:08Z"
+          "subject": "MA ",
+          "sender": "adam.nelson@aptum.com",
+          "sent_at": "2026-03-17T12:30:22Z"
         },
         {
-          "subject": "short intro call",
-          "sender": "emmawilson.seektal@gmail.com",
-          "sent_at": "2026-03-15T13:34:48Z"
+          "subject": "12 years of leadership. Zero room for network doubt.",
+          "sender": "response@tatacommunications.com",
+          "sent_at": "2026-03-17T12:32:08Z"
         },
         {
-          "subject": "Payout notification: A payment has been submitted to your account",
-          "sender": "microsoft-noreply@microsoft.com",
-          "sent_at": "2026-03-15T20:32:08Z"
+          "subject": "Accepted: MA ",
+          "sender": "marc-alexandre.forget@aptum.com",
+          "sent_at": "2026-03-17T12:39:51Z"
+        },
+        {
+          "subject": "Masterclass IA pour dirigeant·es | 1 695 $ au lieu de 1 995 $. Il reste 10 places.",
+          "sender": "evenementslesaffaires@groupecontex.ca",
+          "sent_at": "2026-03-17T13:00:28Z"
+        },
+        {
+          "subject": "Re: meeting request: Adam, Ann",
+          "sender": "ann@dynamicsworks.com",
+          "sent_at": "2026-03-17T13:05:27Z"
+        },
+        {
+          "subject": "⏰ Final Hours to Save Up to 40%",
+          "sender": "no-reply@linuxfoundation.org",
+          "sent_at": "2026-03-17T13:15:27Z"
+        },
+        {
+          "subject": "March Product and Feature Retirement Newsletter",
+          "sender": "techcomms@mail.salesforce.com",
+          "sent_at": "2026-03-17T13:24:08Z"
+        },
+        {
+          "subject": "Canceled: Marc/Adam",
+          "sender": "adam.nelson@aptum.com",
+          "sent_at": "2026-03-17T13:38:45Z"
+        },
+        {
+          "subject": "Accepted: [INT] GSE Board Review",
+          "sender": "anelson@cloudops.com",
+          "sent_at": "2026-03-17T13:38:45Z"
+        },
+        {
+          "subject": "Sutton, myAbode Partnership Unites 1,2000 Brokers",
+          "sender": "newsroomcanada@connect.media",
+          "sent_at": "2026-03-17T14:00:18Z"
+        },
+        {
+          "subject": "Re: Aptum / second cloud option",
+          "sender": "andrew.lane@windriver.com",
+          "sent_at": "2026-03-17T14:02:41Z"
+        },
+        {
+          "subject": "What Fiserv's CEO Mike Lyons Wants Fintech To Know",
+          "sender": "hello@money2020.com",
+          "sent_at": "2026-03-17T14:23:20Z"
+        },
+        {
+          "subject": "[Webinaire] Voir, comprendre et protéger l’ensemble de vos actifs numériques : IT, IoT, IoMT, OT",
+          "sender": "evenementslesaffaires@groupecontex.ca",
+          "sent_at": "2026-03-17T17:00:21Z"
+        },
+        {
+          "subject": "Dear Adam, invitation to 6th High-Density AI Data Center Infrastructure Summit in Ashburn",
+          "sender": "andrea@environment-events.com",
+          "sent_at": "2026-03-17T17:43:07Z"
+        },
+        {
+          "subject": "Re: Aptum | Radar Mexico Offboarding |  AWS #765843959562",
+          "sender": "ilse.guerrero@ingrammicro.com",
+          "sent_at": "2026-03-17T17:55:34Z"
+        },
+        {
+          "subject": "Early Bird Tickets Are LIVE; Secure Your Spot Before They’re Gone",
+          "sender": "info@gdcc-expo.com",
+          "sent_at": "2026-03-17T18:09:50Z"
+        },
+        {
+          "subject": "Call with Centrilogic",
+          "sender": "george.revie@aptum.com",
+          "sent_at": "2026-03-17T19:34:58Z"
+        },
+        {
+          "subject": "Accepted: Call with Centrilogic",
+          "sender": "anelson@cloudops.com",
+          "sent_at": "2026-03-17T19:37:00Z"
+        },
+        {
+          "subject": "Re: Aptum | Radar Mexico Offboarding |  AWS #765843959562",
+          "sender": "ilse.guerrero@ingrammicro.com",
+          "sent_at": "2026-03-17T19:55:21Z"
+        },
+        {
+          "subject": "Three Musketeers Sync",
+          "sender": "sarah.blanchard@aptum.com",
+          "sent_at": "2026-03-17T21:31:45Z"
+        },
+        {
+          "subject": "ADP Workforce Now Notification Employee - Time Off Request requires your approval",
+          "sender": "noreply@adp.com",
+          "sent_at": "2026-03-17T22:08:12Z"
         }
       ]
     }
