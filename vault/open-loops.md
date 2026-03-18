@@ -74,7 +74,7 @@ George, MA, Brad Petrie, Sarah
 What can we offer to help these customers move?
 90 days migration notice (you need to migrate w/i 90 days)
 
-"Presume we will have to re-IP" - Marc Moore
+"Presume we will have to re-IP" - Mark Moore
 
 Things to do:
 - need a migration team
@@ -83,3 +83,5 @@ Things to do:
 - do we have the team
 
 Ian had the original conversation
+
+Coordination piece w/ the customers up-front. 
