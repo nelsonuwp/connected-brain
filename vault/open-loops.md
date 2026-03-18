@@ -81,3 +81,5 @@ Things to do:
 - rent a vehicle, insure vehicle, hardware, etc.
 - boxes
 - do we have the team
+
+Ian had the original conversation
