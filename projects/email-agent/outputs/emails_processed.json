@@ -1,17 +1,19 @@
 {
   "source": "email_processor",
-  "collected_at": "2026-03-19T12:04:11.922551Z",
+  "collected_at": "2026-03-19T15:21:25.677994Z",
   "status": "success",
   "objects": {
     "threads": {
       "status": "success",
-      "record_count": 7,
+      "record_count": 6,
       "error": null,
       "data": [
         {
           "thread_id": "a4f5f622",
           "subject": "OKRs",
           "is_forward": false,
+          "is_merged": false,
+          "source_threads": [],
           "email_count": 1,
           "first_sent": "2026-03-18T21:55:27Z",
           "last_sent": "2026-03-18T21:55:27Z",
@@ -39,6 +41,8 @@
             }
           ],
           "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0gAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "sole_recipient": false,
+          "adam_in_to": false,
           "emails": [
             {
               "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR_wg0gAAA=",
@@ -53,11 +57,22 @@
           ]
         },
         {
-          "thread_id": "1a62edc2",
-          "subject": "Revised - 2025 - T2200 Form",
+          "thread_id": "merged_4dabe94a",
+          "subject": "[Merged]",
+          "is_merged": true,
+          "source_threads": [
+            {
+              "subject": "2025 - Additional Tax Forms",
+              "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0SAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            },
+            {
+              "subject": "Revised - 2025 - T2200 Form",
+              "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0bAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ],
           "is_forward": false,
-          "email_count": 1,
-          "first_sent": "2026-03-18T18:51:42Z",
+          "email_count": 2,
+          "first_sent": "2026-03-18T17:41:00Z",
           "last_sent": "2026-03-18T18:51:42Z",
           "last_sender": {
             "name": "Anita Parbhudial",
@@ -75,42 +90,8 @@
             }
           ],
           "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0bAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-          "emails": [
-            {
-              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR_wg0bAAA=",
-              "sent_at": "2026-03-18T18:51:42Z",
-              "from": {
-                "name": "Anita Parbhudial",
-                "address": "Anita.Parbhudial@aptum.com"
-              },
-              "body": "Anita Parbhudial\n\nGlobal Manager, Payroll, Benefits & Retirement\n\n+14168470723\naptum.com | LinkedIn",
-              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0bAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-            }
-          ]
-        },
-        {
-          "thread_id": "5947f88f",
-          "subject": "2025 - Additional Tax Forms",
-          "is_forward": false,
-          "email_count": 1,
-          "first_sent": "2026-03-18T17:41:00Z",
-          "last_sent": "2026-03-18T17:41:00Z",
-          "last_sender": {
-            "name": "Anita Parbhudial",
-            "address": "Anita.Parbhudial@aptum.com"
-          },
-          "last_sender_is_adam": false,
-          "participants": [
-            {
-              "name": "Anita Parbhudial",
-              "address": "anita.parbhudial@aptum.com"
-            },
-            {
-              "name": "Adam Nelson",
-              "address": "adam.nelson@aptum.com"
-            }
-          ],
-          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0SAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "sole_recipient": false,
+          "adam_in_to": false,
           "emails": [
             {
               "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR_wg0SAAA=",
@@ -120,43 +101,19 @@
                 "address": "Anita.Parbhudial@aptum.com"
               },
               "body": "Anita Parbhudial\n\nGlobal Manager, Payroll, Benefits & Retirement\n\n+14168470723\naptum.com | LinkedIn",
-              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0SAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-            }
-          ]
-        },
-        {
-          "thread_id": "69455130",
-          "subject": "5C Cloud Maintenance - Maintenance in Region ON (Ontario) / Upcoming Cloud Platform Upgrade - 19 March 2026",
-          "is_forward": false,
-          "email_count": 1,
-          "first_sent": "2026-03-18T16:17:02Z",
-          "last_sent": "2026-03-18T16:17:02Z",
-          "last_sender": {
-            "name": "notifications@hypertec.cloud",
-            "address": "notifications@hypertec.cloud"
-          },
-          "last_sender_is_adam": false,
-          "participants": [
-            {
-              "name": "notifications@hypertec.cloud",
-              "address": "notifications@hypertec.cloud"
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0SAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+              "_source_thread": "2025 - Additional Tax Forms"
             },
             {
-              "name": "Adam Nelson",
-              "address": "anelson@cloudops.com"
-            }
-          ],
-          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2BdcHaAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-          "emails": [
-            {
-              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR_dcHaAAA=",
-              "sent_at": "2026-03-18T16:17:02Z",
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR_wg0bAAA=",
+              "sent_at": "2026-03-18T18:51:42Z",
               "from": {
-                "name": "notifications@hypertec.cloud",
-                "address": "notifications@hypertec.cloud"
+                "name": "Anita Parbhudial",
+                "address": "Anita.Parbhudial@aptum.com"
               },
-              "body": "Scheduled - 1 component affected - **Maintenance in Region ON (Ontario) / Upcoming... ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌\n\nMaintenance in Region ON (Ontario) / Upcoming Cloud Platform Upgrade\n\nUpcoming scheduled maintenance notice\n\n**Maintenance in Region ON (Ontario) / Upcoming Cloud Platform Upgrade**\n**Action Required for Windows 10 and Windows 11 Remote Management VPN Users Only**\n\n**Scheduled Maintenance Report for 5C Cloud Platform**\n\nDear Customers,\n\nA maintenance window to apply security patches to our cloud infrastructure in the Ontario region will take place on: **March 19, 2026 from 18:00 EDT to 23:00 EDT.**\n\n**Impact:** Customer virtual machines should not experience downtime.\n\nThis update will improve performance, stability, and security throughout our environment.\n\nThank you for your attention and cooperation as we continue to enhance our platform. If you have any questions or concerns, please do not hesitate to contact us.\n\nThank you,\n\nThe 5C Cloud Team\n\nStart time\n\nMar 19, 18:00 EDT\n\nEstimated duration\n\n5 hours\n\nComponents affected\n\nCustomer resources - Ontario Region -...\n\nView full scheduled maintenance details\n\nYou received this email because you are subscribed to 5C Cloud's service status notifications.\n\nUnsubscribe\n\nPowered by Atlassian Statuspage",
-              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2BdcHaAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+              "body": "Anita Parbhudial\n\nGlobal Manager, Payroll, Benefits & Retirement\n\n+14168470723\naptum.com | LinkedIn",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0bAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+              "_source_thread": "Revised - 2025 - T2200 Form"
             }
           ]
         },
@@ -164,6 +121,8 @@
           "thread_id": "b5c0f69d",
           "subject": "Is Perigon a Scam? My info may have been compromised",
           "is_forward": false,
+          "is_merged": false,
+          "source_threads": [],
           "email_count": 4,
           "first_sent": "2026-03-18T00:10:07Z",
           "last_sent": "2026-03-18T14:26:02Z",
@@ -199,6 +158,8 @@
             }
           ],
           "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0OAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "sole_recipient": false,
+          "adam_in_to": false,
           "emails": [
             {
               "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR_dcHMAAA=",
@@ -246,6 +207,8 @@
           "thread_id": "afd8cec1",
           "subject": "Centrilogic numbers - Sarah, here they are",
           "is_forward": true,
+          "is_merged": false,
+          "source_threads": [],
           "email_count": 1,
           "first_sent": "2026-03-18T13:11:03Z",
           "last_sent": "2026-03-18T13:11:03Z",
@@ -273,6 +236,8 @@
             }
           ],
           "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0LAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "sole_recipient": false,
+          "adam_in_to": false,
           "emails": [
             {
               "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR_wg0LAAA=",
@@ -287,9 +252,51 @@
           ]
         },
         {
+          "thread_id": "37dfe10c",
+          "subject": "Meeting 2026 Cyber Insurance Requirements",
+          "is_forward": false,
+          "is_merged": false,
+          "source_threads": [],
+          "email_count": 1,
+          "first_sent": "2026-03-18T12:59:07Z",
+          "last_sent": "2026-03-18T12:59:07Z",
+          "last_sender": {
+            "name": "Eva Ullmann",
+            "address": "Eva.Ullmann@thinkon.com"
+          },
+          "last_sender_is_adam": false,
+          "participants": [
+            {
+              "name": "Eva Ullmann",
+              "address": "eva.ullmann@thinkon.com"
+            },
+            {
+              "name": "Adam Nelson",
+              "address": "adam.nelson@aptum.com"
+            }
+          ],
+          "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0JAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "sole_recipient": false,
+          "adam_in_to": false,
+          "emails": [
+            {
+              "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAR_wg0JAAA=",
+              "sent_at": "2026-03-18T12:59:07Z",
+              "from": {
+                "name": "Eva Ullmann",
+                "address": "Eva.Ullmann@thinkon.com"
+              },
+              "body": "Hi Adam,\n\nFollowing up on my recent email regarding 2026 cyber insurance requirements, I wanted to highlight how ThinkOn simplifies the most critical pillar: Data Protection and Recovery.\n\nOur mission is centered on three pillars— Process, Protect, and Preserve. As a dedicated Veeam partner, we’ve built our infrastructure to ensure you meet the rigorous \"3-2-1-1-0\" backup strategy that insurers now look for.\n\nOur Veeam-powered solutions include:\n\nVeeam Backup & Replication: For comprehensive environment protection.\n\nVeeam Cloud Connect: For seamless, off-site immutability.\n\nMicrosoft 365 Protection: Ensuring your O365 backups live independently of the Microsoft network.\n\nWhether you are looking to harden your current strategy or close a specific compliance gap, we have the architecture ready to go.\n\nAre you available for a brief call to see how these fit into your current environment?\n\nBook a meeting with Eva\n\nEva Ullmann\n\nSenior Partner Manager | ThinkOn\n\nMobile: +1 949 422-5298\n\nEmail: eva.ullmann@thinkon.com\n\nOn Thursday, March 12, 2026, 12:54:02 p.m. -0400, Eva Ullmann <eva.ullmann@thinkon.com> wrote:\n\nHi Adam,\n\nAs we move through 2026, one of the most consistent challenges we’re seeing in the market is the rising bar for Cyber Insurance. Organizations are increasingly asking: What are the actual requirements? Are we compliant? What does a \"good\" security posture look like today?\n\nTo help clarify the landscape, here are the core requirements insurers are looking for this ",
+              "outlook_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2Bwg0JAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            }
+          ]
+        },
+        {
           "thread_id": "8565d643",
           "subject": "Open Enrolment For Voluntary Benefits Closed on Friday, June 20, 2025.....But You Can Still Access",
           "is_forward": true,
+          "is_merged": false,
+          "source_threads": [],
           "email_count": 1,
           "first_sent": "2026-03-18T00:35:54Z",
           "last_sent": "2026-03-18T00:35:54Z",
@@ -309,6 +316,8 @@
             }
           ],
           "thread_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAR%2BdcHLAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+          "sole_recipient": false,
+          "adam_in_to": false,
           "emails": [
             {
               "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAR_dcHLAAA=",
@@ -532,11 +541,6 @@
           "sent_at": "2026-03-18T12:49:34Z"
         },
         {
-          "subject": "Meeting 2026 Cyber Insurance Requirements",
-          "sender": "eva.ullmann@thinkon.com",
-          "sent_at": "2026-03-18T12:59:07Z"
-        },
-        {
           "subject": "Webinar today: \"Scaling and securing your logs with Grafana Loki\"",
           "sender": "update@grafana.com",
           "sent_at": "2026-03-18T13:01:11Z"
@@ -580,6 +584,11 @@
           "subject": "Re: Aptum / second cloud option",
           "sender": "andrew.lane@windriver.com",
           "sent_at": "2026-03-18T16:02:04Z"
+        },
+        {
+          "subject": "5C Cloud Maintenance - Maintenance in Region ON (Ontario) / Upcoming Cloud Platform Upgrade - 19 March 2026",
+          "sender": "notifications@hypertec.cloud",
+          "sent_at": "2026-03-18T16:17:02Z"
         },
         {
           "subject": "[Webinaire] Lean, technologies et IA : sortir du faux dilemme entre produire plus et tenir dans le temps dans la filière électrique.",

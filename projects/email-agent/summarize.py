@@ -5,25 +5,11 @@ summarize.py
 Reads emails_processed.json → calls LLM once per thread → writes a lean
 LLMResponse JSON with no email bodies.
 
-Three prompt variants (selected per thread via routing hints):
-  NEEDS_RESPONSE  — last_sender_is_adam=False: someone is waiting on Adam
-  TRACKING        — last_sender_is_adam=True:  Adam replied, track others
-  INFORMATION     — single email or forward:   extract key info, no reply
-
-Token efficiency (from LLMOps research):
-  Prompt caching   — cache_control on system messages (Anthropic native,
-                      ~90% token discount on system prompt after first call
-                      per variant; OpenRouter passes through to Anthropic)
-  Model routing    — MODEL_NANO for simple single-email threads,
-                      MODEL_WORKHORSE for multi-email conversations
-  Body already capped at 1500 chars/email in process.py
-
-Output categories (Option C — conversation state):
-  waiting_on_me     Thread needs Adam's response or decision
-  waiting_on_others Adam already acted; others must move
-  new_information   FYI / report / announcement; no reply expected
-
-Output: outputs/emails_summary.json
+Changes vs v1:
+  - System prompt includes TO-cardinality decision tree for action routing
+  - Context block includes SOLE_RECIPIENT and ADAM_IN_TO flags
+  - Schema adds unified_subject for merged threads
+  - Merged thread handling: both source thread contents sent to LLM
 """
 
 import argparse
@@ -61,14 +47,13 @@ def load_env() -> None:
         except OSError:
             pass
 
+
 # ── Config ────────────────────────────────────────────────────────────────────
 
 MODE = "inbox_triage"
 
+
 # ── Prompt variants ───────────────────────────────────────────────────────────
-# Shared base is the same for all three variants. Each variant is cached
-# independently — after the first call of each type, Anthropic caches the
-# system prompt and all subsequent calls of that type skip those tokens.
 
 _SYSTEM_BASE = """\
 You are an executive assistant for Adam Nelson, VP of Operations at Aptum and \
@@ -77,14 +62,42 @@ CloudOps (managed cloud services: colocation, managed hosting, compute, cloud).
 Internal domains: @aptum.com  @cloudops.com
 
 Semantic rules:
-- category: exactly one of waiting_on_me | waiting_on_others | new_information
-    waiting_on_me:     thread needs Adam's response, decision, or action
-    waiting_on_others: Adam already replied or is tracking; others must act next
-    new_information:   report, announcement, FYI — no response expected from Adam
-- my_actions:      things Adam himself must explicitly do, respond to, or decide
-- tracked_actions: things others are doing that Adam should monitor or follow up on
-- sentiment:       urgent (time-sensitive) | negative (problem/complaint) | \
-positive (good news) | neutral\
+
+category — exactly one of: waiting_on_me | waiting_on_others | new_information
+  waiting_on_me:     thread needs Adam's response, decision, or action
+  waiting_on_others: Adam already replied or is tracking; others must act next
+  new_information:   report, announcement, FYI — no response expected from Adam
+
+my_actions — things Adam himself must explicitly do, respond to, or decide.
+  ONLY populate if there is a direct or clearly implied ask directed at Adam.
+  Use this decision tree, in order:
+
+  1. SOLE_RECIPIENT=True (Adam is the only person in TO):
+     → Any request or question in the thread is directed at him.
+       Add to my_actions if a reply or action is clearly needed.
+
+  2. SOLE_RECIPIENT=False, ADAM_IN_TO=True (Adam is one of several TO recipients):
+     → Only add to my_actions if the email names Adam explicitly, or the
+       request is clearly personal to him (not a group ask).
+     → If the question is ambiguous or addressed to the group with no clear
+       owner, add to tracked_actions as: "Sent to group — owner unclear"
+       Do NOT add to my_actions.
+
+  3. ADAM_IN_TO=False (Adam is CC'd only):
+     → Do NOT add to my_actions unless the body explicitly names Adam with
+       a direct ask. Prefer tracked_actions or new_information.
+
+  When in doubt, leave my_actions empty. An empty list is correct for FYI
+  emails, group announcements, and anything where Adam is not the named owner.
+
+tracked_actions — things others are doing that Adam should monitor.
+  Only track items that are time-sensitive or have consequence if missed.
+  For ambiguous group asks with no clear owner: "Sent to group — owner unclear"
+
+unified_subject — for merged threads only: a short (≤8 words) subject that
+  captures what both source threads are about. Null for non-merged threads.
+
+sentiment — urgent | negative | positive | neutral\
 """
 
 _ADDENDUM_NEEDS_RESPONSE = """
@@ -106,11 +119,6 @@ Focus on: the key information Adam needs to retain and any implicit action items
 suggested_reply is almost certainly null."""
 
 def _cached_system_msg(addendum: str) -> Dict:
-    """
-    Build a system message using Anthropic's prompt caching format.
-    content must be an array (not a string) for cache_control to work.
-    OpenRouter passes cache_control through to Anthropic natively.
-    """
     return {
         "role": "system",
         "content": [{
@@ -120,10 +128,10 @@ def _cached_system_msg(addendum: str) -> Dict:
         }],
     }
 
-# Pre-built once; reused across all calls of each type
 _SYSTEM_NEEDS_RESPONSE = _cached_system_msg(_ADDENDUM_NEEDS_RESPONSE)
 _SYSTEM_TRACKING       = _cached_system_msg(_ADDENDUM_TRACKING)
 _SYSTEM_INFORMATION    = _cached_system_msg(_ADDENDUM_INFORMATION)
+
 
 # ── Schema ────────────────────────────────────────────────────────────────────
 
@@ -134,6 +142,13 @@ THREAD_SUMMARY_SCHEMA = {
             "type": "string",
             "enum": ["waiting_on_me", "waiting_on_others", "new_information"],
             "description": "Current state of this thread from Adam's perspective.",
+        },
+        "unified_subject": {
+            "type": ["string", "null"],
+            "description": (
+                "For IS_MERGED=True threads: a short (≤8 words) subject capturing "
+                "what both source threads share. Null for non-merged threads."
+            ),
         },
         "one_line": {
             "type": "string",
@@ -146,12 +161,18 @@ THREAD_SUMMARY_SCHEMA = {
         "my_actions": {
             "type": "array",
             "items": {"type": "string"},
-            "description": "Explicit action items for Adam. Empty array if none.",
+            "description": (
+                "Explicit action items for Adam — only when directly asked. "
+                "Apply the SOLE_RECIPIENT/ADAM_IN_TO decision tree. Empty array if none."
+            ),
         },
         "tracked_actions": {
             "type": "array",
             "items": {"type": "string"},
-            "description": "Things others are doing that Adam should monitor. Empty if none.",
+            "description": (
+                "Things others are doing that Adam should monitor. "
+                "Use 'Sent to group — owner unclear' for ambiguous group asks."
+            ),
         },
         "sentiment": {
             "type": "string",
@@ -159,20 +180,22 @@ THREAD_SUMMARY_SCHEMA = {
         },
         "suggested_reply": {
             "type": ["string", "null"],
-            "description": "Draft reply (2–5 sentences) only if my_actions is non-empty "
-                           "and a reply is clearly appropriate. Null otherwise.",
+            "description": (
+                "Draft reply (2–5 sentences) only if my_actions is non-empty "
+                "and a reply is clearly appropriate. Null otherwise."
+            ),
         },
     },
     "required": [
-        "category", "one_line", "summary",
+        "category", "unified_subject", "one_line", "summary",
         "my_actions", "tracked_actions", "sentiment", "suggested_reply",
     ],
 }
 
+
 # ── Routing helpers ───────────────────────────────────────────────────────────
 
 def _is_forward(thread: Dict) -> bool:
-    """True if the thread originated as a forward (Fw:/Fwd: prefix on first email)."""
     return thread.get("is_forward", False)
 
 def select_system_prompt(thread: Dict) -> Dict:
@@ -183,21 +206,14 @@ def select_system_prompt(thread: Dict) -> Dict:
     return _SYSTEM_NEEDS_RESPONSE
 
 def select_model(thread: Dict) -> Tuple[str, float]:
-    """
-    Route to nano for simple single-email threads, workhorse for conversations.
-    Temperature is intentionally low (0.1) for both — this is extraction, not
-    generation. We want the most probable interpretation, not creative variation.
-    """
     total_body = sum(len(e.get("body") or "") for e in thread.get("emails", []))
+    # Merged threads always get the workhorse — they contain multiple conversations
+    if thread.get("is_merged"):
+        return (os.getenv("MODEL_WORKHORSE", "anthropic/claude-sonnet-4-5"), 0.1)
     if thread.get("email_count", 1) == 1 and total_body < 800:
-        return (
-            os.getenv("MODEL_NANO", "anthropic/claude-haiku-4-5"),
-            0.1,
-        )
-    return (
-        os.getenv("MODEL_WORKHORSE", "anthropic/claude-sonnet-4-5"),
-        0.1,
-    )
+        return (os.getenv("MODEL_NANO", "anthropic/claude-haiku-4-5"), 0.1)
+    return (os.getenv("MODEL_WORKHORSE", "anthropic/claude-sonnet-4-5"), 0.1)
+
 
 # ── Message builders ──────────────────────────────────────────────────────────
 
@@ -207,30 +223,33 @@ def _context_block(thread: Dict) -> str:
         for p in thread.get("participants", [])
     )
     last = thread.get("last_sender") or {}
-    return "\n".join([
-        f"THREAD:        {thread.get('subject')}",
-        f"EMAIL_COUNT:   {thread.get('email_count')}",
-        f"DATE_RANGE:    {(thread.get('first_sent') or '')[:10]} → {(thread.get('last_sent') or '')[:10]}",
-        f"LAST_SENDER:   {last.get('name', '')} <{last.get('address', '')}>",
-        f"LAST_IS_ADAM:  {thread.get('last_sender_is_adam', False)}",
-        f"PARTICIPANTS:  {participants}",
-    ])
+    lines = [
+        f"THREAD:          {thread.get('subject')}",
+        f"IS_MERGED:       {thread.get('is_merged', False)}",
+        f"EMAIL_COUNT:     {thread.get('email_count')}",
+        f"DATE_RANGE:      {(thread.get('first_sent') or '')[:10]} → {(thread.get('last_sent') or '')[:10]}",
+        f"LAST_SENDER:     {last.get('name', '')} <{last.get('address', '')}>",
+        f"LAST_IS_ADAM:    {thread.get('last_sender_is_adam', False)}",
+        f"PARTICIPANTS:    {participants}",
+        f"SOLE_RECIPIENT:  {thread.get('sole_recipient', False)}",
+        f"ADAM_IN_TO:      {thread.get('adam_in_to', False)}",
+    ]
+    # For merged threads, list the original source threads so the LLM can
+    # generate an informed unified_subject
+    if thread.get("is_merged"):
+        for st in (thread.get("source_threads") or []):
+            lines.append(f"SOURCE_THREAD:   {st.get('subject', '')}")
+    return "\n".join(lines)
 
 def _note_content(thread: Dict) -> str:
     """
-    Format thread as a numbered conversation for the [NOTE:] block.
-
-    Outlook embeds the entire prior thread in every reply, so a 7-email thread
-    would send the same paragraphs 6 times at full length. Instead:
-      - Last 2 emails: full body (up to 1500 chars) — these are current and relevant
-      - Earlier emails: header + first 200 chars — enough for context, not repetition
-
-    This cuts input tokens on long threads by ~60% while keeping the LLM focused
-    on what's actually new.
+    Format thread emails as a numbered conversation.
+    For merged threads, each email is labelled with its source thread subject.
+    Last 2 emails: full body. Earlier emails: header + 200 chars.
     """
     emails  = thread.get("emails", [])
     n       = len(emails)
-    cutoff  = max(0, n - 2)   # index at which "full body" emails begin
+    cutoff  = max(0, n - 2)
     parts   = []
 
     for i, e in enumerate(emails):
@@ -239,71 +258,17 @@ def _note_content(thread: Dict) -> str:
         date_str = (e.get("sent_at") or "")[:10]
         body     = e.get("body") or "(no body)"
 
-        if i >= cutoff:
-            # Recent email — full body
-            snippet = body[:1500]
-        else:
-            # Older email — header + brief excerpt for context only
-            snippet = body[:200] + ("…" if len(body) > 200 else "")
+        snippet  = body[:1500] if i >= cutoff else body[:200] + ("…" if len(body) > 200 else "")
+        label    = "[FULL]" if i >= cutoff else "[SUMMARY]"
 
-        label = "[FULL]" if i >= cutoff else "[SUMMARY]"
-        parts.append(
-            f"[{i+1}/{n}] {label} {date_str}  {sender}\n{snippet}"
-        )
+        # For merged threads, show which source thread each email belongs to
+        source_note = ""
+        if thread.get("is_merged") and e.get("_source_thread"):
+            source_note = f" [from: {e['_source_thread'][:50]}]"
+
+        parts.append(f"[{i+1}/{n}] {label}{source_note} {date_str}  {sender}\n{snippet}")
 
     return "\n\n---\n\n".join(parts)
-
-def _skip_llm(thread: Dict) -> Optional[Dict]:
-    """
-    Deterministically assign category for threads where the LLM adds no value.
-    Returns a pre-built llm_summary dict if skippable, None if LLM is needed.
-
-    Skip cases:
-      1. Single-email forward/report FROM Adam to himself — always new_information,
-         no actions. These are Adam forwarding something to his own inbox.
-      2. No internal participants at all — external sender, Adam didn't initiate.
-         These are unsolicited external contacts that slipped past discard.
-    """
-    adam    = os.getenv("USER_EMAIL", "").lower()
-    emails  = thread.get("emails", [])
-    n       = thread.get("email_count", 1)
-
-    # Case 1: Single email where Adam is the sender (self-forward / FYI forward)
-    if n == 1 and emails:
-        sender = (emails[0].get("from") or {}).get("address", "").lower()
-        if adam and sender == adam:
-            return {
-                "category":        "new_information",
-                "one_line":        "Report or forward — no reply needed.",
-                "summary":         "Adam forwarded this to himself for reference.",
-                "my_actions":      [],
-                "tracked_actions": [],
-                "sentiment":       "neutral",
-                "suggested_reply": None,
-            }
-
-    # Case 2: No internal participants (external-only thread)
-    internal_domains = {"aptum.com", "cloudops.com"}
-    participants = thread.get("participants", [])
-    has_internal = any(
-        (p.get("address") or "").lower().split("@")[-1] in internal_domains
-        for p in participants
-    )
-    last_sender_addr = (thread.get("last_sender") or {}).get("address", "").lower()
-    last_is_internal = last_sender_addr.split("@")[-1] in internal_domains if last_sender_addr else False
-
-    if not has_internal and not last_is_internal:
-        return {
-            "category":        "new_information",
-            "one_line":        "External-only thread — no internal action expected.",
-            "summary":         "All participants are external. No response expected from Adam.",
-            "my_actions":      [],
-            "tracked_actions": [],
-            "sentiment":       "neutral",
-            "suggested_reply": None,
-        }
-
-    return None
 
 def build_messages(thread: Dict) -> List[Dict]:
     user_content = build_user_message(
@@ -316,15 +281,71 @@ def build_messages(thread: Dict) -> List[Dict]:
         {"role": "user", "content": user_content},
     ]
 
-# ── LLM call ─────────────────────────────────────────────────────────────────
+
+# ── LLM skip heuristics ───────────────────────────────────────────────────────
+
+def _skip_llm(thread: Dict) -> Optional[Dict]:
+    """
+    Deterministically assign category for threads where the LLM adds no value.
+    Merged threads always go to the LLM — no skip.
+    """
+    if thread.get("is_merged"):
+        return None
+
+    adam   = os.getenv("USER_EMAIL", "").lower()
+    emails = thread.get("emails", [])
+    n      = thread.get("email_count", 1)
+
+    # Single email where Adam is the sender (self-forward)
+    if n == 1 and emails:
+        sender = (emails[0].get("from") or {}).get("address", "").lower()
+        if adam and sender == adam:
+            return {
+                "category":        "new_information",
+                "unified_subject": None,
+                "one_line":        "Report or forward — no reply needed.",
+                "summary":         "Adam forwarded this to himself for reference.",
+                "my_actions":      [],
+                "tracked_actions": [],
+                "sentiment":       "neutral",
+                "suggested_reply": None,
+            }
+
+    # No internal participants at all
+    internal_domains = {"aptum.com", "cloudops.com"}
+    participants     = thread.get("participants", [])
+    has_internal     = any(
+        (p.get("address") or "").lower().split("@")[-1] in internal_domains
+        for p in participants
+    )
+    last_sender_addr = (thread.get("last_sender") or {}).get("address", "").lower()
+    last_is_internal = last_sender_addr.split("@")[-1] in internal_domains if last_sender_addr else False
+
+    if not has_internal and not last_is_internal:
+        return {
+            "category":        "new_information",
+            "unified_subject": None,
+            "one_line":        "External-only thread — no internal action expected.",
+            "summary":         "All participants are external. No response expected from Adam.",
+            "my_actions":      [],
+            "tracked_actions": [],
+            "sentiment":       "neutral",
+            "suggested_reply": None,
+        }
+
+    return None
+
+
+# ── LLM call ──────────────────────────────────────────────────────────────────
 
 def summarize_thread(thread: Dict) -> Tuple[Dict, Optional[Dict], str]:
-    """Returns (lean_output, token_dict | None, model_used)."""
     model, temp = select_model(thread)
 
     lean = {
         "thread_id":           thread["thread_id"],
         "subject":             thread["subject"],
+        "is_merged":           thread.get("is_merged", False),
+        "source_threads":      thread.get("source_threads", []),
         "email_count":         thread["email_count"],
         "last_sent":           (thread.get("last_sent") or "")[:10],
         "last_sender_is_adam": thread.get("last_sender_is_adam", False),
@@ -333,7 +354,6 @@ def summarize_thread(thread: Dict) -> Tuple[Dict, Optional[Dict], str]:
         "model_used":          model,
     }
 
-    # Check if we can skip the LLM entirely
     skip = _skip_llm(thread)
     if skip:
         lean["llm_summary"] = skip
@@ -346,15 +366,16 @@ def summarize_thread(thread: Dict) -> Tuple[Dict, Optional[Dict], str]:
         schema            = THREAD_SUMMARY_SCHEMA,
         schema_name       = "thread_summary",
         temperature       = temp,
-        max_tokens        = 500,
+        max_tokens        = 600,   # slightly more for merged threads
         verbosity         = "low",
         frequency_penalty = 0.1,
-        seed              = 42,     # reproducibility — same input → same output
+        seed              = 42,
     )
 
     if parsed:
         lean["llm_summary"] = {
             "category":        parsed.get("category",        "new_information"),
+            "unified_subject": parsed.get("unified_subject"),
             "one_line":        parsed.get("one_line",        ""),
             "summary":         parsed.get("summary",         ""),
             "my_actions":      parsed.get("my_actions",      []),
@@ -364,9 +385,11 @@ def summarize_thread(thread: Dict) -> Tuple[Dict, Optional[Dict], str]:
         }
         lean["llm_status"] = "success"
         return lean, (raw.get("tokens") if raw else None), model
+
     lean["llm_summary"] = None
     lean["llm_status"]  = "failed"
     return lean, None, model
+
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -411,7 +434,8 @@ def main() -> int:
             model, _ = select_model(thread)
             is_nano  = any(x in model.lower() for x in ("haiku", "nano", "flash"))
             tag      = "NANO   " if is_nano else "SONNET "
-            print(f"  [{i+1:02d}/{len(threads)}] [{tag}] {thread.get('subject', '?')[:55]}")
+            merged_tag = " [MERGED]" if thread.get("is_merged") else ""
+            print(f"  [{i+1:02d}/{len(threads)}] [{tag}]{merged_tag} {thread.get('subject', '?')[:50]}")
 
             lean, tokens, used_model = summarize_thread(thread)
             summarized.append(lean)
@@ -430,28 +454,23 @@ def main() -> int:
             if i < len(threads) - 1:
                 time.sleep(0.05)
 
-        # Sort: category priority ASC, then last_sent DESC within each category
-        # Two stable sorts (Python guarantees stability)
         summarized.sort(key=lambda t: t.get("last_sent", ""), reverse=True)
         summarized.sort(key=lambda t: _CATEGORY_ORDER.get(
             (t.get("llm_summary") or {}).get("category", "new_information"), 2
         ))
 
         response["output"] = {
-            "threads":              summarized,   # lean — no bodies
-            "system_notifications": signals,      # passthrough from process.py
+            "threads":              summarized,
+            "system_notifications": signals,
             "discard_count":        len(discards),
         }
         response["sources_used"] = ["threads"]
         response["tokens"]       = total_tokens
         response["status"]       = "partial" if any_failure else "success"
 
-        wom = sum(1 for t in summarized
-                  if (t.get("llm_summary") or {}).get("category") == "waiting_on_me")
-        woo = sum(1 for t in summarized
-                  if (t.get("llm_summary") or {}).get("category") == "waiting_on_others")
-        ni  = sum(1 for t in summarized
-                  if (t.get("llm_summary") or {}).get("category") == "new_information")
+        wom = sum(1 for t in summarized if (t.get("llm_summary") or {}).get("category") == "waiting_on_me")
+        woo = sum(1 for t in summarized if (t.get("llm_summary") or {}).get("category") == "waiting_on_others")
+        ni  = sum(1 for t in summarized if (t.get("llm_summary") or {}).get("category") == "new_information")
 
         print(f"\n  Categories:    waiting_on_me={wom}  waiting_on_others={woo}  new_information={ni}")
         print(f"  Model routing: {skipped_ct} skipped  +  {nano_ct} nano  +  {workhorse_ct} workhorse")
@@ -469,6 +488,7 @@ def main() -> int:
         print(f"  Wrote → {args.output}")
 
     return 0 if response["status"] in ("success", "partial") else 1
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
