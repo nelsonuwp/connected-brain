@@ -10,7 +10,7 @@ Idempotent: replaces an existing '## Email Summary' section instead of appending
 import argparse
 import json
 import os
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -49,7 +49,9 @@ def _default_vault_path() -> Path:
 
 def _resolve_daily_note_path(date_str: str) -> Path:
     vault = Path(os.getenv("VAULT_PATH", str(_default_vault_path())))
-    return vault / "00-daily" / f"{date_str}.md"
+    d = datetime.strptime(date_str, "%Y-%m-%d").date()
+    month_folder = d.strftime("%m-%b")  # e.g. "03-Mar"
+    return vault / "00-daily" / str(d.year) / month_folder / f"{date_str}.md"
 
 
 # ── Rendering helpers ─────────────────────────────────────────────────────────
@@ -81,7 +83,7 @@ def _render_thread_block(thread: Dict[str, Any]) -> List[str]:
         lines.append("")
         lines.append("##### My Actions")
         for action in my_actions:
-            lines.append(f"- [ ] {action}")
+            lines.append(f"- [ ] {action} #action")
 
     # Tracked Actions — explicit sub-header
     tracked = [str(a).strip() for a in (llm.get("tracked_actions") or []) if str(a).strip()]
@@ -89,7 +91,7 @@ def _render_thread_block(thread: Dict[str, Any]) -> List[str]:
         lines.append("")
         lines.append("##### Tracking")
         for ta in tracked:
-            lines.append(f"- {ta}")
+            lines.append(f"- {ta} #tracking")
 
     # Suggested reply — full text, no truncation
     suggested = (llm.get("suggested_reply") or "").strip() if llm.get("suggested_reply") else ""
@@ -122,7 +124,7 @@ def _render_new_info_block(thread: Dict[str, Any]) -> List[str]:
         lines.append("")
         lines.append("##### Tracking")
         for ta in tracked:
-            lines.append(f"- {ta}")
+            lines.append(f"- {ta} #tracking")
 
     # Thread metadata
     lines.append("")
