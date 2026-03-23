@@ -1,8 +1,675 @@
 {
-  "normalized_at": "2026-03-23T19:32:41.653571Z",
+  "normalized_at": "2026-03-23T19:36:24.758833Z",
   "sources": [
+    "teams",
     "slack"
   ],
-  "item_count": 0,
-  "items": []
+  "item_count": 15,
+  "items": [
+    {
+      "id": "ab4e34e22205",
+      "source": "teams",
+      "subject": null,
+      "body_text": "[Marc Alex Forget]\nSure - no rush. Thanks!\n\n---\n\n[Adam Nelson]\nYeah, let's chat tomorrow about it\n\n---\n\n[Marc Alex Forget]\nHi Adam,\n\nWhen we met at Ian's place, I heard you talk about Claude Enterprise Plan from Anthropic.\n\nFrom what I heard it is an excellent tool for analyzing and summarizing meeting notes. \n\nThis is something my team can benefit from. \n\nWhile I don't think it join live calls, if it shines at processing uploaded transcripts to extract actionable insights, generate summaries, and draft follow-up emails... will we be in a position to use a Teams feature to transcript and Claude to analyze and summarise meeting notes into the CRM (Salesforce Opp) and JIRA (GSE)?\n\n---\n\n[Adam Nelson]\nAdam Nelson assuming they want VMware, yes.  However, there is a nuance to that answer.\n\nApt Cloud supports VMware Cloud Director natively, but with limited support.  It is a much more complicated implementation because it depends on a few different VMware components (VRops, vRealize, etc).  VMware is prone to issues in not being consistent with their usage data.  All to say, it is possible.  This is how MTC is exposed through Apt Cloud today.  We can expose self-service, but for MTC, we haven't exposed self-service to our customers (too many competing priorities).\nCloudStack supports VMware as a hypervisor (at the vSphere API layer) out of the box and it is arguably the best supported hypervisor (from a feature perspective).  This means that the Aptum IaaS layer can support VMware clusters being orchestrated through that implementation.  We can dedicate clusters to customers within the Aptum IaaS layer if we need to.  So a customer would then be able to orchestrate shared resources (on our KVM infra) and also orchestrate their down dedicated VMware resources through the same interface.",
+      "body_snippet": "[Marc Alex Forget]\nSure - no rush. Thanks!\n\n---\n\n[Adam Nelson]\nYeah, let's chat tomorrow about it\n\n---\n\n[Marc Alex Forget]\nHi Adam,\n\nWhen we met at Ian's place, I heard you talk about Claude Enterprise Plan from Anthropic.\n\nFrom what I heard it is an excellent tool for analyzing and summarizing meeting notes. \n\nThis is something my team can benefit from. \n\nWhile I don't think it join live calls, if it shines at processing uploaded transcripts to extract actionable insights, generate summaries, a",
+      "thread_key": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa@unq.gbl.spaces",
+      "message_count": 4,
+      "first_timestamp": "2026-03-20T14:58:44.509Z",
+      "last_timestamp": "2026-03-22T21:33:48.715Z",
+      "author": {
+        "name": "Marc Alex Forget",
+        "handle": "ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Marc Alex Forget",
+          "handle": "ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa",
+          "role": "from"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+          "role": "from"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": true,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa@unq.gbl.spaces",
+        "chatType": "oneOnOne"
+      }
+    },
+    {
+      "id": "4c68fdbb725a",
+      "source": "teams",
+      "subject": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+      "body_text": "[Marc Alex Forget]\nProduct, Marketing and Sales Enablement - Documents - Addendum & Order forms - All Documents\n\nThere is not an Order Form specific to colo. The Schedule ''A'' has to be updated to reflect colo services.\n\n---\n\n[Adam Nelson]\nDoes anyone know where the colo order form is?\n\n \n\nMartin Tessier was looking\n\n---\n\n[Ian Rae]\nIt isn’t different however we have partners who are 100% Canadian controlled such as ThinkOn and Hypertec. This is a complex topic we probably should write an FAQ on this. We are able to provide Canadian controlled and operated solutions but not all of our solutions are 100% Canadian. Even if a company is Canadian controlled there is a spectrum of supply chain autonomy from foreign jurisdictions. If you need answers urgently just call me. Meantime we should get a FAQ for the website Marc Alex Forget something to add to the list of website TO Dos?\n\n---\n\n[Patrick Wolthausen]\nSo when the customer does directly ask, I don't feel comfortable with anything above. Can we get an official statement or something that I can refer customers to? This seems like a big enough deal that we should have an official stance / statement.\n\n---\n\n[Patrick Wolthausen]\nQuestion I got from a prospective client:\n\n \n\nHow is that any different from Microsoft Canada? They are a Canadian entity with Canadian data centers, with us based ownership\n\n---\n\n[Martin Tessier]\nI spoke to Melvin about that already.. It's a legal thing so we went to Sarah and here's her answer \n\n \n\nJurisdiction:\n\nIf the contract is with our Canadian entity, it will generally be governed by Canadian law (federal or provincial, depending on the contract).\nU.S. laws like the CLOUD Act technically only apply to U.S.-incorporated entities. A Canadian company is generally not directly subject, unless we have U.S.-based systems storing the data.\n\nData residency / access:\n\nIf the customer wants all data to stay in Canada, the clause should focus on:\n\nStorage in Canadian servers.\nDisclosure only as required under Canadian law.\n\nPractical enforceability:\n\nAptum cannot promise to ignore legal obligations, but we can contractually promise notification and limited access.\nTypical Canadian clauses include phrases like: “Data will not be transferred outside Canada without consent” or “Vendor will notify Customer of any government requests under Canadian law.”\n\n---\n\n[Marko Andjelkovic]\nI pinged Melvin\n\n---\n\n[Patrick Wolthausen]\nAre we exempt from the cloud act\n\n---\n\n[Patrick Wolthausen]\nThe cloud act is the primary concern\n\n---\n\n[Patrick Wolthausen]\nSo saying we meet regional data laws doesn't mean we are excluded from the US cloud act since we have an American parent company\n\n---\n\n[Patrick Wolthausen]\nSo does Microsoft.... Unless the us governments demands customer data from them.... Then it doesn't matter where it is... That's what people are worried about\n\n---\n\n[Marko Andjelkovic]\nI've shared that with a customer before\n\n---\n\n[Marko Andjelkovic]\nAptum complies with all applicable data privacy regulations in the regions where we operate. For instance, in the EU, Aptum is in scope for GDPR as a data subprocessor-even though we don’t manage or access customer data directly. We demonstrate our compliance through our Data Processor Addendum, which outlines our obligations as a data subprocessor.\n\n---\n\n[Patrick Wolthausen]\nDo we have anything official about our Canadian data sovereignty? I realise we are a Canadian company with Canadian data centers, but I've heard concerns more than once about our parent company being American",
+      "body_snippet": "[Marc Alex Forget]\nProduct, Marketing and Sales Enablement - Documents - Addendum & Order forms - All Documents\n\nThere is not an Order Form specific to colo. The Schedule ''A'' has to be updated to reflect colo services.\n\n---\n\n[Adam Nelson]\nDoes anyone know where the colo order form is?\n\n \n\nMartin Tessier was looking\n\n---\n\n[Ian Rae]\nIt isn’t different however we have partners who are 100% Canadian controlled such as ThinkOn and Hypertec. This is a complex topic we probably should write an FAQ on",
+      "thread_key": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
+      "message_count": 15,
+      "first_timestamp": "2026-03-20T16:46:24.036Z",
+      "last_timestamp": "2026-03-22T21:15:04.614Z",
+      "author": {
+        "name": "Marc Alex Forget",
+        "handle": "ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Marc Alex Forget",
+          "handle": "ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa",
+          "role": "from"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+          "role": "from"
+        },
+        {
+          "name": "Ian Rae",
+          "handle": "5842d4bb-c645-421b-af8d-6e71e8e01636",
+          "role": "from"
+        },
+        {
+          "name": "Patrick Wolthausen",
+          "handle": "2eeda209-60d3-4261-9ab6-d3880c714c2a",
+          "role": "from"
+        },
+        {
+          "name": "Martin Tessier",
+          "handle": "9ecfec12-a4bb-4f43-996b-51df55f6e80e",
+          "role": "from"
+        },
+        {
+          "name": "Marko Andjelkovic",
+          "handle": "1bc11c24-6d5a-4e1b-bac2-eeb73e077163",
+          "role": "from"
+        }
+      ],
+      "participant_count": 6,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
+        "chatType": "group"
+      }
+    },
+    {
+      "id": "5fb986034a76",
+      "source": "teams",
+      "subject": null,
+      "body_text": "[Adam Nelson]\nsorry\n\n---\n\n[Adam Nelson]\nah, no\n\n---\n\n[Martin Tessier]\nMA ?\n\n---\n\n[Martin Tessier]\nDid he answered you ? about the template ?\n\n---\n\n[Martin Tessier]\nnice..\n\n---\n\n[Adam Nelson]\nlet me see soemthing\n\n---\n\n[Adam Nelson]\nhe's 2 feet away from me\n\n---\n\n[Martin Tessier]\nI'll find out..\n\n---\n\n[Martin Tessier]\nYeah.. I asked MA.. but he didn't answer..\n\n---\n\n[Martin Tessier]\nGeorge doesn't know..\n\n---\n\n[Adam Nelson]\nit is most likey in the sales and marketing folder\n\n---\n\n[Adam Nelson]\nI'd ask George OR.... David B probab\n\n---\n\n[Adam Nelson]\nclue\n\n---\n\n[Adam Nelson]\nno clude\n\n---\n\n[Adam Nelson]\noh god\n\n---\n\n[Martin Tessier]\nHi Adam, do you know where I can find a Colo contract Template ?",
+      "body_snippet": "[Adam Nelson]\nsorry\n\n---\n\n[Adam Nelson]\nah, no\n\n---\n\n[Martin Tessier]\nMA ?\n\n---\n\n[Martin Tessier]\nDid he answered you ? about the template ?\n\n---\n\n[Martin Tessier]\nnice..\n\n---\n\n[Adam Nelson]\nlet me see soemthing\n\n---\n\n[Adam Nelson]\nhe's 2 feet away from me\n\n---\n\n[Martin Tessier]\nI'll find out..\n\n---\n\n[Martin Tessier]\nYeah.. I asked MA.. but he didn't answer..\n\n---\n\n[Martin Tessier]\nGeorge doesn't know..\n\n---\n\n[Adam Nelson]\nit is most likey in the sales and marketing folder\n\n---\n\n[Adam Nelson]\nI'",
+      "thread_key": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
+      "message_count": 16,
+      "first_timestamp": "2026-03-20T14:08:30.309Z",
+      "last_timestamp": "2026-03-21T20:13:56.755Z",
+      "author": {
+        "name": "Adam Nelson",
+        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Adam Nelson",
+          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+          "role": "from"
+        },
+        {
+          "name": "Martin Tessier",
+          "handle": "9ecfec12-a4bb-4f43-996b-51df55f6e80e",
+          "role": "from"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": true,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": true,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
+        "chatType": "oneOnOne"
+      }
+    },
+    {
+      "id": "eb716ab5885f",
+      "source": "teams",
+      "subject": "Three Musketeers Sync",
+      "body_text": "[Marc Alex Forget]\nThank you Ian.\n\nI will connect with Marc.\n\n---\n\n[Ian Rae]\nYes CloudOps was a Dynatrace partner but you’d have to check with Marc P. I think we can do mandates via Donald Donovan an ex-employee\n\n---\n\n[Marc Alex Forget]\nAdam Nelson Ian Rae: \n\nIs Aptum a Dynatrace VAR reseller partner? \n\nI believe the answer is no but want to confirm before rejecting a Lead.\n\nThey are on that list, but I don't know what this list is for: Vendor list summary - Marketing - Confluence\n\nWe got this lead today and am wondering if it is worth assigning to Fred/Steve or not.\n\n**\n\nNom de l'entreprise: STM\n\nMessage:\n\nBonjour, \n\nJe vous contacte afin d'obtenir une soumission pour faire l'acquisition d’un outil spécialisé d’observabilité et de diagnostic de performance (Dynatrace) et services d’accompagnement d’expertise. Si je ne me trompe pas, CloudOps figure sur la liste des partenaires officiels Dynatrace. \n\n**\n\nThanks!\n\nMA",
+      "body_snippet": "[Marc Alex Forget]\nThank you Ian.\n\nI will connect with Marc.\n\n---\n\n[Ian Rae]\nYes CloudOps was a Dynatrace partner but you’d have to check with Marc P. I think we can do mandates via Donald Donovan an ex-employee\n\n---\n\n[Marc Alex Forget]\nAdam Nelson Ian Rae: \n\nIs Aptum a Dynatrace VAR reseller partner? \n\nI believe the answer is no but want to confirm before rejecting a Lead.\n\nThey are on that list, but I don't know what this list is for: Vendor list summary - Marketing - Confluence\n\nWe got this l",
+      "thread_key": "19:meeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy@thread.v2",
+      "message_count": 3,
+      "first_timestamp": "2026-03-20T22:13:13.263Z",
+      "last_timestamp": "2026-03-20T22:36:19.703Z",
+      "author": {
+        "name": "Marc Alex Forget",
+        "handle": "ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Marc Alex Forget",
+          "handle": "ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa",
+          "role": "from"
+        },
+        {
+          "name": "Ian Rae",
+          "handle": "5842d4bb-c645-421b-af8d-6e71e8e01636",
+          "role": "from"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": true,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:meeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy@thread.v2",
+        "chatType": "meeting"
+      }
+    },
+    {
+      "id": "7dec198a30e9",
+      "source": "teams",
+      "subject": null,
+      "body_text": "[Ben Kennedy]\nTechnically we've started on Q3 stuff. So I marked that as well\n\n---\n\n[Adam Nelson]\nawesome thank you\n\n---\n\n[Martin Tessier]\nQ1 Proxmox - Pricing done, Documentation not completed \n\n \n\nQ2 - EOL DCC, Deprioritized. Because of Ignite Migration. \n\n \n\nESXi 9 - currently been worked on and tested. \n\n \n\nNext Gen Linux - Finalizing template and QA.\n\n---\n\n[Ben Kennedy]\nSure\n\n---\n\n[Adam Nelson]\nso we can say \"we've finished X & Y, Z is goingto be completely in Q3\"\n\n---\n\n[Adam Nelson]\nif something is orange...can you break it down into sub green/orange?\n\n---\n\n[Ben Kennedy]\nWhen I created a that slide I tried to keep it concise. Technically turning down each POP is its own project. I can break those out? Mark Ashburn and Miami as green in Q2?\n\n---\n\n[George Revie]\nStill need to update mine\n\n---\n\n[Ben Kennedy]\nOrange is in progress / partially done. I put the progress in the notes. Equinix is 2/3 done. Which is a big chunk, worth mentioning imo as it is a good amount of savings coming from that 2/3\n\n---\n\n[Adam Nelson]\nSo Q1 was stuff reported in Q1 update that I won't cover (green is done?)\n\nQ2 is stuff I will cover, but if it's yellow, means it's not complete right? which means we can't claim it as done\n\n---\n\n[Ben Kennedy]\nI just followed George's lead and colored in the milestones slide. And added notes at the bottom for context\n\n---\n\n[Adam Nelson]\nCorrection (as of 2 mins ago)... can you please make apparent what was completed in Q2? Originally we were doing an H1 lookback and H2 look forward. Now sarah is asking for Q2 look back and H2 look forward.\n\n---\n\n[Adam Nelson]\nall of the financial implications I can get from Sarah and Carter\n\n---\n\n[Adam Nelson]\nJust like...how we are tracking to the OKRs that we laid out back in September/October\n\n---\n\n[Adam Nelson]\nCan you guys take a quick look at this and give updates on the OKRs? That's the only thing I need from you guys (right now) for the board deck",
+      "body_snippet": "[Ben Kennedy]\nTechnically we've started on Q3 stuff. So I marked that as well\n\n---\n\n[Adam Nelson]\nawesome thank you\n\n---\n\n[Martin Tessier]\nQ1 Proxmox - Pricing done, Documentation not completed \n\n \n\nQ2 - EOL DCC, Deprioritized. Because of Ignite Migration. \n\n \n\nESXi 9 - currently been worked on and tested. \n\n \n\nNext Gen Linux - Finalizing template and QA.\n\n---\n\n[Ben Kennedy]\nSure\n\n---\n\n[Adam Nelson]\nso we can say \"we've finished X & Y, Z is goingto be completely in Q3\"\n\n---\n\n[Adam Nelson]\nif som",
+      "thread_key": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
+      "message_count": 15,
+      "first_timestamp": "2026-03-20T14:42:49.937Z",
+      "last_timestamp": "2026-03-20T20:48:43.916Z",
+      "author": {
+        "name": "Ben Kennedy",
+        "handle": "88f3e249-db92-4df1-96b3-a06249fd85ee",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Ben Kennedy",
+          "handle": "88f3e249-db92-4df1-96b3-a06249fd85ee",
+          "role": "from"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+          "role": "from"
+        },
+        {
+          "name": "Martin Tessier",
+          "handle": "9ecfec12-a4bb-4f43-996b-51df55f6e80e",
+          "role": "from"
+        },
+        {
+          "name": "George Revie",
+          "handle": "bef5806c-c4ee-4d24-8811-00f7618ceda9",
+          "role": "from"
+        }
+      ],
+      "participant_count": 4,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
+        "chatType": "group"
+      }
+    },
+    {
+      "id": "09218b0bb075",
+      "source": "teams",
+      "subject": "Product delivery flow",
+      "body_text": "[Will Stevens]\nOk cool.  I was just making sure we were accounting for those details, which we clearly are.  Thanks team.\n\n---\n\n[Ben Kennedy]\nNone of this limits what we can do in Kirkland. In fact right now we don’t even have a single regular hosting rack. Once we repurpose MTC, at least we’ll have 2. I just don’t know the exact number that might be needed going forward\n\n---\n\n[George Revie]\nNot an issue, there are racks planned for the deals you are referencing\n\n---\n\n[Will Stevens]\nOr is this stuff \"in prep for\" better leveraging the space in Kirkland?\n\n---\n\n[Will Stevens]\nI believe we have a couple deals in the works that are expecting to leverage the Kirkland DC (because it is a Canadian tier 3 facility). Does any of this limit the feasibility of that?\n\n---\n\n[Ben Kennedy]\nThis is more of an FYI for the group. But if anyone wants to weigh in, please do so. \n\n \n\nWe need to remove our gear from the Kirkland MMRs. Not a big deal with no customers in Kirkland presently. While doing the necessary topology changes we were also going to do some other clean up. Specifically:\n\nRemove network gear from PCI racks. There will be no PCI in Kirkland anymore. These were never setup as regular racks, so there are no Top-of-rack switches to repurpose. So at the moment these will be empty racks, network wise\nConvert 2x MTC racks into regular 10G hosting racks. This will bring our count of (non-PCI) hosting racks with ready networking in Kirkland to: 2. I know there has been some more customer interest around Kirkland. But I haven't heard that there would need to be more than 2 racks sitting there waiting\nAfter the topology changes are implemented our core network racks will remain as 1002.05 and 1002.06. But there will be space for any other internal gear, IE if shared storage is needed as part of some customer deal in Kirkland\n\n---\n\n[Martin Tessier]\nYep.. Aptum IaaS should take over..\n\n---\n\n[Will Stevens]\nAgain, we put our customers on ThinkOn's infra, but they are still our customers and we just changed where we are hosting our customer.  So I don't think it is technically a resell.  Anyway, we are getting down a rabbit hole.  All to say, we don't want to do the MTC route going forward.  We should be orienting around Aptum IaaS delivered through Apt Cloud as the ideal path (which supports both KVM and VMware at the hypervisor layer).\n\n---\n\n[Will Stevens]\nI did a very high level review of what Cody was proposing for Technicost.  I asked him a bunch of questions and he was able to answer them.  I didn't do a full review of that RFP, but I did do a little bit of checking as a sniff test to make sure things were not totally off the rails, but I didn't fully vet or validate the solution being proposed.\n\n---\n\n[Martin Tessier]\nStill .. our offering isn't What we use to call MTC.. our offering is a resale from TONS..\n\n---\n\n[Will Stevens]\nWe don't run MTC in our own DCs, but it is managed through Apt Cloud today on ThinkOn's infra.\n\n---\n\n[Will Stevens]\nThats not true.  It is exposed through Apt Cloud.  They are our customers (not thinkon's) even though they are running on ThinkOn's infra.  So we have to be careful because ThinkOn offers an MTC offering.  Our MTC offering for our customers depends on ThinkOn's offering.\n\n---\n\n[Adam Nelson]\nIt's for this: Technicost RFP - Infrastructure as a Service (IaaS).docx\n\n---\n\n[Martin Tessier]\nwhat we use to call MTC doesn't exist anymore.. ..  it been migrated to ThinkOn MTC ( They have rebranded ThinkON VPC ) ..\n\n---\n\n[Will Stevens]\nMartin Tessier is our MTC offering on top of ThinkOn MTC?\n\n---\n\n[Martin Tessier]\n2 separate thing... ThinkOn provide our License for VMWAre ... and ThinkON MTC is a similar platform to what we are building with \"Apt Cloud\"  that run on VMWare..\n\n---\n\n[Adam Nelson]\nI'm starting to think MA doesn't like Cody\n\n---\n\n[Adam Nelson]\nThere's apparently a call at noon today w/ Technicost and MA is not .... confident... in Cody's analysis of the situation\n\n---\n\n[Will Stevens]\nI don't know if ThinkOn can provide us licenses to run in our own DCs.  Not sure\n\n---\n\n[Will Stevens]\nI am not sure about the licensing piece\n\n---\n\n[Adam Nelson]\nman, I feel so stupid\n\n---\n\n[Adam Nelson]\nlike get a license from thinkon for vmware vs. going w/ TO MTC?\n\n---\n\n[Adam Nelson]\nok, so we can provide vmware outside of thinkon's mtc?\n\n---\n\n[Will Stevens]\nSo the answer is yes, but it depends on how VMware is setup and managed, etc...\n\n---\n\n[Will Stevens]\nAdam Nelson assuming they want VMware, yes.  However, there is a nuance to that answer.\n\nApt Cloud supports VMware Cloud Director natively, but with limited support.  It is a much more complicated implementation because it depends on a few different VMware components (VRops, vRealize, etc).  VMware is prone to issues in not being consistent with their usage data.  All to say, it is possible.  This is how MTC is exposed through Apt Cloud today.  We can expose self-service, but for MTC, we haven't exposed self-service to our customers (too many competing priorities).\nCloudStack supports VMware as a hypervisor (at the vSphere API layer) out of the box and it is arguably the best supported hypervisor (from a feature perspective).  This means that the Aptum IaaS layer can support VMware clusters being orchestrated through that implementation.  We can dedicate clusters to customers within the Aptum IaaS layer if we need to.  So a customer would then be able to orchestrate shared resources (on our KVM infra) and also orchestrate their down dedicated VMware resources through the same interface.\n\n---\n\n[Adam Nelson]\nThe customer is w/ Leaseweb on a VMWare MTC\n\n---\n\n[Adam Nelson]\nMartin Tessier Will Stevens - For technicost, are we able to use VMWare w/ Aptcloud? (I don't know what I'm talking about)\n\n---\n\n[Ben Kennedy]\nYup, makes sense\n\n---\n\n[Adam Nelson]\nI'm trying to figure out (distilled to as simple as i can think of it)... \"what did we buy that we can sell, what of that did we sell, what's left?\" on the PS side it's people & hours, on compute side it's servers, on colo side it's space & power\n\n---\n\n[Will Stevens]\nThe other two are SCADACore and Alberta New Home Warranty Program\n\n---\n\n[Will Stevens]\nES Williams is 5 of the 7, but as separate customers.\n\n---\n\n[Ben Kennedy]\nWe have X capacity in connectivity (bandwidth, cross-connects, transit/peering) and infrastructure devices (switches, firewalls, load balancers)\nWe've sold/deployed Y to customers and current operations\nWe have Z capacity available to sell or deploy without spending more\n\ncomments from me: I'd say this is mostly right. But for x and z, I mean it would be like x1, x2, etc and z1, z2, etc. Given the number of different capacity elements.\n\nFirewalls and load balancers are tricky for X. We have inventory of firewalls, so you could call that X capacity. For load balancers we are at Citrix's whims. Traditionally it's an incremental cost, not a fixed cost for X capacity. This year we are use a loophole to only pay for 5 licenses, 1 of which is licensing all our managed hosting load balancers as that license gives as access to a 1TB pool. So this year we could call that \"x\" capacity\n\n---\n\n[Ben Kennedy]\n\"do capitalized hours happen in non-project specific contexts?\" - For me team, no\n\n \n\n\" To me it would make sense that if work is being capitalized, then a dedicated jira project would be setup to do that work.  Is that a fair assumption?\" - As long as we can create some link between the jira project used for the \"regular\" work and the jira project used for the \"capitalized\" work, then this could work\n\n---\n\n[Adam Nelson]\nI mean, isn't ES Williams technically 1? or are we counting them as 7\n\n---\n\n[Adam Nelson]\noof,,, I wish you didn't take screenshots haha",
+      "body_snippet": "[Will Stevens]\nOk cool.  I was just making sure we were accounting for those details, which we clearly are.  Thanks team.\n\n---\n\n[Ben Kennedy]\nNone of this limits what we can do in Kirkland. In fact right now we don’t even have a single regular hosting rack. Once we repurpose MTC, at least we’ll have 2. I just don’t know the exact number that might be needed going forward\n\n---\n\n[George Revie]\nNot an issue, there are racks planned for the deals you are referencing\n\n---\n\n[Will Stevens]\nOr is this s",
+      "thread_key": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
+      "message_count": 35,
+      "first_timestamp": "2026-03-20T00:01:24.278Z",
+      "last_timestamp": "2026-03-20T19:32:44.958Z",
+      "author": {
+        "name": "Will Stevens",
+        "handle": "0d1ec731-2fb2-4ba2-9155-439704fe4066",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Will Stevens",
+          "handle": "0d1ec731-2fb2-4ba2-9155-439704fe4066",
+          "role": "from"
+        },
+        {
+          "name": "Ben Kennedy",
+          "handle": "88f3e249-db92-4df1-96b3-a06249fd85ee",
+          "role": "from"
+        },
+        {
+          "name": "George Revie",
+          "handle": "bef5806c-c4ee-4d24-8811-00f7618ceda9",
+          "role": "from"
+        },
+        {
+          "name": "Martin Tessier",
+          "handle": "9ecfec12-a4bb-4f43-996b-51df55f6e80e",
+          "role": "from"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+          "role": "from"
+        }
+      ],
+      "participant_count": 5,
+      "is_from_me": false,
+      "mentions_me": true,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
+        "chatType": "meeting"
+      }
+    },
+    {
+      "id": "da17cb338d93",
+      "source": "teams",
+      "subject": null,
+      "body_text": "[Frederic Gingras]\nwe'll most surely have finished our investigation then... Adam Nelson beside you, who should we invite?\n\n---\n\n[Frederic Gingras]\nI am not available on Monday. You can still have the call but I think we should propose sometimes on Tuesday.\n\n---\n\n[Frederic Gingras]\nYes a sync is necessary. Adam Nelson any update on the Microsoft investigation ?\n\n---\n\n[Elizabeth Perez]\nHello Gents, Smart Scale has finally gotten back to us and would like to set up a call. They asked about today but after looking at our calendars, it doesn't look like that's possible. \n\n \n\nI'm also thinking we should probably have an internal sync before we jump on a call with the customer. Thoughts?",
+      "body_snippet": "[Frederic Gingras]\nwe'll most surely have finished our investigation then... Adam Nelson beside you, who should we invite?\n\n---\n\n[Frederic Gingras]\nI am not available on Monday. You can still have the call but I think we should propose sometimes on Tuesday.\n\n---\n\n[Frederic Gingras]\nYes a sync is necessary. Adam Nelson any update on the Microsoft investigation ?\n\n---\n\n[Elizabeth Perez]\nHello Gents, Smart Scale has finally gotten back to us and would like to set up a call. They asked about today b",
+      "thread_key": "19:908abb8f19c249f2bf4ecbd76ce3ed17@thread.v2",
+      "message_count": 4,
+      "first_timestamp": "2026-03-20T16:42:37.14Z",
+      "last_timestamp": "2026-03-20T18:44:46.419Z",
+      "author": {
+        "name": "Frederic Gingras",
+        "handle": "93c7243e-98c3-4bbc-8951-dead54e0b136",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Frederic Gingras",
+          "handle": "93c7243e-98c3-4bbc-8951-dead54e0b136",
+          "role": "from"
+        },
+        {
+          "name": "Elizabeth Perez",
+          "handle": "4a19fe3c-a39f-4037-975a-5db1be594f72",
+          "role": "from"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": true,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:908abb8f19c249f2bf4ecbd76ce3ed17@thread.v2",
+        "chatType": "group"
+      }
+    },
+    {
+      "id": "b6cf61d174b9",
+      "source": "teams",
+      "subject": "RE: AWS Cloud Marketplace",
+      "body_text": "[Andrei Ianouchkevitch]\nComms are sent, tracking tickets: https://aptum.atlassian.net/issues/?jql=issueKey%20in%20%28APTUM-54131%2CAPTUM-54132%2CAPTUM-54133%…",
+      "body_snippet": "[Andrei Ianouchkevitch]\nComms are sent, tracking tickets: https://aptum.atlassian.net/issues/?jql=issueKey%20in%20%28APTUM-54131%2CAPTUM-54132%2CAPTUM-54133%…",
+      "thread_key": "19:meeting_NjdmODA0YjctNzA3NC00NmViLWJkMWYtNjc4MDcyODM5N2Mw@thread.v2",
+      "message_count": 1,
+      "first_timestamp": "2026-03-20T18:43:22.067Z",
+      "last_timestamp": "2026-03-20T18:43:22.067Z",
+      "author": {
+        "name": "Andrei Ianouchkevitch",
+        "handle": "7c03c106-fb1d-4fd7-a02d-5ffd787db437",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Andrei Ianouchkevitch",
+          "handle": "7c03c106-fb1d-4fd7-a02d-5ffd787db437",
+          "role": "from"
+        }
+      ],
+      "participant_count": 1,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:meeting_NjdmODA0YjctNzA3NC00NmViLWJkMWYtNjc4MDcyODM5N2Mw@thread.v2",
+        "chatType": "meeting"
+      }
+    },
+    {
+      "id": "a292407d7d1a",
+      "source": "teams",
+      "subject": "[INT] GSE Board Review",
+      "body_text": "[Rob Station]\nWill get this updated today, we have been in a bit of a crunch trying to get the RFP finished for today. Just had a pre-submittal call with the customer and it went very well.\n\n---\n\n[Adam Nelson]\nThis opportunity has a response due today...can we please fill out the jira ticket w/ details please?\n\nhttps://aptum.atlassian.net/browse/GSE-311",
+      "body_snippet": "[Rob Station]\nWill get this updated today, we have been in a bit of a crunch trying to get the RFP finished for today. Just had a pre-submittal call with the customer and it went very well.\n\n---\n\n[Adam Nelson]\nThis opportunity has a response due today...can we please fill out the jira ticket w/ details please?\n\nhttps://aptum.atlassian.net/browse/GSE-311",
+      "thread_key": "19:meeting_NTlkOTQ0NmUtZDYxNi00YzMxLWJlMGMtMGZmNjNmY2Y0MTI3@thread.v2",
+      "message_count": 2,
+      "first_timestamp": "2026-03-20T15:00:38.094Z",
+      "last_timestamp": "2026-03-20T16:53:22.962Z",
+      "author": {
+        "name": "Rob Station",
+        "handle": "7809ddf8-a2d2-45ed-a348-f15d653e5d38",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Rob Station",
+          "handle": "7809ddf8-a2d2-45ed-a348-f15d653e5d38",
+          "role": "from"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+          "role": "from"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:meeting_NTlkOTQ0NmUtZDYxNi00YzMxLWJlMGMtMGZmNjNmY2Y0MTI3@thread.v2",
+        "chatType": "meeting"
+      }
+    },
+    {
+      "id": "9dda10a1ebbe",
+      "source": "teams",
+      "subject": null,
+      "body_text": "[Ian Rae]\nLMK if this makes any sense.\n\n---\n\n[Ian Rae]\n3) GSE ideally would be focused on custom/complex\n\n---\n\n[Ian Rae]\n2) I would like sales focused on selling the lego kits (private cloud OR public cloud variations)\n\n---\n\n[Ian Rae]\n1) I do think service delivery has to be able to handle supporting the lego blocks of an existing kit including supplying extra blocks. Without sales needing to be involved.\n\n---\n\n[Ian Rae]\nYup accurate although a bit detailed for the current audience but very good. So here is what I think we probably need to align around: https://aptum.com/services/ and this: https://aptum.atlassian.net/wiki/spaces/Product/overview - if our public facing and internal facing docs don't align that is an issue. Also we need to get ahead in the GSE process of (a) I need lego blocks to add to my existing kit (b) I need a new lego kit (c) I want a lego \"city\" (custom or multiple integrated kits).\n\n---\n\n[Adam Nelson]\n3. Product Definitions\n3.1 Apt Cloud (The Platform)\n\n\"Apt\" conveys capability, precision, and readiness — a cloud that is tailored to needs, not one-size-fits-all. Apt Cloud ties directly to Aptum's identity as a hybrid cloud managed services provider.\n\nApt Cloud is Aptum's next-generation cloud operations platform, accessed at portal.aptum.com. It is a white-labeled instance of CloudOps Software that acts as the single control plane for Aptum-delivered cloud services.\n\nWhat it delivers:\n\nSelf-service provisioning (VMs, networks, storage, DNS)\nRole-based access control (RBAC) with granular permissions\nCost and usage visibility with real-time cost estimator\nLifecycle management (create, scale, snapshot, decommission)\nActivity logging (visible activity logs across all services; note: not traditional monitoring/push alerts at this layer today)\nUnified governance across private and hyperscale clouds\nIntegration with Aptum managed services workflows\nMulti-tenant organizations with white-label branding (per-reseller)\nFull REST API (API-first design)\nMonetization engine: Product catalogs, pricing, commitments, utility pricing, revenue reporting, invoicing, discounts, credits, CC integration, tax integration (bold = already set up; italic = available, could be using)\nLink to support / ticketing system (planned)\n\nWhat it is NOT:\n\nApt Cloud does NOT provide physical infrastructure\nApt Cloud does NOT replace hyperscale provider consoles (Azure Portal, AWS Console)\nApt Cloud does NOT bypass managed services engagement\n\nServices available within Apt Cloud (portal.aptum.com) today:\n\nAptum IaaS — VMs on CloudStack (new)\nMTC — VMs on ThinkOn / VMware Cloud Director (legacy MTC customers)\nMicrosoft Azure — Instances, disks, networks, Azure Kubernetes Service (AKS)\nCloudflare DNS — Domains and DNS records (replaces SuperDNS; built and plan developed, rollout pending customer communication)\nAvailable to adopt (functionality built, not yet configured): AWS, GCP, Kubernetes (standalone)\n3.2 Aptum IaaS (The Infrastructure)\n\nAptum IaaS consists of compute, storage, and networking services running on Aptum-owned hardware in Aptum data centres, orchestrated by Apache CloudStack. It is delivered in two models:\n\nVirtual Private Cloud (VPC):\n\nMulti-tenant shared compute infrastructure\nLogical isolation with private networking (VLANs; VXLAN support TBD — needs validation with KVM implementation)\nDedicated resource quotas\nPredictable performance within a pooled system\n\nPrivate Cloud:\n\nSingle-tenant dedicated compute nodes\nEnhanced security, compliance, and customization\nCustom networking and storage configurations\nSame operational model and automation layer as VPC\nCombines technical infrastructure with managed services (people + technology)\nNote: Bare Metal as a Service (BMaaS) integration is not yet implemented. The platform has a 5c/Hypertec BMaaS integration (Canonical MaaS at the CloudStack layer, built by CloudOps Inc) which could be leveraged. Currently, \"Private Cloud\" means dedicated physical hosts delivered through the virtual orchestration layer — not direct bare metal provisioning.\n\n---\n\n[Ian Rae]\nWe will be in the basement\n\n---\n\n[Ian Rae]\nHi popping out to get some stuff. Entrance is next to garage door in driveway if you get here early door is open .",
+      "body_snippet": "[Ian Rae]\nLMK if this makes any sense.\n\n---\n\n[Ian Rae]\n3) GSE ideally would be focused on custom/complex\n\n---\n\n[Ian Rae]\n2) I would like sales focused on selling the lego kits (private cloud OR public cloud variations)\n\n---\n\n[Ian Rae]\n1) I do think service delivery has to be able to handle supporting the lego blocks of an existing kit including supplying extra blocks. Without sales needing to be involved.\n\n---\n\n[Ian Rae]\nYup accurate although a bit detailed for the current audience but very good",
+      "thread_key": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
+      "message_count": 8,
+      "first_timestamp": "2026-03-20T12:03:08.774Z",
+      "last_timestamp": "2026-03-20T16:36:45.154Z",
+      "author": {
+        "name": "Ian Rae",
+        "handle": "5842d4bb-c645-421b-af8d-6e71e8e01636",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Ian Rae",
+          "handle": "5842d4bb-c645-421b-af8d-6e71e8e01636",
+          "role": "from"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+          "role": "from"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
+        "chatType": "group"
+      }
+    },
+    {
+      "id": "f4467858da61",
+      "source": "teams",
+      "subject": null,
+      "body_text": "[Ian Rae]\nhere is a copy of the operating update we built in October for the board it should look familiar: Operating update for COE.pptx",
+      "body_snippet": "[Ian Rae]\nhere is a copy of the operating update we built in October for the board it should look familiar: Operating update for COE.pptx",
+      "thread_key": "19:5842d4bb-c645-421b-af8d-6e71e8e01636_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
+      "message_count": 1,
+      "first_timestamp": "2026-03-20T15:57:19.897Z",
+      "last_timestamp": "2026-03-20T15:57:19.897Z",
+      "author": {
+        "name": "Ian Rae",
+        "handle": "5842d4bb-c645-421b-af8d-6e71e8e01636",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Ian Rae",
+          "handle": "5842d4bb-c645-421b-af8d-6e71e8e01636",
+          "role": "from"
+        }
+      ],
+      "participant_count": 1,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": true,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:5842d4bb-c645-421b-af8d-6e71e8e01636_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
+        "chatType": "oneOnOne"
+      }
+    },
+    {
+      "id": "5a06536e0a24",
+      "source": "teams",
+      "subject": null,
+      "body_text": "[Nikki Thind]\nWe had comp committee and did not get to finalize the comp for this, but will work on getting that in place so if this works we don't have to wait another week\n\n---\n\n[Andrei Ianouchkevitch]\ninterview with Sunny is set for next Friday",
+      "body_snippet": "[Nikki Thind]\nWe had comp committee and did not get to finalize the comp for this, but will work on getting that in place so if this works we don't have to wait another week\n\n---\n\n[Andrei Ianouchkevitch]\ninterview with Sunny is set for next Friday",
+      "thread_key": "19:60624f496a074659aceaa53002ffae87@thread.v2",
+      "message_count": 2,
+      "first_timestamp": "2026-03-20T15:17:32.181Z",
+      "last_timestamp": "2026-03-20T15:42:21.107Z",
+      "author": {
+        "name": "Nikki Thind",
+        "handle": "521ff4cd-d060-4647-b09a-592484b7ecfe",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Nikki Thind",
+          "handle": "521ff4cd-d060-4647-b09a-592484b7ecfe",
+          "role": "from"
+        },
+        {
+          "name": "Andrei Ianouchkevitch",
+          "handle": "7c03c106-fb1d-4fd7-a02d-5ffd787db437",
+          "role": "from"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:60624f496a074659aceaa53002ffae87@thread.v2",
+        "chatType": "group"
+      }
+    },
+    {
+      "id": "2299d52d4329",
+      "source": "teams",
+      "subject": "Weeks Tweeks sans Dave",
+      "body_text": "[Jason Auer]\nof course its great, it was my idea\n\n---\n\n[Andrei Ianouchkevitch]\nI think Sam was talking about Alert grouping, this is a great idea",
+      "body_snippet": "[Jason Auer]\nof course its great, it was my idea\n\n---\n\n[Andrei Ianouchkevitch]\nI think Sam was talking about Alert grouping, this is a great idea",
+      "thread_key": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
+      "message_count": 4,
+      "first_timestamp": "2026-03-20T12:44:50.033Z",
+      "last_timestamp": "2026-03-20T14:31:54.787Z",
+      "author": {
+        "name": "Jason Auer",
+        "handle": "39a5b708-8613-45c0-9c26-4aa21b8a9c73",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Jason Auer",
+          "handle": "39a5b708-8613-45c0-9c26-4aa21b8a9c73",
+          "role": "from"
+        },
+        {
+          "name": "Andrei Ianouchkevitch",
+          "handle": "7c03c106-fb1d-4fd7-a02d-5ffd787db437",
+          "role": "from"
+        },
+        {
+          "name": "Jacob Stillwell",
+          "handle": "9fd43ebc-84b2-4b0c-945d-b29f08115bb3",
+          "role": "from"
+        }
+      ],
+      "participant_count": 3,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
+        "chatType": "meeting"
+      }
+    },
+    {
+      "id": "84cb85af6530",
+      "source": "teams",
+      "subject": "[INT] Service Delivery - Scrum",
+      "body_text": "[Andy Petterson]\nhttps://aptum.atlassian.net/wiki/spaces/Product/pages/3690659873/AZR+-+Send+Relationship+Request+Li…",
+      "body_snippet": "[Andy Petterson]\nhttps://aptum.atlassian.net/wiki/spaces/Product/pages/3690659873/AZR+-+Send+Relationship+Request+Li…",
+      "thread_key": "19:meeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4@thread.v2",
+      "message_count": 1,
+      "first_timestamp": "2026-03-20T13:39:32.872Z",
+      "last_timestamp": "2026-03-20T13:39:32.872Z",
+      "author": {
+        "name": "Andy Petterson",
+        "handle": "b57eacf4-c4b8-4baf-adbc-555400dbbe99",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Andy Petterson",
+          "handle": "b57eacf4-c4b8-4baf-adbc-555400dbbe99",
+          "role": "from"
+        }
+      ],
+      "participant_count": 1,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:meeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4@thread.v2",
+        "chatType": "meeting"
+      }
+    },
+    {
+      "id": "09e7f3ac00f6",
+      "source": "teams",
+      "subject": "[INT] SD & Commercial Alignment",
+      "body_text": "[Frederic Gingras]\nI'm ok to get the time back\n\n---\n\n[Frederic Gingras]\nnothing urgent for me\n\n---\n\n[Lacie Allen-Morley]\nHey all, I’m deep in working through our azure onboarding processes & documentation, is there anything urgent for today?",
+      "body_snippet": "[Frederic Gingras]\nI'm ok to get the time back\n\n---\n\n[Frederic Gingras]\nnothing urgent for me\n\n---\n\n[Lacie Allen-Morley]\nHey all, I’m deep in working through our azure onboarding processes & documentation, is there anything urgent for today?",
+      "thread_key": "19:meeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2@thread.v2",
+      "message_count": 3,
+      "first_timestamp": "2026-03-20T12:50:14.824Z",
+      "last_timestamp": "2026-03-20T12:51:29.866Z",
+      "author": {
+        "name": "Frederic Gingras",
+        "handle": "93c7243e-98c3-4bbc-8951-dead54e0b136",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Frederic Gingras",
+          "handle": "93c7243e-98c3-4bbc-8951-dead54e0b136",
+          "role": "from"
+        },
+        {
+          "name": "Lacie Allen-Morley",
+          "handle": "4f0de5bd-76a4-476e-b22b-f3e37ca30a7a",
+          "role": "from"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": null,
+      "source_meta": {
+        "chatId": "19:meeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2@thread.v2",
+        "chatType": "meeting"
+      }
+    }
+  ]
 }

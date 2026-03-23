@@ -41,7 +41,7 @@ OUTPUT_PATH = OUTPUT_DIR / "source_teams.json"
 # Maximum chats to scan for messages (safety valve)
 MAX_CHATS = 100
 # Maximum messages per chat
-MAX_MESSAGES_PER_CHAT = 200
+MAX_MESSAGES_PER_CHAT = 50
 
 
 def _headers(token: str) -> dict:
