@@ -1,6 +1,6 @@
 {
   "source": "teams",
-  "collected_at": "2026-03-23T19:35:36.037921Z",
+  "collected_at": "2026-03-23T19:42:17.567111Z",
   "status": "success",
   "objects": {
     "chats": {
@@ -1663,7 +1663,8 @@
           "reactions": [],
           "_chatId": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ae1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774215200681",
@@ -1703,7 +1704,8 @@
           "reactions": [],
           "_chatId": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ae1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774214498913",
@@ -1743,7 +1745,8 @@
           "reactions": [],
           "_chatId": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ae1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018724509",
@@ -1783,7 +1786,8 @@
           "reactions": [],
           "_chatId": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ae1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774216643456",
@@ -1840,7 +1844,8 @@
           },
           "_chatId": "19:meeting_NTkwZTY4MjUtODU5Mi00Mjg5LTk1OWUtZTVlZDYyMDI0MTJj@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Board deck draft"
+          "_chatTopic": "Board deck draft",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_NTkwZTY4MjUtODU5Mi00Mjg5LTk1OWUtZTVlZDYyMDI0MTJj%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774032202067",
@@ -1880,7 +1885,8 @@
           "reactions": [],
           "_chatId": "19:meeting_NjdmODA0YjctNzA3NC00NmViLWJkMWYtNjc4MDcyODM5N2Mw@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "RE: AWS Cloud Marketplace"
+          "_chatTopic": "RE: AWS Cloud Marketplace",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_NjdmODA0YjctNzA3NC00NmViLWJkMWYtNjc4MDcyODM5N2Mw%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774124036755",
@@ -1920,7 +1926,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774124035441",
@@ -1960,7 +1967,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774026142511",
@@ -2000,7 +2008,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774026137955",
@@ -2040,7 +2049,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017086668",
@@ -2080,7 +2090,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017077813",
@@ -2120,7 +2131,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017074707",
@@ -2160,7 +2172,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017048565",
@@ -2200,7 +2213,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017043916",
@@ -2240,7 +2254,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017030326",
@@ -2280,7 +2295,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017027163",
@@ -2320,7 +2336,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017019709",
@@ -2360,7 +2377,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017011258",
@@ -2400,7 +2418,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017010025",
@@ -2440,7 +2459,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017008740",
@@ -2480,7 +2500,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774015710309",
@@ -2520,7 +2541,8 @@
           "reactions": [],
           "_chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774035164958",
@@ -2560,7 +2582,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774034714625",
@@ -2618,7 +2641,8 @@
           ],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774034780541",
@@ -2658,7 +2682,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774030223386",
@@ -2698,7 +2723,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774030178352",
@@ -2738,7 +2764,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774030072450",
@@ -2778,7 +2805,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019944516",
@@ -2836,7 +2864,8 @@
           ],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019878139",
@@ -2886,7 +2915,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019269654",
@@ -2926,7 +2956,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019227809",
@@ -2966,7 +2997,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019145084",
@@ -3006,7 +3038,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019117828",
@@ -3056,7 +3089,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019051767",
@@ -3106,7 +3140,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019033649",
@@ -3146,7 +3181,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018973510",
@@ -3221,7 +3257,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018823777",
@@ -3261,7 +3298,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018769111",
@@ -3301,7 +3339,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018760156",
@@ -3341,7 +3380,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018694597",
@@ -3381,7 +3421,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018679457",
@@ -3421,7 +3462,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018668013",
@@ -3461,7 +3503,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018643648",
@@ -3501,7 +3544,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018628336",
@@ -3541,7 +3585,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018391873",
@@ -3581,7 +3626,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018376048",
@@ -3656,7 +3702,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017063745",
@@ -3696,7 +3743,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017051174",
@@ -3805,7 +3853,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774015274449",
@@ -3845,7 +3894,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774010786593",
@@ -3895,7 +3945,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1773968604130",
@@ -3945,7 +3996,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1773968473870",
@@ -3995,7 +4047,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1773967101953",
@@ -4045,7 +4098,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1773966149939",
@@ -4095,7 +4149,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1773965110492",
@@ -4135,7 +4190,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1773964884278",
@@ -4175,7 +4231,8 @@
           "reactions": [],
           "_chatId": "19:meeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Product delivery flow"
+          "_chatTopic": "Product delivery flow",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_MDI4ZmM5ODctM2E1Mi00MDlhLWI1MmUtNTM0YTk5MmIyNGNh%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774039723916",
@@ -4215,7 +4272,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774022615969",
@@ -4255,7 +4313,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774021925481",
@@ -4295,7 +4354,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774021689518",
@@ -4335,7 +4395,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774021465208",
@@ -4375,7 +4436,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774021446337",
@@ -4415,7 +4477,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774020687934",
@@ -4455,7 +4518,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774020423622",
@@ -4495,7 +4559,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774020298711",
@@ -4535,7 +4600,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774020157645",
@@ -4575,7 +4641,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774020095135",
@@ -4615,7 +4682,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019267851",
@@ -4673,7 +4741,8 @@
           ],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017796406",
@@ -4713,7 +4782,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017785179",
@@ -4753,7 +4823,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017769937",
@@ -4803,7 +4874,8 @@
           "reactions": [],
           "_chatId": "19:0fbcd0050df8463682602a86d9bc3269@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774214104614",
@@ -4853,7 +4925,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774124137990",
@@ -4928,7 +5001,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774034372586",
@@ -5004,7 +5078,8 @@
           ],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774027367059",
@@ -5044,7 +5119,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025472073",
@@ -5084,7 +5160,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774027222286",
@@ -5124,7 +5201,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025883317",
@@ -5164,7 +5242,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025620780",
@@ -5214,7 +5293,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025538219",
@@ -5254,7 +5334,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025530657",
@@ -5294,7 +5375,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025520627",
@@ -5334,7 +5416,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025410325",
@@ -5384,7 +5467,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025362705",
@@ -5424,7 +5508,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025354625",
@@ -5464,7 +5549,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025184036",
@@ -5504,7 +5590,8 @@
           "reactions": [],
           "_chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
           "_chatType": "group",
-          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          "_chatTopic": "[SALES HELP] Sales Infrastructure & Cloud Questions",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774046179703",
@@ -5554,7 +5641,8 @@
           "reactions": [],
           "_chatId": "19:meeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Three Musketeers Sync"
+          "_chatTopic": "Three Musketeers Sync",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774045696127",
@@ -5612,7 +5700,8 @@
           ],
           "_chatId": "19:meeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Three Musketeers Sync"
+          "_chatTopic": "Three Musketeers Sync",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774044793263",
@@ -5721,7 +5810,8 @@
           "reactions": [],
           "_chatId": "19:meeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Three Musketeers Sync"
+          "_chatTopic": "Three Musketeers Sync",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774032286419",
@@ -5796,7 +5886,8 @@
           "reactions": [],
           "_chatId": "19:908abb8f19c249f2bf4ecbd76ce3ed17@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A908abb8f19c249f2bf4ecbd76ce3ed17%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774032260609",
@@ -5836,7 +5927,8 @@
           "reactions": [],
           "_chatId": "19:908abb8f19c249f2bf4ecbd76ce3ed17@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A908abb8f19c249f2bf4ecbd76ce3ed17%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774031028516",
@@ -5894,7 +5986,8 @@
           "reactions": [],
           "_chatId": "19:908abb8f19c249f2bf4ecbd76ce3ed17@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A908abb8f19c249f2bf4ecbd76ce3ed17%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774024957140",
@@ -5934,7 +6027,8 @@
           "reactions": [],
           "_chatId": "19:908abb8f19c249f2bf4ecbd76ce3ed17@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A908abb8f19c249f2bf4ecbd76ce3ed17%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774025602962",
@@ -5974,7 +6068,8 @@
           "reactions": [],
           "_chatId": "19:meeting_NTlkOTQ0NmUtZDYxNi00YzMxLWJlMGMtMGZmNjNmY2Y0MTI3@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] GSE Board Review"
+          "_chatTopic": "[INT] GSE Board Review",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_NTlkOTQ0NmUtZDYxNi00YzMxLWJlMGMtMGZmNjNmY2Y0MTI3%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774018838094",
@@ -6051,7 +6146,8 @@
           ],
           "_chatId": "19:meeting_NTlkOTQ0NmUtZDYxNi00YzMxLWJlMGMtMGZmNjNmY2Y0MTI3@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] GSE Board Review"
+          "_chatTopic": "[INT] GSE Board Review",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_NTlkOTQ0NmUtZDYxNi00YzMxLWJlMGMtMGZmNjNmY2Y0MTI3%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774024605154",
@@ -6091,7 +6187,8 @@
           "reactions": [],
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774024587509",
@@ -6131,7 +6228,8 @@
           "reactions": [],
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774024576313",
@@ -6171,7 +6269,8 @@
           "reactions": [],
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774024549086",
@@ -6211,7 +6310,8 @@
           "reactions": [],
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774024485822",
@@ -6251,7 +6351,8 @@
           "reactions": [],
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774015291435",
@@ -6291,7 +6392,8 @@
           "reactions": [],
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774008269155",
@@ -6349,7 +6451,8 @@
           ],
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774008188774",
@@ -6407,7 +6510,8 @@
           ],
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774008188316",
@@ -6477,7 +6581,8 @@
           },
           "_chatId": "19:73698217eab54d839f5313e6ac8bee3e@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774022239897",
@@ -6527,7 +6632,8 @@
           "reactions": [],
           "_chatId": "19:5842d4bb-c645-421b-af8d-6e71e8e01636_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
           "_chatType": "oneOnOne",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A5842d4bb-c645-421b-af8d-6e71e8e01636_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774021341107",
@@ -6567,7 +6673,8 @@
           "reactions": [],
           "_chatId": "19:60624f496a074659aceaa53002ffae87@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A60624f496a074659aceaa53002ffae87%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774019852181",
@@ -6625,7 +6732,8 @@
           ],
           "_chatId": "19:60624f496a074659aceaa53002ffae87@thread.v2",
           "_chatType": "group",
-          "_chatTopic": null
+          "_chatTopic": null,
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3A60624f496a074659aceaa53002ffae87%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017632642",
@@ -6738,7 +6846,8 @@
           },
           "_chatId": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Weeks Tweeks sans Dave"
+          "_chatTopic": "Weeks Tweeks sans Dave",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017114787",
@@ -6788,7 +6897,8 @@
           "reactions": [],
           "_chatId": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Weeks Tweeks sans Dave"
+          "_chatTopic": "Weeks Tweeks sans Dave",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774017095716",
@@ -6828,7 +6938,8 @@
           "reactions": [],
           "_chatId": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Weeks Tweeks sans Dave"
+          "_chatTopic": "Weeks Tweeks sans Dave",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774016520589",
@@ -6868,7 +6979,8 @@
           "reactions": [],
           "_chatId": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Weeks Tweeks sans Dave"
+          "_chatTopic": "Weeks Tweeks sans Dave",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774015239071",
@@ -6913,7 +7025,8 @@
           },
           "_chatId": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Weeks Tweeks sans Dave"
+          "_chatTopic": "Weeks Tweeks sans Dave",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774010690033",
@@ -6963,7 +7076,8 @@
           "reactions": [],
           "_chatId": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "Weeks Tweeks sans Dave"
+          "_chatTopic": "Weeks Tweeks sans Dave",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774014820080",
@@ -7102,7 +7216,8 @@
           },
           "_chatId": "19:meeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] Service Delivery - Scrum"
+          "_chatTopic": "[INT] Service Delivery - Scrum",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774013972872",
@@ -7142,7 +7257,8 @@
           "reactions": [],
           "_chatId": "19:meeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] Service Delivery - Scrum"
+          "_chatTopic": "[INT] Service Delivery - Scrum",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774013377855",
@@ -7187,7 +7303,8 @@
           },
           "_chatId": "19:meeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] Service Delivery - Scrum"
+          "_chatTopic": "[INT] Service Delivery - Scrum",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774013355237",
@@ -7248,7 +7365,8 @@
           },
           "_chatId": "19:meeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] Service Delivery - Scrum"
+          "_chatTopic": "[INT] Service Delivery - Scrum",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774013338812",
@@ -7293,7 +7411,8 @@
           },
           "_chatId": "19:meeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] Service Delivery - Scrum"
+          "_chatTopic": "[INT] Service Delivery - Scrum",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774011089866",
@@ -7333,7 +7452,8 @@
           "reactions": [],
           "_chatId": "19:meeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] SD & Commercial Alignment"
+          "_chatTopic": "[INT] SD & Commercial Alignment",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774011081246",
@@ -7373,7 +7493,8 @@
           "reactions": [],
           "_chatId": "19:meeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] SD & Commercial Alignment"
+          "_chatTopic": "[INT] SD & Commercial Alignment",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         },
         {
           "id": "1774011014824",
@@ -7413,7 +7534,8 @@
           "reactions": [],
           "_chatId": "19:meeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2@thread.v2",
           "_chatType": "meeting",
-          "_chatTopic": "[INT] SD & Commercial Alignment"
+          "_chatTopic": "[INT] SD & Commercial Alignment",
+          "_chatWebUrl": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed"
         }
       ]
     }

@@ -61,11 +61,23 @@ def _render_item_block(item: dict, include_actions: bool = True) -> List[str]:
     sources = item.get("sources", [item.get("source", "unknown")])
     badge = _source_badge(sources)
 
-    lines.append(f"#### {_linked_subject(item)}{badge}")
-
+    source_label = "/".join(item.get("sources", [item.get("source", "?")]))
+    lines.append(f"#### {_linked_subject(item)} `{source_label}`")
+    
     summary = (item.get("summary") or "").strip()
     if summary:
         lines.append(summary)
+
+    # Source backlinks
+    urls = item.get("urls", [])
+    if urls:
+        for u in urls:
+            src = u.get("source", "?")
+            subj = u.get("subject") or "link"
+            link = u.get("url", "")
+            if link:
+                lines.append(f"- [{src}: {subj}]({link})")
+
 
     if include_actions:
         my_actions = [a.strip() for a in item.get("my_actions", []) if a.strip()]
