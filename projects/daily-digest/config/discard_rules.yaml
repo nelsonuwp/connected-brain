@@ -1,0 +1,113 @@
+# config/discard_rules.yaml
+# Deterministic filter rules for the daily digest pipeline.
+# Applied in process.py after normalization.
+# These catch obvious noise so the LLM doesn't waste tokens on it.
+#
+# Rules operate on InboundItem fields (source-agnostic).
+# Wildcards: *.example.com matches example.com AND any subdomain.
+# All string matches are case-insensitive substrings unless noted.
+
+# ── Discard rules ─────────────────────────────────────────────────────────────
+# Items matching ANY rule below are silently dropped (audit log only).
+
+discard:
+
+  # --- Sender-based filters (works across all sources) ---
+
+  # Sender domain — full domain or wildcard subdomain
+  sender_domains:
+    - "*.5ccloud.com"
+    - "glassdoor.com"
+    - "*.salesforce.com"
+    - "*.hubspot.com"
+    - "*.marketo.net"
+    - "*.mailchimp.com"
+    - "*.constantcontact.com"
+    - "*.contex.ca"
+    - "*.groupecontex.ca"
+    - "wheniwork.com"
+
+  # Sender handle substrings (email address, Slack bot name, etc.)
+  sender_patterns:
+    - "noreply"
+    - "no-reply"
+    - "donotreply"
+    - "mailer@"
+    - "bounce@"
+    - "adpdonotreply"
+    - "mscnm@microsoft.com"
+    - "@connect.media"
+    - "communications@now."
+
+  # --- Subject-based filters ---
+
+  subject_patterns:
+    - "newsletter"
+    - "digest"
+    - "bowl buzz"
+    - "unsubscribe"
+    - "daily sales"
+    - "payout notification"
+    - "breaking news:"
+    - "statement of account"
+    - "it's account check in"
+    - "last chance!"
+    - "webinar"
+    - "free session"
+    - "free training"
+    - "you're invited to"
+    - "maintenance"
+    - "scheduled upgrade"
+    - "platform upgrade"
+    - "cloud maintenance"
+    - "upcoming upgrade"
+    - "upcoming cloud platform"
+
+  # --- Body-based filters (external senders only) ---
+
+  body_patterns:
+    - "opt-out"
+    - "reply stop"
+    - "pilot project"
+    - "free hours"
+    - "intro call"
+    - "book a call"
+    - "book a demo"
+    - "book a meeting"
+    - "reach out to see if"
+    - "you don't often get email from"
+
+  # --- Source-specific filters ---
+
+  # Teams: discard bot messages and system notifications
+  teams_sender_patterns:
+    - "Power Automate"         # flow change notifications
+    - "Microsoft Teams"        # system messages (join/leave)
+    - "Forms"                  # Microsoft Forms notifications
+
+  # Slack: discard known bots (add as you onboard)
+  slack_sender_patterns:
+    - "slackbot"
+    - "github"                 # GitHub notifications (use GitHub directly)
+    - "jira"                   # Jira bot (already captured via email signals)
+
+
+# ── Embedding / clustering settings ──────────────────────────────────────────
+
+clustering:
+  # Model for embedding InboundItem content
+  # all-MiniLM-L6-v2 is 384-dim, fast, runs locally on MacBook Air in <2s
+  embedding_model: "all-MiniLM-L6-v2"
+  embedding_dim: 384
+
+  # Cosine similarity threshold for merging items across sources
+  # 0.65 = aggressive (more merges, occasional false positives)
+  # 0.72 = balanced (default)
+  # 0.82 = conservative (only very obvious matches)
+  merge_threshold: 0.72
+
+  # Use TF-IDF fallback when sentence-transformers is unavailable
+  use_fallback_embedding: false
+
+  # Maximum items to embed per run (safety valve)
+  max_items: 500

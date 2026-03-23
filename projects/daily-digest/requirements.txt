@@ -1,0 +1,12 @@
+# Core
+requests>=2.31.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Embedding & clustering
+numpy>=1.24.0
+scikit-learn>=1.3.0
+sentence-transformers>=2.2.0    # optional — falls back to TF-IDF if missing
+
+# OpenRouter (already used by email-agent)
+# requests is listed above

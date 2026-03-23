@@ -1,0 +1,35 @@
+# Daily Digest — Cursor Rules
+
+## Project Structure
+This is a Python pipeline under `projects/daily-digest/` in the `connected-brain` monorepo.
+Root `.env` is at `~/connected-brain/.env`. Vault is at `~/connected-brain/vault/`.
+
+## Architecture
+Fan-in pipeline: ingest (per-source) → normalize → process → summarize → render.
+Everything downstream of normalize.py operates on the canonical `InboundItem` schema defined in `schemas/inbound_item.py`.
+
+## Conventions
+- **SourceArtifact pattern**: Every ingestor writes a SourceArtifact JSON via `connectors/source_artifact.py`. Always write in a `finally` block. Never let a script exit without writing its artifact.
+- **Connectors are project-local copies**: `connectors/openrouter.py`, `source_artifact.py`, `llm_io.py` are copied from `projects/_reference/`. Do not import across project boundaries.
+- **No cross-project imports**: Each project under `projects/` is self-contained.
+- **Config in YAML**: Discard rules and user identity live in `config/`. Python loads them at runtime.
+- **Env vars**: Use `os.getenv()` with `DIGEST_` prefix for project-specific vars. MS Graph vars use existing `MS_` prefix.
+
+## Key Files
+- `schemas/inbound_item.py` — THE canonical schema. If you change this, everything downstream must be updated.
+- `normalize.py` — Has one normalizer function per source. Adding a new source = adding a new normalizer + updating `NORMALIZERS` dict.
+- `process.py` — Deterministic only. No LLM calls. Embedding uses `all-MiniLM-L6-v2` with TF-IDF fallback.
+- `summarize.py` — Single LLM call via OpenRouter. The system prompt is the most tunable part.
+- `run_pipeline.py` — Orchestrator. Date logic derives fetch window from note date.
+
+## Testing
+- Run email-only first: `python run_pipeline.py --sources email`
+- Skip ingest to re-process: `python run_pipeline.py --from normalize`
+- Inspect intermediate files in `outputs/` to debug each stage independently.
+
+## Adding a New Source
+1. Create `ingestors/{source}.py` following the `slack.py` pattern
+2. Add a normalizer function `_normalize_{source}()` in `normalize.py`
+3. Register it in the `NORMALIZERS` dict in `normalize.py`
+4. Add source-specific discard rules to `config/discard_rules.yaml`
+5. Register it in `INGESTORS` dict in `run_pipeline.py`
