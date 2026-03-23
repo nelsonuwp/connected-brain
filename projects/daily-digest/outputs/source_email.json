@@ -1,0 +1,15 @@
+{
+  "source": "email",
+  "collected_at": "2026-03-23T19:32:34.648879Z",
+  "status": "fail",
+  "objects": null,
+  "error": {
+    "type": "HTTPError",
+    "message": "400 Client Error: Bad Request for url: https://graph.microsoft.com/v1.0/users/?%24select=id%2Csubject%2CsentDateTime%2Cbody%2Cfrom%2CtoRecipients%2CccRecipients%2CwebLink%2ChasAttachments%2CconversationId&%24filter=sentDateTime+ge+2026-03-20T00%3A00%3A00Z+and+sentDateTime+le+2026-03-22T23%3A59%3A59Z&%24top=1000#%20your%20email%20(for%20is_from_me%20detection)/messages",
+    "retryable": false
+  },
+  "date_range": {
+    "start": "2026-03-20",
+    "end": "2026-03-22"
+  }
+}

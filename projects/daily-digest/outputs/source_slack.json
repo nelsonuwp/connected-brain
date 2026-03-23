@@ -1,0 +1,24 @@
+{
+  "source": "slack",
+  "collected_at": "2026-03-23T19:32:41.616515Z",
+  "status": "success",
+  "objects": {
+    "channels": {
+      "status": "success",
+      "record_count": 0,
+      "error": null,
+      "data": []
+    },
+    "messages": {
+      "status": "success",
+      "record_count": 0,
+      "error": null,
+      "data": []
+    }
+  },
+  "error": null,
+  "date_range": {
+    "start": "2026-03-20",
+    "end": "2026-03-22"
+  }
+}
