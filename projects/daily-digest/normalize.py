@@ -359,7 +359,7 @@ def _normalize_teams(source_data: dict) -> List[InboundItem]:
             "is_forwarded": False,
             "attachments": [],
             "has_attachments": False,
-            "url": None,
+            "url": newest.get("_chatWebUrl", None),
             "source_meta": {
                 "chatId": chat_id,
                 "chatType": chat_type,

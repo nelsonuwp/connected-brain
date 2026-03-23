@@ -139,6 +139,7 @@ def main(start: date, end: date) -> int:
                     msg["_chatId"] = chat_id
                     msg["_chatType"] = chat.get("chatType", "unknown")
                     msg["_chatTopic"] = chat.get("topic", None)
+                    msg["_chatWebUrl"] = chat.get("webUrl", None)
                 all_messages.extend(messages)
 
         artifact["objects"] = {
