@@ -6,3 +6,5 @@
 
 	* Build Ai based predictive Churn index
 	* Improve customer interactions at every contact point.
+
+customer segmentation? by customer matrix? health signals, services they are subscribed to, approx of shared wallet. 
