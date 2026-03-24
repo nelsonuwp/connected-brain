@@ -19,3 +19,6 @@ The ICP - Product Definition - https://aptum.atlassian.net/wiki/spaces/Product/p
 * Correlate against the market
 
 Turn our customers into ICP 
+
+
+Need a sedsso
