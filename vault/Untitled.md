@@ -15,4 +15,5 @@ big business, mid-enterprise (maybe talk to 3 people to get a deal done) -
 The ICP - Product Definition - https://aptum.atlassian.net/wiki/spaces/Product/pages/3376513043/Product+Strategy+v1.3.1
 
 * Identify the ICP
-* Corr*
+* Correlate against the current customer base
+* Correlate against the market
