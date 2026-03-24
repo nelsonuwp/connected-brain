@@ -24,3 +24,5 @@ Turn our customers into ICP
 Need a session on product. 
 
 Sr. Level to Sr. Level
+
+- [ ] Add historical provisioning for individual customers #action
