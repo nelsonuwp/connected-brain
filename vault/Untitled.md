@@ -17,3 +17,5 @@ The ICP - Product Definition - https://aptum.atlassian.net/wiki/spaces/Product/p
 * Identify the ICP
 * Correlate against the current customer base
 * Correlate against the market
+
+Turn our customers into ICP 
