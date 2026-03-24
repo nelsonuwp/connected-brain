@@ -21,4 +21,5 @@ The ICP - Product Definition - https://aptum.atlassian.net/wiki/spaces/Product/p
 Turn our customers into ICP 
 
 
-Need a sedsso
+Need a session on product. 
+
