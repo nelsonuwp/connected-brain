@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-03-23T19:47:00.016902Z",
+  "generated_at": "2026-03-26T18:08:37.816335Z",
   "model": "anthropic/claude-4.5-sonnet-20250929",
   "tokens": {
-    "prompt": 16819,
-    "completion": 4929,
-    "total": 21748
+    "prompt": 23141,
+    "completion": 5441,
+    "total": 28582
   },
   "sources": [
     "email",
@@ -12,611 +12,239 @@
     "slack"
   ],
   "output": {
-    "waiting_on_me": [
+    "items": [
       {
-        "id": "cluster_1",
+        "id": "542b6297b84c",
         "item_ids": [
-          "c115b9ce08e6",
-          "5446814415ad",
-          "3676c05b1742"
+          "542b6297b84c"
         ],
-        "category": "waiting_on_me",
-        "unified_subject": "Board deck review and tasks from Ian Rae",
-        "summary": "Ian Rae assigned multiple tasks: summarize critical incidents for the Q2 Board deck, review and comment on what he missed, and turn a slide into an org summary for the COE operating update.",
-        "my_actions": [
-          "Summarize critical incidents (network, DC, compute outages) for Q2 Board deck",
-          "Review Ian's board deck and provide comments on what's missing",
-          "Turn operating update slide into org summary"
-        ],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-22T16:14:00Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "Radar Mexico Offboarding — Outstanding Invoices",
+        "summary": "Eric Lafreniere provided Matthew Carter with outstanding invoice details for Radar App account #7036548. Total outstanding is $55,480.95 across three invoices from Oct-Dec 2023, with periods ranging from 2023/10/01 to 2023/12/31.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 17:54"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASW%2B6lUAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Ian Rae assigned you a task in \"APTUM_ March Q2 Board deck_INTERNAL\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBuAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Ian Rae mentioned you in \"APTUM_ March Q2 Board deck_INTERNAL\"."
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBrAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Ian Rae assigned you a task in \"Operating update for COE\""
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5idFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Aptum | Radar Mexico Offboarding |  AWS #765843959562"
           }
         ],
-        "is_cluster": true
-      },
-      {
-        "id": "8a24420847de",
-        "item_ids": [
-          "8a24420847de"
-        ],
-        "category": "waiting_on_me",
-        "unified_subject": "3rd Month Performance Review for Kristina Soriano",
-        "summary": "HR requesting performance review feedback for Kristina Soriano's 3-month review, due by April 5, 2026.",
-        "my_actions": [
-          "Complete Performance Review Questionnaire for Kristina Soriano by April 5, 2026"
-        ],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
         "sources": [
           "email"
+        ]
+      },
+      {
+        "id": "7efe32e056ff",
+        "item_ids": [
+          "7efe32e056ff"
         ],
-        "last_timestamp": "2026-03-22T12:00:09Z",
-        "participant_count": 4,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "AWS Cloud Marketplace — TDSynnex Meeting Scheduled",
+        "summary": "Matthew Carter scheduled a meeting with TDSynnex (Gina Tammo, Rupesh Sankar, Christine Thomson) for tomorrow at 3:30pm ET to discuss AWS Cloud Marketplace program details.",
+        "actions": [],
+        "tracked_items": [
+          "Marc Pare to provide AWS program language for Basis amendment"
+        ],
+        "source_stats": {
+          "email_count": 5,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 16:39–17:42"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBxAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "ACTION REQUIRED: 3rd Month Performance Review"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5idEAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: AWS Cloud Marketplace"
           }
         ],
-        "is_cluster": false
+        "sources": [
+          "email"
+        ]
       },
       {
-        "id": "da17cb338d93",
+        "id": "1b551bc4a0be",
         "item_ids": [
-          "da17cb338d93"
+          "1b551bc4a0be"
         ],
-        "category": "waiting_on_me",
-        "unified_subject": "Smart Scale sync - Microsoft investigation update",
-        "summary": "Frederic Gingras asking for update on Microsoft investigation and proposing Tuesday sync since he's unavailable Monday. Needs to know who to invite besides Adam Nelson.",
-        "my_actions": [
-          "Provide update on Microsoft investigation status",
-          "Confirm Tuesday availability and suggest additional attendees for Smart Scale sync"
+        "discard": false,
+        "title": "AWS Distributor Transfer — Follow-up Requested",
+        "summary": "Matthew Carter sent a follow-up to AWS distribution-program-team requesting acknowledgment of the distributor transfer DSA/CTA sponsorship change submitted on March 20.",
+        "actions": [],
+        "tracked_items": [
+          "AWS to acknowledge distributor transfer request"
         ],
-        "tracked_actions": [],
-        "suggested_reply": "We should have our investigation wrapped up by Tuesday. Let me check my calendar and get back to you on timing and who else should join.",
-        "source": "teams",
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 17:32"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5idDAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: AWS Distributor Transfer - DSA/CTA Sponsorship Change: 22-MAR-2026"
+          }
+        ],
         "sources": [
-          "teams"
+          "email"
+        ]
+      },
+      {
+        "id": "b18b797a2bc3",
+        "item_ids": [
+          "b18b797a2bc3"
         ],
-        "last_timestamp": "2026-03-20T18:44:46.419Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "VMware P&L Analysis — Meeting Scheduled",
+        "summary": "Matthew Carter sent a meeting invite with a link to the VMware Profit and Loss analysis Confluence page.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 16:43"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAENAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASrMtn2AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "VMware P&L Analysis"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      },
+      {
+        "id": "c94bb7c11a14",
+        "item_ids": [
+          "c94bb7c11a14"
+        ],
+        "discard": false,
+        "title": "Scheduling Clarification — Carlton Currey",
+        "summary": "Carlton Currey asked for clarification on timing: \"Tomorrow/Today or Tomorrow/Tomorrow?\"",
+        "actions": [
+          {
+            "text": "Clarify timing with Carlton Currey",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 1,
+          "slack_count": 0,
+          "date_range": "2026-03-25 16:43"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3A908abb8f19c249f2bf4ecbd76ce3ed17%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "url": "https://teams.microsoft.com/l/chat/19%3Abb5ee90f-f728-4920-96af-55e6f8c0130f_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
             "subject": null
           }
         ],
-        "is_cluster": false
-      }
-    ],
-    "tracking": [
-      {
-        "id": "cluster_0",
-        "item_ids": [
-          "220790df5560",
-          "d860756fe64d",
-          "88d2655a8906"
-        ],
-        "category": "tracking",
-        "unified_subject": "Board deck - Key blocks picture task",
-        "summary": "Sarah Blanchard assigned a task to include key blocks picture in the Q2 Board deck. Adam Nelson completed the task and reassigned it back to Sarah for review.",
-        "my_actions": [],
-        "tracked_actions": [
-          "Sarah Blanchard reviewing the completed task"
-        ],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-22T18:27:51Z",
-        "participant_count": 2,
-        "is_from_me": true,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASWoBu8AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson replied to a comment in \"APTUM_ March Q2 Board deck_INTERNAL\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASWoBu7AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson reassigned a task you created in \"APTUM_ March Q2 Board deck_INTERNAL\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBaAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Sarah Blanchard assigned you a task in \"APTUM_ March Q2 Board deck_INTERNAL\""
-          }
-        ],
-        "is_cluster": true
-      },
-      {
-        "id": "cluster_2",
-        "item_ids": [
-          "87e7377822f1",
-          "d7b99794d781"
-        ],
-        "category": "tracking",
-        "unified_subject": "DC strategy discussion for board deck",
-        "summary": "Adam Nelson suggested sitting down to discuss the DC strategy slide in case he needs to field questions. Marc Alex Forget responded that it looks good to him.",
-        "my_actions": [],
-        "tracked_actions": [
-          "Potential meeting with Ian about DC strategy slide"
-        ],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-22T14:41:01Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASW%2B6lTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Marc Alex Forget replied to a comment in \"APTUM_ March Q2 Board deck_INTERNAL\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASWoBu5AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson replied to a comment in \"APTUM_ March Q2 Board deck_INTERNAL\""
-          }
-        ],
-        "is_cluster": true
-      },
-      {
-        "id": "817db1176b9d",
-        "item_ids": [
-          "817db1176b9d"
-        ],
-        "category": "tracking",
-        "unified_subject": "Board deck - Q2/Q3 savings timing note",
-        "summary": "Adam Nelson left a comment to update wording about negotiated savings in Q2 that won't be realized until Q3.",
-        "my_actions": [],
-        "tracked_actions": [
-          "Someone updating the board deck with Q2/Q3 savings timing clarification"
-        ],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-22T21:34:18Z",
-        "participant_count": 2,
-        "is_from_me": true,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASWoBu9AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson left a comment in \"APTUM_ March Q2 Board deck_INTERNAL\""
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "ab4e34e22205",
-        "item_ids": [
-          "ab4e34e22205"
-        ],
-        "category": "tracking",
-        "unified_subject": "Claude Enterprise Plan discussion",
-        "summary": "Marc Alex Forget asked about Claude Enterprise Plan for meeting notes analysis. Adam Nelson agreed to chat tomorrow about it.",
-        "my_actions": [],
-        "tracked_actions": [
-          "Follow up chat with Marc about Claude Enterprise Plan"
-        ],
-        "suggested_reply": null,
-        "source": "teams",
         "sources": [
           "teams"
+        ]
+      },
+      {
+        "id": "613e7458befb",
+        "item_ids": [
+          "613e7458befb"
         ],
-        "last_timestamp": "2026-03-22T21:33:48.715Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "Basis AWS — Pax8 Discussion & Program Language",
+        "summary": "Matthew Carter and Marc Pare discussed Basis AWS order. They are waiting on AWS program language to define what is eligible for the 8% discount before providing an amendment to Basis. Matthew sent another reminder to AWS.",
+        "actions": [],
+        "tracked_items": [
+          "Marc Pare waiting on AWS program language for 8% eligibility definition",
+          "Matthew Carter to connect with Basis after receiving AWS clarification"
+        ],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 5,
+          "slack_count": 0,
+          "date_range": "2026-03-25 13:00–16:34"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3Ae1f43ab9-33cd-43cc-8105-e58fd96efe30_ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": null
+            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_YmQ2OTUwNTYtZmQ0NC00ZTg1LWIzMTEtMzYzMWJjYTYyMTcw%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "APTUM- Basis AWS --Pax8 Discussion (INTERNAL) "
           }
         ],
-        "is_cluster": false
-      },
-      {
-        "id": "e8701b4fa3ea",
-        "item_ids": [
-          "e8701b4fa3ea"
-        ],
-        "category": "tracking",
-        "unified_subject": "Board deck numbers review request to Sarah",
-        "summary": "Adam Nelson assigned Sarah Blanchard a task to review financial numbers pulled from various sources to ensure consistency in language.",
-        "my_actions": [],
-        "tracked_actions": [
-          "Sarah Blanchard reviewing financial numbers for board deck"
-        ],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-22T14:03:42Z",
-        "participant_count": 2,
-        "is_from_me": true,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASWoBu6AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson assigned you a task in \"APTUM_ March Q2 Board deck_INTERNAL\""
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "5fb986034a76",
-        "item_ids": [
-          "5fb986034a76"
-        ],
-        "category": "tracking",
-        "unified_subject": "Colo template discussion with Martin",
-        "summary": "Direct message exchange with Martin Tessier about finding a colo template. Adam Nelson was checking with Marc Alex who was nearby.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
         "sources": [
           "teams"
-        ],
-        "last_timestamp": "2026-03-21T20:13:56.755Z",
-        "participant_count": 2,
-        "is_from_me": true,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": null
-          }
-        ],
-        "is_cluster": false
+        ]
       },
       {
-        "id": "6a5ea07428bb",
+        "id": "ad0b5679e535",
         "item_ids": [
-          "6a5ea07428bb"
+          "ad0b5679e535"
         ],
-        "category": "tracking",
-        "unified_subject": "Workshop in person meeting accepted",
-        "summary": "Adam Nelson accepted a workshop in-person meeting invitation.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
+        "discard": false,
+        "title": "Credit Review Board — March 2026 Items",
+        "summary": "Bryan Gough sent items for tomorrow's Credit Review Board call. Two items for final approval: Think on Inc ($14,685 CAD for project not delivered) and Combined Metal Industries ($6,466.62 CAD goodwill).",
+        "actions": [
+          {
+            "text": "Review Credit Review Board items before tomorrow's call",
+            "completed": false,
+            "completed_proof_url": null
+          }
         ],
-        "last_timestamp": "2026-03-20T00:02:01Z",
-        "participant_count": 2,
-        "is_from_me": true,
-        "has_attachments": false,
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 15:49"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASK%2BggnAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Accepted: Workshop in Person"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5ic8AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Credit Review Board - March 2026"
           }
         ],
-        "is_cluster": false
-      }
-    ],
-    "new_information": [
-      {
-        "id": "b22858c7e804",
-        "item_ids": [
-          "b22858c7e804"
-        ],
-        "category": "new_information",
-        "unified_subject": "Board deck draft meeting",
-        "summary": "Teams meeting invitation from Ian Rae for board deck draft discussion. CC'd for awareness.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
         "sources": [
           "email"
-        ],
-        "last_timestamp": "2026-03-22T21:57:16Z",
-        "participant_count": 3,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASW%2B6lZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Board deck draft"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "210c8e14b465",
-        "item_ids": [
-          "210c8e14b465"
-        ],
-        "category": "new_information",
-        "unified_subject": "Sales Forecast & Pipeline update",
-        "summary": "Marc Alex Forget confirmed they're fine with the sales forecast update. Vicki mentioned safe travels. CC'd for awareness.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-22T21:30:25Z",
-        "participant_count": 10,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASW%2B6lYAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "RE: Sales Forecast & Pipeline - March 20th Update"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "4c68fdbb725a",
-        "item_ids": [
-          "4c68fdbb725a"
-        ],
-        "category": "new_information",
-        "unified_subject": "Colo order form location",
-        "summary": "Team discussion about locating the colo order form. Marc Alex Forget provided the location in the shared documents folder.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-22T21:15:04.614Z",
-        "participant_count": 6,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": "[SALES HELP] Sales Infrastructure & Cloud Questions"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "12c68bcbd30b",
-        "item_ids": [
-          "12c68bcbd30b"
-        ],
-        "category": "new_information",
-        "unified_subject": "Booking update",
-        "summary": "Ian Rae will call to update names on a booking. Has attachment.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-22T19:25:01Z",
-        "participant_count": 4,
-        "is_from_me": false,
-        "has_attachments": true,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASW%2B6lWAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "booking"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "eb716ab5885f",
-        "item_ids": [
-          "eb716ab5885f"
-        ],
-        "category": "new_information",
-        "unified_subject": "Dynatrace VAR partnership inquiry",
-        "summary": "Marc Alex Forget asked if Aptum is a Dynatrace VAR reseller. Ian Rae confirmed CloudOps was a partner and suggested checking with Marc P. about current status and potential mandates via Donald Donovan.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-20T22:36:19.703Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": "Three Musketeers Sync"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "ffba86ece404",
-        "item_ids": [
-          "ffba86ece404"
-        ],
-        "category": "new_information",
-        "unified_subject": "AWS CTA transfer application submitted",
-        "summary": "Nedim Deovic confirmed the AWS CTA transfer application has been submitted. CC'd for awareness.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-20T21:16:25Z",
-        "participant_count": 12,
-        "is_from_me": false,
-        "has_attachments": true,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBsAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: APTUM/AWS CTA transfer"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "7dec198a30e9",
-        "item_ids": [
-          "7dec198a30e9"
-        ],
-        "category": "new_information",
-        "unified_subject": "Q1-Q3 product roadmap status update",
-        "summary": "Team discussion about product roadmap status: Q1 Proxmox pricing done but documentation incomplete, Q2 EOL DCC deprioritized for Ignite migration, ESXi 9 in testing, Next Gen Linux finalizing template and QA.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-20T20:48:43.916Z",
-        "participant_count": 4,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3A0fbcd0050df8463682602a86d9bc3269%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": null
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "1b163cd38d2b",
-        "item_ids": [
-          "1b163cd38d2b"
-        ],
-        "category": "new_information",
-        "unified_subject": "Smart Scale internal sync meeting",
-        "summary": "Meeting invitation from Elizabeth Perez to prep for Smart Scale call.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-20T20:23:45Z",
-        "participant_count": 4,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBqAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Smart Scale: Internal Sync"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "2d27d88dd3d0",
-        "item_ids": [
-          "2d27d88dd3d0"
-        ],
-        "category": "new_information",
-        "unified_subject": "Smart Scale meeting rescheduled to Tuesday",
-        "summary": "Mario Zuniga proposing to reschedule Smart Scale meeting to Tuesday at 10 AM Mexican time. CC'd for awareness.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-20T19:35:36Z",
-        "participant_count": 5,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBpAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Required Licensing Update for Hosted SQL Servers"
-          }
-        ],
-        "is_cluster": false
+        ]
       },
       {
         "id": "09218b0bb075",
         "item_ids": [
           "09218b0bb075"
         ],
-        "category": "new_information",
-        "unified_subject": "Product delivery flow - Kirkland rack discussion",
-        "summary": "Team discussion about product delivery flow, Kirkland hosting racks, and repurposing MTC. Will Stevens confirmed the team is accounting for necessary details.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-20T19:32:44.958Z",
-        "participant_count": 5,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "Product Delivery Flow — Order Link Shared",
+        "summary": "Ben Kennedy shared a link to order #279995 in the product delivery flow discussion.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 1,
+          "slack_count": 0,
+          "date_range": "2026-03-25 15:39"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "teams",
@@ -624,113 +252,261 @@
             "subject": "Product delivery flow"
           }
         ],
-        "is_cluster": false
-      },
-      {
-        "id": "b6cf61d174b9",
-        "item_ids": [
-          "b6cf61d174b9"
-        ],
-        "category": "new_information",
-        "unified_subject": "AWS Cloud Marketplace comms sent",
-        "summary": "Andrei Ianouchkevitch confirmed communications are sent with tracking ticket links for AWS Cloud Marketplace.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
         "sources": [
           "teams"
+        ]
+      },
+      {
+        "id": "6a543e4d43c2",
+        "item_ids": [
+          "6a543e4d43c2"
         ],
-        "last_timestamp": "2026-03-20T18:43:22.067Z",
-        "participant_count": 1,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "Invoice Approval — Ingram Micro $597.91 CAD",
+        "summary": "Wilma Sibal from Accounts Payable requested approval for an Ingram Micro invoice (2026SICA0009948) for $597.91 CAD. Action required by March 28.",
+        "actions": [
+          {
+            "text": "Approve Ingram Micro invoice 2026SICA0009948 for $597.91 CAD by March 28",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 14:45"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5ic7AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Invoices Pending for Approval: Adam Nelson"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      },
+      {
+        "id": "0fea6f0153f8",
+        "item_ids": [
+          "0fea6f0153f8"
+        ],
+        "discard": false,
+        "title": "Board Deck Draft — Travel Delays",
+        "summary": "Ian Rae, Marc Alex Forget, and Sarah Blanchard discussed flight delays and TSA wait times. Ian may miss his flight with no room on the next one. Sarah reported 4-hour wait times.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 10,
+          "slack_count": 0,
+          "date_range": "2026-03-25 13:01–14:15"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_NjdmODA0YjctNzA3NC00NmViLWJkMWYtNjc4MDcyODM5N2Mw%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": "RE: AWS Cloud Marketplace"
+            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_NTkwZTY4MjUtODU5Mi00Mjg5LTk1OWUtZTVlZDYyMDI0MTJj%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "Board deck draft"
           }
         ],
-        "is_cluster": false
+        "sources": [
+          "teams"
+        ]
       },
       {
-        "id": "5a4fb9c6d1a9",
+        "id": "4c68fdbb725a",
         "item_ids": [
-          "5a4fb9c6d1a9"
+          "4c68fdbb725a"
         ],
-        "category": "new_information",
-        "unified_subject": "AWS discount change - 8% base margin starting April 1st",
-        "summary": "Rick Marshbanks confirmed 8% will be the new base margin for US AWS discounts starting April 1st. CC'd for awareness.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
+        "discard": false,
+        "title": "CPQ v28 Pricing Bug — Windows Server 2022 DC",
+        "summary": "Rob Station identified and resolved a CPQ v28 bug where Pro 7.0 servers with 2x16 cores were incorrectly priced for Windows Server 2022 DC at $551.20 instead of $1,102.40. The v29 CPQ correctly prices it. Patrick Wolthausen noted inflation concerns.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 11,
+          "slack_count": 0,
+          "date_range": "2026-03-25 12:50–13:19"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          }
+        ],
         "sources": [
-          "email"
+          "teams"
+        ]
+      },
+      {
+        "id": "a3196f920368",
+        "item_ids": [
+          "a3196f920368"
         ],
-        "last_timestamp": "2026-03-20T18:11:25Z",
-        "participant_count": 13,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "AI Output Quality — Customer Email Draft",
+        "summary": "Frederic Gingras tested AI-generated customer email output and noted that when quality was marginal (yellow confidence level), the system accurately identified the issues, which he found impressive.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 9,
+          "slack_count": 0,
+          "date_range": "2026-03-25 09:23–13:04"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3A93c7243e-98c3-4bbc-8951-dead54e0b136_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": null
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "0848c1f5ffcb",
+        "item_ids": [
+          "0848c1f5ffcb"
+        ],
+        "discard": false,
+        "title": "23-MCP Street — Jira Automation Rules Testing",
+        "summary": "Andrei Ianouchkevitch and Adam Nelson discussed Jira automation rules for ticket APTUM-55042. Both rules were applied correctly at 11:05 AM. Andrei set up a test to verify asset linking and other automation sequences.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 32,
+          "slack_count": 0,
+          "date_range": "2026-03-25 10:58–11:53"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3A59f99a8984dd4ac9acb1f5b5bfb3adcd%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "23-MCP Street"
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "5ec855263deb",
+        "item_ids": [
+          "5ec855263deb"
+        ],
+        "discard": false,
+        "title": "BI Report — Pending Customer Approval Orders",
+        "summary": "Jorge Quintero responded to Lacie Allen-Morley's request about capturing pending customer approval orders in BI reporting. Discussion involves Matthew Carter, Tom Kelsch, Kathy Wu, and SupplyChain-Ops team.",
+        "actions": [],
+        "tracked_items": [
+          "Jorge Quintero to provide BI report details on pending customer approval orders"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 11:34–11:44"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBlAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "RE: [EXTERNAL]RE: Formal Notice of AWS Distribution Agreement Change"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5ic3AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: BI Report: Capture Pending Customer Approval “orders”"
           }
         ],
-        "is_cluster": false
-      },
-      {
-        "id": "1b551bc4a0be",
-        "item_ids": [
-          "1b551bc4a0be"
-        ],
-        "category": "new_information",
-        "unified_subject": "AWS DSA transfer request to TD SYNNEX",
-        "summary": "Ciara Perkins requesting AWS DSA transfer facilitation with April start date to align with CTA of accounts from Ingram to TD SYNNEX. CC'd for awareness.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
         "sources": [
           "email"
+        ]
+      },
+      {
+        "id": "b0624c775ffa",
+        "item_ids": [
+          "b0624c775ffa"
         ],
-        "last_timestamp": "2026-03-20T18:02:40Z",
-        "participant_count": 9,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "Internal Systems Development — Team Capabilities Demo",
+        "summary": "Will Stevens and Adam Nelson discussed the development team's current focus on internal systems and product advancement. Will is comfortable demoing the functionality. Adam wants to understand how the team can be pointed at other internal systems.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 13,
+          "slack_count": 0,
+          "date_range": "2026-03-25 10:11–11:36"
+        },
+        "individual_sources": [],
         "urls": [
           {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBiAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: AWS Distributor Transfer - DSA/CTA Sponsorship Change: 22-MAR-2026"
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3A0d1ec731-2fb2-4ba2-9155-439704fe4066_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": null
           }
         ],
-        "is_cluster": false
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "2363fef18f11",
+        "item_ids": [
+          "2363fef18f11"
+        ],
+        "discard": false,
+        "title": "OpenAI Financial Viability Discussion",
+        "summary": "Marc Hosang, Andy Petterson, and team discussed OpenAI's business model and financial sustainability. Marc expressed hope it goes under, while Andy noted concerns about AI as a productivity tool versus job replacement. Marc mentioned loving Codex despite concerns.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 18,
+          "slack_count": 0,
+          "date_range": "2026-03-25 11:11–11:30"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_NGEwMWZlZGEtNjI1YS00MjUzLWIzM2ItZmM2YzlhNGZkOWYz%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "[INT] Delivery Team Sync Up"
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
       },
       {
         "id": "a292407d7d1a",
         "item_ids": [
           "a292407d7d1a"
         ],
-        "category": "new_information",
-        "unified_subject": "GSE-311 RFP update",
-        "summary": "Rob Station explaining the JIRA ticket for GSE-311 will be updated today after finishing the RFP. Pre-submittal call with customer went very well.",
-        "my_actions": [],
-        "tracked_actions": [
-          "Rob Station updating GSE-311 JIRA ticket with details"
+        "discard": false,
+        "title": "Waterstones — SE Assignment & CPQ Quote",
+        "summary": "Cody Bond, Patrick Wolthausen, and Frederic Gingras discussed Waterstones project. Andy Petterson is assigned as SE and has been working with Darren and Mike. Cody suggested using quote 470 from Brendan for ballpark pricing, noting it will have less RAM than final build.",
+        "actions": [],
+        "tracked_items": [
+          "Andy Petterson working with Darren and Mike on Waterstones SE support"
         ],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-20T16:53:22.962Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 11,
+          "slack_count": 0,
+          "date_range": "2026-03-25 10:12–10:53"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "teams",
@@ -738,289 +514,101 @@
             "subject": "[INT] GSE Board Review"
           }
         ],
-        "is_cluster": false
-      },
-      {
-        "id": "9dda10a1ebbe",
-        "item_ids": [
-          "9dda10a1ebbe"
-        ],
-        "category": "new_information",
-        "unified_subject": "Sales and GSE focus areas discussion",
-        "summary": "Ian Rae outlining his vision: sales focused on selling lego kit variations (private/public cloud), service delivery handling lego block support without sales involvement, and GSE focused on custom/complex work.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
         "sources": [
           "teams"
+        ]
+      },
+      {
+        "id": "38d17c298b4f",
+        "item_ids": [
+          "38d17c298b4f"
         ],
-        "last_timestamp": "2026-03-20T16:36:45.154Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "VMware Pricing Analysis — Burst Core Rates",
+        "summary": "Martin Tessier and Adam Nelson discussed VMware pricing structure. Minimum commit is 3,000 cores at $20, burstable to 3,500 at $20, then $24 for anything over 3,500. Carlton's invoice shows 48 overages at $20. They reviewed 333 burst cores in Matt's table and historical pricing where customers paid $23.26 while cost was $24.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 49,
+          "slack_count": 0,
+          "date_range": "2026-03-25 09:36–10:39"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3A73698217eab54d839f5313e6ac8bee3e%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "url": "https://teams.microsoft.com/l/chat/19%3A1ea134e841ae43a1ae2045f0e83fd1bd%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
             "subject": null
           }
         ],
-        "is_cluster": false
-      },
-      {
-        "id": "f4467858da61",
-        "item_ids": [
-          "f4467858da61"
-        ],
-        "category": "new_information",
-        "unified_subject": "October COE operating update reference",
-        "summary": "Ian Rae shared a copy of the October operating update for COE board presentation as reference material.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
         "sources": [
           "teams"
+        ]
+      },
+      {
+        "id": "126718b3e3fa",
+        "item_ids": [
+          "126718b3e3fa"
         ],
-        "last_timestamp": "2026-03-20T15:57:19.897Z",
-        "participant_count": 1,
-        "is_from_me": false,
-        "has_attachments": false,
+        "discard": false,
+        "title": "Board Prep — Running 30 Minutes Behind",
+        "summary": "Sarah Blanchard alerted the team they are 30 minutes behind schedule and need to speed up board preparation.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 4,
+          "slack_count": 0,
+          "date_range": "2026-03-25 10:04–10:07"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3A5842d4bb-c645-421b-af8d-6e71e8e01636_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": null
+            "url": "https://teams.microsoft.com/l/chat/19%3A21556645f2dc4e16b4247c59482506b5%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "The Three Musketeers"
           }
         ],
-        "is_cluster": false
+        "sources": [
+          "teams"
+        ]
       },
       {
-        "id": "2589d6641387",
+        "id": "07a3d5c46e55",
         "item_ids": [
-          "2589d6641387"
+          "07a3d5c46e55"
         ],
-        "category": "new_information",
-        "unified_subject": "Operating update for COE document shared",
-        "summary": "Ian Rae shared edit access to the Operating update for COE PowerPoint document.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
+        "discard": false,
+        "title": "ThinkOn — Follow-up Discussion Needed",
+        "summary": "Matthew Carter forwarded a ThinkOn-related thread to Adam Nelson, suggesting they discuss when Adam returns from the Board meeting. The original thread involved Nedim Deovic and Sarah Blanchard, with Matthew planning to discuss on his next 1:1 with Sarah.",
+        "actions": [
+          {
+            "text": "Discuss ThinkOn matter with Matthew Carter after Board meeting",
+            "completed": false,
+            "completed_proof_url": null
+          }
         ],
-        "last_timestamp": "2026-03-20T15:56:19Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 09:38"
+        },
+        "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBcAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Ian Rae shared \"Operating update for COE\" with you"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5ic0AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "FW: ThinkOn"
           }
         ],
-        "is_cluster": false
-      },
-      {
-        "id": "5a06536e0a24",
-        "item_ids": [
-          "5a06536e0a24"
-        ],
-        "category": "new_information",
-        "unified_subject": "Sunny interview scheduled",
-        "summary": "Andrei Ianouchkevitch confirmed interview with Sunny is set for next Friday. Nikki noted comp committee didn't finalize compensation yet but will work on it.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-20T15:42:21.107Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3A60624f496a074659aceaa53002ffae87%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": null
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "797db2c07762",
-        "item_ids": [
-          "797db2c07762"
-        ],
-        "category": "new_information",
-        "unified_subject": "New GSE project - Waterstones MySQL server refreshes",
-        "summary": "New GSE project created by Darren Wells for Waterstones MySQL Poslogs Master & RO Mirror Server Refreshes.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
         "sources": [
           "email"
-        ],
-        "last_timestamp": "2026-03-20T15:01:35Z",
-        "participant_count": 5,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASN3fBZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "New GSEID Waterstones - MySQL Poslogs Master & RO Mirror Server Refreshes"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "2299d52d4329",
-        "item_ids": [
-          "2299d52d4329"
-        ],
-        "category": "new_information",
-        "unified_subject": "Alert grouping discussion",
-        "summary": "Brief team discussion about alert grouping feature, with Jason Auer joking it was his idea and Andrei agreeing it's a great idea.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-20T14:31:54.787Z",
-        "participant_count": 3,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": "Weeks Tweeks sans Dave"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "84cb85af6530",
-        "item_ids": [
-          "84cb85af6530"
-        ],
-        "category": "new_information",
-        "unified_subject": "Azure relationship request documentation",
-        "summary": "Andy Petterson shared a Confluence link about Azure send relationship request process.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-20T13:39:32.872Z",
-        "participant_count": 1,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_YzA3ZDYzYTctZTg5OS00ZTI3LWJmMDgtNDQ0ZmU5Mzk1MGY4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": "[INT] Service Delivery - Scrum"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "a41bb9a1d2bb",
-        "item_ids": [
-          "a41bb9a1d2bb"
-        ],
-        "category": "new_information",
-        "unified_subject": "Operations sprint review canceled",
-        "summary": "Andrei Ianouchkevitch canceled Friday's Operations sprint review due to people being out. CC'd for awareness.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-20T13:00:05Z",
-        "participant_count": 14,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEKAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASOZ0UJAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Canceled: Operations - Sprint review"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "d338b201562b",
-        "item_ids": [
-          "d338b201562b"
-        ],
-        "category": "new_information",
-        "unified_subject": "SD & Commercial Alignment meeting canceled",
-        "summary": "Lacie Allen-Morley canceled the SD & Commercial Alignment meeting.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "email",
-        "sources": [
-          "email"
-        ],
-        "last_timestamp": "2026-03-20T12:57:16Z",
-        "participant_count": 4,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEKAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASOZ0UKAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Canceled: [INT] SD & Commercial Alignment"
-          }
-        ],
-        "is_cluster": false
-      },
-      {
-        "id": "09e7f3ac00f6",
-        "item_ids": [
-          "09e7f3ac00f6"
-        ],
-        "category": "new_information",
-        "unified_subject": "SD & Commercial Alignment meeting canceled",
-        "summary": "Lacie asked if anything urgent for the meeting. Frederic said nothing urgent and was okay getting the time back, so meeting was canceled.",
-        "my_actions": [],
-        "tracked_actions": [],
-        "suggested_reply": null,
-        "source": "teams",
-        "sources": [
-          "teams"
-        ],
-        "last_timestamp": "2026-03-20T12:51:29.866Z",
-        "participant_count": 2,
-        "is_from_me": false,
-        "has_attachments": false,
-        "urls": [
-          {
-            "source": "teams",
-            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZjIxMGRhNTctZWE5Yy00NTczLWFjNmItOGE1YzllNGZkMzU2%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-            "subject": "[INT] SD & Commercial Alignment"
-          }
-        ],
-        "is_cluster": false
+        ]
       }
     ],
-    "discard_count": 31
+    "discard_count": 30
   }
 }
