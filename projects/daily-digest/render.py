@@ -121,7 +121,7 @@ def render_markdown(summary: dict) -> List[str]:
     items = summary["output"]["items"]
     discard_count = summary["output"]["discard_count"]
 
-    lines = ["## Yesterday in Review", ""]
+    lines = []
 
     for item in items:
         primary_url = item["urls"][0]["url"] if item.get("urls") else ""
@@ -214,8 +214,9 @@ def inject_schedule(note_path: Path, schedule_rows: List[str]) -> str:
 
 def inject_digest(note_path: Path, rendered_lines: List[str]) -> None:
     """
-    Idempotent injection: replaces existing '## Yesterday in Review' section,
-    or inserts before '## End of Day' if present, or appends.
+    Idempotent injection: replaces content inside existing
+    '## Yesterday in Review' (or legacy '## Daily Digest') section only.
+    Does not create new headers.
     """
     content = note_path.read_text(encoding="utf-8")
     lines = content.split("\n")
@@ -240,20 +241,12 @@ def inject_digest(note_path: Path, rendered_lines: List[str]) -> None:
                 end_idx = i
                 break
         end_idx = end_idx if end_idx is not None else len(lines)
-        new_lines = lines[:start_idx] + rendered_lines + lines[end_idx:]
+        # Keep the section header line from the template, replace only the body.
+        new_lines = lines[: start_idx + 1] + [""] + rendered_lines + lines[end_idx:]
         mode = "replaced"
     else:
-        eod_idx = None
-        for i, line in enumerate(lines):
-            if line.strip() == "## End of Day":
-                eod_idx = i
-                break
-        if eod_idx is not None:
-            new_lines = lines[:eod_idx] + [""] + rendered_lines + [""] + lines[eod_idx:]
-            mode = "inserted before End of Day"
-        else:
-            new_lines = lines + [""] + rendered_lines
-            mode = "appended"
+        mode = "skipped -- no Yesterday in Review section"
+        return mode
 
     note_path.write_text("\n".join(new_lines), encoding="utf-8")
     return mode
