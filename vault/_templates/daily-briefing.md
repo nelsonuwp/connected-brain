@@ -13,6 +13,10 @@ week: <% tp.date.now("[W]ww") %>
 
 ## Today's Schedule
 
+| Time | Meeting | Attendees | Prep |
+|------|---------|-----------|------|
+| | | | |
+
 ## Active Work
 
 ### Initiatives & Tasks: In Flight
