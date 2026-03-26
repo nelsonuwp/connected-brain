@@ -1,7 +1,13 @@
-# Daily Digest — Cursor Rules
+---
+description: Daily digest pipeline — project conventions and key files
+globs: projects/daily-digest/**
+alwaysApply: false
+---
+
+# Daily Digest
 
 ## Project Structure
-This is a Python pipeline under `projects/daily-digest/` in the `connected-brain` monorepo.
+Python pipeline under `projects/daily-digest/` in the `connected-brain` monorepo.
 Root `.env` is at `~/connected-brain/.env`. Vault is at `~/connected-brain/vault/`.
 
 ## Architecture
@@ -20,7 +26,11 @@ Everything downstream of normalize.py operates on the canonical `InboundItem` sc
 - `normalize.py` — Has one normalizer function per source. Adding a new source = adding a new normalizer + updating `NORMALIZERS` dict.
 - `process.py` — Deterministic only. No LLM calls. Embedding uses `all-MiniLM-L6-v2` with TF-IDF fallback.
 - `summarize.py` — Single LLM call via OpenRouter. The system prompt is the most tunable part.
+- `render.py` — Markdown renderer + daily note injection. Section marker: `## Yesterday in Review`.
 - `run_pipeline.py` — Orchestrator. Date logic derives fetch window from note date.
+
+## Output Format
+Flat list under `## Yesterday in Review`. No bucket headers. Tags (`#action`, `#tracking`) drive the sidebar. See `README.md` for the full format spec.
 
 ## Testing
 - Run email-only first: `python run_pipeline.py --sources email`
