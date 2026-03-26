@@ -97,7 +97,7 @@ def _load_user_identity() -> dict:
 
     # YAML-based (if pyyaml available)
     try:
-        import yaml
+        import yaml  # type: ignore[reportMissingImports]
         if config_path.exists():
             with open(config_path, encoding="utf-8") as f:
                 cfg = yaml.safe_load(f) or {}
