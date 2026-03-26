@@ -33,6 +33,7 @@ INGESTORS = {
     "email": "ingestors.email",
     "teams": "ingestors.teams",
     "slack": "ingestors.slack",
+    "calendar": "ingestors.calendar",
 }
 
 
@@ -131,7 +132,7 @@ def main() -> int:
         t0 = time.time()
 
         if stage_name == "ingest":
-            rc = _run_ingest(source_list, msg_start, msg_end)
+            rc = _run_ingest(source_list, msg_start, msg_end, note_date)
 
         elif stage_name == "normalize":
             from normalize import main as normalize_main
@@ -172,7 +173,7 @@ def main() -> int:
     return 0
 
 
-def _run_ingest(sources: list, start: date, end: date) -> int:
+def _run_ingest(sources: list, start: date, end: date, note_date: date) -> int:
     """
     Run all configured ingestors. Returns 0 if at least one succeeds.
     """
@@ -194,6 +195,9 @@ def _run_ingest(sources: list, start: date, end: date) -> int:
             elif source_name == "slack":
                 from ingestors.slack import main as ingest_slack
                 rc = ingest_slack(start, end)
+            elif source_name == "calendar":
+                from ingestors.calendar import main as ingest_calendar
+                rc = ingest_calendar(note_date)
             else:
                 rc = 1
             results[source_name] = rc

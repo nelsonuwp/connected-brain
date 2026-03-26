@@ -31,7 +31,7 @@ _cached_token: Optional[str] = None
 # Email: Mail.Read
 # Teams: Chat.Read, Chat.ReadBasic
 # Both:  User.Read
-ALL_SCOPES = "Mail.Read Chat.Read Chat.ReadBasic User.Read"
+ALL_SCOPES = "Mail.Read Chat.Read Chat.ReadBasic Calendars.Read User.Read"
 
 # ── OAuth / PKCE ──────────────────────────────────────────────────────────────
 

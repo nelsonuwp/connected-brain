@@ -21,8 +21,6 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-import yaml
-
 DEFAULT_INPUT = Path(__file__).resolve().parent / "outputs" / "daily_summary.json"
 CALENDAR_OUTPUT = Path(__file__).resolve().parent / "outputs" / "source_calendar.json"
 CALENDAR_FILTER_PATH = Path(__file__).resolve().parent / "config" / "calendar_filter.yaml"
@@ -52,10 +50,10 @@ def _load_calendar_filter() -> dict:
     if not CALENDAR_FILTER_PATH.exists():
         return default
     try:
-        parsed = yaml.safe_load(CALENDAR_FILTER_PATH.read_text(encoding="utf-8")) or {}
-        if not isinstance(parsed, dict):
-            return default
-        return parsed
+        text = CALENDAR_FILTER_PATH.read_text(encoding="utf-8")
+        match = re.search(r"company_wide_threshold:\s*(\d+)", text)
+        threshold = int(match.group(1)) if match else 15
+        return {"filter": {"company_wide_threshold": threshold}}
     except Exception:
         return default
 
