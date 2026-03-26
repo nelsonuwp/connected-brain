@@ -73,7 +73,7 @@ Items render as a flat list under `## Yesterday in Review`. No bucket headers �
 Ian assigned tasks: summarize critical incidents for Q2 Board deck, review and comment on what he missed.
 - [ ] Summarize critical incidents for Q2 Board deck #action
 - [ ] Review Ian's draft and comment on gaps #action
-- Ian is preparing the full board package for April — waiting on multiple contributors #tracking
+- [ ] Ian is preparing the full board package for April — waiting on multiple contributors #tracking
 Sources: [Re: Q2 Board Deck — Draft](url1) · [Re: COE Operating Update](url2)
 `4 emails · 2026-03-25 09:14–16:42`
 
@@ -95,19 +95,20 @@ Team agreed to reduce scope for next sprint given upcoming holidays.
 1. **Title IS the link:** `#### [Title Summary](primary-url) \`source\`` — not `Title — [link](url)`
 2. **Source tag** after title: `` `email` ``, `` `teams` ``, `` `email` `teams` `` for multi-source
 3. **Actions inline** — no `##### My Actions` sub-header. Just `- [ ] action #action` directly after the summary paragraph
-4. **Tracking inline** — no `##### Tracking` sub-header. Just `- item #tracking` directly after actions
+4. **Tracking inline** — no `##### Tracking` sub-header. Just `- [ ] item #tracking` directly after actions
 5. **Completed actions** — `- [x] Description — [proof](url) #action` when someone already did a requested action
-6. **Sources line** — only when item spans multiple emails/threads/channels: `Sources: [label](url) · [label](url)`
-7. **Stats line** at bottom of every item: `` `{N} emails · {M} teams · {date_range}` ``
-8. **Summary stats** as blockquote at very end: `> {N} items · {N} emails · {N} teams · {N} discarded`
-9. **No bucket headers** — no `### Waiting on Me`, `### Tracking`, `### New Information`
-10. **No suggested reply** — removed from output
+6. **Completed tracking** — `- [x] Description — [proof](url) #tracking` when evidence shows the tracked item was finished
+7. **Sources line** — only when item spans multiple emails/threads/channels: `Sources: [label](url) · [label](url)`
+8. **Stats line** at bottom of every item: `` `{N} emails · {M} teams · {date_range}` ``
+9. **Summary stats** as blockquote at very end: `> {N} items · {N} emails · {N} teams · {N} discarded`
+10. **No bucket headers** — no `### Waiting on Me`, `### Tracking`, `### New Information`
+11. **No suggested reply** — removed from output
 
 ### Categorization
 
 Tags drive the sidebar, not section headers:
 - `#action` on a checkbox → surfaces in `open-tasks.md` under "My Actions"
-- `#tracking` on a bullet → surfaces in `open-tasks.md` under "Waiting On Others"
+- `#tracking` on a checkbox → surfaces in `open-tasks.md` under "Waiting On Others"
 - Neither → informational awareness, no sidebar presence
 
 ## LLM Prompt
@@ -128,7 +129,10 @@ For each item or cluster, produce a digest entry with:
    - "completed": true if evidence shows someone already fulfilled this (e.g., a reply confirming it's done)
    - "completed_proof_url": URL to the message proving completion (null if not completed)
 
-4. **tracked_items**: Things others are doing that the executive should monitor. Each is a plain string. Examples: "Marc Pare to get AWS program language for amendment", "Jorge to fix BI report filter"
+4. **tracked_items**: Things others are doing that the executive should monitor. Each is an object:
+   - "text": clear, specific tracking description (e.g., "Marc Pare to get AWS program language for amendment")
+   - "completed": true if a later message shows this was finished
+   - "completed_proof_url": URL to the message proving completion (null if not completed)
 
 5. **source_stats**: Object with counts per source type and a date range:
    - "email_count": number of emails in this item/cluster
@@ -161,7 +165,9 @@ Respond with a JSON object. No markdown fences, no preamble:
       "actions": [
         {"text": "Review the attachment before tomorrow's call", "completed": false, "completed_proof_url": null}
       ],
-      "tracked_items": ["Jorge to amend the BI report filter"],
+      "tracked_items": [
+        {"text": "Jorge to amend the BI report filter", "completed": false, "completed_proof_url": null}
+      ],
       "source_stats": {
         "email_count": 3,
         "teams_count": 1,
@@ -205,7 +211,18 @@ Respond with a JSON object. No markdown fences, no preamble:
               "required": ["text", "completed"]
             }
           },
-          "tracked_items": {"type": "array", "items": {"type": "string"}},
+          "tracked_items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {"type": "string"},
+                "completed": {"type": "boolean"},
+                "completed_proof_url": {"type": ["string", "null"]}
+              },
+              "required": ["text", "completed"]
+            }
+          },
           "source_stats": {
             "type": "object",
             "properties": {
@@ -278,7 +295,20 @@ def render_markdown(summary: dict) -> List[str]:
                 lines.append(f'- [ ] {action["text"]} #action')
 
         for tracked in item.get("tracked_items", []):
-            lines.append(f'- {tracked} #tracking')
+            if isinstance(tracked, dict):
+                t_text = tracked.get("text", "")
+                t_done = tracked.get("completed", False)
+                t_proof = tracked.get("completed_proof_url")
+            else:
+                t_text = str(tracked)
+                t_done = False
+                t_proof = None
+
+            check = "x" if t_done else " "
+            if t_done and t_proof:
+                lines.append(f'- [{check}] {t_text} — [completed]({t_proof}) #tracking')
+            else:
+                lines.append(f'- [{check}] {t_text} #tracking')
 
         ind_sources = item.get("individual_sources", [])
         if len(ind_sources) > 1:

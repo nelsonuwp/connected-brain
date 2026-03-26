@@ -406,15 +406,14 @@ def _normalize_slack(source_data: dict) -> List[InboundItem]:
 
         body_parts = []
         for msg in msgs:
-            text = msg.get("text", "").strip()
-            user = msg.get("user", "Unknown")
+            text = (msg.get("text") or "").strip()
+            user_name = msg.get("_user_name") or msg.get("user", "Unknown")
             if text:
-                body_parts.append(f"[{user}]\n{text}")
+                body_parts.append(f"[{user_name}]\n{text}")
         full_body = "\n\n---\n\n".join(body_parts)
 
-        # Slack user IDs need resolution to names — TODO
         author: Participant = {
-            "name": newest.get("user", ""),
+            "name": newest.get("_user_name") or newest.get("user", ""),
             "handle": newest.get("user", ""),
             "role": "from",
         }
@@ -425,11 +424,21 @@ def _normalize_slack(source_data: dict) -> List[InboundItem]:
             u = msg.get("user", "")
             if u and u not in seen:
                 seen.add(u)
-                participants.append({"name": u, "handle": u, "role": "from"})
+                participants.append(
+                    {"name": msg.get("_user_name") or u, "handle": u, "role": "from"}
+                )
 
         slack_user_id = os.getenv("SLACK_USER_ID", "")
-        is_from_me = author["handle"] == slack_user_id
-        mentions_me = f"<@{slack_user_id}>" in full_body if slack_user_id else False
+        is_from_me = _is_me(author["name"], author["handle"]) or (
+            slack_user_id and author["handle"] == slack_user_id
+        )
+
+        mention_token = f"<@{slack_user_id}>" if slack_user_id else ""
+        # Mentions detection: slack mention token OR display name substring (helps when text includes names).
+        display_names = _user().get("display_names", [])
+        full_body_lower = (full_body or "").lower()
+        mentions_by_name = any((dn or "").lower() in full_body_lower for dn in display_names)
+        mentions_me = (mention_token and mention_token in full_body) or mentions_by_name
 
         item_id = make_item_id("slack", thread_key)
 
@@ -454,7 +463,7 @@ def _normalize_slack(source_data: dict) -> List[InboundItem]:
             "is_forwarded": False,
             "attachments": [],
             "has_attachments": False,
-            "url": None,
+            "url": newest.get("permalink"),
             "source_meta": {
                 "channel_id": newest.get("_channel_id", ""),
                 "channel_name": channel_name,
