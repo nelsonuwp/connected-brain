@@ -77,14 +77,25 @@ LIMIT 10
 <!--
 Pipeline injects a flat list. Each item rendered as:
 
-#### Short Title — [link](url) `source1` `source2`
+#### [Short Title Summary](primary-url) `source`
 One paragraph summary — enough context to understand, no more.
 - [ ] Something I need to do #action
+- [x] Something already done — [proof](url-to-completion-message) #action
 - [ ] Something someone else needs to do that I need to track #tracking
+Sources: [Re: Thread subject](url1) · [Teams: Channel name](url2)
+`3 emails · 1 teams · 2026-03-25 14:22–17:05`
 
-No section headers for "Waiting on Me" / "Waiting on Others" / "Informative".
-Categorization is implicit from the tags:
-  - Has #action → I need to act
+FORMATTING RULES:
+  - Title is the link: [Title](url) not Title — [link](url)
+  - Source tag after title: `email`, `teams`, `email` `teams` for multi-source
+  - Completed actions use [x] with a link to the message proving completion
+  - "Sources:" line only appears when item spans multiple emails/threads/channels
+    (skip it for single-source items — the title link is sufficient)
+  - Stats line at bottom of each item: count per source type · date range
+  - Teams messages have linkable URLs — include them like email links
+
+CATEGORIZATION — implicit, not structural:
+  - Has #action → I need to act (feeds [[open-tasks]] sidebar)
   - Has #tracking → Someone else needs to act, I'm following
   - Neither → Informational, just awareness
 -->
