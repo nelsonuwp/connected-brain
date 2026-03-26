@@ -1,9 +1,8 @@
 {
-  "normalized_at": "2026-03-26T18:06:48.136570Z",
+  "normalized_at": "2026-03-26T20:59:08.046695Z",
   "sources": [
     "email",
-    "teams",
-    "slack"
+    "teams"
   ],
   "item_count": 50,
   "items": [

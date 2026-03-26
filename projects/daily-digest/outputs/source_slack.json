@@ -1,18 +1,12 @@
 {
   "source": "slack",
-  "collected_at": "2026-03-26T18:06:46.598253Z",
-  "status": "success",
+  "collected_at": "2026-03-26T20:59:05.610009Z",
+  "status": "skipped",
   "objects": {
-    "channels": {
-      "status": "success",
-      "record_count": 0,
-      "error": null,
-      "data": []
-    },
     "messages": {
-      "status": "success",
+      "status": "skipped",
       "record_count": 0,
-      "error": null,
+      "error": "SLACK_BOT_TOKEN missing or placeholder/comment value (check .env duplicate SLACK section).",
       "data": []
     }
   },
