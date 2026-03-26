@@ -6,14 +6,9 @@ LLM-based triage of processed InboundItems.
 
 Reads items_processed.json → sends to LLM for categorization → writes daily_summary.json.
 
-The LLM receives source-agnostic items and categorizes each as:
-  - waiting_on_me:   someone needs something from me
-  - tracking:        I'm waiting on someone else, or monitoring progress
-  - new_information: FYI / no action needed
-  - discard:         noise the deterministic filter missed
-
-Clustered items (cross-source groups) are sent together so the LLM
-sees the full context and produces a unified summary.
+The LLM receives source-agnostic items and produces a flat list of digest entries,
+each with: title, summary, actions (with completion tracking), tracked_items,
+source_stats, and individual_sources. Items tagged discard are filtered out.
 
 Input:  outputs/items_processed.json
 Output: outputs/daily_summary.json
@@ -33,49 +28,128 @@ OUTPUT_PATH = OUTPUT_DIR / "daily_summary.json"
 
 # ── LLM prompt ────────────────────────────────────────────────────────────────
 
-SYSTEM_PROMPT = """You are a personal assistant triaging yesterday's incoming messages for a senior technology executive.
+SYSTEM_PROMPT = """You are a personal assistant preparing a daily communication digest for a senior technology executive. You will receive a JSON array of communication items (emails, Teams messages, Slack messages) from the previous business day. Some items are grouped into clusters — these are related conversations across different platforms about the same topic.
 
-You will receive a JSON array of communication items (emails, Teams messages, Slack messages).
-Some items are grouped into clusters — these are related conversations across different platforms about the same topic.
+For each item or cluster, produce a digest entry with:
 
-For each item or cluster, determine:
-1. **category**: exactly one of: "waiting_on_me", "tracking", "new_information", "discard"
-   - waiting_on_me: someone explicitly needs something from me (approval, reply, signature, decision, info)
-   - tracking: I'm waiting on someone else, or monitoring something in progress
-   - new_information: useful FYI but no action needed from me
-   - discard: noise, automated notifications, or marketing that got past filters
+1. **title**: A short, descriptive title that summarizes the topic (5-10 words). This will become a clickable link — make it scannable and informative. Examples: "AWS Marketplace — TDSynnex Program Docs", "Credit Review Board — Items for Tomorrow", "CPQ v28 Pricing Bug Resolved"
 
-2. **summary**: 1-2 concise sentences describing what this is about
+2. **summary**: 1-3 sentences of context. Enough to understand without opening the source. Include key names, numbers, dates, and decisions. Do NOT pad with filler.
 
-3. **my_actions**: list of specific things I need to do (empty for tracking/info/discard)
+3. **actions**: Things the executive needs to do. Each action is an object:
+   - "text": clear, specific action description
+   - "completed": true if evidence shows someone already fulfilled this (e.g., a reply confirming it's done)
+   - "completed_proof_url": URL to the message proving completion (null if not completed)
 
-4. **tracked_actions**: things others are doing that I should monitor (empty if none)
+4. **tracked_items**: Things others are doing that the executive should monitor. Each is a plain string. Examples: "Marc Pare to get AWS program language for amendment", "Jorge to fix BI report filter"
 
-5. **suggested_reply**: optional short reply draft IF a quick response would be appropriate (null otherwise)
+5. **source_stats**: Object with counts per source type and a date range:
+   - "email_count": number of emails in this item/cluster
+   - "teams_count": number of Teams messages
+   - "slack_count": number of Slack messages
+   - "date_range": "YYYY-MM-DD HH:MM" for single timestamp, or "YYYY-MM-DD HH:MM–HH:MM" for a range (in ET)
+
+6. **individual_sources**: Array of individual source links when an item spans multiple threads/channels. Each has:
+   - "label": Human-readable label (e.g., "Re: Q2 Board Deck — Draft", "Teams: Project Delivery")
+   - "url": Direct link to the message/thread
+   Only include this when there are 2+ distinct threads or channels. Omit (empty array) for single-source items.
 
 Context about the user:
-- Their identity information is reflected in the is_from_me and mentions_me fields
-- If is_from_me is true on the most recent message, this is likely "tracking" (I already responded)
-- If mentions_me or am_in_to is true and is_from_me is false, likely "waiting_on_me"
-- Items in CC only (am_in_cc=true, am_in_to=false) are more likely "new_information"
+- If is_from_me is true on the most recent message, they already responded — actions are less likely
+- If mentions_me or am_in_to is true and is_from_me is false, they probably need to act
+- Items in CC only (am_in_cc=true, am_in_to=false) are more likely informational
+- The user is Adam Nelson, a senior technology executive at Aptum
 
-Respond with a JSON object:
+Discard items that are pure noise the deterministic filter missed (automated notifications, marketing, system alerts with no action needed). Set discard: true on these.
+
+Respond with a JSON object. No markdown fences, no preamble:
 {
   "items": [
     {
       "id": "item_id or cluster_id",
-      "item_ids": ["list", "of", "item", "ids", "in", "this", "group"],
-      "category": "waiting_on_me",
-      "unified_subject": "Clean subject line for display",
-      "summary": "Brief summary",
-      "my_actions": ["action 1", "action 2"],
-      "tracked_actions": ["thing to track"],
-      "suggested_reply": "Quick reply draft or null"
+      "item_ids": ["id1", "id2"],
+      "discard": false,
+      "title": "Short Descriptive Title",
+      "summary": "1-3 sentence summary.",
+      "actions": [
+        {"text": "Review the attachment before tomorrow's call", "completed": false, "completed_proof_url": null}
+      ],
+      "tracked_items": ["Jorge to amend the BI report filter"],
+      "source_stats": {
+        "email_count": 3,
+        "teams_count": 1,
+        "slack_count": 0,
+        "date_range": "2026-03-25 09:14–16:42"
+      },
+      "individual_sources": [
+        {"label": "Re: AWS Cloud Marketplace — Gina Tammo", "url": "https://..."},
+        {"label": "Teams: Basis Discussion", "url": "https://..."}
+      ]
     }
   ]
-}
+}"""
 
-Respond ONLY with valid JSON. No markdown fences, no preamble."""
+LLM_OUTPUT_SCHEMA: dict = {
+    "type": "object",
+    "properties": {
+        "items": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "item_ids": {"type": "array", "items": {"type": "string"}},
+                    "discard": {"type": "boolean"},
+                    "title": {"type": "string"},
+                    "summary": {"type": "string"},
+                    "actions": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "text": {"type": "string"},
+                                "completed": {"type": "boolean"},
+                                "completed_proof_url": {"type": ["string", "null"]},
+                            },
+                            "required": ["text", "completed"],
+                        },
+                    },
+                    "tracked_items": {"type": "array", "items": {"type": "string"}},
+                    "source_stats": {
+                        "type": "object",
+                        "properties": {
+                            "email_count": {"type": "integer"},
+                            "teams_count": {"type": "integer"},
+                            "slack_count": {"type": "integer"},
+                            "date_range": {"type": "string"},
+                        },
+                    },
+                    "individual_sources": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "label": {"type": "string"},
+                                "url": {"type": "string"},
+                            },
+                        },
+                    },
+                },
+                "required": [
+                    "id",
+                    "item_ids",
+                    "discard",
+                    "title",
+                    "summary",
+                    "actions",
+                    "tracked_items",
+                    "source_stats",
+                ],
+            },
+        }
+    },
+    "required": ["items"],
+}
 
 
 def _build_llm_payload(items: list) -> list:
@@ -125,8 +199,9 @@ def _slim_item(item: dict) -> dict:
         "id": item["id"],
         "source": item["source"],
         "subject": item.get("subject"),
-        "body_snippet": (item.get("body_snippet") or "")[:400],
+        "body_snippet": (item.get("body_snippet") or "")[:600],
         "message_count": item.get("message_count", 1),
+        "first_timestamp": item.get("first_timestamp", ""),
         "last_timestamp": item.get("last_timestamp", ""),
         "author": {
             "name": (item.get("author") or {}).get("name", ""),
@@ -140,6 +215,7 @@ def _slim_item(item: dict) -> dict:
         "is_direct_message": item.get("is_direct_message", False),
         "is_forwarded": item.get("is_forwarded", False),
         "has_attachments": item.get("has_attachments", False),
+        "url": item.get("url", ""),
     }
 
 
@@ -147,20 +223,24 @@ def _call_llm(payload: list) -> Optional[dict]:
     """
     Call the LLM via OpenRouter for triage.
 
-    Uses call_json from your existing openrouter.py connector.
+    Uses call_structured from your existing openrouter.py connector.
     """
-    from connectors.openrouter import call_json
+    from connectors.openrouter import call_structured
 
     model = os.getenv("DIGEST_LLM_MODEL", "anthropic/claude-sonnet-4-5")
 
+    payload_json = json.dumps(payload, indent=2)
+
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": json.dumps(payload, indent=2)},
+        {"role": "user", "content": payload_json},
     ]
 
-    parsed, raw = call_json(
+    parsed, raw = call_structured(
         model=model,
         messages=messages,
+        schema=LLM_OUTPUT_SCHEMA,
+        schema_name="digest_output",
         temperature=0.1,
         max_tokens=16384,
         verbosity="low",
@@ -200,7 +280,8 @@ def main() -> int:
 
     # Build LLM payload
     payload = _build_llm_payload(items)
-    print(f"  [summarize] Sending {len(payload)} groups to LLM...")
+    payload_json = json.dumps(payload, indent=2)
+    print(f"  [summarize] Sending {len(payload)} groups to LLM ({len(payload_json):,} chars)...")
 
     # Call LLM
     result = _call_llm(payload)
@@ -219,15 +300,16 @@ def main() -> int:
     # Merge LLM output back with original items for the render
     enriched = _merge_llm_output(items, llm_items)
 
-    # Categorize
-    waiting_on_me = [e for e in enriched if e.get("category") == "waiting_on_me"]
-    tracking = [e for e in enriched if e.get("category") == "tracking"]
-    new_information = [e for e in enriched if e.get("category") == "new_information"]
-    llm_discarded = [e for e in enriched if e.get("category") == "discard"]
+    llm_discarded = sum(1 for li in llm_items if li.get("discard"))
 
-    print(f"  [summarize] Triage: {len(waiting_on_me)} waiting, "
-          f"{len(tracking)} tracking, {len(new_information)} info, "
-          f"{len(llm_discarded)} discarded by LLM")
+    action_count = sum(len(e.get("actions", [])) for e in enriched)
+    tracking_count = sum(len(e.get("tracked_items", [])) for e in enriched)
+    print(f"  [summarize] Model:    {model}")
+    print(
+        f"  [summarize] Tokens:   {tokens.get('prompt', 0):,} prompt + {tokens.get('completion', 0):,} completion = {tokens.get('total', 0):,} total"
+    )
+    print(f"  [summarize] Results:  {len(enriched)} items kept, {llm_discarded} discarded by LLM")
+    print(f"  [summarize] Actions:  {action_count} actions, {tracking_count} tracked items")
 
     # Write output
     output = {
@@ -236,10 +318,8 @@ def main() -> int:
         "tokens": tokens,
         "sources": processed.get("sources", []),
         "output": {
-            "waiting_on_me": waiting_on_me,
-            "tracking": tracking,
-            "new_information": new_information,
-            "discard_count": discard_count + len(llm_discarded),
+            "items": enriched,
+            "discard_count": discard_count + llm_discarded,
         },
     }
 
@@ -260,43 +340,23 @@ def _merge_llm_output(items: list, llm_items: list) -> list:
 
     enriched = []
     for llm_item in llm_items:
-        item_ids = llm_item.get("item_ids", [])
-        # Find the primary item (first in list, or by id)
-        primary = None
-        for iid in item_ids:
-            if iid in id_to_item:
-                primary = id_to_item[iid]
-                break
-        if not primary:
-            # Try the id field directly
-            iid = llm_item.get("id", "")
-            primary = id_to_item.get(iid)
+        if llm_item.get("discard"):
+            continue
 
-        # Build source URLs for all items in cluster
+        item_ids = llm_item.get("item_ids", [])
+
         urls = []
+        sources_set = set()
         for iid in item_ids:
-            item = id_to_item.get(iid)
-            if item and item.get("url"):
-                urls.append({"source": item["source"], "url": item["url"], "subject": item.get("subject")})
+            orig = id_to_item.get(iid)
+            if orig and orig.get("url"):
+                urls.append({"source": orig["source"], "url": orig["url"], "subject": orig.get("subject")})
+                sources_set.add(orig["source"])
 
         enriched.append({
-            "id": llm_item.get("id", ""),
-            "item_ids": item_ids,
-            "category": llm_item.get("category", "new_information"),
-            "unified_subject": llm_item.get("unified_subject", ""),
-            "summary": llm_item.get("summary", ""),
-            "my_actions": llm_item.get("my_actions", []),
-            "tracked_actions": llm_item.get("tracked_actions", []),
-            "suggested_reply": llm_item.get("suggested_reply"),
-            # Preserved from original items
-            "source": primary.get("source", "unknown") if primary else "unknown",
-            "sources": list(set(id_to_item[iid]["source"] for iid in item_ids if iid in id_to_item)),
-            "last_timestamp": primary.get("last_timestamp", "") if primary else "",
-            "participant_count": primary.get("participant_count", 0) if primary else 0,
-            "is_from_me": primary.get("is_from_me", False) if primary else False,
-            "has_attachments": primary.get("has_attachments", False) if primary else False,
+            **llm_item,
             "urls": urls,
-            "is_cluster": len(item_ids) > 1,
+            "sources": list(sources_set),
         })
 
     return enriched
@@ -309,9 +369,7 @@ def _write_empty_output(discard_count: int):
         "tokens": {},
         "sources": [],
         "output": {
-            "waiting_on_me": [],
-            "tracking": [],
-            "new_information": [],
+            "items": [],
             "discard_count": discard_count,
         },
     }
