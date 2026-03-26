@@ -12,18 +12,6 @@ week: <% tp.date.now("[W]ww") %>
 3.
 
 ## Today's Schedule
-<%*
-/* Copy a row and replace meeting-short-name:
-   | HH:MM–HH:MM | [[90-meeting-notes/YYYY/MM-MMM/YYYY-MM-DD-name\|name]] | attendees | [[prep]] |
-*/
--%>
-
-| Time | Meeting | Attendees | Prep |
-|------|---------|-----------|------|
-| | | | |
-| | | | |
-| | | | |
-| | | | |
 
 ## Active Work
 
