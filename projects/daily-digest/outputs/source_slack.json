@@ -1,12 +1,146 @@
 {
   "source": "slack",
-  "collected_at": "2026-03-26T20:59:05.610009Z",
-  "status": "skipped",
+  "collected_at": "2026-03-26T21:04:43.544809Z",
+  "status": "success",
   "objects": {
+    "channels": {
+      "status": "success",
+      "record_count": 4,
+      "error": null,
+      "data": [
+        {
+          "id": "C054X8DKQ3G",
+          "created": 1682537794,
+          "creator": "U015PLFUQET",
+          "is_org_shared": false,
+          "is_im": false,
+          "context_team_id": "T024XGS0G",
+          "updated": 1747189439105,
+          "name": "cloud-platform-pm",
+          "name_normalized": "cloud-platform-pm",
+          "is_channel": true,
+          "is_group": false,
+          "is_mpim": false,
+          "is_private": true,
+          "is_archived": false,
+          "is_general": false,
+          "is_shared": false,
+          "is_ext_shared": false,
+          "unlinked": 0,
+          "is_pending_ext_shared": false,
+          "pending_shared": [],
+          "parent_conversation": null,
+          "purpose": {
+            "value": "",
+            "creator": "",
+            "last_set": 0
+          },
+          "topic": {
+            "value": "",
+            "creator": "",
+            "last_set": 0
+          },
+          "shared_team_ids": [
+            "T024XGS0G"
+          ],
+          "pending_connected_team_ids": [],
+          "properties": {
+            "canvas": {
+              "file_id": "F0770P787K2",
+              "is_empty": true,
+              "quip_thread_id": "GdC9AAGrKgx",
+              "is_migrated": true
+            },
+            "meeting_notes": {
+              "file_id": "F0770P787K2"
+            },
+            "tabs": [
+              {
+                "type": "files",
+                "label": "",
+                "id": "files"
+              },
+              {
+                "id": "Ct07K7N4AWRX",
+                "type": "folder",
+                "label": ""
+              },
+              {
+                "type": "bookmarks",
+                "label": "",
+                "id": "bookmarks"
+              },
+              {
+                "label": "Canvas",
+                "type": "channel_canvas",
+                "is_disabled": true,
+                "id": "channel_canvas"
+              }
+            ],
+            "tabz": [
+              {
+                "type": "files"
+              },
+              {
+                "id": "Ct07K7N4AWRX",
+                "type": "folder"
+              },
+              {
+                "type": "bookmarks"
+              },
+              {
+                "label": "Canvas",
+                "type": "channel_canvas",
+                "is_disabled": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "D070PE87CBD",
+          "created": 1714065299,
+          "is_org_shared": false,
+          "is_im": true,
+          "is_archived": false,
+          "context_team_id": "T024XGS0G",
+          "updated": 1724832224488,
+          "user": "U0309M2EAJD",
+          "is_user_deleted": false,
+          "priority": 0
+        },
+        {
+          "id": "D06V09FCYMA",
+          "created": 1713441006,
+          "is_org_shared": false,
+          "is_im": true,
+          "is_archived": false,
+          "context_team_id": "T024XGS0G",
+          "updated": 1725230788819,
+          "user": "U015PLFUQET",
+          "is_user_deleted": false,
+          "priority": 0,
+          "properties": {
+            "is_dormant": true
+          }
+        },
+        {
+          "id": "D06UW7RDL2G",
+          "created": 1713380450,
+          "is_org_shared": false,
+          "is_im": true,
+          "is_archived": false,
+          "context_team_id": "T024XGS0G",
+          "updated": 1724832223927,
+          "user": "USLACKBOT",
+          "is_user_deleted": false,
+          "priority": 0
+        }
+      ]
+    },
     "messages": {
-      "status": "skipped",
+      "status": "success",
       "record_count": 0,
-      "error": "SLACK_BOT_TOKEN missing or placeholder/comment value (check .env duplicate SLACK section).",
+      "error": null,
       "data": []
     }
   },

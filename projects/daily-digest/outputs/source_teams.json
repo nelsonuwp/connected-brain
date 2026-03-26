@@ -1,6 +1,6 @@
 {
   "source": "teams",
-  "collected_at": "2026-03-26T20:58:20.018894Z",
+  "collected_at": "2026-03-26T21:04:05.832663Z",
   "status": "success",
   "objects": {
     "chats": {
@@ -6364,8 +6364,7 @@
                   "@odata.type": "#microsoft.graph.teamworkUserIdentity",
                   "id": "9ecfec12-a4bb-4f43-996b-51df55f6e80e",
                   "displayName": null,
-                  "userIdentityType": "aadUser",
-                  "tenantId": "ad69d422-4fa7-42b0-a4d3-f58410f311ed"
+                  "userIdentityType": "aadUser"
                 }
               }
             }
