@@ -126,8 +126,8 @@ For each item or cluster, produce a digest entry with:
 
 3. **actions**: Things the executive needs to do. Each action is an object:
    - "text": clear, specific action description
-   - "completed": true if evidence shows someone already fulfilled this (e.g., a reply confirming it's done)
-   - "completed_proof_url": URL to the message proving completion (null if not completed)
+   - "completed": true if evidence shows this action was already done — either by the executive themselves (e.g., they sent a reply, signed the document, approved the request) OR confirmed by someone else. Look for signals like: a later message from Adam confirming he did it, a system confirmation (e.g., "Your signature was received"), or a reply from a third party confirming receipt of something Adam sent.
+   - "completed_proof_url": URL to the message that proves completion — link to Adam's own reply if he did it, or to the confirmation message (null if not completed)
 
 4. **tracked_items**: Things others are doing that the executive should monitor. Each is an object:
    - "text": clear, specific tracking description (e.g., "Marc Pare to get AWS program language for amendment")
