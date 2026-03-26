@@ -13,17 +13,20 @@ week: <% tp.date.now("[W]ww") %>
 3.
 
 ## Today's Schedule
-<!-- Manual: paste from Outlook each morning. Each line = one meeting. -->
-<!-- Wikilink creates the meeting note in 90-meeting-notes when clicked. -->
-<!-- Format: - HH:MM–HH:MM [[meeting-short-name]] — attendees -->
-<!-- Example: - 09:00–09:30 [[aws-migration-sync]] — Lacie, Erik, Andrei -->
+<!-- Wikilink format uses full path so clicking creates the note in 90-meeting-notes/ -->
+<!-- Templater resolves the date tokens when the daily note is created.              -->
+<!-- The \| inside the wikilink escapes the pipe so it doesn't break the table.      -->
+<!-- meeting-short-name = lowercase, hyphenated (e.g. aws-migration-sync)            -->
+<!--                                                                                  -->
+<!-- Copy a row and fill in:                                                          -->
+<!-- | HH:MM–HH:MM | [[90-meeting-notes/<% tp.date.now("YYYY") %>/<% tp.date.now("MM-MMM") %>/<% tp.date.now("YYYY-MM-DD") %>-meeting-short-name\|meeting-short-name]] | names | [[prep-link]] | -->
 
 | Time | Meeting | Attendees | Prep |
 |------|---------|-----------|------|
-| | [[]] | | |
-| | [[]] | | |
-| | [[]] | | |
-| | [[]] | | |
+| | | | |
+| | | | |
+| | | | |
+| | | | |
 
 <!-- Prep column: link to an initiative, person note, or context block you should review before the meeting -->
 
