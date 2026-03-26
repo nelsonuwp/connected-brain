@@ -41,7 +41,10 @@ For each item or cluster, produce a digest entry with:
    - "completed": true if evidence shows someone already fulfilled this (e.g., a reply confirming it's done)
    - "completed_proof_url": URL to the message proving completion (null if not completed)
 
-4. **tracked_items**: Things others are doing that the executive should monitor. Each is a plain string. Examples: "Marc Pare to get AWS program language for amendment", "Jorge to fix BI report filter"
+4. **tracked_items**: Things others are doing that the executive should monitor. Each is an object:
+   - "text": clear, specific tracking description (e.g., "Marc Pare to get AWS program language for amendment")
+   - "completed": true if a later message shows this was finished
+   - "completed_proof_url": URL to the message proving completion (null if not completed)
 
 5. **source_stats**: Object with counts per source type and a date range:
    - "email_count": number of emails in this item/cluster
@@ -74,7 +77,9 @@ Respond with a JSON object. No markdown fences, no preamble:
       "actions": [
         {"text": "Review the attachment before tomorrow's call", "completed": false, "completed_proof_url": null}
       ],
-      "tracked_items": ["Jorge to amend the BI report filter"],
+      "tracked_items": [
+        {"text": "Jorge to amend the BI report filter", "completed": false, "completed_proof_url": null}
+      ],
       "source_stats": {
         "email_count": 3,
         "teams_count": 1,
@@ -114,7 +119,18 @@ LLM_OUTPUT_SCHEMA: dict = {
                             "required": ["text", "completed"],
                         },
                     },
-                    "tracked_items": {"type": "array", "items": {"type": "string"}},
+                    "tracked_items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "text": {"type": "string"},
+                                "completed": {"type": "boolean"},
+                                "completed_proof_url": {"type": ["string", "null"]},
+                            },
+                            "required": ["text", "completed"],
+                        },
+                    },
                     "source_stats": {
                         "type": "object",
                         "properties": {

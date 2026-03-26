@@ -13,7 +13,7 @@ Design decisions:
   - source_meta preserves anything source-specific (e.g. email's conversationId,
     Teams chatId) for debugging and deeplinks.
   - Deterministic fields (is_from_me, mentions_me) are set during normalization.
-    LLM-dependent fields (category, summary) are added by summarize.py.
+    LLM-dependent fields (title, summary, actions, tracked_items, source_stats) are added by summarize.py.
 """
 
 from typing import TypedDict, Optional, Literal
@@ -109,14 +109,23 @@ class ProcessedItem(TypedDict):
 
 class SummarizedItem(TypedDict):
     """ProcessedItem + LLM-generated triage output."""
-    item: InboundItem
-    cluster_id: Optional[str]
-    cluster_items: list[str]
-    category: Literal["waiting_on_me", "tracking", "new_information", "discard"]
-    summary: str                    # 1-2 sentence summary
-    my_actions: list[str]           # things I need to do
-    tracked_actions: list[str]      # things others are doing that I should track
-    suggested_reply: Optional[str]  # optional draft reply
+    # LLM output includes enough detail for rendering the digest.
+    # (This TypedDict is for developer guidance; runtime uses plain dicts.)
+    id: str
+    item_ids: list[str]
+    discard: bool
+    title: str
+    summary: str
+
+    actions: list[dict]  # [{"text": str, "completed": bool, "completed_proof_url": str|None}]
+    tracked_items: list[dict]  # [{"text": str, "completed": bool, "completed_proof_url": str|None}]
+
+    source_stats: dict  # {"email_count": int, "teams_count": int, "slack_count": int, "date_range": str}
+    individual_sources: list[dict]  # [{"label": str, "url": str}]
+
+    # Added by summarize._merge_llm_output()
+    urls: list[dict]  # [{"source": str, "url": str, "subject": Optional[str]}]
+    sources: list[str]
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────

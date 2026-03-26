@@ -143,7 +143,21 @@ def render_markdown(summary: dict) -> List[str]:
                 lines.append(f'- [ ] {action["text"]} #action')
 
         for tracked in item.get("tracked_items", []):
-            lines.append(f'- {tracked} #tracking')
+            # Backward compatibility: old summaries may have tracked_items as plain strings.
+            if isinstance(tracked, dict):
+                t_text = tracked.get("text", "")
+                t_done = tracked.get("completed", False)
+                t_proof = tracked.get("completed_proof_url")
+            else:
+                t_text = str(tracked)
+                t_done = False
+                t_proof = None
+
+            check = "x" if t_done else " "
+            if t_done and t_proof:
+                lines.append(f'- [{check}] {t_text} — [completed]({t_proof}) #tracking')
+            else:
+                lines.append(f'- [{check}] {t_text} #tracking')
 
         ind_sources = item.get("individual_sources", [])
         if len(ind_sources) > 1:
