@@ -28,47 +28,67 @@
 
 ## 2. What's Happening to Our VMware Base Right Now
 
-This isn't analyst data. This is our customer base, our numbers, over the last year.
+This isn't analyst data. This is our customer base, our numbers, validated against live billing systems.
 
 ### The headline
 
-A year ago, our 49 VMware managed hosting customers were generating **$935K/mo** in total MRC. Today, those same client IDs generate **$609K/mo**. That's a **$326K/mo decline (-35%)**, or roughly **$3.9M/yr in eroded revenue**.
+A year ago, our 49 VMware managed hosting customers were generating **$935K/mo** in total MRC (all services, not just vHosts). Today, including services currently in provision/migration, those same client IDs account for **$630K/mo**. That's a **$306K/mo decline (-33%)**, or roughly **$3.7M/yr in eroded revenue**.
 
 ### Where the money went
 
-**8 customers fully churned - $150K/mo gone**
-- Biggest losses: Centro Internacional ($43K/mo), WeirFoulds ($41K/mo - left explicitly citing price increases), Be the brand experience ($22K/mo), StraighterLine ($15K/mo), Star One Credit Union ($11K/mo)
+**10 customers fully gone - $195K/mo**
+- Centro Internacional de Maiz y Trigo: $43K/mo
+- WeirFoulds LLP: $41K/mo (left explicitly citing price increases)
+- Crealogix MBA Limited: $27K/mo
+- Be the brand experience: $22K/mo
+- Dods Group Limited: $18K/mo
+- StraighterLine: $15K/mo
+- Star One Credit Union: $11K/mo
+- 20-20 Technologies: $10K/mo
+- Blue Cow Software: $4K/mo
+- TAB Products: $4K/mo
 
-**18 customers downsized - net $244K/mo reduction**
-- HYTECK: $84K -> $20K (-76%)
+**15 customers downsized - net $231K/mo reduction**
+- HYTECK: $84K -> $20K (-77%). Largest single-customer decline.
 - Premia Solutions: $37K -> $7K (-82%)
-- Crealogix: $27K -> effectively $0 (-100%)
-- Dods Group: $18K -> effectively $0 (-100%)
 - Blue Yonder: $35K -> $19K (-45%)
 - Combined Metal Industries: $31K -> $17K (-45%)
 - Granite REIT: $26K -> $13K (-52%)
+- Checkout Technology: $24K -> $13K (-43%)
+- Adam Matthew Digital: $32K -> $24K (-24%)
+- Chicken Farmers of Ontario: $21K -> $14K (-31%)
 
-**23 customers actually grew - net +$68K/mo**
+**24 customers grew or are growing - net +$121K/mo**
 - Leek United Building Society: $38K -> $52K (+36%)
-- Townsquare Media: $103K -> $112K (+9%) - they consolidated vHosts but grew overall services
+- Townsquare Media: $103K -> $112K (+9%). They consolidated to one vHost but grew overall services across their dedicated footprint.
 - CITYWAY: $11K -> $17K (+59%)
 - Alaya Care: $7K -> $12K (+86%)
+- RepoSystems.Com: $7K -> $11K (+67%)
 - Currencies Direct: $3K -> $5K (+97%)
-- These are the customers who upgraded to ESXi 8.0, committed, and expanded their relationship. This is what "sticky" looks like.
+- BCOM 2000: $3K -> $265 online today, but **$10K in provision** (migrating to Rocky Linux 9 on new hardware - this is a VMware-to-alternative transition happening in real time)
+- Cenovus Energy: $3K -> $2K online today, but **$8.5K in provision** (new ESXi 7.0/8.0 vHosts being built)
+- These are the customers who committed, expanded their relationship, or are actively investing in new infrastructure with us. This is what "sticky" looks like.
+
+### A data visibility problem worth flagging
+
+Our Churn table captured only **15 formally cancelled services totaling $5K/mo** across this same period. The actual revenue gap is $306K/mo. That means **98% of the revenue erosion is invisible to our churn tracking system.** It's happening through downsizing, non-renewals, and service reductions that don't trigger a formal cancellation. If we're relying on the Churn table to understand VMware revenue health, we're seeing 2% of the picture. This is something we should fix regardless of platform direction.
 
 ### What's still exposed
 
-- **22 services across 11 customers are still on ESXi 7.0** (end-of-support since Oct 2025). They have to upgrade or leave. CITYWAY alone is $14K/mo on 7.0.
-- **35 of 80 active vHost services expire within 1 month**. Half the remaining VMware base is month-to-month right now.
-- Only 30 of 80 services have more than 12 months on contract.
+- **22 vHost services across 11 customers are still on ESXi 7.0** (end-of-support since Oct 2025). They have to upgrade or leave. CITYWAY alone is $14K/mo on 7.0.
+- **35 of 80 active vHost services expire within 1 month.** Half the remaining VMware base is month-to-month right now.
+- Only 30 of 80 vHost services have more than 12 months on contract.
+- Current VMware vHost revenue: **$241K/mo across 32 customers, 80 services, 7 data centers** (Toronto, Portsmouth, Atlanta, Herndon, Los Angeles, Miami, London).
 
 ### What this means
 
-The VMware managed hosting base is not declining gradually. It's contracting fast, and the customers who are staying are the ones where the relationship goes beyond just the vHost (dedicated servers, networking, managed services). The single-product VMware customers are the ones leaving.
+The VMware managed hosting base is contracting, and the pattern is clear: single-product customers (vHost-only, shallow relationship) are the ones leaving or shrinking. Multi-product customers (dedicated servers, networking, managed services layered on top) are growing.
 
-This is exactly the problem Apt Cloud + Aptum IaaS is built to solve. Instead of passing through Broadcom's price increases and watching customers walk, we migrate them to CloudStack/KVM where the licensing overhead is zero, wrap managed services around it, and the multi-product stickiness keeps them.
+This is exactly the problem Apt Cloud + Aptum IaaS is built to solve. Instead of passing through Broadcom's price increases and watching customers walk, we migrate them to CloudStack/KVM where the licensing overhead is zero, wrap managed services around it, and the multi-product relationship keeps them.
 
-The 41 customers still here are the migration pipeline. The question is how fast we can move them.
+BCOM 2000 is already doing it: moving from VMware to Rocky Linux on new Aptum hardware. That's a $10K/mo customer being retained through a platform transition. This is the template.
+
+The 41 customers still here (plus 3 with active provisioning work) are the migration pipeline. The question is how fast we can move them.
 
 
 ---
