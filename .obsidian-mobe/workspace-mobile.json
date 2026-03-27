@@ -179,8 +179,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f58e610418585a5f",
+  "active": "de7ef24c9f95b963",
   "lastOpenFiles": [
+    "vault/50-services/managed-cloud/managed-cloud.description.md",
+    "vault/00-daily/2026-03-17.md",
     "vault/_system/connected-brain-context.md",
     "vault/_prompts/task-explore-content.md",
     "vault/_prompts/task-explore-code.md",
@@ -205,8 +207,6 @@
     "vault/20-context/schemas/ocean/dim-product-attributes.md",
     "vault/20-context/schemas/ocean/dim-datacenter-attributes.md",
     "vault/20-context/schemas/ocean/dim-components.md",
-    "vault/20-context/schemas/ocean/churn.md",
-    "vault/10-thinking/archive/2026-03-06-CPQ Replacement.md",
     "projects/email-agent/summarize.py",
     "projects/email-agent/run_pipeline.py",
     "projects/email-agent/render.py",
