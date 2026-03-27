@@ -3,11 +3,12 @@
 ## Flow
 
 1. What we built and why
-2. Live demo - what works today
-3. Where the platform is going (roadmap)
-4. Competitive landscape - honest look
-5. How this makes customers sticky
-6. What we still need to figure out
+2. What's happening to our VMware base right now (the data)
+3. Live demo - what works today
+4. Where the platform is going (roadmap)
+5. Competitive landscape - honest look
+6. How this makes customers sticky
+7. What we still need to figure out
 
 
 ---
@@ -25,7 +26,55 @@
 ---
 
 
-## 2. Live Demo - What Works Today
+## 2. What's Happening to Our VMware Base Right Now
+
+This isn't analyst data. This is our customer base, our numbers, over the last year.
+
+### The headline
+
+A year ago, our 49 VMware managed hosting customers were generating **$935K/mo** in total MRC. Today, those same client IDs generate **$609K/mo**. That's a **$326K/mo decline (-35%)**, or roughly **$3.9M/yr in eroded revenue**.
+
+### Where the money went
+
+**8 customers fully churned - $150K/mo gone**
+- Biggest losses: Centro Internacional ($43K/mo), WeirFoulds ($41K/mo - left explicitly citing price increases), Be the brand experience ($22K/mo), StraighterLine ($15K/mo), Star One Credit Union ($11K/mo)
+
+**18 customers downsized - net $244K/mo reduction**
+- HYTECK: $84K -> $20K (-76%)
+- Premia Solutions: $37K -> $7K (-82%)
+- Crealogix: $27K -> effectively $0 (-100%)
+- Dods Group: $18K -> effectively $0 (-100%)
+- Blue Yonder: $35K -> $19K (-45%)
+- Combined Metal Industries: $31K -> $17K (-45%)
+- Granite REIT: $26K -> $13K (-52%)
+
+**23 customers actually grew - net +$68K/mo**
+- Leek United Building Society: $38K -> $52K (+36%)
+- Townsquare Media: $103K -> $112K (+9%) - they consolidated vHosts but grew overall services
+- CITYWAY: $11K -> $17K (+59%)
+- Alaya Care: $7K -> $12K (+86%)
+- Currencies Direct: $3K -> $5K (+97%)
+- These are the customers who upgraded to ESXi 8.0, committed, and expanded their relationship. This is what "sticky" looks like.
+
+### What's still exposed
+
+- **22 services across 11 customers are still on ESXi 7.0** (end-of-support since Oct 2025). They have to upgrade or leave. CITYWAY alone is $14K/mo on 7.0.
+- **35 of 80 active vHost services expire within 1 month**. Half the remaining VMware base is month-to-month right now.
+- Only 30 of 80 services have more than 12 months on contract.
+
+### What this means
+
+The VMware managed hosting base is not declining gradually. It's contracting fast, and the customers who are staying are the ones where the relationship goes beyond just the vHost (dedicated servers, networking, managed services). The single-product VMware customers are the ones leaving.
+
+This is exactly the problem Apt Cloud + Aptum IaaS is built to solve. Instead of passing through Broadcom's price increases and watching customers walk, we migrate them to CloudStack/KVM where the licensing overhead is zero, wrap managed services around it, and the multi-product stickiness keeps them.
+
+The 41 customers still here are the migration pipeline. The question is how fast we can move them.
+
+
+---
+
+
+## 3. Live Demo - What Works Today
 
 ### Apt Cloud Portal (portal.aptum.com)
 - Walk through the portal as a customer would see it
@@ -64,7 +113,7 @@
 ---
 
 
-## 3. Where the Platform Is Going
+## 4. Where the Platform Is Going
 
 ### Near-Term (Q2 2026 - Foundation)
 - Finish reseller billing + per-reseller pricing (highest ROI item - unlocks the channel)
@@ -92,7 +141,7 @@
 ---
 
 
-## 4. Competitive Landscape - Honest Look
+## 5. Competitive Landscape - Honest Look
 
 ### The question: "Who competes with Apt Cloud?"
 
@@ -161,7 +210,7 @@ What ThinkOn does NOT have that we do: a multi-cloud, hypervisor-agnostic self-s
 ---
 
 
-## 5. How This Makes Customers Sticky
+## 6. How This Makes Customers Sticky
 
 ### The multi-product stickiness model
 
@@ -180,7 +229,12 @@ Single-product customers churn easily. Multi-product customers don't. Every addi
 - Reseller channel multiplies this: an MSP with 50 customers on Apt Cloud has even less reason to move. Their billing, their customer management, their pricing is all built on the platform.
 - No VMware licensing overhead means we can be the lowest-cost managed provider while maintaining strong margins, or invest that margin into service quality and channel incentives.
 
-### Real example (early signal)
+### The VMware data proves it
+- The 23 customers who GREW over the past year are the multi-product customers. Townsquare Media has one vHost but a massive dedicated footprint. Leek United, Kinetico, Supplier Solutions - they buy compute, networking, managed services, the whole stack. They're not going anywhere.
+- The customers who churned or downsized were overwhelmingly single-product (vHost-only) or had shallow relationships. WeirFoulds, Star One, 20-20 Technologies - they had vHosts and not much else. Easy to leave.
+- This is the stickiness model playing out in real data, not a theory.
+
+### Early signals on Aptum IaaS
 - SCADAcore: 42 vCPU, 282 GB RAM, 24 TB storage, 8x SQL Enterprise. $24,868/mo. 36-month contract. They signed because they needed a managed environment they didn't have to think about. That's the value prop.
 - ES Williams: MSP with 5 sub-customers. If we finish the reseller billing + white-label, they become a channel partner selling Aptum IaaS under their own brand. Each of their customers becomes an Aptum customer without us paying for acquisition.
 
@@ -188,7 +242,7 @@ Single-product customers churn easily. Multi-product customers don't. Every addi
 ---
 
 
-## 6. What We Still Need to Figure Out
+## 7. What We Still Need to Figure Out
 
 These are open items, not weaknesses. Putting them on the table because the board should weigh in.
 
