@@ -1,6 +1,4 @@
-# Apt Cloud & Aptum IaaS — Product Requirements Document (v8)
-
-*Last Updated: March 2026 — Incorporates review feedback from Will Stevens and Stefan*
+# Apt Cloud & Aptum IaaS — Product Requirements Document
 
 ---
 
@@ -12,7 +10,7 @@ Aptum operates two related but **distinct** products that are frequently conflat
 
 **Aptum IaaS** is infrastructure — compute, storage, and networking services delivered as Virtual Private Cloud (VPC) or Private Cloud. It runs on **Apache CloudStack 4.22** on **Aptum-owned Dell servers** in Aptum data centres. Aptum IaaS is delivered through Apt Cloud; Apt Cloud is the enabling platform that makes the self-service, customer management, permissions, products, and pricing possible. The infrastructure catalog is expanding via CloudStack's Extensions Framework (4.21+) to include self-service bare metal provisioning (via Canonical MAAS), Proxmox VE orchestration, and Kubernetes (via CloudStack CKS) — see Section 4.9 for roadmap details.
 
-Together, they replace Aptum's legacy "Aptum Cloud" managed virtualization platform (VMware/Dell, 38 customers, ~$27K MRC). The first Aptum IaaS customers — **7 new logos** totaling **~$39K MRR** (SCADAcore, Alberta New Home Warranty, and five ES Williams sub-customers) — have signed transition agreements (Feb–Mar 2026) via the Ignite program. Note: Apt Cloud (portal.aptum.com) already has existing customers via MTC (ThinkOn) and Azure services.
+Together, they replace Aptum's legacy "Aptum Cloud" managed virtualization platform (VMware/Dell, 38 customers, ~~$27K MRC). The first Aptum IaaS customers — **7 new logos** totaling **~~$39K MRR** (SCADAcore, Alberta New Home Warranty, and five ES Williams sub-customers) — have signed transition agreements (Feb–Mar 2026) via the Ignite program. Note: Apt Cloud (portal.aptum.com) already has existing customers via MTC (ThinkOn) and Azure services.
 
 > **Naming note:** "Aptum IaaS" is a new product. Aptum has historically used the term "IaaS" in other contexts, but the historical usage is not an accurate representation of this product and should not be used in customer-facing materials to describe the legacy service.
 
@@ -20,17 +18,20 @@ Together, they replace Aptum's legacy "Aptum Cloud" managed virtualization platf
 
 ## 2. Product Boundary
 
-| Capability | Apt Cloud | Aptum IaaS |
-|---|---|---|
-| Compute / Storage / Networking | Enabled Through | **Yes** |
-| Portal / UX / Customer Control Plane | **Yes** | Delivered Via Apt Cloud |
-| Self-Service Provisioning | **Yes** | Delivered Via Apt Cloud |
-| Lifecycle Automation (Self-Service) | **Yes** | Delivered Via Apt Cloud |
-| Lifecycle Automation (Operator) | Integrates | Manual operations by Aptum teams |
-| Governance / RBAC / Cost Visibility | **Yes** | Delivered Via Apt Cloud |
-| Managed Operations | Integrates with | Delivers |
+
+| Capability                           | Apt Cloud       | Aptum IaaS                       |
+| ------------------------------------ | --------------- | -------------------------------- |
+| Compute / Storage / Networking       | Enabled Through | **Yes**                          |
+| Portal / UX / Customer Control Plane | **Yes**         | Delivered Via Apt Cloud          |
+| Self-Service Provisioning            | **Yes**         | Delivered Via Apt Cloud          |
+| Lifecycle Automation (Self-Service)  | **Yes**         | Delivered Via Apt Cloud          |
+| Lifecycle Automation (Operator)      | Integrates      | Manual operations by Aptum teams |
+| Governance / RBAC / Cost Visibility  | **Yes**         | Delivered Via Apt Cloud          |
+| Managed Operations                   | Integrates with | Delivers                         |
+
 
 **The one-line distinction:**
+
 - Apt Cloud = the **how** (how you manage, provision, and govern)
 - Aptum IaaS = the **what** (what runs your workloads)
 
@@ -47,6 +48,7 @@ Aptum IaaS is delivered through Apt Cloud. All customer management, permissions,
 Apt Cloud is Aptum's next-generation cloud operations platform, accessed at **portal.aptum.com**. It is a white-labeled instance of **CloudOps Software** that acts as the single control plane for Aptum-delivered cloud services.
 
 **What it delivers:**
+
 - Self-service provisioning (VMs, networks, storage, DNS, bare metal — roadmap)
 - Role-based access control (RBAC) with granular permissions
 - Cost and usage visibility with real-time cost estimator
@@ -60,11 +62,13 @@ Apt Cloud is Aptum's next-generation cloud operations platform, accessed at **po
 - Link to support / ticketing system (planned)
 
 **What it is NOT:**
+
 - Apt Cloud does NOT provide physical infrastructure
 - Apt Cloud does NOT replace hyperscale provider consoles (Azure Portal, AWS Console)
 - Apt Cloud does NOT bypass managed services engagement
 
 **Services available within Apt Cloud (portal.aptum.com) today:**
+
 - **Aptum IaaS** — VMs on CloudStack (new)
 - **MTC** — VMs on ThinkOn / VMware Cloud Director (legacy MTC customers)
 - **Microsoft Azure** — Instances, disks, networks, **Azure Kubernetes Service (AKS)**
@@ -76,12 +80,14 @@ Apt Cloud is Aptum's next-generation cloud operations platform, accessed at **po
 Aptum IaaS consists of compute, storage, and networking services running on Aptum-owned hardware in Aptum data centres, orchestrated by Apache CloudStack 4.22. It is delivered in two models today, with additional models on the roadmap:
 
 **Virtual Private Cloud (VPC):**
+
 - Multi-tenant shared compute infrastructure
 - Logical isolation with private networking (VLANs; VXLAN support TBD — needs validation with KVM implementation)
 - Dedicated resource quotas
 - Predictable performance within a pooled system
 
 **Private Cloud:**
+
 - Single-tenant dedicated compute nodes
 - Enhanced security, compliance, and customization
 - Custom networking and storage configurations
@@ -95,12 +101,14 @@ Aptum IaaS consists of compute, storage, and networking services running on Aptu
 
 **Infrastructure tenancy:** Varies by service type.
 
-| | Physical Hardware | Hypervisor Layer | Network Isolation | Data Commingling |
-|---|---|---|---|---|
-| **VPC** | Shared hosts — multiple customers' VMs on same physical server | KVM — shared | VLANs (VXLAN support TBD) | Yes — logically isolated but physically colocated |
-| **Private Cloud (Virtual)** | Dedicated hosts — one customer per physical server | KVM — dedicated | VLANs / dedicated | No — customer's VMs only on their hosts |
-| **Bare Metal (MAAS)** | Dedicated server — one customer per physical machine | None | Dedicated NICs or VLANs | No — customer has direct hardware |
-| **Azure / AWS / GCP** | Hyperscaler's model | Hyperscaler's model | Hyperscaler's model | Hyperscaler's model |
+
+|                             | Physical Hardware                                              | Hypervisor Layer    | Network Isolation         | Data Commingling                                  |
+| --------------------------- | -------------------------------------------------------------- | ------------------- | ------------------------- | ------------------------------------------------- |
+| **VPC**                     | Shared hosts — multiple customers' VMs on same physical server | KVM — shared        | VLANs (VXLAN support TBD) | Yes — logically isolated but physically colocated |
+| **Private Cloud (Virtual)** | Dedicated hosts — one customer per physical server             | KVM — dedicated     | VLANs / dedicated         | No — customer's VMs only on their hosts           |
+| **Bare Metal (MAAS)**       | Dedicated server — one customer per physical machine           | None                | Dedicated NICs or VLANs   | No — customer has direct hardware                 |
+| **Azure / AWS / GCP**       | Hyperscaler's model                                            | Hyperscaler's model | Hyperscaler's model       | Hyperscaler's model                               |
+
 
 A Private Cloud or Bare Metal customer still logs into the same shared Apt Cloud portal. A reseller's customers on VPC are multi-tenant at the infrastructure level but isolated at the platform level through org hierarchy. The tenancy boundaries differ at each layer; the platform normalizes the operational experience regardless of underlying tenancy.
 
@@ -130,6 +138,7 @@ A Private Cloud or Bare Metal customer still logs into the same shared Apt Cloud
 **Budget (Internal SOW GSE-155):** ~$52K USD (CloudStack Design $22K, Hardware $20K, Training $10K)
 
 **Initial Capacity Sizing (Compute Calculation v0.1):**
+
 - Target workload: 316 vCPU, 1,389 GB RAM, ~67 TB standard storage (Ignite VMs)
 - vCPU:pCPU overcommit ratio: 4:1
 - Operational headroom: 10% CPU, 20% memory/storage
@@ -137,14 +146,16 @@ A Private Cloud or Bare Metal customer still logs into the same shared Apt Cloud
 
 ### 4.2 Primary Site: Pullman Data Center, Toronto
 
-| Specification | Detail |
-|---|---|
-| **Address** | 20 Pullman Court (TOR-4), Toronto, ON |
-| **Tier Rating** | Tier II Design standards |
-| **Compliance** | SOC 2 Type II for datacenter operations |
-| **Power Redundancy** | N+1 on all electrical/mechanical (UPS, switchgear, generators) |
-| **Backup Power** | On-site diesel generators, 48-hour fuel runtime, live refueling contracts |
-| **Cooling** | N+1 redundant CRAC units, ASHRAE-compliant temperature/humidity |
+
+| Specification        | Detail                                                                    |
+| -------------------- | ------------------------------------------------------------------------- |
+| **Address**          | 20 Pullman Court (TOR-4), Toronto, ON                                     |
+| **Tier Rating**      | Tier II Design standards                                                  |
+| **Compliance**       | SOC 2 Type II for datacenter operations                                   |
+| **Power Redundancy** | N+1 on all electrical/mechanical (UPS, switchgear, generators)            |
+| **Backup Power**     | On-site diesel generators, 48-hour fuel runtime, live refueling contracts |
+| **Cooling**          | N+1 redundant CRAC units, ASHRAE-compliant temperature/humidity           |
+
 
 ### 4.3 Compute
 
@@ -159,42 +170,50 @@ A Private Cloud or Bare Metal customer still logs into the same shared Apt Cloud
 
 ### 4.4 Storage
 
-| Tier | Technology | Performance | Use Case | Status |
-|---|---|---|---|---|
+
+| Tier            | Technology                | Performance   | Use Case                                      | Status    |
+| --------------- | ------------------------- | ------------- | --------------------------------------------- | --------- |
 | **Performance** | Enterprise SSD (SAS/SATA) | 6 IOPS per GB | Databases, high-traffic websites, app servers | Available |
-| **Standard** | Enterprise SSD (SAS/SATA) | 2 IOPS per GB | General purpose, web servers, moderate I/O | Available |
-| **NVMe** | Premium NVMe | Highest IOPS | High I/O workloads | Roadmap |
+| **Standard**    | Enterprise SSD (SAS/SATA) | 2 IOPS per GB | General purpose, web servers, moderate I/O    | Available |
+| **NVMe**        | Premium NVMe              | Highest IOPS  | High I/O workloads                            | Roadmap   |
+
 
 **Pricing model:** Billed on allocated capacity (GB/month). **No transaction costs** (IOPS charges) or throughput fees — predictable monthly billing unlike public clouds.
 
 ### 4.5 Networking
 
-| Specification | Detail |
-|---|---|
-| **East-West (Internal)** | 10 Gbps redundant links per host (VM-to-VM) |
-| **North-South (External)** | Dedicated uplinks at 10 Gbps or 100 Gbps |
-| **Carrier Neutrality** | 15+ carriers via on-site Meet-Me-Room |
-| **Latency** | <2ms to major Toronto internet exchanges (TorIX) and hyperscale on-ramps |
-| **DDoS Protection** | Always-on volumetric DDoS at network edge (included) |
-| **Private Networking** | VLANs for isolation (VXLAN support TBD) |
-| **Public IPs** | Manageable blocks via portal |
-| **VPN** | User-configurable VPN via portal |
-| **Port Forwarding** | Configurable via portal (important feature) |
+
+| Specification              | Detail                                                                   |
+| -------------------------- | ------------------------------------------------------------------------ |
+| **East-West (Internal)**   | 10 Gbps redundant links per host (VM-to-VM)                              |
+| **North-South (External)** | Dedicated uplinks at 10 Gbps or 100 Gbps                                 |
+| **Carrier Neutrality**     | 15+ carriers via on-site Meet-Me-Room                                    |
+| **Latency**                | <2ms to major Toronto internet exchanges (TorIX) and hyperscale on-ramps |
+| **DDoS Protection**        | Always-on volumetric DDoS at network edge (included)                     |
+| **Private Networking**     | VLANs for isolation (VXLAN support TBD)                                  |
+| **Public IPs**             | Manageable blocks via portal                                             |
+| **VPN**                    | User-configurable VPN via portal                                         |
+| **Port Forwarding**        | Configurable via portal (important feature)                              |
+
 
 ### 4.6 Firewall ("Edge Security" Model)
 
-| Tier | Description | Status |
-|---|---|---|
-| **Standard** | Built-in Security Groups managed in Apt Cloud. Rules set at network tier by CIDR, ingress/egress, protocol, port (can target /32 for effective per-VM control). Technically delivered by Aptum IaaS through Apt Cloud. | Available |
-| **Advanced** | Dedicated Virtual Firewalls (pfSense, FortiGate VM) at VPC edge — deep packet inspection, VPN termination, advanced routing | Near-term roadmap (testing needed) |
-| **Managed** | Fully managed hardware firewall (HA pair) physically racked in front of private cloud | Near-term roadmap |
+
+| Tier         | Description                                                                                                                                                                                                            | Status                             |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| **Standard** | Built-in Security Groups managed in Apt Cloud. Rules set at network tier by CIDR, ingress/egress, protocol, port (can target /32 for effective per-VM control). Technically delivered by Aptum IaaS through Apt Cloud. | Available                          |
+| **Advanced** | Dedicated Virtual Firewalls (pfSense, FortiGate VM) at VPC edge — deep packet inspection, VPN termination, advanced routing                                                                                            | Near-term roadmap (testing needed) |
+| **Managed**  | Fully managed hardware firewall (HA pair) physically racked in front of private cloud                                                                                                                                  | Near-term roadmap                  |
+
 
 ### 4.7 Load Balancing
 
-| Tier | Capabilities | Self-Service? |
-|---|---|---|
-| **Standard** | Layer 4 (TCP) load balancing with sticky sessions and multiple routing algorithms | Yes (via portal) |
-| **Advanced / Managed** | Layer 4 + Layer 7 (HTTP/HTTPS), SSL termination, health checks | Not self-service (yet) |
+
+| Tier                   | Capabilities                                                                      | Self-Service?          |
+| ---------------------- | --------------------------------------------------------------------------------- | ---------------------- |
+| **Standard**           | Layer 4 (TCP) load balancing with sticky sessions and multiple routing algorithms | Yes (via portal)       |
+| **Advanced / Managed** | Layer 4 + Layer 7 (HTTP/HTTPS), SSL termination, health checks                    | Not self-service (yet) |
+
 
 ### 4.8 Supported Operating Systems
 
@@ -208,14 +227,16 @@ List OS families only (versions change regularly):
 
 Apache CloudStack 4.21 introduced the Extensions Framework ("XaaS" / "Orchestrate Anything"), extended further in 4.22. This allows CloudStack to orchestrate external systems (Proxmox, MAAS, Hyper-V) via registered executables, while CloudStack handles networking, RBAC, billing, usage tracking, events, and UI.
 
-| Service | Orchestration | Status | Notes |
-|---|---|---|---|
-| **VPC** (KVM) | CloudStack native | **Live** | Multi-tenant shared compute |
-| **Private Cloud** (KVM) | CloudStack native | **Live** | Single-tenant dedicated hosts |
-| **Bare Metal as a Service** | CloudStack → MAAS extension (4.22) | **Roadmap** | Self-service provisioning of pre-racked hardware through Apt Cloud. Needs testing + operationalization. |
-| **Proxmox Managed** | CloudStack → Proxmox extension (4.21+) | **Roadmap** | Ops capability exists. Limitations: no live migration, no VM scaling, no capacity reporting to CloudStack. Needs testing. |
-| **VMware Private Cloud** | Apt Cloud VCD plugin (ThinkOn) or CloudStack native ESXi | **Live** (via ThinkOn MTC) | Licensing via ThinkOn |
-| **Kubernetes** | CloudStack CKS + Apt Cloud K8s plugin | **Near-term roadmap** | CSI tested; plugin exists |
+
+| Service                     | Orchestration                                            | Status                     | Notes                                                                                                                     |
+| --------------------------- | -------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **VPC** (KVM)               | CloudStack native                                        | **Live**                   | Multi-tenant shared compute                                                                                               |
+| **Private Cloud** (KVM)     | CloudStack native                                        | **Live**                   | Single-tenant dedicated hosts                                                                                             |
+| **Bare Metal as a Service** | CloudStack → MAAS extension (4.22)                       | **Roadmap**                | Self-service provisioning of pre-racked hardware through Apt Cloud. Needs testing + operationalization.                   |
+| **Proxmox Managed**         | CloudStack → Proxmox extension (4.21+)                   | **Roadmap**                | Ops capability exists. Limitations: no live migration, no VM scaling, no capacity reporting to CloudStack. Needs testing. |
+| **VMware Private Cloud**    | Apt Cloud VCD plugin (ThinkOn) or CloudStack native ESXi | **Live** (via ThinkOn MTC) | Licensing via ThinkOn                                                                                                     |
+| **Kubernetes**              | CloudStack CKS + Apt Cloud K8s plugin                    | **Near-term roadmap**      | CSI tested; plugin exists                                                                                                 |
+
 
 Each new extension expands the infrastructure catalog without proportional engineering investment. The CloudOps Software team tests, operationalizes, and surfaces each extension through Apt Cloud.
 
@@ -252,59 +273,69 @@ Each new extension expands the infrastructure catalog without proportional engin
 
 ### 5.2 User Roles
 
-| Role | Description | Notes |
-|---|---|---|
-| **Operator** | Aptum internal. Full access to CloudOps Software features (branding, plugins, monetization, global admin). Does NOT have access to customer resources (VMs, disks, networks). Not exposed to users. | |
-| **Reseller** | Manages service connections and downstream organizations. Currently Aptum acts as the Reseller. A true multi-reseller model is WIP (ES Williams being explored as early beta). | Not yet implemented as designed |
-| **Admin** | Organizational administrator. Manages users, environments, and cloud resources within their organization. | Does not manage service connections (Reseller only) |
-| **User** | Provisions and manages resources within assigned environments. | Formally called "User" (not "End User") |
-| **Guest** | Specialized limited access for particular users. | Useful for restricted visibility |
+
+| Role         | Description                                                                                                                                                                                         | Notes                                               |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **Operator** | Aptum internal. Full access to CloudOps Software features (branding, plugins, monetization, global admin). Does NOT have access to customer resources (VMs, disks, networks). Not exposed to users. |                                                     |
+| **Reseller** | Manages service connections and downstream organizations. Currently Aptum acts as the Reseller. A true multi-reseller model is WIP (ES Williams being explored as early beta).                      | Not yet implemented as designed                     |
+| **Admin**    | Organizational administrator. Manages users, environments, and cloud resources within their organization.                                                                                           | Does not manage service connections (Reseller only) |
+| **User**     | Provisions and manages resources within assigned environments.                                                                                                                                      | Formally called "User" (not "End User")             |
+| **Guest**    | Specialized limited access for particular users.                                                                                                                                                    | Useful for restricted visibility                    |
+
 
 ### 5.3 User Personas
 
 **Apt Cloud Personas:**
 
-| Persona | Primary Need |
-|---|---|
-| CIO / Head of IT | Control, governance, cost visibility |
-| Platform / Cloud Ops | Automation, consistency, lifecycle |
-| Finance | Cost transparency, forecasting |
-| Security / Compliance | Policy, auditability |
+
+| Persona               | Primary Need                         |
+| --------------------- | ------------------------------------ |
+| CIO / Head of IT      | Control, governance, cost visibility |
+| Platform / Cloud Ops  | Automation, consistency, lifecycle   |
+| Finance               | Cost transparency, forecasting       |
+| Security / Compliance | Policy, auditability                 |
+
 
 **Aptum IaaS Target Segments:**
 
-| Segment | Primary Use Case |
-|---|---|
-| SMB / Mid-Market | Predictable private cloud |
-| Regulated Industries | Data sovereignty, compliance |
-| Hyperscale-Fatigued | Repatriation from public cloud |
-| Hybrid Adopters | Mixed workload placement |
+
+| Segment              | Primary Use Case               |
+| -------------------- | ------------------------------ |
+| SMB / Mid-Market     | Predictable private cloud      |
+| Regulated Industries | Data sovereignty, compliance   |
+| Hyperscale-Fatigued  | Repatriation from public cloud |
+| Hybrid Adopters      | Mixed workload placement       |
+
 
 ### 5.4 Service Plugins
 
-| Plugin | Status in Apt Cloud | Resources |
-|---|---|---|
-| **Apache CloudStack** | Active ("Aptum IaaS") | VMs, volumes, networking, snapshots, images, affinity groups, SSH keys, L4 LB, security groups, port forwarding |
-| **VMware Cloud Director** | Active ("MTC" on ThinkOn) | VMs, networking, storage |
-| **Microsoft Azure** | Active | Instances, disks, networks, **Azure Kubernetes Service (AKS)** |
-| **Cloudflare DNS** | Active (replaces SuperDNS) | Domains, DNS records, proxy config |
-| **AWS / GCP / K8s** | Available to adopt (built, not yet configured in Apt Cloud) | — |
+
+| Plugin                    | Status in Apt Cloud                                         | Resources                                                                                                       |
+| ------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **Apache CloudStack**     | Active ("Aptum IaaS")                                       | VMs, volumes, networking, snapshots, images, affinity groups, SSH keys, L4 LB, security groups, port forwarding |
+| **VMware Cloud Director** | Active ("MTC" on ThinkOn)                                   | VMs, networking, storage                                                                                        |
+| **Microsoft Azure**       | Active                                                      | Instances, disks, networks, **Azure Kubernetes Service (AKS)**                                                  |
+| **Cloudflare DNS**        | Active (replaces SuperDNS)                                  | Domains, DNS records, proxy config                                                                              |
+| **AWS / GCP / K8s**       | Available to adopt (built, not yet configured in Apt Cloud) | —                                                                                                               |
+
 
 ### 5.5 Core Sub-Systems
 
-| Sub-System | Function |
-|---|---|
-| **Service Orchestration** | Central engine communicating with backends via plugins |
-| **Governance** | Policy enforcement, quotas, budgets, compliance, SOC 2 |
-| **Multi-Tenancy Management** | Hierarchical orgs/sub-orgs |
-| **Reports** | Usage reporting, cost breakdowns |
-| **Metrics** | Real-time resource consumption tracking |
-| **Monetization** | Product catalogs, pricings, utility billing, commitments, discounts/credits, tiered pricing, multi-currency, invoicing, revenue reporting, rollback |
-| **Content Management** | Searchable multilingual knowledge base |
-| **Branding** | Per-reseller white-label |
-| **Trial Management** | Automated trial provisioning |
-| **Logging** | Unified activity logging across all services/environments |
-| **Security** | RBAC, authentication (OpenID Connect, native, 2FA) |
+
+| Sub-System                   | Function                                                                                                                                            |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Service Orchestration**    | Central engine communicating with backends via plugins                                                                                              |
+| **Governance**               | Policy enforcement, quotas, budgets, compliance, SOC 2                                                                                              |
+| **Multi-Tenancy Management** | Hierarchical orgs/sub-orgs                                                                                                                          |
+| **Reports**                  | Usage reporting, cost breakdowns                                                                                                                    |
+| **Metrics**                  | Real-time resource consumption tracking                                                                                                             |
+| **Monetization**             | Product catalogs, pricings, utility billing, commitments, discounts/credits, tiered pricing, multi-currency, invoicing, revenue reporting, rollback |
+| **Content Management**       | Searchable multilingual knowledge base                                                                                                              |
+| **Branding**                 | Per-reseller white-label                                                                                                                            |
+| **Trial Management**         | Automated trial provisioning                                                                                                                        |
+| **Logging**                  | Unified activity logging across all services/environments                                                                                           |
+| **Security**                 | RBAC, authentication (OpenID Connect, native, 2FA)                                                                                                  |
+
 
 > **Not currently implemented:** Workflows (Temporal — tested but not deployed), Alerting/push notifications.
 
@@ -336,11 +367,13 @@ What customers can do themselves through the portal:
 
 Aptum IaaS and Apt Cloud are delivered across three service tiers. Infrastructure capabilities are the same; the tiers reflect the level of operational management Aptum provides.
 
-| Tier | Who Manages What | Target Customer |
-|---|---|---|
-| **Self-Service** | Customer manages everything through Apt Cloud portal. Aptum keeps the platform running. | Developer teams, startups, cost-optimized workloads |
-| **Managed Infrastructure** | Aptum manages hardware, hypervisor, network, and platform health. Customer manages OS and above. | SMB IT teams with some internal capability |
-| **Fully Managed** | Aptum manages everything: hardware through application layer. Patching, backup, monitoring, security, DR. | Mid-market enterprises without internal IT depth. Regulated industries. |
+
+| Tier                       | Who Manages What                                                                                          | Target Customer                                                         |
+| -------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **Self-Service**           | Customer manages everything through Apt Cloud portal. Aptum keeps the platform running.                   | Developer teams, startups, cost-optimized workloads                     |
+| **Managed Infrastructure** | Aptum manages hardware, hypervisor, network, and platform health. Customer manages OS and above.          | SMB IT teams with some internal capability                              |
+| **Fully Managed**          | Aptum manages everything: hardware through application layer. Patching, backup, monitoring, security, DR. | Mid-market enterprises without internal IT depth. Regulated industries. |
+
 
 The pricing delta between tiers is the managed services premium. See the Aptum Cloud Platform Strategy for full operational team structure and managed services detail.
 
@@ -421,10 +454,12 @@ Phase 1: **Strategy and Target State Definition** under SOW GSE-155.
 
 ### 11.1 Legacy Products
 
-| Product | What It Was | Revenue | Current Status |
-|---|---|---|---|
-| **Aptum Cloud (legacy)** | Managed VMs on VMware/Dell. No self-service. 38 customers. | ~$27K MRC | Stream 3: migration to Aptum IaaS planned |
-| **MTC** | Self-service VMs via Abiquo → now on ThinkOn, delivered through Apt Cloud | ~$12K MRC | Active on ThinkOn; future migration to Aptum IaaS (Stream 4) |
+
+| Product                  | What It Was                                                               | Revenue   | Current Status                                               |
+| ------------------------ | ------------------------------------------------------------------------- | --------- | ------------------------------------------------------------ |
+| **Aptum Cloud (legacy)** | Managed VMs on VMware/Dell. No self-service. 38 customers.                | ~$27K MRC | Stream 3: migration to Aptum IaaS planned                    |
+| **MTC**                  | Self-service VMs via Abiquo → now on ThinkOn, delivered through Apt Cloud | ~$12K MRC | Active on ThinkOn; future migration to Aptum IaaS (Stream 4) |
+
 
 ### 11.2 ThinkOn MTC (Active — Delivered Through Apt Cloud)
 
@@ -437,6 +472,7 @@ MTC is currently delivered through **Apt Cloud (portal.aptum.com)** on ThinkOn i
 Ignite receives a **12% commission** on hosting revenue.
 
 **Contract Structure:**
+
 - "Service Continuation and Transfer Order"
 - Signed by Ian Rae (CEO, Aptum)
 - 6-month initial commitment for most customers; **SCADAcore has a 36-month (3-year) contract**
@@ -446,68 +482,76 @@ Ignite receives a **12% commission** on hosting revenue.
 
 **Signed Transition Agreements — 7 New Logos (as of March 2026):**
 
-| Client | Effective Date | MRR (CAD) | Term | Key SKUs |
-|---|---|---|---|---|
-| **SCADAcore** | 2026-03-18 | $24,868 | 36 months | 42 vCPU, 282 GB RAM, 24.4 TB perf storage, 8x SQL Ent |
-| **ANHWP** | 2026-02-19 | $4,627 | 6 months | 32 vCPU, 107 GB RAM, 7.2 TB standard, 2x SQL Std |
-| **ES Williams → Surerus Murphy JV** | 2026-02-23 | $5,283 | 6 months | |
-| **ES Williams → Kings Energy** | 2026-02-23 | $2,726 | 6 months | |
-| **ES Williams → Fleet Stop** | 2026-02-23 | $793 | 6 months | |
-| **ES Williams → Island Tax** | 2026-02-23 | $479 | 6 months | |
-| **ES Williams → Sharc Energy** | 2026-03-01 | $343 | 6 months | |
-| **Signed Total** | | **$39,119/mo** | | **7 new logos** |
+
+| Client                              | Effective Date | MRR (CAD)      | Term      | Key SKUs                                              |
+| ----------------------------------- | -------------- | -------------- | --------- | ----------------------------------------------------- |
+| **SCADAcore**                       | 2026-03-18     | $24,868        | 36 months | 42 vCPU, 282 GB RAM, 24.4 TB perf storage, 8x SQL Ent |
+| **ANHWP**                           | 2026-02-19     | $4,627         | 6 months  | 32 vCPU, 107 GB RAM, 7.2 TB standard, 2x SQL Std      |
+| **ES Williams → Surerus Murphy JV** | 2026-02-23     | $5,283         | 6 months  |                                                       |
+| **ES Williams → Kings Energy**      | 2026-02-23     | $2,726         | 6 months  |                                                       |
+| **ES Williams → Fleet Stop**        | 2026-02-23     | $793           | 6 months  |                                                       |
+| **ES Williams → Island Tax**        | 2026-02-23     | $479           | 6 months  |                                                       |
+| **ES Williams → Sharc Energy**      | 2026-03-01     | $343           | 6 months  |                                                       |
+| **Signed Total**                    |                | **$39,119/mo** |           | **7 new logos**                                       |
+
 
 ES Williams is an MSP with multiple sub-customers, each with their own transition agreement. ES Williams is being explored as an early beta customer for the Reseller model within Apt Cloud.
 
 **Customer-Facing Pricing (honoring Ignite pricing):**
 
-| SKU | Unit Price (CAD) |
-|---|---|
-| vCPU (Compute) | $28.00/vCPU/mo |
-| RAM (Memory) | $7.00–$7.25/GB/mo |
-| Standard Storage | $0.28/GB/mo |
-| Performance Storage | $0.56/GB/mo |
-| IP Addresses | Included (committed quantity); overages at utility rates |
-| Cloud Backup Repository | $30.00/TB/mo |
-| SPLA SQL Standard (2-core) | $231.54/mo |
-| SPLA SQL Enterprise (2-core) | $871.80/mo |
-| SPLA Remote Desktop Services | $11.52/user/mo |
+
+| SKU                          | Unit Price (CAD)                                         |
+| ---------------------------- | -------------------------------------------------------- |
+| vCPU (Compute)               | $28.00/vCPU/mo                                           |
+| RAM (Memory)                 | $7.00–$7.25/GB/mo                                        |
+| Standard Storage             | $0.28/GB/mo                                              |
+| Performance Storage          | $0.56/GB/mo                                              |
+| IP Addresses                 | Included (committed quantity); overages at utility rates |
+| Cloud Backup Repository      | $30.00/TB/mo                                             |
+| SPLA SQL Standard (2-core)   | $231.54/mo                                               |
+| SPLA SQL Enterprise (2-core) | $871.80/mo                                               |
+| SPLA Remote Desktop Services | $11.52/user/mo                                           |
+
 
 **Aptum Cost Basis (from margin calculator):**
 
-| Resource | Customer Price | Aptum Cost | Margin |
-|---|---|---|---|
-| per vCPU | $28.00 | $7.31 | ~74% |
-| per GB RAM | $7.00 | $1.83 | ~74% |
-| per GB Flash Storage | $0.56 | $0.064 | ~89% |
+
+| Resource             | Customer Price | Aptum Cost | Margin |
+| -------------------- | -------------- | ---------- | ------ |
+| per vCPU             | $28.00         | $7.31      | ~74%   |
+| per GB RAM           | $7.00          | $1.83      | ~74%   |
+| per GB Flash Storage | $0.56          | $0.064     | ~89%   |
+
 
 ---
 
 ## 12. Glossary
 
-| Term | Definition |
-|---|---|
-| **Apt Cloud** | Cloud operations platform / control plane. NOT infrastructure. Powered by CloudOps Software. Accessed at portal.aptum.com. |
-| **Aptum IaaS** | NEW infrastructure product (compute, storage, networking) on CloudStack/Aptum hardware. Delivered through Apt Cloud. |
-| **Aptum Portal** | Alternate name for Apt Cloud / portal.aptum.com. |
-| **VPC** | Virtual Private Cloud. Multi-tenant shared compute with isolation. |
-| **Private Cloud** | Single-tenant dedicated compute. Combines technology + managed services. |
-| **CloudOps Software** | SaaS orchestration platform (formerly CloudMC). The engine behind Apt Cloud. |
-| **Apache CloudStack** | Open-source cloud orchestration (currently v4.22). The orchestration layer for Aptum IaaS. |
-| **Environment** | Grouping of people and resources for managing resources and their associated costs. |
-| **Service Connection** | Configured link between CloudOps Software and a cloud backend. Managed by the Reseller role. |
-| **Security Groups** | Firewall rules set at the network tier by CIDR, ingress/egress, protocol, port. |
-| **QCOW2** | Disk image format for KVM. Customers can upload custom images. |
-| **Cost Estimator** | Real-time pricing widget shown during provisioning. |
-| **SOW GSE-155** | The design engagement for Apt Cloud architecture (Phase 1: ~$52K USD). |
-| **ThinkOn MTC** | MTC on ThinkOn infrastructure, delivered through Apt Cloud. ~7 customers. Future: migrate to Aptum IaaS. |
-| **Ignite / Ignite Technology** | Alberta-based hosting provider ("Hyperbia"). 7 customers (~$39K MRR) transitioning to Aptum IaaS. Signed Feb–Mar 2026. 12% commission. |
-| **Extensions Framework** | CloudStack 4.21+ feature enabling integration with external orchestrators (Proxmox, MAAS, Hyper-V) via registered executables. Expands the infrastructure catalog without core Java development. |
-| **BMaaS** | Bare Metal as a Service. Dedicated physical servers provisioned via MAAS without a hypervisor layer. Roadmap. |
-| **Canonical MAAS** | Metal as a Service — open-source bare metal provisioning tool from Canonical. Integrated with CloudStack via Extensions Framework in 4.22. |
-| **Proxmox VE** | Open-source virtualization platform (KVM-based) with built-in clustering, Ceph storage, and web UI. Integrated with CloudStack via Extensions Framework in 4.21+. |
-| **ShapeBlue** | Leading CloudStack consulting and engineering firm (London-based). Key community contributor and support partner. |
-| **ES Williams** | MSP with multiple sub-customers transitioned under Ignite program. Early beta candidate for Reseller model. |
+
+| Term                           | Definition                                                                                                                                                                                       |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Apt Cloud**                  | Cloud operations platform / control plane. NOT infrastructure. Powered by CloudOps Software. Accessed at portal.aptum.com.                                                                       |
+| **Aptum IaaS**                 | NEW infrastructure product (compute, storage, networking) on CloudStack/Aptum hardware. Delivered through Apt Cloud.                                                                             |
+| **Aptum Portal**               | Alternate name for Apt Cloud / portal.aptum.com.                                                                                                                                                 |
+| **VPC**                        | Virtual Private Cloud. Multi-tenant shared compute with isolation.                                                                                                                               |
+| **Private Cloud**              | Single-tenant dedicated compute. Combines technology + managed services.                                                                                                                         |
+| **CloudOps Software**          | SaaS orchestration platform (formerly CloudMC). The engine behind Apt Cloud.                                                                                                                     |
+| **Apache CloudStack**          | Open-source cloud orchestration (currently v4.22). The orchestration layer for Aptum IaaS.                                                                                                       |
+| **Environment**                | Grouping of people and resources for managing resources and their associated costs.                                                                                                              |
+| **Service Connection**         | Configured link between CloudOps Software and a cloud backend. Managed by the Reseller role.                                                                                                     |
+| **Security Groups**            | Firewall rules set at the network tier by CIDR, ingress/egress, protocol, port.                                                                                                                  |
+| **QCOW2**                      | Disk image format for KVM. Customers can upload custom images.                                                                                                                                   |
+| **Cost Estimator**             | Real-time pricing widget shown during provisioning.                                                                                                                                              |
+| **SOW GSE-155**                | The design engagement for Apt Cloud architecture (Phase 1: ~$52K USD).                                                                                                                           |
+| **ThinkOn MTC**                | MTC on ThinkOn infrastructure, delivered through Apt Cloud. ~7 customers. Future: migrate to Aptum IaaS.                                                                                         |
+| **Ignite / Ignite Technology** | Alberta-based hosting provider ("Hyperbia"). 7 customers (~$39K MRR) transitioning to Aptum IaaS. Signed Feb–Mar 2026. 12% commission.                                                           |
+| **Extensions Framework**       | CloudStack 4.21+ feature enabling integration with external orchestrators (Proxmox, MAAS, Hyper-V) via registered executables. Expands the infrastructure catalog without core Java development. |
+| **BMaaS**                      | Bare Metal as a Service. Dedicated physical servers provisioned via MAAS without a hypervisor layer. Roadmap.                                                                                    |
+| **Canonical MAAS**             | Metal as a Service — open-source bare metal provisioning tool from Canonical. Integrated with CloudStack via Extensions Framework in 4.22.                                                       |
+| **Proxmox VE**                 | Open-source virtualization platform (KVM-based) with built-in clustering, Ceph storage, and web UI. Integrated with CloudStack via Extensions Framework in 4.21+.                                |
+| **ShapeBlue**                  | Leading CloudStack consulting and engineering firm (London-based). Key community contributor and support partner.                                                                                |
+| **ES Williams**                | MSP with multiple sub-customers transitioned under Ignite program. Early beta candidate for Reseller model.                                                                                      |
+
 
 ---
 
