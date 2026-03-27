@@ -62,7 +62,8 @@ def _resolve_note_path(note_date: date) -> Path:
     script_dir = Path(__file__).resolve().parent
     default_vault = script_dir.parents[1] / "vault"
     vault = Path(os.getenv("VAULT_PATH", str(default_vault)))
-    return vault / "00-daily" / f"{note_date.isoformat()}.md"
+    month_folder = note_date.strftime("%m-%b")  # e.g. "03-Mar"
+    return vault / "00-daily" / str(note_date.year) / month_folder / f"{note_date.isoformat()}.md"
 
 
 def main() -> int:

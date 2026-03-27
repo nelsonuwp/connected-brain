@@ -1,0 +1,30 @@
+# config/user.yaml
+# Identity patterns used by normalize.py to detect "is this from me?"
+# and "does this mention me?" across all sources.
+#
+# All matching is case-insensitive.
+
+identity:
+  # Primary email — used for MS Graph API calls AND identity matching
+  primary_email: "${DIGEST_USER_EMAIL}"
+
+  # All email addresses that are "me" (including aliases, old domains)
+  email_patterns:
+    - "adam.nelson@aptum.com"
+    - "anelson@cloudops.com"
+    # Add any other aliases here
+
+  # Display names that are "me" (for Teams/Slack where sender is a display name)
+  display_names:
+    - "Adam Nelson"
+    - "Adam"      # Teams sometimes abbreviates
+
+  # Slack user ID (set after creating Slack app)
+  slack_user_id: "${SLACK_USER_ID}"
+
+# Internal domains — senders from these domains are "internal"
+# Used by discard_rules.yaml to scope body_pattern rules to external-only
+internal_domains:
+  - "aptum.com"
+  - "cloudops.com"
+  - "aptum.atlassian.net"

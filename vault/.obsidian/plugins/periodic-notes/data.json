@@ -3,7 +3,7 @@
   "hasMigratedDailyNoteSettings": false,
   "hasMigratedWeeklyNoteSettings": false,
   "daily": {
-    "format": "YYYY-MM-DD",
+    "format": "YYYY/MM-MMM/YYYY-MM-DD",
     "template": "_templates/daily-briefing.md",
     "folder": "00-daily",
     "enabled": true

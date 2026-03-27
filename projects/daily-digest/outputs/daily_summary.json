@@ -1,0 +1,458 @@
+{
+  "generated_at": "2026-03-26T21:00:58.940137Z",
+  "model": "anthropic/claude-4.5-sonnet-20250929",
+  "tokens": {
+    "prompt": 23394,
+    "completion": 5401,
+    "total": 28795
+  },
+  "sources": [
+    "email",
+    "teams"
+  ],
+  "output": {
+    "items": [
+      {
+        "id": "542b6297b84c",
+        "item_ids": [
+          "542b6297b84c"
+        ],
+        "discard": false,
+        "title": "Radar Mexico Offboarding — Outstanding Invoices",
+        "summary": "Eric Lafreniere provided Matthew Carter with a summary of outstanding invoices for Radar App Mexico account #7036548, totaling $74,382.40 across four invoices from Oct 2023 to Jan 2024. Includes detailed breakdown and attachments.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 17:54"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5idFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Aptum | Radar Mexico Offboarding |  AWS #765843959562"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      },
+      {
+        "id": "7efe32e056ff",
+        "item_ids": [
+          "7efe32e056ff"
+        ],
+        "discard": false,
+        "title": "AWS Cloud Marketplace — TDSynnex Meeting Scheduled",
+        "summary": "Matthew Carter scheduled a meeting with TDSynnex (Gina Tammo, Rupesh Sankar, Christine Thomson) for tomorrow at 3:30pm ET to discuss AWS Cloud Marketplace. Thread includes Marc Pare and David Blankinship.",
+        "actions": [
+          {
+            "text": "Attend AWS Cloud Marketplace meeting tomorrow at 3:30pm ET",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 5,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 16:39–17:42"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5idEAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: AWS Cloud Marketplace"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      },
+      {
+        "id": "1b551bc4a0be",
+        "item_ids": [
+          "1b551bc4a0be"
+        ],
+        "discard": false,
+        "title": "AWS Distributor Transfer — Follow-up Request",
+        "summary": "Matthew Carter sent a follow-up to AWS distribution team requesting acknowledgment of the distributor transfer DSA/CTA sponsorship change originally sent March 20. No response received yet.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "AWS to acknowledge distributor transfer request",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 17:32"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5idDAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: AWS Distributor Transfer - DSA/CTA Sponsorship Change: 22-MAR-2026"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      },
+      {
+        "id": "c94bb7c11a14",
+        "item_ids": [
+          "c94bb7c11a14"
+        ],
+        "discard": false,
+        "title": "Carlton Currey — Timing Clarification Request",
+        "summary": "Carlton Currey asked for clarification on timing: \"Tomorrow/Today or Tomorrow/Tomorrow?\" Context unclear from snippet.",
+        "actions": [
+          {
+            "text": "Respond to Carlton Currey's timing question",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 1,
+          "slack_count": 0,
+          "date_range": "2026-03-25 16:43"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3Abb5ee90f-f728-4920-96af-55e6f8c0130f_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": null
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "613e7458befb",
+        "item_ids": [
+          "613e7458befb"
+        ],
+        "discard": false,
+        "title": "Basis AWS — Pax8 Program Language Needed",
+        "summary": "Marc Pare is waiting on AWS program language to define the 8% eligibility for Basis and provide an amendment to their order. Matthew Carter sent another reminder to AWS. David Blankinship noted they've missed something and someone should connect with Basis.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Marc Pare to get AWS program language for amendment",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 5,
+          "slack_count": 0,
+          "date_range": "2026-03-25 13:00–16:34"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_YmQ2OTUwNTYtZmQ0NC00ZTg1LWIzMTEtMzYzMWJjYTYyMTcw%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "APTUM- Basis AWS --Pax8 Discussion (INTERNAL) "
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "ad0b5679e535",
+        "item_ids": [
+          "ad0b5679e535"
+        ],
+        "discard": false,
+        "title": "Credit Review Board — Items for Tomorrow",
+        "summary": "Bryan Gough sent items for tomorrow's Credit Review Board call: Think on Inc ($14,685 CAD for undelivered project) and Combined Metal Industries ($6,466.62 CAD goodwill). Attachment included.",
+        "actions": [
+          {
+            "text": "Review Credit Review Board items before tomorrow's call",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 15:49"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5ic8AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Credit Review Board - March 2026"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      },
+      {
+        "id": "6a543e4d43c2",
+        "item_ids": [
+          "6a543e4d43c2"
+        ],
+        "discard": false,
+        "title": "Invoice Approval Required — Ingram Micro $597.91",
+        "summary": "Aptum Payables requesting approval for Ingram Micro invoice 2026SICA0009948 for $597.91 CAD (OMSP entity). Action required by March 28. Invoice saved in shared folder.",
+        "actions": [
+          {
+            "text": "Approve Ingram Micro invoice 2026SICA0009948 for $597.91 CAD by March 28",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 14:45"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5ic7AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Invoices Pending for Approval: Adam Nelson"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      },
+      {
+        "id": "4c68fdbb725a",
+        "item_ids": [
+          "4c68fdbb725a"
+        ],
+        "discard": false,
+        "title": "CPQ v28 Pricing Bug — Windows Server 2022 DC",
+        "summary": "Rob Station identified and confirmed a bug in CPQ v28 where Pro 7.0 servers with 2x16 cores incorrectly calculated Windows Server 2022 DC pricing at $551.20 instead of $1,102.40. Bug is fixed in v29. Roger Gonzales subscribed to updates.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 11,
+          "slack_count": 0,
+          "date_range": "2026-03-25 12:50–13:19"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "[SALES HELP] Sales Infrastructure & Cloud Questions"
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "0848c1f5ffcb",
+        "item_ids": [
+          "0848c1f5ffcb"
+        ],
+        "discard": false,
+        "title": "23-MCP Street — Jira Automation Rules Testing",
+        "summary": "Andrei Ianouchkevitch and Adam Nelson discussed Jira automation rules for ticket APTUM-55042. Both rules applied correctly at 11:05AM. Andrei set up a test to verify asset linking and other automation sequences are working properly.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 32,
+          "slack_count": 0,
+          "date_range": "2026-03-25 10:58–11:53"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3A59f99a8984dd4ac9acb1f5b5bfb3adcd%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "23-MCP Street"
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "5ec855263deb",
+        "item_ids": [
+          "5ec855263deb"
+        ],
+        "discard": false,
+        "title": "BI Report — Customer Approval Orders Filter",
+        "summary": "Jorge Quintero responded to Lacie Allen-Morley's request about capturing pending customer approval orders in BI reporting. Discussion involves Matthew Carter, Tom Kelsch, Kathy Wu, and Supply Chain Ops team.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Jorge Quintero to amend BI report filter for customer approval orders",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 11:34–11:44"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5ic3AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: BI Report: Capture Pending Customer Approval “orders”"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      },
+      {
+        "id": "b0624c775ffa",
+        "item_ids": [
+          "b0624c775ffa"
+        ],
+        "discard": false,
+        "title": "Will Stevens — Internal Systems Development Discussion",
+        "summary": "Will Stevens and Adam Nelson discussed the development team's current focus on internal problems and product advancement. Adam asked about demoing functionality and potentially pointing the team at other internal systems. Will confirmed he's comfortable demoing and understands the implications.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 13,
+          "slack_count": 0,
+          "date_range": "2026-03-25 10:11–11:36"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3A0d1ec731-2fb2-4ba2-9155-439704fe4066_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": null
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "a292407d7d1a",
+        "item_ids": [
+          "a292407d7d1a"
+        ],
+        "discard": false,
+        "title": "GSE Board Review — Waterstones SE Assignment",
+        "summary": "Frederic Gingras asked about SE assignment for Waterstones discussion. Patrick Wolthausen confirmed Andy is assigned and working with Darren and Mike. Cody Bond suggested using quote 470 for ballpark pricing, noting it will have less RAM than final build.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 11,
+          "slack_count": 0,
+          "date_range": "2026-03-25 10:12–10:53"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_NTlkOTQ0NmUtZDYxNi00YzMxLWJlMGMtMGZmNjNmY2Y0MTI3%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": "[INT] GSE Board Review"
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "38d17c298b4f",
+        "item_ids": [
+          "38d17c298b4f"
+        ],
+        "discard": false,
+        "title": "VMware Pricing — Burst Core Calculation Review",
+        "summary": "Martin Tessier and Adam Nelson discussed VMware pricing structure: 3000 cores at $20 minimum commit, 3500+ at $20 burstable, everything over 3500 at $24. Reviewed Carlton's invoice showing 48 overages at $20 and clarified the 333 burst cores pricing. Historical pricing was $23.26 when cost was $24.",
+        "actions": [],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 49,
+          "slack_count": 0,
+          "date_range": "2026-03-25 09:36–10:39"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "teams",
+            "url": "https://teams.microsoft.com/l/chat/19%3A1ea134e841ae43a1ae2045f0e83fd1bd%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+            "subject": null
+          }
+        ],
+        "sources": [
+          "teams"
+        ]
+      },
+      {
+        "id": "07a3d5c46e55",
+        "item_ids": [
+          "07a3d5c46e55"
+        ],
+        "discard": false,
+        "title": "ThinkOn — Follow-up Discussion Needed",
+        "summary": "Matthew Carter forwarded a ThinkOn-related thread to Adam, noting they should discuss when Adam returns from the Board meeting. Original thread involved Nedim Deovic and Sarah Blanchard. Attachment included.",
+        "actions": [
+          {
+            "text": "Discuss ThinkOn matter with Matthew Carter after Board meeting",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-25 09:38"
+        },
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASk5ic0AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "FW: ThinkOn"
+          }
+        ],
+        "sources": [
+          "email"
+        ]
+      }
+    ],
+    "discard_count": 36
+  }
+}

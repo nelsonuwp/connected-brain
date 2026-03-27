@@ -5,14 +5,18 @@ render.py
 Reads outputs/emails_summary.json → formats markdown → injects into an Obsidian daily note.
 
 Idempotent: replaces an existing '## Email Summary' section instead of appending.
+
+Changes vs v1:
+  - Merged threads render with LLM-generated unified_subject as header,
+    followed by two source-email backlinks as bullets.
 """
 
 import argparse
 import json
 import os
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 
 # ── Env ───────────────────────────────────────────────────────────────────────
@@ -20,7 +24,6 @@ from typing import Any, Dict, List, Optional, Tuple
 def _sq(v: str) -> str:
     v = v.strip()
     return v[1:-1] if len(v) >= 2 and v[0] == v[-1] in ('"', "'") else v
-
 
 def load_env() -> None:
     root = Path(__file__).resolve().parents[1]
@@ -42,96 +45,116 @@ def load_env() -> None:
 
 DEFAULT_INPUT = Path(__file__).resolve().parent / "outputs" / "emails_summary.json"
 
-
 def _default_vault_path() -> Path:
     return Path(__file__).resolve().parents[2] / "vault"
 
-
 def _resolve_daily_note_path(date_str: str) -> Path:
     vault = Path(os.getenv("VAULT_PATH", str(_default_vault_path())))
-    return vault / "00-daily" / f"{date_str}.md"
+    d = datetime.strptime(date_str, "%Y-%m-%d").date()
+    month_folder = d.strftime("%m-%b")
+    return vault / "00-daily" / str(d.year) / month_folder / f"{date_str}.md"
 
 
 # ── Rendering helpers ─────────────────────────────────────────────────────────
 
-def _linked_subject(thread: Dict[str, Any]) -> str:
-    """Subject as an Outlook deep link."""
+def _linked_subject(thread: Dict) -> str:
+    """
+    For normal threads: subject as a clickable Outlook link.
+    For merged threads: the LLM-generated unified_subject (no link on the header —
+    source links are rendered as bullets below).
+    """
+    if thread.get("is_merged"):
+        llm = thread.get("llm_summary") or {}
+        return (llm.get("unified_subject") or "[Merged thread]").strip()
+
     subject = (thread.get("subject") or "").strip()
-    url = thread.get("thread_url") or ""
+    url     = thread.get("thread_url") or ""
     if url:
         return f"[{subject}]({url})"
     return subject
 
+def _source_thread_links(thread: Dict) -> List[str]:
+    """
+    For merged threads: two bullet backlinks to the original source threads.
+    Each links to the most recent email in that source thread.
+    """
+    lines = []
+    for st in (thread.get("source_threads") or []):
+        subj = (st.get("subject") or "").strip()
+        url  = st.get("thread_url") or ""
+        if url:
+            lines.append(f"- [{subj}]({url})")
+        else:
+            lines.append(f"- {subj}")
+    return lines
 
-def _render_thread_block(thread: Dict[str, Any]) -> List[str]:
-    llm = thread.get("llm_summary") or {}
+def _render_thread_block(thread: Dict) -> List[str]:
+    llm   = thread.get("llm_summary") or {}
     lines: List[str] = []
 
-    # Subject as linked header
     lines.append(f"#### {_linked_subject(thread)}")
 
-    # Full summary
+    # Source backlinks for merged threads, immediately under the header
+    if thread.get("is_merged"):
+        lines.extend(_source_thread_links(thread))
+        lines.append("")
+
     summary = (llm.get("summary") or "").strip()
     if summary:
         lines.append(summary)
 
-    # My Actions — explicit sub-header with task checkboxes
     my_actions = [str(a).strip() for a in (llm.get("my_actions") or []) if str(a).strip()]
     if my_actions:
         lines.append("")
         lines.append("##### My Actions")
         for action in my_actions:
-            lines.append(f"- [ ] {action}")
+            lines.append(f"- [ ] {action} #action")
 
-    # Tracked Actions — explicit sub-header
     tracked = [str(a).strip() for a in (llm.get("tracked_actions") or []) if str(a).strip()]
     if tracked:
         lines.append("")
         lines.append("##### Tracking")
         for ta in tracked:
-            lines.append(f"- {ta}")
+            lines.append(f"- {ta} #tracking")
 
-    # Suggested reply — full text, no truncation
     suggested = (llm.get("suggested_reply") or "").strip() if llm.get("suggested_reply") else ""
     if suggested:
         lines.append("")
         lines.append(f'> *"{suggested}"*')
 
-    # Thread metadata
     lines.append("")
     lines.append(f'`{thread.get("email_count", 0)} emails · {thread.get("last_sent", "")}`')
     return lines
 
 
-def _render_new_info_block(thread: Dict[str, Any]) -> List[str]:
-    """New information threads — plain readable sections."""
-    llm = thread.get("llm_summary") or {}
+def _render_new_info_block(thread: Dict) -> List[str]:
+    llm   = thread.get("llm_summary") or {}
     lines: List[str] = []
 
-    # Subject as linked header
     lines.append(f"#### {_linked_subject(thread)}")
 
-    # Full summary
+    # Source backlinks for merged threads
+    if thread.get("is_merged"):
+        lines.extend(_source_thread_links(thread))
+        lines.append("")
+
     summary = (llm.get("summary") or "").strip()
     if summary:
         lines.append(summary)
 
-    # Tracked Actions if any
     tracked = [str(a).strip() for a in (llm.get("tracked_actions") or []) if str(a).strip()]
     if tracked:
         lines.append("")
         lines.append("##### Tracking")
         for ta in tracked:
-            lines.append(f"- {ta}")
+            lines.append(f"- {ta} #tracking")
 
-    # Thread metadata
     lines.append("")
     lines.append(f'`{thread.get("email_count", 0)} emails · {thread.get("last_sent", "")}`')
     return lines
 
 
 def _derive_date_label(threads: List[Dict[str, Any]]) -> str:
-    """Derive a date or date range string from thread last_sent fields."""
     dates = sorted(set(
         (t.get("last_sent") or "")[:10]
         for t in threads
@@ -139,21 +162,19 @@ def _derive_date_label(threads: List[Dict[str, Any]]) -> str:
     ))
     if not dates:
         return ""
-    if len(dates) == 1:
-        return dates[0]
-    return f"{dates[0]} → {dates[-1]}"
+    return dates[0] if len(dates) == 1 else f"{dates[0]} → {dates[-1]}"
 
 
 def render_markdown(summary_json: Dict[str, Any]) -> List[str]:
-    output = summary_json.get("output") or {}
-    threads = output.get("threads") or []
-    signals = output.get("system_notifications") or []
-    discard_count = int(output.get("discard_count") or 0)
+    output       = summary_json.get("output") or {}
+    threads      = output.get("threads") or []
+    signals      = output.get("system_notifications") or []
+    discard_count= int(output.get("discard_count") or 0)
     total_tokens = int((summary_json.get("tokens") or {}).get("total") or 0)
 
-    waiting_on_me = [t for t in threads if (t.get("llm_summary") or {}).get("category") == "waiting_on_me"]
+    waiting_on_me     = [t for t in threads if (t.get("llm_summary") or {}).get("category") == "waiting_on_me"]
     waiting_on_others = [t for t in threads if (t.get("llm_summary") or {}).get("category") == "waiting_on_others"]
-    new_information = [t for t in threads if (t.get("llm_summary") or {}).get("category") == "new_information"]
+    new_information   = [t for t in threads if (t.get("llm_summary") or {}).get("category") == "new_information"]
 
     date_label = _derive_date_label(threads)
 
@@ -189,7 +210,7 @@ def render_markdown(summary_json: Dict[str, Any]) -> List[str]:
 
 def inject_email_summary(note_path: Path, rendered_lines: List[str]) -> None:
     content = note_path.read_text(encoding="utf-8")
-    lines = content.split("\n")
+    lines   = content.split("\n")
 
     start_idx: Optional[int] = None
     for i, line in enumerate(lines):
@@ -203,8 +224,7 @@ def inject_email_summary(note_path: Path, rendered_lines: List[str]) -> None:
             if lines[i].startswith("## ") and not lines[i].strip().startswith("## Email Summary"):
                 end_idx = i
                 break
-        if end_idx is None:
-            end_idx = len(lines)
+        end_idx  = end_idx if end_idx is not None else len(lines)
         new_lines = lines[:start_idx] + rendered_lines + lines[end_idx:]
     else:
         eod_idx: Optional[int] = None
@@ -226,23 +246,20 @@ def main(file_override: str = None) -> int:
     load_env()
 
     p = argparse.ArgumentParser(description="Render emails_summary.json → Obsidian daily note.")
-    p.add_argument(
-        "--file",
-        required=False,
-        help="Path to daily note .md file, or 'auto' to use today's daily note",
-    )
+    p.add_argument("--file", required=False,
+                   help="Path to daily note .md file, or 'auto' to use today's daily note")
     p.add_argument("-i", "--input", default=str(DEFAULT_INPUT))
 
     if file_override:
         target_file_arg = file_override
-        input_path = DEFAULT_INPUT
+        input_path      = DEFAULT_INPUT
     else:
         args = p.parse_args()
         if not args.file:
             p.print_usage()
             return 1
         target_file_arg = args.file
-        input_path = Path(args.input)
+        input_path      = Path(args.input)
 
     try:
         summary_json = json.loads(Path(input_path).read_text(encoding="utf-8"))
@@ -252,11 +269,11 @@ def main(file_override: str = None) -> int:
 
     rendered_lines = render_markdown(summary_json)
 
-    if target_file_arg == "auto":
-        # Auto resolves to today's daily note
-        note_path = _resolve_daily_note_path(date.today().isoformat())
-    else:
-        note_path = Path(target_file_arg)
+    note_path = (
+        _resolve_daily_note_path(date.today().isoformat())
+        if target_file_arg == "auto"
+        else Path(target_file_arg)
+    )
 
     if not note_path.exists():
         print(f"  render failed: daily note not found: {note_path}")

@@ -19,7 +19,9 @@ import http.server
 import json
 import os
 import random
+import subprocess
 import string
+import sys
 import threading
 import time
 import urllib.parse
@@ -110,6 +112,30 @@ class _OAuthHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(b"<html><body><h1>Auth failed - no code received.</h1></body></html>")
     def log_message(self, *_): pass
 
+def _open_auth_url(url: str) -> None:
+    """Try multiple strategies to open the OAuth URL."""
+    print("Opening browser for authentication...")
+    print(f"If it does not open automatically, paste this URL in your browser:\n{url}")
+
+    # Strategy 1: Python's browser integration.
+    try:
+        if webbrowser.open(url):
+            return
+    except Exception:
+        pass
+
+    # Strategy 2: OS-native commands.
+    try:
+        if sys.platform == "darwin":
+            subprocess.run(["open", url], check=False)
+        elif sys.platform.startswith("linux"):
+            subprocess.run(["xdg-open", url], check=False)
+        elif os.name == "nt":
+            subprocess.run(["cmd", "/c", "start", "", url], check=False)
+    except Exception:
+        # Manual copy/paste remains available via printed URL.
+        pass
+
 def get_access_token() -> str:
     client_id    = os.getenv("MS_CLIENT_ID")
     tenant_id    = os.getenv("MS_TENANT_ID")
@@ -134,8 +160,8 @@ def get_access_token() -> str:
     httpd  = http.server.HTTPServer(("localhost", port), _OAuthHandler)
     thread = threading.Thread(target=httpd.serve_forever, daemon=True)
     thread.start()
-    print("Opening browser for authentication...")
-    webbrowser.open(f"{auth_url}?{urllib.parse.urlencode(params)}")
+    full_auth_url = f"{auth_url}?{urllib.parse.urlencode(params)}"
+    _open_auth_url(full_auth_url)
     deadline = time.time() + 300
     while _auth_code is None and time.time() < deadline:
         time.sleep(0.5)

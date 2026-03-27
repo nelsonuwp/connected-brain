@@ -1,0 +1,130 @@
+# discard_rules.yaml
+# All email pipeline filter rules live here — no need to touch Python code.
+# process.py reloads this on every run, so changes take effect immediately.
+#
+# Wildcards: *.example.com matches example.com AND any subdomain (sub.example.com)
+# All string matches are case-insensitive substrings unless noted.
+
+# ── Discard rules ─────────────────────────────────────────────────────────────
+# Emails matching ANY rule below are silently dropped (audit entry only).
+
+discard:
+
+  # Sender domain — full domain or wildcard subdomain
+  sender_domains:
+    - "*.5ccloud.com"           # cloud platform maintenance notifications
+    - "glassdoor.com"
+    - "*.salesforce.com"
+    - "*.hubspot.com"
+    - "*.marketo.net"
+    - "*.mailchimp.com"
+    - "*.constantcontact.com"
+    - "*.contex.ca"
+    - "*.groupecontex.ca"
+    - "wheniwork.com"
+
+  # Sender address substrings
+  sender_patterns:
+    - "noreply"
+    - "no-reply"
+    - "donotreply"
+    - "mailer@"
+    - "bounce@"
+    - "adpdonotreply"
+    - "mscnm@microsoft.com"
+    - "@connect.media"
+    - "communications@now."
+
+  # Subject substrings
+  subject_patterns:
+    - "newsletter"
+    - "digest"
+    - "bowl buzz"
+    - "unsubscribe"
+    - "daily sales"
+    - "payout notification"
+    - "breaking news:"
+    - "statement of account"
+    - "it's account check in"
+    - "last chance!"
+    - "webinar"
+    - "free session"
+    - "free training"
+    - "you're invited to"
+    - "maintenance"           # cloud/infra maintenance windows
+    - "scheduled upgrade"
+    - "platform upgrade"
+    - "cloud maintenance"
+    - "upcoming upgrade"
+    - "upcoming cloud platform"
+
+  # Body substrings — only applied to external (non-internal-domain) senders
+  body_patterns:
+    - "opt-out"
+    - "reply stop"
+    - "pilot project"
+    - "free hours"
+    - "intro call"
+    - "book a call"
+    - "book a demo"
+    - "book a meeting"
+    - "reach out to see if"
+    - "you don't often get email from"   # Outlook external-sender warning banner
+
+
+# ── Signal detection rules ────────────────────────────────────────────────────
+# Emails matching these are routed as structured signals, not conversation threads.
+# `type` must match a case handled by _extract_signal_data() in process.py.
+
+signals:
+
+  subject_patterns:
+    - pattern: "^automatic reply:"
+      type: "auto_reply"
+
+    - pattern: "\\b(ITSUPPORT|INC|CHG|PRB|REQ|TASK|SD)-\\d+\\b"
+      type: "it_ticket"
+
+    - pattern: "created a lead for"
+      type: "crm_lead"
+
+    - pattern: "shared\\s+\"[^\"]+\""
+      type: "doc_share"
+
+    - pattern: "time off requested report"
+      type: "hr_report"
+
+    - pattern: "was executed at"
+      type: "scheduled_report"
+
+    - pattern: "distributor transfer|dsa.?cta sponsorship"
+      type: "partner_notification"
+
+  sender_patterns:
+    - pattern: "hubspot|@hs-"
+      type: "crm_notification"
+
+    - pattern: "servicenow"
+      type: "it_notification"
+
+    - pattern: "atlassian\\.net|jira@"
+      type: "jira_notification"
+
+
+# ── Merge settings ────────────────────────────────────────────────────────────
+# Controls cross-thread similarity merging in process.py.
+
+merge:
+  # Jaccard similarity threshold for merging two threads.
+  # Tokens: meaningful words from subject + sender domain (stopwords stripped).
+  # 0.15 = aggressive (more merges, occasional false positives)
+  # 0.25 = balanced (default)
+  # 0.40 = conservative (fewer merges, only very obvious pairs)
+  merge_sensitivity: 0.25
+
+  # Bonus added to similarity score when two threads share the exact same sender.
+  # Two emails from the same person about related (but differently-worded) topics
+  # are much more likely to be related than token overlap alone implies.
+  # 0.12 = default (means same-sender threads need jaccard ≥ 0.13 instead of 0.25)
+  # Set to 0.0 to disable the bonus and use pure token similarity only.
+  same_sender_bonus: 0.12

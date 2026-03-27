@@ -6,69 +6,52 @@ week: <% tp.date.now("[W]ww") %>
 
 # <% tp.date.now("dddd, MMMM D, YYYY") %>
 
-## Load Check
-- Active initiatives I'm driving: `/5`
-- Active delegation briefs: `/12`
-- Open loops: (check [[open-loops]])
-
-## Active Context
-
-### 📥 Inbox (Percolating Ideas)
-```dataview
-LIST 
-FROM "01-inbox"
-WHERE file.folder = "01-inbox"
-SORT file.mtime desc
-LIMIT 5
-```
-
-### 🧠 Active Thinking
-```dataview
-LIST 
-FROM "10-thinking"
-WHERE file.folder = "10-thinking"
-SORT file.mtime desc
-LIMIT 5
-```
-
-### 🏗️ Initiatives: Drafting
-```dataview
-LIST 
-FROM "30-initiatives/drafting"
-SORT file.mtime desc
-LIMIT 5
-```
-
-### 🚀 Initiatives: Active
-```dataview
-LIST 
-FROM "30-initiatives/active"
-SORT file.mtime desc
-LIMIT 5
-```
+## Priority Focus
+1.
+2.
+3.
 
 ## Today's Schedule
-<!-- Populate from Outlook each morning -->
 
+| Time | Meeting | Attendees | Prep |
+|------|---------|-----------|------|
+| | | | |
 
-## Priority Focus
-<!-- Max 3 things. Outcomes, not tasks. -->
-1. 
-2. 
-3. 
+## Active Work
 
-## Open Tasks (carried over)
-```tasks
-not done
-scheduled before tomorrow
+### Initiatives & Tasks: In Flight
+```dataview
+TABLE status, owner
+FROM "30-initiatives/active" OR "31-tasks/active"
+SORT file.mtime desc
 ```
 
+### Initiatives & Tasks: Drafting
+```dataview
+TABLE status
+FROM "30-initiatives/drafting" OR "31-tasks/drafting"
+SORT file.mtime desc
+```
+
+### Ideas & Thinking to Explore
+```dataview
+LIST
+FROM "01-inbox" OR "10-thinking"
+WHERE file.folder = "01-inbox" OR file.folder = "10-thinking"
+SORT file.mtime desc
+LIMIT 10
+```
+
+## Load Check
+- Active initiatives: `$= dv.pages('"30-initiatives/active"').length`
+- Active tasks: `$= dv.pages('"31-tasks/active"').length`
+- Drafting: `$= dv.pages('"30-initiatives/drafting"').length + dv.pages('"31-tasks/drafting"').length`
+- Inbox items: `$= dv.pages('"01-inbox"').where(p => p.file.folder === "01-inbox").length`
+- Open thinking notes: `$= dv.pages('"10-thinking"').where(p => p.file.folder === "10-thinking").length`
+- Active delegations: `$= dv.pages('"70-delegation"').where(p => p.status === "active").length`
+- Open loops: (check [[open-loops]])
+
 ## Captures Today
-<!-- Quick notes, things to route later -->
 
 
-## End of Day
-- [ ] Open loops updated
-- [ ] Delegation status checked
-- [ ] New context blocks needed?
-- [ ] Tomorrow's priorities obvious?
+## Yesterday in Review
