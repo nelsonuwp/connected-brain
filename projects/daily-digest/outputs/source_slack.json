@@ -1,6 +1,6 @@
 {
   "source": "slack",
-  "collected_at": "2026-03-26T21:04:43.544809Z",
+  "collected_at": "2026-03-27T11:24:31.750562Z",
   "status": "success",
   "objects": {
     "channels": {
@@ -139,14 +139,188 @@
     },
     "messages": {
       "status": "success",
-      "record_count": 0,
+      "record_count": 3,
       "error": null,
-      "data": []
+      "data": [
+        {
+          "subtype": "bot_add",
+          "text": "added an integration to this channel: <https://aptum.slack.com/services/B0AP8N2HKA8|SDM-e>",
+          "user": "U015PLFUQET",
+          "bot_link": "<https://aptum.slack.com/services/B0AP8N2HKA8|SDM-e>",
+          "bot_id": "B0AP8N2HKA8",
+          "type": "message",
+          "ts": "1774554738.853379",
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        },
+        {
+          "user": "U04BFJDQXEW",
+          "type": "message",
+          "ts": "1774539864.069629",
+          "client_msg_id": "27eeba71-6e00-48d9-9b85-0b7d96c57d1f",
+          "text": "<@U015PLFUQET> - Can you please review the following SOW - <https://disks.sharepoint.com/:w:/r/sites/GSESalesEngagement/Shared%20Documents/GSE%20Requests/%5BGSE-295%5D%20Wikifri,%20LLC%20-%20Wikifri,%20LLC-(New%20LOGO)-%20WAR%20Assessment/Contracts/%5BGSE-295%5D%20Wikifri%20-%20150%20Hours%20SOW%20-%20FF.docx?d=wf04a76c8bace4c828cfa8e7dbf836f4e&amp;csf=1&amp;web=1&amp;e=cKAE1q|[GSE-295] Wikifri - 150 Hours SOW - FF.docx>. This is a bit of a special one where we are offering a bucket of pre-paid hours that will be managed in a similar format as an Evolve service. We will also be offering them 2 SOW - 1 for 150 hours and another for 260 hours. The final decision on the amount of hours will only be done at signing. The second SOW will be presented once this one has your approval / edits. Thanks B",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "GjdI1",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "user",
+                      "user_id": "U015PLFUQET"
+                    },
+                    {
+                      "type": "text",
+                      "text": " - Can you please review the following SOW - "
+                    },
+                    {
+                      "type": "link",
+                      "url": "https://disks.sharepoint.com/:w:/r/sites/GSESalesEngagement/Shared%20Documents/GSE%20Requests/%5BGSE-295%5D%20Wikifri,%20LLC%20-%20Wikifri,%20LLC-(New%20LOGO)-%20WAR%20Assessment/Contracts/%5BGSE-295%5D%20Wikifri%20-%20150%20Hours%20SOW%20-%20FF.docx?d=wf04a76c8bace4c828cfa8e7dbf836f4e&csf=1&web=1&e=cKAE1q",
+                      "text": "[GSE-295] Wikifri - 150 Hours SOW - FF.docx",
+                      "unsafe": true
+                    },
+                    {
+                      "type": "text",
+                      "text": ". This is a bit of a special one where we are offering a bucket of pre-paid hours that will be managed in a similar format as an Evolve service. We will also be offering them 2 SOW - 1 for 150 hours and another for 260 hours. The final decision on the amount of hours will only be done at signing. The second SOW will be presented once this one has your approval / edits. Thanks B"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Barbara Krzywoszanski"
+        },
+        {
+          "text": "<@U015PLFUQET> - Are you still reviewing / signing SOWs now that you're grand poobah?",
+          "files": [
+            {
+              "id": "F0ANVES0CSX",
+              "created": 1774531907,
+              "timestamp": 1774531907,
+              "name": "image.png",
+              "title": "image.png",
+              "mimetype": "image/png",
+              "filetype": "png",
+              "pretty_type": "PNG",
+              "user": "U04BFJDQXEW",
+              "user_team": "T024XGS0G",
+              "editable": false,
+              "size": 74072,
+              "mode": "hosted",
+              "is_external": false,
+              "external_type": "",
+              "is_public": false,
+              "public_url_shared": false,
+              "display_as_bot": false,
+              "username": "",
+              "url_private": "https://files.slack.com/files-pri/T024XGS0G-F0ANVES0CSX/image.png",
+              "url_private_download": "https://files.slack.com/files-pri/T024XGS0G-F0ANVES0CSX/download/image.png",
+              "media_display_type": "unknown",
+              "thumb_64": "https://files.slack.com/files-tmb/T024XGS0G-F0ANVES0CSX-e96237f139/image_64.png",
+              "thumb_80": "https://files.slack.com/files-tmb/T024XGS0G-F0ANVES0CSX-e96237f139/image_80.png",
+              "thumb_360": "https://files.slack.com/files-tmb/T024XGS0G-F0ANVES0CSX-e96237f139/image_360.png",
+              "thumb_360_w": 197,
+              "thumb_360_h": 256,
+              "thumb_160": "https://files.slack.com/files-tmb/T024XGS0G-F0ANVES0CSX-e96237f139/image_160.png",
+              "original_w": 197,
+              "original_h": 256,
+              "thumb_tiny": "AwAwACWuOppmTnINSxKrSbWbaCOtJNGImCq4cYzkU6aTepA3JwMjj1oj7U5NrkK5VAO+3JNB27/k+70FTNWYCsM03bTmpKgBO9Km3klScHJPoB1pvenxBjKNnX3pp2HHcsMi5wVzj7vHAqrtKPtPUelSGSVG2k5wccio23eY28ck1Ti0ipNMcaSiioMxvSpYCFlBLAfXvSmFP+en6UohjA+Zyfwp2KW5G5LbpMHbnqaQtuAzkkE8n8P8Ktbowu3jbjFR+VGcbWNU5Nqw35EFGPephCp/5aY/Cl8hf+en6VNibH//2Q==",
+              "permalink": "https://aptum.slack.com/files/U0702H42WRE/F0ANVES0CSX/image.png",
+              "permalink_public": "https://slack-files.com/T024XGS0G-F0ANVES0CSX-c32bfe4095",
+              "is_starred": false,
+              "skipped_shares": true,
+              "has_rich_preview": false,
+              "file_access": "visible"
+            }
+          ],
+          "upload": false,
+          "user": "U04BFJDQXEW",
+          "display_as_bot": false,
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "dPLhO",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "user",
+                      "user_id": "U015PLFUQET"
+                    },
+                    {
+                      "type": "text",
+                      "text": " - Are you still reviewing / signing SOWs now that you're grand poobah?"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "type": "message",
+          "ts": "1774531915.411769",
+          "client_msg_id": "719ea699-bb68-41eb-9ee1-1163bfad03dd",
+          "thread_ts": "1774531915.411769",
+          "reply_count": 1,
+          "reply_users_count": 1,
+          "latest_reply": "1774535963.497129",
+          "reply_users": [
+            "U015PLFUQET"
+          ],
+          "is_locked": false,
+          "subscribed": false,
+          "_thread_replies": [
+            {
+              "user": "U015PLFUQET",
+              "type": "message",
+              "ts": "1774535963.497129",
+              "client_msg_id": "dfe49dad-817d-43e8-856d-28c4601d05e2",
+              "text": "i really don't want to but until we get this nailed down, yea.",
+              "team": "T024XGS0G",
+              "thread_ts": "1774531915.411769",
+              "parent_user_id": "U04BFJDQXEW",
+              "blocks": [
+                {
+                  "type": "rich_text",
+                  "block_id": "k7uHB",
+                  "elements": [
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "i really don't want to but until we get this nailed down, yea."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "_user_name": "Adam Nelson"
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Barbara Krzywoszanski"
+        }
+      ]
     }
   },
   "error": null,
   "date_range": {
-    "start": "2026-03-25",
-    "end": "2026-03-25"
+    "start": "2026-03-26",
+    "end": "2026-03-26"
   }
 }
