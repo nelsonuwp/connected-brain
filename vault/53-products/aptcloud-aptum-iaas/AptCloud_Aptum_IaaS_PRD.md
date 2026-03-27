@@ -375,7 +375,7 @@ Aptum IaaS is a **new product** — it is not a continuation of Aptum's historic
 
 ## 8. Migration Streams
 
-Three distinct migration streams:
+Five migration and growth streams:
 
 ### Stream 1: MTC → ThinkOn (Completed, Delivered Through Apt Cloud)
 
@@ -493,7 +493,7 @@ ES Williams is an MSP with multiple sub-customers, each with their own transitio
 | **VPC** | Virtual Private Cloud. Multi-tenant shared compute with isolation. |
 | **Private Cloud** | Single-tenant dedicated compute. Combines technology + managed services. |
 | **CloudOps Software** | SaaS orchestration platform (formerly CloudMC). The engine behind Apt Cloud. |
-| **Apache CloudStack** | Open-source cloud orchestration. The orchestration layer for Aptum IaaS. |
+| **Apache CloudStack** | Open-source cloud orchestration (currently v4.22). The orchestration layer for Aptum IaaS. |
 | **Environment** | Grouping of people and resources for managing resources and their associated costs. |
 | **Service Connection** | Configured link between CloudOps Software and a cloud backend. Managed by the Reseller role. |
 | **Security Groups** | Firewall rules set at the network tier by CIDR, ingress/egress, protocol, port. |
@@ -502,6 +502,11 @@ ES Williams is an MSP with multiple sub-customers, each with their own transitio
 | **SOW GSE-155** | The design engagement for Apt Cloud architecture (Phase 1: ~$52K USD). |
 | **ThinkOn MTC** | MTC on ThinkOn infrastructure, delivered through Apt Cloud. ~7 customers. Future: migrate to Aptum IaaS. |
 | **Ignite / Ignite Technology** | Alberta-based hosting provider ("Hyperbia"). 7 customers (~$39K MRR) transitioning to Aptum IaaS. Signed Feb–Mar 2026. 12% commission. |
+| **Extensions Framework** | CloudStack 4.21+ feature enabling integration with external orchestrators (Proxmox, MAAS, Hyper-V) via registered executables. Expands the infrastructure catalog without core Java development. |
+| **BMaaS** | Bare Metal as a Service. Dedicated physical servers provisioned via MAAS without a hypervisor layer. Roadmap. |
+| **Canonical MAAS** | Metal as a Service — open-source bare metal provisioning tool from Canonical. Integrated with CloudStack via Extensions Framework in 4.22. |
+| **Proxmox VE** | Open-source virtualization platform (KVM-based) with built-in clustering, Ceph storage, and web UI. Integrated with CloudStack via Extensions Framework in 4.21+. |
+| **ShapeBlue** | Leading CloudStack consulting and engineering firm (London-based). Key community contributor and support partner. |
 | **ES Williams** | MSP with multiple sub-customers transitioned under Ignite program. Early beta candidate for Reseller model. |
 
 ---

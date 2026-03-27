@@ -145,7 +145,7 @@ Apache CloudStack 4.21 (August 2025) introduced the Extensions Framework, also c
 
 ### 3.4 Tenancy Model - Explicit Definitions
 
-The PRD has historically been ambiguous about tenancy. Here is the explicit model:
+The tenancy model is defined explicitly in the PRD (Section 3.3) and summarized here:
 
 **Platform tenancy (Apt Cloud):** Always multi-tenant. One instance of CloudOps Software serves all customers, resellers, and their end users. Isolation is logical - through organizations, sub-organizations, environments, and RBAC. A reseller like ES Williams sees only their customers. An end customer like Fleet Stop sees only their resources. But it's one platform instance.
 
