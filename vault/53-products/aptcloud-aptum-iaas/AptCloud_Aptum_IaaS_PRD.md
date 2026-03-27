@@ -10,7 +10,7 @@ Aptum operates two related but **distinct** products that are frequently conflat
 
 **Apt Cloud** is a cloud operations platform and customer control plane — NOT infrastructure. It delivers self-service provisioning, unified governance, cost/usage visibility, lifecycle automation, and a consistent operating model across private, virtual private, and hyperscale environments. It is powered by CloudOps Software (formerly CloudMC) and accessed at **portal.aptum.com**.
 
-**Aptum IaaS** is infrastructure — compute, storage, and networking services delivered as Virtual Private Cloud (VPC) or Private Cloud. It runs on **Apache CloudStack** on **Aptum-owned Dell servers** in Aptum data centres. Aptum IaaS is delivered through Apt Cloud; Apt Cloud is the enabling platform that makes the self-service, customer management, permissions, products, and pricing possible.
+**Aptum IaaS** is infrastructure — compute, storage, and networking services delivered as Virtual Private Cloud (VPC) or Private Cloud. It runs on **Apache CloudStack 4.22** on **Aptum-owned Dell servers** in Aptum data centres. Aptum IaaS is delivered through Apt Cloud; Apt Cloud is the enabling platform that makes the self-service, customer management, permissions, products, and pricing possible. The infrastructure catalog is expanding via CloudStack's Extensions Framework (4.21+) to include self-service bare metal provisioning (via Canonical MAAS), Proxmox VE orchestration, and Kubernetes (via CloudStack CKS) — see Section 4.9 for roadmap details.
 
 Together, they replace Aptum's legacy "Aptum Cloud" managed virtualization platform (VMware/Dell, 38 customers, ~$27K MRC). The first Aptum IaaS customers — **7 new logos** totaling **~$39K MRR** (SCADAcore, Alberta New Home Warranty, and five ES Williams sub-customers) — have signed transition agreements (Feb–Mar 2026) via the Ignite program. Note: Apt Cloud (portal.aptum.com) already has existing customers via MTC (ThinkOn) and Azure services.
 
@@ -47,7 +47,7 @@ Aptum IaaS is delivered through Apt Cloud. All customer management, permissions,
 Apt Cloud is Aptum's next-generation cloud operations platform, accessed at **portal.aptum.com**. It is a white-labeled instance of **CloudOps Software** that acts as the single control plane for Aptum-delivered cloud services.
 
 **What it delivers:**
-- Self-service provisioning (VMs, networks, storage, DNS)
+- Self-service provisioning (VMs, networks, storage, DNS, bare metal — roadmap)
 - Role-based access control (RBAC) with granular permissions
 - Cost and usage visibility with real-time cost estimator
 - Lifecycle management (create, scale, snapshot, decommission)
@@ -73,7 +73,7 @@ Apt Cloud is Aptum's next-generation cloud operations platform, accessed at **po
 
 ### 3.2 Aptum IaaS (The Infrastructure)
 
-Aptum IaaS consists of compute, storage, and networking services running on Aptum-owned hardware in Aptum data centres, orchestrated by Apache CloudStack. It is delivered in two models:
+Aptum IaaS consists of compute, storage, and networking services running on Aptum-owned hardware in Aptum data centres, orchestrated by Apache CloudStack 4.22. It is delivered in two models today, with additional models on the roadmap:
 
 **Virtual Private Cloud (VPC):**
 - Multi-tenant shared compute infrastructure
@@ -89,6 +89,21 @@ Aptum IaaS consists of compute, storage, and networking services running on Aptu
 - Combines technical infrastructure with managed services (people + technology)
 - Note: Bare Metal as a Service (BMaaS) integration is not yet implemented. The platform has a 5c/Hypertec BMaaS integration (Canonical MaaS at the CloudStack layer, built by CloudOps Inc) which could be leveraged. Currently, "Private Cloud" means dedicated physical hosts delivered through the virtual orchestration layer — not direct bare metal provisioning.
 
+### 3.3 Tenancy Model
+
+**Platform tenancy (Apt Cloud):** Always multi-tenant. One instance of CloudOps Software serves all customers, resellers, and their end users. Isolation is logical — through organizations, sub-organizations, environments, and RBAC.
+
+**Infrastructure tenancy:** Varies by service type.
+
+| | Physical Hardware | Hypervisor Layer | Network Isolation | Data Commingling |
+|---|---|---|---|---|
+| **VPC** | Shared hosts — multiple customers' VMs on same physical server | KVM — shared | VLANs (VXLAN support TBD) | Yes — logically isolated but physically colocated |
+| **Private Cloud (Virtual)** | Dedicated hosts — one customer per physical server | KVM — dedicated | VLANs / dedicated | No — customer's VMs only on their hosts |
+| **Bare Metal (MAAS)** | Dedicated server — one customer per physical machine | None | Dedicated NICs or VLANs | No — customer has direct hardware |
+| **Azure / AWS / GCP** | Hyperscaler's model | Hyperscaler's model | Hyperscaler's model | Hyperscaler's model |
+
+A Private Cloud or Bare Metal customer still logs into the same shared Apt Cloud portal. A reseller's customers on VPC are multi-tenant at the infrastructure level but isolated at the platform level through org hierarchy. The tenancy boundaries differ at each layer; the platform normalizes the operational experience regardless of underlying tenancy.
+
 ---
 
 ## 4. Technical Specifications
@@ -101,7 +116,7 @@ Aptum IaaS consists of compute, storage, and networking services running on Aptu
 │  portal.aptum.com                               │
 │  CloudStack Plugin                              │  API integration
 ├────────────────────────────────────────────────┤
-│  Apache CloudStack                              │  Cloud orchestration
+│  Apache CloudStack 4.22                         │  Cloud orchestration
 │  (Zones, Pods, Clusters, VMs, Networking,       │
 │   Storage, Templates)                           │
 ├────────────────────────────────────────────────┤
@@ -188,6 +203,21 @@ List OS families only (versions change regularly):
 **Linux:** Ubuntu, RHEL, AlmaLinux, Rocky Linux, Debian
 **Windows:** Windows Server (Standard & Datacenter editions)
 **BYO Image:** Upload custom QCOW2 or ISO images via the portal
+
+### 4.9 Infrastructure Catalog Roadmap (CloudStack Extensions Framework)
+
+Apache CloudStack 4.21 introduced the Extensions Framework ("XaaS" / "Orchestrate Anything"), extended further in 4.22. This allows CloudStack to orchestrate external systems (Proxmox, MAAS, Hyper-V) via registered executables, while CloudStack handles networking, RBAC, billing, usage tracking, events, and UI.
+
+| Service | Orchestration | Status | Notes |
+|---|---|---|---|
+| **VPC** (KVM) | CloudStack native | **Live** | Multi-tenant shared compute |
+| **Private Cloud** (KVM) | CloudStack native | **Live** | Single-tenant dedicated hosts |
+| **Bare Metal as a Service** | CloudStack → MAAS extension (4.22) | **Roadmap** | Self-service provisioning of pre-racked hardware through Apt Cloud. Needs testing + operationalization. |
+| **Proxmox Managed** | CloudStack → Proxmox extension (4.21+) | **Roadmap** | Ops capability exists. Limitations: no live migration, no VM scaling, no capacity reporting to CloudStack. Needs testing. |
+| **VMware Private Cloud** | Apt Cloud VCD plugin (ThinkOn) or CloudStack native ESXi | **Live** (via ThinkOn MTC) | Licensing via ThinkOn |
+| **Kubernetes** | CloudStack CKS + Apt Cloud K8s plugin | **Near-term roadmap** | CSI tested; plugin exists |
+
+Each new extension expands the infrastructure catalog without proportional engineering investment. The CloudOps Software team tests, operationalizes, and surfaces each extension through Apt Cloud.
 
 ---
 
@@ -302,6 +332,18 @@ What customers can do themselves through the portal:
 **Cost Estimator:** Real-time pricing during provisioning, updates dynamically.
 **API:** Full REST API for all operations. Terraform provider. Golang SDK.
 
+### 6.1 Managed Service Tiers
+
+Aptum IaaS and Apt Cloud are delivered across three service tiers. Infrastructure capabilities are the same; the tiers reflect the level of operational management Aptum provides.
+
+| Tier | Who Manages What | Target Customer |
+|---|---|---|
+| **Self-Service** | Customer manages everything through Apt Cloud portal. Aptum keeps the platform running. | Developer teams, startups, cost-optimized workloads |
+| **Managed Infrastructure** | Aptum manages hardware, hypervisor, network, and platform health. Customer manages OS and above. | SMB IT teams with some internal capability |
+| **Fully Managed** | Aptum manages everything: hardware through application layer. Patching, backup, monitoring, security, DR. | Mid-market enterprises without internal IT depth. Regulated industries. |
+
+The pricing delta between tiers is the managed services premium. See the Aptum Cloud Platform Strategy for full operational team structure and managed services detail.
+
 ---
 
 ## 7. Strategic Context
@@ -350,6 +392,10 @@ The 38 legacy "Aptum Cloud" customers (~$27K MRC) on VMware/Dell will be transit
 ### Stream 4 (Future): MTC → Aptum IaaS
 
 Migrating MTC customers from ThinkOn infrastructure to Aptum-owned CloudStack infrastructure for cost reduction and improved customer experience. Still delivered through Apt Cloud.
+
+### Stream 5 (Ongoing): Net-New Logos via GTM
+
+New customer acquisition through three GTM motions: direct sales to VMware refugees and cloud repatriators, MSP channel recruitment, and migration/repatriation professional services engagements. See the Aptum Cloud Platform Strategy for full GTM detail.
 
 ---
 
