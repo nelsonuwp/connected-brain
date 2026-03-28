@@ -8,7 +8,8 @@ Reads items_processed.json → sends to LLM for categorization → writes daily_
 
 The LLM receives source-agnostic items and produces a flat list of digest entries,
 each with: title, summary, actions (with completion tracking), tracked_items,
-source_stats, and individual_sources. Items tagged discard are filtered out.
+and individual_sources. Source counts and date ranges are filled in after the LLM
+call from original item metadata. Items tagged discard are filtered out.
 
 Input:  outputs/items_processed.json
 Output: outputs/daily_summary.json
@@ -16,8 +17,10 @@ Output: outputs/daily_summary.json
 
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from zoneinfo import ZoneInfo
 
 from connectors.source_artifact import utc_now
 
@@ -46,13 +49,7 @@ For each item or cluster, produce a digest entry with:
    - "completed": true if a later message shows this was finished
    - "completed_proof_url": URL to the message proving completion (null if not completed)
 
-5. **source_stats**: Object with counts per source type and a date range:
-   - "email_count": number of emails in this item/cluster
-   - "teams_count": number of Teams messages
-   - "slack_count": number of Slack messages
-   - "date_range": "YYYY-MM-DD HH:MM" for single timestamp, or "YYYY-MM-DD HH:MM–HH:MM" for a range (in ET)
-
-6. **individual_sources**: Array of individual source links when an item spans multiple threads/channels. Each has:
+5. **individual_sources**: Array of individual source links when an item spans multiple threads/channels. Each has:
    - "label": Human-readable label (e.g., "Re: Q2 Board Deck — Draft", "Teams: Project Delivery")
    - "url": Direct link to the message/thread
    Only include this when there are 2+ distinct threads or channels. Omit (empty array) for single-source items.
@@ -80,12 +77,6 @@ Respond with a JSON object. No markdown fences, no preamble:
       "tracked_items": [
         {"text": "Jorge to amend the BI report filter", "completed": false, "completed_proof_url": null}
       ],
-      "source_stats": {
-        "email_count": 3,
-        "teams_count": 1,
-        "slack_count": 0,
-        "date_range": "2026-03-25 09:14–16:42"
-      },
       "individual_sources": [
         {"label": "Re: AWS Cloud Marketplace — Gina Tammo", "url": "https://..."},
         {"label": "Teams: Basis Discussion", "url": "https://..."}
@@ -131,15 +122,6 @@ LLM_OUTPUT_SCHEMA: dict = {
                             "required": ["text", "completed"],
                         },
                     },
-                    "source_stats": {
-                        "type": "object",
-                        "properties": {
-                            "email_count": {"type": "integer"},
-                            "teams_count": {"type": "integer"},
-                            "slack_count": {"type": "integer"},
-                            "date_range": {"type": "string"},
-                        },
-                    },
                     "individual_sources": {
                         "type": "array",
                         "items": {
@@ -159,7 +141,6 @@ LLM_OUTPUT_SCHEMA: dict = {
                     "summary",
                     "actions",
                     "tracked_items",
-                    "source_stats",
                 ],
             },
         }
@@ -347,6 +328,52 @@ def main() -> int:
     return 0
 
 
+def _compute_source_stats(item_ids: list, id_to_item: dict) -> dict:
+    """Deterministically compute source_stats from original item metadata (ET)."""
+    et = ZoneInfo("America/New_York")
+    counts: Dict[str, int] = {"email": 0, "teams": 0, "slack": 0}
+    timestamps = []
+
+    for iid in item_ids:
+        orig = id_to_item.get(iid)
+        if not orig:
+            continue
+        src = orig.get("source", "")
+        counts[src] = counts.get(src, 0) + orig.get("message_count", 1)
+        for key in ("first_timestamp", "last_timestamp"):
+            ts = orig.get(key, "")
+            if not ts:
+                continue
+            try:
+                dt = datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+                timestamps.append(dt.astimezone(et))
+            except (ValueError, TypeError):
+                try:
+                    dt = datetime.fromtimestamp(float(ts), tz=timezone.utc).astimezone(et)
+                    timestamps.append(dt)
+                except (ValueError, TypeError):
+                    continue
+
+    if timestamps:
+        earliest = min(timestamps)
+        latest = max(timestamps)
+        if earliest == latest:
+            date_range = earliest.strftime("%Y-%m-%d %H:%M")
+        elif earliest.date() == latest.date():
+            date_range = f"{earliest.strftime('%Y-%m-%d %H:%M')}–{latest.strftime('%H:%M')}"
+        else:
+            date_range = f"{earliest.strftime('%Y-%m-%d %H:%M')}–{latest.strftime('%Y-%m-%d %H:%M')}"
+    else:
+        date_range = ""
+
+    return {
+        "email_count": counts.get("email", 0),
+        "teams_count": counts.get("teams", 0),
+        "slack_count": counts.get("slack", 0),
+        "date_range": date_range,
+    }
+
+
 def _merge_llm_output(items: list, llm_items: list) -> list:
     """
     Merge LLM triage output back with original item metadata.
@@ -371,10 +398,13 @@ def _merge_llm_output(items: list, llm_items: list) -> list:
             if orig.get("url"):
                 urls.append({"source": orig["source"], "url": orig["url"], "subject": orig.get("subject")})
 
+        stats = _compute_source_stats(item_ids, id_to_item)
+
         enriched.append({
             **llm_item,
             "urls": urls,
             "sources": list(sources_set),
+            "source_stats": stats,
         })
 
     return enriched
