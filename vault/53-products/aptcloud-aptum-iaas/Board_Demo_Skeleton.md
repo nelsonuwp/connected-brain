@@ -161,7 +161,7 @@ Our per-core pricing on Aptum IaaS (the virtualization layer on top of the physi
 
 The underlying hardware is Dell servers with Intel Xeon processors ranging from 8-core Bronze/Silver (for smaller workloads) up to 48-core Platinum 8558U (for dense compute). A customer running, say, a 16-core Xeon Gold 6526Y host on a 1-year commitment pays $651/mo for the virtualization layer alone, plus storage and networking.
 
-*[Note to self: I need to be able to explain clearly why customers need the virtualization layer — what problem it solves, why they can't just run on bare metal, and why VMware specifically became dominant. This is foundational context for the board. Worth a brief verbal explanation during the presentation, along the lines of: virtualization lets one physical server run multiple isolated workloads, which drives utilization from ~15% to 60–80%. VMware dominated because of reliability, tooling maturity, and enterprise support. The Broadcom acquisition made that dependency a liability.]*
+*[Verbal talking point: briefly explain why virtualization matters. One physical server without virtualization runs one workload at ~15% utilization. Virtualization lets that server run multiple isolated workloads at 60-80% utilization, so instead of 10 servers for 10 workloads, you buy 2-3. VMware dominated because of reliability, tooling maturity (vCenter, vMotion, vSAN), and enterprise support. The lock-in runs deep: backup integrations, monitoring, DR strategies all assume VMware APIs. Broadcom is exploiting that lock-in with the pricing changes. Alternatives (KVM, Proxmox) have matured, but migration means retraining staff, re-integrating tools, and testing every workload. That's why customers need a managed provider like Aptum to handle the transition.]*
 
 ### Why nobody else does all of this
 
@@ -314,7 +314,8 @@ These are investment decisions. The platform works and the market is moving.
 | Claim | Source |
 |-------|--------|
 | Broadcom pricing changes (300–1,500%) | [Network World](https://www.networkworld.com/article/3994107/vmware-customers-in-europe-face-up-to-1500-price-increases-under-broadcom-ownership.html); [CIO Dive](https://www.ciodive.com/news/broadcom-vmware-vcf-adoption-second-phase/759406/) |
-| Perpetual license elimination, 72-core min, bundle consolidation | [Broadcom Negotiations](https://broadcomnegotiations.com/vmware-licensing-cost-increases-under-broadcom-what-enterprises-should-expect/); [Hystax](https://hystax.com/how-vmware-prices-and-policies-changed-after-broadcoms-acquisition/); [IDC](https://www.idc.com/resource-center/blog/vmware-cost-increases-how-broadcom-vmware-product-offerings-are-evolving/) |
+| Perpetual license elimination, bundle consolidation, 16-core min | [Broadcom Negotiations](https://broadcomnegotiations.com/vmware-licensing-cost-increases-under-broadcom-what-enterprises-should-expect/); [IDC](https://www.idc.com/resource-center/blog/vmware-cost-increases-how-broadcom-vmware-product-offerings-are-evolving/) |
+| 72-core minimum proposed then reversed | [StarWind](https://www.starwindsoftware.com/blog/vmware-licensing-changes/); [Broadcom KB](https://knowledge.broadcom.com/external/article/313548/counting-cores-for-vmware-cloud-foundati.html) |
 | 35% workload migration by 2028 | Gartner Peer Community survey |
 | 56% plan to decrease VMware usage | [Foundry/CIO.com survey](https://www.ciodive.com/news/broadcom-vmware-vcf-adoption-second-phase/759406/) |
 | Canadian cloud market ~$54.8B USD (2025) | [Mordor Intelligence](https://www.mordorintelligence.com/industry-reports/canada-cloud-computing-market); [Grand View Research](https://www.grandviewresearch.com/horizon/outlook/cloud-computing-market/canada) |
@@ -332,3 +333,4 @@ These are investment decisions. The platform works and the market is moving.
 - ~~"Forrester: VMware's largest 2,000 customers will shrink deployments by 40%"~~ — Could not locate this specific Forrester claim. Removed.
 - ~~"Scale Computing: 140% increase in new customers Q1 2025"~~ — Could not verify with a primary source. Removed.
 - ~~"$121.6B Canadian cloud market by 2030"~~ — The 2030 projection varies significantly by source (Mordor: $99.95B, Grand View: $152.3B). Rather than cite a specific 2030 number, the skeleton now uses the 2025 figure with CAGR range.
+- ~~"Minimum core requirements jumped from 16 cores to 72 cores"~~ — Broadcom proposed the 72-core minimum in early 2025 but reversed it after backlash. The current minimum is 16 cores per CPU socket. Corrected above.
