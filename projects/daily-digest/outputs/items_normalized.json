@@ -1,5 +1,5 @@
 {
-  "normalized_at": "2026-03-28T12:52:04.822165Z",
+  "normalized_at": "2026-03-28T12:53:03.341337Z",
   "sources": [
     "email",
     "teams",
@@ -5215,8 +5215,8 @@
         }
       ],
       "participant_count": 1,
-      "is_from_me": false,
-      "mentions_me": true,
+      "is_from_me": "",
+      "mentions_me": false,
       "am_in_to": true,
       "am_in_cc": false,
       "is_direct_message": false,

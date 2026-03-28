@@ -1,5 +1,5 @@
 {
-  "processed_at": "2026-03-27T11:24:34.023731Z",
+  "processed_at": "2026-03-28T12:53:03.341337Z",
   "sources": [
     "email",
     "teams",
@@ -49,8 +49,10 @@
         "chatId": "19:a992bf04-fa98-423a-bb43-f06b83eebee5_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
         "chatType": "oneOnOne"
       },
-      "cluster_id": null,
-      "cluster_items": []
+      "cluster_id": "cluster_0",
+      "cluster_items": [
+        "e01b3963e0a8"
+      ]
     },
     {
       "id": "e01b3963e0a8",
@@ -95,8 +97,10 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASu8Q3rAAA="
         ]
       },
-      "cluster_id": null,
-      "cluster_items": []
+      "cluster_id": "cluster_0",
+      "cluster_items": [
+        "7e1a6cfe7523"
+      ]
     },
     {
       "id": "123c107dfa5e",
@@ -200,8 +204,9 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASrjme9AAA="
         ]
       },
-      "cluster_id": "cluster_0",
+      "cluster_id": "cluster_1",
       "cluster_items": [
+        "7ee7cd553867",
         "5fd6e362f7ed",
         "6729c2127947"
       ]
@@ -264,9 +269,10 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASrjme8AAA="
         ]
       },
-      "cluster_id": "cluster_0",
+      "cluster_id": "cluster_1",
       "cluster_items": [
         "78ea8dac2083",
+        "7ee7cd553867",
         "6729c2127947"
       ]
     },
@@ -328,9 +334,10 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASrjme7AAA="
         ]
       },
-      "cluster_id": "cluster_0",
+      "cluster_id": "cluster_1",
       "cluster_items": [
         "78ea8dac2083",
+        "7ee7cd553867",
         "5fd6e362f7ed"
       ]
     },
@@ -392,8 +399,12 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASrjme6AAA="
         ]
       },
-      "cluster_id": null,
-      "cluster_items": []
+      "cluster_id": "cluster_1",
+      "cluster_items": [
+        "78ea8dac2083",
+        "5fd6e362f7ed",
+        "6729c2127947"
+      ]
     },
     {
       "id": "969363c814a6",
@@ -451,8 +462,10 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASrjmevAAA="
         ]
       },
-      "cluster_id": null,
-      "cluster_items": []
+      "cluster_id": "cluster_2",
+      "cluster_items": [
+        "eb716ab5885f"
+      ]
     },
     {
       "id": "ffba86ece404",
@@ -579,7 +592,7 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8mbTAAA="
         ]
       },
-      "cluster_id": "cluster_1",
+      "cluster_id": "cluster_3",
       "cluster_items": [
         "21d408fdf9f6"
       ]
@@ -637,7 +650,7 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8mbQAAA="
         ]
       },
-      "cluster_id": "cluster_1",
+      "cluster_id": "cluster_3",
       "cluster_items": [
         "3a3a46036fe5"
       ]
@@ -876,7 +889,7 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8mbRAAA="
         ]
       },
-      "cluster_id": "cluster_2",
+      "cluster_id": "cluster_4",
       "cluster_items": [
         "60f03ac212d0"
       ]
@@ -924,7 +937,7 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8mbSAAA="
         ]
       },
-      "cluster_id": "cluster_2",
+      "cluster_id": "cluster_4",
       "cluster_items": [
         "3d502538f5e9"
       ]
@@ -1178,14 +1191,10 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xqAAA="
         ]
       },
-      "cluster_id": "cluster_3",
+      "cluster_id": "cluster_6",
       "cluster_items": [
-        "8f6fbd5f6c1e",
-        "cdf20dd64ef6",
+        "bd70fcd6b309",
         "944849190561",
-        "6c95301b4ba0",
-        "abbb1c815d5e",
-        "f0b241f5346c",
         "21f169d792e7"
       ]
     },
@@ -1990,15 +1999,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xvAAA="
         ]
       },
-      "cluster_id": "cluster_3",
+      "cluster_id": "cluster_5",
       "cluster_items": [
-        "22dd4b26f5ce",
         "cdf20dd64ef6",
-        "944849190561",
-        "6c95301b4ba0",
-        "abbb1c815d5e",
         "f0b241f5346c",
-        "21f169d792e7"
+        "6c95301b4ba0"
       ]
     },
     {
@@ -2151,8 +2156,12 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASrjmeYAAA="
         ]
       },
-      "cluster_id": null,
-      "cluster_items": []
+      "cluster_id": "cluster_6",
+      "cluster_items": [
+        "22dd4b26f5ce",
+        "944849190561",
+        "21f169d792e7"
+      ]
     },
     {
       "id": "cdf20dd64ef6",
@@ -2198,15 +2207,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xsAAA="
         ]
       },
-      "cluster_id": "cluster_3",
+      "cluster_id": "cluster_5",
       "cluster_items": [
-        "22dd4b26f5ce",
         "8f6fbd5f6c1e",
-        "944849190561",
-        "6c95301b4ba0",
-        "abbb1c815d5e",
         "f0b241f5346c",
-        "21f169d792e7"
+        "6c95301b4ba0"
       ]
     },
     {
@@ -2286,14 +2291,10 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xmAAA="
         ]
       },
-      "cluster_id": "cluster_3",
+      "cluster_id": "cluster_6",
       "cluster_items": [
+        "bd70fcd6b309",
         "22dd4b26f5ce",
-        "8f6fbd5f6c1e",
-        "cdf20dd64ef6",
-        "6c95301b4ba0",
-        "abbb1c815d5e",
-        "f0b241f5346c",
         "21f169d792e7"
       ]
     },
@@ -2344,15 +2345,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xnAAA="
         ]
       },
-      "cluster_id": "cluster_3",
+      "cluster_id": "cluster_5",
       "cluster_items": [
-        "22dd4b26f5ce",
         "8f6fbd5f6c1e",
         "cdf20dd64ef6",
-        "944849190561",
-        "abbb1c815d5e",
-        "f0b241f5346c",
-        "21f169d792e7"
+        "f0b241f5346c"
       ]
     },
     {
@@ -2401,8 +2398,10 @@
         "chatId": "19:meeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy@thread.v2",
         "chatType": "meeting"
       },
-      "cluster_id": null,
-      "cluster_items": []
+      "cluster_id": "cluster_2",
+      "cluster_items": [
+        "969363c814a6"
+      ]
     },
     {
       "id": "0b7cfd41df5b",
@@ -2495,15 +2494,10 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xrAAA="
         ]
       },
-      "cluster_id": "cluster_3",
+      "cluster_id": "cluster_7",
       "cluster_items": [
-        "22dd4b26f5ce",
-        "8f6fbd5f6c1e",
-        "cdf20dd64ef6",
-        "944849190561",
-        "6c95301b4ba0",
-        "f0b241f5346c",
-        "21f169d792e7"
+        "78b6219eb143",
+        "70ec575ea0fd"
       ]
     },
     {
@@ -2589,15 +2583,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xpAAA="
         ]
       },
-      "cluster_id": "cluster_3",
+      "cluster_id": "cluster_5",
       "cluster_items": [
-        "22dd4b26f5ce",
         "8f6fbd5f6c1e",
         "cdf20dd64ef6",
-        "944849190561",
-        "6c95301b4ba0",
-        "abbb1c815d5e",
-        "21f169d792e7"
+        "6c95301b4ba0"
       ]
     },
     {
@@ -2643,15 +2633,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xoAAA="
         ]
       },
-      "cluster_id": "cluster_3",
+      "cluster_id": "cluster_6",
       "cluster_items": [
+        "bd70fcd6b309",
         "22dd4b26f5ce",
-        "8f6fbd5f6c1e",
-        "cdf20dd64ef6",
-        "944849190561",
-        "6c95301b4ba0",
-        "abbb1c815d5e",
-        "f0b241f5346c"
+        "944849190561"
       ]
     },
     {
@@ -3331,8 +3317,9 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xlAAA="
         ]
       },
-      "cluster_id": "cluster_4",
+      "cluster_id": "cluster_7",
       "cluster_items": [
+        "abbb1c815d5e",
         "70ec575ea0fd"
       ]
     },
@@ -3425,8 +3412,9 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xjAAA="
         ]
       },
-      "cluster_id": "cluster_4",
+      "cluster_id": "cluster_7",
       "cluster_items": [
+        "abbb1c815d5e",
         "78b6219eb143"
       ]
     },
@@ -3473,7 +3461,7 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xiAAA="
         ]
       },
-      "cluster_id": "cluster_5",
+      "cluster_id": "cluster_8",
       "cluster_items": [
         "a0860fa43de7",
         "edb6849f7758"
@@ -3522,7 +3510,7 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xhAAA="
         ]
       },
-      "cluster_id": "cluster_5",
+      "cluster_id": "cluster_8",
       "cluster_items": [
         "a2b14524c6ae",
         "edb6849f7758"
@@ -3571,7 +3559,7 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASq10xgAAA="
         ]
       },
-      "cluster_id": "cluster_5",
+      "cluster_id": "cluster_8",
       "cluster_items": [
         "a2b14524c6ae",
         "a0860fa43de7"
@@ -3666,13 +3654,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8maiAAA="
         ]
       },
-      "cluster_id": "cluster_6",
+      "cluster_id": "cluster_9",
       "cluster_items": [
         "b11f3a964ffd",
         "9cd8f2a2c8aa",
-        "4f124c47d3a5",
-        "0aaad8405309",
-        "b710994b0e7b"
+        "4f124c47d3a5"
       ]
     },
     {
@@ -3718,13 +3704,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8mamAAA="
         ]
       },
-      "cluster_id": "cluster_6",
+      "cluster_id": "cluster_9",
       "cluster_items": [
         "1ba0e57828c6",
         "9cd8f2a2c8aa",
-        "4f124c47d3a5",
-        "0aaad8405309",
-        "b710994b0e7b"
+        "4f124c47d3a5"
       ]
     },
     {
@@ -3770,13 +3754,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8makAAA="
         ]
       },
-      "cluster_id": "cluster_6",
+      "cluster_id": "cluster_9",
       "cluster_items": [
         "1ba0e57828c6",
         "b11f3a964ffd",
-        "4f124c47d3a5",
-        "0aaad8405309",
-        "b710994b0e7b"
+        "4f124c47d3a5"
       ]
     },
     {
@@ -3822,13 +3804,11 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8maoAAA="
         ]
       },
-      "cluster_id": "cluster_6",
+      "cluster_id": "cluster_9",
       "cluster_items": [
         "1ba0e57828c6",
         "b11f3a964ffd",
-        "9cd8f2a2c8aa",
-        "0aaad8405309",
-        "b710994b0e7b"
+        "9cd8f2a2c8aa"
       ]
     },
     {
@@ -3874,12 +3854,8 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8maqAAA="
         ]
       },
-      "cluster_id": "cluster_6",
+      "cluster_id": "cluster_10",
       "cluster_items": [
-        "1ba0e57828c6",
-        "b11f3a964ffd",
-        "9cd8f2a2c8aa",
-        "4f124c47d3a5",
         "b710994b0e7b"
       ]
     },
@@ -3926,12 +3902,8 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASp8magAAA="
         ]
       },
-      "cluster_id": "cluster_6",
+      "cluster_id": "cluster_10",
       "cluster_items": [
-        "1ba0e57828c6",
-        "b11f3a964ffd",
-        "9cd8f2a2c8aa",
-        "4f124c47d3a5",
         "0aaad8405309"
       ]
     },
@@ -3966,7 +3938,7 @@
       "is_forwarded": false,
       "attachments": [],
       "has_attachments": false,
-      "url": null,
+      "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1774554738853379",
       "source_meta": {
         "channel_id": "C054X8DKQ3G",
         "channel_name": "cloud-platform-pm"
@@ -3997,15 +3969,15 @@
         }
       ],
       "participant_count": 1,
-      "is_from_me": false,
-      "mentions_me": true,
+      "is_from_me": "",
+      "mentions_me": false,
       "am_in_to": true,
       "am_in_cc": false,
       "is_direct_message": false,
       "is_forwarded": false,
       "attachments": [],
       "has_attachments": false,
-      "url": null,
+      "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1774539864069629",
       "source_meta": {
         "channel_id": "C054X8DKQ3G",
         "channel_name": "cloud-platform-pm"
@@ -4049,7 +4021,7 @@
       "is_forwarded": false,
       "attachments": [],
       "has_attachments": false,
-      "url": null,
+      "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1774535963497129",
       "source_meta": {
         "channel_id": "C054X8DKQ3G",
         "channel_name": "cloud-platform-pm"
