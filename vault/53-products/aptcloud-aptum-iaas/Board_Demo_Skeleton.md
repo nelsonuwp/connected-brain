@@ -28,74 +28,99 @@
 
 ## 2. What's Happening to Our VMware Base Right Now
 
-This isn't analyst data. This is our customer base, our numbers, pulled directly from MRCTrend billing snapshots - the same source our data team uses.
+This isn't analyst data. This is our customer base, our numbers, pulled directly from MRCTrend billing snapshots (Online services only) - the same source our data team uses.
 
 ### The headline
 
-In January 2024, our 54 VMware managed hosting customers were generating **$1,000,096 CAD/mo** in total MRC across all services. As of February 2026, those same client IDs account for **$783,805 CAD/mo**. That is a **$216,291/mo decline (-21.6%)**, or roughly **$2.6M/yr in eroded revenue**.
+In January 2024, our 54 VMware managed hosting customers were generating **$970,763 CAD/mo** in Online MRC across all services. As of February 2026, those same client IDs account for **$679,496 CAD/mo**. That is a **$291,267/mo decline (-30.0%)**, or roughly **$3.5M/yr in eroded revenue**.
 
-9 customers are completely gone from the billing system. 3 more (Dods Group, Crealogix, Star One) still have services listed but at $0 MRC - effectively gone. 140 ESXi host services have been deprovisioned since January 2024.
+12 customers have no Online revenue left. 140 ESXi host services have been deprovisioned since January 2024. But 29 of 54 customers actually grew their Online spend - the erosion is concentrated in customers with shallow, single-product relationships.
+
+Including services currently in Provision, Migration, and Upgrade ($117K/mo across 7 customers), the Feb 2026 total rises to **$796K**, narrowing the gap to **-$175K (-18%)**.
 
 ### Where the money went
 
-**12 customers effectively gone - $248,788/mo lost**
-- Gogotech II: $63.6K/mo
-- Centro Internacional de Mejoramiento: $35.4K/mo
-- Dods Group Limited: $31.7K/mo (still has 2 services at $0)
-- Crealogix MBA Limited: $22.1K/mo (still has 1 service at $0)
-- Be the brand experience: $21.8K/mo
-- VIRBAC SA: $19.3K/mo
+**12 customers effectively gone - $244K/mo lost**
+- Gogotech II: $57.7K/mo
+- Centro Internacional de Mejoramiento: $35.5K/mo
+- Dods Group Limited: $32.2K/mo (still has 2 services at $0)
+- Crealogix MBA Limited: $22.5K/mo (still has 1 service at $0)
+- Be the brand experience: $22.1K/mo
+- VIRBAC SA: $19.4K/mo
 - StraighterLine: $15.5K/mo
-- Star One Credit Union: $10.7K/mo (1 pending-release service at $0)
 - Signifi Solutions: $10.9K/mo
+- Star One Credit Union: $10.8K/mo (1 pending-release service at $0)
 - 20-20 Technologies: $9.9K/mo
-- Blue Cow Software: $4.1K/mo
+- Blue Cow Software: $4.2K/mo
 - TAB Products: $3.7K/mo
 
-**11 remaining customers downsized - $103,385/mo reduction**
-- Premia Solutions: $43K -> $6K (-85%). Deprovisioned 4 ESXi hosts.
-- Engage People: $52K -> $21K (-60%). Deprovisioned 4 ESXi hosts.
-- Checkout Technology: $11K -> $3K (-75%)
+**13 customers downsized (Online) - $131K/mo reduction**
+- Premia Solutions: $36K -> $7K (-81%). Deprovisioned 4 ESXi hosts.
+- Engage People: $46K -> $21K (-56%). Deprovisioned 4 ESXi hosts, 4 still active but month-to-month.
+- Blue Yonder: $35K -> $19K Online (-46%). BUT $36K in Provision/Migration - migrating from old E5v3 vHosts to Pro Series 6.0 with ESXi 8.0. Came back after losing all online vHosts. Total including pending: $55K (+58% from Jan 2024).
+- Heilind Electronics: $56K -> $41K Online (-26%). BUT $38K in Provision - upgrading ESXi 7.0 to ESXi 8.0 on new Dell 650xs hardware. Total including pending: $80K (+42% from Jan 2024).
+- HYTECK/Aroma Zone: $25K -> $14K Online (-43%). $20K in Provision, including **$9.2K Google Cloud** - going multi-cloud through Aptum. Total including pending: $34K (+37% from Jan 2024).
+- Checkout Technology: $11K -> $3K (-74%)
 - CoffeeCup Software: $9K -> $1K (-92%)
-- Supplier Solutions: $31K -> $26K (-17%)
-- Morgan Technical Ceramics: $5K -> $1K (-78%)
-- Adam Matthew Digital: $28K -> $25K (-11%). Deprovisioned 3 ESXi hosts.
-- Chestnut Health System: $27K -> $24K (-11%)
-- HYTECK/Aroma Zone: $34K -> $32K (-4%)
+- Netintegrity: $17K -> $13K (-25%). 4 vHosts upgrading from ESXi 7.0 to 8.0 ($7K in Upgrade/Downgrade).
+- Adam Matthew Digital: $28K -> $24K (-15%). Deprovisioned 3 ESXi hosts. $1K in Migration.
+- Supplier Solutions: $30K -> $26K (-13%)
+- Morgan Technical Ceramics: $5K -> $1K (-77%)
 - Granite REIT: $14K -> $12K (-10%)
 - Nomad Digital: $12K -> $11K (-7%)
 
-**31 customers grew - +$135,882/mo**
-- Heilind Electronics: $56K -> $79K (+40%, +$22.6K)
-- Blue Yonder: $35K -> $54K (+56%, +$19.5K)
-- Chicken Farmers of Ontario: $19K -> $37K (+91%, +$17.6K). Deprovisioned 3 old ESXi hosts but added substantially more new services.
-- Townsquare Media: $103K -> $110K (+7%, +$7.6K). One vHost in a massive dedicated footprint. Growing overall.
+**29 customers grew (Online) - +$84K/mo**
+- Townsquare Media: $103K -> $112K (+8%, +$8.6K). One vHost in a massive dedicated footprint. Growing overall.
 - WeirFoulds LLP: $37K -> $44K (+19%, +$7.1K)
+- Leek United Building Society: $41K -> $48K (+17%, +$6.9K)
 - CITYWAY: $11K -> $17K (+59%, +$6.4K)
 - Alaya Care: $7K -> $12K (+86%, +$5.6K)
-- Leek United Building Society: $40K -> $45K (+11%, +$4.6K)
-- RepoSystems.Com: $7K -> $11K (+65%, +$4.4K)
-- Noratek Solutions: $3K -> $7K (+144%, +$4.2K)
-- These 31 customers committed, expanded their relationship, or are actively investing in new infrastructure with us. This is what "sticky" looks like.
+- Chicken Farmers of Ontario: $19K -> $24K Online (+25%, +$4.8K). Plus $13K in Migration (3 vHosts moving from Series 5.0/ESXi 7.0). Total including pending: $37K (+91%).
+- RepoSystems.Com: $7K -> $11K (+66%, +$4.5K)
+- Noratek Solutions: $3K -> $7K (+145%, +$4.3K)
+- Enidus USA: $24K -> $28K (+17%, +$4.1K)
+- Currencies Direct: $3K -> $6K (+95%, +$2.7K)
+- Kinetico: $16K -> $19K (+16%, +$2.6K)
+- Plus 18 more customers with smaller growth
+
+### Migrations in flight (proof points for the board)
+
+These customers are actively investing - their Online revenue is temporarily lower because work is in progress:
+- **Heilind**: $41K online + $38K pending. Upgrading ESXi 7.0 to 8.0 on new Dell 650xs. Net growth when complete.
+- **Blue Yonder**: $19K online + $36K pending. Migrating from legacy E5v3 vHosts to Pro Series 6.0/ESXi 8.0. Came back after going to $0 vHosts. Net growth when complete.
+- **HYTECK/Aroma Zone**: $14K online + $20K pending. Includes $9.2K Google Cloud - they're going multi-cloud through Aptum. This is the Apt Cloud value prop in action.
+- **Chicken Farmers**: $24K online + $13K pending. 3 vHosts migrating from Series 5.0/ESXi 7.0 to newer hardware.
+- **Netintegrity**: $13K online + $7K upgrading. 4 vHosts upgrading ESXi 7.0 to 8.0.
+
+### The generation cliff
+
+The 80 active ESXi hosts are not all equal. The real risk is concentrated in the aging Gen 5.0 fleet:
+
+| Generation | Hosts | Customers | MRC | Avg contract remaining |
+|---|---|---|---|---|
+| Pre-5.0 (Legacy) | 5 | 2 | $10K | 3 months |
+| Gen 5.0 | 46 | 22 | $142K | 6 months |
+| Gen 6.0+ (Dell 650xs/R660) | 27 | 11 | $82K | 26 months |
+
+**41 ESXi services across 19 customers ($124K/mo) have 6 months or less on contract.** That is half the active VMware base about to come up for renewal. Each one is a migrate-or-lose decision.
+
+The Gen 6.0+ hosts are healthy - recently signed, long contracts, new hardware. The Gen 5.0 hosts are the migration pipeline. Every one that moves to CloudStack/KVM eliminates Broadcom licensing exposure and improves margin.
 
 ### Note on methodology
 
-Our January 2024 total ($1,000,096) aligns closely with the data team's figure ($1,006,517) - the ~$6K difference is likely a snapshot timing or rounding variance. The February 2026 figure differs more significantly ($783,805 vs data team's $933,571). The gap is likely due to differences in which customer IDs are included in the "VMware base" definition or which columns are summed. We should align the customer list with the data team and use one agreed number. The directional story is the same regardless: the VMware base is contracting, and the question is where those dollars go next.
+Source: MRCTrend billing snapshots, Jan 31, 2024 vs Feb 28, 2026. Online services only for the headline numbers. All figures in CAD (cad_mrc column). 54 unique client IDs who had at least one vHost service.
 
-### What's still exposed
-
-- **140 ESXi host services deprovisioned** since January 2024 across 41 customers. That is more than half the original VMware infrastructure footprint turned off.
-- **80 ESXi hosts still active** across 32 customers, generating **$241K CAD/mo** in VMware-specific infrastructure revenue.
-- Top remaining VMware customers: Heilind ($22K/mo, 4 hosts), Leek United ($22K/mo, 8 hosts), CITYWAY ($14K/mo, 4 hosts), Supplier Solutions ($14K/mo, 4 hosts), Chestnut Health ($14K/mo, 6 hosts).
-- These 32 customers and 80 hosts are the active migration opportunity. Every one that moves to CloudStack/KVM eliminates Broadcom licensing exposure and improves margin.
+Our January 2024 Online total ($970,763) is close to the data team's figure ($1,006,517) - the difference is likely a snapshot timing variance or which MRC column is summed (cad_mrc vs cad_budget_mrc). We should align the exact column and customer list with the data team before presenting final numbers. The directional story is the same regardless.
 
 ### What this means
 
-The VMware managed hosting base is contracting, and the pattern is clear: single-product customers (vHost-only, shallow relationship) are the ones leaving or shrinking. Multi-product customers (dedicated servers, networking, managed services layered on top) are growing. 31 of 54 customers actually increased their total spend despite the VMware disruption.
+The VMware managed hosting base is contracting, and the pattern is clear: single-product customers (vHost-only, shallow relationship) are the ones leaving. Multi-product customers are growing - 29 of 54 actually increased their Online spend despite the VMware disruption, and 5 more are mid-migration with substantial pending work.
 
 This is exactly the problem Apt Cloud + Aptum IaaS is built to solve. Instead of passing through Broadcom's price increases and watching customers walk, we migrate them to CloudStack/KVM where the licensing overhead is zero, wrap managed services around it, and the multi-product relationship keeps them.
 
-The 45 customers still in the billing system are the migration pipeline. The question is how fast we can move them.
+HYTECK adding $9.2K/mo in Google Cloud through Aptum is the best proof point: they're not leaving, they're deepening the relationship across clouds. That's the Apt Cloud multi-cloud story working.
+
+The 42 customers still billing (plus 7 with active provisioning/migration work) are the pipeline. The 41 ESXi services expiring within 6 months are the urgent ones.
 
 
 ---
@@ -257,9 +282,9 @@ Single-product customers churn easily. Multi-product customers don't. Every addi
 - No VMware licensing overhead means we can be the lowest-cost managed provider while maintaining strong margins, or invest that margin into service quality and channel incentives.
 
 ### The VMware data proves it
-- The 31 customers who GREW over the past two years are the multi-product customers. Townsquare Media has one vHost but a massive dedicated footprint ($110K/mo total). Heilind, Blue Yonder, Chicken Farmers, Leek United, Kinetico, Supplier Solutions - they buy compute, networking, managed services, the whole stack. They're not going anywhere.
-- The customers who churned or downsized were overwhelmingly single-product (vHost-only) or had shallow relationships. Gogotech, Be the brand experience, StraighterLine, 20-20 Technologies - they had vHosts and not much else. Easy to leave.
-- This is the stickiness model playing out in real data, not a theory.
+- 29 customers grew their Online spend over the past two years despite VMware disruption. 5 more are mid-migration with substantial pending work (Heilind, Blue Yonder, HYTECK, Chicken Farmers, Netintegrity). The growers are multi-product customers. Townsquare Media has one vHost but a massive dedicated footprint ($112K/mo total). Leek United, Kinetico, Chicken Farmers, Currencies Direct - they buy compute, networking, managed services, the whole stack. They're not going anywhere.
+- The 12 who churned entirely were overwhelmingly single-product (vHost-only) or had shallow relationships. Gogotech, Be the brand experience, StraighterLine, 20-20 Technologies - they had vHosts and not much else. Easy to leave.
+- 8 customers dropped all vHosts but are still spending $62K/mo on other services. They left VMware but didn't leave Aptum. That's the multi-product stickiness argument in real data, not a theory.
 
 ### Early signals on Aptum IaaS
 - SCADAcore: 42 vCPU, 282 GB RAM, 24 TB storage, 8x SQL Enterprise. $24,868/mo. 36-month contract. They signed because they needed a managed environment they didn't have to think about. That's the value prop.
