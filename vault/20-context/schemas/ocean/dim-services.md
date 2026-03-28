@@ -1,7 +1,7 @@
 ---
 type: schema
 object: dimServices
-updated: 2026-03-06
+updated: 2026-03-28
 ---
 
 # dimServices
@@ -43,11 +43,11 @@ updated: 2026-03-06
 
 | client_id | company_name | service_id | nickname | server_name | product | service_status | os | currency | provision_date | datacenter_name | datacenter_city | datacenter_code | line_of_business | device_id | service_type | mrc | usd_mrc | cad_mrc | contract_length | contract_months_remaining | last_updated | cad_budget_mrc | fusion_id | adjusted_line_of_business |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 7008089 | Mosaic Online Systems Ltd | -7008600 |  |  | B/W-TRAFFIC                     | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 0.0000 | 0.0000 | 0.0000 | -1 | -1 | 2026-03-05 07:48:12.786666 | 0.0000 | 0 | Colocation |
-| 7008089 | Mosaic Online Systems Ltd | -7008510 |  |  | CONNECT-CROSS CONNECT           | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 236.2700 | 320.8743 | 389.8455 | -1 | -1 | 2026-03-05 07:48:12.786666 | 389.8455 | 0 | Colocation |
-| 7008089 | Mosaic Online Systems Ltd | -7008399 |  |  | B/W-COMMIT                      | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 2205.1000 | 2994.7088 | 3638.4150 | -1 | -1 | 2026-03-05 07:48:12.786666 | 3638.4150 | 0 | Colocation |
-| 7008089 | Mosaic Online Systems Ltd | -7008298 |  |  | COLO-FULL                       | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 2598.8800 | 3529.4947 | 4288.1520 | -1 | -1 | 2026-03-05 07:48:12.786666 | 4288.1520 | 0 | Colocation |
-| 7008089 | Mosaic Online Systems Ltd | -7008198 |  |  | COLO-FULL                       | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 2598.8800 | 3529.4947 | 4288.1520 | -1 | -1 | 2026-03-05 07:48:12.786666 | 4288.1520 | 0 | Colocation |
+| 7008089 | Mosaic Online Systems Ltd | -7008600 |  |  | B/W-TRAFFIC                     | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 0.0000 | 0.0000 | 0.0000 | -1 | -1 | 2026-03-27 07:48:15.080000 | 0.0000 | 0 | Colocation |
+| 7008089 | Mosaic Online Systems Ltd | -7008510 |  |  | CONNECT-CROSS CONNECT           | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 236.2700 | 318.3923 | 389.8455 | -1 | -1 | 2026-03-27 07:48:15.080000 | 389.8455 | 0 | Colocation |
+| 7008089 | Mosaic Online Systems Ltd | -7008399 |  |  | B/W-COMMIT                      | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 2205.1000 | 2971.5442 | 3638.4150 | -1 | -1 | 2026-03-27 07:48:15.080000 | 3638.4150 | 0 | Colocation |
+| 7008089 | Mosaic Online Systems Ltd | -7008298 |  |  | COLO-FULL                       | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 2598.8800 | 3502.1935 | 4288.1520 | -1 | -1 | 2026-03-27 07:48:15.080000 | 4288.1520 | 0 | Colocation |
+| 7008089 | Mosaic Online Systems Ltd | -7008198 |  |  | COLO-FULL                       | Online |  | GBP | 1999-01-01 00:00:00 | Croydon | London | CRO | Colocation |  | colocation | 2598.8800 | 3502.1935 | 4288.1520 | -1 | -1 | 2026-03-27 07:48:15.080000 | 4288.1520 | 0 | Colocation |
 
 ## Usage Notes
 
