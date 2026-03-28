@@ -1,6 +1,6 @@
 {
   "source": "teams",
-  "collected_at": "2026-03-28T12:54:29.955490Z",
+  "collected_at": "2026-03-28T13:03:59.299619Z",
   "status": "success",
   "objects": {
     "chats": {
@@ -2499,8 +2499,7 @@
                   "@odata.type": "#microsoft.graph.teamworkUserIdentity",
                   "id": "5842d4bb-c645-421b-af8d-6e71e8e01636",
                   "displayName": null,
-                  "userIdentityType": "aadUser",
-                  "tenantId": "ad69d422-4fa7-42b0-a4d3-f58410f311ed"
+                  "userIdentityType": "aadUser"
                 }
               }
             }
@@ -5975,8 +5974,7 @@
                   "@odata.type": "#microsoft.graph.teamworkUserIdentity",
                   "id": "9ecfec12-a4bb-4f43-996b-51df55f6e80e",
                   "displayName": "Martin",
-                  "userIdentityType": "aadUser",
-                  "tenantId": "ad69d422-4fa7-42b0-a4d3-f58410f311ed"
+                  "userIdentityType": "aadUser"
                 }
               }
             },
@@ -5992,8 +5990,7 @@
                   "@odata.type": "#microsoft.graph.teamworkUserIdentity",
                   "id": "9ecfec12-a4bb-4f43-996b-51df55f6e80e",
                   "displayName": "Tessier",
-                  "userIdentityType": "aadUser",
-                  "tenantId": "ad69d422-4fa7-42b0-a4d3-f58410f311ed"
+                  "userIdentityType": "aadUser"
                 }
               }
             }
@@ -8598,8 +8595,7 @@
                   "@odata.type": "#microsoft.graph.teamworkUserIdentity",
                   "id": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
                   "displayName": null,
-                  "userIdentityType": "aadUser",
-                  "tenantId": "ad69d422-4fa7-42b0-a4d3-f58410f311ed"
+                  "userIdentityType": "aadUser"
                 }
               }
             }
