@@ -67,154 +67,74 @@ The decline is real, but what happened underneath it is more interesting than th
 
 8 customers dropped all VMware vHosts but still spend $62K/mo on other Aptum services. They left VMware, not Aptum. The stickiness model held.
 
-### The stickiness argument
+### The stickiness argument — now with data
 
-This is worth pausing on because it directly connects to the demo and the platform thesis. The customers who stayed and grew are the ones with multi-product relationships. The ones who left had a single product and nothing tying them to us. Apt Cloud is designed to create exactly this kind of depth — when a customer provisions VMs, manages DNS, monitors costs, and views Azure resources through one portal, the switching cost goes up with every additional service they consume. The demo will show how this works in practice.
+This connects directly to the demo and the platform thesis. The 32 customers who still have active vHosts spend a combined $569,662 CAD/mo across all services. Only $241,018 of that (42%) is vHost revenue. The remaining $328,644 (58%) is non-vHost: SAN storage, firewalls, managed services, security, connectivity, guest VMs, and more.
+
+The top customers by total spend show the pattern clearly:
+
+- **Townsquare Media**: $111,874/mo total, only $3,119 is vHost (3%). 147 services across 9 service types. They're a dedicated server customer who happens to have one vHost.
+- **Leek United Building Society**: $51,629/mo total, $21,721 vHost (42%). 127 services, 10 service types including DRaaS, security, and connectivity.
+- **Heilind Electronics**: $47,137/mo total, $22,153 vHost (47%). 54 services including WAF, SAN, DRaaS, and AWS.
+- **Engage People**: $21,965/mo total, $7,757 vHost (35%). 45 services including SAN, NetApp, load balancers, connectivity.
+
+10 of 32 active vHost customers have more than 50% of their revenue in non-vHost services (high stickiness). Only 3 customers have less than 20% non-vHost revenue — those are the flight risks.
+
+Apt Cloud is designed to create this kind of depth systematically. When a customer provisions VMs, manages DNS, monitors costs, and views Azure resources through one portal, switching cost goes up with every additional service they consume. The demo will show how this works.
+
+### Why customers left — the churn data
+
+82 vHost services were cancelled across 25 customers since January 2024, totaling $210,372 CAD/mo in lost MRC. The cancel reasons tell the story:
+
+- **"We are taking it in-house"**: 37 services, 13 customers, $110,529. This is the largest category by far — customers bringing infrastructure back under their own control. Includes COMPAGNIE DU PONANT (6 hosts, $14K), VIRBAC (3 hosts, $10.9K), Be the Brand (2 hosts, $9.6K), and others.
+- **Non-payment**: 5 services, 2 customers, $36,107. Gogotech ($28.8K, all 3 hosts) and Nomad Digital ($7.3K, 2 hosts) — revenue that was never going to persist.
+- **"Not leaving, just moving to another Product"**: 9 services, 3 customers, $25,386. These are internal migrations, not departures. Premia Solutions (6 hosts, $17.3K) moved to a different product. Engage People and Ministry of Education Jamaica also migrated within Aptum.
+- **"Client left reseller"**: 6 services, 1 customer (Crealogix MBA), $11,397. Lost from the reseller channel, not direct.
+- **Price erosion**: 18 services, 5 customers, $10,257. Customers who negotiated down or left over pricing.
+
+9 customers fully departed (accounts_left = 0), representing $89,410/mo. The common thread: shallow relationships. Gogotech was vHost-only and stopped paying. StraighterLine was vHost-only and took it in-house. VIRBAC, COMPAGNIE DU PONANT, and 20-20 Technologies all had minimal non-vHost footprint.
 
 ### Active migration pipeline
 
 5 customers are mid-migration right now with substantial pending work:
 
-- **Heilind**: $41K online + $38K pending. Upgrading ESXi 7.0 to 8.0 on new Dell 650xs. Net growth when complete.
+- **Heilind**: $41K online + $38K pending. Upgrading ESXi 7.0 to 8.0 on new Dell 650xs. Total footprint $47K/mo across 54 services. Net growth when complete.
 - **Blue Yonder**: $19K online + $36K pending. Came back after going to $0 vHosts. Migrating to Pro Series 6.0/ESXi 8.0.
-- **HYTECK**: $14K online + $20K pending. Including $9.2K in Google Cloud — they're going multi-cloud through Aptum. This is the Apt Cloud value prop working in practice.
-- **Chicken Farmers**: $24K online + $13K pending. 3 vHosts migrating to newer hardware.
+- **HYTECK**: $14K online + $20K pending. Including $9.2K in Google Cloud — they're going multi-cloud through Aptum. Total footprint $19.6K/mo across 31 services including WAF, TAM, load balancers, and DBA blocks.
+- **Chicken Farmers**: $24K online + $13K pending. Total footprint $14.4K/mo across 27+ services including SAN, DRaaS, security, colo, and Microsoft Cloud.
 - **Netintegrity**: $13K online + $7K upgrading. ESXi 7.0 to 8.0.
 
 Including all pending work ($117K/mo across 7 customers), the decline narrows from −30% to −18%.
 
 ### Contract expiry: the near-term pipeline
 
-80 active ESXi hosts remain across 32 customers ($241K/mo). 41 of those services across 19 customers ($124K/mo) have 6 months or less remaining on contract. Half the active VMware base is about to come up for renewal. Each one is a migrate-or-lose decision — and these are customers who already trust us with production workloads.
+80 active ESXi hosts remain across 32 customers ($241,018/mo). The renewal timeline, confirmed against actual expiration dates from the renewals database:
 
-### Data we should pull before the board meeting
+| Timeframe | Hosts | Customers | MRC |
+|-----------|-------|-----------|-----|
+| Month-to-month or expired/≤1mo | 35 | 17 | $106,533/mo |
+| 2–6 months remaining | 6 | 2 | $17,788/mo |
+| 7–12 months remaining | 9 | 5 | $25,525/mo |
+| 13–24 months remaining | 11 | 6 | $32,732/mo |
+| 25+ months remaining | 19 | 6 | $58,440/mo |
 
-The numbers above come from MRCTrend billing snapshots (Jan 31 2024 vs Feb 28 2026, Online services, cad_mrc). To sharpen the story further, here are SQL queries to run against the Ocean database that would give us richer detail:
+41 services across 19 customers ($124,321/mo) are within 6 months of renewal or already month-to-month. The largest exposures: CITYWAY (4 hosts, $13.8K), Chestnut Health System (6 hosts, $13.6K), Better Impact (3 hosts, $10.7K), Ministry of Education Jamaica (2 hosts, $10.3K), Engage People (4 hosts, $7.8K), Granite REIT (2 hosts, $7.6K).
 
-**Query 1 — Renewal dates for all active ESXi services (correlated with MRC)**
+Each of these is a migrate-or-lose decision, and these are customers who already trust us with production workloads.
 
-This gives exact expiration dates rather than the "contract_months_remaining" estimate, so we can show which specific customers hit renewal in Q2/Q3 2026.
+### ESXi version and hardware generation
 
-```sql
-SELECT
-    s.client_id,
-    s.company_name,
-    s.service_id,
-    s.product,
-    s.os,
-    s.cad_mrc,
-    s.contract_months_remaining,
-    r.expiration_date,
-    r.m2m,
-    r.first_term
-FROM [DM_BusinessInsights].[dbo].[dimServices] s
-LEFT JOIN [DM_BusinessInsights].[renewals].[ocean_services_renewal_date] r
-    ON s.service_id = r.service_id
-WHERE s.service_status = 'Online'
-    AND s.product LIKE '%vHost%'
-ORDER BY r.expiration_date ASC
-```
+- **ESXi 8.0**: 58 hosts, $179,798/mo — already on current VMware, but still exposed to Broadcom pricing
+- **ESXi 7.0**: 22 hosts, $61,220/mo — end of general support was October 2025, must upgrade or migrate
 
-**Query 2 — Component-level breakdown of vHost services (what's actually on each host)**
+By hardware generation:
+- **Pre-5.0 (E5v3/E3v5 legacy)**: 7 hosts, 3 customers, $16,658/mo — oldest hardware, likely first candidates for migration
+- **Gen 5.0**: 46 hosts, 22 customers, $141,920/mo — the bulk of the base
+- **Gen 6.0+ (Dell 650xs / new hardware)**: 27 hosts, 11 customers, $82,440/mo — newest investments, longest contracts remaining
 
-This shows the hardware, RAM, CPU, storage, and add-ons attached to each ESXi service. Useful for understanding what customers are actually running and what an IaaS migration would need to replicate.
+### Financial note
 
-```sql
-SELECT
-    s.client_id,
-    s.company_name,
-    s.service_id,
-    s.product,
-    c.component_category,
-    c.component_type,
-    c.component,
-    c.cad_component_mrc,
-    c.is_online
-FROM [DM_BusinessInsights].[dbo].[dimServices] s
-LEFT JOIN [DM_BusinessInsights].[dbo].[dimComponents] c
-    ON s.service_id = c.service_id
-WHERE s.service_status = 'Online'
-    AND s.product LIKE '%vHost%'
-ORDER BY s.company_name, s.service_id, c.component_category
-```
-
-**Query 3 — Total customer footprint (all services, not just vHosts) for VMware customers**
-
-This shows why multi-product customers are sticky. You can see the full service portfolio for each customer that has at least one vHost, including colo, dedicated servers, networking, etc.
-
-```sql
-SELECT
-    s.client_id,
-    s.company_name,
-    s.product,
-    s.service_type,
-    s.adjusted_line_of_business,
-    COUNT(*) AS service_count,
-    SUM(s.cad_mrc) AS total_cad_mrc
-FROM [DM_BusinessInsights].[dbo].[dimServices] s
-WHERE s.service_status = 'Online'
-    AND s.client_id IN (
-        SELECT DISTINCT client_id
-        FROM [DM_BusinessInsights].[dbo].[dimServices]
-        WHERE product LIKE '%vHost%'
-            AND service_status = 'Online'
-    )
-GROUP BY s.client_id, s.company_name, s.product, s.service_type, s.adjusted_line_of_business
-ORDER BY s.company_name, total_cad_mrc DESC
-```
-
-**Query 4 — Churn detail: VMware services cancelled since Jan 2024 with cancel reason**
-
-The Churn table has `cancel_reason` and `is_migration` fields that tell us whether departures were true churn vs. internal migrations. This helps separate "lost the customer" from "moved the workload."
-
-```sql
-SELECT
-    client_id,
-    client_id_company,
-    service_id,
-    product,
-    os,
-    cancel_reason,
-    is_migration,
-    cancel_date,
-    cad_mrc,
-    months_online,
-    accounts_left,
-    comments
-FROM [DM_BusinessInsights].[dbo].[Churn]
-WHERE product LIKE '%vHost%'
-    AND cancel_date >= '2024-01-01'
-ORDER BY cancel_date DESC
-```
-
-**Query 5 — Financial reconciliation: billed amounts vs. dimServices MRC for VMware customers**
-
-This cross-references what dimServices says a customer's MRC is vs. what actually got billed in the most recent period. Useful for catching discrepancies before presenting to the board.
-
-```sql
-SELECT
-    s.client_id,
-    s.company_name,
-    s.service_id,
-    s.product,
-    s.cad_mrc AS dimservices_mrc,
-    SUM(f.xtndprce_period_nx) AS billed_amount,
-    s.cad_mrc - SUM(f.xtndprce_period_nx) AS variance
-FROM [DM_BusinessInsights].[dbo].[dimServices] s
-LEFT JOIN [FinancialReporting].[dbo].[finance_revenue_mapping] f
-    ON s.client_id = f.client_id
-    AND CAST(s.service_id AS varchar) = f.service_id
-    AND f.revenue_period = (
-        SELECT MAX(revenue_period)
-        FROM [FinancialReporting].[dbo].[finance_revenue_mapping]
-        WHERE client_id = s.client_id
-    )
-WHERE s.service_status = 'Online'
-    AND s.product LIKE '%vHost%'
-GROUP BY s.client_id, s.company_name, s.service_id, s.product, s.cad_mrc
-HAVING ABS(s.cad_mrc - SUM(f.xtndprce_period_nx)) > 1
-ORDER BY ABS(s.cad_mrc - SUM(f.xtndprce_period_nx)) DESC
-```
+There is a significant variance between dimServices MRC and actual billed amounts for many vHost services (dimServices shows $130K across the services with variance; actual billing shows $64K for those same services). This likely reflects components included in the service definition that are billed separately or at different rates. Worth understanding with the finance team before presenting the per-service detail to the board, though the aggregate MRCTrend numbers should be more reliable.
 
 ### Note on methodology
 
