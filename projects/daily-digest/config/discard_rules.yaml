@@ -102,9 +102,13 @@ clustering:
 
   # Cosine similarity threshold for merging items across sources
   # 0.65 = aggressive (more merges, occasional false positives)
-  # 0.72 = balanced (default)
-  # 0.82 = conservative (only very obvious matches)
-  merge_threshold: 0.72
+  # 0.68 = balanced with boost signals (participant, cross-source, temporal)
+  # 0.72 = conservative (legacy default)
+  # 0.82 = very conservative (only very obvious matches)
+  merge_threshold: 0.68
+
+  # Hard cap on cluster size — prevents mega-merges from chaining
+  max_cluster_size: 4
 
   # Use TF-IDF fallback when sentence-transformers is unavailable
   use_fallback_embedding: false

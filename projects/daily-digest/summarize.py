@@ -365,9 +365,11 @@ def _merge_llm_output(items: list, llm_items: list) -> list:
         sources_set = set()
         for iid in item_ids:
             orig = id_to_item.get(iid)
-            if orig and orig.get("url"):
+            if not orig:
+                continue
+            sources_set.add(orig["source"])
+            if orig.get("url"):
                 urls.append({"source": orig["source"], "url": orig["url"], "subject": orig.get("subject")})
-                sources_set.add(orig["source"])
 
         enriched.append({
             **llm_item,

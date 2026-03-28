@@ -372,6 +372,18 @@ def _normalize_teams(source_data: dict) -> List[InboundItem]:
 
 # ── Slack normalizer ──────────────────────────────────────────────────────────
 
+def _build_slack_permalink(workspace: str, msg: dict) -> Optional[str]:
+    """Construct a Slack deep-link from workspace subdomain, channel_id, and ts."""
+    if not workspace:
+        return None
+    channel = msg.get("_channel_id", "")
+    ts = msg.get("ts", "")
+    if not channel or not ts:
+        return None
+    ts_nodot = ts.replace(".", "")
+    return f"https://{workspace}.slack.com/archives/{channel}/p{ts_nodot}"
+
+
 def _normalize_slack(source_data: dict) -> List[InboundItem]:
     """
     Groups Slack messages by thread_ts (threaded) or channel (unthreaded).
@@ -381,6 +393,8 @@ def _normalize_slack(source_data: dict) -> List[InboundItem]:
     messages = (objects.get("messages") or {}).get("data", [])
     if not messages:
         return []
+
+    workspace = os.getenv("SLACK_WORKSPACE", "").strip()
 
     # Group by thread_ts if available, otherwise by channel
     threads: Dict[str, list] = defaultdict(list)
@@ -463,7 +477,7 @@ def _normalize_slack(source_data: dict) -> List[InboundItem]:
             "is_forwarded": False,
             "attachments": [],
             "has_attachments": False,
-            "url": newest.get("permalink"),
+            "url": _build_slack_permalink(workspace, newest),
             "source_meta": {
                 "channel_id": newest.get("_channel_id", ""),
                 "channel_name": channel_name,

@@ -1,5 +1,5 @@
 {
-  "normalized_at": "2026-03-27T11:24:34.023731Z",
+  "normalized_at": "2026-03-28T12:52:04.822165Z",
   "sources": [
     "email",
     "teams",
@@ -5186,7 +5186,7 @@
       "is_forwarded": false,
       "attachments": [],
       "has_attachments": false,
-      "url": null,
+      "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1774554738853379",
       "source_meta": {
         "channel_id": "C054X8DKQ3G",
         "channel_name": "cloud-platform-pm"
@@ -5223,7 +5223,7 @@
       "is_forwarded": false,
       "attachments": [],
       "has_attachments": false,
-      "url": null,
+      "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1774539864069629",
       "source_meta": {
         "channel_id": "C054X8DKQ3G",
         "channel_name": "cloud-platform-pm"
@@ -5265,7 +5265,7 @@
       "is_forwarded": false,
       "attachments": [],
       "has_attachments": false,
-      "url": null,
+      "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1774535963497129",
       "source_meta": {
         "channel_id": "C054X8DKQ3G",
         "channel_name": "cloud-platform-pm"

@@ -179,7 +179,16 @@ def render_markdown(summary: dict) -> List[str]:
     total_items = len(items)
     email_total = sum(i.get("source_stats", {}).get("email_count", 0) for i in items)
     teams_total = sum(i.get("source_stats", {}).get("teams_count", 0) for i in items)
-    lines.append(f"> {total_items} items · {email_total} emails · {teams_total} teams · {discard_count} discarded")
+    slack_total = sum(i.get("source_stats", {}).get("slack_count", 0) for i in items)
+    parts = [f"{total_items} items"]
+    if email_total:
+        parts.append(f"{email_total} emails")
+    if teams_total:
+        parts.append(f"{teams_total} teams")
+    if slack_total:
+        parts.append(f"{slack_total} slack")
+    parts.append(f"{discard_count} discarded")
+    lines.append(f"> {' · '.join(parts)}")
 
     return lines
 

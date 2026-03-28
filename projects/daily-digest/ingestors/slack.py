@@ -25,6 +25,7 @@ Setup:
 Env vars:
   SLACK_BOT_TOKEN       required — xoxb-...
   SLACK_USER_TOKEN      optional — xoxp-... (for DM access)
+  SLACK_WORKSPACE       required for permalinks — workspace subdomain (e.g. "aptum" from aptum.slack.com)
   SLACK_WORKSPACE_ID    optional — for logging
 """
 

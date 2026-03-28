@@ -16,6 +16,7 @@ Output: outputs/items_processed.json
 import json
 import os
 import re
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -206,14 +207,60 @@ def _item_to_embed_text(item: dict) -> str:
     parts = []
     if item.get("subject"):
         parts.append(item["subject"])
-    # Author
     author = item.get("author", {})
     if author.get("name"):
         parts.append(f"from: {author['name']}")
-    # Snippet
+    for p in item.get("participants", []):
+        pname = p.get("name", "")
+        if pname and pname != author.get("name", ""):
+            parts.append(pname)
     if item.get("body_snippet"):
-        parts.append(item["body_snippet"][:300])
+        parts.append(item["body_snippet"][:500])
     return " ".join(parts)
+
+
+def _participant_overlap(item_a: dict, item_b: dict) -> int:
+    """Count shared participants by full display name (lowercased), not handle."""
+    names_a = {
+        p.get("name", "").strip().lower()
+        for p in item_a.get("participants", [])
+        if p.get("name", "").strip()
+    }
+    names_b = {
+        p.get("name", "").strip().lower()
+        for p in item_b.get("participants", [])
+        if p.get("name", "").strip()
+    }
+    return len(names_a & names_b)
+
+
+def _parse_timestamp(ts_str: str) -> Optional[float]:
+    """Parse timestamp to Unix epoch seconds (Slack float or ISO 8601)."""
+    if not ts_str:
+        return None
+    try:
+        val = float(ts_str)
+        if val > 1_000_000_000:
+            return val
+    except ValueError:
+        pass
+    try:
+        dt = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
+        return dt.timestamp()
+    except (ValueError, TypeError):
+        return None
+
+
+def _time_proximity(item_a: dict, item_b: dict, max_gap_hours: float = 2.0) -> bool:
+    """True if time ranges overlap or are within max_gap_hours of each other."""
+    a_start = _parse_timestamp(item_a.get("first_timestamp", ""))
+    a_end = _parse_timestamp(item_a.get("last_timestamp", ""))
+    b_start = _parse_timestamp(item_b.get("first_timestamp", ""))
+    b_end = _parse_timestamp(item_b.get("last_timestamp", ""))
+    if not all([a_start, a_end, b_start, b_end]):
+        return False
+    gap = max(0.0, max(a_start, b_start) - min(a_end, b_end))
+    return gap <= max_gap_hours * 3600
 
 
 def cluster_items(items: list, config: dict) -> list:
@@ -231,7 +278,8 @@ def cluster_items(items: list, config: dict) -> list:
 
     model_name = config.get("embedding_model", "all-MiniLM-L6-v2")
     use_fallback = config.get("use_fallback_embedding", False)
-    threshold = config.get("merge_threshold", 0.72)
+    threshold = config.get("merge_threshold", 0.68)
+    max_cluster_size = int(config.get("max_cluster_size", 4))
 
     embedder = _get_embedder(model_name, use_fallback)
 
@@ -247,43 +295,67 @@ def cluster_items(items: list, config: dict) -> list:
     # Cosine similarity matrix
     sim_matrix = normalized @ normalized.T
 
-    # Greedy clustering: merge pairs above threshold
     n = len(items)
-    cluster_labels = list(range(n))  # each item starts as its own cluster
 
-    # Find pairs above threshold, prioritize cross-source pairs
+    # Phase 1: boosted similarity matrix
+    boost_matrix = np.zeros((n, n), dtype=np.float32)
+    for i in range(n):
+        for j in range(i + 1, n):
+            boost = 0.0
+            if items[i]["source"] != items[j]["source"]:
+                boost += 0.05
+            if _participant_overlap(items[i], items[j]) >= 2:
+                boost += 0.08
+            if _time_proximity(items[i], items[j]) and _participant_overlap(items[i], items[j]) >= 1:
+                boost += 0.05
+            boost_matrix[i, j] = boost
+            boost_matrix[j, i] = boost
+
+    boosted_sim = sim_matrix + boost_matrix
+
+    # Phase 2: candidate pairs above threshold
     pairs = []
     for i in range(n):
         for j in range(i + 1, n):
-            score = float(sim_matrix[i, j])
-            if score >= threshold:
-                # Bonus for cross-source pairs (the whole point)
-                is_cross = items[i]["source"] != items[j]["source"]
-                pairs.append((score + (0.05 if is_cross else 0.0), i, j))
+            if float(boosted_sim[i, j]) >= threshold:
+                pairs.append((float(boosted_sim[i, j]), i, j))
 
-    pairs.sort(reverse=True)  # highest similarity first
+    pairs.sort(reverse=True)
 
-    # Union-find merge
-    def find(x):
-        while cluster_labels[x] != x:
-            cluster_labels[x] = cluster_labels[cluster_labels[x]]
-            x = cluster_labels[x]
-        return x
+    # Phase 3: average-linkage merge with cluster size cap
+    clusters: Dict[int, list] = {i: [i] for i in range(n)}
+    item_to_cluster = list(range(n))
 
     for _, i, j in pairs:
-        ri, rj = find(i), find(j)
-        if ri != rj:
-            cluster_labels[ri] = rj
+        ci = item_to_cluster[i]
+        cj = item_to_cluster[j]
+        if ci == cj:
+            continue
 
-    # Resolve cluster assignments
-    cluster_groups: Dict[int, list] = {}
-    for i in range(n):
-        root = find(i)
-        cluster_groups.setdefault(root, []).append(i)
+        members_i = clusters[ci]
+        members_j = clusters[cj]
+
+        if len(members_i) + len(members_j) > max_cluster_size:
+            continue
+
+        cross_scores = [
+            float(boosted_sim[mi, mj])
+            for mi in members_i
+            for mj in members_j
+        ]
+        avg_score = sum(cross_scores) / len(cross_scores)
+        if avg_score < threshold:
+            continue
+
+        merged = members_i + members_j
+        clusters[ci] = merged
+        del clusters[cj]
+        for m in members_j:
+            item_to_cluster[m] = ci
 
     # Assign cluster_id and cluster_items
     cluster_counter = 0
-    for root, members in cluster_groups.items():
+    for _root, members in clusters.items():
         if len(members) == 1:
             items[members[0]]["cluster_id"] = None
             items[members[0]]["cluster_items"] = []
@@ -295,9 +367,11 @@ def cluster_items(items: list, config: dict) -> list:
                 items[m]["cluster_id"] = cid
                 items[m]["cluster_items"] = [mid for mid in member_ids if mid != items[m]["id"]]
 
-    cross_source = sum(1 for g in cluster_groups.values()
-                       if len(g) > 1 and len(set(items[i]["source"] for i in g)) > 1)
-    total_clusters = sum(1 for g in cluster_groups.values() if len(g) > 1)
+    cross_source = sum(
+        1 for g in clusters.values()
+        if len(g) > 1 and len(set(items[i]["source"] for i in g)) > 1
+    )
+    total_clusters = sum(1 for g in clusters.values() if len(g) > 1)
     print(f"  [process] Clusters: {total_clusters} total, {cross_source} cross-source")
 
     return items
