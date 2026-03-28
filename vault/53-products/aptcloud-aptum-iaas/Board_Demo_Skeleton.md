@@ -14,9 +14,7 @@ This isn't a product update. This is a pitch for why Aptum is sitting on a platf
 6. Why nobody can copy this easily
 7. What we need from the board
 
-
 ---
-
 
 ## 1. The Opportunity
 
@@ -49,9 +47,7 @@ Every company being squeezed by Broadcom needs the same thing: a way to run thei
 
 Nobody provides all of that today. That's what we built.
 
-
 ---
-
 
 ## 2. What We Built - And Why It's a Differentiator, Not Catch-Up
 
@@ -97,9 +93,7 @@ We're creating a category: **the managed multi-cloud platform for the Canadian m
 - MTC customers accessing VMware-based private cloud through Apt Cloud (same UX, different backend)
 - AWS and GCP plugins built, ready to configure
 
-
 ---
-
 
 ## 3. Our VMware Base - The Case Study Happening in Real Time
 
@@ -120,6 +114,7 @@ But the story isn't the decline. The story is what happened underneath it.
 **8 customers dropped all VMware vHosts but are still spending $62K/mo on other services.** They left VMware. They didn't leave Aptum. That's the stickiness model working.
 
 **5 customers are mid-migration right now** with substantial pending work:
+
 - **Heilind**: $41K online + $38K pending. Upgrading ESXi 7.0 to 8.0 on new Dell 650xs. Net growth when complete.
 - **Blue Yonder**: $19K online + $36K pending. Came back after going to $0 vHosts. Migrating to Pro Series 6.0/ESXi 8.0.
 - **HYTECK**: $14K online + $20K pending. Including **$9.2K in Google Cloud** - they're going multi-cloud through Aptum. This is the Apt Cloud value prop in action.
@@ -132,11 +127,13 @@ Including all pending work ($117K/mo across 7 customers), the gap narrows to -18
 
 80 active ESXi hosts remain across 32 customers ($241K/mo). But they're not all equal:
 
-| Generation | Hosts | Customers | MRC | Avg contract left |
-|---|---|---|---|---|
-| Pre-5.0 (Legacy) | 5 | 2 | $10K | 3 months |
-| Gen 5.0 | 46 | 22 | $142K | 6 months |
-| Gen 6.0+ (New hardware) | 27 | 11 | $82K | 26 months |
+
+| Generation              | Hosts | Customers | MRC   | Avg contract left |
+| ----------------------- | ----- | --------- | ----- | ----------------- |
+| Pre-5.0 (Legacy)        | 5     | 2         | $10K  | 3 months          |
+| Gen 5.0                 | 46    | 22        | $142K | 6 months          |
+| Gen 6.0+ (New hardware) | 27    | 11        | $82K  | 26 months         |
+
 
 **41 ESXi services across 19 customers ($124K/mo) have 6 months or less on contract.** Half the active VMware base is about to come up for renewal. Each one is a migrate-or-lose decision. This is the migration pipeline for Aptum IaaS - these are customers who already trust us and need to move.
 
@@ -153,9 +150,7 @@ This is not a problem to manage. It is a **live proof-of-concept for the entire 
 
 Source: MRCTrend billing snapshots, Jan 31, 2024 vs Feb 28, 2026. Online services only. All figures in CAD (cad_mrc). 54 unique client IDs with at least one vHost service. Our Jan 2024 total ($970,763) aligns with the data team's figure ($1,006,517) within snapshot timing variance. Final numbers should be aligned with the data team before presenting.
 
-
 ---
-
 
 ## 4. Live Demo - What Works Today
 
@@ -164,6 +159,7 @@ Source: MRCTrend billing snapshots, Jan 31, 2024 vs Feb 28, 2026. Online service
 Key things to walk through:
 
 **Apt Cloud Portal (portal.aptum.com)**
+
 - Walk through the portal as a customer would see it
 - Org hierarchy: Aptum (operator) > Reseller (e.g., ES Williams) > End customer (e.g., Fleet Stop)
 - Self-service VM provisioning: pick compute, storage, network, see real-time cost estimate, deploy
@@ -172,28 +168,30 @@ Key things to walk through:
 - Activity logging: every action tracked across all services
 
 **Aptum IaaS on CloudStack**
+
 - Show a live customer environment
 - VPC: multi-tenant shared compute with logical isolation
 - Private Cloud: dedicated hosts, single-tenant
 - Networking: VLANs, virtual routers, security groups
 
 **Hyperscaler Integrations**
+
 - Azure plugin: show Azure resources managed through Apt Cloud alongside CloudStack
 - Cloudflare DNS: domain and DNS management through the same portal
 - Point out AWS/GCP plugins are built and ready to configure
 
 **Monetization Engine**
+
 - Product catalogs, pricing configuration, utility pricing
 - Cost visibility and usage reporting
 - This is the billing backbone for both direct customers and the reseller channel
 
 **MTC on ThinkOn - same portal, different backend**
+
 - Show MTC customers accessing VMware-based private cloud through Apt Cloud
 - This proves the platform is infrastructure-agnostic. Same UX whether the backend is CloudStack, VMware, or Azure.
 
-
 ---
-
 
 ## 5. Where This Goes - The Vision at Scale
 
@@ -232,6 +230,7 @@ The vision: a customer logs into Apt Cloud and sees their VMs, their bare metal 
 Today: 7 customers, $39K MRR, one DC, direct sales only.
 
 The model with channel:
+
 - 10 MSP resellers, each with 20 customers, avg $5K MRR per customer = $1M MRR from channel alone
 - Plus 50 direct mid-market customers at $15K avg = $750K MRR
 - Total: $1.75M MRR / $21M ARR
@@ -244,9 +243,7 @@ This is not a services business that grows linearly with headcount. The platform
 
 Infrastructure margin funds platform development. Platform attracts MSPs. MSPs bring customers. Customers generate infrastructure revenue. Infrastructure margin funds more platform development. Each turn of the wheel is cheaper than the last because the platform, the ops playbooks, and the infrastructure are already built.
 
-
 ---
-
 
 ## 6. Why Nobody Can Copy This Easily
 
@@ -277,32 +274,23 @@ Could they use Apt Cloud? Architecturally yes - we have a VCD plugin. But ThinkO
 
 What ThinkOn cannot do: deliver VMware + KVM + Proxmox + bare metal + Azure + AWS through one portal with white-label MSP billing. They're a single-hypervisor shop in a multi-hypervisor world. Broadcom owns their margin. That's not a position of strength.
 
-
 ---
-
 
 ## 7. Live Demo - What Works Today
 
 *(Demo section - same as Section 4 above, positioned here if the flow works better with vision before demo)*
 
-
 ---
-
 
 ## 8. What We Need From the Board
 
 These aren't problems. They're investment decisions. The platform works. The market is moving. The question is how aggressively to move.
 
 - **Channel investment priority:** Finishing reseller billing + white-label is the highest-ROI item. It's the difference between a product and a platform business. Is the board aligned on prioritizing channel over direct sales in the near term?
-
 - **Go-forward pricing:** Ignite prices ($28/vCPU, $7/GB RAM) honor legacy agreements. New customer pricing and wholesale reseller pricing need to be defined before real GTM activity. This is a strategic decision, not just a finance exercise - it determines positioning.
-
 - **GTM ownership and investment:** All sales to date have been opportunistic (Ignite referrals). There is no GTM team or motion yet. The Strategy proposes trigger-based GTM (VMware renewal shock, cloud bill surprise, compliance events, MSP channel). Who owns this? What's the budget?
-
 - **Migration velocity:** 41 ESXi services across 19 customers ($124K/mo) expire within 6 months. Each is a migrate-or-lose decision. Do we invest in dedicated migration resources to capture these, or risk losing them to inertia?
-
 - **Operational capacity:** Managed Cloud team is thin relative to expanding scope. Hiring ahead of demand is an investment. Hiring behind demand means dropping the ball on the customers we just won. What's the appetite?
-
 - **Second DC timeline:** Multi-region is the scale unlock. US (Herndon) or UK (Portsmouth) first? This is a capital decision with long lead time.
-
 - **ICP definition:** The Strategy proposes mid-market companies (or MSPs serving them) with hybrid complexity exceeding internal IT capacity. Is this the right target? Too narrow? Too broad?
+
