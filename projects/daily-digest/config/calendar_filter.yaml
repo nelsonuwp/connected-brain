@@ -5,7 +5,6 @@ filter:
   # showAs values to exclude. MS Graph values: free, tentative, busy, oof, workingElsewhere, unknown
   exclude_show_as:
     - "free"
-    - "tentative"
 
   # Attendee count threshold: if more than this many attendees (excluding the user),
   # show "Company-wide" instead of individual names

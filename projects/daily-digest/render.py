@@ -277,24 +277,26 @@ def inject_digest(note_path: Path, rendered_lines: List[str]) -> None:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def main(note_date: date = None, file_override: str = None) -> int:
+def main(note_date: date = None, file_override: str = None, mode: str = "full") -> int:
     """
-    Called by run_pipeline.py with note_date.
+    Called by run_pipeline.py with note_date and mode.
     Can also be called standalone with file_override for testing.
     """
-    try:
-        summary = json.loads(DEFAULT_INPUT.read_text(encoding="utf-8"))
-    except Exception as e:
-        print(f"  [render] Failed to read input: {e}")
-        return 1
+    summary = None
+    if mode != "calendar":
+        try:
+            summary = json.loads(DEFAULT_INPUT.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"  [render] Failed to read input: {e}")
+            return 1
 
-    output = summary.get("output", {})
-    items = output.get("items", [])
-    discard_count = output.get("discard_count", 0)
-    action_count = sum(len(i.get("actions", [])) for i in items)
-    tracking_count = sum(len(i.get("tracked_items", [])) for i in items)
-    print(f"  [render] {len(items)} items to render, {discard_count} discarded")
-    print(f"  [render] {action_count} actions, {tracking_count} tracked items")
+        output = summary.get("output", {})
+        items = output.get("items", [])
+        discard_count = output.get("discard_count", 0)
+        action_count = sum(len(i.get("actions", [])) for i in items)
+        tracking_count = sum(len(i.get("tracked_items", [])) for i in items)
+        print(f"  [render] {len(items)} items to render, {discard_count} discarded")
+        print(f"  [render] {action_count} actions, {tracking_count} tracked items")
 
     if file_override:
         note_path = Path(file_override)
@@ -307,31 +309,38 @@ def main(note_date: date = None, file_override: str = None) -> int:
         print(f"  [render] Daily note not found: {note_path}")
         return 1
 
-    # Schedule injection
-    if CALENDAR_OUTPUT.exists():
-        try:
-            cal_artifact = json.loads(CALENDAR_OUTPUT.read_text(encoding="utf-8"))
-            events_obj = (cal_artifact.get("objects") or {}).get("events", {})
-            events = events_obj.get("data") or []
-            user_email = os.getenv("DIGEST_USER_EMAIL") or os.getenv("MS_EMAIL", "")
-            target_date = note_date or date.today()
-            schedule_rows = _render_schedule_rows(events, target_date, user_email)
-            schedule_mode = inject_schedule(note_path, schedule_rows)
-            print(f"  [render] {schedule_mode}")
-        except Exception as e:
-            print(f"  [render] Schedule injection failed: {e}")
+    # Schedule injection (skip in digest-only mode)
+    if mode != "digest":
+        if CALENDAR_OUTPUT.exists():
+            try:
+                cal_artifact = json.loads(CALENDAR_OUTPUT.read_text(encoding="utf-8"))
+                events_obj = (cal_artifact.get("objects") or {}).get("events", {})
+                events = events_obj.get("data") or []
+                user_email = os.getenv("DIGEST_USER_EMAIL") or os.getenv("MS_EMAIL", "")
+                target_date = note_date or date.today()
+                schedule_rows = _render_schedule_rows(events, target_date, user_email)
+                schedule_mode = inject_schedule(note_path, schedule_rows)
+                print(f"  [render] {schedule_mode}")
+            except Exception as e:
+                print(f"  [render] Schedule injection failed: {e}")
+        else:
+            print("  [render] No source_calendar.json found, skipping schedule")
     else:
-        print("  [render] No source_calendar.json found, skipping schedule")
+        print("  [render] Digest-only mode, skipping schedule injection")
 
-    rendered = render_markdown(summary)
+    # Digest injection (skip in calendar-only mode)
+    if mode != "calendar":
+        rendered = render_markdown(summary)
+        try:
+            inject_result = inject_digest(note_path, rendered)
+            print(f"  [render] Wrote → {note_path} ({inject_result})")
+        except Exception as e:
+            print(f"  [render] Failed: {e}")
+            return 1
+    else:
+        print("  [render] Calendar-only mode, skipping digest injection")
 
-    try:
-        mode = inject_digest(note_path, rendered)
-        print(f"  [render] Wrote → {note_path} ({mode})")
-        return 0
-    except Exception as e:
-        print(f"  [render] Failed: {e}")
-        return 1
+    return 0
 
 
 if __name__ == "__main__":

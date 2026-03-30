@@ -38,6 +38,9 @@ discard:
     - "mscnm@microsoft.com"
     - "@connect.media"
     - "communications@now."
+    - "automation@aptum.atlassian.net"
+    - "jira@aptum.atlassian.net"
+    - "noreply@aptum.atlassian.net"
 
   # --- Subject-based filters ---
 

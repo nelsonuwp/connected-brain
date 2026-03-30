@@ -100,6 +100,8 @@ def main() -> int:
                    help="Stage to start from (skips earlier stages).")
     p.add_argument("--sources", default=None,
                    help="Comma-separated sources to ingest (default: all). e.g. email,teams")
+    p.add_argument("--mode", choices=["full", "digest", "calendar"], default="full",
+                   help="Pipeline mode: 'full' (default), 'digest' (messages only), 'calendar' (schedule only).")
     args = p.parse_args()
 
     note_date = args.date
@@ -109,6 +111,10 @@ def main() -> int:
     # Determine which sources to ingest
     if args.sources:
         source_list = [s.strip() for s in args.sources.split(",")]
+    elif args.mode == "digest":
+        source_list = [s for s in INGESTORS.keys() if s != "calendar"]
+    elif args.mode == "calendar":
+        source_list = ["calendar"]
     else:
         source_list = list(INGESTORS.keys())
 
@@ -118,7 +124,12 @@ def main() -> int:
     print(f"  Sources:       {', '.join(source_list)}")
 
     start_idx = STAGES.index(args.from_stage)
-    stages_to_run = STAGES[start_idx:]
+    all_stages = STAGES[start_idx:]
+    if args.mode == "calendar":
+        # Calendar mode only needs ingestion + schedule render.
+        stages_to_run = [s for s in all_stages if s in ("ingest", "render")]
+    else:
+        stages_to_run = all_stages
 
     saved_argv = sys.argv
     pipeline_start = time.time()
@@ -148,7 +159,7 @@ def main() -> int:
 
         elif stage_name == "render":
             from render import main as render_main
-            rc = render_main(note_date=note_date)
+            rc = render_main(note_date=note_date, mode=args.mode)
 
         else:
             print(f"  Unknown stage: {stage_name}")
