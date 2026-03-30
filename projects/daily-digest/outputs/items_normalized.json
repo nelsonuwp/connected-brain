@@ -1,89 +1,381 @@
 {
-  "normalized_at": "2026-03-28T13:04:39.861325Z",
+  "normalized_at": "2026-03-30T11:49:33.028723Z",
   "sources": [
     "email",
-    "teams",
     "slack"
   ],
-  "item_count": 67,
+  "item_count": 54,
   "items": [
     {
-      "id": "e67a9d28df99",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Adam Nelson]\nshould I email dave and tell him we will send them monday?",
-      "body_snippet": "[Adam Nelson]\nshould I email dave and tell him we will send them monday?",
-      "thread_key": "19:3d39ce8e-7339-48c6-a74a-3786af8f38d9_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-      "message_count": 1,
-      "first_timestamp": "2026-03-27T23:54:36.846Z",
-      "last_timestamp": "2026-03-27T23:54:36.846Z",
+      "id": "3701324dbf10",
+      "source": "email",
+      "subject": "[JIRA] (CUS-1) INT - Time Tracking",
+      "body_text": "[Charles Rutledge (JIRA)]\nCharles Rutledge added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Charles Rutledge  02:14 PM ET    Added\nDescription : \n\nStart of work preparation.  Read Outlook inbox and Teams messages. \nTime logged : 20 minutes\nWork log\n\nCharles Rutledge02:14 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Luis Cruz (JIRA)]\nLuis Cruz added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Luis Cruz  02:39 AM ET    Added\nDescription : \n\nMonitored Atlassian queues, LM, email phones, teams & NOC queues \nTime logged : 5 hours, 35 minutes\nWork log\n\nLuis Cruz02:39 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Luis Cruz (JIRA)]\nLuis Cruz added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Luis Cruz  02:40 AM ET    Added\nDescription : \n\nMonitored Atlassian queues, email, phones, teams, & noc queues \nTime logged : 2 hours\nWork log\n\nLuis Cruz02:40 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Gary Cox (JIRA)]\nGary Cox added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Gary Cox  04:52 PM ET    Added\nDescription : \n\nbreaks \nTime logged : 30 minutes\nWork log\n\nGary Cox04:52 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Chris Templeman (JIRA)]\nChris Templeman added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Chris Templeman  03:39 PM ET    Added\nDescription : \n\nBreak - US Based \nTime logged : 30 minutes\nWork log\n\nChris Templeman03:39 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Traci Hardnett (JIRA)]\nTraci Hardnett added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Traci Hardnett  02:47 PM ET    Added\nDescription : \n\nbreaks \nTime logged : 30 minutes\nWork log\n\nTraci Hardnett02:47 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Carter (JIRA)]\nSam Carter added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Carter  02:10 PM ET    Added\nDescription : \n\nAdmin \nTime logged : 40 minutes\nWork log\n\nSam Carter02:10 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Messer (JIRA)]\nSam Messer added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Messer  01:57 PM ET    Added\nDescription : \nTime logged : 1 hour, 30 minutes\nWork log\n\nSam Messer01:57 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Carter (JIRA)]\nSam Carter added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Carter  12:28 PM ET    Added\nDescription : \n\nTrying to get time per skillset data for windows vs linux \nTime logged : 2 hours\nWork log\n\nSam Carter12:28 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Cristi Mihalache (JIRA)]\nCristi Mihalache and David Smith added 2 work log. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Cristi Mihalache  11:56 AM ET    Added\nDescription : \n\nInternal \nTime logged : 6 hours\nWork log\n\nCristi Mihalache11:56 AM\nEdited\n\nUpdates\n\n  David Smith  11:57 AM ET    Added\nDescription : \n\nNOC admin during todays shift\nTime logged : 3 hours, 20 minutes\nWork log\n\nDavid Smith11:57 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Chris Templeman (JIRA)]\nChris Templeman added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Chris Templeman  09:50 AM ET    Added\nDescription : \n\nWork readiness & emails \nTime logged : 30 minutes\nWork log\n\nChris Templeman09:50 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Carter (JIRA)]\nSam Carter added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Carter  08:59 AM ET    Added\nDescription : \n\nAssigning missing assets \nTime logged : 30 minutes\nWork log\n\nSam Carter08:59 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[David Smith (JIRA)]\nDavid Smith added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  David Smith  06:15 AM ET    Added\nDescription : \n\nNOC admin during this shift \nTime logged : 2 hours, 30 minutes\nWork log\n\nDavid Smith06:15 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Messer (JIRA)]\nSam Messer added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Messer  03:30 AM ET    Added\nDescription : \nTime logged : 30 minutes\nWork log\n\nSam Messer03:30 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Luis Cruz (JIRA)]\nLuis Cruz added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Luis Cruz  02:35 AM ET    Added\nDescription : \n\nMonitored atlasssian queues, team, email, phones, noc queues, & CloudOps-Pagerduty \nTime logged : 3 hours\nWork log\n\nLuis Cruz02:35 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy",
+      "body_snippet": "[Charles Rutledge (JIRA)]\nCharles Rutledge added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Charles Rutledge  02:14 PM ET    Added\nDescription : \n\nStart of work preparation.  Read Outlook inbox and Teams messages. \nTime logged : 20 minutes\nWork log\n\nCharles Rutledge02:14 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give f",
+      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAAnmwQTnsFJOl9smnbncqDc=",
+      "message_count": 15,
+      "first_timestamp": "2026-03-27T06:39:38Z",
+      "last_timestamp": "2026-03-29T18:17:46Z",
       "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+        "name": "Charles Rutledge (JIRA)",
+        "handle": "jira@aptum.atlassian.net",
         "role": "from"
       },
       "participants": [
         {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
+          "name": "Charles Rutledge (JIRA)",
+          "handle": "jira@aptum.atlassian.net",
           "role": "from"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "adam.nelson@aptum.com",
+          "role": "to"
         }
       ],
-      "participant_count": 1,
-      "is_from_me": true,
-      "mentions_me": false,
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": true,
       "am_in_to": true,
       "am_in_cc": false,
       "is_direct_message": true,
       "is_forwarded": false,
       "attachments": [],
       "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A3d39ce8e-7339-48c6-a74a-3786af8f38d9_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS6g3KhAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
       "source_meta": {
-        "chatId": "19:3d39ce8e-7339-48c6-a74a-3786af8f38d9_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-        "chatType": "oneOnOne"
+        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAAnmwQTnsFJOl9smnbncqDc=",
+        "message_ids": [
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAS6g3KhAAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAS6g3KgAAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAS1Q-H5AAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAuAAAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt-AAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt_AAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt8AAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt7AAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt4AAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt3AAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtlAAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtjAAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtZAAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtYAAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtXAAA="
+        ]
       }
     },
     {
-      "id": "eb716ab5885f",
-      "source": "teams",
-      "subject": "Three Musketeers Sync",
-      "body_text": "[Marc Alex Forget]\nHave a great weekend musketeers 🧘\n\n---\n\n[Marc Alex Forget]\nIt is getting late. I am still at the Optable office (meeting went very well ).\n\nLet's pick up the translation of the docs on Monday. I will call the client in the morning Monday to get the temperature with their appetite to potentially sign the Mon or Tue.\n\nThanks!\n\n---\n\n[Ian Rae]\nAlso because Friday: https://arstechnica.com/science/2026/03/archaeologists-may-have-found-the-grave-of-the-legendary-fo…\n\n---\n\n[Ian Rae]\nHello, on the translation...I am not comfortable with how it reads...need Sarah Blanchard or Marc Alex Forget to revew my comments here: [FR] v1-3 CSP Order Form (July 2025).docx",
-      "body_snippet": "[Marc Alex Forget]\nHave a great weekend musketeers 🧘\n\n---\n\n[Marc Alex Forget]\nIt is getting late. I am still at the Optable office (meeting went very well ).\n\nLet's pick up the translation of the docs on Monday. I will call the client in the morning Monday to get the temperature with their appetite to potentially sign the Mon or Tue.\n\nThanks!\n\n---\n\n[Ian Rae]\nAlso because Friday: https://arstechnica.com/science/2026/03/archaeologists-may-have-found-the-grave-of-the-legendary-fo…\n\n---\n\n[Ian Rae]\nH",
-      "thread_key": "19:meeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy@thread.v2",
-      "message_count": 4,
-      "first_timestamp": "2026-03-27T19:50:52.89Z",
-      "last_timestamp": "2026-03-27T21:36:20.562Z",
+      "id": "f171f26ffd3f",
+      "source": "email",
+      "subject": "RE: Churn & Risk Ideas",
+      "body_text": "[Marc Alex Forget]\nHi Adam,\n \nJust to confirm when you mention “those calls,” are you referring to the Wednesday [INT] Weekly Customer Risk Call? I want to ensure I’m not missing another meeting series.\n \nAlso, do you have a draft of the churn program documentation you mentioned? If so, could you share it so I can review and collaborate?\n \nThanks in advance,\nMA\n \n\nMarc Alex Forget\n\nSenior Vice-President of Sales and Marketing | Vice‑président principal, Ventes et Marketing\n437-500-2700\naptum.com | LinkedIn\n\nFrom: Adam Nelson <Adam.Nelson@aptum.com> \nSent: Monday, March 9, 2026 9:56 AM\nTo: Ian Rae <Ian.Rae@aptum.com>; Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>\nSubject: Re: Churn & Risk Ideas\n \n\nFred, Sarah, and I have been chatting about this for a bit. When we do our churn call(s) we keep mentioning the difference between \"revenue migration\" and revenue loss (and where they are handled).\n\n \n\nI'll make sure we roll in the differences in the churn program documentation. \n\n \n\n@Marc Alex Forget has been on those calls, but probably should loop him in more formally, agree. \n\n \n\nAdam Nelson\n\nSenior Director, Service Delivery\n+1 (438) 802-9796\naptum.com | LinkedIn\n\nFrom: Ian Rae <Ian.Rae@aptum.com>\nSent: March 9, 2026 09:09\nTo: Frederic Gingras <Frederic.Gingras@aptum.com>; Sarah Blanchard <Sarah.Blanchard@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>\nSubject: Re: Churn & Risk Ideas \n\n \n\nHi Fred\n\n \n\nthis is an incredibly important thread and might benefit from a non-asynchronous level setting.\n\n \n\nIn other words I worry about these things just getting buried in our inboxes.\n\n \n\nCan we get together to levelset, discuss and build/operationalize a plan?\n\n \n\nCC Marc-Alex\n\n \n\nian\n\n \n\nIan Rae\n\nPresident & CEO\n+1 (514) 944-4008\naptum.com | LinkedIn\n\nFrom: Frederic Gingras <Frederic.Gingras@aptum.com>\nSent: February 24, 2026 07:50\nTo: Sarah Blanchard <Sarah.Blanchard@aptum.com>; Adam Nelson <Adam.Nelson@aptum.com>; Ian Rae <Ian.Rae@aptum.com>\nSubject: Re: Churn & Risk Ideas \n\n \n\nSo as examples of revenue migration:\n\nCustomer A moves from Managed Hosting to Azure, managed hosting consumption is replaced by Azure consumption and/or managed cloud\n\nCustomer B moves from old Managed hosting to refreshed hardware, but re-architectured with less capacity, so lower MRC\n\n \n\nThese revenue erosion are still important to highlite to finance, but most likely (?) do not require a risk management (maybe with some exceptions where risk is introduced).  \n\n \n\n \n\nGetting into solutioning here, trying to progress on getting this started...\n\n \n\nIf we're to track this in Salesforce, I think we'd need to ensure we can easily capture the following information:\n\nIdentify the opportunity as a migration (Type= Migration)\n\nMRC of the new service\n\nService it replaces (with ServiceIDs?)\n\nFrom there we can infer what is the current MRC it replaces\n\n \n\n \n\nThoughts?  \n\n \n\n \n\nI think there may also be implication on the compensation plan, but to be tackled later...\n\n \n\n \n\n \n\n \n\nFrederic Gingras\n\nSenior Director, Account Management\nm: +1 514-913-9153 teams: +1 514-673-7553\naptum.com | LinkedIn\n\nFrom: Sarah Blanchard <Sarah.Blanchard@aptum.com>\nSent: February 20, 2026 11:11 AM\nTo: Adam Nelson <Adam.Nelson@aptum.com>; Ian Rae <Ian.Rae@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>\nSubject: RE: Churn & Risk Ideas\n\n \nThis makes 100% sense.\n \n \n \n\nSarah Blanchard\nVP, Finance\n+1 (514) 673-7582\naptum.com | LinkedIn\n\nFrom: Adam Nelson <Adam.Nelson@aptum.com>\nSent: Friday, February 20, 2026 10:25 AM\nTo: Sarah Blanchard <Sarah.Blanchard@aptum.com>; Ian Rae <Ian.Rae@aptum.com>\nCc: Frederic Gingras <Frederic.Gingras@aptum.com>\nSubject: Churn & Risk Ideas\n \nSarah/Ian,\n \nJust had a good chat with Fred about churn and risk. I think part of the reason the risk list feels noisy/useless right now is that we’re mixing two different things around what “churn” actually is.\n \nHere’s what we discussed, redefining churn into two separate things:\n \nRevenue Migration\nCustomer still needs the underlying functionality although delivered differently (different product/service).\nExample: On prem → Cloud. Same business need, different backbone.\nRevenue may shift buckets or even drop, but the customer relationship & value is retained.\n \nRevenue Attrition / Loss\nCustomer removes or reduces a service because they don’t see enough value in Aptum delivering it.\nThis applies even if they keep other services with us.\nExample: Dropping advanced monitoring to basic, or cancelling a service entirely.\n \nTactically:\nRevenue Attrition / Loss = true risk. These belong in Jira and the Risk Registe where the SDMs and the technical team can (hopefully) proactively influence outcome.\nRevenue Migration = shift. These should be identified upstream in Salesforce and visible in Deal Desk. If we’re losing on-prem, we should clearly see the cloud replacement opportunity. If we don’t, then it’s actually loss.\n \nIf we separate these cleanly, I think:\nI can focus the Risk Register on real service risk and look to improve products and service delivery.\nFred can manage migration dynamics with his team.\nFinance gets a clearer view of actual attrition vs revenue mix shift.\n \nCurious if this framing makes sense. If we can align on this I can ratchet up my expectations of that risk list. \n \n\nAdam Nelson\nSenior Director, Service Delivery\n+1 (438) 802-9796\naptum.com | LinkedIn",
+      "body_snippet": "[Marc Alex Forget]\nHi Adam,\n \nJust to confirm when you mention “those calls,” are you referring to the Wednesday [INT] Weekly Customer Risk Call? I want to ensure I’m not missing another meeting series.\n \nAlso, do you have a draft of the churn program documentation you mentioned? If so, could you share it so I can review and collaborate?\n \nThanks in advance,\nMA\n \n\nMarc Alex Forget\n\nSenior Vice-President of Sales and Marketing | Vice‑président principal, Ventes et Marketing\n437-500-2700\naptum.com",
+      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQACF2PudLgW1CgmrnCupsnYU=",
+      "message_count": 1,
+      "first_timestamp": "2026-03-29T16:25:39Z",
+      "last_timestamp": "2026-03-29T16:25:39Z",
       "author": {
         "name": "Marc Alex Forget",
-        "handle": "ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa",
+        "handle": "marc-alexandre.forget@aptum.com",
         "role": "from"
       },
       "participants": [
         {
           "name": "Marc Alex Forget",
-          "handle": "ebd5bb79-c3f8-4d86-a4c5-17dfd61905aa",
+          "handle": "marc-alexandre.forget@aptum.com",
           "role": "from"
         },
         {
-          "name": "Ian Rae",
-          "handle": "5842d4bb-c645-421b-af8d-6e71e8e01636",
+          "name": "Adam Nelson",
+          "handle": "adam.nelson@aptum.com",
+          "role": "to"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": true,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": true,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HArxAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+      "source_meta": {
+        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQACF2PudLgW1CgmrnCupsnYU=",
+        "message_ids": [
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAS7HArxAAA="
+        ]
+      }
+    },
+    {
+      "id": "923d5af998d4",
+      "source": "email",
+      "subject": "FW: Bracknell update & Strategy Centrilogic and Aptum",
+      "body_text": "[Peter Bell]\nFrom: Peter Bell <pbell@centrilogic.com>\nSent: Saturday, March 28, 2026 1:07:04 PM (UTC) Coordinated Universal Time\nTo: Peter Bell <pbell@centrilogic.com>; Adam Nelson <Adam.Nelson@aptum.com>; Bradley Petrie <Bradley.Petrie@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>; George Revie <george.revie@aptum.com>; Joshua Justice <jjustice@centrilogic.com>; Kevin Aplin <kaplin@centrilogic.com>; Karin Vierhuis <kvierhuis@centrilogic.com>\nCc: Sergio Bernardou <sbernardou@centrilogic.com>; Martin Mossakowski <mmossakowski@centrilogic.com>\nSubject: Bracknell update & Strategy Centrilogic and Aptum\nWhen: Monday, March 30, 2026 12:30 p.m.-1:30 p.m..\nWhere: Microsoft Teams Meeting\n\nFYI\n \n\nMarc Alex Forget\n\nSenior Vice-President of Sales and Marketing | Vice‑président principal, Ventes et Marketing\n437-500-2700\naptum.com | LinkedIn\n\n-----Original Appointment-----\nFrom: Peter Bell <pbell@centrilogic.com> \nSent: Friday, March 27, 2026 4:49 PM\nTo: Peter Bell; Bradley Petrie; Marc Alex Forget; George Revie; Joshua Justice; Kevin Aplin; Karin Vierhuis\nCc: Sergio Bernardou; Martin Mossakowski\nSubject: Bracknell update & Strategy Centrilogic and Aptum\nWhen: Monday, March 30, 2026 8:30 AM-9:30 AM (UTC-05:00) Eastern Time (US & Canada).\nWhere: Microsoft Teams Meeting\n \n\n \n\nFrom: Peter Bell <pbell@centrilogic.com>\nSent: Friday, March 27, 2026 4:44:15 PM (UTC-05:00) Eastern Time (US & Canada)\nTo: Peter Bell <pbell@centrilogic.com>; George Revie <george.revie@aptum.com>; Joshua Justice <jjustice@centrilogic.com>; Kevin Aplin <kaplin@centrilogic.com>; Karin Vierhuis <kvierhuis@centrilogic.com>\nCc: Sergio Bernardou <sbernardou@centrilogic.com>; Martin Mossakowski <mmossakowski@centrilogic.com>\nSubject: Bracknell update & Strategy Centrilogic and Aptum\nWhen: Monday, March 30, 2026 8:30 AM-9:30 AM.\nWhere: Microsoft Teams Meeting\n\n \n\n________________________________________________________________________________\n\nMicrosoft Teams meeting \n\nJoin: https://teams.microsoft.com/meet/21223908164671?p=RriIrNTWZ3XApRTzJy \n\nMeeting ID: 212 239 081 646 71 \n\nPasscode: ef9yd762 \n\nNeed help? | System reference \n\nDial in by phone \n\n+1 469-676-9364,,834284280# United States, Northlake \n\nFind a local number \n\nPhone conference ID: 834 284 280# \n\nFor organizers: Meeting options | Reset dial-in PIN \n\n________________________________________________________________________________\n \n\nThis e-mail contains proprietary information some of which may be legally privileged. It is for the intended recipient only. If an addressing or transmission error has misdirected this e-mail, please notify the author by replying to it.\n\n---\n\n[Peter Bell]\nFYI\n \n\nMarc Alex Forget\n\nSenior Vice-President of Sales and Marketing | Vice‑président principal, Ventes et Marketing\n437-500-2700\naptum.com | LinkedIn\n\n-----Original Appointment-----\nFrom: Peter Bell <pbell@centrilogic.com> \nSent: Friday, March 27, 2026 4:49 PM\nTo: Peter Bell; Bradley Petrie; Marc Alex Forget; George Revie; Joshua Justice; Kevin Aplin; Karin Vierhuis\nCc: Sergio Bernardou; Martin Mossakowski\nSubject: Bracknell update & Strategy Centrilogic and Aptum\nWhen: Monday, March 30, 2026 8:30 AM-9:30 AM (UTC-05:00) Eastern Time (US & Canada).\nWhere: Microsoft Teams Meeting\n \n\n \n\nFrom: Peter Bell <pbell@centrilogic.com>\nSent: Friday, March 27, 2026 4:44:15 PM (UTC-05:00) Eastern Time (US & Canada)\nTo: Peter Bell <pbell@centrilogic.com>; George Revie <george.revie@aptum.com>; Joshua Justice <jjustice@centrilogic.com>; Kevin Aplin <kaplin@centrilogic.com>; Karin Vierhuis <kvierhuis@centrilogic.com>\nCc: Sergio Bernardou <sbernardou@centrilogic.com>; Martin Mossakowski <mmossakowski@centrilogic.com>\nSubject: Bracknell update & Strategy Centrilogic and Aptum\nWhen: Monday, March 30, 2026 8:30 AM-9:30 AM.\nWhere: Microsoft Teams Meeting\n\n \n\n________________________________________________________________________________\n\nMicrosoft Teams meeting \n\nJoin: https://teams.microsoft.com/meet/21223908164671?p=RriIrNTWZ3XApRTzJy \n\nMeeting ID: 212 239 081 646 71 \n\nPasscode: ef9yd762 \n\nNeed help? | System reference \n\nDial in by phone \n\n+1 469-676-9364,,834284280# United States, Northlake \n\nFind a local number \n\nPhone conference ID: 834 284 280# \n\nFor organizers: Meeting options | Reset dial-in PIN \n\n________________________________________________________________________________\n \n\nThis e-mail contains proprietary information some of which may be legally privileged. It is for the intended recipient only. If an addressing or transmission error has misdirected this e-mail, please notify the author by replying to it.",
+      "body_snippet": "[Peter Bell]\nFrom: Peter Bell <pbell@centrilogic.com>\nSent: Saturday, March 28, 2026 1:07:04 PM (UTC) Coordinated Universal Time\nTo: Peter Bell <pbell@centrilogic.com>; Adam Nelson <Adam.Nelson@aptum.com>; Bradley Petrie <Bradley.Petrie@aptum.com>; Marc Alex Forget <Marc-Alexandre.Forget@aptum.com>; George Revie <george.revie@aptum.com>; Joshua Justice <jjustice@centrilogic.com>; Kevin Aplin <kaplin@centrilogic.com>; Karin Vierhuis <kvierhuis@centrilogic.com>\nCc: Sergio Bernardou <sbernardou@cen",
+      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAHiWexZl0k7PiId4ln9RJ68=",
+      "message_count": 2,
+      "first_timestamp": "2026-03-28T13:07:01Z",
+      "last_timestamp": "2026-03-29T13:29:46Z",
+      "author": {
+        "name": "Peter Bell",
+        "handle": "pbell@centrilogic.com",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Peter Bell",
+          "handle": "pbell@centrilogic.com",
           "role": "from"
+        },
+        {
+          "name": "Lacie Allen-Morley",
+          "handle": "lacie.allen-morley@aptum.com",
+          "role": "to"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "adam.nelson@aptum.com",
+          "role": "to"
+        }
+      ],
+      "participant_count": 3,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": false,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": true,
+      "attachments": [],
+      "has_attachments": false,
+      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5h0AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+      "source_meta": {
+        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAHiWexZl0k7PiId4ln9RJ68=",
+        "message_ids": [
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAAS7d5h0AAA=",
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAS26zw6AAA="
+        ]
+      }
+    },
+    {
+      "id": "83a1150057b8",
+      "source": "email",
+      "subject": "FW: Daily Sales FY18 BI-2679 was executed at 3/29/2026 8:00:04 AM",
+      "body_text": "[Lacie Allen-Morley]\nFrom: reports@aptum.com <reports@aptum.com>\nSent: Sunday, 29 March 2026 13:00:09 (UTC+00:00) Dublin, Edinburgh, Lisbon, London\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Lacie Allen-Morley <Lacie.Kemp@aptum.com>; Sarah Blanchard <sblanchard@cloudops.com>\nCc: Paul Billard <paul.billard@aptum.com>; DCSalesOPS <dcsalesops@aptum.com>\nSubject: Daily Sales FY18 BI-2679 was executed at 3/29/2026 8:00:04 AM",
+      "body_snippet": "[Lacie Allen-Morley]\nFrom: reports@aptum.com <reports@aptum.com>\nSent: Sunday, 29 March 2026 13:00:09 (UTC+00:00) Dublin, Edinburgh, Lisbon, London\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Lacie Allen-Morley <Lacie.Kemp@aptum.com>; Sarah Blanchard <sblanchard@cloudops.com>\nCc: Paul Billard <paul.billard@aptum.com>; DCSalesOPS <dcsalesops@aptum.com>\nSubject: Daily Sales FY18 BI-2679 was executed at 3/29/2026 8:00:04 AM",
+      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAHFq9kfDGl5BvEKxM-a9Mvc=",
+      "message_count": 1,
+      "first_timestamp": "2026-03-29T12:00:31Z",
+      "last_timestamp": "2026-03-29T12:00:31Z",
+      "author": {
+        "name": "Lacie Allen-Morley",
+        "handle": "lacie.kemp@aptum.com",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Lacie Allen-Morley",
+          "handle": "lacie.kemp@aptum.com",
+          "role": "from"
+        },
+        {
+          "name": "Professional Services Request",
+          "handle": "psr@aptum.com",
+          "role": "to"
         }
       ],
       "participant_count": 2,
       "is_from_me": false,
       "mentions_me": false,
-      "am_in_to": true,
+      "am_in_to": false,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": true,
+      "attachments": [],
+      "has_attachments": true,
+      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HArwAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+      "source_meta": {
+        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAHFq9kfDGl5BvEKxM-a9Mvc=",
+        "message_ids": [
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAS7HArwAAA="
+        ]
+      }
+    },
+    {
+      "id": "90f9db54ca7e",
+      "source": "email",
+      "subject": "ADP Workforce Now Notification You have been asked to review Employee - Time Off Request",
+      "body_text": "[noreply@adp.com]\nYou have been assigned to review Employee - Time Off Request for Charles C Rutledge Jr submitted by Charles C Rutledge Jr on 2026-03-23 08:45:13.0 due to inaction of the original approver of the action. Please log into the system to review the action.\nhttps://adp.aptum.com\n \n \n\nThis email is sent from an automated system, so please do not reply.\nADP and the ADP logo are trademarks of ADP, Inc. ©2026 ADP, Inc. This message and any attachments are intended only for the use of the addressee and may contain information that is privileged and confidential. If the reader of the message is not the intended recipient or an authorized representative of the intended recipient, you are hereby notified that any dissemination of this communication is strictly prohibited. If you have received this communication in error, notify the sender immediately by return email and delete the message and any attachments from your system.",
+      "body_snippet": "[noreply@adp.com]\nYou have been assigned to review Employee - Time Off Request for Charles C Rutledge Jr submitted by Charles C Rutledge Jr on 2026-03-23 08:45:13.0 due to inaction of the original approver of the action. Please log into the system to review the action.\nhttps://adp.aptum.com\n \n \n\nThis email is sent from an automated system, so please do not reply.\nADP and the ADP logo are trademarks of ADP, Inc. ©2026 ADP, Inc. This message and any attachments are intended only for the use of the",
+      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAEyyxIxNV81Ch1J2arwzxMw=",
+      "message_count": 1,
+      "first_timestamp": "2026-03-29T04:24:10Z",
+      "last_timestamp": "2026-03-29T04:24:10Z",
+      "author": {
+        "name": "noreply@adp.com",
+        "handle": "noreply@adp.com",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "noreply@adp.com",
+          "handle": "noreply@adp.com",
+          "role": "from"
+        }
+      ],
+      "participant_count": 1,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": false,
       "am_in_cc": false,
       "is_direct_message": false,
       "is_forwarded": false,
       "attachments": [],
       "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
+      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS5awnHAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
       "source_meta": {
-        "chatId": "19:meeting_NmEwMmJmMmMtMzQwNi00ZjcxLWIyOTEtM2YyYzRjNmEyNTAy@thread.v2",
-        "chatType": "meeting"
+        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAEyyxIxNV81Ch1J2arwzxMw=",
+        "message_ids": [
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAS5awnHAAA="
+        ]
+      }
+    },
+    {
+      "id": "5dbed932e489",
+      "source": "email",
+      "subject": "Reaction Daily Digest - Saturday, March 28, 2026",
+      "body_text": "[Outlook]\nMicrosoft Outlook\n\n \n\n   Matthew Carter reacted to your message Fri 2026-03-27 4:27:00 p.m. \n\nRe: APTUM/AWS CTA transfer\n\nMatthew (and everyone else), Did some digging on this. I'm assuming the following: * Since the client is US-based and we're billing from Aptum USA, going with TDSynnex-USA avoids any CAD conversion issues. * Tax treatment flows through the \n\nGo to message\n\nUnsubscribe \n\n \n\nPrivacy Statement \n\nThis email is generated through Aptum's use of Microsoft 365 and may contain content that is controlled by Aptum.",
+      "body_snippet": "[Outlook]\nMicrosoft Outlook\n\n \n\n   Matthew Carter reacted to your message Fri 2026-03-27 4:27:00 p.m. \n\nRe: APTUM/AWS CTA transfer\n\nMatthew (and everyone else), Did some digging on this. I'm assuming the following: * Since the client is US-based and we're billing from Aptum USA, going with TDSynnex-USA avoids any CAD conversion issues. * Tax treatment flows through the \n\nGo to message\n\nUnsubscribe \n\n \n\nPrivacy Statement \n\nThis email is generated through Aptum's use of Microsoft 365 and may conta",
+      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAHAcSj7OKB5KsOgmWLte708=",
+      "message_count": 1,
+      "first_timestamp": "2026-03-28T12:51:02Z",
+      "last_timestamp": "2026-03-28T12:51:02Z",
+      "author": {
+        "name": "Outlook",
+        "handle": "no-reply@outlook.mail.microsoft",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Outlook",
+          "handle": "no-reply@outlook.mail.microsoft",
+          "role": "from"
+        },
+        {
+          "name": "Adam Nelson",
+          "handle": "adam.nelson@aptum.com",
+          "role": "to"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": true,
+      "am_in_to": true,
+      "am_in_cc": false,
+      "is_direct_message": true,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS26zw5AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+      "source_meta": {
+        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAHAcSj7OKB5KsOgmWLte708=",
+        "message_ids": [
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAAS26zw5AAA="
+        ]
+      }
+    },
+    {
+      "id": "9278ebd23471",
+      "source": "email",
+      "subject": "FW: Daily Sales FY18 BI-2679 was executed at 3/28/2026 8:00:11 AM",
+      "body_text": "[Lacie Allen-Morley]\nFrom: reports@aptum.com <reports@aptum.com>\nSent: Saturday, 28 March 2026 12:00:25 (UTC+00:00) Dublin, Edinburgh, Lisbon, London\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Lacie Allen-Morley <Lacie.Kemp@aptum.com>; Sarah Blanchard <sblanchard@cloudops.com>\nCc: Paul Billard <paul.billard@aptum.com>; DCSalesOPS <dcsalesops@aptum.com>\nSubject: Daily Sales FY18 BI-2679 was executed at 3/28/2026 8:00:11 AM",
+      "body_snippet": "[Lacie Allen-Morley]\nFrom: reports@aptum.com <reports@aptum.com>\nSent: Saturday, 28 March 2026 12:00:25 (UTC+00:00) Dublin, Edinburgh, Lisbon, London\nTo: Dennis Lam <Dennis.Lam@aptum.com>; Lacie Allen-Morley <Lacie.Kemp@aptum.com>; Sarah Blanchard <sblanchard@cloudops.com>\nCc: Paul Billard <paul.billard@aptum.com>; DCSalesOPS <dcsalesops@aptum.com>\nSubject: Daily Sales FY18 BI-2679 was executed at 3/28/2026 8:00:11 AM",
+      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAP_gg_ax_HJIryx6vtdFTy8=",
+      "message_count": 1,
+      "first_timestamp": "2026-03-28T12:00:46Z",
+      "last_timestamp": "2026-03-28T12:00:46Z",
+      "author": {
+        "name": "Lacie Allen-Morley",
+        "handle": "lacie.kemp@aptum.com",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Lacie Allen-Morley",
+          "handle": "lacie.kemp@aptum.com",
+          "role": "from"
+        },
+        {
+          "name": "Professional Services Request",
+          "handle": "psr@aptum.com",
+          "role": "to"
+        }
+      ],
+      "participant_count": 2,
+      "is_from_me": false,
+      "mentions_me": false,
+      "am_in_to": false,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": true,
+      "attachments": [],
+      "has_attachments": true,
+      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS3CcC%2BAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+      "source_meta": {
+        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAP_gg_ax_HJIryx6vtdFTy8=",
+        "message_ids": [
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAAS3CcC_AAA="
+        ]
+      }
+    },
+    {
+      "id": "78f99598d88b",
+      "source": "email",
+      "subject": "Billable Hours Calulcations",
+      "body_text": "[Adam Nelson]\nDave,\n\nSarah mentioned you wanted some insight into the billable hours math I use. Happy to walk through the methodology, and I've included a couple of snapshots that show how it plays out in practice.\n\nI don't use a flat 2,080 spread over the year. I build capacity bottom-up each month:\n\nStart with net working days in the month.\n\nSubtract planned vacations (a quick CSV export from ADP).\n\nSubtract company holidays. This is a bit more involved because of location nuances (UK, US, and each Canadian province has slightly different days off), but I only need to set it up once.\n\nThat gives me workable time per person. I apply a utilization target by role: 80% for Professional Services engineers, 50% for Solution Architects.\n\nI total those up and add 15% capacity on top for SDM time, and that's our billable target for the month.\n\nThe reason I don't use 100% is that when engineers are rotating across 3-4 projects in a week, context switching makes it impossible to bill every hour. If they were embedded on a single engagement it would be different, but we don't have projects of that scale right now. 80% is a realistic, and a number that after 6 years here we seem to always end up at (and find is the sweet spot to plan around). \n\nAlso, the reason I don't spread vacation evenly across 12 months is because a) it's usually noise, b) I have the data at my fingertips, might as well use it, and c) I need to plan delivery dates around weeks where someone is actually out, or where a company holiday takes the whole organization offline for a few days. This method gives me a much more accurate short-to-medium term forecast.\n\nA few things to flag:\n\nWe are currently running at 86% utilization for March against an 80% target; currently over capacity.\n\nMarcus and Nathan are fully committed to the Cofomo engagement (~300 hours/month between them). That engagement is a separate conversation, and I believe Sarah has given you some background. The short version is that at our $275 blended rate, those hours should be generating roughly $82K/month in PS revenue, but revenue was mostly captured on the front end, so unfortunately we are left capturing less revenue on the back end (hence the ~$38K). Overall on the project we are still above our blended rate, we just went way too hard early. Lesson learned. \n\nWith those two committed to Cofomo, I effectively have Marc Hosang (plus Pat in a player/coach capacity) delivering everything else. That is roughly 4 equivalent delivery resources across ~20 active projects.\n\nTristan Kosciuch left the organization recently. We are backfilling with a more senior resource (architect level). Right now we need the team to be top-heavy. We don't have the luxury of carrying specialists who need constant architectural oversight from Pat. Marc Hosang is developing in that direction, but until the backfill happens, the bench is thin.\n\nWhere you see $0 in Rev. Delivered against planned revenue, that is typically a project where the original estimate (or a discounted rate) means we cannot recognize revenue above what the SOW allows. We still have to finish the work. \n\nThis this the picture for March, as you can see we have ~20 projects in the hopper and with 2 of the 4 going almost full-time on one project that leaves Pat and Marc H to deliver the other 18. \n\nHappy to walk through any of this in more detail next week. Sarah mentioned you wanted to see the data before the weekend, so I wanted to get it over to you now.\n\nAdam Nelson\nVice President, Operations\n+1 (438) 802-9796\naptum.com | LinkedIn",
+      "body_snippet": "[Adam Nelson]\nDave,\n\nSarah mentioned you wanted some insight into the billable hours math I use. Happy to walk through the methodology, and I've included a couple of snapshots that show how it plays out in practice.\n\nI don't use a flat 2,080 spread over the year. I build capacity bottom-up each month:\n\nStart with net working days in the month.\n\nSubtract planned vacations (a quick CSV export from ADP).\n\nSubtract company holidays. This is a bit more involved because of location nuances (UK, US, an",
+      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAIH6xtVXnPVJhwKX_Bp6re4=",
+      "message_count": 1,
+      "first_timestamp": "2026-03-28T00:18:39Z",
+      "last_timestamp": "2026-03-28T00:18:39Z",
+      "author": {
+        "name": "Adam Nelson",
+        "handle": "adam.nelson@aptum.com",
+        "role": "from"
+      },
+      "participants": [
+        {
+          "name": "Adam Nelson",
+          "handle": "adam.nelson@aptum.com",
+          "role": "from"
+        },
+        {
+          "name": "David Pistacchio (Consultant)",
+          "handle": "david.pistacchio@digitalbridge.com",
+          "role": "to"
+        },
+        {
+          "name": "Sarah Blanchard",
+          "handle": "sarah.blanchard@aptum.com",
+          "role": "cc"
+        }
+      ],
+      "participant_count": 3,
+      "is_from_me": true,
+      "mentions_me": false,
+      "am_in_to": false,
+      "am_in_cc": false,
+      "is_direct_message": false,
+      "is_forwarded": false,
+      "attachments": [],
+      "has_attachments": false,
+      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASxNO2iAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+      "source_meta": {
+        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAIH6xtVXnPVJhwKX_Bp6re4=",
+        "message_ids": [
+          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASxNO2iAAA="
+        ]
       }
     },
     {
@@ -216,150 +508,6 @@
       }
     },
     {
-      "id": "f820d6993c69",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Jorge Quintero]\nWhat I'm trying to get my head around apt cloud is this, I understand how useful it will be for customers with products in multiple LOBs and I'm all for it, but how is that related to what we really need which is to increase revenue. Like VMWARE customers starting to leave because we stop promoting it and then the Broadcom situation, not necessarily because they did not have a portal to manage their virtual. However, this is a difficult argument since we don't have solid data. A conversation for another time. It is interesting what the board members are thinking about it.\n\n---\n\n[Adam Nelson]\nfor an apt cloud narrative\n\n---\n\n[Adam Nelson]\nAll this to put together like 2 bullets in a slide deck\n\n---\n\n[Adam Nelson]\nhaha here...\n\n \n\nHere's the situation — the previous Claude thread was working from a different data source (a VMware spreadsheet with 49 client IDs) and comparing it against a dimServices snapshot. You've now given me the authoritative MRCTrend two-snapshot approach, which is what Jorge uses. The numbers are significantly different and several of the skeleton's claims are wrong. Let me lay it out.\n\nThe corrected headline (MRCTrend, Online services only):\n\n \nJan 31, 2024\nFeb 28, 2026\nDelta\n\nHosting\n$961,862\n$670,003\n-$291,860 (-30.3%)\n\nCloud\n$8,901\n$9,494\n+$593 (+6.7%)\n\nTotal\n$970,763\n$679,496\n-$291,267 (-30.0%)\n\nThat's 54 unique clients in Jan 2024, 45 in Feb 2026. Annual impact: ~$3.5M.\n\nIncluding pending (Provision + Migration + Upgrade/Downgrade): Feb 2026 is $796,416, narrowing the gap to -$174K (-18%).\n\nCustomer breakdown — the skeleton was wrong on almost every bucket:\n\nCategory\nSkeleton said\nActual\n\nFully gone\n10 clients, $195K\n12 clients, $244K\n\nShrunk\n15 clients, -$231K\n13 clients, -$131K\n\nGrew\n24 clients, +$121K\n29 clients, +$84K\n\nThe biggest factual error: WeirFoulds LLP was listed as \"fully gone\" at $41K. They actually grew from $37K to $44K (+$7K, +19%). That's a customer the skeleton had in the churn column who's actually expanding.\n\nThe BCOM 2000 \"Rocky Linux migration\" story is wrong. BCOM still has their ESXi 7.0 vHost online ($2.6K), still has RHEL guest VMs, and added another RHEL VM. There's no Rocky Linux 9 in their Feb 2026 snapshot. They grew from $2.9K to $4.4K. Good story, just not the VMware-exit story the skeleton tells.\n\nWhat IS real and very compelling for the board:\n\nThe vHost-specific picture: $406K/mo → $258K/mo (-$148K, -36%). 20 clients lost all vHosts. Of those 20, only 12 left Aptum entirely — the other 8 dropped vHosts but are still spending $62K/mo on other services. That's the multi-product stickiness argument in real data.\n\nThe generation cliff is the actionable story:\n\nPre-5.0 hardware: 7 services, 2 months avg contract remaining — dying\nGen 5.0: 46 services, $142K/mo, 6 months avg remaining — this is the migration pipeline\nGen 6.0+: 27 services, $82K/mo, 26 months avg — healthy, recently signed\n\n41 ESXi services across 19 clients ($124K/mo) have ≤6 months on contract. That's half the active vHost base about to come up for renewal. Each one is a migrate-or-lose decision.\n\nThe real migrations in flight (these are the proof points for the board):\n\nHeilind: $41K online + $38K pending — upgrading ESXi 7.0 → ESXi 8.0 on new Dell 650xs hardware\nBlue Yonder: $19K online + $36K pending — moving to Pro Series 6.0 with ESXi 8.0 (came back after losing all vHosts)\nHYTECK: $14K online + $20K pending — interesting one: $9.2K of pending is Google Cloud. They're going multi-cloud.\nChicken Farmers: $24K online + $13K pending — vHost migration in progress\n\nWant me to rewrite Section 2 of the skeleton with the corrected numbers from this MRCTrend data? The structure is good, the story is right (VMware base is contracting, multi-product customers are sticky, single-product ones churn), but the specific numbers and customer callouts need fixing throughout.\n\n---\n\n[Jorge Quintero]\nyes\n\n---\n\n[Adam Nelson]\ndo you have access to this? https://docs.google.com/spreadsheets/d/1bTGiM9FparSNYgJKjd4QjTRfF1ZxR6IDQgai9R5F4HA/edit?gid=166975…\n\n---\n\n[Jorge Quintero]\nk\n\n---\n\n[Adam Nelson]\ni'll call you in a sec\n\n---\n\n[Jorge Quintero]\nSure!\n\n---\n\n[Adam Nelson]\nWant to hop on a call quick?\n\n---\n\n[Jorge Quintero]\nPlease let me know how you are pulling those numbers, I might be missing something but I'm getting different numbers. This is what the VMWARE customers had a year ago (2025-02-28) and now (2026-02-28)\n\n \n\n \n\nLOB\nYear Ago\nNow\ndiff\n\nCloud\n$144,468\n$201,750\n$57,282\n\nColo\n$21,669\n$11,204\n-$10,465\n\nHosting\n$840,380\n$720,617\n-$119,763\n\nGrand Total\n$1,006,517\n$933,571\n-$72,946",
-      "body_snippet": "[Jorge Quintero]\nWhat I'm trying to get my head around apt cloud is this, I understand how useful it will be for customers with products in multiple LOBs and I'm all for it, but how is that related to what we really need which is to increase revenue. Like VMWARE customers starting to leave because we stop promoting it and then the Broadcom situation, not necessarily because they did not have a portal to manage their virtual. However, this is a difficult argument since we don't have solid data. A",
-      "thread_key": "19:cd574525-e015-4843-a696-3d9e781ca01b_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-      "message_count": 11,
-      "first_timestamp": "2026-03-27T18:58:50.644Z",
-      "last_timestamp": "2026-03-27T20:57:25.89Z",
-      "author": {
-        "name": "Jorge Quintero",
-        "handle": "cd574525-e015-4843-a696-3d9e781ca01b",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Jorge Quintero",
-          "handle": "cd574525-e015-4843-a696-3d9e781ca01b",
-          "role": "from"
-        },
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": false,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Acd574525-e015-4843-a696-3d9e781ca01b_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:cd574525-e015-4843-a696-3d9e781ca01b_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-        "chatType": "oneOnOne"
-      }
-    },
-    {
-      "id": "3701324dbf10",
-      "source": "email",
-      "subject": "[JIRA] (CUS-1) INT - Time Tracking",
-      "body_text": "[Gary Cox (JIRA)]\nGary Cox added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Gary Cox  04:52 PM ET    Added\nDescription : \n\nbreaks \nTime logged : 30 minutes\nWork log\n\nGary Cox04:52 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Chris Templeman (JIRA)]\nChris Templeman added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Chris Templeman  03:39 PM ET    Added\nDescription : \n\nBreak - US Based \nTime logged : 30 minutes\nWork log\n\nChris Templeman03:39 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Traci Hardnett (JIRA)]\nTraci Hardnett added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Traci Hardnett  02:47 PM ET    Added\nDescription : \n\nbreaks \nTime logged : 30 minutes\nWork log\n\nTraci Hardnett02:47 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Carter (JIRA)]\nSam Carter added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Carter  02:10 PM ET    Added\nDescription : \n\nAdmin \nTime logged : 40 minutes\nWork log\n\nSam Carter02:10 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Messer (JIRA)]\nSam Messer added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Messer  01:57 PM ET    Added\nDescription : \nTime logged : 1 hour, 30 minutes\nWork log\n\nSam Messer01:57 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Carter (JIRA)]\nSam Carter added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Carter  12:28 PM ET    Added\nDescription : \n\nTrying to get time per skillset data for windows vs linux \nTime logged : 2 hours\nWork log\n\nSam Carter12:28 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Cristi Mihalache (JIRA)]\nCristi Mihalache and David Smith added 2 work log. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Cristi Mihalache  11:56 AM ET    Added\nDescription : \n\nInternal \nTime logged : 6 hours\nWork log\n\nCristi Mihalache11:56 AM\nEdited\n\nUpdates\n\n  David Smith  11:57 AM ET    Added\nDescription : \n\nNOC admin during todays shift\nTime logged : 3 hours, 20 minutes\nWork log\n\nDavid Smith11:57 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Chris Templeman (JIRA)]\nChris Templeman added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Chris Templeman  09:50 AM ET    Added\nDescription : \n\nWork readiness & emails \nTime logged : 30 minutes\nWork log\n\nChris Templeman09:50 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Carter (JIRA)]\nSam Carter added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Carter  08:59 AM ET    Added\nDescription : \n\nAssigning missing assets \nTime logged : 30 minutes\nWork log\n\nSam Carter08:59 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[David Smith (JIRA)]\nDavid Smith added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  David Smith  06:15 AM ET    Added\nDescription : \n\nNOC admin during this shift \nTime logged : 2 hours, 30 minutes\nWork log\n\nDavid Smith06:15 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Sam Messer (JIRA)]\nSam Messer added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Sam Messer  03:30 AM ET    Added\nDescription : \nTime logged : 30 minutes\nWork log\n\nSam Messer03:30 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Luis Cruz (JIRA)]\nLuis Cruz added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Luis Cruz  02:35 AM ET    Added\nDescription : \n\nMonitored atlasssian queues, team, email, phones, noc queues, & CloudOps-Pagerduty \nTime logged : 3 hours\nWork log\n\nLuis Cruz02:35 AM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy",
-      "body_snippet": "[Gary Cox (JIRA)]\nGary Cox added a worklog. \nCustomer Care Projects / CUS-1\n\nINT - Time Tracking\n\nUpdates\n\n  Gary Cox  04:52 PM ET    Added\nDescription : \n\nbreaks \nTime logged : 30 minutes\nWork log\n\nGary Cox04:52 PM\nEdited\n\nView work item \n\nOpen the work item to view attachments over 100 KB\nGet Jira notifications on your phone! Download the Jira Cloud app for Android or iOS.\nManage Notifications    Give feedback    Privacy Policy\n\n---\n\n[Chris Templeman (JIRA)]\nChris Templeman added a worklog. \nC",
-      "thread_key": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAAnmwQTnsFJOl9smnbncqDc=",
-      "message_count": 12,
-      "first_timestamp": "2026-03-27T06:39:38Z",
-      "last_timestamp": "2026-03-27T20:55:42Z",
-      "author": {
-        "name": "Gary Cox (JIRA)",
-        "handle": "jira@aptum.atlassian.net",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Gary Cox (JIRA)",
-          "handle": "jira@aptum.atlassian.net",
-          "role": "from"
-        },
-        {
-          "name": "Adam Nelson",
-          "handle": "adam.nelson@aptum.com",
-          "role": "to"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": false,
-      "mentions_me": true,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAASwUAuAAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-      "source_meta": {
-        "conversationId": "AAQkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAAQAAnmwQTnsFJOl9smnbncqDc=",
-        "message_ids": [
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAuAAAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt-AAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt_AAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt8AAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt7AAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt4AAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAt3AAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtlAAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtjAAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtZAAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtYAAA=",
-          "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtXAAA="
-        ]
-      }
-    },
-    {
-      "id": "b6cf61d174b9",
-      "source": "teams",
-      "subject": "RE: AWS Cloud Marketplace",
-      "body_text": "[Erik Tanguay]\nLacie Allen-Morley and Andrei Ianouchkevitch  There is a simpler option but it will lose the billing details.  I can safely assume this is a hard no, we do not want to lose any data, or at least the minimal data we do collect with the current tooling?\n\n---\n\n[Erik Tanguay]\nAndrei Ianouchkevitch and Jacob Stillwell\n\n \n\n \n\nHere are the questions I need to provide an answer for each of the payer accounts.  I can deduce some of it from the information we currently have, however I will need what the questions in Red font.\n\n \n\nMaster Payer Account Number (Root Account):\n\nRoot User Email Address:\n\nFull Legal Entity Name or Root Owner Business:\n\nFull Legal Address of Root Owner Business:\n\nRoot Account Owner Name and Email:\n\nAWS Support type on Management Account:\n\nAccount Type:\n\nWhat payment method is currently set up on the management account?\n\nRoot Exception Required?\n\nBusiness justification for Root Exception:\n\nIs there a custom pricing agreement (EDP/PPA) with the management account?\n\nWhat is the current average monthly spend?\n\n \n\nIf you want to see the full CTA form you can find it here:  Copy of TD SYNNEX AWS - Onboarding CTA Request Form 1.xlsx\n\n---\n\n[Adam Nelson]\nYep about to hit send on my reply\n\n---\n\n[Matthew Carter]\nYes, please let me know if you wish to onboard as Aptum USA or Aptum Canada and take a look at the Marketplace Private Offer note.\n\n---\n\n[Matthew Carter]\nAfter speaking with Ciara, we have until April 22nd to make the move and the April invoice would be from TDSynnex with the 8% discount. You were Cc'd on the email.\n\n---\n\n[Adam Nelson]\nOk sorry catching up on all of this as well as your emails, Matthew... give me a few\n\n---\n\n[Erik Tanguay]\nOk, I will ask her\n\n---\n\n[Matthew Carter]\nHi Erik Tanguay, that question was unbeknownst to me, but Ciara is a great resource. Please contact her to confirm: Perkins, Ciara <ciara.perkins@tdsynnex.com>\n\n---\n\n[Erik Tanguay]\nMatthew Carter hey Matt, I am looking at the CTA in order to complete it.  Did you confirm on your call that we need to complete one per customer?  one per AWS account?  It looks like that but before I respond to the email thread, I thought I'd check with you.\n\n \n\nI am also going to wait to see what Adam Nelson or Marc come back with on which of our entities should be listed on the CTAs",
-      "body_snippet": "[Erik Tanguay]\nLacie Allen-Morley and Andrei Ianouchkevitch  There is a simpler option but it will lose the billing details.  I can safely assume this is a hard no, we do not want to lose any data, or at least the minimal data we do collect with the current tooling?\n\n---\n\n[Erik Tanguay]\nAndrei Ianouchkevitch and Jacob Stillwell\n\n \n\n \n\nHere are the questions I need to provide an answer for each of the payer accounts.  I can deduce some of it from the information we currently have, however I will ",
-      "thread_key": "19:meeting_NjdmODA0YjctNzA3NC00NmViLWJkMWYtNjc4MDcyODM5N2Mw@thread.v2",
-      "message_count": 9,
-      "first_timestamp": "2026-03-27T13:34:21.261Z",
-      "last_timestamp": "2026-03-27T20:44:32.484Z",
-      "author": {
-        "name": "Erik Tanguay",
-        "handle": "cd3707bf-ee2f-4ac4-951e-5af03fced9b4",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Erik Tanguay",
-          "handle": "cd3707bf-ee2f-4ac4-951e-5af03fced9b4",
-          "role": "from"
-        },
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        },
-        {
-          "name": "Matthew Carter",
-          "handle": "615ca2bb-12aa-483f-81a8-729520855535",
-          "role": "from"
-        }
-      ],
-      "participant_count": 3,
-      "is_from_me": false,
-      "mentions_me": true,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_NjdmODA0YjctNzA3NC00NmViLWJkMWYtNjc4MDcyODM5N2Mw%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:meeting_NjdmODA0YjctNzA3NC00NmViLWJkMWYtNjc4MDcyODM5N2Mw@thread.v2",
-        "chatType": "meeting"
-      }
-    },
-    {
       "id": "ffba86ece404",
       "source": "email",
       "subject": "Re: APTUM/AWS CTA transfer",
@@ -476,147 +624,6 @@
       }
     },
     {
-      "id": "7e1a6cfe7523",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Roger Gonzales]\nyeah thanks man\n\n---\n\n[Adam Nelson]\nif they aren't.. then they're not and its $+\n\n---\n\n[Adam Nelson]\nbut I would WANT to say that if we define those endpoits as part of MCP, they will be coveredd\n\n---\n\n[Adam Nelson]\nthose guys are talking in the background on this\n\n---\n\n[Adam Nelson]\nso we will have to see what he actually means\n\n---\n\n[Adam Nelson]\nvs. sql databases\n\n---\n\n[Adam Nelson]\nit looks like Donald had a lot of comments around the .NET stuff\n\n---\n\n[Adam Nelson]\nI don't know yet, waiting to hear back from Andrei on that\n\n---\n\n[Roger Gonzales]\nif they get stuck - they put in a ticket - we escalate for remediation  but then what happens and how is that billed etc?\n\n---\n\n[Roger Gonzales]\nafter the initial block of hours\n\n---\n\n[Roger Gonzales]\nhey man\n\n---\n\n[Roger Gonzales]\nLmao\n\n---\n\n[Roger Gonzales]\nOk\n\n---\n\n[Adam Nelson]\nbecause we are acknowledging the good relationship and his ability to deal with our fuckery and want to rebuild trust\n\n---\n\n[Adam Nelson]\nyou can say that you are going to go get the ok from the vp of ops to stretch it to 15\n\n---\n\n[Adam Nelson]\nBut then if you see it in his face that he's got some kind of feeling\n\n---\n\n[Adam Nelson]\nYeah, so tell him that for 10 hours it's usually $300/hr for someone w/ Donald's credentials\n\n---\n\n[Roger Gonzales]\nI know we talked about a lot yesterday\n\n---\n\n[Roger Gonzales]\nand I need to explain that Donald's time is normally a higher rate than normal but we are offering him a cut rate on his time to get this set up right?\n\n---\n\n[Roger Gonzales]\nDid you say start with 10 hours but tell him we are giving him 15 as a show of kindness or Goodwill\n\n---\n\n[Roger Gonzales]\nhttps://aptum.lightning.force.com/lightning/r/Opportunity/006OF00000ZBgKjYAL/view",
-      "body_snippet": "[Roger Gonzales]\nyeah thanks man\n\n---\n\n[Adam Nelson]\nif they aren't.. then they're not and its $+\n\n---\n\n[Adam Nelson]\nbut I would WANT to say that if we define those endpoits as part of MCP, they will be coveredd\n\n---\n\n[Adam Nelson]\nthose guys are talking in the background on this\n\n---\n\n[Adam Nelson]\nso we will have to see what he actually means\n\n---\n\n[Adam Nelson]\nvs. sql databases\n\n---\n\n[Adam Nelson]\nit looks like Donald had a lot of comments around the .NET stuff\n\n---\n\n[Adam Nelson]\nI don't k",
-      "thread_key": "19:a992bf04-fa98-423a-bb43-f06b83eebee5_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-      "message_count": 21,
-      "first_timestamp": "2026-03-27T14:59:08.03Z",
-      "last_timestamp": "2026-03-27T19:45:58.273Z",
-      "author": {
-        "name": "Roger Gonzales",
-        "handle": "a992bf04-fa98-423a-bb43-f06b83eebee5",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Roger Gonzales",
-          "handle": "a992bf04-fa98-423a-bb43-f06b83eebee5",
-          "role": "from"
-        },
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": false,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Aa992bf04-fa98-423a-bb43-f06b83eebee5_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:a992bf04-fa98-423a-bb43-f06b83eebee5_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-        "chatType": "oneOnOne"
-      }
-    },
-    {
-      "id": "de302f7c1bb4",
-      "source": "teams",
-      "subject": "STG Init",
-      "body_text": "[Vicki Patten]\nand the sales team works for us, and Jim runs his own company LOL\n\n---\n\n[Adam Nelson]\ni guess\n\n---\n\n[Vicki Patten]\nwell it's a good thing they are starting to produce, right?!\n\n---\n\n[Adam Nelson]\nright, the bad part is that we (the board) arent' giving our sales team this type of rope\n\n---\n\n[Vicki Patten]\nthat's why the slow start, to test and pivot\n\n---\n\n[Vicki Patten]\nor that they went in too high and need to go more into the IT org who would recognize us with different messaging, so we are iterating!\n\n---\n\n[Adam Nelson]\nmeans that our sales team didn't swing and miss\n\n---\n\n[Adam Nelson]\nok, i mean... i guess that's good ish\n\n---\n\n[Adam Nelson]\nyiiikes\n\n---\n\n[Emma Kopang]\nHey Adam Nelson just sharing a quick update. No engagement with any of the 12 accounts Jim has reached out to so far, so we made a few recommendations to tweak the messaging/cadence to help move this along. I'm sharing an update with JP shortly with the changes",
-      "body_snippet": "[Vicki Patten]\nand the sales team works for us, and Jim runs his own company LOL\n\n---\n\n[Adam Nelson]\ni guess\n\n---\n\n[Vicki Patten]\nwell it's a good thing they are starting to produce, right?!\n\n---\n\n[Adam Nelson]\nright, the bad part is that we (the board) arent' giving our sales team this type of rope\n\n---\n\n[Vicki Patten]\nthat's why the slow start, to test and pivot\n\n---\n\n[Vicki Patten]\nor that they went in too high and need to go more into the IT org who would recognize us with different messagin",
-      "thread_key": "19:728b7e4ef04242da9ddc5d0722ffa0fb@thread.v2",
-      "message_count": 10,
-      "first_timestamp": "2026-03-27T19:01:19.896Z",
-      "last_timestamp": "2026-03-27T19:24:04.465Z",
-      "author": {
-        "name": "Vicki Patten",
-        "handle": "4bd4ccc9-4c80-4430-a84d-e881891365fa",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Vicki Patten",
-          "handle": "4bd4ccc9-4c80-4430-a84d-e881891365fa",
-          "role": "from"
-        },
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        },
-        {
-          "name": "Emma Kopang",
-          "handle": "7a4ac42d-2e2d-45fa-b9d7-4d08c1daaaf7",
-          "role": "from"
-        }
-      ],
-      "participant_count": 3,
-      "is_from_me": false,
-      "mentions_me": true,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A728b7e4ef04242da9ddc5d0722ffa0fb%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:728b7e4ef04242da9ddc5d0722ffa0fb@thread.v2",
-        "chatType": "group"
-      }
-    },
-    {
-      "id": "0848c1f5ffcb",
-      "source": "teams",
-      "subject": "23-MCP Street",
-      "body_text": "[Adam Nelson]\nI'll see what I can do\n\n---\n\n[Adam Nelson]\nok... good call\n\n---\n\n[Jason Auer]\nour best shit comes from collaboration between teams.\n\n---\n\n[Jason Auer]\nI mean, how in the fuck \"\n\n---\n\n[Jason Auer]\nI don't want to be the our team is the shit guy, but the DCO team is the most dysfunctional shit. Like they don't even have a meeting with everyone on it to discuss improvements, or pain points or banter on how each team does things.\n\n---\n\n[Jason Auer]\nthis works, so i am fine with either one\n\n---\n\n[Andrei Ianouchkevitch]\nfool of a Took!\n\n---\n\n[Adam Nelson]\nchat gpt wouldn't add enough\n\n---\n\n[Andrei Ianouchkevitch]\nhonestly, the only problem with this, not enough personal insults plus you didn't meander enough, you're writing because you want to get something across, that's your mistake\n\n---\n\n[Adam Nelson]\nMA & Fred, \n\nCan you please pass this along to your teams?\n\nQuick but important update I want on everyone's radar is that we are not renewing our contract with Navisite (now part of Accenture) when it expires in April.\n\nThe short of it is that the quality of their work has been declining for some time. The primary techincal folks have been leaving and being replaced with less skilled resources, and most of the time it's our customers who have to deal with the consequences.\n\nOur Service Desk team has already been handling most database work over the past few months (with fewer issues than when Navisite was involved). We've also added a contractor (Donald) which many of you have already met, who brings deeper expertise than we've ever had access to. Additionally, we're cross-training internally so we can eliminate single points of failure.\n\nI know some of you have been hesitant to sell database-related work because of past support issues. We now own this capability holistically and we've been operating for a few months already.\n\nData is becoming the center of lots of the customer communications. I want to make sure that we are in a position of strength when it comes to those conversations and are in a position to own the outcomes vs. relying on a 3rd party. \n\nThank you,\n\n---\n\n[Jason Auer]\nMA and Fred, navisite has been nuke for being 98% shite.....thank you for your attention to this matter\n\n---\n\n[Jason Auer]\nthat is a lot of capital letters\n\n---\n\n[Adam Nelson]\nHA\n\n---\n\n[Andrei Ianouchkevitch]\nyou need to add - Adam Nelson, Vice PRESIDENT of Operations\n\n---\n\n[Adam Nelson]\nMA & FRED,\n\nPASS THIS ALONG!!!\n\nWE ARE TERMINATING NAVISITE IN APRIL. TOTAL DISASTER OF A VENDOR. THEIR BEST PEOPLE ARE LEAVING, BEING REPLACED WITH MUCH WEAKER TALENT. LOSER SETUP, AND OUR CUSTOMERS WERE PAYING THE PRICE. NOT ANYMORE!\n\nWE’VE ALREADY TAKEN OVER THE WORK, FEWER ISSUES, BETTER RESULTS. WE OWN IT NOW. STRONGER, SMARTER, AND NO MORE THIRD-PARTY PROBLEMS.\n\nDATA IS EVERYTHING. WE’RE TAKING CONTROL.\n\nTHANK YOU FOR YOUR ATTENTION TO THIS MATTER.\n\n---\n\n[Adam Nelson]\nJason Auer, can you review this email I'm going to send to Fred and MA to pass to their teams about navisite?\n\n---\n\n[Adam Nelson]\nI'm not... I was just curious when andy said someone made a ticket for smartscale\n\n---\n\n[Sam Carter]\nWell if youre trying to get into Cherwell , you can via this Windows jumpbox - tstor02.corp.peer1.net\n\n---\n\n[Sam Carter]\n12028 yh?\n\n---\n\n[Sam Carter]\nAh i see , yeah in that case sill up as read only\n\n---\n\n[Adam Nelson]\nI think.. it was a ticket from 2024\n\n---\n\n[Sam Carter]\nCherwell is read only , shouldn't be taking any requests etc.\n\n---\n\n[Adam Nelson]\nwhat the fuck...\n\n---\n\n[Adam Nelson]\nis Cherwell still up?",
-      "body_snippet": "[Adam Nelson]\nI'll see what I can do\n\n---\n\n[Adam Nelson]\nok... good call\n\n---\n\n[Jason Auer]\nour best shit comes from collaboration between teams.\n\n---\n\n[Jason Auer]\nI mean, how in the fuck \"\n\n---\n\n[Jason Auer]\nI don't want to be the our team is the shit guy, but the DCO team is the most dysfunctional shit. Like they don't even have a meeting with everyone on it to discuss improvements, or pain points or banter on how each team does things.\n\n---\n\n[Jason Auer]\nthis works, so i am fine with either ",
-      "thread_key": "19:59f99a8984dd4ac9acb1f5b5bfb3adcd@thread.v2",
-      "message_count": 25,
-      "first_timestamp": "2026-03-27T11:03:51.148Z",
-      "last_timestamp": "2026-03-27T19:22:31.824Z",
-      "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        },
-        {
-          "name": "Jason Auer",
-          "handle": "39a5b708-8613-45c0-9c26-4aa21b8a9c73",
-          "role": "from"
-        },
-        {
-          "name": "Andrei Ianouchkevitch",
-          "handle": "7c03c106-fb1d-4fd7-a02d-5ffd787db437",
-          "role": "from"
-        },
-        {
-          "name": "Sam Carter",
-          "handle": "71d633bc-c310-4380-8676-e0e6d535a73f",
-          "role": "from"
-        }
-      ],
-      "participant_count": 4,
-      "is_from_me": true,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A59f99a8984dd4ac9acb1f5b5bfb3adcd%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:59f99a8984dd4ac9acb1f5b5bfb3adcd@thread.v2",
-        "chatType": "group"
-      }
-    },
-    {
       "id": "2ee40a4cb993",
       "source": "email",
       "subject": "[JIRA] (CUS-2) INT - Internal Meetings",
@@ -660,132 +667,6 @@
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtbAAA=",
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtaAAA="
         ]
-      }
-    },
-    {
-      "id": "131477b9bb12",
-      "source": "teams",
-      "subject": "Service Network",
-      "body_text": "[Adam Nelson]\nCan you validate this blurb?\n\n \n2. What's Happening to Our VMware Base Right Now\n\n \n\nA year ago, our 49 VMware managed hosting customers were generating $935K/mo in total MRC (all services, not just vHosts). Today, including services currently in provision/migration, those same client IDs account for $630K/mo. That's a $306K/mo decline (-33%), or roughly $3.7M/yr in eroded revenue.\n \n\n10 customers fully gone - $195K/mo\n\nCentro Internacional de Maiz y Trigo: $43K/mo\nWeirFoulds LLP: $41K/mo (left explicitly citing price increases)\nCrealogix MBA Limited: $27K/mo\nBe the brand experience: $22K/mo\nDods Group Limited: $18K/mo\nStraighterLine: $15K/mo\nStar One Credit Union: $11K/mo\n20-20 Technologies: $10K/mo\nBlue Cow Software: $4K/mo\nTAB Products: $4K/mo\n\n15 customers downsized - net $231K/mo reduction\n\nHYTECK: $84K -> $20K (-77%). Largest single-customer decline.\nPremia Solutions: $37K -> $7K (-82%)\nBlue Yonder: $35K -> $19K (-45%)\nCombined Metal Industries: $31K -> $17K (-45%)\nGranite REIT: $26K -> $13K (-52%)\nCheckout Technology: $24K -> $13K (-43%)\nAdam Matthew Digital: $32K -> $24K (-24%)\nChicken Farmers of Ontario: $21K -> $14K (-31%)\n\n24 customers grew or are growing - net +$121K/mo\n\nLeek United Building Society: $38K -> $52K (+36%)\nTownsquare Media: $103K -> $112K (+9%). They consolidated to one vHost but grew overall services across their dedicated footprint.\nCITYWAY: $11K -> $17K (+59%)\nAlaya Care: $7K -> $12K (+86%)\nRepoSystems.Com: $7K -> $11K (+67%)\nCurrencies Direct: $3K -> $5K (+97%)\nBCOM 2000: $3K -> $265 online today, but $10K in provision (migrating to Rocky Linux 9 on new hardware - this is a VMware-to-alternative transition happening in real time)\nCenovus Energy: $3K -> $2K online today, but $8.5K in provision (new ESXi 7.0/8.0 vHosts being built)\nThese are the customers who committed, expanded their relationship, or are actively investing in new infrastructure with us. This is what \"sticky\" looks like.\nA data visibility problem worth flagging\n\nOur Churn table captured only 15 formally cancelled services totaling $5K/mo across this same period. The actual revenue gap is $306K/mo. That means 98% of the revenue erosion is invisible to our churn tracking system. It's happening through downsizing, non-renewals, and service reductions that don't trigger a formal cancellation. If we're relying on the Churn table to understand VMware revenue health, we're seeing 2% of the picture. This is something we should fix regardless of platform direction.\nWhat's still exposed\n\n22 vHost services across 11 customers are still on ESXi 7.0 (end-of-support since Oct 2025). They have to upgrade or leave. CITYWAY alone is $14K/mo on 7.0.\n35 of 80 active vHost services expire within 1 month. Half the remaining VMware base is month-to-month right now.\nOnly 30 of 80 vHost services have more than 12 months on contract.\nCurrent VMware vHost revenue: $241K/mo across 32 customers, 80 services, 7 data centers (Toronto, Portsmouth, Atlanta, Herndon, Los Angeles, Miami, London).\nWhat this means\n\nThe VMware managed hosting base is contracting, and the pattern is clear: single-product customers (vHost-only, shallow relationship) are the ones leaving or shrinking. Multi-product customers (dedicated servers, networking, managed services layered on top) are growing.\n\nThis is exactly the problem Apt Cloud + Aptum IaaS is built to solve. Instead of passing through Broadcom's price increases and watching customers walk, we migrate them to CloudStack/KVM where the licensing overhead is zero, wrap managed services around it, and the multi-product relationship keeps them.\n\nBCOM 2000 is already doing it: moving from VMware to Rocky Linux on new Aptum hardware. That's a $10K/mo customer being retained through a platform transition. This is the template.\n\nThe 41 customers still here (plus 3 with active provisioning work) are the migration pipeline. The question is how fast we can move them.\n\n---\n\n[Jorge Quintero]\nThis is an internal client id, I don't pay too much attention to those. Martin Tessier would know why those are active with the ESXI version\n\n---\n\n[Adam Nelson]\nah ok...\n\n---\n\n[Jorge Quintero]\nAdam Nelson, the component created to have the VMWARE license const is one of the following\n\n \n\nVMware Licensing - 16 Cores per Proc\n\nVMware Licensing - 16 Cores per Proc - 1 Year Commit\n\nVMware Licensing - 16 Cores per Proc - 2 Year Commit\n\nVMware Licensing - 16 Cores per Proc - 3 Year Commit\n\nVMware Licensing - 2 Additional Cores - 1 Year Commit\n\nVMware Licensing - 2 Additional Cores - 2 Year Commit\n\n \n\nThe challenge is than not all the vhost have it.\n\n---\n\n[Adam Nelson]\nShouldn't the VMWare cost be on that component (on the bottom)?\n\n---\n\n[Adam Nelson]\nAlso, I don't understand this... \n\nThis is a vhost for wierfoulds... I don't see where the \"cost\" of vmware is\n\n---\n\n[Adam Nelson]\nMartin Tessier, Jorge Quintero, I'm showing Client 7000512 (Peer1 IT) stil has active components for service IDs:\n\n4509681\n\n4509682\n\n4986214\n\n4986215\n\n4492315\n\n4492316\n\n \n\nwhich are ESXI 6/5.5. They are showing online still. Any idea what's going on there?",
-      "body_snippet": "[Adam Nelson]\nCan you validate this blurb?\n\n \n2. What's Happening to Our VMware Base Right Now\n\n \n\nA year ago, our 49 VMware managed hosting customers were generating $935K/mo in total MRC (all services, not just vHosts). Today, including services currently in provision/migration, those same client IDs account for $630K/mo. That's a $306K/mo decline (-33%), or roughly $3.7M/yr in eroded revenue.\n \n\n10 customers fully gone - $195K/mo\n\nCentro Internacional de Maiz y Trigo: $43K/mo\nWeirFoulds LLP: ",
-      "thread_key": "19:f817b5413cad4b7d83a96bf6dc72677d@thread.v2",
-      "message_count": 7,
-      "first_timestamp": "2026-03-27T17:37:52.118Z",
-      "last_timestamp": "2026-03-27T18:31:11.877Z",
-      "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        },
-        {
-          "name": "Jorge Quintero",
-          "handle": "cd574525-e015-4843-a696-3d9e781ca01b",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": true,
-      "mentions_me": true,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Af817b5413cad4b7d83a96bf6dc72677d%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:f817b5413cad4b7d83a96bf6dc72677d@thread.v2",
-        "chatType": "group"
-      }
-    },
-    {
-      "id": "ea31b7e322ce",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Adam Nelson]\nin\n\n---\n\n[Adam Nelson]\ncall me ion\n\n---\n\n[Nikki Thind]\nwe need to finalize what is happening with Nathan- had a convo with comp committee and wanted to touch base\n\n---\n\n[Nikki Thind]\nwith me and Andrei\n\n---\n\n[Nikki Thind]\ncan you join us on a call for 2min",
-      "body_snippet": "[Adam Nelson]\nin\n\n---\n\n[Adam Nelson]\ncall me ion\n\n---\n\n[Nikki Thind]\nwe need to finalize what is happening with Nathan- had a convo with comp committee and wanted to touch base\n\n---\n\n[Nikki Thind]\nwith me and Andrei\n\n---\n\n[Nikki Thind]\ncan you join us on a call for 2min",
-      "thread_key": "19:521ff4cd-d060-4647-b09a-592484b7ecfe_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-      "message_count": 5,
-      "first_timestamp": "2026-03-27T17:56:17.331Z",
-      "last_timestamp": "2026-03-27T18:18:58.103Z",
-      "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        },
-        {
-          "name": "Nikki Thind",
-          "handle": "521ff4cd-d060-4647-b09a-592484b7ecfe",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": true,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A521ff4cd-d060-4647-b09a-592484b7ecfe_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:521ff4cd-d060-4647-b09a-592484b7ecfe_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-        "chatType": "oneOnOne"
-      }
-    },
-    {
-      "id": "4c68fdbb725a",
-      "source": "teams",
-      "subject": "[SALES HELP] Sales Infrastructure & Cloud Questions",
-      "body_text": "[Elizabeth Perez]\nThanks, Andy!\n\n---\n\n[Andy Petterson]\nI think this is an option he wants to add to cPanel, could you check with Charles Rutledge as I think he might know about it. If not this would be one for Carlton as Lifecycle Manager for cPanel\n\n---\n\n[Elizabeth Perez]\nHey Team, could someone help me with this inquiry? One of my customer's (CID 4018210) sent this via Jira: \n\n \n\nI'm considering adding the Lightspeed Unlimited plugin via the web host manager for my server. My question is, on the unlimited plan that you offer, what all does it include? On the Lightspeed website, they have different versions and they don't have an unlimited version. I want to make sure that what I'm getting will be adequate for my server. Specifically, I want to make sure before I order this, get it installed, and everything that this particular version that is offered through you, which I'm sure is private-labeled because there is no unlimited version on the Lightspeed pages where they offer it, which is fine. My main concern is just making sure that it has everything. The one that I need needs to have two workers, which I think they're equivalent to what is called a web host professional. You guys are calling it something different, so I just want to make sure it's going to be adequate. Can you confirm that before I order, please?",
-      "body_snippet": "[Elizabeth Perez]\nThanks, Andy!\n\n---\n\n[Andy Petterson]\nI think this is an option he wants to add to cPanel, could you check with Charles Rutledge as I think he might know about it. If not this would be one for Carlton as Lifecycle Manager for cPanel\n\n---\n\n[Elizabeth Perez]\nHey Team, could someone help me with this inquiry? One of my customer's (CID 4018210) sent this via Jira: \n\n \n\nI'm considering adding the Lightspeed Unlimited plugin via the web host manager for my server. My question is, on t",
-      "thread_key": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
-      "message_count": 3,
-      "first_timestamp": "2026-03-27T17:59:44.55Z",
-      "last_timestamp": "2026-03-27T18:07:38.971Z",
-      "author": {
-        "name": "Elizabeth Perez",
-        "handle": "4a19fe3c-a39f-4037-975a-5db1be594f72",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Elizabeth Perez",
-          "handle": "4a19fe3c-a39f-4037-975a-5db1be594f72",
-          "role": "from"
-        },
-        {
-          "name": "Andy Petterson",
-          "handle": "b57eacf4-c4b8-4baf-adbc-555400dbbe99",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": false,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A8a206679ad834383adee6ab2c3d66aa7%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:8a206679ad834383adee6ab2c3d66aa7@thread.v2",
-        "chatType": "group"
       }
     },
     {
@@ -1037,169 +918,6 @@
         "message_ids": [
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEJAABAscG_D3c-SI-xeA_iWIqgAASxNO2gAAA="
         ]
-      }
-    },
-    {
-      "id": "5fb986034a76",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Adam Nelson]\nok, I was wondering...didn't see anything\n\n---\n\n[Martin Tessier]\nThey haven’t send it yet\n\n---\n\n[Adam Nelson]\nlet me check\n\n---\n\n[Adam Nelson]\nk\n\n---\n\n[Martin Tessier]\nHi Adam, you gone receive a contract to sign with Bell.  it's for Ignite Migration ( Scadacore )",
-      "body_snippet": "[Adam Nelson]\nok, I was wondering...didn't see anything\n\n---\n\n[Martin Tessier]\nThey haven’t send it yet\n\n---\n\n[Adam Nelson]\nlet me check\n\n---\n\n[Adam Nelson]\nk\n\n---\n\n[Martin Tessier]\nHi Adam, you gone receive a contract to sign with Bell.  it's for Ignite Migration ( Scadacore )",
-      "thread_key": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-      "message_count": 5,
-      "first_timestamp": "2026-03-27T16:17:28.739Z",
-      "last_timestamp": "2026-03-27T17:12:55.1Z",
-      "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        },
-        {
-          "name": "Martin Tessier",
-          "handle": "9ecfec12-a4bb-4f43-996b-51df55f6e80e",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": true,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:9ecfec12-a4bb-4f43-996b-51df55f6e80e_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-        "chatType": "oneOnOne"
-      }
-    },
-    {
-      "id": "b0766d59d664",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Marko Andjelkovic]\nThank you sir\n\n---\n\n[Adam Nelson]\n(I want to put them in there vs. just sending them direct)\n\n---\n\n[Adam Nelson]\nsort by modified\n\n---\n\n[Adam Nelson]\nHey, sorry guys, I had these done earlier but I forgot to upload them https://disks.sharepoint.com/sites/GSESalesEngagement/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FGSESalesEngagement%2FShared%20Documents%2FCustomer%20Account%20Summaries&sortField=LinkFilename&isAscending=true&viewid=a45e3d33%2D5931%2D4085%2D9902%2D3de6aaa14949&FolderCTID=0x012000B2F16AA837BE18408D4233F0B1A32A54",
-      "body_snippet": "[Marko Andjelkovic]\nThank you sir\n\n---\n\n[Adam Nelson]\n(I want to put them in there vs. just sending them direct)\n\n---\n\n[Adam Nelson]\nsort by modified\n\n---\n\n[Adam Nelson]\nHey, sorry guys, I had these done earlier but I forgot to upload them https://disks.sharepoint.com/sites/GSESalesEngagement/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FGSESalesEngagement%2FShared%20Documents%2FCustomer%20Account%20Summaries&sortField=LinkFilename&isAscending=true&viewid=a45e3d33%2D5931%2D4085%2D9902%2D3",
-      "thread_key": "19:7343f51e8c5b4188b8102bb4274f9646@thread.v2",
-      "message_count": 4,
-      "first_timestamp": "2026-03-27T16:57:23.788Z",
-      "last_timestamp": "2026-03-27T16:57:38.131Z",
-      "author": {
-        "name": "Marko Andjelkovic",
-        "handle": "1bc11c24-6d5a-4e1b-bac2-eeb73e077163",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Marko Andjelkovic",
-          "handle": "1bc11c24-6d5a-4e1b-bac2-eeb73e077163",
-          "role": "from"
-        },
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": false,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A7343f51e8c5b4188b8102bb4274f9646%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:7343f51e8c5b4188b8102bb4274f9646@thread.v2",
-        "chatType": "group"
-      }
-    },
-    {
-      "id": "a3196f920368",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Adam Nelson]\nyea\n\n---\n\n[Frederic Gingras]\nMarko requested a report?\n\n---\n\n[Frederic Gingras]\nyes\n\n---\n\n[Adam Nelson]\nBento Nouveau,... is that bento sushi?",
-      "body_snippet": "[Adam Nelson]\nyea\n\n---\n\n[Frederic Gingras]\nMarko requested a report?\n\n---\n\n[Frederic Gingras]\nyes\n\n---\n\n[Adam Nelson]\nBento Nouveau,... is that bento sushi?",
-      "thread_key": "19:93c7243e-98c3-4bbc-8951-dead54e0b136_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-      "message_count": 4,
-      "first_timestamp": "2026-03-27T14:08:44.68Z",
-      "last_timestamp": "2026-03-27T16:57:09.072Z",
-      "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        },
-        {
-          "name": "Frederic Gingras",
-          "handle": "93c7243e-98c3-4bbc-8951-dead54e0b136",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": true,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A93c7243e-98c3-4bbc-8951-dead54e0b136_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:93c7243e-98c3-4bbc-8951-dead54e0b136_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-        "chatType": "oneOnOne"
-      }
-    },
-    {
-      "id": "123c107dfa5e",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Adam Nelson]\nhere\n\n---\n\n[Adam Nelson]\nI had them all done\n\n---\n\n[Adam Nelson]\nshit\n\n---\n\n[Adam Nelson]\nyes\n\n---\n\n[Adam Nelson]\nBento Sushi?",
-      "body_snippet": "[Adam Nelson]\nhere\n\n---\n\n[Adam Nelson]\nI had them all done\n\n---\n\n[Adam Nelson]\nshit\n\n---\n\n[Adam Nelson]\nyes\n\n---\n\n[Adam Nelson]\nBento Sushi?",
-      "thread_key": "19:1bc11c24-6d5a-4e1b-bac2-eeb73e077163_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-      "message_count": 5,
-      "first_timestamp": "2026-03-27T13:50:34.072Z",
-      "last_timestamp": "2026-03-27T16:56:16.655Z",
-      "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        }
-      ],
-      "participant_count": 1,
-      "is_from_me": true,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A1bc11c24-6d5a-4e1b-bac2-eeb73e077163_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:1bc11c24-6d5a-4e1b-bac2-eeb73e077163_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-        "chatType": "oneOnOne"
       }
     },
     {
@@ -1776,43 +1494,6 @@
       }
     },
     {
-      "id": "2299d52d4329",
-      "source": "teams",
-      "subject": "Weeks Tweeks sans Dave",
-      "body_text": "[Jason Auer]\nFrom: Carlton Currey\n\nSent: Tuesday, May 13, 2025 1:03 PM\n\nTo: Jason Auer; Charles Rutledge; David Alfaro; David White\n\nSubject: RE: Ticket 12028 - Smart Scale - SQL Server License Verification\n\n \n\nGents,\n\n \n\nNone of the information provided by the customer is proof of SA. The license transfer doc even calls out that SA is not transferred. The MS Store image of 2 SQL licenses is only a indication they have some SQL license that they can use locally and not in a hosted environment. Charles has provided all the forms and links to have the customer acquire SA so that they can provide to us. I have to side with Charles on this one. I know this will cost us a customer but to be honest this is what is missing from all customer that want to BYOL. If they have SA then yeah BYOL all day, no proof of SA or retail license cannot be deployed in our hosted environment.",
-      "body_snippet": "[Jason Auer]\nFrom: Carlton Currey\n\nSent: Tuesday, May 13, 2025 1:03 PM\n\nTo: Jason Auer; Charles Rutledge; David Alfaro; David White\n\nSubject: RE: Ticket 12028 - Smart Scale - SQL Server License Verification\n\n \n\nGents,\n\n \n\nNone of the information provided by the customer is proof of SA. The license transfer doc even calls out that SA is not transferred. The MS Store image of 2 SQL licenses is only a indication they have some SQL license that they can use locally and not in a hosted environment. C",
-      "thread_key": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
-      "message_count": 3,
-      "first_timestamp": "2026-03-27T13:31:43.069Z",
-      "last_timestamp": "2026-03-27T14:26:05.835Z",
-      "author": {
-        "name": "Jason Auer",
-        "handle": "39a5b708-8613-45c0-9c26-4aa21b8a9c73",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Jason Auer",
-          "handle": "39a5b708-8613-45c0-9c26-4aa21b8a9c73",
-          "role": "from"
-        }
-      ],
-      "participant_count": 1,
-      "is_from_me": false,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:meeting_ZWNhZDFjMmEtNGE3NS00NTcxLWFmMjItZmU0OTY1OTZhNjk4@thread.v2",
-        "chatType": "meeting"
-      }
-    },
-    {
       "id": "669f96be6035",
       "source": "email",
       "subject": "[Live Webinar] Beyond Single Cloud: Designing Resilient Citrix Architectures Across Azure and AWS",
@@ -1898,43 +1579,6 @@
         "message_ids": [
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAETAABAscG_D3c-SI-xeA_iWIqgAASwUAtnAAA="
         ]
-      }
-    },
-    {
-      "id": "b0624c775ffa",
-      "source": "teams",
-      "subject": null,
-      "body_text": "",
-      "body_snippet": "",
-      "thread_key": "19:0d1ec731-2fb2-4ba2-9155-439704fe4066_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-      "message_count": 1,
-      "first_timestamp": "2026-03-27T14:04:06.907Z",
-      "last_timestamp": "2026-03-27T14:04:06.907Z",
-      "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        }
-      ],
-      "participant_count": 1,
-      "is_from_me": true,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A0d1ec731-2fb2-4ba2-9155-439704fe4066_e1f43ab9-33cd-43cc-8105-e58fd96efe30%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:0d1ec731-2fb2-4ba2-9155-439704fe4066_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces",
-        "chatType": "oneOnOne"
       }
     },
     {
@@ -2125,43 +1769,6 @@
       }
     },
     {
-      "id": "a552bbcd941e",
-      "source": "teams",
-      "subject": "Operations - Sprint review",
-      "body_text": "[Andrei Ianouchkevitch]\nhttps://disks.sharepoint.com/:x:/r/sites/GSESalesEngagement/_layouts/15/doc2.aspx?sourcedoc=%7BC4FFA26F-6872-4F08-A1C8-AE77773DDA4E%7D&file=Managed%20Cloud%20Platform%20-%20Endpoint%20Worksheet.xlsx&wdOrigin=TEAMS-MAGLEV.p2p_ns.rwc&action=default&mobileredirect=true",
-      "body_snippet": "[Andrei Ianouchkevitch]\nhttps://disks.sharepoint.com/:x:/r/sites/GSESalesEngagement/_layouts/15/doc2.aspx?sourcedoc=%7BC4FFA26F-6872-4F08-A1C8-AE77773DDA4E%7D&file=Managed%20Cloud%20Platform%20-%20Endpoint%20Worksheet.xlsx&wdOrigin=TEAMS-MAGLEV.p2p_ns.rwc&action=default&mobileredirect=true",
-      "thread_key": "19:meeting_NzVhNTk2YzgtNjUyMy00ODFhLWE4ZDYtNWZjMjI5MTNiOTYz@thread.v2",
-      "message_count": 1,
-      "first_timestamp": "2026-03-27T13:34:35.907Z",
-      "last_timestamp": "2026-03-27T13:34:35.907Z",
-      "author": {
-        "name": "Andrei Ianouchkevitch",
-        "handle": "7c03c106-fb1d-4fd7-a02d-5ffd787db437",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Andrei Ianouchkevitch",
-          "handle": "7c03c106-fb1d-4fd7-a02d-5ffd787db437",
-          "role": "from"
-        }
-      ],
-      "participant_count": 1,
-      "is_from_me": false,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Ameeting_NzVhNTk2YzgtNjUyMy00ODFhLWE4ZDYtNWZjMjI5MTNiOTYz%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:meeting_NzVhNTk2YzgtNjUyMy00ODFhLWE4ZDYtNWZjMjI5MTNiOTYz@thread.v2",
-        "chatType": "meeting"
-      }
-    },
-    {
       "id": "1d039782aaec",
       "source": "email",
       "subject": "[JIRA] ([GSE-296] V2V Technologies - AWS Well-Architected Review) (GSE296A) Project archived",
@@ -2247,37 +1854,6 @@
         "message_ids": [
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASu8Q32AAA="
         ]
-      }
-    },
-    {
-      "id": "af49786ed9c5",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Unknown]\nYour team members are getting recognized this week ✨\n\nOpen Good Vibes",
-      "body_snippet": "[Unknown]\nYour team members are getting recognized this week ✨\n\nOpen Good Vibes",
-      "thread_key": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_57587298-192a-4264-a6d6-52b2ccac853f@unq.gbl.spaces",
-      "message_count": 1,
-      "first_timestamp": "2026-03-27T13:00:34.447Z",
-      "last_timestamp": "2026-03-27T13:00:34.447Z",
-      "author": {
-        "name": "",
-        "handle": "",
-        "role": "from"
-      },
-      "participants": [],
-      "participant_count": 0,
-      "is_from_me": false,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Ae1f43ab9-33cd-43cc-8105-e58fd96efe30_57587298-192a-4264-a6d6-52b2ccac853f%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_57587298-192a-4264-a6d6-52b2ccac853f@unq.gbl.spaces",
-        "chatType": "oneOnOne"
       }
     },
     {
@@ -2930,90 +2506,6 @@
         "message_ids": [
           "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAASu8Q3uAAA="
         ]
-      }
-    },
-    {
-      "id": "f20fd80806d5",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Adam Nelson]\nI've never been so happy for a non-integration in my whole life\n\n---\n\n[Fred Taylor-Young]\nto my knowledge, there's never been any direct Ocean <-> Cherwell integration\n\nedit to add: there is an indirect integration from Ocean -> Data Warehouse -> Cherwell for setting up customer portal logins, but as Cherwell pulls from DWH, when it gets turned off, it would simply stop those pulls.\n\n---\n\n[Adam Nelson]\nwhich probably isn't NOT true\n\n---\n\n[Adam Nelson]\nI gave the answer that it would cripple ocean if we blindly shut it down\n\n---\n\n[Adam Nelson]\nlove that\n\n---\n\n[Fred Taylor-Young]\nwe don't pay for the Cherwell software, but like any server (10 servers actually), it costs us money and time to monitor it, vuln scan it, and protect it from malware.\n\nalso, a risk since it's EOL software and it's running on EOL Windows... it's on my hit-list to shutdown - ideally the sooner the better\n\n---\n\n[Adam Nelson]\n(questions from the board)\n\n---\n\n[Adam Nelson]\nAre there costs associated w/ that?\n\n---\n\n[Adam Nelson]\nIt's still \"up\"? But read-only?\n\n---\n\n[Adam Nelson]\nWhat's the situation w/ Cherwell\n\n---\n\n[Adam Nelson]\nSince I have you guys here...\n\n---\n\n[Fred Taylor-Young]\nthanks for taking care of this yesterday JR. in this instance there's no 3rd party as it's Adam's app.",
-      "body_snippet": "[Adam Nelson]\nI've never been so happy for a non-integration in my whole life\n\n---\n\n[Fred Taylor-Young]\nto my knowledge, there's never been any direct Ocean <-> Cherwell integration\n\nedit to add: there is an indirect integration from Ocean -> Data Warehouse -> Cherwell for setting up customer portal logins, but as Cherwell pulls from DWH, when it gets turned off, it would simply stop those pulls.\n\n---\n\n[Adam Nelson]\nwhich probably isn't NOT true\n\n---\n\n[Adam Nelson]\nI gave the answer that it woul",
-      "thread_key": "19:8be7023cd0e8446580c20455638f3155@thread.v2",
-      "message_count": 12,
-      "first_timestamp": "2026-03-27T08:11:12.108Z",
-      "last_timestamp": "2026-03-27T11:30:56.043Z",
-      "author": {
-        "name": "Adam Nelson",
-        "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        },
-        {
-          "name": "Fred Taylor-Young",
-          "handle": "f5795985-e3a1-43d6-bee4-ac21c292fa70",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": true,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": false,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3A8be7023cd0e8446580c20455638f3155%40thread.v2/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:8be7023cd0e8446580c20455638f3155@thread.v2",
-        "chatType": "group"
-      }
-    },
-    {
-      "id": "987a88e4bc68",
-      "source": "teams",
-      "subject": null,
-      "body_text": "[Fred Taylor-Young]\nwow, that's awesome\n\n---\n\n[Adam Nelson]\nI'm cookni here\n\n---\n\n[Adam Nelson]\ni got it to notice that a) there was something for me to do, so it created a task for me... and then b) it saw I finished it so it checked it off\n\n---\n\n[Adam Nelson]\nomg...",
-      "body_snippet": "[Fred Taylor-Young]\nwow, that's awesome\n\n---\n\n[Adam Nelson]\nI'm cookni here\n\n---\n\n[Adam Nelson]\ni got it to notice that a) there was something for me to do, so it created a task for me... and then b) it saw I finished it so it checked it off\n\n---\n\n[Adam Nelson]\nomg...",
-      "thread_key": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_f5795985-e3a1-43d6-bee4-ac21c292fa70@unq.gbl.spaces",
-      "message_count": 5,
-      "first_timestamp": "2026-03-27T11:28:17.516Z",
-      "last_timestamp": "2026-03-27T11:29:03.683Z",
-      "author": {
-        "name": "Fred Taylor-Young",
-        "handle": "f5795985-e3a1-43d6-bee4-ac21c292fa70",
-        "role": "from"
-      },
-      "participants": [
-        {
-          "name": "Fred Taylor-Young",
-          "handle": "f5795985-e3a1-43d6-bee4-ac21c292fa70",
-          "role": "from"
-        },
-        {
-          "name": "Adam Nelson",
-          "handle": "e1f43ab9-33cd-43cc-8105-e58fd96efe30",
-          "role": "from"
-        }
-      ],
-      "participant_count": 2,
-      "is_from_me": false,
-      "mentions_me": false,
-      "am_in_to": true,
-      "am_in_cc": false,
-      "is_direct_message": true,
-      "is_forwarded": false,
-      "attachments": [],
-      "has_attachments": false,
-      "url": "https://teams.microsoft.com/l/chat/19%3Ae1f43ab9-33cd-43cc-8105-e58fd96efe30_f5795985-e3a1-43d6-bee4-ac21c292fa70%40unq.gbl.spaces/0?tenantId=ad69d422-4fa7-42b0-a4d3-f58410f311ed",
-      "source_meta": {
-        "chatId": "19:e1f43ab9-33cd-43cc-8105-e58fd96efe30_f5795985-e3a1-43d6-bee4-ac21c292fa70@unq.gbl.spaces",
-        "chatType": "oneOnOne"
       }
     },
     {
