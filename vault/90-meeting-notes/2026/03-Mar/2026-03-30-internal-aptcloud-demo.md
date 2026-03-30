@@ -26,6 +26,9 @@ the ignite story.
 
 customers are currently getting drawn and quartered
 
+MTC -> Pulling them back
+A
+
 ## Decisions Made
 <!-- Anything decided here that needs a record -->
 
