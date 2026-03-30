@@ -24,6 +24,7 @@ customer wants to be able to :control..the thing we are selling them, and see th
 
 the ignite story.
 
+customers are currently getting drawn and quartered
 
 ## Decisions Made
 <!-- Anything decided here that needs a record -->
