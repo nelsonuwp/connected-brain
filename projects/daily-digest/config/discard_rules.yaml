@@ -111,7 +111,7 @@ clustering:
   merge_threshold: 0.68
 
   # Hard cap on cluster size — prevents mega-merges from chaining
-  max_cluster_size: 4
+  max_cluster_size: 8
 
   # Use TF-IDF fallback when sentence-transformers is unavailable
   use_fallback_embedding: false
