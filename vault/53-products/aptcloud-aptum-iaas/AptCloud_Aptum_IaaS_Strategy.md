@@ -883,12 +883,17 @@ Prioritized against the CloudOps Software engineering team and the operational t
 
 **Priority: Revenue enablement and operational readiness.**
 
+**Board directive (March 31, 2026):** Determine go-to-market timeline as a "fast follow." The board views commercialization as the critical path, not further technical development.
+
 | Initiative | Owner | Dependency | Impact |
 |---|---|---|---|
+| Determine GTM timeline for broader commercial availability | Adam / Will / Sarah | Pricing strategy | **Board-directed** - "fast follow" from March 31 demo |
+| Develop commercialization and marketing plan | Sarah / Marc Alex | GTM timeline | Board-directed - Sarah identified this as the primary open item |
+| Define go-forward pricing: premium positioning with discount flexibility | Commercial + VP Ops | Competitive analysis (this document) + board pricing direction | Required for new logo sales and channel. Board recommends starting high with selective discounts. |
+| Identify existing Azure/AWS customers for near-term Apt Cloud onboarding | Marc Alex / Adam | - | **Quick win** - no development needed, only configuration. Demonstrated live March 31. |
 | Finish reseller billing + per-reseller pricing | CloudOps SW | - | **Highest ROI** - unlocks channel revenue |
 | White-label portal branding per reseller | CloudOps SW | - | Required for MSP channel |
 | Complete Ignite customer migrations to Pullman DC | Compute Platforms + Managed Cloud | Network | Revenue protection - existing MRR at risk until migration completes |
-| Define go-forward pricing (not legacy Ignite) | Commercial + VP Ops | Competitive analysis (this document) | Required for new logo sales and channel |
 | Publish self-service VPC pricing on aptum.com | Commercial + Marketing | Go-forward pricing | Lead generation |
 | Operational readiness review for multi-tenant AptCloud | Managed Cloud + Compute Platforms | - | Risk mitigation - must pass before scaling |
 | AptCloud exit Alpha → Beta designation | VP Ops | Operational readiness review | Commercial milestone |
@@ -904,7 +909,7 @@ Prioritized against the CloudOps Software engineering team and the operational t
 | Kubernetes service offering (CKS + Apt Cloud plugin) | CTO team + CloudOps SW | CSI integration (tested) | Container workload tier |
 | VMware ESXi support via CloudStack native or VCD | CTO team | ThinkOn licensing relationship | Continue supporting VMware customers |
 | Recruit first 5 MSP resellers | Commercial + VP Ops | Reseller model complete (Phase 1) | Channel multiplier |
-| Second DC scoping: US (Herndon) or UK (Portsmouth) | VP Ops + DC Ops | Business case | Geographic expansion |
+| Second DC scoping: US (Herndon) and UK (Portsmouth) | VP Ops + DC Ops + CTO | Business case | Geographic expansion. Per March 31 board demo: Canadian DCs can be expanded by adding CloudStack clusters to the existing management stack. US (Herndon) and UK (Portsmouth) each require deploying a new management stack instance. Customers see a unified portal across all regions. |
 | First 2 case studies published | Marketing + HSDM | Customer permission | Credibility building |
 
 ### Phase 3: Scale (H1 2027)
@@ -975,11 +980,13 @@ New customer acquisition through the three GTM motions: direct sales to VMware r
 
 ### 11.4 Open Questions
 
-1. **Go-forward pricing:** The Ignite prices ($28/vCPU, $7/GB RAM in CAD) honor Ignite's legacy pricing. What is Aptum's go-forward pricing for new customers and for the reseller wholesale tier? This needs to be defined before any GTM activity.
-2. **ShapeBlue relationship:** Is there a formal support/consulting engagement, or is the CTO team self-supporting on CloudStack? Formalizing this relationship provides risk mitigation and access to CloudStack roadmap intelligence.
-3. **VMware licensing path:** ThinkOn currently provides VMware licenses for MTC customers. For customers who want to *stay* on VMware, does Aptum maintain the ThinkOn relationship, pursue direct Broadcom licensing, or offer VMware via CloudStack native ESXi support? Each has different cost and operational implications.
-4. **Professional Services ownership:** PS has no named Service Manager. The operating model overlaps with HSDM. This accountability gap affects migration stream execution. Resolve before scaling migration PS.
-5. **Tooling consolidation:** Two Zabbix systems, unclear ownership of Datadog, LogicMonitor, and Ansible. The operational intelligence function is in Discovery phase. Accelerating OI is prerequisite for scaling operations.
+1. **Go-forward pricing:** The Ignite prices ($28/vCPU, $7/GB RAM in CAD) honor Ignite's legacy pricing. What is Aptum's go-forward pricing for new customers and for the reseller wholesale tier? This needs to be defined before any GTM activity. *Board direction (March 31):* Dave Pistacchio recommended premium positioning with selective discounting. The 74-89% gross margins provide substantial headroom. The go-forward pricing should reflect the managed services and private cloud value, not just the infrastructure cost.
+2. **Billing centralization:** Sarah identified a potential $200,000-$300,000/year reduction in credit card processing fees by centralizing billing through the platform rather than through Great Plains. The platform already has Avalara tax integration and credit card payment processing. Full billing integration (replacing Great Plains for IaaS revenue) was discussed during the March 31 board demo as a future milestone, not a launch blocker. The current model (exporting revenue and tax reports from the platform into Great Plains) works for now.
+3. **Hardware sustainability / CapEx model:** Ian raised the question of what happens when repurposed hardware inventory is exhausted and net-new capital expenditure is required. Will noted that churned customer hardware can be repurposed into CloudStack clusters at low cost, but a longer-term CapEx model needs to be developed to support scaling beyond the initial inventory. Sarah and Will should model this.
+4. **ShapeBlue relationship:** Is there a formal support/consulting engagement, or is the CTO team self-supporting on CloudStack? Formalizing this relationship provides risk mitigation and access to CloudStack roadmap intelligence.
+5. **VMware licensing path:** ThinkOn currently provides VMware licenses for MTC customers. For customers who want to *stay* on VMware, does Aptum maintain the ThinkOn relationship, pursue direct Broadcom licensing, or offer VMware via CloudStack native ESXi support? Each has different cost and operational implications.
+6. **Professional Services ownership:** PS has no named Service Manager. The operating model overlaps with HSDM. This accountability gap affects migration stream execution. Resolve before scaling migration PS.
+7. **Tooling consolidation:** Two Zabbix systems, unclear ownership of Datadog, LogicMonitor, and Ansible. The operational intelligence function is in Discovery phase. Accelerating OI is prerequisite for scaling operations.
 
 ---
 
@@ -997,11 +1004,15 @@ Aptum's revenue base spans several streams, each at a different stage of maturit
 | Foundation | Active | Stable, high-margin base; enabled by Service Desk |
 | Legacy Aptum Cloud (VMware/Dell) | Migration target | Revenue protection; transitioning to Aptum IaaS eliminates VMware licensing overhead |
 | MTC (ThinkOn) | Future migration target | Cost optimization; moving to Aptum-owned infrastructure |
-| Aptum IaaS | Early-stage growth | First new logos; proving the model for direct and channel sales |
+| Aptum IaaS | Early-stage growth | $39K MRR closed pre-launch (7 new logos via Ignite). Proving the model for direct and channel sales. Board validated March 31. |
 
 ### 12.2 Aptum IaaS Margin Structure
 
 Aptum IaaS on CloudStack + owned hardware delivers strong gross margins across compute, memory, and storage. The open-source foundation (no hypervisor licensing) and Aptum-owned data center infrastructure (no colo markup) create a cost basis that supports healthy margins at current pricing, with additional headroom as go-forward pricing is defined. Detailed margin analysis is maintained in the commercial pricing model.
+
+**Pre-launch revenue validation:** $39K MRR closed through 7 Ignite new logos before any formal GTM activity. This was confirmed to the board on March 31, 2026 and received positive reception. Dave Pistacchio described the platform economics as a competitive advantage.
+
+**Billing cost reduction opportunity:** Sarah Blanchard identified $200,000-$300,000/year in credit card processing fees that could be reduced by centralizing billing through the platform's built-in payment processing (Avalara tax + credit card integration) rather than routing through Great Plains. This is a medium-term initiative, not a launch dependency.
 
 ### 12.3 Growth Levers
 
@@ -1012,6 +1023,8 @@ Revenue growth scales across three axes:
 **MSP/Reseller channel multiplication.** Each reseller onboarded multiplies the customer base without proportional sales investment. Wholesale infrastructure margins remain strong even at reseller pricing. The channel model is the primary scale lever.
 
 **Legacy migration (Streams 3 and 4).** Migrating legacy Aptum Cloud and MTC customers to Aptum IaaS converts existing revenue to a lower cost structure and higher margin, with no incremental customer acquisition cost.
+
+**Hardware repurposing.** Churned customer hardware can be repurposed into CloudStack clusters at low cost, extending the runway before net-new CapEx is required. This was raised during the March 31 board demo as a key mechanism for maintaining margins during the initial scaling phase. The longer-term CapEx model (what happens when repurposed inventory is exhausted) needs to be developed as the customer base grows.
 
 Growth scenarios and specific financial targets are maintained in a separate financial model.
 
@@ -1038,6 +1051,7 @@ Growth scenarios and specific financial targets are maintained in a separate fin
 
 ### B. Source Materials
 
+- Board Demo Recording and Summary (March 31, 2026) - live platform demo to board members (Dave Pistacchio, Peter Esposto) and executive team
 - Apt Cloud & Aptum IaaS PRD v8 (March 2026)
 - AptCloud Platform COTS Alternatives & Competitive Landscape - Build vs. Buy Analysis (Q1 2026)
 - Managed Cloud service description
@@ -1059,4 +1073,4 @@ Growth scenarios and specific financial targets are maintained in a separate fin
 
 ---
 
-*This document should be reviewed quarterly against revenue actuals, customer pipeline, and roadmap progress. Broadcom's next VMware pricing cycle, CloudStack's next release, and competitor moves will all require updates.*
+*This document should be reviewed quarterly against revenue actuals, customer pipeline, and roadmap progress. Broadcom's next VMware pricing cycle, CloudStack's next release, and competitor moves will all require updates. Last updated March 31, 2026 to incorporate feedback from the board demo.*

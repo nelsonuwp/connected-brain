@@ -1,5 +1,7 @@
 # Apt Cloud & Aptum IaaS - Product Requirements Document
 
+**Updated: March 31, 2026 (incorporates board demo feedback)**
+
 ---
 
 ## 1. Executive Summary
@@ -11,6 +13,8 @@ Aptum operates two related but **distinct** products that are frequently conflat
 **Aptum IaaS** is infrastructure  - compute, storage, and networking services delivered as Virtual Private Cloud (VPC) or Private Cloud. It runs on **Apache CloudStack 4.22** on **Aptum-owned Dell servers** in Aptum data centres. Aptum IaaS is delivered through Apt Cloud; Apt Cloud is the enabling platform that makes the self-service, customer management, permissions, products, and pricing possible. The infrastructure catalog is expanding via CloudStack's Extensions Framework (4.21+) to include self-service bare metal provisioning (via Canonical MAAS), Proxmox VE orchestration, and Kubernetes (via CloudStack CKS)  - see Section 4.9 for roadmap details.
 
 Together, they replace Aptum's legacy "Aptum Cloud" managed virtualization platform (VMware/Dell, 38 customers, ~~$27K MRC). The first Aptum IaaS customers  - **7 new logos** totaling **~~$39K MRR** (SCADAcore, Alberta New Home Warranty, and five ES Williams sub-customers)  - have signed transition agreements (Feb–Mar 2026) via the Ignite program. Note: Apt Cloud (portal.aptum.com) already has existing customers via MTC (ThinkOn) and Azure services.
+
+**Board validation (March 31, 2026):** A live demo of the platform to board members confirmed production readiness for the initial customer segment. The board directed the team to determine a commercialization timeline as a "fast follow." Key feedback: the platform was characterized as "true private cloud" and a competitive advantage. Azure/AWS customers can be onboarded to Apt Cloud immediately (no additional development, only configuration). Dedicated (single-tenant) infrastructure can also be sold through the platform today via product catalog configuration. The primary open work is now commercial, not technical.
 
 > **Naming note:** "Aptum IaaS" is a new product. Aptum has historically used the term "IaaS" in other contexts, but the historical usage is not an accurate representation of this product and should not be used in customer-facing materials to describe the legacy service.
 
@@ -361,6 +365,7 @@ What customers can do themselves through the portal:
 **Firewalls:** Manage Security Groups by CIDR, ingress/egress, protocol, port.
 **Images:** Upload custom QCOW2 or ISO images.
 **Cost Estimator:** Real-time pricing during provisioning, updates dynamically.
+**Quoting Tool:** Sales team can generate customer quotes directly from the platform (built March 2026, demonstrated at board demo March 31).
 **API:** Full REST API for all operations. Terraform provider. Golang SDK.
 
 ### 6.1 Managed Service Tiers
@@ -399,6 +404,7 @@ Aptum IaaS is a **new product**  - it is not a continuation of Aptum's historica
 - Supports GTM motion around Broadcom alternatives
 - No IOPS/throughput transaction fees (competitive advantage vs. public cloud)
 - Folding MTC customers into Aptum IaaS over time will reduce costs and improve customer experience
+- **Board-validated positioning (March 31, 2026):** Dave Pistacchio described the offering as "true private cloud," distinct from standard virtualized hosting. The distinction matters for market positioning: private cloud with managed services commands a higher valuation than commodity IaaS. The board recommended premium pricing with selective discounting, reflecting 74-89% gross margins on the underlying infrastructure.
 
 ### 7.3 The Name
 
@@ -496,6 +502,8 @@ Ignite receives a **12% commission** on hosting revenue.
 
 
 ES Williams is an MSP with multiple sub-customers, each with their own transition agreement. ES Williams is being explored as an early beta customer for the Reseller model within Apt Cloud.
+
+**Board demo context (March 31, 2026):** Will confirmed $39K MRR closed on Aptum IaaS through Ignite customers before any formal commercial launch. The ES Williams sub-customer hierarchy was demonstrated live to board members as a working example of the reseller/MSP model. Dave Pistacchio's reaction was positive, describing the platform as a competitive advantage. The board directed a "fast follow" to determine GTM timeline for broader commercialization.
 
 **Customer-Facing Pricing (honoring Ignite pricing):**
 
