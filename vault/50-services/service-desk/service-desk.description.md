@@ -4,6 +4,7 @@
 **Team Size:** ~17 people
 **Function:** Operations
 **Lifecycle:** Live
+**Confluence Link**: [Service Desk Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045223425/Service+Desk+NOC)
 
 > We are the first call for every managed customer. We own day 2 operations. We triage, we route, we resolve — and the ticket stays with us until it is closed.
 

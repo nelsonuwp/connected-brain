@@ -4,7 +4,7 @@
 **Function:** Architecture & Delivery (one-time delivery, not ongoing operations)
 **Lifecycle:** Live
 **Note:** Previously referred to as Provisioning Engineering, Hosting, and Product Engineering. Canonical name is Compute Platforms.
-**Confluence Link**: [Compute Platform Service Descriptio](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045518349/Compute+Platform)
+**Confluence Link**: [Compute Platform Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045518349/Compute+Platform)
 
 > We build the compute. One time, to spec, automated where possible, documented, handed off clean. From bare metal to OS — then we step back.
 
