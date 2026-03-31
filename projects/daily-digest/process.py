@@ -263,6 +263,89 @@ def _time_proximity(item_a: dict, item_b: dict, max_gap_hours: float = 2.0) -> b
     return gap <= max_gap_hours * 3600
 
 
+# ── O365 notification pre-clustering ─────────────────────────────────────────
+
+_O365_VERB_RE = re.compile(
+    r"\b(left\s+a\s+comment\s+in|assigned\s+you\s+a\s+task\s+in|shared|invited\s+you\s+to)\b",
+    re.IGNORECASE,
+)
+_O365_QUOTED_RE = re.compile(r'"([^"]{3,})"')
+
+
+def _extract_o365_doc_name(subject: str) -> Optional[str]:
+    """
+    If the subject is a Microsoft 365 document notification, return the
+    canonical document name (the quoted string in the subject). Otherwise None.
+
+    Matches subjects like:
+      - 'Ian Rae assigned you a task in "Apt Cloud - Demo 2026-03-30"'
+      - 'Marc Forget left a comment in "Apt Cloud - Demo 2026-03-30"'
+      - 'Adam Nelson shared "Apt Cloud - Demo 2026-03-30" with you'
+      - 'Adam Nelson shared the folder "Centrilogic-Aptum" with you'
+    """
+    if not subject:
+        return None
+    if not _O365_VERB_RE.search(subject):
+        return None
+    m = _O365_QUOTED_RE.search(subject)
+    if not m:
+        return None
+    return m.group(1).strip()
+
+
+def pre_cluster_o365_notifications(items: list) -> list:
+    """
+    First pass: group email items that are Microsoft 365 document notifications
+    for the same document into a deterministic cluster, before embedding runs.
+
+    Items that get a cluster assigned here are flagged with
+    source_meta['o365_pre_clustered'] = True so that cluster_items() can
+    skip re-processing them.
+
+    Returns the items list with cluster_id and cluster_items pre-filled for
+    any O365 notification groups of 2 or more.
+    """
+    from collections import defaultdict
+
+    # Only look at email items that don't already have a cluster
+    doc_groups: Dict[str, List[int]] = defaultdict(list)
+    for idx, item in enumerate(items):
+        if item.get("source") != "email":
+            continue
+        doc_name = _extract_o365_doc_name(item.get("subject") or "")
+        if doc_name:
+            # Normalise: lowercase, strip trailing date patterns like " 2026-03-30"
+            key = re.sub(r"\s+\d{4}-\d{2}-\d{2}$", "", doc_name).strip().lower()
+            doc_groups[key].append(idx)
+
+    pre_cluster_counter = 0
+    pre_clustered_count = 0
+
+    for doc_key, indices in doc_groups.items():
+        if len(indices) < 2:
+            continue  # singleton — leave for embedding clustering
+
+        cid = f"o365_{pre_cluster_counter}"
+        pre_cluster_counter += 1
+        member_ids = [items[i]["id"] for i in indices]
+
+        for i in indices:
+            items[i]["cluster_id"] = cid
+            items[i]["cluster_items"] = [mid for mid in member_ids if mid != items[i]["id"]]
+            # Flag so cluster_items() skips these
+            if "source_meta" not in items[i] or items[i]["source_meta"] is None:
+                items[i]["source_meta"] = {}
+            items[i]["source_meta"]["o365_pre_clustered"] = True
+
+        pre_clustered_count += len(indices)
+        print(f"  [process] O365 pre-cluster '{doc_key}': {len(indices)} items -> {cid}")
+
+    if pre_clustered_count:
+        print(f"  [process] O365 pre-clustering: {pre_clustered_count} items in {pre_cluster_counter} groups.")
+
+    return items
+
+
 def cluster_items(items: list, config: dict) -> list:
     """
     Embed items and find cross-source clusters via cosine similarity.
@@ -283,8 +366,23 @@ def cluster_items(items: list, config: dict) -> list:
 
     embedder = _get_embedder(model_name, use_fallback)
 
-    # Build texts and embed
-    texts = [_item_to_embed_text(item) for item in items]
+    # Exclude items already assigned by O365 pre-clustering
+    free_indices = [
+        i for i, item in enumerate(items)
+        if not (item.get("source_meta") or {}).get("o365_pre_clustered")
+    ]
+    free_items = [items[i] for i in free_indices]
+
+    if len(free_items) < 2:
+        # Nothing left to cluster via embedding
+        for item in free_items:
+            if item.get("cluster_id") is None:
+                item["cluster_id"] = None
+                item["cluster_items"] = []
+        return items
+
+    # Build texts and embed (free items only)
+    texts = [_item_to_embed_text(item) for item in free_items]
     embeddings = embedder.encode(texts)
 
     # Normalize for cosine similarity
@@ -295,18 +393,18 @@ def cluster_items(items: list, config: dict) -> list:
     # Cosine similarity matrix
     sim_matrix = normalized @ normalized.T
 
-    n = len(items)
+    n = len(free_items)
 
     # Phase 1: boosted similarity matrix
     boost_matrix = np.zeros((n, n), dtype=np.float32)
     for i in range(n):
         for j in range(i + 1, n):
             boost = 0.0
-            if items[i]["source"] != items[j]["source"]:
+            if free_items[i]["source"] != free_items[j]["source"]:
                 boost += 0.05
-            if _participant_overlap(items[i], items[j]) >= 2:
+            if _participant_overlap(free_items[i], free_items[j]) >= 2:
                 boost += 0.08
-            if _time_proximity(items[i], items[j]) and _participant_overlap(items[i], items[j]) >= 1:
+            if _time_proximity(free_items[i], free_items[j]) and _participant_overlap(free_items[i], free_items[j]) >= 1:
                 boost += 0.05
             boost_matrix[i, j] = boost
             boost_matrix[j, i] = boost
@@ -357,22 +455,28 @@ def cluster_items(items: list, config: dict) -> list:
     cluster_counter = 0
     for _root, members in clusters.items():
         if len(members) == 1:
-            items[members[0]]["cluster_id"] = None
-            items[members[0]]["cluster_items"] = []
+            free_items[members[0]]["cluster_id"] = None
+            free_items[members[0]]["cluster_items"] = []
         else:
             cid = f"cluster_{cluster_counter}"
             cluster_counter += 1
-            member_ids = [items[m]["id"] for m in members]
+            member_ids = [free_items[m]["id"] for m in members]
             for m in members:
-                items[m]["cluster_id"] = cid
-                items[m]["cluster_items"] = [mid for mid in member_ids if mid != items[m]["id"]]
+                free_items[m]["cluster_id"] = cid
+                free_items[m]["cluster_items"] = [mid for mid in member_ids if mid != free_items[m]["id"]]
 
     cross_source = sum(
         1 for g in clusters.values()
-        if len(g) > 1 and len(set(items[i]["source"] for i in g)) > 1
+        if len(g) > 1 and len(set(free_items[i]["source"] for i in g)) > 1
     )
     total_clusters = sum(1 for g in clusters.values() if len(g) > 1)
     print(f"  [process] Clusters: {total_clusters} total, {cross_source} cross-source")
+
+    # Ensure all free items have cluster fields set
+    for item in free_items:
+        if "cluster_id" not in item:
+            item["cluster_id"] = None
+            item["cluster_items"] = []
 
     return items
 
@@ -400,13 +504,17 @@ def main() -> int:
     kept, discarded = apply_discard_rules(items, rules)
     print(f"  [process] Discard: {len(discarded)} items filtered, {len(kept)} kept.")
 
-    # Step 2: Embedding + clustering
+    # Step 2a: Deterministic O365 notification pre-clustering
+    kept = pre_cluster_o365_notifications(kept)
+
+    # Step 2b: Embedding + clustering (skips pre-clustered items)
     if len(kept) >= 2:
         kept = cluster_items(kept, cluster_config)
     else:
         for item in kept:
-            item["cluster_id"] = None
-            item["cluster_items"] = []
+            if item.get("cluster_id") is None:
+                item["cluster_id"] = None
+                item["cluster_items"] = []
 
     # Write output
     output = {
