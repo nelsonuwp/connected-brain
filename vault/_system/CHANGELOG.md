@@ -220,3 +220,46 @@ complete and moved to a single destination folder. Replaces manual move for
 ### cursor-prompt.md in _prompts/
 **Decision:** Implementation prompt deliverable for Cursor (steps 4 and 5 of type-aware context initiative) lives at `vault/_prompts/cursor-prompt.md`. Not called by brain.py; reference only.
 **Rationale:** Single place for prompt-like deliverables; keeps _system and initiative docs uncluttered.
+
+---
+
+## 2026-03-31
+
+### 40-people/ restructured from flat files to folder-per-person
+**Decision:** Each person in `40-people/` now lives in a dedicated kebab-case
+folder (`firstname-lastname/`) containing a hub note (`firstname-lastname.md`)
+and a `1-1s/` subfolder for individual session notes.
+**Rationale:** Obsidian has no native "landing page with children" concept like
+Confluence. A folder is the only way to group the person hub with their 1:1 history
+as a navigable unit. The flat-file approach forced all 1:1 logs to accumulate
+inline in one file, which becomes unmanageable at 40 people and makes it
+impossible to link specific sessions or query across sessions with Dataview.
+
+### Person hub now uses Dataview instead of inline 1:1 log
+**Decision:** The `## 1:1 Log` section in person notes replaced with two Dataview
+blocks: `## Open Tracking Items` (open `#tracking` tasks across all 1-1s) and
+`## 1:1 History` (link list of recent sessions).
+**Rationale:** Inline logs become long and are hard to query. Dataview blocks
+keep the hub clean and always current — no manual maintenance. The `#tracking`
+tag on task lines in individual 1:1 notes surfaces automatically on the hub.
+
+### 1-1-note.md template added
+**Decision:** New template `_templates/1-1-note.md` for individual 1:1 session
+notes. Sections: Carry-forward, Their agenda, My agenda, Discussion Notes,
+Decisions & Actions, Capability Observation, Next session focus.
+**Rationale:** Separating 1:1 notes into individual files enables per-session
+linking, Dataview queries, and Claude pre-population from prior sessions,
+Jira, and email context.
+
+### one-on-one-prep.md updated for multi-file structure
+**Decision:** Prompt now expects two inputs: the person hub and the most recent
+1:1 note. Also now produces a `## Carry-forward` section surfacing open
+`#tracking` items from the last session.
+**Rationale:** Hub-only prep missed the concrete carry-forward that's the most
+important thing to review before a 1:1. Prior session note provides recency
+context the hub can't hold.
+
+### Manual cleanup required: old flat files and Lacie's spaced folder
+**Note:** The old flat `.md` files (`Ben Kennedy.md`, etc.) and `Lacie-Ellen Morley/`
+folder (with spaces) could not be deleted programmatically. Delete them manually
+from Finder. New kebab-case folders are in place.

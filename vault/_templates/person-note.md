@@ -1,15 +1,15 @@
 ---
 type: person
-role: 
+role:
 delegation-level: L1
 created: <% tp.date.now("YYYY-MM-DD") %>
 ---
 
 # <% tp.file.title %>
 
-**Role:** 
+**Role:**
 **Current delegation level:** L
-**Building toward:** L by 
+**Building toward:** L by
 
 ---
 
@@ -22,20 +22,22 @@ created: <% tp.date.now("YYYY-MM-DD") %>
 | Area | Current | Target | Development Path |
 |------|---------|--------|-----------------|
 | Structured thinking | | | |
-| Technical (Python/tooling) | | | |
+| Communication & influence | | | |
 | Escalation hygiene | | | |
 | Ownership & initiative | | | |
+| Technical/domain depth | | | |
 
-## 1:1 Log
-<!-- Most recent first -->
+## Open Tracking Items
+```dataview
+TASK FROM "<% tp.file.folder(true) %>/1-1s"
+WHERE !completed AND contains(tags, "#tracking")
+SORT file.mtime DESC
+```
 
-### <% tp.date.now("YYYY-MM-DD") %>
-**Raised by them:**
-
-**Raised by me:**
-
-**Decisions / actions:**
-
-**Capability observation:**
-
----
+## 1:1 History
+```dataview
+TABLE file.mtime AS "Date"
+FROM "<% tp.file.folder(true) %>/1-1s"
+SORT file.mtime DESC
+LIMIT 10
+```

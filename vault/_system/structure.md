@@ -21,7 +21,7 @@
 │   │   ├── drafting/         ← from idea promote (route: task or --as-task)
 │   │   ├── active/           ← brain task activate
 │   │   └── completed/        ← brain task complete
-│   ├── 40-people/            ← person notes and 1:1 logs
+│   ├── 40-people/            ← one folder per person; hub note + 1-1s/ subfolder
 │   ├── 50-services/          ← internal service delivery units
 │   ├── 51-catalog/           ← external products and offerings
 │   ├── 52-customers/         ← customer accounts and relationships
@@ -49,7 +49,7 @@ Obsidian note templates applied by Templater on file creation or via
 live in `_prompts/`.
 
 Current templates: `idea`, `thinking-note`, `initiative-spec`, `daily-briefing`,
-`weekly-review`, `meeting-note`, `person-note`, `context-block`,
+`weekly-review`, `meeting-note`, `person-note`, `1-1-note`, `context-block`,
 `delegation-brief`, `re-anchor`
 
 ### `_prompts/`
@@ -139,10 +139,28 @@ Tasks at three stages. Notes have `type: code | business | content` in frontmatt
 **Sub-folder per stage:** `drafting/archive/`, `active/archive/`, `completed/archive/` for killed or archived tasks.
 
 ### `40-people/`
-One note per person you manage or work closely with. Contains role, delegation
-level, capability map, and 1:1 log. Used by `one-on-one-prep.md` prompt.
+One **folder** per person you manage or work closely with. The folder contains
+a hub note (same name as folder) and a `1-1s/` subfolder for individual 1:1
+meeting notes.
 
-**Naming:** `firstname-lastname.md`
+```
+40-people/
+  firstname-lastname/
+    firstname-lastname.md   ← hub: role, delegations, capability map, Dataview rollup
+    1-1s/
+      YYYY-MM-DD.md         ← individual 1:1 note per session
+```
+
+The hub note is a rollup page — it does not contain inline 1:1 logs. Instead
+it uses Dataview to surface open `#tracking` items and link to recent 1:1 files.
+Individual 1:1 notes use the `1-1-note` template and link back to the hub via
+the `person:` frontmatter field.
+
+Used by the `one-on-one-prep.md` prompt (pass the hub note as context) and
+the `one-on-one-prep.md` prompt can also be pointed at individual 1:1 notes
+for session-specific prep.
+
+**Naming:** `firstname-lastname/` (folder), `firstname-lastname.md` (hub), `YYYY-MM-DD.md` (1:1 notes)
 
 ### `50-services/`
 Internal service delivery units — the things your team operates. Distinct
@@ -188,7 +206,9 @@ created in this folder.
 | Weekly note | `YYYY-[W]ww.md` | `2026-W08.md` |
 | Idea / thinking / initiative | `YYYY-MM-DD-short-title.md` | `2026-02-22-llm-bridge.md` |
 | Decision | `YYYY-MM-DD-short-description.md` | `2026-02-22-atomic-write-pattern.md` |
-| Person note | `firstname-lastname.md` | `jane-smith.md` |
+| Person folder | `firstname-lastname/` | `jane-smith/` |
+| Person hub | `firstname-lastname.md` inside person folder | `jane-smith/jane-smith.md` |
+| 1:1 note | `YYYY-MM-DD.md` inside `1-1s/` subfolder | `jane-smith/1-1s/2026-03-31.md` |
 | Context block | `kebab-case-descriptive.md` | `jira-api-reference.md` |
 | Session re-anchor | `session-NNN.md` inside project folder | `session-001.md` |
 | Meeting note | `YYYY-MM-DD-meeting-name.md` | `2026-02-22-board-review.md` |
