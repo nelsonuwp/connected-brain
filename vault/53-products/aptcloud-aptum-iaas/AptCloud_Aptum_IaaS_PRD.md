@@ -62,7 +62,8 @@ Apt Cloud is Aptum's next-generation cloud operations platform, accessed at **po
 - Integration with Aptum managed services workflows
 - Multi-tenant organizations with white-label branding (per-reseller)
 - Full REST API (API-first design)
-- **Monetization engine:** Product catalogs, **pricing**, **commitments**, **utility pricing**, **revenue reporting**, *invoicing*, **discounts**, **credits**, CC integration, tax integration (bold = already set up; italic = available, could be using)
+- **Monetization engine:** Product catalogs, **pricing**, **commitments**, **utility pricing**, **revenue reporting**, *invoicing*, **discounts**, **credits**, CC integration, tax integration (bold = already set up; italic = available, could be using). Current billing model: revenue and tax reports are exported from the platform into Great Plains. Potential to centralize billing through the platform to reduce $200K-$300K/year in credit card processing fees (identified by Sarah Blanchard, March 31, 2026). Full billing integration is a future milestone, not a launch dependency.
+- **Quoting tool:** Sales team can generate customer quotes directly from the platform (built March 2026)
 - Link to support / ticketing system (planned)
 
 **What it is NOT:**
@@ -70,12 +71,13 @@ Apt Cloud is Aptum's next-generation cloud operations platform, accessed at **po
 - Apt Cloud does NOT provide physical infrastructure
 - Apt Cloud does NOT replace hyperscale provider consoles (Azure Portal, AWS Console)
 - Apt Cloud does NOT bypass managed services engagement
+- Apt Cloud is NOT sold as a standalone product. Customers are given access to Apt Cloud so they can consume services through it. (Marc Alex Forget, March 31, 2026 board demo: "We don't sell Apt Cloud, we provide access to Apt Cloud so they can consume services.")
 
 **Services available within Apt Cloud (portal.aptum.com) today:**
 
 - **Aptum IaaS**  - VMs on CloudStack (new)
 - **MTC**  - VMs on ThinkOn / VMware Cloud Director (legacy MTC customers)
-- **Microsoft Azure**  - Instances, disks, networks, **Azure Kubernetes Service (AKS)**
+- **Microsoft Azure**  - Instances, disks, networks, **Azure Kubernetes Service (AKS)**. In production with real customer workloads (demonstrated at board demo March 31 with Vergent, ~$100K/month Azure spend). Existing Azure/AWS customers can be onboarded to Apt Cloud immediately with no additional development.
 - **Cloudflare DNS**  - Domains and DNS records (replaces SuperDNS; built and plan developed, rollout pending customer communication)
 - **Available to adopt (functionality built, not yet configured):** AWS, GCP, Kubernetes (standalone)
 
@@ -393,6 +395,7 @@ The pricing delta between tiers is the managed services premium. See the Aptum C
 - Market expectation for true self-service and API-driven operations
 - Need for a repeatable, scalable delivery platform across regions and clouds
 - **Risk of not transitioning:** "Remaining on VMware will erode profitability and further limit market competitiveness"
+- **Board-validated (March 31, 2026):** Board members confirmed the strategic direction and described the platform as a competitive advantage. Commercialization is now the critical path; the board directed a "fast follow" on GTM timing.
 
 ### 7.2 Why Aptum IaaS Matters
 
@@ -563,4 +566,4 @@ ES Williams is an MSP with multiple sub-customers, each with their own transitio
 
 ---
 
-*Sources: [GSE-155] INT - SOW, [GSE-155] Fixed Bid SOW, Apt Cloud VPC Datasheet & FAQ, Apt Cloud UAT KB, CloudOps Software docs, internal CDOs, MTC pricing workbook, Ignite VM Details, Ignite Margin Calculator, signed Transition Agreements, Compute Calculation v0.1, Dell PowerEdge inventory, review feedback from Will Stevens and Stefan.*
+*Sources: [GSE-155] INT - SOW, [GSE-155] Fixed Bid SOW, Apt Cloud VPC Datasheet & FAQ, Apt Cloud UAT KB, CloudOps Software docs, internal CDOs, MTC pricing workbook, Ignite VM Details, Ignite Margin Calculator, signed Transition Agreements, Compute Calculation v0.1, Dell PowerEdge inventory, review feedback from Will Stevens and Stefan, Board Demo Recording and Summary (March 31, 2026).*
