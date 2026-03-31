@@ -3,6 +3,7 @@
 **Service Manager:** George Revie
 **Function:** Operations
 **Lifecycle:** Live
+**Confluence Link**: [Data Center Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045747729/Data+Center+Operations)
 
 > We own the physical layer. The building, the power, the hardware in the rack. Everything Compute Platforms builds sits on what we provide.
 

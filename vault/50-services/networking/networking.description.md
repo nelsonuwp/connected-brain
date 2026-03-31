@@ -3,6 +3,7 @@
 **Service Manager:** Ben Kennedy
 **Function:** Operations
 **Lifecycle:** Live
+**Confluence Link**: [Networking Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045977089/Networking)
 
 > We connect everything. MPLS, internet, IP, cloud connect. If data moves between a customer and their environment, it moves on our network.
 

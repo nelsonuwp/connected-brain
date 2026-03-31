@@ -4,6 +4,7 @@
 **Function:** Architecture & Delivery
 **Lifecycle:** Live
 **Note:** This is not a standalone organizational unit with dedicated headcount; it is a coordinated delivery model that draws resources from home teams.
+**Confluence Link**: [Service Desk Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045223425/Service+Desk+NOC)
 
 > We execute the project. We draw the right expertise from across the org, manage the engagement, and hand over a finished, documented environment so the operational teams can take over cleanly.
 

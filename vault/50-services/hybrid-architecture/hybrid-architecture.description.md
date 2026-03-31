@@ -4,7 +4,7 @@
 **Team:** Rob, Marcus, Andy (report to Pat)
 **Function:** Architecture & Delivery
 **Lifecycle:** Live
-**Note:** Previous Service Manager Ian Crosby is deactivated.
+**Note:** Pr**Confluence Link**: [Hybrid Solution Architecture Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045747720/Hybrid+Solution+Architecture)
 
 > We own the scope and the budget inside every SOW. We are the architect — pre-sale and on the project. We do not just design it; we deliver it.
 

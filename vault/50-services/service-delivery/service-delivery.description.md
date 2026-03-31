@@ -3,6 +3,7 @@
 **Service Manager:** Lacie Allen-Morley
 **Function:** Architecture & Delivery
 **Lifecycle:** Live
+**Confluence Link**: [Hybrid Service Delivery Management Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5044076554/Hybrid+Service+Delivery+Management)
 
 > We own the customer. Every SOW, every engagement, every account interaction that doesn't require a sales call — the single throat to choke.
 

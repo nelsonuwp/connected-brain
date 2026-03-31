@@ -4,6 +4,7 @@
 **Function:** Operations
 **Lifecycle:** Live
 **Note:** Source PDF is archived. Content reflects confirmed current state. Cost allocation correction in progress — see financial model.
+**Confluence Link**: [Managed Cloud Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5044273167/Managed+Cloud)
 
 > We manage everything from the OS upward. Public cloud, private cloud, AptCloud. The platform runs so customers do not have to think about it.
 

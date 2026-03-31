@@ -3,6 +3,7 @@
 **Service Manager:** Jorge Quintero
 **Function:** Enablement
 **Lifecycle:** Discovery
+**Confluence Link**: [Operations Intelligence Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045223434/Operations+Intelligence)
 
 > We make the org's data usable. Every team generates operational signals. We turn those signals into decisions.
 
