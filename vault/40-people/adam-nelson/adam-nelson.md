@@ -9,7 +9,7 @@ created: 2026-03-31
 
 **Role:** 
 **Current delegation level:** L
-**Building toward:** L by 
+**Building toward:** L by
 
 ---
 
@@ -28,9 +28,12 @@ created: 2026-03-31
 | Technical/domain depth | | | |
 
 ## Open Tracking Items
+*Live — pulls from daily digest and 1:1 notes. Check off items here to mark them done.*
+
 ```dataview
-TASK FROM "40-people/adam-nelson/1-1s"
+TASK FROM "40-people/adam-nelson/1-1s" OR "00-daily" OR "90-meeting-notes"
 WHERE !completed AND contains(tags, "#tracking")
+  AND (person = "adam-nelson" OR contains(file.path, "40-people/adam-nelson/1-1s"))
 SORT file.mtime DESC
 ```
 
