@@ -1,0 +1,49 @@
+# people.yaml
+# -----------
+# Roster of known people for tracking item attribution.
+# The LLM uses this to assign a vault slug to tracked_items.
+#
+# Format:
+#   vault_slug: Display Name
+#   (optionally add known aliases or email handles below the name)
+#
+# Aliases: variations of the name the LLM might see in email/Teams
+# Handle: email address or Teams UPN (used for participant matching)
+
+people:
+  - slug: adam-nelson
+    name: Adam Nelson
+    aliases: [Adam]
+    handle: adam.nelson@aptum.com
+
+  - slug: andrei-ianouchkevitch
+    name: Andrei Ianouchkevitch
+    aliases: [Andrei]
+
+  - slug: ben-kennedy
+    name: Ben Kennedy
+    aliases: [Ben]
+
+  - slug: george-revie
+    name: George Revie
+    aliases: [George]
+
+  - slug: jason-auer
+    name: Jason Auer
+    aliases: [Jason]
+
+  - slug: jorge-quintero
+    name: Jorge Quintero
+    aliases: [Jorge]
+
+  - slug: lacie-ellen-morley
+    name: Lacie-Ellen Morley
+    aliases: [Lacie, Lacie-Ellen]
+
+  - slug: martin-tessier
+    name: Martin Tessier
+    aliases: [Martin]
+
+  - slug: pat-wolthausen
+    name: Pat Wolthausen
+    aliases: [Pat]

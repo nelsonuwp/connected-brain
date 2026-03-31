@@ -148,16 +148,21 @@ def render_markdown(summary: dict) -> List[str]:
                 t_text = tracked.get("text", "")
                 t_done = tracked.get("completed", False)
                 t_proof = tracked.get("completed_proof_url")
+                t_person = tracked.get("person")  # vault slug, e.g. "jorge-quintero"
             else:
                 t_text = str(tracked)
                 t_done = False
                 t_proof = None
+                t_person = None
+
+            # Build person inline field for Dataview attribution
+            person_field = f" [person::{t_person}]" if t_person else ""
 
             check = "x" if t_done else " "
             if t_done and t_proof:
-                lines.append(f'- [{check}] {t_text} — [completed]({t_proof}) #tracking')
+                lines.append(f'- [{check}] {t_text} — [completed]({t_proof}) #tracking{person_field}')
             else:
-                lines.append(f'- [{check}] {t_text} #tracking')
+                lines.append(f'- [{check}] {t_text} #tracking{person_field}')
 
         ind_sources = item.get("individual_sources", [])
         if len(ind_sources) > 1:

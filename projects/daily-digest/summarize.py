@@ -24,14 +24,59 @@ from zoneinfo import ZoneInfo
 
 from connectors.source_artifact import utc_now
 
-OUTPUT_DIR  = Path(__file__).resolve().parent / "outputs"
-INPUT_PATH  = OUTPUT_DIR / "items_processed.json"
-OUTPUT_PATH = OUTPUT_DIR / "daily_summary.json"
+OUTPUT_DIR   = Path(__file__).resolve().parent / "outputs"
+INPUT_PATH   = OUTPUT_DIR / "items_processed.json"
+OUTPUT_PATH  = OUTPUT_DIR / "daily_summary.json"
+PEOPLE_PATH  = Path(__file__).resolve().parent / "config" / "people.yaml"
+
+
+# ── People roster ─────────────────────────────────────────────────────────────
+
+def _load_people_roster() -> list:
+    """Load people roster from config/people.yaml. Returns [] if not found."""
+    if not PEOPLE_PATH.exists():
+        return []
+    try:
+        import re
+        text = PEOPLE_PATH.read_text(encoding="utf-8")
+        # Simple YAML parse: extract slug/name/aliases blocks without a full YAML dep
+        people = []
+        current = {}
+        for line in text.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("- slug:"):
+                if current:
+                    people.append(current)
+                current = {"slug": stripped.split(":", 1)[1].strip()}
+            elif stripped.startswith("name:") and current:
+                current["name"] = stripped.split(":", 1)[1].strip()
+            elif stripped.startswith("aliases:") and current:
+                raw = stripped.split(":", 1)[1].strip()
+                aliases = re.findall(r"[\w\-]+", raw)
+                current["aliases"] = aliases
+        if current:
+            people.append(current)
+        return people
+    except Exception:
+        return []
+
+
+def _build_roster_prompt(people: list) -> str:
+    """Format the people roster as a concise LLM prompt section."""
+    if not people:
+        return ""
+    lines = ["", "Known people roster (use these exact vault slugs for the person field):"]
+    for p in people:
+        aliases = p.get("aliases", [])
+        alias_str = f" (also known as: {', '.join(aliases)})" if aliases else ""
+        lines.append(f"  - {p['name']}{alias_str} → slug: \"{p['slug']}\"")
+    lines.append("")
+    return "\n".join(lines)
 
 
 # ── LLM prompt ────────────────────────────────────────────────────────────────
 
-SYSTEM_PROMPT = """You are a personal assistant preparing a daily communication digest for a senior technology executive. You will receive a JSON array of communication items (emails, Teams messages, Slack messages) from the previous business day. Some items are grouped into clusters — these are related conversations across different platforms about the same topic.
+_SYSTEM_PROMPT_BASE = """You are a personal assistant preparing a daily communication digest for a senior technology executive. You will receive a JSON array of communication items (emails, Teams messages, Slack messages) from the previous business day. Some items are grouped into clusters — these are related conversations across different platforms about the same topic.
 
 For each item or cluster, produce a digest entry with:
 
@@ -48,6 +93,7 @@ For each item or cluster, produce a digest entry with:
    - "text": clear, specific tracking description (e.g., "Marc Pare to get AWS program language for amendment")
    - "completed": true if a later message shows this was finished
    - "completed_proof_url": URL to the message proving completion (null if not completed)
+   - "person": the vault slug of the primary person responsible for this item — use the Known people roster below. Set to null if the person is not in the roster (external contact, unknown, or multiple people).
 
 5. **individual_sources**: Array of individual source links when an item spans multiple threads/channels. Each has:
    - "label": Human-readable label (e.g., "Re: Q2 Board Deck — Draft", "Teams: Project Delivery")
@@ -75,7 +121,7 @@ Respond with a JSON object. No markdown fences, no preamble:
         {"text": "Review the attachment before tomorrow's call", "completed": false, "completed_proof_url": null}
       ],
       "tracked_items": [
-        {"text": "Jorge to amend the BI report filter", "completed": false, "completed_proof_url": null}
+        {"text": "Jorge to amend the BI report filter", "completed": false, "completed_proof_url": null, "person": "jorge-quintero"}
       ],
       "individual_sources": [
         {"label": "Re: AWS Cloud Marketplace — Gina Tammo", "url": "https://..."},
@@ -84,6 +130,17 @@ Respond with a JSON object. No markdown fences, no preamble:
     }
   ]
 }"""
+
+
+def _build_system_prompt() -> str:
+    """Build the full system prompt, injecting the people roster if available."""
+    people = _load_people_roster()
+    roster_section = _build_roster_prompt(people)
+    return _SYSTEM_PROMPT_BASE + roster_section
+
+
+# Compute once at import time
+SYSTEM_PROMPT = _build_system_prompt()
 
 LLM_OUTPUT_SCHEMA: dict = {
     "type": "object",
@@ -118,6 +175,7 @@ LLM_OUTPUT_SCHEMA: dict = {
                                 "text": {"type": "string"},
                                 "completed": {"type": "boolean"},
                                 "completed_proof_url": {"type": ["string", "null"]},
+                                "person": {"type": ["string", "null"]},
                             },
                             "required": ["text", "completed"],
                         },

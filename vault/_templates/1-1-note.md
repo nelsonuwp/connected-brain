@@ -1,18 +1,76 @@
+<%*
+// ── 1-1 Note: person picker + file routing ────────────────────────────────────
+// Fires when you use this template. Shows a dropdown of your 40-people folders,
+// then creates the note at: 40-people/SLUG/1-1s/YYYY/MM-MMM/YYYY-MM-DD-SLUG-1-1.md
+
+const peopleRoot = "40-people";
+
+// Get all person folders (sub-folders of 40-people)
+const rootFolder = app.vault.getAbstractFileByPath(peopleRoot);
+if (!rootFolder || !rootFolder.children) {
+  new Notice("Could not find 40-people folder.");
+  return;
+}
+
+const personFolders = rootFolder.children
+  .filter(f => f.constructor.name === "TFolder")
+  .map(f => f.name)
+  .sort();
+
+if (personFolders.length === 0) {
+  new Notice("No person folders found in 40-people.");
+  return;
+}
+
+// Display names from slugs: "jorge-quintero" → "Jorge Quintero"
+const displayNames = personFolders.map(slug =>
+  slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
+);
+
+// Suggester: show display names, return slug
+const selectedSlug = await tp.system.suggester(displayNames, personFolders);
+if (!selectedSlug) return; // user cancelled
+
+// Build target path
+const today = tp.date.now("YYYY-MM-DD");
+const year  = tp.date.now("YYYY");
+const month = tp.date.now("MM-MMM");  // e.g. "03-Mar"
+const filename = `${today}-${selectedSlug}-1-1`;
+const targetFolder = `${peopleRoot}/${selectedSlug}/1-1s/${year}/${month}`;
+
+// Create the folder if it doesn't exist
+try { await app.vault.createFolder(targetFolder); } catch(e) { /* already exists */ }
+
+// Move this new note into the right place
+await tp.file.move(`${targetFolder}/${filename}`);
+
+// Make person display name available for the template body
+const personDisplay = displayNames[personFolders.indexOf(selectedSlug)];
+-%>
 ---
 type: 1-1
 date: <% tp.date.now("YYYY-MM-DD") %>
-person: <% tp.file.folder(false) %>
+person: <% selectedSlug %>
 ---
 
-# 1:1 — <% tp.file.folder(false) %> — <% tp.date.now("YYYY-MM-DD") %>
+# 1:1 — <% personDisplay %> — <% tp.date.now("YYYY-MM-DD") %>
 
 ---
 
 ## Carry-forward
-<!-- Open #tracking items from last session — review [[<% tp.file.folder(false) %>]] before filling this in, or ask Claude to pull from last 1-1 -->
+*Open tracking items for <% personDisplay %> — updates live as items are completed*
+
+```dataview
+TASK FROM "40-people/<% selectedSlug %>/1-1s" OR "00-daily" OR "90-meeting-notes"
+WHERE !completed AND contains(tags, "#tracking")
+  AND (person = "<% selectedSlug %>" OR contains(file.path, "40-people/<% selectedSlug %>/1-1s"))
+SORT file.mtime DESC
+```
+
+---
 
 ## Their agenda
-<!-- What they want to cover — capture before or at the start of the meeting -->
+<!-- What they want to cover — capture before or at start of meeting -->
 
 ## My agenda
 <!-- Coaching focus, delegation check, capability push for this session -->
@@ -25,14 +83,13 @@ person: <% tp.file.folder(false) %>
 ---
 
 ## Decisions & Actions
-<!-- Everything that needs to move — tag follow-ups with #tracking -->
 
 | Action | Owner | By When |
 |--------|-------|---------|
 | | | |
 
-<!-- Inline tracking items go here: -->
-<!-- - [ ] thing to follow up on #tracking -->
+<!-- Inline tracking tasks — tag with #tracking so they surface on the hub -->
+<!-- Example: - [ ] Jorge to update BI report filter by Friday #tracking [person::<% selectedSlug %>] -->
 
 ---
 
