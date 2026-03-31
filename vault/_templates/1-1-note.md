@@ -1,19 +1,17 @@
 <%*
 // ── 1-1 Note: person picker + file routing ────────────────────────────────────
-// Fires when you use this template. Shows a dropdown of your 40-people folders,
-// then creates the note at: 40-people/SLUG/1-1s/YYYY/MM-MMM/YYYY-MM-DD-SLUG-1-1.md
-
 const peopleRoot = "40-people";
 
-// Get all person folders (sub-folders of 40-people)
+// Get all direct children of 40-people that are folders
+// (checking .children is reliable; TFolder has it, TFile does not)
 const rootFolder = app.vault.getAbstractFileByPath(peopleRoot);
-if (!rootFolder || !rootFolder.children) {
+if (!rootFolder) {
   new Notice("Could not find 40-people folder.");
   return;
 }
 
 const personFolders = rootFolder.children
-  .filter(f => f.constructor.name === "TFolder")
+  .filter(f => f.children !== undefined)   // TFolder check (works in minified builds)
   .map(f => f.name)
   .sort();
 
@@ -31,21 +29,20 @@ const displayNames = personFolders.map(slug =>
 const selectedSlug = await tp.system.suggester(displayNames, personFolders);
 if (!selectedSlug) return; // user cancelled
 
+const personDisplay = displayNames[personFolders.indexOf(selectedSlug)];
+
 // Build target path
 const today = tp.date.now("YYYY-MM-DD");
 const year  = tp.date.now("YYYY");
-const month = tp.date.now("MM-MMM");  // e.g. "03-Mar"
+const month = tp.date.now("MM-MMM");   // e.g. "03-Mar"
 const filename = `${today}-${selectedSlug}-1-1`;
 const targetFolder = `${peopleRoot}/${selectedSlug}/1-1s/${year}/${month}`;
 
 // Create the folder if it doesn't exist
 try { await app.vault.createFolder(targetFolder); } catch(e) { /* already exists */ }
 
-// Move this new note into the right place
+// Move this note into the right place
 await tp.file.move(`${targetFolder}/${filename}`);
-
-// Make person display name available for the template body
-const personDisplay = displayNames[personFolders.indexOf(selectedSlug)];
 -%>
 ---
 type: 1-1
