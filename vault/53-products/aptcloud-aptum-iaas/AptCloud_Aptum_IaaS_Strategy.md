@@ -1,6 +1,7 @@
 # Aptum Cloud Platform Strategy
 
-**Version 1.1 - March 2026**
+**Version 1.2 - March 2026**
+**Updated: March 31, 2026 (incorporates board demo feedback)**
 **Classification: Internal - Executive & Leadership Distribution**
 **Authors: VP Operations, CTO, Director of Compute**
 
@@ -31,6 +32,8 @@ The combined proposition: **one portal, one bill, one governance model** - acros
 **The platform software choice has been validated.** A comprehensive make-vs-buy analysis (Section 4) evaluated every major commercial cloud management platform - HPE Morpheus, CloudBolt, VMware Aria - against Aptum's requirements. None support CloudStack natively, and all are designed for enterprise internal IT governance rather than commercial service delivery to external paying customers. CloudOps Software + CloudStack is the right foundation. The remaining investment is in integration, billing, and operational depth - not platform replacement.
 
 Aptum is positioned to capture a slice of this market because it already has the operational teams, the data centers, the hardware, and the platform. The question is not whether the components exist - it's whether they can be connected, commercialized, and scaled fast enough.
+
+**Board validation (March 31, 2026):** A live platform demo to board members confirmed that the technical foundation is production-ready. Dave Pistacchio described the platform as a competitive advantage that Aptum should move quickly to exploit, and characterized the offering as "true private cloud" with higher market valuation than standard IaaS. The board directed the team to determine a go-to-market timeline as a "fast follow." $39K MRR in Aptum IaaS revenue has been closed through Ignite customers before any formal commercial launch. The primary open work is now commercial: pricing strategy, go-to-market plan, and onboarding process for broader customer adoption.
 
 ---
 
@@ -752,6 +755,8 @@ All prices approximate, converted to USD for comparability. Aptum prices convert
 
 **Aptum's pricing position:** More expensive than unmanaged providers (justified by managed services). Significantly cheaper than Rackspace (comparable managed services). Competitive with or cheaper than hyperscalers for steady-state workloads. Cost basis enables significant pricing headroom for both direct sales and wholesale channel.
 
+**Board direction on pricing (March 31, 2026):** Dave Pistacchio recommended pricing at a premium with the flexibility to discount on a case-by-case basis, rather than entering the market at a low price point. The rationale: the platform delivers true private cloud with managed services, which commands a higher valuation than commodity IaaS. Starting high and discounting selectively preserves margin and positions the offering as premium. This aligns with the 74-89% gross margins on the underlying infrastructure, which provide substantial room between cost basis and market pricing.
+
 ---
 
 ## 8. Go-to-Market Strategy
@@ -778,6 +783,8 @@ Embedded (7–8 products: + DR, ongoing PS, full managed)
 ```
 
 **Sales should be measured on customer expansion rate, not just new logo acquisition.** A customer that enters at $5K/mo and grows to $25K/mo within 12 months is more valuable than five $5K/mo customers who stay flat. The ICP is designed to be a customer that expands naturally - because their complexity demands it.
+
+**Immediate GTM opportunity confirmed (March 31, 2026 board demo):** Existing customers consuming Azure and AWS services can be onboarded to Apt Cloud today with no additional development, only configuration. This was confirmed live during the board demo. Azure integration is already in production with real customer workloads (Vergent, approximately $100K/month in Azure spend, was shown live). This represents the fastest path to expanding the Apt Cloud user base while Aptum IaaS commercialization is finalized. Additionally, dedicated (single-tenant) infrastructure can be sold through the platform today with no additional code required, only product catalog configuration. A quoting tool built by the CTO team is now available for the sales team to generate customer quotes directly from the platform.
 
 ### 8.2 Trigger Events - Where to Find ICP Customers
 
