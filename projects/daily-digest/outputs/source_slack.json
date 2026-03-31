@@ -1,6 +1,6 @@
 {
   "source": "slack",
-  "collected_at": "2026-03-30T11:49:30.078858Z",
+  "collected_at": "2026-03-31T09:31:55.133834Z",
   "status": "success",
   "objects": {
     "channels": {
@@ -139,78 +139,31 @@
     },
     "messages": {
       "status": "success",
-      "record_count": 1,
+      "record_count": 2,
       "error": null,
       "data": [
         {
-          "text": "<@UPWJZLCV7> <@U05UU07N5EW> <@U015PLFUQET> cc: <@U0A6T36PXPY>\n*Waving an amber flag around GSE-321 - Upper Canada PKI Certificate.* \nCustomer is pulling their \"I think it's going to take 40 hours to get this done\" when we quoted 175. I've already sent my warning out to Roland on the matter. Last time this came up we ended up reducing PM and meeting time which did not go well. I've gone through the standard project reminder of how hours are calculated, etc, etc. and told him if there's an issue, they'll need to reduce scope. While they're nice to work with, we've also been through this scenario before and it was not fun.\n(PS - Sending this out on Kris' behalf as part of the training)",
-          "files": [
-            {
-              "id": "F0AP7K7FVPF",
-              "created": 1774621500,
-              "timestamp": 1774621500,
-              "name": "image.png",
-              "title": "image.png",
-              "mimetype": "image/png",
-              "filetype": "png",
-              "pretty_type": "PNG",
-              "user": "U04BFJDQXEW",
-              "user_team": "T024XGS0G",
-              "editable": false,
-              "size": 25233,
-              "mode": "hosted",
-              "is_external": false,
-              "external_type": "",
-              "is_public": false,
-              "public_url_shared": false,
-              "display_as_bot": false,
-              "username": "",
-              "url_private": "https://files.slack.com/files-pri/T024XGS0G-F0AP7K7FVPF/image.png",
-              "url_private_download": "https://files.slack.com/files-pri/T024XGS0G-F0AP7K7FVPF/download/image.png",
-              "media_display_type": "unknown",
-              "thumb_64": "https://files.slack.com/files-tmb/T024XGS0G-F0AP7K7FVPF-f0dc5128aa/image_64.png",
-              "thumb_80": "https://files.slack.com/files-tmb/T024XGS0G-F0AP7K7FVPF-f0dc5128aa/image_80.png",
-              "thumb_360": "https://files.slack.com/files-tmb/T024XGS0G-F0AP7K7FVPF-f0dc5128aa/image_360.png",
-              "thumb_360_w": 148,
-              "thumb_360_h": 148,
-              "thumb_160": "https://files.slack.com/files-tmb/T024XGS0G-F0AP7K7FVPF-f0dc5128aa/image_160.png",
-              "original_w": 148,
-              "original_h": 148,
-              "thumb_tiny": "AwAwADCwRTSKkIpCKskhJAbB/CgiklUFsE4OKaGZRz8wHfNTza2ZpyXV0OIppFKrq5IHWlIqiGrFoikIp+Ka3Ck+gpCKs4Pmj0xUXuKdY/vFO7BAJwMdOlW9i4xgYqHG+ptGpZWKcMfz7vSpyKkCgDAHFIRVLQzlLmY5biOT7jA/jTJLlEByVJ9KxwacG9aVwsT286QyvIFIzwEHT86nOo/9Mv8Ax6qHWkpBY0BqCn7yEfTml+3R+hrOzRmmFj//2Q==",
-              "permalink": "https://aptum.slack.com/files/U0702H42WRE/F0AP7K7FVPF/image.png",
-              "permalink_public": "https://slack-files.com/T024XGS0G-F0AP7K7FVPF-16112a3447",
-              "is_starred": false,
-              "skipped_shares": true,
-              "has_rich_preview": false,
-              "file_access": "visible"
-            }
-          ],
-          "upload": false,
-          "user": "U04BFJDQXEW",
-          "display_as_bot": false,
+          "user": "U03GRCWC5",
+          "type": "message",
+          "ts": "1774889390.576029",
+          "client_msg_id": "29540005-554f-483a-b608-6bc557fb4d24",
+          "text": "<@U05UU07N5EW> and <@U015PLFUQET> I just launched all the pending Ixiasoft opportunities in AWS.  I don't know if we will be getting any more in before our renewal.  As of right now, it is showing as 14 out of 20 (they may not show the one I closed today, so maybe 15).  Not bad.  But if we're not getting any new leads that will close we may be in trouble if we're not building now.",
+          "team": "T024XGS0G",
           "blocks": [
             {
               "type": "rich_text",
-              "block_id": "7juGn",
+              "block_id": "jiFXw",
               "elements": [
                 {
                   "type": "rich_text_section",
                   "elements": [
                     {
                       "type": "user",
-                      "user_id": "UPWJZLCV7"
-                    },
-                    {
-                      "type": "text",
-                      "text": " "
-                    },
-                    {
-                      "type": "user",
                       "user_id": "U05UU07N5EW"
                     },
                     {
                       "type": "text",
-                      "text": " "
+                      "text": " and "
                     },
                     {
                       "type": "user",
@@ -218,114 +171,54 @@
                     },
                     {
                       "type": "text",
-                      "text": " cc: "
-                    },
-                    {
-                      "type": "user",
-                      "user_id": "U0A6T36PXPY"
-                    },
-                    {
-                      "type": "text",
-                      "text": "\n"
-                    },
-                    {
-                      "type": "text",
-                      "text": "Waving an amber flag around GSE-321 - Upper Canada PKI Certificate. ",
-                      "style": {
-                        "bold": true
-                      }
-                    },
-                    {
-                      "type": "text",
-                      "text": "\nCustomer is pulling their \"I think it's going to take 40 hours to get this done\" when we quoted 175. I've already sent my warning out to Roland on the matter. Last time this came up we ended up reducing PM and meeting time which did not go well. I've gone through the standard project reminder of how hours are calculated, etc, etc. and told him if there's an issue, they'll need to reduce scope. While they're nice to work with, we've also been through this scenario before and it was not fun.\n(PS - Sending this out on Kris' behalf as part of the training)"
+                      "text": " I just launched all the pending Ixiasoft opportunities in AWS.  I don't know if we will be getting any more in before our renewal.  As of right now, it is showing as 14 out of 20 (they may not show the one I closed today, so maybe 15).  Not bad.  But if we're not getting any new leads that will close we may be in trouble if we're not building now."
                     }
                   ]
                 }
               ]
             }
           ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Erik Tanguay"
+        },
+        {
+          "user": "U04BFJDQXEW",
           "type": "message",
-          "ts": "1774620935.342069",
-          "edited": {
-            "user": "U04BFJDQXEW",
-            "ts": "1774621502.000000"
-          },
-          "client_msg_id": "aa8906cf-68d6-4a6b-bc6b-3d6c371d74d7",
-          "thread_ts": "1774620935.342069",
-          "reply_count": 1,
-          "reply_users_count": 1,
-          "latest_reply": "1774621464.634179",
-          "reply_users": [
-            "U0A6T36PXPY"
-          ],
-          "is_locked": false,
-          "subscribed": false,
-          "reactions": [
+          "ts": "1774880444.387499",
+          "client_msg_id": "fbc4a650-c799-433c-bcb9-a448e0c2fad9",
+          "text": "<@U015PLFUQET> - Can you please review <https://disks.sharepoint.com/:w:/r/sites/GSESalesEngagement/Shared%20Documents/GSE%20Requests/%5BGSE-265%5D%20Just%20Energy%20Group%20Inc%20-%20Just%20Energy%20-%20New%20Colo%20Cage/Contracts/%5BGSE-265%5D%20Aptum%20SOW%20for%20Just%20Energy%20-%20Juniper%20-%20(March%2027%202026).docx?d=w01464546a0b540bf942c7d70e9f81660&amp;csf=1&amp;web=1&amp;e=nrd74J&amp;isSPOFile=1&amp;xsdata=MDV8MDJ8fDAwMzQ4NzQ0YjdjMDRlOGQ1Y2FkMDhkZThjMjJjZjAwfGFkNjlkNDIyNGZhNzQyYjBhNGQzZjU4NDEwZjMxMWVkfDB8MHw2MzkxMDIyNzgyNjI4Nzc5OTR8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T2pWaVpHRm1ZVE0zT0ROak1EUXdabVpoWTJFME56SmhPRGN5TVRJd01UTTBRSFJvY21WaFpDNTJNaTl0WlhOellXZGxjeTh4TnpjME5qTXhNREl5TXpNM3wyMDg5NzM3Nzc5MDg0NDFjYWM3NTA4ZGU4YzIyY2VmZnw2NDU3N2Q1NGU0ODI0OTM5OWZjMTI1ZWQyMjk1MzFlYw%3D%3D&amp;sdata=blFyZGhMM3Z4aC85aThXRE82ODRnUlNXMWRuVmpTWGtCeEtPdC9VOFVBaz0%3D&amp;ovuser=ad69d422-4fa7-42b0-a4d3-f58410f311ed%2CBarbara.Krzywoszanski%40disks.onmicrosoft.com|[GSE-265] Aptum SOW for Just Energy - Juniper - (March 27 2026).docx> for signature. I'm waiting for an address before sending it you for signature. Please note that you've already signed this SOW and this is V2. The client requested specific details which should be tracked in the SOW. Thank you - Barb",
+          "team": "T024XGS0G",
+          "blocks": [
             {
-              "name": "+1",
-              "users": [
-                "U0A6T36PXPY",
-                "UPWJZLCV7"
-              ],
-              "count": 2
-            }
-          ],
-          "_thread_replies": [
-            {
-              "user": "U0A6T36PXPY",
-              "type": "message",
-              "ts": "1774621464.634179",
-              "client_msg_id": "90025762-ba37-44df-aaf5-29227802e8ba",
-              "text": "It should be a red flag alert then since same issue recurring:melting_face:, btw, its <https://aptum.atlassian.net/browse/GSE-312|GSE-312> . Thanks Barb for guiding me on this. appreciate it",
-              "team": "T024XGS0G",
-              "thread_ts": "1774620935.342069",
-              "parent_user_id": "U04BFJDQXEW",
-              "blocks": [
+              "type": "rich_text",
+              "block_id": "q6/Sj",
+              "elements": [
                 {
-                  "type": "rich_text",
-                  "block_id": "7g2YV",
+                  "type": "rich_text_section",
                   "elements": [
                     {
-                      "type": "rich_text_section",
-                      "elements": [
-                        {
-                          "type": "text",
-                          "text": "It should be a red flag alert then since same issue recurring"
-                        },
-                        {
-                          "type": "emoji",
-                          "name": "melting_face",
-                          "unicode": "1fae0"
-                        },
-                        {
-                          "type": "text",
-                          "text": ", btw, its "
-                        },
-                        {
-                          "type": "link",
-                          "url": "https://aptum.atlassian.net/browse/GSE-312",
-                          "text": "GSE-312"
-                        },
-                        {
-                          "type": "text",
-                          "text": " . Thanks Barb for guiding me on this. appreciate it"
-                        }
-                      ]
+                      "type": "user",
+                      "user_id": "U015PLFUQET"
+                    },
+                    {
+                      "type": "text",
+                      "text": " - Can you please review "
+                    },
+                    {
+                      "type": "link",
+                      "url": "https://disks.sharepoint.com/:w:/r/sites/GSESalesEngagement/Shared%20Documents/GSE%20Requests/%5BGSE-265%5D%20Just%20Energy%20Group%20Inc%20-%20Just%20Energy%20-%20New%20Colo%20Cage/Contracts/%5BGSE-265%5D%20Aptum%20SOW%20for%20Just%20Energy%20-%20Juniper%20-%20(March%2027%202026).docx?d=w01464546a0b540bf942c7d70e9f81660&csf=1&web=1&e=nrd74J&isSPOFile=1&xsdata=MDV8MDJ8fDAwMzQ4NzQ0YjdjMDRlOGQ1Y2FkMDhkZThjMjJjZjAwfGFkNjlkNDIyNGZhNzQyYjBhNGQzZjU4NDEwZjMxMWVkfDB8MHw2MzkxMDIyNzgyNjI4Nzc5OTR8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T2pWaVpHRm1ZVE0zT0ROak1EUXdabVpoWTJFME56SmhPRGN5TVRJd01UTTBRSFJvY21WaFpDNTJNaTl0WlhOellXZGxjeTh4TnpjME5qTXhNREl5TXpNM3wyMDg5NzM3Nzc5MDg0NDFjYWM3NTA4ZGU4YzIyY2VmZnw2NDU3N2Q1NGU0ODI0OTM5OWZjMTI1ZWQyMjk1MzFlYw%3D%3D&sdata=blFyZGhMM3Z4aC85aThXRE82ODRnUlNXMWRuVmpTWGtCeEtPdC9VOFVBaz0%3D&ovuser=ad69d422-4fa7-42b0-a4d3-f58410f311ed%2CBarbara.Krzywoszanski%40disks.onmicrosoft.com",
+                      "text": "[GSE-265] Aptum SOW for Just Energy - Juniper - (March 27 2026).docx"
+                    },
+                    {
+                      "type": "text",
+                      "text": " for signature. I'm waiting for an address before sending it you for signature. Please note that you've already signed this SOW and this is V2. The client requested specific details which should be tracked in the SOW. Thank you - Barb"
                     }
                   ]
                 }
-              ],
-              "reactions": [
-                {
-                  "name": "+1",
-                  "users": [
-                    "U04BFJDQXEW",
-                    "UPWJZLCV7"
-                  ],
-                  "count": 2
-                }
-              ],
-              "_user_name": "Kristina Soriano"
+              ]
             }
           ],
           "_channel_id": "C054X8DKQ3G",
@@ -339,7 +232,7 @@
   },
   "error": null,
   "date_range": {
-    "start": "2026-03-27",
-    "end": "2026-03-29"
+    "start": "2026-03-30",
+    "end": "2026-03-30"
   }
 }
