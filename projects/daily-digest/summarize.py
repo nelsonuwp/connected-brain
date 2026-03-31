@@ -297,7 +297,7 @@ def _call_llm(payload: list) -> Optional[dict]:
         schema=LLM_OUTPUT_SCHEMA,
         schema_name="digest_output",
         temperature=0.1,
-        max_tokens=16384,
+        max_tokens=14000,
         verbosity="low",
     )
 
