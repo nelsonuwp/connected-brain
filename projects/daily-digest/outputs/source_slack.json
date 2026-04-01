@@ -1,6 +1,6 @@
 {
   "source": "slack",
-  "collected_at": "2026-03-31T10:22:32.351888Z",
+  "collected_at": "2026-04-01T10:50:23.918712Z",
   "status": "success",
   "objects": {
     "channels": {
@@ -139,100 +139,14 @@
     },
     "messages": {
       "status": "success",
-      "record_count": 2,
+      "record_count": 0,
       "error": null,
-      "data": [
-        {
-          "user": "U03GRCWC5",
-          "type": "message",
-          "ts": "1774889390.576029",
-          "client_msg_id": "29540005-554f-483a-b608-6bc557fb4d24",
-          "text": "<@U05UU07N5EW> and <@U015PLFUQET> I just launched all the pending Ixiasoft opportunities in AWS.  I don't know if we will be getting any more in before our renewal.  As of right now, it is showing as 14 out of 20 (they may not show the one I closed today, so maybe 15).  Not bad.  But if we're not getting any new leads that will close we may be in trouble if we're not building now.",
-          "team": "T024XGS0G",
-          "blocks": [
-            {
-              "type": "rich_text",
-              "block_id": "jiFXw",
-              "elements": [
-                {
-                  "type": "rich_text_section",
-                  "elements": [
-                    {
-                      "type": "user",
-                      "user_id": "U05UU07N5EW"
-                    },
-                    {
-                      "type": "text",
-                      "text": " and "
-                    },
-                    {
-                      "type": "user",
-                      "user_id": "U015PLFUQET"
-                    },
-                    {
-                      "type": "text",
-                      "text": " I just launched all the pending Ixiasoft opportunities in AWS.  I don't know if we will be getting any more in before our renewal.  As of right now, it is showing as 14 out of 20 (they may not show the one I closed today, so maybe 15).  Not bad.  But if we're not getting any new leads that will close we may be in trouble if we're not building now."
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "_channel_id": "C054X8DKQ3G",
-          "_channel_name": "cloud-platform-pm",
-          "_is_im": false,
-          "_is_mpim": false,
-          "_user_name": "Erik Tanguay"
-        },
-        {
-          "user": "U04BFJDQXEW",
-          "type": "message",
-          "ts": "1774880444.387499",
-          "client_msg_id": "fbc4a650-c799-433c-bcb9-a448e0c2fad9",
-          "text": "<@U015PLFUQET> - Can you please review <https://disks.sharepoint.com/:w:/r/sites/GSESalesEngagement/Shared%20Documents/GSE%20Requests/%5BGSE-265%5D%20Just%20Energy%20Group%20Inc%20-%20Just%20Energy%20-%20New%20Colo%20Cage/Contracts/%5BGSE-265%5D%20Aptum%20SOW%20for%20Just%20Energy%20-%20Juniper%20-%20(March%2027%202026).docx?d=w01464546a0b540bf942c7d70e9f81660&amp;csf=1&amp;web=1&amp;e=nrd74J&amp;isSPOFile=1&amp;xsdata=MDV8MDJ8fDAwMzQ4NzQ0YjdjMDRlOGQ1Y2FkMDhkZThjMjJjZjAwfGFkNjlkNDIyNGZhNzQyYjBhNGQzZjU4NDEwZjMxMWVkfDB8MHw2MzkxMDIyNzgyNjI4Nzc5OTR8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T2pWaVpHRm1ZVE0zT0ROak1EUXdabVpoWTJFME56SmhPRGN5TVRJd01UTTBRSFJvY21WaFpDNTJNaTl0WlhOellXZGxjeTh4TnpjME5qTXhNREl5TXpNM3wyMDg5NzM3Nzc5MDg0NDFjYWM3NTA4ZGU4YzIyY2VmZnw2NDU3N2Q1NGU0ODI0OTM5OWZjMTI1ZWQyMjk1MzFlYw%3D%3D&amp;sdata=blFyZGhMM3Z4aC85aThXRE82ODRnUlNXMWRuVmpTWGtCeEtPdC9VOFVBaz0%3D&amp;ovuser=ad69d422-4fa7-42b0-a4d3-f58410f311ed%2CBarbara.Krzywoszanski%40disks.onmicrosoft.com|[GSE-265] Aptum SOW for Just Energy - Juniper - (March 27 2026).docx> for signature. I'm waiting for an address before sending it you for signature. Please note that you've already signed this SOW and this is V2. The client requested specific details which should be tracked in the SOW. Thank you - Barb",
-          "team": "T024XGS0G",
-          "blocks": [
-            {
-              "type": "rich_text",
-              "block_id": "q6/Sj",
-              "elements": [
-                {
-                  "type": "rich_text_section",
-                  "elements": [
-                    {
-                      "type": "user",
-                      "user_id": "U015PLFUQET"
-                    },
-                    {
-                      "type": "text",
-                      "text": " - Can you please review "
-                    },
-                    {
-                      "type": "link",
-                      "url": "https://disks.sharepoint.com/:w:/r/sites/GSESalesEngagement/Shared%20Documents/GSE%20Requests/%5BGSE-265%5D%20Just%20Energy%20Group%20Inc%20-%20Just%20Energy%20-%20New%20Colo%20Cage/Contracts/%5BGSE-265%5D%20Aptum%20SOW%20for%20Just%20Energy%20-%20Juniper%20-%20(March%2027%202026).docx?d=w01464546a0b540bf942c7d70e9f81660&csf=1&web=1&e=nrd74J&isSPOFile=1&xsdata=MDV8MDJ8fDAwMzQ4NzQ0YjdjMDRlOGQ1Y2FkMDhkZThjMjJjZjAwfGFkNjlkNDIyNGZhNzQyYjBhNGQzZjU4NDEwZjMxMWVkfDB8MHw2MzkxMDIyNzgyNjI4Nzc5OTR8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T2pWaVpHRm1ZVE0zT0ROak1EUXdabVpoWTJFME56SmhPRGN5TVRJd01UTTBRSFJvY21WaFpDNTJNaTl0WlhOellXZGxjeTh4TnpjME5qTXhNREl5TXpNM3wyMDg5NzM3Nzc5MDg0NDFjYWM3NTA4ZGU4YzIyY2VmZnw2NDU3N2Q1NGU0ODI0OTM5OWZjMTI1ZWQyMjk1MzFlYw%3D%3D&sdata=blFyZGhMM3Z4aC85aThXRE82ODRnUlNXMWRuVmpTWGtCeEtPdC9VOFVBaz0%3D&ovuser=ad69d422-4fa7-42b0-a4d3-f58410f311ed%2CBarbara.Krzywoszanski%40disks.onmicrosoft.com",
-                      "text": "[GSE-265] Aptum SOW for Just Energy - Juniper - (March 27 2026).docx"
-                    },
-                    {
-                      "type": "text",
-                      "text": " for signature. I'm waiting for an address before sending it you for signature. Please note that you've already signed this SOW and this is V2. The client requested specific details which should be tracked in the SOW. Thank you - Barb"
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "_channel_id": "C054X8DKQ3G",
-          "_channel_name": "cloud-platform-pm",
-          "_is_im": false,
-          "_is_mpim": false,
-          "_user_name": "Barbara Krzywoszanski"
-        }
-      ]
+      "data": []
     }
   },
   "error": null,
   "date_range": {
-    "start": "2026-03-30",
-    "end": "2026-03-30"
+    "start": "2026-03-31",
+    "end": "2026-03-31"
   }
 }
