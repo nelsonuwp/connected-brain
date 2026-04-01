@@ -75,7 +75,7 @@ The three motions are not independent business lines. They are a funnel:
 
 ```
 ADVISORY (Assess)           EXECUTE (Implement)           OPERATE (Manage)
-$5K-$40K one-time    -->    $25K-$300K project     -->    $15K-$48K/mo recurring
+$5K-$40K one-time    -->    $5K-$300K project      -->    $15K-$48K/mo recurring
                                                           (The Margin. The Retention.)
 ```
 
@@ -109,7 +109,7 @@ Each assessment is explicitly designed to produce findings that point at specifi
 | Hybrid Cloud | Architecture design, migration ($30K-$200K) | Managed CloudStack + App Platform ($5K-$30K/mo) | $100K-$500K |
 | Security Posture | Firewall replacement, hardening, remediation ($20K-$100K) | Alert Logic MDR L4, Managed Firewall L2 ($3K-$12K/mo) | $75K-$250K |
 | Cloud Repatriation | Repatriation execution ($50K-$300K) | Private Cloud + full stack ($8K-$50K/mo) | **$200K-$1M+** |
-| Operational Maturity | Managed services transition ($15K-$50K) | Full L2-L5 stack ($3K-$15K/mo) | $50K-$200K/yr recurring |
+| Operational Maturity | Managed services transition ($15K-$50K) | L2 + L3 + L4 stack ($3K-$15K/mo) | $50K-$200K/yr recurring |
 | Platform Modernization | K8s implementation, CI/CD build ($30K-$150K) | Managed Platform ($5K-$25K/mo) | $100K-$400K |
 | Well-Architected Review | Remediation, architecture redesign ($20K-$100K) | Public Cloud Management ($3K-$15K/mo) | $75K-$250K |
 
@@ -239,7 +239,7 @@ This is a critical organizational and commercial distinction:
 | Deliverable | Report with findings, risk scores, and roadmap | Working environment, migrated workloads, hardened infrastructure, documented handoff |
 | Team model | SA-led, lightweight (20-300 hours) | Cross-functional, heavier (varies, typically 200-2,000+ hours) |
 | Commercial model | Fixed-fee, t-shirt sized (S/M/L/XL) | SOW-scoped, milestone-based |
-| Revenue range | $5K-$40K per engagement | $25K-$300K per project |
+| Revenue range | $5K-$40K per engagement | $5K-$300K per project |
 | Success metric | Follow-on conversion rate | On-time/on-budget delivery, clean handoff to Operate |
 | Who scopes it | SA using assessment sell sheets and deliverable scope templates | HSA (Pat Wolthausen) architects |
 | Who delivers it | SA + specialists from home teams | HSDM (Lacie Allen-Morley) coordinating cross-functional resources |
@@ -282,7 +282,7 @@ The managed services catalog (see separate document) defines the five layers in 
 |---|---|---|---|---|
 | On-prem with aging hardware | Infrastructure Risk | Hardware refresh or migration to VPC/Private Cloud | L1 + L2 (Monitoring + Managed OS) | $5K-$15K/mo |
 | Hyperscaler with rising costs | Cloud Repatriation | Selective repatriation to Private Cloud | L1 + L2 + L5 (Monitoring + Managed OS + Hybrid Connectivity) | $10K-$50K/mo |
-| Hybrid-by-accident | Hybrid Cloud | Architecture rationalization, workload placement | L1 + L2 + L3 (Monitoring + Managed OS + App Platform) | $8K-$25K/mo |
+| Hybrid-by-accident | Hybrid Cloud | Architecture rationalization, workload placement | L2 + L3 + L5 (Managed OS + App Platform + Hybrid Connectivity) | $8K-$25K/mo |
 | Compliance-driven | Security Posture | Security remediation, firewall upgrades | L2 + L4 (Managed Firewall + Security & Compliance) | $5K-$17K/mo |
 | Overwhelmed IT team | Operational Maturity | Managed services transition | L2 + L3 + L4 (full ops handoff) | $8K-$30K/mo |
 | Modern app on legacy infra | Platform Modernization | K8s/platform build | L2 + L3 (Managed OS + App Platform) | $8K-$25K/mo |

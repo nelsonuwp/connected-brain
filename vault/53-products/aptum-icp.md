@@ -151,7 +151,7 @@ AWARENESS                    ASSESSMENT                   EXECUTE               
 | Stage | Revenue Type | Typical Value | Margin |
 |---|---|---|---|
 | Assessment (Advisory) | One-time, fixed-fee | $5K to $40K | 50-65% (SA labor + specialist time) |
-| Implementation (Execute) | One-time, SOW-based | $25K to $300K | 25-35% (cross-functional labor, partner services) |
+| Implementation (Execute) | One-time, SOW-based | $5K to $300K | 25-35% (cross-functional labor, partner services) |
 | Managed Services (Operate) | Monthly recurring | $15K to $48K/mo | 50-60% blended |
 
 A fully engaged ideal customer generates $15,000 to $48,000/mo in MRC. The blended margin is 50 to 60%, compared to 70 to 80% for infrastructure-only, but the absolute margin dollars are 2 to 3x higher and the customer is deeply embedded.
@@ -164,7 +164,7 @@ A fully engaged ideal customer generates $15,000 to $48,000/mo in MRC. The blend
 | Layer 2: Managed OS | Patching, Veeam backup, managed firewall, endpoint security | Infrastructure Risk, Operational Maturity, Security Posture | +$2,000 to $5,000 |
 | Layer 3: App Platform | Datadog APM, WAF, DDoS, load balancing | Platform Modernization, Well-Architected Review, Hybrid Cloud | +$3,000 to $8,000 |
 | Layer 4: Security | Alert Logic MDR, compliance reporting, vulnerability scanning | Security Posture | +$2,000 to $5,000 |
-| Layer 5: Business Continuity | DRaaS, hybrid interconnects, M365 managed services | Hybrid Cloud, Cloud Repatriation, Infrastructure Risk | +$1,500 to $5,000 |
+| Layer 5: Business Continuity | DRaaS, hybrid interconnects, M365 managed services | Hybrid Cloud, Cloud Repatriation | +$1,500 to $5,000 |
 
 ---
 

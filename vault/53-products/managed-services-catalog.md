@@ -138,7 +138,7 @@ The advisory motion consists of seven structured assessments that diagnose the c
 | **Security Posture & Compliance** | $5K–$30K+ | Vulnerability assessment, compliance gap analysis, remediation matrix | L2 + L4 (Managed Firewall + Security & Compliance) |
 | **Cloud Repatriation** | $5K–$35K+ | Cloud spend analysis, portability scoring, repatriation business case | L1 + L2 + L5 (Monitoring + Managed OS + Business Continuity/Hybrid) |
 | **Operational Maturity** | $5K–$30K+ | OpEx analysis, maturity scoring, managed services transition plan | L2 + L3 + L4 (full ops handoff) |
-| **App & Platform Modernization** | $5K–$35K+ | Architecture review, container/K8s readiness, CI/CD maturity | L3 (App Platform) |
+| **App & Platform Modernization** | $5K–$35K+ | Architecture review, container/K8s readiness, CI/CD maturity | L2 + L3 (Managed OS + App Platform) |
 | **Well-Architected Review** | $7.5K–$40K+ | 6-pillar cloud review, cost optimization, governance gaps | L3 + Public Cloud Management |
 
 #### Execute: Project-Based Implementation
@@ -211,7 +211,7 @@ Each assessment produces findings that point at specific managed service layers.
 
 **Execute step:** Repatriation project (move selected workloads to Aptum Private Cloud, retain hyperscaler for workloads that benefit from elasticity).
 
-**Operate destination:** Private Cloud infrastructure + L2 Managed OS (patching, backup on repatriated workloads) + L5 Hybrid Connectivity (ExpressRoute/Direct Connect to retained hyperscaler workloads). Optional L3 App Platform for monitoring, L4 Security if compliance-driven.
+**Operate destination:** Private Cloud infrastructure + L1 Infrastructure Monitoring (24/7 monitoring on Private Cloud hardware) + L2 Managed OS (patching, backup on repatriated workloads) + L5 Hybrid Connectivity (ExpressRoute/Direct Connect to retained hyperscaler workloads). Optional L3 App Platform for monitoring, L4 Security if compliance-driven.
 
 **Expected MRC uplift:** $10K–$50K/mo (highest value path)
 
