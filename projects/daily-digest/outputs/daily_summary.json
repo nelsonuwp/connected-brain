@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-03-31T10:24:40.132455Z",
+  "generated_at": "2026-04-01T10:52:20.362892Z",
   "model": "anthropic/claude-4.5-sonnet-20250929",
   "tokens": {
-    "prompt": 35702,
-    "completion": 5442,
-    "total": 41144
+    "prompt": 19088,
+    "completion": 2818,
+    "total": 21906
   },
   "sources": [
     "email",
@@ -13,382 +13,67 @@
   "output": {
     "items": [
       {
-        "id": "o365_0",
-        "item_ids": [
-          "f8066d167d7c",
-          "ba30858d0497",
-          "bb8c49e1db47",
-          "cd41d6549430",
-          "93a5399d247d",
-          "6b2f201975db",
-          "adc3a5850cff",
-          "b91a04fd77be"
-        ],
-        "discard": false,
-        "title": "Apt Cloud IaaS Demo Deck — Feedback and Comments",
-        "summary": "Multiple team members (Ian Rae, Marc Alex Forget, Will Stevens) left comments and assigned tasks on the Apt Cloud IaaS Demo 2026-03-30 presentation. Ian questions slide usefulness and narrative support, Marc asks about ThinkOn MTC offering and Toronto location specifics, Will notes confusion about customer count (7 signed vs. multiple on Apt Cloud) and contradictory infrastructure layers.",
-        "actions": [
-          {
-            "text": "Review Ian Rae's comments on slides and determine narrative fit",
-            "completed": false,
-            "completed_proof_url": null
-          },
-          {
-            "text": "Address Marc's questions about MTC offering and location coverage",
-            "completed": false,
-            "completed_proof_url": null
-          },
-          {
-            "text": "Clarify customer count discrepancy noted by Will Stevens",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
-        "tracked_items": [],
-        "individual_sources": [
-          {
-            "label": "Ian Rae task: slide usefulness",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsuAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Ian Rae task: narrative support",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAssAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Marc: MTC offering question",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAssAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Will: customer count confusion",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsuAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Ian Rae assigned you a task in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAstAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Ian Rae assigned you a task in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAssAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Marc Alex Forget left a comment in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsrAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Marc Alex Forget left a comment in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5iVAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson shared \"Apt Cloud - Aptum IaaS Demo 2026-03-30\" with you"
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsMAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Will Stevens left a comment in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Will Stevens left a comment in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5h3AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson shared \"Apt Cloud - Aptum IaaS Demo 2026-03-30\" with you"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 8,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-03-30 07:45–17:01"
-        }
-      },
-      {
         "id": "cluster_0",
         "item_ids": [
-          "cfdf5c8b6309",
-          "a70cfd2f09ce"
+          "9cb6b7ec988b",
+          "0b29fa9f0ff7",
+          "72ed17687160"
         ],
         "discard": false,
-        "title": "Centrilogic Bracknell — Customer List and Technical Details",
-        "summary": "Sergio Bernardou provided updated technical information for Bracknell customers in Excel file. Most customers use standard cabinets with shared infrastructure. One customer has IBM mainframe in non-standard cabinets requiring power/weight confirmation. Perforce operates in dedicated cage. Meeting minutes detail customer footprint overview.",
-        "actions": [
-          {
-            "text": "Review updated Bracknell customer technical information in Excel file",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
-        "tracked_items": [
-          {
-            "text": "Sergio to finalize contact information for Bracknell customers",
-            "completed": false,
-            "completed_proof_url": null,
-            "person": null
-          }
-        ],
-        "individual_sources": [
-          {
-            "label": "Customer list update",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsjAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Meeting minutes",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsOAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
+        "title": "AptCloud Demo Recording & Transcript Shared",
+        "summary": "Sarah Blanchard shared the recording and transcript from the AptCloud Demo held on March 31. Adam accepted the meeting invite earlier that day.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsjAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Centrilogic & Aptum - Customer list - Update to Technical Information"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFBQWBAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: AptCloud Transcript"
           },
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsOAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Centrilogic & Aptum - Meeting Minutes – Bracknell update & Strategy - 26-03-30"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFBQV%2BAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Sarah Blanchard shared \"AptCloud Demo \" with you"
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5iWAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Accepted: AptCloud Demo"
           }
         ],
         "sources": [
           "email"
         ],
         "source_stats": {
-          "email_count": 2,
+          "email_count": 5,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 10:51–14:50"
+          "date_range": "2026-03-31 05:22–17:07"
         }
       },
       {
         "id": "cluster_1",
         "item_ids": [
-          "f72f9054117c",
-          "47e1299e5178"
-        ],
-        "discard": false,
-        "title": "Wikifri Managed Cloud Setup Fee — Deal Approved",
-        "summary": "Adam approved Wikifri Managed Cloud Setup Fee 2026 deal after Barbara confirmed she was fine with it. Separate thread: Erik clarified AWS partner incentive revenue (quarterly payout when exceeding activity threshold) should be allocated to Cloud Platform team without customer/project association.",
-        "actions": [],
-        "tracked_items": [],
-        "individual_sources": [
-          {
-            "label": "Re: Wikifri Deal Desk Request",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5iUAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Re: Sales Rec variance items",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsQAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5iUAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: New Deal Desk Request Submitted: Wikifri- Managed Cloud Setup Fee 2026"
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsQAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Sales Rec variance items - Erik Tanguay"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 3,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-03-30 11:18–14:14"
-        }
-      },
-      {
-        "id": "cluster_3",
-        "item_ids": [
-          "6a543e4d43c2",
-          "5ec855263deb"
-        ],
-        "discard": false,
-        "title": "Invoice Approval and BI Report Automation",
-        "summary": "Adam approved pending invoices after follow-up from Accounts Payable. Matthew Carter forwarded request to send automated BI report (Capture Pending Customer Approval orders) to Lacie monthly instead of Jorge.",
-        "actions": [],
-        "tracked_items": [
-          {
-            "text": "Jorge to send automated BI report to Lacie each month",
-            "completed": false,
-            "completed_proof_url": null,
-            "person": "jorge-quintero"
-          }
-        ],
-        "individual_sources": [
-          {
-            "label": "Re: Invoices Pending for Approval",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5iSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "FW: BI Report automation",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5iSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Invoices Pending for Approval: Adam Nelson"
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "FW: BI Report: Capture Pending Customer Approval “orders”"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 3,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-03-30 11:34–12:37"
-        }
-      },
-      {
-        "id": "78f99598d88b",
-        "item_ids": [
+          "49fdd411093f",
           "78f99598d88b"
         ],
         "discard": false,
-        "title": "Billable Hours Calculations — Meeting Request from Dave",
-        "summary": "Dave Pistacchio responded to Adam's offer to explain billable hours math, asking for time on Wednesday.",
-        "actions": [
-          {
-            "text": "Schedule time with Dave Pistacchio on Wednesday to discuss billable hours calculations",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsvAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Billable Hours Calulcations"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 1,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-03-30 17:24"
-        }
-      },
-      {
-        "id": "705a75cca33e",
-        "item_ids": [
-          "705a75cca33e"
-        ],
-        "discard": false,
-        "title": "Smart Scale SQL Server License — Software Assurance Clarification",
-        "summary": "Elizabeth Perez reports Microsoft (via Samar at Insight) confirmed Software Assurance is NOT required for Smart Scale customer scenario since hardware is physical and dedicated. This contradicts previous alignment to require SA due to administrative overhead and risk. Seeking guidance on how to proceed.",
-        "actions": [
-          {
-            "text": "Decide whether to maintain SA requirement policy or align with Microsoft's confirmation for this scenario",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAspAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 1,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-03-30 15:36"
-        }
-      },
-      {
-        "id": "542b6297b84c",
-        "item_ids": [
-          "542b6297b84c"
-        ],
-        "discard": false,
-        "title": "Radar Mexico AWS Account — Invoice Clarification Needed",
-        "summary": "Ilse Guerrero from Ingram confirms no pending 2024 invoices with Ingram for Radar Mexico AWS account #765843959562. Suggests reviewing directly with AWS. Added Andres Delgado (former Radar Sales Rep) to thread.",
+        "title": "Billable Hours Meeting Scheduled for 8am",
+        "summary": "Adam scheduled an 8am meeting with David Pistacchio (consultant) and Sarah Blanchard to discuss billable hours calculations, noting it's the day before his vacation. Meeting invites were accepted.",
         "actions": [],
-        "tracked_items": [
-          {
-            "text": "Matthew Carter to review AWS invoicing directly with AWS for Radar Mexico account",
-            "completed": false,
-            "completed_proof_url": null,
-            "person": null
-          }
-        ],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsnAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: [EXTERNAL]RE: Aptum | Radar Mexico Offboarding |  AWS #765843959562"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 2,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-03-30 13:54–15:32"
-        }
-      },
-      {
-        "id": "5444d04621fa",
-        "item_ids": [
-          "5444d04621fa"
-        ],
-        "discard": false,
-        "title": "Megaport Agreement — Original Contract Search",
-        "summary": "Ben Kennedy confirms Aptum has used Megaport for ~10 years but may not have paper agreements since they are 100% portal-driven. Original agreements could have been web-based. Matthew Carter may have documentation.",
-        "actions": [
-          {
-            "text": "Check with Matthew Carter for any Megaport original agreements",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
         "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsgAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Megaport / Aptum Follow Up"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS6g3LbAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Accepted: Billable Hours Placeholder"
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5iZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Billable Hours Calulcations"
           }
         ],
         "sources": [
@@ -398,25 +83,31 @@
           "email_count": 4,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 13:33–13:55"
+          "date_range": "2026-03-31 05:37–08:52"
         }
       },
       {
-        "id": "503ee5c223de",
+        "id": "cluster_2",
         "item_ids": [
-          "503ee5c223de"
+          "5ed5f237de30",
+          "95aa1dde0575"
         ],
         "discard": false,
-        "title": "Pat Wolthausen — Letter of Employment Provided",
-        "summary": "Anita Parbhudial provided letter of employment to Pat Wolthausen for mortgage purposes. Informational only.",
+        "title": "Pre-Vacation Sync Accepted, Three Musketeers Canceled",
+        "summary": "Sarah scheduled a pre-vacation sync with Adam (accepted) and canceled the Three Musketeers Sync occurrence, replacing it with a product session.",
         "actions": [],
         "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS6g3LFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "RE: Letter of Employment"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS6g3LYAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Accepted: Sarah/Adam Pre-Vacation Sync"
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEKAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS%2BgdISAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Canceled: Three Musketeers Sync"
           }
         ],
         "sources": [
@@ -426,31 +117,108 @@
           "email_count": 2,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 11:49–13:15"
+          "date_range": "2026-03-31 08:16–08:16"
         }
       },
       {
-        "id": "c2d65ab8a5cf",
+        "id": "cluster_3",
         "item_ids": [
-          "c2d65ab8a5cf"
+          "615821b60c08",
+          "9670deb4434d"
         ],
         "discard": false,
-        "title": "Strategic Session Notes — Document Shared",
-        "summary": "Sarah Blanchard shared Strategic Session Notes document with edit access.",
-        "actions": [
-          {
-            "text": "Review Strategic Session Notes document",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
+        "title": "AptCloud Demo Deck — Partner Language Added",
+        "summary": "Adam replied to comments in the AptCloud IaaS Demo deck, re-adding \"and partners\" language after discussion with Will Stevens about targeting VMware partners. Ian Rae had originally suggested emphasizing partner campaigns.",
+        "actions": [],
         "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsYAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Sarah Blanchard shared \"Strategic Session Notes\" with you"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5idAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Adam Nelson replied to a comment in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5icAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Adam Nelson replied to a comment in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 07:37–08:02"
+        }
+      },
+      {
+        "id": "o365_0",
+        "item_ids": [
+          "85d6a45b63fc",
+          "44217afff5f2"
+        ],
+        "discard": false,
+        "title": "AptCloud Demo Deck — Marc's Questions on WillCompute & Governance",
+        "summary": "Marc Alex Forget left two comments on the AptCloud demo deck: questioning why WillCompute (a ThinkOn reseller lead) is listed, and asking for clarification on multi-cloud governance capabilities with specific examples.",
+        "actions": [
+          {
+            "text": "Respond to Marc's questions about WillCompute positioning and governance examples in the demo deck",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [
+          {
+            "label": "Comment: WillCompute Question",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAs2AAA%3D"
+          },
+          {
+            "label": "Comment: Governance Clarification",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAs1AAA%3D"
+          }
+        ],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAs2AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Marc Alex Forget left a comment in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAs1AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Marc Alex Forget left a comment in \"Apt Cloud - Aptum IaaS Demo 2026-03-30\""
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-30 22:45–23:14"
+        }
+      },
+      {
+        "id": "7d11ae7f45e0",
+        "item_ids": [
+          "7d11ae7f45e0"
+        ],
+        "discard": false,
+        "title": "Megaport Agreement Review Meeting Canceled",
+        "summary": "Vicki Patten canceled the Megaport Agreement Review meeting, noting they are proceeding and will explain three reasons on the call.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFBQWFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Canceled: Megaport Agreement Review"
           }
         ],
         "sources": [
@@ -460,25 +228,225 @@
           "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 13:11"
+          "date_range": "2026-03-31 18:10"
         }
       },
       {
-        "id": "72ed17687160",
+        "id": "94e7a5d92fd4",
         "item_ids": [
-          "72ed17687160"
+          "94e7a5d92fd4"
         ],
         "discard": false,
-        "title": "AptCloud Demo — Rescheduling Confirmed",
-        "summary": "JP Rosato confirmed he's fine with rescheduling the AptCloud Demo. Sarah Blanchard initiated the reschedule request to the DigitalBridge and Aptum team.",
+        "title": "Leadership Page Bio & Headshot Due End of Week",
+        "summary": "Ikram Nagdawala needs Adam to review/approve his drafted bio and provide a professional headshot for the aptum.com leadership page by end of week. Marc-Alex's bio is complete; Adam and Sarah's are the final items needed.",
+        "actions": [
+          {
+            "text": "Review and approve bio copy drafted by Ikram",
+            "completed": false,
+            "completed_proof_url": null
+          },
+          {
+            "text": "Provide professional headshot (high-res, neutral background, business attire)",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFBQV5AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Leadership page update, need your input by end of week"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 15:23"
+        }
+      },
+      {
+        "id": "9413008830fa",
+        "item_ids": [
+          "9413008830fa"
+        ],
+        "discard": false,
+        "title": "GSE-306 OBDS-SQL Licenses Deal Closed Won",
+        "summary": "Steve Rioux set Deal GSE-306 (OBDS-SQL Licenses) to Closed Won. Project creation is being tracked under PMO-2054.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Project creation for GSE-306 tracked under PMO-2054",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFFEe2AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Deal: [GSE-306] OBDS-SQL Licenses set to Closed Won!"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 14:27"
+        }
+      },
+      {
+        "id": "2ce357971b96",
+        "item_ids": [
+          "2ce357971b96"
+        ],
+        "discard": false,
+        "title": "Zerto P&L Analysis Complete — 58-69% Margins",
+        "summary": "Matthew Carter completed the Zerto P&L analysis showing current margins between 58% and 69%. Annual costs total $102,001.80 CAD including support ($40,219.20), licensing ($56,160), and infrastructure ($5,622.60). Detailed breakdown available in linked document.",
         "actions": [],
         "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsUAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: AptCloud Demo"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFBQV1AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Zerto P&L Update"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 13:39"
+        }
+      },
+      {
+        "id": "b4a01fe202d1",
+        "item_ids": [
+          "b4a01fe202d1"
+        ],
+        "discard": false,
+        "title": "AWS Payer Account Transfer — Missing CTA Information",
+        "summary": "Erik Tanguay is working on a CTA for AWS Payer account transfers (IDs 140023366597, 736692106039, 447630109432, 701369934313) and is missing information. He's asking Vic if this is captured during handoff or beforehand.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Erik Tanguay to complete CTA for AWS Payer accounts with missing information",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFBQV0AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: [Ingram Micro] Re: AWS – Outbound Transfer – Payer ID 140023366597 and 736692106039 and 447630109432 and 701369934313 (Ticket Number: 26733782)"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 13:15"
+        }
+      },
+      {
+        "id": "fd39897e0c5f",
+        "item_ids": [
+          "fd39897e0c5f"
+        ],
+        "discard": false,
+        "title": "Board Meeting Notes & Pre-Meeting Deck Sent",
+        "summary": "Adam sent Dave AI-combined notes from last week's meeting and the deck for this afternoon's board call. The deck is mostly finalized and kept light to aim for a 30-minute meeting. Adam noted he rushed due to a US consulate appointment.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATEx%2FxRAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "board notes summary & pre-meeting deck"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 12:27"
+        }
+      },
+      {
+        "id": "5835ce5861d7",
+        "item_ids": [
+          "5835ce5861d7"
+        ],
+        "discard": false,
+        "title": "Customer Reporting Templates — BI-1069 Replacement Needed",
+        "summary": "Lacie Allen-Morley is requesting Jorge find a permanent solution to replace the BI-1069 report (technical reporting and ticket stats) which hasn't functioned properly since the Jira migration. Mike Julier has been pulling data manually. Lacie wants an automated solution with standardized templates for customer reporting.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Jorge to develop automated replacement for BI-1069 customer reporting with standardized templates",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": "jorge-quintero"
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFBQVzAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Customer Reporting Templates & Standardisation"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 11:29"
+        }
+      },
+      {
+        "id": "cfdf5c8b6309",
+        "item_ids": [
+          "cfdf5c8b6309"
+        ],
+        "discard": false,
+        "title": "Centrilogic Customer List — Access Requested",
+        "summary": "Sergio Bernardou shared updated technical information for the Centrilogic & Aptum customer list. Marc Alex Forget requested access for Adam and will review shortly.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATFBQVyAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Centrilogic & Aptum - Customer list - Update to Technical Information"
           }
         ],
         "sources": [
@@ -488,32 +456,53 @@
           "email_count": 3,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 09:25–11:43"
+          "date_range": "2026-03-31 11:15–11:24"
         }
       },
       {
-        "id": "314db8724f2e",
+        "id": "2dae96a1c0ca",
         "item_ids": [
-          "314db8724f2e"
+          "2dae96a1c0ca"
         ],
         "discard": false,
-        "title": "CP LOB & Expert Services Reports — Request for Folder Link",
-        "summary": "Adam requested Paul Billard send links to CP LOB & Expert Services reports instead of attachments, and asked for the folder location. Paul is out until April 1st (auto-reply).",
+        "title": "Marc/Adam Meeting Canceled — Reschedule Tomorrow",
+        "summary": "Adam canceled today's meeting with Marc, noting he'll find an ad-hoc time tomorrow.",
         "actions": [],
-        "tracked_items": [
-          {
-            "text": "Paul Billard to send folder link for CP LOB & Expert Services reports upon return April 1st",
-            "completed": false,
-            "completed_proof_url": null,
-            "person": null
-          }
-        ],
+        "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Automatic reply: CP LOB & Expert Services reports - Feb 2026 (private)"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATEx%2FxQAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Canceled: Marc/Adam"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 09:59"
+        }
+      },
+      {
+        "id": "56ed5fd54e5c",
+        "item_ids": [
+          "56ed5fd54e5c"
+        ],
+        "discard": false,
+        "title": "Product Discussion Meeting Accepted",
+        "summary": "Marc Pare scheduled a Product Discussion meeting which Adam accepted.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS6g3LZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Accepted: Product Discussion"
           }
         ],
         "sources": [
@@ -523,25 +512,25 @@
           "email_count": 2,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 11:37–11:37"
+          "date_range": "2026-03-30 23:37–2026-03-31 08:22"
         }
       },
       {
-        "id": "6bd2923eae9e",
+        "id": "dc5207e9a664",
         "item_ids": [
-          "6bd2923eae9e"
+          "dc5207e9a664"
         ],
         "discard": false,
-        "title": "TeamViewer Cancellation — Retention Effort Example",
-        "summary": "Matthew Carter shared example of TeamViewer offering 20% then 40% discount after Aptum terminated contract and brought service in-house. Suggests Aptum should make similar retention efforts when customers cancel.",
+        "title": "Weekly Project Delivery Sync Canceled — Sprint Call Moved",
+        "summary": "Lacie Allen-Morley canceled the Weekly Project Delivery Sync because she moved the end of Sprint call up a day due to the Friday national holiday.",
         "actions": [],
         "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsLAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "FW: Teamviewer - Your license Expired. TV:0315423301"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEKAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS%2BgdIRAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Canceled: [INT] Weekly Project Delivery Sync"
           }
         ],
         "sources": [
@@ -551,38 +540,32 @@
           "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 09:29"
+          "date_range": "2026-03-31 07:40"
         }
       },
       {
-        "id": "f3fd4fe5a4df",
+        "id": "5ec855263deb",
         "item_ids": [
-          "f3fd4fe5a4df"
+          "5ec855263deb"
         ],
         "discard": false,
-        "title": "Microsoft CSP Direct Bill — Security Requirements Needed",
-        "summary": "Andy Petterson identified Microsoft CSP renewal at risk due to unmet security requirements across portals. Requests Lacie start tracking this issue to ensure compliance for CSP direct bill eligibility.",
-        "actions": [
-          {
-            "text": "Have Lacie track Microsoft CSP security requirements across all portals",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
+        "title": "Pending Customer Approval Orders — Lacie to Monitor Queue",
+        "summary": "Adam responded to Matt's suggestion about Jorge sending Lacie monthly BI reports. Instead, Adam wants Lacie and team to constantly poll the active orders queue at ocean.peer1.com. The ideal state is zero items in the list. Adam asked Lacie to confirm she can see the open orders and their states.",
+        "actions": [],
         "tracked_items": [
           {
-            "text": "Andy Petterson to investigate security requirements for CSP portals",
+            "text": "Lacie and team to monitor active orders queue at ocean.peer1.com/orders/Queues.php?queue=active_orders",
             "completed": false,
             "completed_proof_url": null,
-            "person": null
+            "person": "lacie-ellen-morley"
           }
         ],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAsAAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Action required: Meet your eligibility requirements for CSP direct bill"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5ibAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: BI Report: Capture Pending Customer Approval “orders”"
           }
         ],
         "sources": [
@@ -592,25 +575,53 @@
           "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 08:26"
+          "date_range": "2026-03-31 07:11"
         }
       },
       {
-        "id": "f171f26ffd3f",
+        "id": "109633fed853",
         "item_ids": [
-          "f171f26ffd3f"
+          "109633fed853"
         ],
         "discard": false,
-        "title": "Churn & Risk Program — Documentation Shared",
-        "summary": "Adam confirmed Wednesday risk calls are the churn reduction program calls and shared Confluence documentation link for the Churn Reduction Program.",
+        "title": "SA Sync Meeting Declined",
+        "summary": "Adam declined the SA Sync meeting.",
         "actions": [],
         "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5h2AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Churn & Risk Ideas"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7d5iYAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Declined: [INT] SA Sync"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-03-31 05:22–05:22"
+        }
+      },
+      {
+        "id": "5444d04621fa",
+        "item_ids": [
+          "5444d04621fa"
+        ],
+        "discard": false,
+        "title": "Megaport Follow-Up — No VMT or Cobblestone Records",
+        "summary": "Matthew Carter confirmed there are no records in VMT or Cobblestone related to the Megaport follow-up inquiry from Ben Kennedy.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAS7HAszAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Megaport / Aptum Follow Up"
           }
         ],
         "sources": [
@@ -620,78 +631,10 @@
           "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-03-30 07:24"
-        }
-      },
-      {
-        "id": "1c30d309e27a",
-        "item_ids": [
-          "1c30d309e27a"
-        ],
-        "discard": false,
-        "title": "Ixiasoft AWS Opportunities — Renewal Risk Warning",
-        "summary": "Erik Tanguay launched all pending Ixiasoft opportunities in AWS, showing 14-15 out of 20 used. Warns renewal may be at risk if no new leads close and building doesn't start soon.",
-        "actions": [
-          {
-            "text": "Assess Ixiasoft AWS renewal risk and pipeline for remaining capacity",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "slack",
-            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1774889390576029",
-            "subject": "#cloud-platform-pm"
-          }
-        ],
-        "sources": [
-          "slack"
-        ],
-        "source_stats": {
-          "email_count": 0,
-          "teams_count": 0,
-          "slack_count": 1,
-          "date_range": "2026-03-30 12:49"
-        }
-      },
-      {
-        "id": "a16574977851",
-        "item_ids": [
-          "a16574977851"
-        ],
-        "discard": false,
-        "title": "Just Energy SOW — Review Request from Barbara",
-        "summary": "Barbara Krzywoszanski requested Adam review Just Energy Group SOW for new colo cage (Juniper equipment) in SharePoint.",
-        "actions": [
-          {
-            "text": "Review Just Energy SOW document in SharePoint",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "slack",
-            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1774880444387499",
-            "subject": "#cloud-platform-pm"
-          }
-        ],
-        "sources": [
-          "slack"
-        ],
-        "source_stats": {
-          "email_count": 0,
-          "teams_count": 0,
-          "slack_count": 1,
-          "date_range": "2026-03-30 10:20"
+          "date_range": "2026-03-30 20:08"
         }
       }
     ],
-    "discard_count": 52
+    "discard_count": 34
   }
 }
