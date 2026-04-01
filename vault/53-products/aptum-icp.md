@@ -6,7 +6,7 @@
 
 ## Why a Single ICP
 
-Marc Pare's Product Strategy v1.3.1 defined two ICPs: one for infrastructure buyers and one for digital natives with 7+ developers. The board directed the team to consolidate to a single ICP. Ian Rae put it simply in the March 31 product discussion: "We're a mid-market company selling to mid-market."
+The original product strategy document ([Product Strategy v1.3.1](https://aptum.atlassian.net/wiki/spaces/Product/pages/3376513043/Product+Strategy+v1.3.1)) defined two ICPs: one for infrastructure buyers and one for digital natives with 7+ developers. The board directed the team to consolidate to a single ICP. Ian Rae put it simply in the March 31 product discussion: "We're a mid-market company selling to mid-market."
 
 This document defines one Ideal Customer Profile. It also defines what an ideal customer is not, using real portfolio data to show where the current customer base aligns and where it diverges. It integrates the assessment framework as the qualification and onboarding mechanism: the way Aptum determines whether a prospect fits the ICP, builds the relationship, and funnels the customer into the managed services and infrastructure stack.
 
