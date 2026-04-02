@@ -51,7 +51,7 @@ Adam Nelson is Vice President of Operations at Aptum. He leads the global servic
 
 He is responsible for how these teams operate together as a system, with clear ownership boundaries between physical infrastructure, platform build, network, and managed services. His work centers on making that system scale, reducing operational friction, and ensuring customers receive consistent outcomes across a complex portfolio of products and services.
 
-Adam has nearly 20 years of experience across aerospace engineering and cloud services. He has led multi-million-dollar aerospace programs, hybrid-cloud development to on-site integration , and is known for bringing structure to complex environments, building teams that can execute, and improving how work gets done without adding unnecessary process.
+Adam has nearly 20 years of experience across aerospace engineering and cloud services. He has led multi-million-dollar aerospace programs, to hybrid-cloud developments, to on-site integration of test equipment for military helicopters, and is known for bringing structure to complex environments, building teams that can execute, and improving how work gets done without adding unnecessary process.
 
 He joined Aptum through the acquisition of CloudOps in 2023, where he led Professional Services and worked directly with customers on cloud initiatives. Prior to that, he spent over a decade at Esterline CMC Electronics, starting as a software engineer and moving into leadership roles managing engineering programs and scaling teams to meet delivery timelines.
 
