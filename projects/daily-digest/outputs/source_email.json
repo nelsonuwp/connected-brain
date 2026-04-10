@@ -1,6 +1,6 @@
 {
   "source": "email",
-  "collected_at": "2026-04-10T11:41:32.631816Z",
+  "collected_at": "2026-04-10T11:52:50.267422Z",
   "status": "success",
   "objects": {
     "messages": {
@@ -2053,7 +2053,7 @@
           "ccRecipients": []
         },
         {
-          "@odata.etag": "W/\"CQAAABYAAABAscG+D3c/SI/xeA+iWIqgAAdl0aJG\"",
+          "@odata.etag": "W/\"CQAAABYAAABAscG+D3c/SI/xeA+iWIqgAAdvVaDg\"",
           "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAEMAABAscG_D3c-SI-xeA_iWIqgAATgbk48AAA=",
           "sentDateTime": "2026-04-09T16:56:42Z",
           "hasAttachments": false,

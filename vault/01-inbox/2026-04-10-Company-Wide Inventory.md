@@ -31,7 +31,39 @@ Dave
 
 [[Ian Rae]] Response:
 ```
+To: Dave, Sarah
+CC: Me
 We have the server inventory (Matt C), as well as a map of free space and power per DC (George. Will get the team on it and loop in Adam (cc) and Martin who has the current deployment plans.
+```
+
+And then another email from [[Ian Rae]] but this one directly to me:
+```
+Giving you the opportunity ...to ask your team and colleagues for:
+
+  
+
+- Server inventory (ideally showing which assets are relevant /useful for Aptum IaaS) - Matt Carter is where I usually go
+    
+- DC capacity (where do we have space and power where we can deploy the IaaS) - George
+    
+- APT cloud roadmap - where will the IaaS be rolling out and when (current plan) and where are we considering it in the future. When are old Aptum Cloud and MTC clients being migrated? - Martin
+    
+- Bonus question - related roadmap for APT Cloud Azure and AWS customers. - Will
+    
+
+As Dave will be pressing on these questions.
+
+  
+
+I'm sure none of this surprises you since...well, it is already in progress. But Dave will see it as his initiative so think about how to coordinate this and follow up with him please! 
+
+  
+
+Have a smooth trip back
+
+  
+
+Thanks
 ```
 
 And then another email directly to me 
