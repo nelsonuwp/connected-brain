@@ -14,15 +14,21 @@ initiative:
 ---
 
 ## Context
-<!-- What does this meeting need to accomplish? Link to initiative or person note. -->
+Weekly board review (just status updates)
 
 
 ## Notes
 * "Consulting and Professional Services properly swimlaned" - [[Ian Rae]]
 	* I think he's talking about trackign the high-value advisory vs. "execution"
-* Product Work 
+* Product Work - Ian calling this out for me
+	* Gave Dave access to Product Strategy and Confluence
+* 
 <!-- Raw — don't over-format in real time, just capture -->
 
+My Notes:
+* Product - Snapping Aptum Portal + Aptum IaaS into the broader ro
+* Inventory
+* Churn
 
 ## Decisions Made
 <!-- Anything decided here that needs a record -->
