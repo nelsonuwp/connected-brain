@@ -1,122 +1,72 @@
 ---
 type: idea
 created: 2026-04-10
-status: raw
+status: idea
 ---
 
 # Company-Wide Inventory
 
 ## The Idea
 
+A structured capacity accounting model — not just an inventory — that expresses Aptum's available infrastructure across six dimensions: Space, Power, Racks, Network, Compute, and People. Each dimension is measured as:
+
+- **X** = total capacity provisioned/owned
+- **Y** = committed or deployed (to customers or internal operations)
+- **Z** = available to sell or deploy without additional spend
+
+This gives a **revenue-ready picture of the business** — what can be monetized today, per DC, per region — and serves as the foundational input for Private Cloud build decisions in UK and US.
+
+The framing is deliberately CFO-level: Z answers "what can we sell before we need capex?" That's a different and more powerful question than "what do we own?"
 
 ## Why Now
 
-Email from [[Dave Pistacchio]]:
-```
-**From:** David Pistacchio (Consultant) <David.Pistacchio@digitalbridge.com>  
-**Sent:** Thursday, 09 April 2026 12:14:54  
-**To:** Ian Rae <ian.rae@aptum.com>; Sarah Blanchard <sblanchard@cloudops.com>  
-**Subject:** Inventory search and Data Center planning for Private Cloud.
+[[Dave Pistacchio]] (DigitalBridge consultant) pushed [[Ian Rae]] on 2026-04-09 to do a full equipment inventory — deployed and shelf — to plan Private Cloud and Cloud MC buildout in the UK and US, including where to site them. Ian looped in Adam to coordinate across four owners:
 
-On our call on Tuesday, I believe that we agreed that we will need to look at all of our available inventory of equipment including what's deployed and no longer used, and what's not yet deployed, and determine what we will need to build a Private Cloud and Cloud MC environment in the UK and the US.  We also need to determine where we should set them up. 
+- **Matt Carter** — server inventory (assets relevant to Aptum IaaS)
+- **George** — DC capacity (space and power per DC)
+- **Martin** — APT Cloud roadmap (IaaS rollout plan, legacy Aptum Cloud / MTC migration timeline)
+- **Will** — APT Cloud Azure and AWS customer roadmap (bonus)
 
-  
+Ian's framing: Dave will see this as his initiative — think about how to coordinate and follow up with him directly. The window to shape *how* this is done (vs. just producing a list) is open now, before it collapses into a simple inventory exercise.
 
-It seems to me that we should get George and his team as well as the Logistics guys in Sarah's team working on this ASAP.  Is there any reason why we can't? 
-
-  
-
-Dave
-```
-
-[[Ian Rae]] Response:
-```
-To: Dave, Sarah
-CC: Me
-We have the server inventory (Matt C), as well as a map of free space and power per DC (George. Will get the team on it and loop in Adam (cc) and Martin who has the current deployment plans.
-```
-
-And then another email from [[Ian Rae]] but this one directly to me:
-```
-Giving you the opportunity ...to ask your team and colleagues for:
-
-  
-
-- Server inventory (ideally showing which assets are relevant /useful for Aptum IaaS) - Matt Carter is where I usually go
-    
-- DC capacity (where do we have space and power where we can deploy the IaaS) - George
-    
-- APT cloud roadmap - where will the IaaS be rolling out and when (current plan) and where are we considering it in the future. When are old Aptum Cloud and MTC clients being migrated? - Martin
-    
-- Bonus question - related roadmap for APT Cloud Azure and AWS customers. - Will
-    
-
-As Dave will be pressing on these questions.
-
-  
-
-I'm sure none of this surprises you since...well, it is already in progress. But Dave will see it as his initiative so think about how to coordinate this and follow up with him please! 
-
-  
-
-Have a smooth trip back
-
-  
-
-Thanks
-```
-
-And then another email directly to me 
 ## Supplemental Data
 
-Me:
+Adam's framework draft:
 ```
-Guys....need your input on something.... am I thinking about this correctly?
-
-**Space**
-
+Space
 - We have X sellable sqft
 - We've allocated Y sqft (to colo cages, our own racks, etc.)
 - We have Z sqft available to sell without spending more
 
-**Power**
-
+Power
 - We have X kW provisioned
 - We've committed Y kW to customers and our own gear
 - We have Z kW available to sell without spending more
 
-**Racks**
-
+Racks
 - We own X racks installed on the floor
 - We've sold/filled Y racks (colo + our hosting)
 - We have Z racks available to sell without buying more
 
-**Network**
-
+Network
 - We have X capacity in connectivity (bandwidth, cross-connects, transit/peering) and infrastructure devices (switches, firewalls, load balancers)
 - We've sold/deployed Y to customers and current operations
 - We have Z capacity available to sell or deploy without spending more
 
-**Compute**
-
+Compute
 - We own X servers (deployed + on the shelf)
 - We've sold Y servers to hosting customers
 - We have Z servers available to sell without buying more
 
-**People**
-
+People
 - We have X capacity in managed services headcount
 - We're delivering Y in active managed services
 - We have Z capacity available to sell without hiring
 ```
 
-Ben:
+Ben's notes on Network:
 ```
-- We have X capacity in connectivity (bandwidth, cross-connects, transit/peering) and infrastructure devices (switches, firewalls, load balancers)
-- We've sold/deployed Y to customers and current operations
-- We have Z capacity available to sell or deploy without spending more  
-      
-    comments from me: I'd say this is mostly right. But for x and z, I mean it would be like x1, x2, etc and z1, z2, etc. Given the number of different capacity elements.  
-      
-    Firewalls and load balancers are tricky for X. We have inventory of firewalls, so you could call that X capacity. For load balancers we are at Citrix's whims. Traditionally it's an incremental cost, not a fixed cost for X capacity. This year we are use a loophole to only pay for 5 licenses, 1 of which is licensing all our managed hosting load balancers as that license gives as access to a 1TB pool. So this year we could call that "x" capacity
+For X and Z, it would be like x1, x2, etc and z1, z2, etc — given the number of different capacity elements.
+
+Firewalls and load balancers are tricky for X. We have inventory of firewalls, so you could call that X capacity. For load balancers we are at Citrix's whims. Traditionally it's an incremental cost, not a fixed cost for X capacity. This year we are using a loophole to only pay for 5 licenses, 1 of which is licensing all our managed hosting load balancers as that license gives us access to a 1TB pool. So this year we could call that "x" capacity.
 ```
