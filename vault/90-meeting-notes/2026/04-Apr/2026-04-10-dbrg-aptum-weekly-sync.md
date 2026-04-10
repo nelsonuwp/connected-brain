@@ -18,6 +18,9 @@ initiative:
 
 
 ## Notes
+* "Consulting and Professional Services properly swimlaned" - [[Ian Rae]]
+	* I think he's talking about trackign the high-value advisory vs. "execution"
+* Product Work 
 <!-- Raw — don't over-format in real time, just capture -->
 
 
