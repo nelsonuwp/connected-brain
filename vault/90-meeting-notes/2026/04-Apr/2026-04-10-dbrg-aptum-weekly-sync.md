@@ -8,7 +8,7 @@ initiative:
 # 2026-04-10-dbrg-aptum-weekly-sync
 
 **Date:** Friday, April 10, 2026
-**Attendees:** [[Sarah Blanchard]], [[Marc-Alex Forget]], [[Ian Rae]], [[Peter Esposto]], [[JP Rosato]]
+**Attendees:** [[Sarah Blanchard]], [[Marc-Alex Forget]], [[Ian Rae]], [[Peter Esposto]], [[JP Rosato]], [[Pierre Messier]]
 **Related:** 
 
 ---
@@ -32,8 +32,12 @@ My Notes:
 	* Product profitability for (hopefully) turning down non-profitable but also not non-ideal products
 		* ? Sensitivity on intentionally reducing revenue for non-ideal products
 * Inventory
-	* I started on the Inventory initiative early march, so it's nice to see I "accidentally" got in front of this so I'll roll in the notes from 
+	* I started on the Inventory initiative early march, so it's nice to see I "accidentally" got in front of this so I'll roll in the notes from the workshop last week & get clarifying questions
+		* Removing this "ownership" from Finance
+* Profitability
+	* This links inventory + procurements's "costs" 
 * Churn
+	* 
 
 ## Decisions Made
 <!-- Anything decided here that needs a record -->
