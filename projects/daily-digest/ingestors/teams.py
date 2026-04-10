@@ -91,8 +91,9 @@ def fetch_chat_messages(
     messages = []
     resp = requests.get(url, headers=_headers(token), params=params)
 
-    if resp.status_code == 403:
-        # Some chats may not be accessible (e.g., channel chats without permission)
+    if resp.status_code in (400, 403):
+        # 403: channel chats without permission
+        # 400: unsupported chat types (e.g. federated chats with @unq.gbl.spaces suffix)
         return []
     resp.raise_for_status()
 
