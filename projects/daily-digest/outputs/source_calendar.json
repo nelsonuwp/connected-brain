@@ -1,6 +1,6 @@
 {
   "source": "calendar",
-  "collected_at": "2026-04-10T11:41:45.435153Z",
+  "collected_at": "2026-04-10T11:55:23.656310Z",
   "status": "success",
   "objects": {
     "events": {
@@ -9,7 +9,7 @@
       "error": null,
       "data": [
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHZXYRSQ==\"",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHc+yNqQ==\"",
           "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAENAABAscG_D3c-SI-xeA_iWIqgAATTTlEJAAA=",
           "subject": "Pre DBRG sync",
           "sensitivity": "normal",
@@ -83,7 +83,7 @@
           }
         },
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHUalChg==\"",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHc+yNmg==\"",
           "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3paUG91AAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAE005Q_gAAEA==",
           "subject": "DBRG/Aptum Weekly Sync",
           "sensitivity": "normal",
@@ -124,17 +124,6 @@
               "emailAddress": {
                 "name": "JP Rosato (Consultant)",
                 "address": "jp.rosato@digitalbridge.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "David Pistacchio (Consultant)",
-                "address": "david.pistacchio@digitalbridge.com"
               }
             },
             {
@@ -201,6 +190,17 @@
               "emailAddress": {
                 "name": "Marc Alex Forget",
                 "address": "Marc-Alexandre.Forget@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "David Pistacchio (Consultant)",
+                "address": "david.pistacchio@digitalbridge.com"
               }
             }
           ],

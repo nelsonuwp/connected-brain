@@ -107,6 +107,11 @@ def fetch_chat_messages(
     messages = []
     resp = requests.get(url, headers=_headers(token), params=params)
 
+    if resp.status_code == 400:
+        # Graph lists some chats (deleted, migrated, restricted) it can't serve messages for.
+        # Log and skip rather than failing the entire run.
+        print(f"  [teams] Skipping inaccessible chat {chat_id[:40]}... (400 Bad Request)")
+        return []
     resp.raise_for_status()
 
     data = resp.json()

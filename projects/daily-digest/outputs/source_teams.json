@@ -1,13 +1,22 @@
 {
   "source": "teams",
-  "collected_at": "2026-04-10T11:41:40.124357Z",
-  "status": "fail",
-  "objects": null,
-  "error": {
-    "type": "HTTPError",
-    "message": "400 Client Error: Bad Request for url: https://graph.microsoft.com/v1.0/me/chats/19:3733644f-f09b-44df-b342-c7fbb84313be_e1f43ab9-33cd-43cc-8105-e58fd96efe30@unq.gbl.spaces/messages?%24top=100",
-    "retryable": false
+  "collected_at": "2026-04-10T11:55:17.578104Z",
+  "status": "success",
+  "objects": {
+    "chats": {
+      "status": "success",
+      "record_count": 0,
+      "error": null,
+      "data": []
+    },
+    "messages": {
+      "status": "success",
+      "record_count": 0,
+      "error": null,
+      "data": []
+    }
   },
+  "error": null,
   "date_range": {
     "start": "2026-04-09",
     "end": "2026-04-09"
