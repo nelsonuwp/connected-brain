@@ -1,7 +1,7 @@
 ---
-type: idea
 created: 2026-04-10
-status: idea
+status: promoted
+type: idea
 ---
 
 # Company-Wide Inventory
