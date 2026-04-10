@@ -36,7 +36,7 @@ My Notes:
 		* Removing this "ownership" from Finance
 	* Inventory management system
 	* Sarah stepped on my thing here
-		* 
+		* "Trust but verify" - 
 * Profitability
 	* This links inventory + procurements's "costs" 
 * Churn
