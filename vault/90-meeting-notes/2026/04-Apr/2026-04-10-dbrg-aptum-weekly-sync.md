@@ -8,7 +8,7 @@ initiative:
 # 2026-04-10-dbrg-aptum-weekly-sync
 
 **Date:** Friday, April 10, 2026
-**Attendees:** [[Sarah Blanchard]], [[Marc-Alex Forget]], [[]]
+**Attendees:** [[Sarah Blanchard]], [[Marc-Alex Forget]], [[Ian Rae]], [[Peter Esposto]], [[JP Rosato]]
 **Related:** 
 
 ---
