@@ -35,6 +35,8 @@ My Notes:
 	* I started on the Inventory initiative early march, so it's nice to see I "accidentally" got in front of this so I'll roll in the notes from the workshop last week & get clarifying questions
 		* Removing this "ownership" from Finance
 	* Inventory management system
+	* Sarah stepped on my thing here
+		* 
 * Profitability
 	* This links inventory + procurements's "costs" 
 * Churn
