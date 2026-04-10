@@ -75,10 +75,20 @@ def fetch_active_chats(token: str) -> List[Dict[str, Any]]:
         chats.extend(data.get("value", []))
 
     all_chats = chats[:MAX_CHATS]
-    supported = [c for c in all_chats if "@unq.gbl.spaces" not in c.get("id", "")]
-    skipped = len(all_chats) - len(supported)
-    if skipped:
-        print(f"  [teams] Skipping {skipped} federated/external chat(s) (unsupported by Graph messages API).")
+    supported = []
+    skipped_reasons: dict[str, int] = {}
+    for c in all_chats:
+        cid = c.get("id", "")
+        ctype = c.get("chatType", "")
+        if "@unq.gbl.spaces" in cid:
+            skipped_reasons["federated/external (@unq.gbl.spaces)"] = skipped_reasons.get("federated/external (@unq.gbl.spaces)", 0) + 1
+        elif ctype == "meeting" or cid.startswith("19:meeting_"):
+            skipped_reasons["meeting thread"] = skipped_reasons.get("meeting thread", 0) + 1
+        else:
+            supported.append(c)
+    if skipped_reasons:
+        for reason, count in skipped_reasons.items():
+            print(f"  [teams] Skipping {count} {reason} chat(s) (unsupported by Graph messages API).")
     print(f"  [teams] Found {len(supported)} supported chats.")
     return supported
 
