@@ -26,8 +26,13 @@ Weekly board review (just status updates)
 <!-- Raw — don't over-format in real time, just capture -->
 
 My Notes:
-* Product - Snapping Aptum Portal + Aptum IaaS into the broader ro
+* Product
+	* Snapping Aptum Portal + Aptum IaaS into the broader product strategy
+	* De-coupling the management layers from the product (as they stand today)
+	* Product profitability for (hopefully) turning down non-profitable but also not non-ideal products
+		* ? Sensitivity on intentionally reducing revenue for non-ideal products
 * Inventory
+	* I started on the Inventory initiative early march, so it's nice to see I "accidentally" got in front of this so I'll roll in the notes from 
 * Churn
 
 ## Decisions Made
