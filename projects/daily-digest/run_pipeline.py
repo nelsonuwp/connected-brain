@@ -169,8 +169,7 @@ def main() -> int:
         elapsed = time.time() - t0
         print(f"\n  {stage_name} finished in {elapsed:.1f}s (exit code {rc})")
 
-        if rc != 0 and stage_name != "ingest":
-            # Ingest can partially fail (e.g. Slack not configured) — continue
+        if rc != 0:
             print(f"\n  Pipeline stopped: {stage_name} failed with exit code {rc}")
             sys.argv = saved_argv
             return rc
@@ -186,10 +185,8 @@ def main() -> int:
 
 def _run_ingest(sources: list, start: date, end: date, note_date: date) -> int:
     """
-    Run all configured ingestors. Returns 0 if at least one succeeds.
+    Run all configured ingestors. Fails immediately if any source fails.
     """
-    results = {}
-
     for source_name in sources:
         if source_name not in INGESTORS:
             print(f"  [ingest] Unknown source: {source_name}, skipping.")
@@ -211,17 +208,15 @@ def _run_ingest(sources: list, start: date, end: date, note_date: date) -> int:
                 rc = ingest_calendar(note_date)
             else:
                 rc = 1
-            results[source_name] = rc
         except Exception as e:
-            print(f"  [ingest] {source_name} failed: {e}")
-            results[source_name] = 1
+            print(f"\n  [ingest] CRITICAL: {source_name} raised an unexpected error: {type(e).__name__}: {e}")
+            return 1
 
-    # Success if at least one source succeeded
-    successes = sum(1 for rc in results.values() if rc == 0)
-    print(f"\n  [ingest] Results: {results}")
-    print(f"  [ingest] {successes}/{len(results)} sources succeeded.")
+        if rc != 0:
+            print(f"\n  [ingest] CRITICAL: {source_name} failed.")
+            return 1
 
-    return 0 if successes > 0 else 1
+    return 0
 
 
 if __name__ == "__main__":

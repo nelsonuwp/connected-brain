@@ -51,7 +51,8 @@ def _headers(token: str) -> dict:
 def fetch_active_chats(token: str) -> List[Dict[str, Any]]:
     """
     Fetch list of chats, ordered by most recent activity.
-    Returns up to MAX_CHATS chats.
+    Returns up to MAX_CHATS chats. Excludes federated/external chats
+    (@unq.gbl.spaces) which the Graph messages endpoint does not support.
     """
     url = "https://graph.microsoft.com/v1.0/me/chats"
     params = {
@@ -73,8 +74,13 @@ def fetch_active_chats(token: str) -> List[Dict[str, Any]]:
         data = resp.json()
         chats.extend(data.get("value", []))
 
-    print(f"  [teams] Found {len(chats)} chats.")
-    return chats[:MAX_CHATS]
+    all_chats = chats[:MAX_CHATS]
+    supported = [c for c in all_chats if "@unq.gbl.spaces" not in c.get("id", "")]
+    skipped = len(all_chats) - len(supported)
+    if skipped:
+        print(f"  [teams] Skipping {skipped} federated/external chat(s) (unsupported by Graph messages API).")
+    print(f"  [teams] Found {len(supported)} supported chats.")
+    return supported
 
 
 def fetch_chat_messages(
@@ -91,9 +97,6 @@ def fetch_chat_messages(
     messages = []
     resp = requests.get(url, headers=_headers(token), params=params)
 
-    if resp.status_code == 403:
-        # Some chats may not be accessible (e.g., channel chats without permission)
-        return []
     resp.raise_for_status()
 
     data = resp.json()
@@ -120,52 +123,45 @@ def main(start: date, end: date) -> int:
     artifact = make_source_artifact("teams")
     artifact["date_range"] = {"start": start.isoformat(), "end": end.isoformat()}
 
-    try:
-        token = get_access_token()
-        chats = fetch_active_chats(token)
+    token = get_access_token()
+    chats = fetch_active_chats(token)
 
-        all_messages = []
-        active_chats = []
+    all_messages = []
+    active_chats = []
 
-        for chat in chats:
-            chat_id = chat.get("id", "")
-            if not chat_id:
-                continue
+    for chat in chats:
+        chat_id = chat.get("id", "")
+        if not chat_id:
+            continue
 
-            messages = fetch_chat_messages(chat_id, start, end, token)
-            if messages:
-                active_chats.append(chat)
-                for msg in messages:
-                    msg["_chatId"] = chat_id
-                    msg["_chatType"] = chat.get("chatType", "unknown")
-                    msg["_chatTopic"] = chat.get("topic", None)
-                    msg["_chatWebUrl"] = chat.get("webUrl", None)
-                all_messages.extend(messages)
+        messages = fetch_chat_messages(chat_id, start, end, token)
+        if messages:
+            active_chats.append(chat)
+            for msg in messages:
+                msg["_chatId"] = chat_id
+                msg["_chatType"] = chat.get("chatType", "unknown")
+                msg["_chatTopic"] = chat.get("topic", None)
+                msg["_chatWebUrl"] = chat.get("webUrl", None)
+            all_messages.extend(messages)
 
-        artifact["objects"] = {
-            "chats": {
-                "status": "success",
-                "record_count": record_count(active_chats),
-                "error": None,
-                "data": active_chats,
-            },
-            "messages": {
-                "status": "success",
-                "record_count": record_count(all_messages),
-                "error": None,
-                "data": all_messages,
-            },
-        }
-        artifact["status"] = "success"
-        print(f"  [teams] Captured {len(all_messages)} messages across {len(active_chats)} active chats.")
+    artifact["objects"] = {
+        "chats": {
+            "status": "success",
+            "record_count": record_count(active_chats),
+            "error": None,
+            "data": active_chats,
+        },
+        "messages": {
+            "status": "success",
+            "record_count": record_count(all_messages),
+            "error": None,
+            "data": all_messages,
+        },
+    }
+    artifact["status"] = "success"
+    print(f"  [teams] Captured {len(all_messages)} messages across {len(active_chats)} active chats.")
 
-    except Exception as e:
-        artifact["status"] = "fail"
-        artifact["error"] = {"type": type(e).__name__, "message": str(e), "retryable": False}
-        print(f"  [teams] Capture failed: {e}")
+    write_artifact(artifact, OUTPUT_PATH)
+    print(f"  [teams] Wrote → {OUTPUT_PATH}")
 
-    finally:
-        write_artifact(artifact, OUTPUT_PATH)
-        print(f"  [teams] Wrote → {OUTPUT_PATH}")
-
-    return 0 if artifact["status"] == "success" else 1
+    return 0
