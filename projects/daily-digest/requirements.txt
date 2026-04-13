@@ -1,0 +1,10 @@
+# Core
+requests>=2.31.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Embedding & clustering
+numpy>=1.24.0
+scikit-learn>=1.3.0
+sentence-transformers>=2.2.0,<3.0.0  # <3.0.0 keeps transformers<4.50 where the fast lazy-loader is used
+transformers<4.50.0                   # 4.50+ introduced define_import_structure which hangs on import
