@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-10T11:56:52.860444Z",
+  "generated_at": "2026-04-13T14:27:28.734653Z",
   "model": "anthropic/claude-4.5-sonnet-20250929",
   "tokens": {
-    "prompt": 17114,
-    "completion": 3202,
-    "total": 20316
+    "prompt": 10082,
+    "completion": 1053,
+    "total": 11135
   },
   "sources": [
     "email",
@@ -14,139 +14,49 @@
   "output": {
     "items": [
       {
-        "id": "cluster_1",
+        "id": "b2d87f55d714",
         "item_ids": [
-          "f953192b431a",
-          "7f341d55e6a0"
+          "b2d87f55d714"
         ],
         "discard": false,
-        "title": "IaaS Deployment Planning — Data Requests",
-        "summary": "Ian Rae is requesting server inventory (Matt Carter), DC capacity info (George), and Aptum Cloud roadmap details (Martin) for IaaS deployment planning. Ian confirmed he has server inventory and DC space/power map, and will loop in Adam and Martin for current deployment plans.",
+        "title": "Salesforce Development Deployment Complete",
+        "summary": "Jorge Quintero completed Salesforce deployment on April 12. He confirmed everything is working and requested users reach out if they encounter any issues.",
         "actions": [],
-        "tracked_items": [
-          {
-            "text": "Matt Carter to provide server inventory showing assets relevant for Aptum IaaS",
-            "completed": true,
-            "completed_proof_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk48AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "person": null
-          },
-          {
-            "text": "George Revie to provide DC capacity map (space and power availability)",
-            "completed": true,
-            "completed_proof_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk48AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "person": "george-revie"
-          },
-          {
-            "text": "Martin Tessier to provide Aptum Cloud roadmap and deployment plans",
-            "completed": false,
-            "completed_proof_url": null,
-            "person": "martin-tessier"
-          }
-        ],
-        "individual_sources": [
-          {
-            "label": "Ian Rae: giving you the opportunity",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk5GAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Re: Inventory search and Data Center planning",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk48AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk5GAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "giving you the opportunity"
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk48AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Inventory search and Data Center planning for Private Cloud."
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 2,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-09 12:56–15:21"
-        }
-      },
-      {
-        "id": "cluster_3",
-        "item_ids": [
-          "cfdf5c8b6309",
-          "705a75cca33e"
-        ],
-        "discard": false,
-        "title": "Centrilogic Customer List — Technical Info Update",
-        "summary": "Emma Kopang corrected an attachment error and sent the proper technical information file for the Centrilogic & Aptum customer list. Separately, Elizabeth Perez is following up on Smart Scale SQL Server license verification (Ticket 12028) with Jason and Andy.",
-        "actions": [],
-        "tracked_items": [
-          {
-            "text": "Jason Auer and Andy Petterson to provide updates on Smart Scale SQL Server license verification (Ticket 12028)",
-            "completed": false,
-            "completed_proof_url": null,
-            "person": "jason-auer"
-          }
-        ],
-        "individual_sources": [
-          {
-            "label": "Re: Centrilogic & Aptum - Customer list",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk5DAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Re: Smart - Scale - Ticket 12028",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATR%2Fp%2FeAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk5DAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Centrilogic & Aptum - Customer list - Update to Technical Information"
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATR%2Fp%2FeAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 6,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-09 08:28–14:55"
-        }
-      },
-      {
-        "id": "99d7f4daf4b9",
-        "item_ids": [
-          "99d7f4daf4b9"
-        ],
-        "discard": false,
-        "title": "Expense Report Approval — OUKG001108",
-        "summary": "D365 system notification requesting approval of expense report OUKG001108.",
-        "actions": [
-          {
-            "text": "Approve expense report OUKG001108 in D365",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
         "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk5IAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Please Approve"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATsQ1leAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: SalesForce Development"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 4,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-10 13:32–2026-04-11 22:31"
+        }
+      },
+      {
+        "id": "2916ed43557e",
+        "item_ids": [
+          "2916ed43557e"
+        ],
+        "discard": false,
+        "title": "Sales Forecast & Pipeline — April 10 Update",
+        "summary": "Tom Kelsch provided Q3 sales forecast update. Notable changes include Rational Exponent Inc closed lost ($7K MRC, $21K NRC), and new opportunities created for Trace Associates ($5K MRC) and Chicken Farmers of Ontario ($5K MRC).",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATjzquAAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Sales Forecast & Pipeline - April 10th Update"
           }
         ],
         "sources": [
@@ -156,55 +66,67 @@
           "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-09 18:40"
+          "date_range": "2026-04-10 18:32"
         }
       },
       {
-        "id": "ff2f122601c3",
+        "id": "641b82b5408a",
         "item_ids": [
-          "ff2f122601c3"
+          "641b82b5408a"
         ],
         "discard": false,
-        "title": "Timecard Approval — Jason's Team Payroll",
-        "summary": "Anita Parbhudial processed Jason Auer's team timecards for March 16-31 (pay date April 15) while Jason is on vacation. She will approve as-is to meet payroll deadline and requests Jason review upon return for any corrections.",
-        "actions": [],
+        "title": "April 10 DBRG Notes — Action Items",
+        "summary": "Ian Rae mentioned Adam in DBRG notes asking whether a specific item is with Sarah Blanchard or Adam. Notes include transition plan for sales underperformers, consulting vs professional services tagging requirements, and operations performance assessment.",
+        "actions": [
+          {
+            "text": "Clarify ownership of item mentioned by Ian Rae (coordinate with Sarah Blanchard)",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
         "tracked_items": [
           {
-            "text": "Jason Auer to review team timecards upon return and notify Anita of any corrections needed",
+            "text": "Marc-Alex working with Fred on transition plan for sales underperformers",
             "completed": false,
             "completed_proof_url": null,
-            "person": "jason-auer"
+            "person": null
+          },
+          {
+            "text": "Jorge to work with Chameleon on consulting vs professional services tagging",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": "jorge-quintero"
           }
         ],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk5BAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "RE: Timecard Approval and Payroll Processing - March 16-31, 2026 for pay date April 15, 2026"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATjzqt5AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Ian Rae mentioned you in \"April 10 DBRG notes\"."
           }
         ],
         "sources": [
           "email"
         ],
         "source_stats": {
-          "email_count": 2,
+          "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-09 13:55–13:57"
+          "date_range": "2026-04-10 09:41"
         }
       },
       {
-        "id": "302493fe7baa",
+        "id": "526c5a0c86db",
         "item_ids": [
-          "302493fe7baa"
+          "526c5a0c86db"
         ],
         "discard": false,
-        "title": "TD SYNNEX Credit Terms — Lien Required",
-        "summary": "Matthew Carter flagged time-sensitive issue: TD SYNNEX will offer credit terms but requires a lien (attached). Erik is holding CTAs. Alternative is to pay a deposit. Decision needed on whether to pursue lien or deposit route.",
+        "title": "April 10 DBRG Notes Document Shared",
+        "summary": "Ian Rae shared edit access to the April 10 DBRG notes document with Adam and others.",
         "actions": [
           {
-            "text": "Decide whether to accept TD SYNNEX lien requirement or pay deposit instead",
+            "text": "Review April 10 DBRG notes document",
             "completed": false,
             "completed_proof_url": null
           }
@@ -214,77 +136,56 @@
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATgbk4%2FAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "RE: Credit App | TD SYNNEX"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATjzqt1AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Ian Rae shared \"April 10 DBRG notes\" with you"
           }
         ],
         "sources": [
           "email"
         ],
         "source_stats": {
-          "email_count": 2,
+          "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-09 09:58–13:23"
+          "date_range": "2026-04-10 08:12"
         }
       },
       {
-        "id": "558eb7ad5dde",
+        "id": "705a75cca33e",
         "item_ids": [
-          "558eb7ad5dde"
+          "705a75cca33e"
         ],
         "discard": false,
-        "title": "On-Board Data Services — SQL License Billing",
-        "summary": "Steve Rioux shared Interworks screenshot showing 3-year SQL license charges for customer (OPP-310900). Invoice will be issued in April per Bryan's information.",
+        "title": "Smart Scale SQL Server License Verification Resolution",
+        "summary": "Andy Petterson confirmed that Software Assurance is not required for Smart Scale's SQL Server scenario. For the next SPLA audit, Aptum must provide customer invoices and a signed legal letter confirming the customer's responsibility for SQL CAL compliance.",
         "actions": [],
-        "tracked_items": [],
+        "tracked_items": [
+          {
+            "text": "Obtain signed legal letter from Smart Scale regarding SQL CAL responsibility",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATR%2Fp%2FZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Fw: On-Board Data Services (OBDS) - OPP-310900"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATjzqtzAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification"
           }
         ],
         "sources": [
           "email"
         ],
         "source_stats": {
-          "email_count": 2,
+          "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-09 09:34–10:03"
-        }
-      },
-      {
-        "id": "5d281d7d28ad",
-        "item_ids": [
-          "5d281d7d28ad"
-        ],
-        "discard": false,
-        "title": "Sales Rec Variance — Darren Wells Tracking",
-        "summary": "Darren Wells clarified that sales reconciliation variance items are tracked in Jira ticket PREM-30.",
-        "actions": [],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATR%2Fp%2FWAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Sales Rec variance items - Darren Wells"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 2,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-09 09:31–09:38"
+          "date_range": "2026-04-10 06:35"
         }
       }
     ],
-    "discard_count": 42
+    "discard_count": 34
   }
 }
