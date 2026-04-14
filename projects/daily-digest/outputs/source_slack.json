@@ -1,6 +1,6 @@
 {
   "source": "slack",
-  "collected_at": "2026-04-13T14:26:48.389607Z",
+  "collected_at": "2026-04-14T12:14:37.747498Z",
   "status": "success",
   "objects": {
     "channels": {
@@ -139,14 +139,195 @@
     },
     "messages": {
       "status": "success",
-      "record_count": 0,
+      "record_count": 6,
       "error": null,
-      "data": []
+      "data": [
+        {
+          "user": "U015PLFUQET",
+          "type": "message",
+          "ts": "1776124151.894729",
+          "client_msg_id": "f2bd6ead-50a0-478c-94fe-0c9af52f2d74",
+          "text": "In the meantime, can someone like Lacie have elevated access in Ocean to be able to override these custoemr signoffs?",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "McVQh",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "In the meantime, can someone like Lacie have elevated access in Ocean to be able to override these custoemr signoffs?"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        },
+        {
+          "user": "U015PLFUQET",
+          "type": "message",
+          "ts": "1776110090.365399",
+          "client_msg_id": "e464a0b7-b234-4237-8676-21a46906d14a",
+          "text": "yeah... any update from Will?",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "lrRPN",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "yeah... any update from Will?"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        },
+        {
+          "user": "U015PLFUQET",
+          "type": "message",
+          "ts": "1776110030.229289",
+          "client_msg_id": "cfa69268-cd3f-4482-bae2-7b07399d4d9e",
+          "text": "Or we just get rid of paper contracts",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "jbISZ",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Or we just get rid of paper contracts"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        },
+        {
+          "user": "U015PLFUQET",
+          "type": "message",
+          "ts": "1776110012.736969",
+          "client_msg_id": "c56c91fd-0458-41db-890b-b5971b568731",
+          "text": "Yes, but we (people in this chat) should be able to override the customer approval",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "IfW2+",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Yes, but we (people in this chat) should be able to override the customer approval"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        },
+        {
+          "user": "U015PLFUQET",
+          "type": "message",
+          "ts": "1776108688.657849",
+          "client_msg_id": "999537e2-72c1-4acc-a437-7ef2b6b6ad62",
+          "text": "Can we bypass the ocean approval for these?",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "zLbo9",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Can we bypass the ocean approval for these?"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        },
+        {
+          "user": "U015PLFUQET",
+          "type": "message",
+          "ts": "1776108682.253389",
+          "client_msg_id": "f91ca9ed-ee0b-471f-b420-98d8531e2c5c",
+          "text": "V2V has \"paper\" orders",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "KP3G2",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "V2V has \"paper\" orders"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        }
+      ]
     }
   },
   "error": null,
   "date_range": {
-    "start": "2026-04-10",
-    "end": "2026-04-12"
+    "start": "2026-04-13",
+    "end": "2026-04-13"
   }
 }
