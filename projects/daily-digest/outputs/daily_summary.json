@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-13T14:27:28.734653Z",
+  "generated_at": "2026-04-14T12:16:53.678659Z",
   "model": "anthropic/claude-4.5-sonnet-20250929",
   "tokens": {
-    "prompt": 10082,
-    "completion": 1053,
-    "total": 11135
+    "prompt": 30359,
+    "completion": 5109,
+    "total": 35468
   },
   "sources": [
     "email",
@@ -14,119 +14,263 @@
   "output": {
     "items": [
       {
-        "id": "b2d87f55d714",
+        "id": "cluster_0",
         "item_ids": [
-          "b2d87f55d714"
+          "1d03eab7d1a4",
+          "42c122662695"
         ],
         "discard": false,
-        "title": "Salesforce Development Deployment Complete",
-        "summary": "Jorge Quintero completed Salesforce deployment on April 12. He confirmed everything is working and requested users reach out if they encounter any issues.",
-        "actions": [],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATsQ1leAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: SalesForce Development"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 4,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-10 13:32–2026-04-11 22:31"
-        }
-      },
-      {
-        "id": "2916ed43557e",
-        "item_ids": [
-          "2916ed43557e"
-        ],
-        "discard": false,
-        "title": "Sales Forecast & Pipeline — April 10 Update",
-        "summary": "Tom Kelsch provided Q3 sales forecast update. Notable changes include Rational Exponent Inc closed lost ($7K MRC, $21K NRC), and new opportunities created for Trace Associates ($5K MRC) and Chicken Farmers of Ontario ($5K MRC).",
-        "actions": [],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATjzquAAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Sales Forecast & Pipeline - April 10th Update"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 1,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-10 18:32"
-        }
-      },
-      {
-        "id": "641b82b5408a",
-        "item_ids": [
-          "641b82b5408a"
-        ],
-        "discard": false,
-        "title": "April 10 DBRG Notes — Action Items",
-        "summary": "Ian Rae mentioned Adam in DBRG notes asking whether a specific item is with Sarah Blanchard or Adam. Notes include transition plan for sales underperformers, consulting vs professional services tagging requirements, and operations performance assessment.",
+        "title": "Bell Canada DocuSign — Two Hosting Agreements",
+        "summary": "Two Bell Canada hosting and connectivity agreements require electronic signature via DocuSign. Documents are for Aptum Managed Services (Canada) Inc. orders 01396924-2 and 01396924-3.",
         "actions": [
           {
-            "text": "Clarify ownership of item mentioned by Ian Rae (coordinate with Sarah Blanchard)",
+            "text": "Sign Bell Canada agreement 01396924-3 via DocuSign",
+            "completed": false,
+            "completed_proof_url": null
+          },
+          {
+            "text": "Sign Bell Canada agreement 01396924-2 via DocuSign",
             "completed": false,
             "completed_proof_url": null
           }
         ],
+        "tracked_items": [],
+        "individual_sources": [
+          {
+            "label": "Bell eSignature — 01396924-3",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BlAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+          },
+          {
+            "label": "Bell eSignature — 01396924-2",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BkAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+          }
+        ],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BlAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Aptum Managed Services (Canada) Inc. - 01396924-3 - Services d'hébergement et d'interconnexion | Hosting & Connectivity | Bell eSignature - Signature request"
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BkAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Aptum Managed Services (Canada) Inc. - 01396924-2 - Services d'hébergement et d'interconnexion | Hosting & Connectivity | Bell eSignature - Signature request"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-13 15:50–15:51"
+        }
+      },
+      {
+        "id": "cluster_2",
+        "item_ids": [
+          "f0d4ba6b3dad",
+          "dbec704a21d8"
+        ],
+        "discard": false,
+        "title": "Basis AWS Discount — Finance Approval Needed",
+        "summary": "Dennis Lam from Finance recommends waiting for TDSynnex expense-side discounts before applying the 3% revenue discount to Basis customer. Matthew Carter reports TDSynnex onboarding is delayed pending unaudited financials from Pamela Narain, but AWS has confirmed the discount will apply even if Aptum stays with Ingram for April.",
+        "actions": [],
         "tracked_items": [
           {
-            "text": "Marc-Alex working with Fred on transition plan for sales underperformers",
+            "text": "Pamela Narain to provide unaudited financials to TDSynnex",
             "completed": false,
             "completed_proof_url": null,
             "person": null
           },
           {
-            "text": "Jorge to work with Chameleon on consulting vs professional services tagging",
+            "text": "Matthew Carter to confirm TDSynnex onboarding timeline",
             "completed": false,
             "completed_proof_url": null,
-            "person": "jorge-quintero"
+            "person": "matthew-carter"
           }
         ],
-        "individual_sources": [],
+        "individual_sources": [
+          {
+            "label": "Re: Basis Additional Discount for AWS Consumption",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BdAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+          },
+          {
+            "label": "RE: Basis Additional Discount for AWS Consumption",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BbAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+          }
+        ],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATjzqt5AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Ian Rae mentioned you in \"April 10 DBRG notes\"."
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BdAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Basis Additional Discount for AWS Consumption"
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BbAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Basis Additional Discount for AWS Consumption"
           }
         ],
         "sources": [
           "email"
         ],
         "source_stats": {
-          "email_count": 1,
+          "email_count": 7,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-10 09:41"
+          "date_range": "2026-04-13 13:42–14:51"
         }
       },
       {
-        "id": "526c5a0c86db",
+        "id": "cluster_5",
         "item_ids": [
-          "526c5a0c86db"
+          "2b066fbb0f35",
+          "048743e5cdd4"
         ],
         "discard": false,
-        "title": "April 10 DBRG Notes Document Shared",
-        "summary": "Ian Rae shared edit access to the April 10 DBRG notes document with Adam and others.",
+        "title": "VMware and Proxmox Pricing Analysis Meetings",
+        "summary": "Two separate pricing discussions scheduled: VMware P&L analysis meeting with link to Confluence documentation, and Proxmox host pricing discussion proposing additional $150 per host charge.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [
+          {
+            "label": "VMware P&L Analysis Meeting",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+          },
+          {
+            "label": "Proxmox Host Pricing Discussion",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BEAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+          }
+        ],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "VMware P&L Analysis"
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BEAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Proxmox Host Pricing Discussion"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-13 10:56–10:59"
+        }
+      },
+      {
+        "id": "cluster_7",
+        "item_ids": [
+          "0cf9e3744c86",
+          "3da0965bc728",
+          "e99845264c63",
+          "a8841777f22b"
+        ],
+        "discard": false,
+        "title": "V2V Paper Orders — Ocean Approval Bypass",
+        "summary": "Discussion in #cloud-platform-pm about V2V having paper orders that require Ocean approval. Adam asking if these can bypass Ocean approval or if paper contracts can be eliminated entirely, and whether Lacie can get elevated Ocean access to override customer signoffs.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Will Stevens to provide update on Ocean approval process",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "slack",
+            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1776110090365399",
+            "subject": "#cloud-platform-pm"
+          },
+          {
+            "source": "slack",
+            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1776110030229289",
+            "subject": "#cloud-platform-pm"
+          },
+          {
+            "source": "slack",
+            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1776108688657849",
+            "subject": "#cloud-platform-pm"
+          },
+          {
+            "source": "slack",
+            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1776108682253389",
+            "subject": "#cloud-platform-pm"
+          }
+        ],
+        "sources": [
+          "slack"
+        ],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 0,
+          "slack_count": 4,
+          "date_range": "2026-04-13 15:31–15:54"
+        }
+      },
+      {
+        "id": "65af56893b98",
+        "item_ids": [
+          "65af56893b98"
+        ],
+        "discard": false,
+        "title": "Bell Master Communication Agreement — Cabinet Transfer",
+        "summary": "Adam requested Matt Carter and Sarah Blanchard review Bell Master Communication Agreement before signing. Matt confirmed he will review. Agreement needed for cabinet transfer.",
         "actions": [
           {
-            "text": "Review April 10 DBRG notes document",
+            "text": "Review Bell Master Communication Agreement attachment before signing",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [
+          {
+            "text": "Matt Carter to review Bell agreement",
+            "completed": true,
+            "completed_proof_url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BrAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "person": "matthew-carter"
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BrAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Master Communication Agreement from Bell"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-13 15:37–19:54"
+        }
+      },
+      {
+        "id": "8fedbf02cdf9",
+        "item_ids": [
+          "8fedbf02cdf9"
+        ],
+        "discard": false,
+        "title": "Intro to Charles — OBDS Aviation Software",
+        "summary": "Ian Rae introducing Adam to Charles, CEO of OBDS (electronic flight bag and maintenance software for aircraft). Charles created compliance software with Claude that Ian thinks Adam should see given his avionics background and recent Claude successes.",
+        "actions": [
+          {
+            "text": "Connect with Charles from OBDS about Claude-based compliance software",
             "completed": false,
             "completed_proof_url": null
           }
@@ -136,8 +280,8 @@
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATjzqt1AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Ian Rae shared \"April 10 DBRG notes\" with you"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BqAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Intro"
           }
         ],
         "sources": [
@@ -147,21 +291,90 @@
           "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-10 08:12"
+          "date_range": "2026-04-13 19:44"
         }
       },
       {
-        "id": "705a75cca33e",
+        "id": "6b81e0ae9192",
         "item_ids": [
-          "705a75cca33e"
+          "6b81e0ae9192"
         ],
         "discard": false,
-        "title": "Smart Scale SQL Server License Verification Resolution",
-        "summary": "Andy Petterson confirmed that Software Assurance is not required for Smart Scale's SQL Server scenario. For the next SPLA audit, Aptum must provide customer invoices and a signed legal letter confirming the customer's responsibility for SQL CAL compliance.",
+        "title": "Managed Private Cloud Service Guide Revisions",
+        "summary": "Carlton Currey confirmed Martin relayed Adam's approval to make changes to the Managed Private Cloud Service guide. Carlton scheduled Wednesday meeting with Emma to review changes and present items not suitable for comments. OneDrive document link shared with comments.",
         "actions": [],
         "tracked_items": [
           {
-            "text": "Obtain signed legal letter from Smart Scale regarding SQL CAL responsibility",
+            "text": "Carlton and Emma to meet Wednesday to review service guide changes",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": "carlton-currey"
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BoAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Service Guide Revision"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-13 17:04"
+        }
+      },
+      {
+        "id": "961dae4ebd37",
+        "item_ids": [
+          "961dae4ebd37"
+        ],
+        "discard": false,
+        "title": "Purchase Requisition PR0003981 — Approval Required",
+        "summary": "D365 system notification requesting approval of purchase requisition PR0003981 in Dynamics 365.",
+        "actions": [
+          {
+            "text": "Approve purchase requisition PR0003981 in D365",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BnAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Please approve PR PR0003981."
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-13 16:30"
+        }
+      },
+      {
+        "id": "cfdf5c8b6309",
+        "item_ids": [
+          "cfdf5c8b6309"
+        ],
+        "discard": false,
+        "title": "Centrilogic Customer IP List — Delayed Until Tomorrow",
+        "summary": "Sergio Bernardou from Centrilogic responding to Ben Kennedy's follow-up. Adam Shafran is out today; complete IP list expected tomorrow upon his return.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Adam Shafran to provide complete Centrilogic customer IP list",
             "completed": false,
             "completed_proof_url": null,
             "person": null
@@ -171,8 +384,71 @@
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATjzqtzAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BiAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Centrilogic & Aptum - Customer list - Update to Technical Information"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-13 11:15–15:34"
+        }
+      },
+      {
+        "id": "29dc1c303a18",
+        "item_ids": [
+          "29dc1c303a18"
+        ],
+        "discard": false,
+        "title": "Professional Services Revenue Forecast — April-May 2026",
+        "summary": "Erik Tanguay provided PS planned revenues: $98,751 for April 2026 and $64,055 for May 2026. May not fully mapped yet as usual. Paul Billard acknowledged receipt.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BSAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: PS Planned Revenues - Mar-Apr 2026"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 3,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-13 09:21–13:06"
+        }
+      },
+      {
+        "id": "e72a575572b4",
+        "item_ids": [
+          "e72a575572b4"
+        ],
+        "discard": false,
+        "title": "Holtby Enterprises QBR — Azure Services Review",
+        "summary": "Roland Gonzales shared Holtby Enterprises QBR document (Jan-Mar 2026) for Azure Services prepared by Terri. Roland will schedule call with customer for Terri to present. Document shared per Adam's request.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Roland to schedule Holtby QBR presentation call with Terri",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": "roland-gonzales"
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BJAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Roland Gonzales shared \"7004945 - Holtby Enterprises - QBR - Jan-Mar2026\" with you"
           }
         ],
         "sources": [
@@ -182,10 +458,101 @@
           "email_count": 1,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-10 06:35"
+          "date_range": "2026-04-13 11:19"
+        }
+      },
+      {
+        "id": "5d281d7d28ad",
+        "item_ids": [
+          "5d281d7d28ad"
+        ],
+        "discard": false,
+        "title": "Sales Rec Variance — Jira Ticket Backup Policy",
+        "summary": "Kathy Wu received access to view sales rec variance tickets and exported details for Darren Wells items. Asking Sarah Blanchard if Jira ticket links are acceptable backup for booking these OPPs, with invoices required as proof of completion.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAATu2H%2BHAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Sales Rec variance items - Darren Wells"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-13 11:11"
+        }
+      },
+      {
+        "id": "8efdcb8d9a2e",
+        "item_ids": [
+          "8efdcb8d9a2e"
+        ],
+        "discard": false,
+        "title": "Ocean Elevated Access — Override Customer Signoffs",
+        "summary": "Adam asking in #cloud-platform-pm if Lacie can have elevated access in Ocean to override customer signoffs while longer-term solution is developed.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Grant Lacie elevated Ocean access to override customer approvals",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": "lacie-ellen-morley"
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "slack",
+            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1776124151894729",
+            "subject": "#cloud-platform-pm"
+          }
+        ],
+        "sources": [
+          "slack"
+        ],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 0,
+          "slack_count": 1,
+          "date_range": "2026-04-13 19:49"
+        }
+      },
+      {
+        "id": "4a0a7bb9db92",
+        "item_ids": [
+          "4a0a7bb9db92"
+        ],
+        "discard": false,
+        "title": "Customer Approval Override — Admin Access Needed",
+        "summary": "Adam clarifying in #cloud-platform-pm that people in the chat should be able to override customer approval requirements in Ocean.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "slack",
+            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1776110012736969",
+            "subject": "#cloud-platform-pm"
+          }
+        ],
+        "sources": [
+          "slack"
+        ],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 0,
+          "slack_count": 1,
+          "date_range": "2026-04-13 15:53"
         }
       }
     ],
-    "discard_count": 34
+    "discard_count": 51
   }
 }
