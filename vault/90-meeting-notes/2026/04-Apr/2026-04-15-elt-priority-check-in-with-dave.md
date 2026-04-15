@@ -36,6 +36,7 @@ initiative: DBRG Post-Board Priorities
 	- Get the PIP framework from Nikki - I'd rather we tweak this to be an "improvement"/"alignment" plan vs. document to fire plan.
 	- Get all the Managers to identify current roles and ensure there is an objective framework these people can be measured against
 	- Review w/ each of the managers individually.
+- Dave's feedback: "we probably worded this incorrectly" - do we have people doing similar types of work. 
 
 > [!warning] Watch out
 > Dave wants action, not just process. Be prepared to say who specifically needs to step up and what the timeline is. He may push for names.
