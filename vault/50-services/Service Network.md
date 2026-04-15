@@ -896,57 +896,54 @@ Professional Services operates via a matrixed resource model:
 **Service Manager:** Lacie Allen-Morley
 **Function:** Architecture & Delivery
 **Lifecycle:** Live
+**Confluence Link**: [Hybrid Service Delivery Management Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5044076554/Hybrid+Service+Delivery+Management)
 
-> We own the customer. Every SOW, every engagement, every account interaction that doesn't require a sales call — the single throat to choke.
+> We own the project. Every SOW, every engagement, every non-recurring delivery — from scope approval to operational handoff. The single accountability point for project execution.
+
+---
+
+## What This Function Is
+
+HSDM is the **project delivery function** for non-recurring work. It manages the Execute motion — taking what HSA has scoped and sold, coordinating the cross-functional resources to deliver it, and handing off to operational teams with full documentation.
+
+Account operations (customer queues, orders, renewals, credits, cancellations) have been separated into a dedicated **Customer Success Manager (CSM)** function, also under Lacie's org. That split lets each function run with a distinct trigger model: HSDM fires on a signed SOW; CSM fires on an inbound customer need or account event.
 
 ---
 
 ## Accountable For
 
-- Customer relationship end-to-end across all services
 - Statement of Work ownership, profitability, and on-time delivery
 - Coordinating Professional Services resource draws from home teams (dotted-line engagement model)
-- Escalation management and stakeholder alignment during engagements
-- Customer health visibility and relationship continuity between projects
-- Post-project handoff to operational teams with full documentation
-
-### Account Operations (Non-Sales Commercial Transactions)
-The board's mandate is that Fred's account managers and Marc Alex's new logo reps are myopically focused on customer conversations — no administrative leakage. SDMs own everything that touches an account but does not require a sales call:
-
-- Contract renewals (existing pricing — no new commercial negotiation)
-- Order entry
-- Credit requests
-- Cancellations
-- Any account administration that would otherwise pull a Commercial rep off a customer conversation
+- PM overhead on all project engagements — schedule, milestone tracking, risk management
+- Escalation management and stakeholder alignment during active engagements
+- Post-project handoff to operational teams with full documentation and runbooks
 
 ---
 
 ## Problems We Solve
 
-- Customer doesn't know who to call — one number, one owner
 - Projects slip because nobody owns the schedule
 - SOW scope creep goes unmanaged
-- Post-project customer feels orphaned until renewal
-- Multiple teams giving customer conflicting information
-- Account admin tasks leaking Commercial team time away from selling
+- Multiple technical teams operate in parallel without coordination
+- Post-project environments are undocumented and unsupportable
 
 ---
 
 ## Products and Services Supported
 
-- All Professional Services engagements: cloud migrations, hardware refreshes, VMware migrations, private cloud implementations, security audits, FinOps assessments, repatriation assessments
-- Ongoing relationship management for all managed service customers between projects
+- All Professional Services Execute engagements: cloud migrations, hardware refreshes, VMware migrations, private cloud implementations, Aptum IaaS onboarding, security remediations, repatriation projects, platform builds
 - Internal PS coordination model — resource draws from contributing home teams with SM approval gate
 
 ---
 
 ## What This Team Does NOT Do
 
-- Define technical scope or write hour estimates — that is HSA (SDMs own the SOW document; HSA owns the scope bullets and the hours)
+- Define technical scope or write hour estimates — that is HSA
 - Execute technical deliverables — PS contributing teams do this under dotted-line coordination
 - New commercial negotiations, new pricing, new logo acquisition — that is Fred's team and Marc Alex's team
 - Day 2 operational ticket management — that is Service Desk
-- Proactive customer health monitoring between projects — this is a gap; see CEM in operational gaps
+- Ongoing customer relationship management between projects — that is CSM
+- Account administration (order entry, renewals, credits, cancellations) — that is CSM
 
 ---
 
@@ -961,6 +958,7 @@ HSDM coordinates but does not own dedicated delivery headcount. Every PS engagem
 5. Home team SM retains quality accountability for their seconded team member
 6. HSDM owns overall engagement quality and delivery accountability end to end
 7. At project close, HSDM manages handoff to Managed Cloud or Service Desk with documentation
+8. Customer relationship continuity (post-handoff) transitions to CSM
 
 ---
 
@@ -968,29 +966,23 @@ HSDM coordinates but does not own dedicated delivery headcount. Every PS engagem
 
 ### Revenue Touch
 - Owns PS revenue: ~$738K YTD (F26)
-- Relationship owner for all ~$13.5M in customer revenue
-- Retention improvement and churn reduction sit here — 1% improvement = ~$135K
+- Directly accountable for project gross margin
 
 ### Direct Cost Driver
-- Small team — Lacie plus SDMs and coordinators
-- Labor is the primary cost
+- Lacie plus SDMs — labor is the primary cost
 - PS resource costs flow through contributing team cost centers, not HSDM
-- Account operations (order entry, renewals) carry administrative labor cost — monitor for SDM time displacement
 
 ### Margin Profile
 - PS gross margin: 29.2% — second-highest in the portfolio
 - Margin at risk if PS projects slip due to resource contention with BAU operations
-- Retention margin: every customer retained at existing MRC is 100% of that MRC protected
 
 ### How We Are Measured
 | Metric | Target |
 |---|---|
 | Project delivery on-time | ≥95% |
-| Customer satisfaction score | ≥4.5/5.0 |
 | Revenue variance vs. SOW | ≤5% |
+| Customer satisfaction score (post-project) | ≥4.5/5.0 |
 | Escalation rate | ≤2% of total interactions |
-| Customer retention post-project | ≥95% |
-| Project status reporting timeliness | 100% on schedule |
 | SOW turnaround time | To be defined |
 | Estimate accuracy | To be defined |
 
@@ -1001,21 +993,123 @@ HSDM coordinates but does not own dedicated delivery headcount. Every PS engagem
 | Dependency | Direction | Notes |
 |---|---|---|
 | Hybrid Solution Architecture | Inbound | Receives scope and budget for every SOW |
-| Service Desk | Outbound | Buys day 2 operational coverage for managed customers |
-| Managed Cloud | Outbound | Buys platform operations for cloud customers |
+| CSM | Lateral | Hands customer at project close; receives back at new engagement start |
+| Service Desk | Outbound | Target handoff destination for infrastructure-layer customers |
+| Managed Cloud | Outbound | Target handoff destination for platform/cloud customers |
 | Compute Platforms | Outbound | Buys provisioning capacity at agreed project milestones |
 | Data Center Ops | Outbound | Buys physical facility and remote hands capacity |
 | Network | Outbound | Buys connectivity capacity |
 | Commercial (Fred's team) | Lateral | Receives customer handoffs at project close; hands back commercial signals |
-| Operational Intelligence | Inbound | Customer health data and unified view (enabling CEM function when built) |
 | Finance | Lateral | Project cost tracking and profitability reporting |
+
+---
+
+# Customer Success Management (CSM)
+
+**Service Manager:** Lacie Allen-Morley
+**Function:** Operations
+**Lifecycle:** Live
+
+> We own the customer between the projects. Every order, every queue, every renewal, every account event that doesn't require a sales call — the always-on layer that keeps customers from feeling orphaned.
+
+---
+
+## What This Function Is
+
+CSM is the **recurring customer operations function**. It manages the ongoing state of the customer relationship — the continuous, between-engagements layer that runs independently of any active project or SOW.
+
+This function was separated from HSDM to give each motion a distinct owner and trigger model. HSDM fires when a SOW is signed. CSM fires when a customer has a need, an account event, or just needs someone on their side day-to-day. The two functions are under the same leader (Lacie) and hand off to each other cleanly at project start and project close.
+
+---
+
+## Accountable For
+
+### Customer Queue Management
+- Inbound customer requests that are not break-fix tickets and not active SOW work
+- Routing requests to the correct team (Service Desk for ops, HSDM for project scope, HSA for pre-sales needs)
+- Ensuring no customer request falls into a gap between functions
+
+### Account Operations (Non-Sales Commercial Transactions)
+The board's mandate is that Fred's account managers and Marc Alex's new logo reps are myopically focused on customer conversations — no administrative leakage. CSM owns everything that touches an account but does not require a sales call:
+
+- Contract renewals (existing pricing — no new commercial negotiation)
+- Order entry
+- Credit requests
+- Cancellations
+- Any account administration that would otherwise pull a Commercial rep off a customer conversation
+
+### Customer Health and Retention
+- Proactive customer health monitoring between engagements
+- Identifying customers at churn risk before they submit a cancellation
+- Escalation paths for dissatisfied customers not currently in a project
+- Regular cadence touchpoints for managed service customers
+
+---
+
+## Problems We Solve
+
+- Customer doesn't know who to call when it's not a ticket and not a project
+- Post-project customers feel orphaned — nobody's following up, nobody's checking in
+- Renewals and orders create administrative drag on Commercial team time
+- Churn signals appear between engagements when no one is watching
+- Account admin tasks accumulate without a clear owner
+
+---
+
+## What This Team Does NOT Do
+
+- Own active SOW delivery or project schedules — that is HSDM
+- Define technical scope — that is HSA
+- Respond to break-fix tickets — that is Service Desk
+- Conduct new commercial negotiations or new logo acquisition — that is Fred's team
+- Provide technical platform support — that is Managed Cloud or Service Desk
+
+---
+
+## Financial Model
+
+### Revenue Touch
+- Relationship owner for all ~$13.5M in customer revenue
+- Retention improvement and churn reduction sit here — 1% improvement = ~$135K
+- Order entry and renewals directly flow MRC changes through this function
+
+### Direct Cost Driver
+- CSM staff — labor is the primary cost
+- Monitor for time displacement from relationship work by administrative volume
+
+### Margin Profile
+- Retention margin: every customer retained at existing MRC is 100% of that MRC protected
+- Churn is the primary margin risk; CSM is the primary prevention layer
+
+### How We Are Measured
+| Metric | Target |
+|---|---|
+| Customer retention rate | ≥95% |
+| Customer satisfaction score (between projects) | ≥4.5/5.0 |
+| Renewal turnaround time | To be defined |
+| Order entry accuracy | To be defined |
+| Churn early-warning identification rate | To be defined |
+
+---
+
+## Key Dependencies
+
+| Dependency | Direction | Notes |
+|---|---|---|
+| HSDM | Lateral | Receives customers at project close; hands back at new engagement start |
+| Service Desk | Lateral | Routes operational issues; Service Desk owns the ticket, CSM owns the relationship |
+| Managed Cloud | Lateral | Platform customer health monitoring |
+| Operational Intelligence | Inbound | Customer health data, consumption patterns, churn signals |
+| Commercial (Fred's team) | Lateral | Upsell/expansion signals passed to Commercial; CSM does not own new commercial motion |
+| Finance | Lateral | Order entry, renewals, credits have finance downstream effects |
 
 ---
 
 ## Open Questions / Flags
 
-- **CEM gap:** No one currently owns proactive customer health monitoring between projects. This is a retention risk. A thin CEM function (1-2 people) sitting within HSDM with a distinct operational trigger model is the recommended resolution.
-- **SDM administrative load:** Order entry, renewals, and credit requests are the right home but carry administrative burden. Monitor whether a dedicated ops coordinator is needed to prevent SDM time displacement from customer-facing work.
+- **OI dependency:** Proactive customer health monitoring requires OI to have built a unified customer view. Interim: manual cadence touchpoints until OI moves out of Discovery.
+- **Handoff protocol:** Formal HSDM-to-CSM handoff at project close needs a documented trigger and checklist — currently implicit.
+- **Ops coordinator:** As managed customer volume grows, a dedicated coordinator for administrative work (order entry, credits, cancellations) may be needed to prevent CSM relationship time being displaced.
 
 ---
 
@@ -1196,7 +1290,8 @@ flowchart LR
         PS["Professional Services"]
         HSA["Hybrid Solution Architecture"]
         MC["Managed & Support Services"]
-        HSDM["Hybrid Service Delivery Management"]
+        HSDM["Hybrid Service Delivery Management\n(Projects / Non-Recurring)"]
+        CSM["Customer Success Management\n(Recurring / Account Ops)"]
         DATA[("Data")]
     end
 
@@ -1234,6 +1329,9 @@ flowchart LR
     HSDM --> PS
     HSDM --> MC
     HSDM --> HSA
+    HSDM <--> CSM
+    CSM --> MC
+    CSM --> PS
 
     %% Dependencies to Shared Services (dashed)
     NET -.-> CAM
@@ -1243,6 +1341,8 @@ flowchart LR
     MC -.-> CAM
     HSDM -.-> CAM
     HSDM -.-> Finance
+    CSM -.-> CAM
+    CSM -.-> Finance
 
     %% Data: bidirectional dashed to all within-nine nodes
     DATA <-.-> NET
@@ -1253,4 +1353,5 @@ flowchart LR
     DATA <-.-> HSA
     DATA <-.-> MC
     DATA <-.-> HSDM
+    DATA <-.-> CSM
 ```

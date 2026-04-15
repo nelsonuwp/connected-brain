@@ -243,7 +243,7 @@ This is a critical organizational and commercial distinction:
 | Success metric | Follow-on conversion rate | On-time/on-budget delivery, clean handoff to Operate |
 | Who scopes it | SA using assessment sell sheets and deliverable scope templates | HSA (Pat Wolthausen) architects |
 | Who delivers it | SA + specialists from home teams | HSDM (Lacie Allen-Morley) coordinating cross-functional resources |
-| Who owns the customer | AE throughout, HSDM for project delivery | AE throughout, HSDM for project delivery |
+| Who owns the customer | AE throughout; CSM for ongoing relationship | AE throughout; HSDM for project delivery; CSM between projects |
 
 ### Execute Engagement Types
 
@@ -304,7 +304,8 @@ Each motion is delivered by specific operational teams. The organizational model
 | Data Center Ops | George Revie | Physical infrastructure across 8 locations | Physical asset inventory for Infrastructure Risk assessments | Hardware deployment for refresh projects | Racks, cabling, power, remote hands |
 | Networking | Ben Kennedy | MPLS, internet, cloud connects | Network topology documentation for assessments | Connectivity implementation for Execute projects | OSI Layer 1 to 3 operations |
 | HSA | Pat Wolthausen + 3 architects | Pre-sales design, SOW scoping | **Leads assessment delivery** (SA role) | Defines technical scope for Execute SOWs | Target: 50%+ billable utilization |
-| HSDM | Lacie Allen-Morley | Customer relationship, SOW execution | AE coordination during assessment delivery | **Owns Execute project delivery** and timeline | Single point of contact across engagements |
+| HSDM | Lacie Allen-Morley | Project delivery (non-recurring / Execute motion) | AE coordination during assessment delivery | **Owns Execute project delivery** and timeline | Hands to CSM at project close |
+| CSM | Lacie Allen-Morley | Recurring customer relationship, account ops | — | Supports customer continuity between Execute engagements | Inbound queues, orders, renewals, credits, cancellations; proactive retention |
 | Professional Services | (Open, no defined manager) | Project-based execution | Assessment framework ownership (to be assigned) | Cross-functional Execute delivery | Handoff to operational teams |
 | Operational Intelligence | Jorge Quintero | Data pipelines, unified customer view | Assessment data analysis support | Metrics and reporting for project outcomes | Unified monitoring and customer view |
 
@@ -438,6 +439,8 @@ We stop running professional services as an undifferentiated bucket. The advisor
 1. Apt Cloud needs a new name. The current name creates confusion with "App Cloud" in conversation and is not differentiated in market. This is a known issue without a resolution date.
 
 2. Professional Services needs a service manager. The operating model has a gap. No single owner coordinates PS delivery (both advisory and execute), resource allocation, and margin accountability. With the advisory/execute formalization, this role becomes even more critical: the PS service manager needs to own assessment pipeline tracking, delivery quality, and follow-on conversion metrics.
+
+   **Update (April 15, 2026):** The CEM/customer relationship gap previously noted has been resolved by splitting Lacie's org into two distinct functions: HSDM (project delivery / Execute motion, non-recurring) and a new Customer Success Management (CSM) function (recurring customer ops, queues, orders, renewals, proactive retention). Both report to Lacie Allen-Morley. HSDM hands to CSM at project close; CSM hands back to HSDM at new engagement start.
 
 3. Alert Logic MDR timeline and commercial model are undefined. Listed as "IN DEVELOPMENT" in service guides. Is it partner-delivered (Alert Logic SOC) or Aptum-operated with Alert Logic tooling? This directly affects the Security Posture Assessment follow-on path.
 
