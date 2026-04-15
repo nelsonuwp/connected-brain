@@ -30,9 +30,12 @@ initiative: DBRG Post-Board Priorities
 **Dave's ask:** Evaluate ops employees for performance and skill breadth. Evolve or replace those with siloed/limited capabilities.
 **My position:**
 - Last re-org already removed underperformers + some good performers
-- Current plan: review JDs and remaining roles to set objective expectations per role
 - Some people I'd like to "step up" but no objective underperformance criteria exist yet
 - **Next step I committed to:** Update PIP framework with [[Nikki]] — current version reads like "Document and Fire" not "Performance Improve"
+- Current plan: 
+	- Get the PIP framework from Nikki - I'd rather we tweak this to be an "improvement"/"alignment" plan vs. document to fire plan.
+	- Get all the Managers to identify current roles and ensure there is an objective framework these people can be measured against
+	- Review w/ ea
 
 > [!warning] Watch out
 > Dave wants action, not just process. Be prepared to say who specifically needs to step up and what the timeline is. He may push for names.
