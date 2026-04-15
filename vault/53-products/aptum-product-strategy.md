@@ -12,7 +12,7 @@ The company has two core assets that make this possible:
 
 1. Apt Cloud (the portal, the control plane, the customer experience). Powered by CloudOps Software (formerly CloudMC). This is what the customer sees and touches. It delivers self-service provisioning, cost visibility, lifecycle management, and will increasingly surface the managed services the customer is paying for.
 
-2. Aptum IaaS (the infrastructure). Compute, storage, networking on Apache CloudStack 4.22 with KVM virtualization. Delivered as VPC (multi-tenant) and Private Cloud (single-tenant). This is the foundation that replaces commodity dedicated hosting and offers an alternative to hyperscaler infrastructure at better economics.
+2. Aptum IaaS (the infrastructure). Compute, storage, networking on Apache CloudStack 4.22 with KVM virtualization. Delivered as VPC (multi-tenant shared hosts), Dedicated Cloud (single-tenant dedicated hosts, KVM/CloudStack), and Private Cloud (dedicated hosts with VMware or Proxmox, not necessarily through Apt Cloud portal). This is the foundation that replaces commodity dedicated hosting and offers an alternative to hyperscaler infrastructure at better economics.
 
 These two assets, combined with operational teams that manage everything from the physical rack to the application layer, are what lets Aptum sell managed outcomes rather than just infrastructure components.
 
@@ -108,7 +108,7 @@ Each assessment is explicitly designed to produce findings that point at specifi
 | Infrastructure Risk | Hardware refresh, OS upgrades ($25K-$150K) | Managed OS L2 ($2K-$10K/mo) | $50K-$300K |
 | Hybrid Cloud | Architecture design, migration ($30K-$200K) | Managed CloudStack + App Platform ($5K-$30K/mo) | $100K-$500K |
 | Security Posture | Firewall replacement, hardening, remediation ($20K-$100K) | Alert Logic MDR L4, Managed Firewall L2 ($3K-$12K/mo) | $75K-$250K |
-| Cloud Repatriation | Repatriation execution ($50K-$300K) | Private Cloud + full stack ($8K-$50K/mo) | **$200K-$1M+** |
+| Cloud Repatriation | Repatriation execution ($50K-$300K) | Dedicated Cloud or Private Cloud + full stack ($8K-$50K/mo) | **$200K-$1M+** |
 | Operational Maturity | Managed services transition ($15K-$50K) | L2 + L3 + L4 stack ($3K-$15K/mo) | $50K-$200K/yr recurring |
 | Platform Modernization | K8s implementation, CI/CD build ($30K-$150K) | Managed Platform ($5K-$25K/mo) | $100K-$400K |
 | Well-Architected Review | Remediation, architecture redesign ($20K-$100K) | Public Cloud Management ($3K-$15K/mo) | $75K-$250K |
@@ -151,7 +151,7 @@ The assessments serve as the structured entry point for customers coming from tw
 
 **From on-premises (non-Aptum infrastructure):** Infrastructure Risk Assessment and Operational Maturity Assessment are the primary entry points. These customers have aging hardware, overwhelmed IT teams, and deferred maintenance. The assessment documents the risk, the remediation roadmap points at Aptum infrastructure (VPC, Private Cloud) with managed services stacked on top. The customer moves from self-managed on-prem to Aptum-managed hybrid.
 
-**From hyperscalers (pulled back to Aptum services):** Cloud Repatriation Assessment and Well-Architected Review are the primary entry points. These customers have rising cloud bills, flat usage, and workloads that don't need to be in a hyperscaler. The assessment builds the financial business case for selective repatriation to Aptum Private Cloud, with managed services providing the operational capability they would lose by leaving the hyperscaler's managed offerings.
+**From hyperscalers (pulled back to Aptum services):** Cloud Repatriation Assessment and Well-Architected Review are the primary entry points. These customers have rising cloud bills, flat usage, and workloads that don't need to be in a hyperscaler. The assessment builds the financial business case for selective repatriation to Aptum Dedicated Cloud (KVM/CloudStack through Apt Cloud) or Private Cloud (VMware/Proxmox, for customers with existing VMware requirements), with managed services providing the operational capability they would lose by leaving the hyperscaler's managed offerings.
 
 **From hybrid-by-accident (rationalization):** Hybrid Cloud Assessment catches customers who have sprawled across on-prem, colo, and one or more hyperscalers without a deliberate strategy. The assessment maps workloads to optimal placement and builds a rationalization plan that typically consolidates through Apt Cloud.
 
@@ -199,14 +199,22 @@ Compare to the same customer buying unmanaged VPC only: $7,000/mo. Managed servi
 
 Aptum IaaS, delivered through Apt Cloud, is the new infrastructure product. It replaces the legacy dedicated hosting model with a modern, self-service, software-defined infrastructure platform.
 
-Two delivery models:
+**Taxonomy clarification (April 15, 2026):** Based on alignment with Will Stevens and the product team, Aptum offers three distinct infrastructure delivery models. These had previously been conflated under the "Private Cloud" label — that conflation is resolved here. All teams should use these definitions consistently.
 
-| Model | Tenancy | Target Customer | Assessment Entry Point |
-|---|---|---|---|
-| VPC | Multi-tenant (shared compute) | Cost-conscious workloads, dev/test, general purpose | Hybrid Cloud Assessment (workload placement), Operational Maturity (infrastructure transition) |
-| Private Cloud | Single-tenant (dedicated hosts) | Production workloads, compliance-sensitive, performance-critical | Cloud Repatriation Assessment (the business case), Infrastructure Risk (the hardware refresh path) |
+Three delivery models:
 
-The board demo on March 31 confirmed production readiness. Dave Pistacchio called it "true private cloud" and directed the team to determine a fast-follow GTM timeline.
+| Model | Tenancy | Hypervisor / Stack | Delivered via Apt Cloud? | Target Customer | Assessment Entry Point |
+|---|---|---|---|---|---|
+| VPC | Multi-tenant (shared physical hosts) | KVM / Apache CloudStack | Yes — self-service via Apt Cloud portal | Cost-conscious workloads, dev/test, general purpose | Hybrid Cloud Assessment (workload placement), Operational Maturity (infrastructure transition) |
+| Dedicated Cloud | Single-tenant (dedicated physical hosts) | KVM / Apache CloudStack | Yes — delivered through Apt Cloud control plane | Production workloads requiring dedicated compute, compliance-sensitive, performance-critical, cost-predictable | Cloud Repatriation Assessment (the business case), Infrastructure Risk (the hardware refresh path) |
+| Private Cloud | Single-tenant (dedicated physical hosts) | VMware or Proxmox | No — not necessarily through Apt Cloud; direct infrastructure layer | Customers with existing VMware estates, Broadcom displacement candidates, workloads requiring VMware feature parity (vMotion, vSAN, etc.) | Cloud Repatriation Assessment, Infrastructure Risk Assessment (VMware refresh path) |
+
+**Key distinctions:**
+- VPC and Dedicated Cloud both run KVM/CloudStack and are delivered through the Apt Cloud portal. The difference is tenancy: VPC shares physical hosts, Dedicated Cloud gets dedicated hardware.
+- Private Cloud uses VMware or Proxmox on dedicated hardware and does not require the Apt Cloud control plane. It is infrastructure with managed services on top, not a cloud portal product.
+- "Private Cloud" as used in earlier documentation often referred to what is now called Dedicated Cloud. When referencing infrastructure delivered through Apt Cloud on dedicated hosts, the correct term going forward is **Dedicated Cloud**.
+
+The board demo on March 31 confirmed production readiness of VPC and Dedicated Cloud. Dave Pistacchio called it "true private cloud" and directed the team to determine a fast-follow GTM timeline.
 
 Pre-launch validation: 7 Ignite customers, $39,119/mo CAD MRC, 36-month contracts. Gross margins of 74 to 89%.
 
@@ -250,7 +258,7 @@ This is a critical organizational and commercial distinction:
 | Engagement | What It Produces | Typical Assessment Origin | Where It Leads (Operate) |
 |---|---|---|---|
 | Cloud Migration | Workload assessment, migration plan, execution | Hybrid Cloud Assessment, Cloud Repatriation Assessment | Customer lands on Aptum IaaS or Apt Cloud-managed Azure/AWS, buys managed services |
-| Repatriation Project | Workload moved from hyperscaler to Aptum Private Cloud | Cloud Repatriation Assessment | Customer on Private Cloud with full managed services stack |
+| Repatriation Project | Workload moved from hyperscaler to Aptum Dedicated Cloud or Private Cloud | Cloud Repatriation Assessment | Customer on Dedicated Cloud (KVM/Apt Cloud) or Private Cloud (VMware/Proxmox) with full managed services stack |
 | Hardware Refresh | EOL server replacement, spec, procure, build, migrate, decommission | Infrastructure Risk Assessment | Customer moves from legacy dedicated to VPC or Private Cloud |
 | Security Remediation | Firewall replacement, OS upgrades, hardening, compliance alignment | Security Posture Assessment | Customer buys Alert Logic MDR, managed firewall, compliance reporting |
 | Platform Build | Kubernetes implementation, CI/CD pipeline, container platform | Platform Modernization Assessment | Customer on managed Kubernetes/CloudStack with DevOps monitoring |
@@ -281,7 +289,7 @@ The managed services catalog (see separate document) defines the five layers in 
 | Customer Origin | Entry Assessment | Execute Step | Operate Destination | Expected MRC |
 |---|---|---|---|---|
 | On-prem with aging hardware | Infrastructure Risk | Hardware refresh or migration to VPC/Private Cloud | L1 + L2 (Monitoring + Managed OS) | $5K-$15K/mo |
-| Hyperscaler with rising costs | Cloud Repatriation | Selective repatriation to Private Cloud | L1 + L2 + L5 (Monitoring + Managed OS + Hybrid Connectivity) | $10K-$50K/mo |
+| Hyperscaler with rising costs | Cloud Repatriation | Selective repatriation to Dedicated Cloud (KVM/Apt Cloud) or Private Cloud (VMware/Proxmox) | L1 + L2 + L5 (Monitoring + Managed OS + Hybrid Connectivity) | $10K-$50K/mo |
 | Hybrid-by-accident | Hybrid Cloud | Architecture rationalization, workload placement | L2 + L3 + L5 (Managed OS + App Platform + Hybrid Connectivity) | $8K-$25K/mo |
 | Compliance-driven | Security Posture | Security remediation, firewall upgrades | L2 + L4 (Managed Firewall + Security & Compliance) | $5K-$17K/mo |
 | Overwhelmed IT team | Operational Maturity | Managed services transition | L2 + L3 + L4 (full ops handoff) | $8K-$30K/mo |
@@ -366,7 +374,7 @@ The Ignite program proved the model: 7 new logos, $39K/mo MRC, 74 to 89% gross m
 For new logos, the assessment is the first engagement. The customer does not start by signing a managed services contract. The customer starts by paying $5K to $40K for an assessment that maps their environment, quantifies their pain, and produces a roadmap that happens to land on Aptum infrastructure and services.
 
 Recommended assessment plays for new logos:
-- VMware customers feeling Broadcom pressure: Hybrid Cloud Assessment or Cloud Repatriation Assessment. The assessment builds the business case for moving to CloudStack/Proxmox on Aptum IaaS.
+- VMware customers feeling Broadcom pressure: Hybrid Cloud Assessment or Cloud Repatriation Assessment. The assessment builds the business case for moving to Dedicated Cloud (KVM/CloudStack via Apt Cloud) or Private Cloud (Proxmox on dedicated hardware) on Aptum IaaS.
 - Cloud-fatigued mid-market: Cloud Repatriation Assessment. The assessment documents the overspend and models the savings from selective repatriation.
 - Compliance-driven organizations: Security Posture Assessment. The assessment documents the compliance gaps and positions Aptum's managed security stack as the remediation path.
 

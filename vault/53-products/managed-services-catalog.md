@@ -27,7 +27,8 @@ These are the "base products." Customers can consume them self-service (where av
 | **Dedicated Server** | Aptum-owned bare metal, single-tenant | Manual (Martin builds, George racks) | Future: inventory/status | Hardware health monitoring, replacement |
 | **BMaaS** | Canonical MAAS via CloudStack Extensions | Self-service (roadmap) | Roadmap | Hardware health, MAAS platform ops |
 | **VPC** | CloudStack VMs, multi-tenant shared hosts | **Self-service (live)** | **Live** | CloudStack cluster ops, hypervisor health, network |
-| **Private Cloud** | CloudStack VMs, single-tenant dedicated hosts | Semi-automated | Platform capable | Dedicated host management, hypervisor, storage |
+| **Dedicated Cloud** | CloudStack VMs, single-tenant dedicated hosts (KVM/CloudStack via Apt Cloud) | Semi-automated | Platform capable | Dedicated host management, hypervisor, storage |
+| **Private Cloud** | VMware or Proxmox on dedicated hosts (not necessarily via Apt Cloud) | Manual | Platform capable | Hypervisor ops, VMware/Proxmox cluster management |
 | **Proxmox** | Proxmox VE via CloudStack Extensions | Roadmap | Roadmap | Proxmox cluster ops (Jason's team, new skill) |
 | **Public Cloud** | Azure (live), AWS/GCP (roadmap) | **Self-service (live — Azure)** | **Live** | N/A — hyperscaler owns infra |
 | **Kubernetes** | K8s via CSI integration | Roadmap | Roadmap | Cluster infrastructure ops |

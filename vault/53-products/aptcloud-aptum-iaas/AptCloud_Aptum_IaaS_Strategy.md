@@ -121,7 +121,7 @@ Everything Apt Cloud can deliver, organized as a service catalog. **The platform
 | Service | Orchestration | Hypervisor / Runtime | Infra Tenancy | Platform Tenancy | Pricing Model | Status |
 |---|---|---|---|---|---|---|
 | **VPC** | CloudStack native | KVM | **Multi-tenant** - shared physical hosts, logically isolated via VLANs | Multi-tenant Apt Cloud | Per vCPU/GB/GB-storage/mo | **Live** |
-| **Private Cloud (Virtual)** | CloudStack native | KVM | **Single-tenant** - dedicated physical hosts, customer's VMs only | Multi-tenant Apt Cloud | Per vCPU/GB/GB-storage/mo or per-host | **Live** |
+| **Dedicated Cloud** | CloudStack native | KVM | **Single-tenant** - dedicated physical hosts, customer's VMs only | Multi-tenant Apt Cloud | Per vCPU/GB/GB-storage/mo or per-host | **Live** |
 | **Bare Metal as a Service** | CloudStack → MAAS extension (4.22) | None - direct hardware | **Single-tenant** - dedicated physical server, no hypervisor | Multi-tenant Apt Cloud | Per server/mo | **Roadmap** (4.22 ready, needs testing + operationalization). Self-service: customers provision pre-racked hardware through Apt Cloud portal without operator intervention. |
 | **Proxmox Managed** | CloudStack → Proxmox extension (4.21+) | KVM (Proxmox VE) | Flexible - can be multi or single tenant depending on deployment | Multi-tenant Apt Cloud | TBD | **Roadmap** (4.21+ ready, ops capability exists, needs testing) |
 | **VMware Private Cloud** | Apt Cloud VCD plugin (ThinkOn) or CloudStack native ESXi | VMware ESXi | **Single-tenant** - dedicated hosts | Multi-tenant Apt Cloud | Per vCPU/GB/GB-storage/mo | **Live** (via ThinkOn MTC); licensing via ThinkOn |
@@ -157,13 +157,13 @@ The tenancy model is defined explicitly in the PRD (Section 3.3) and summarized 
 | | Physical Hardware | Hypervisor Layer | Network Isolation | Data Commingling |
 |---|---|---|---|---|
 | **VPC** | Shared hosts - multiple customers' VMs on same physical server | KVM - shared | VLANs (VXLAN support TBD) | Yes - logically isolated but physically colocated |
-| **Private Cloud (Virtual)** | Dedicated hosts - one customer per physical server | KVM - dedicated | VLANs / dedicated | No - customer's VMs only on their hosts |
+| **Dedicated Cloud** | Dedicated hosts - one customer per physical server | KVM - dedicated | VLANs / dedicated | No - customer's VMs only on their hosts |
 | **Bare Metal (MAAS)** | Dedicated server - one customer per physical machine | None | Dedicated NICs or VLANs | No - customer has direct hardware |
 | **Proxmox Managed** | Depends on deployment model | KVM (Proxmox) | Depends on deployment | Depends on deployment |
 | **VMware Private Cloud** | Dedicated hosts | ESXi - dedicated | VLANs / NSX | No - single-tenant |
 | **Azure / AWS / GCP** | Hyperscaler's model | Hyperscaler's model | Hyperscaler's model | Hyperscaler's model |
 
-**The critical point:** A Private Cloud customer or a Bare Metal customer still logs into the same shared Apt Cloud portal. A reseller's customers on VPC are multi-tenant at the infrastructure level but isolated at the platform level through org hierarchy. The tenancy boundaries are different at each layer, and the platform normalizes the operational experience regardless of underlying tenancy.
+**The critical point:** A Dedicated Cloud customer or a Bare Metal customer still logs into the same shared Apt Cloud portal. A reseller's customers on VPC are multi-tenant at the infrastructure level but isolated at the platform level through org hierarchy. The tenancy boundaries are different at each layer, and the platform normalizes the operational experience regardless of underlying tenancy.
 
 ---
 
@@ -1044,7 +1044,8 @@ Growth scenarios and specific financial targets are maintained in a separate fin
 | **Canonical MAAS** | Metal as a Service - open-source bare metal provisioning tool from Canonical. Integrated with CloudStack via Extensions Framework in 4.22. |
 | **Proxmox VE** | Open-source virtualization platform (KVM-based) with built-in clustering, Ceph storage, and web UI. Integrated with CloudStack via Extensions Framework in 4.21+. |
 | **VPC** | Virtual Private Cloud. Multi-tenant shared compute with logical isolation. |
-| **Private Cloud** | Single-tenant dedicated compute. Combines technology + managed services. |
+| **Dedicated Cloud** | Single-tenant dedicated compute on KVM/CloudStack, delivered through Apt Cloud portal. Previously referred to as "Private Cloud (Virtual)" in this document. |
+| **Private Cloud** | Dedicated hardware with VMware or Proxmox. Not necessarily delivered through Apt Cloud. Managed services sit on top of the infrastructure layer. |
 | **BMaaS** | Bare Metal as a Service. Dedicated physical servers provisioned via MAAS without a hypervisor layer. |
 | **ShapeBlue** | Leading CloudStack consulting and engineering firm (London-based). Key community contributor and potential support partner. |
 | **ThinkOn** | Canadian cloud provider (Toronto). Current MTC infrastructure partner. VMware licensing source. Channel-only model. Future competitive dynamics as Aptum migrates MTC customers. |
