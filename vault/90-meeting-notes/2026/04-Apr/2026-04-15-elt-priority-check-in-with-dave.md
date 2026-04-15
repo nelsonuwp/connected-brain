@@ -158,9 +158,10 @@ If any of these come up in discussion, here's how they tie back:
 
 
 ## Action Items
-| Action | Owner | By When |
-|--------|-------|---------|
-| | | |
+| Action                                                                         | Owner              | By When |
+| ------------------------------------------------------------------------------ | ------------------ | ------- |
+| Existing MTC customers that can be pulled back to Aptum Porta/Aptum Iaas       | [[Martin Tessier]] |         |
+| Existing Aptum Cloud customers that can be migrated to Aptum Portal/Aptum IaaS | [[Martin Tessier]] |         |
 
 ## Open Loops to Add
 <!-- Things to copy to [[open-loops]] after the meeting -->
