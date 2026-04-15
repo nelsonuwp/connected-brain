@@ -14,8 +14,8 @@
 
 - Configuration standards across all compute products — what a correct environment looks like
 - Automation playbooks for environment build: OS install, monitoring agent deployment, backup agent, config push
-- Private cloud environment delivery: VMware ESXi, Proxmox
-- AptCloud platform build and operations: Apache CloudStack, shared and dedicated clusters
+- Private Cloud environment delivery: VMware ESXi, Proxmox (dedicated hardware, not through Apt Cloud portal)
+- AptCloud platform build and operations: Apache CloudStack — shared clusters (VPC) and dedicated clusters (Dedicated Cloud)
 - Handoff documentation and runbooks at environment completion
 - L3 escalation support on all environments this team has built — they hold the deep technical knowledge
 
@@ -34,8 +34,8 @@
 ## Products and Services Supported
 
 - Dedicated servers: Pro Dell PE R-660XS and full server catalog
-- Private cloud: VMware ESXi 7.0/8.0, Proxmox
-- AptCloud: Apache CloudStack, shared and dedicated clusters (Alpha — building toward Beta)
+- Private Cloud: VMware ESXi 7.0/8.0, Proxmox (dedicated hardware, not through Apt Cloud portal)
+- AptCloud / Dedicated Cloud: Apache CloudStack, shared clusters (VPC) and dedicated clusters (Dedicated Cloud) (Alpha — building toward Beta)
 - Guest Virtual environments
 - Storage platforms: NetApp FAS, SolidFire All-Flash
 
