@@ -1,0 +1,258 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .container { padding: 1rem 0; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .filter-btn { font-size: 13px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; }
+  .filter-btn:hover { background: var(--color-background-secondary); }
+  .filter-btn.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+  .item { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 10px; display: flex; gap: 14px; align-items: flex-start; }
+  .item:hover { border-color: var(--color-border-secondary); }
+  .rank { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); min-width: 22px; padding-top: 2px; }
+  .body { flex: 1; }
+  .item-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 5px; }
+  .item-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+  .badge { font-size: 11px; padding: 2px 9px; border-radius: 20px; white-space: nowrap; }
+  .badge-critical { background: #FCEBEB; color: #A32D2D; }
+  .badge-high { background: #FAEEDA; color: #854F0B; }
+  .badge-medium { background: #E6F1FB; color: #185FA5; }
+  .badge-low { background: #EAF3DE; color: #3B6D11; }
+  .tag { font-size: 11px; padding: 2px 9px; border-radius: 20px; border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); white-space: nowrap; }
+  .item-desc { font-size: 13px; color: var(--color-text-secondary); line-height: 1.55; }
+  .owner { font-size: 12px; color: var(--color-text-tertiary); margin-top: 5px; }
+</style>
+
+<div class="container">
+  <div class="filters">
+    <button class="filter-btn active" onclick="filter('all', this)">All</button>
+    <button class="filter-btn" onclick="filter('Critical', this)">Critical</button>
+    <button class="filter-btn" onclick="filter('High', this)">High</button>
+    <button class="filter-btn" onclick="filter('Medium', this)">Medium</button>
+    <button class="filter-btn" onclick="filter('People & Productivity', this)">People</button>
+    <button class="filter-btn" onclick="filter('Process & Technology', this)">Process</button>
+    <button class="filter-btn" onclick="filter('Product', this)">Product</button>
+    <button class="filter-btn" onclick="filter('Finance', this)">Finance</button>
+    <button class="filter-btn" onclick="filter('ICP / GTM', this)">ICP / GTM</button>
+  </div>
+  <div id="list"></div>
+</div>
+
+<script>
+const items = [
+  {
+    rank: 1,
+    title: "Begin recruiting pipeline for new sales reps immediately",
+    priority: "Critical",
+    area: "People & Productivity",
+    desc: "Establish a candidate pipeline now to allow time for onboarding and ramp before GTM plans execute. This is time-sensitive given the lead time required.",
+    owner: "Sales Leadership / HR"
+  },
+  {
+    rank: 2,
+    title: "Replace underperforming sales reps costing more than they produce",
+    priority: "Critical",
+    area: "People & Productivity",
+    desc: "Identify and act on sales team members where cost exceeds bookings contribution. Decisions must be made quickly to allow replacement ramp time.",
+    owner: "Sales Leadership"
+  },
+  {
+    rank: 3,
+    title: "Link Advisory → Execute engagements → MRR in Salesforce (via Chameleon)",
+    priority: "Critical",
+    area: "Process & Technology",
+    desc: "Top priority: configure Salesforce (with Chameleon) to track and report the full PS-to-MRR pipeline path. Critical for revenue visibility and forecasting.",
+    owner: "Ops / Chameleon"
+  },
+  {
+    rank: 4,
+    title: "Assess and act on operations team underperformers",
+    priority: "Critical",
+    area: "People & Productivity",
+    desc: "Evaluate operations employees for performance and skill breadth. Develop and execute a plan to evolve or replace those with siloed or limited capabilities.",
+    owner: "Operations Leadership"
+  },
+  {
+    rank: 5,
+    title: "Define a single, unified Ideal Customer Profile (ICP)",
+    priority: "Critical",
+    area: "ICP / GTM",
+    desc: "Consolidate existing product-specific ICPs into one company-wide ICP. This enables consistent target market definition, segmentation, and GTM planning.",
+    owner: "Marketing / Sales"
+  },
+  {
+    rank: 6,
+    title: "Develop Ideal Customer Engagement (ICE) framework",
+    priority: "High",
+    area: "ICP / GTM",
+    desc: "Define how the company engages with customers and progresses relationships — a companion piece to the ICP. Raised by JP.",
+    owner: "Sales / Marketing"
+  },
+  {
+    rank: 7,
+    title: "Simplify P&L — eliminate LOB breakout, align to investor view",
+    priority: "High",
+    area: "Finance",
+    desc: "Restructure financial reporting to remove line-of-business splits while retaining product margin visibility. Format must align with what investors/CIM will require — no ad hoc reformatting later.",
+    owner: "Finance / CFO"
+  },
+  {
+    rank: 8,
+    title: "Simplify Salesforce to remove multi-opportunity LOB requirement",
+    priority: "High",
+    area: "Process & Technology",
+    desc: "Align Salesforce configuration to the simplified P&L structure. Removing LOB-driven opportunity splitting should improve forecasting compliance and data quality.",
+    owner: "Ops / Salesforce Admin"
+  },
+  {
+    rank: 9,
+    title: "Evaluate Cloud MC maturity and readiness for Apt Cloud",
+    priority: "High",
+    area: "Product",
+    desc: "Assess how Cloud MC works, how it compares to competitive alternatives, its current maturity level, and the timeline and effort to bring it to production-ready status.",
+    owner: "Product / Engineering"
+  },
+  {
+    rank: 10,
+    title: "Conduct competitive analysis: Apt Cloud vs. market",
+    priority: "High",
+    area: "Product",
+    desc: "Clarify how Apt Cloud (Private Cloud) fits in the marketplace relative to competitors. Define the best migration path from hosting to private cloud.",
+    owner: "Product / Sales Engineering"
+  },
+  {
+    rank: 11,
+    title: "Enhance Salesforce for forecasting, product capture, and proposals",
+    priority: "High",
+    area: "Process & Technology",
+    desc: "Configure Salesforce to enforce better forecasting discipline and enable reps to capture products/services, close deals, and generate proposals within the platform.",
+    owner: "Ops / Salesforce Admin"
+  },
+  {
+    rank: 12,
+    title: "Rethink and expand cancellation, churn, and loss reason data codes",
+    priority: "High",
+    area: "Process & Technology",
+    desc: "Improve the granularity and usefulness of codes for churn reasons, lost sales, equipment issues, etc. to enable better decision-making and trend analysis.",
+    owner: "Operations / CX"
+  },
+  {
+    rank: 13,
+    title: "Assess Business Services / Back Office team and roles",
+    priority: "High",
+    area: "People & Productivity",
+    desc: "Evaluate personnel and role alignment in the back office. Execute appropriate personnel and structural changes.",
+    owner: "Business Services Leadership"
+  },
+  {
+    rank: 14,
+    title: "Build AI-powered churn prediction capability",
+    priority: "Medium",
+    area: "ICP / GTM",
+    desc: "Use AI to model churn risk and enable proactive retention intervention before customers cancel.",
+    owner: "Data / Product"
+  },
+  {
+    rank: 15,
+    title: "Enhance AI-driven customer intelligence for the sales process",
+    priority: "Medium",
+    area: "ICP / GTM",
+    desc: "Continue building AI capabilities that help sales understand and engage customers more effectively.",
+    owner: "Sales / Data"
+  },
+  {
+    rank: 16,
+    title: "Evaluate and streamline SKU/product catalog (reduce ordering complexity)",
+    priority: "Medium",
+    area: "Product",
+    desc: "Consolidate bloated SKU structures (e.g., multiple memory config SKUs) to simplify ordering and fulfillment.",
+    owner: "Product / Operations"
+  },
+  {
+    rank: 17,
+    title: "Package Professional Services for simple, scalable ordering",
+    priority: "Medium",
+    area: "Product",
+    desc: "Define how PS Advisory engagements are packaged and priced so they can be ordered easily without custom effort per deal.",
+    owner: "PS / Product"
+  },
+  {
+    rank: 18,
+    title: "Define PS resource availability, billing rates, and utilization model",
+    priority: "Medium",
+    area: "People & Productivity",
+    desc: "Establish visibility into PS resource capacity, a methodology for setting hourly rates, and expected utilization benchmarks.",
+    owner: "Professional Services"
+  },
+  {
+    rank: 19,
+    title: "Build PS performance-vs-estimate reporting",
+    priority: "Medium",
+    area: "People & Productivity",
+    desc: "Create the ability to analyze actual PS engagement performance against original estimates to improve scoping and profitability.",
+    owner: "Professional Services / Finance"
+  },
+  {
+    rank: 20,
+    title: "Evaluate CPQ tool — enhance or replace",
+    priority: "Medium",
+    area: "Process & Technology",
+    desc: "Assess whether the current CPQ tool meets the needs of reps and SAs or if it should be upgraded/replaced to reduce friction in the quoting process. Raised by Adam.",
+    owner: "Sales Ops"
+  },
+  {
+    rank: 21,
+    title: "Improve internal communication of marketing, product, and GTM info",
+    priority: "Medium",
+    area: "ICP / GTM",
+    desc: "Make it easier for all employees to find and understand marketing initiatives, product updates, and go-to-market strategies. Current Confluence setup is too complex.",
+    owner: "Marketing / Comms"
+  },
+  {
+    rank: 22,
+    title: "Improve company-wide product training",
+    priority: "Medium",
+    area: "Product",
+    desc: "Establish baseline training so all employees understand the company's infrastructure, cloud, and PS offerings.",
+    owner: "HR / Product / Enablement"
+  },
+  {
+    rank: 23,
+    title: "Review and streamline all key sales and operational processes",
+    priority: "Medium",
+    area: "Process & Technology",
+    desc: "Audit existing processes to eliminate friction, ensure system compliance, and update data tables (loss reasons, churn reasons, etc.) to reflect current business needs.",
+    owner: "Operations"
+  }
+];
+
+let currentFilter = 'all';
+
+function filter(val, btn) {
+  currentFilter = val;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function render() {
+  const list = document.getElementById('list');
+  const filtered = currentFilter === 'all' ? items : items.filter(i => i.priority === currentFilter || i.area === currentFilter);
+  list.innerHTML = filtered.map(i => `
+    <div class="item">
+      <div class="rank">#${i.rank}</div>
+      <div class="body">
+        <div class="item-header">
+          <span class="item-title">${i.title}</span>
+          <span class="badge badge-${i.priority.toLowerCase()}">${i.priority}</span>
+          <span class="tag">${i.area}</span>
+        </div>
+        <div class="item-desc">${i.desc}</div>
+        <div class="owner">Owner: ${i.owner}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+render();
+</script>
