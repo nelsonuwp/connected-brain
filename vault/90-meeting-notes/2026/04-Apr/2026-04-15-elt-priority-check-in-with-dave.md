@@ -37,6 +37,10 @@ initiative: DBRG Post-Board Priorities
 	- Get all the Managers to identify current roles and ensure there is an objective framework these people can be measured against
 	- Review w/ each of the managers individually.
 - Dave's feedback: "we probably worded this incorrectly" - do we have people doing similar types of work. 
+	- This i covered with right-sizing and aligning the teams (with is what wer are doing with the updates of the service description)
+	- PIP should be 2 things:
+		- Disciplinary action path: people who have lost the will to do good work
+		- Actual PIP: How you can work with this person to improve
 
 > [!warning] Watch out
 > Dave wants action, not just process. Be prepared to say who specifically needs to step up and what the timeline is. He may push for names.
