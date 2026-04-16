@@ -1,6 +1,6 @@
 {
   "source": "slack",
-  "collected_at": "2026-04-15T12:04:09.816320Z",
+  "collected_at": "2026-04-16T10:49:01.731425Z",
   "status": "success",
   "objects": {
     "channels": {
@@ -139,14 +139,228 @@
     },
     "messages": {
       "status": "success",
-      "record_count": 0,
+      "record_count": 1,
       "error": null,
-      "data": []
+      "data": [
+        {
+          "user": "U04BFJDQXEW",
+          "type": "message",
+          "ts": "1776257913.226679",
+          "client_msg_id": "2bd469c9-5c5b-4a58-a52f-cdc6003bb098",
+          "text": "Hello - *A new W-AR pricing sheet has been uploaded to the SOW folder and can be found here* - <https://disks.sharepoint.com/:x:/r/sites/GSESalesEngagement/Shared%20Documents/Versioned%20Templates%20%26%20Assets%20-%20WIP/Base%20Templates%20-%20WIP/Templates%20with%20New%20Title%20Page/W-AR%20Pricing%20Sheet%20(April%202026).xlsx?d=w2627d5c37056433cbf6fd130c544457f&amp;csf=1&amp;web=1&amp;e=2OYIdU|W-AR Pricing Sheet (April 2026).xlsx>.\n\nThe pricing sheet is meant to be used as a basis for quoting any well-architected review. Based on the recent work around W-ARs and the creation of the various templates, *we are averaging approximately 40 hours between all team members and meetings for delivery.* The work breaks down as follows:\n1. Initial reporting tool installation and review\n2. Workshop to review initial findings and perform further discovery on current architecture.\n3. Analysis and reporting\n4. Results review (Internal and Customer)\n<@UPWJZLCV7> has reviewed and approved the hours and stories in the pricing sheet.\n\n<@U015PLFUQET> <@U05UU07N5EW> - *Based on this pricing sheet the cost of a W-AR is now estimated at the following using the <https://aptum.atlassian.net/wiki/spaces/KAOS/pages/4985585665/Service+Delivery+Billable+Rates+Role+Definitions|current blended rate found here>.*\n• $11,000 (CAD) \n• $8,400 (USD) \n• £6,800 (GBP) \n• €7,600 (EUR)\nPlease let us know if we'll be using these new rates to quote to customers or if we'll be staying with the 'unofficial' $5K rate that's usually used.\n\nIf there are any questions about the pricing sheet, please reach out. Thank you - Barb",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "VaJOu",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Hello - "
+                    },
+                    {
+                      "type": "text",
+                      "text": "A new W-AR pricing sheet has been uploaded to the SOW folder and can be found here",
+                      "style": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " - "
+                    },
+                    {
+                      "type": "link",
+                      "url": "https://disks.sharepoint.com/:x:/r/sites/GSESalesEngagement/Shared%20Documents/Versioned%20Templates%20%26%20Assets%20-%20WIP/Base%20Templates%20-%20WIP/Templates%20with%20New%20Title%20Page/W-AR%20Pricing%20Sheet%20(April%202026).xlsx?d=w2627d5c37056433cbf6fd130c544457f&csf=1&web=1&e=2OYIdU",
+                      "text": "W-AR Pricing Sheet (April 2026).xlsx"
+                    },
+                    {
+                      "type": "text",
+                      "text": ".\n\nThe pricing sheet is meant to be used as a basis for quoting any well-architected review. Based on the recent work around W-ARs and the creation of the various templates, "
+                    },
+                    {
+                      "type": "text",
+                      "text": "we are averaging approximately 40 hours between all team members and meetings for delivery. ",
+                      "style": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "The work breaks down as follows:\n"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_list",
+                  "elements": [
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "Initial reporting tool installation and review"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "Workshop to review initial findings and perform further discovery on current architecture."
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "Analysis and reporting"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "Results review (Internal and Customer)"
+                        }
+                      ]
+                    }
+                  ],
+                  "style": "ordered",
+                  "indent": 0,
+                  "border": 0
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "user",
+                      "user_id": "UPWJZLCV7"
+                    },
+                    {
+                      "type": "text",
+                      "text": " has reviewed and approved the hours and stories in the pricing sheet.\n\n"
+                    },
+                    {
+                      "type": "user",
+                      "user_id": "U015PLFUQET"
+                    },
+                    {
+                      "type": "text",
+                      "text": " "
+                    },
+                    {
+                      "type": "user",
+                      "user_id": "U05UU07N5EW"
+                    },
+                    {
+                      "type": "text",
+                      "text": " - "
+                    },
+                    {
+                      "type": "text",
+                      "text": "Based on this pricing sheet the cost of a W-AR is now estimated at the following using the ",
+                      "style": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "type": "link",
+                      "url": "https://aptum.atlassian.net/wiki/spaces/KAOS/pages/4985585665/Service+Delivery+Billable+Rates+Role+Definitions",
+                      "text": "current blended rate found here",
+                      "style": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": ".",
+                      "style": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "\n"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text_list",
+                  "elements": [
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "$11,000 (CAD) "
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "$8,400 (USD) "
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "£6,800 (GBP) "
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "€7,600 (EUR)"
+                        }
+                      ]
+                    }
+                  ],
+                  "style": "bullet",
+                  "indent": 0,
+                  "border": 0
+                },
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Please let us know if we'll be using these new rates to quote to customers or if we'll be staying with the 'unofficial' $5K rate that's usually used.\n\nIf there are any questions about the pricing sheet, please reach out. Thank you - Barb"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Barbara Krzywoszanski"
+        }
+      ]
     }
   },
   "error": null,
   "date_range": {
-    "start": "2026-04-14",
-    "end": "2026-04-14"
+    "start": "2026-04-15",
+    "end": "2026-04-15"
   }
 }
