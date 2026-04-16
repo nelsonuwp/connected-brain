@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-15T12:05:36.459227Z",
+  "generated_at": "2026-04-16T10:50:33.970521Z",
   "model": "anthropic/claude-4.5-sonnet-20250929",
   "tokens": {
-    "prompt": 13744,
-    "completion": 1963,
-    "total": 15707
+    "prompt": 17421,
+    "completion": 2434,
+    "total": 19855
   },
   "sources": [
     "email",
@@ -16,93 +16,16 @@
       {
         "id": "cluster_0",
         "item_ids": [
-          "8328dcdfa8e9",
-          "2b10a51fdd76"
+          "04a16c600d98",
+          "147457f28b83"
         ],
         "discard": false,
-        "title": "Aptum/ThinkOn Catch-Up — Meeting Scheduled",
-        "summary": "Ian Rae scheduled an 8:30 AM meeting to review updates on the Aptum/ThinkOn discussions. JP Rosato confirmed availability and Ian will schedule a follow-up hour-long meeting for next week.",
+        "title": "Jira Work Item Creation Failures from Estruxture",
+        "summary": "Adam forwarded two automated notifications about failed work item creation in Aptum Customer Care from support@estruxture.com, asking the team to investigate the issue.",
         "actions": [],
         "tracked_items": [
           {
-            "text": "Ian Rae to schedule hour-long meeting next week for Aptum/ThinkOn discussion",
-            "completed": false,
-            "completed_proof_url": null,
-            "person": null
-          }
-        ],
-        "individual_sources": [
-          {
-            "label": "Re: Catch up",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlO6AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Re: Aptum/ThinkOn",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlO4AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlO6AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Catch up"
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlO4AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Aptum/ThinkOn"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 6,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-14 09:54–19:09"
-        }
-      },
-      {
-        "id": "aa77044a8192",
-        "item_ids": [
-          "aa77044a8192"
-        ],
-        "discard": false,
-        "title": "DBRG Priorities — Expert Services Restructuring Proposal",
-        "summary": "Adam commented on the DBRG priorities document proposing to extract Expert Services from Cloud Platform and restructure into three lines of business: Infrastructure (physical infra), Cloud (hyperscaler or including private cloud), and Expert Services (management tiers + PM + PS).",
-        "actions": [],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT419DtAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson left a comment in \"Update on DBRG priorities\""
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 1,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-14 17:33"
-        }
-      },
-      {
-        "id": "d2e72b3823bb",
-        "item_ids": [
-          "d2e72b3823bb"
-        ],
-        "discard": false,
-        "title": "DBRG Priorities — Professional Services Attribution",
-        "summary": "Adam replied to a comment clarifying that Jorge Quintero remains involved from a process perspective for data pipeline coherence, but Professional Services attribution should move to Sarah Blanchard to ensure proper LOB attribution with delineators for advisory vs. execute work.",
-        "actions": [],
-        "tracked_items": [
-          {
-            "text": "Sarah Blanchard to ensure Professional Services properly attributed to Expert Services LOB with advisory vs. execute delineators",
+            "text": "Team to investigate why Jira cannot create work items from estruxture.com emails",
             "completed": false,
             "completed_proof_url": null,
             "person": null
@@ -112,31 +35,41 @@
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT419DsAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Adam Nelson replied to a comment in \"Update on DBRG priorities\""
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT419D3AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Fw: Admin notification: Unable to create work item in Aptum Customer Care"
+          },
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT419D2AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Fw: Admin notification: Unable to create work item in Aptum Customer Care"
           }
         ],
         "sources": [
           "email"
         ],
         "source_stats": {
-          "email_count": 1,
+          "email_count": 4,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-14 16:48"
+          "date_range": "2026-04-15 16:29–16:32"
         }
       },
       {
-        "id": "cacdccf09b18",
+        "id": "cfdf5c8b6309",
         "item_ids": [
-          "cacdccf09b18"
+          "cfdf5c8b6309"
         ],
         "discard": false,
-        "title": "Invoice Approvals — Ingram Micro Pending",
-        "summary": "Aptum Payables is following up on pending invoice approvals totaling $3,442.94 USD from Ingram Micro México (4 invoices from 4/1/2026) and £11,926.51 GBP from Ingram Micro Cloud UK (1 invoice from 4/6/2026).",
+        "title": "Centrilogic Network Migration — Route Info Needed",
+        "summary": "Ben Kennedy requests Adam fill in route type and next-hop information for subnets in the network migration spreadsheet (most were assumed directly connected). Also asks for confirmation on Telehouse North presence for potential cross-connect during customer migrations.",
         "actions": [
           {
-            "text": "Approve or reject pending Ingram Micro invoices in payment system",
+            "text": "Fill in route type and next-hop details in the Centrilogic network migration spreadsheet",
+            "completed": false,
+            "completed_proof_url": null
+          },
+          {
+            "text": "Confirm if Aptum still has presence in Telehouse North for cross-connect planning",
             "completed": false,
             "completed_proof_url": null
           }
@@ -146,42 +79,43 @@
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlO0AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Invoices Pending for Approval: Adam Nelson"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT%2B1NNVAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Centrilogic & Aptum - Customer list - Update to Technical Information"
           }
         ],
         "sources": [
           "email"
         ],
         "source_stats": {
-          "email_count": 1,
+          "email_count": 5,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-14 13:39"
+          "date_range": "2026-04-15 09:44–19:51"
         }
       },
       {
-        "id": "8fedbf02cdf9",
+        "id": "302493fe7baa",
         "item_ids": [
-          "8fedbf02cdf9"
+          "302493fe7baa"
         ],
         "discard": false,
-        "title": "CMC Connection — Charles Louis Guerin Introduction",
-        "summary": "Charles Louis Guerin responded to an introduction, noting shared CMC history (documentation delivery system for tablet EFBs with Jean-Marie Bégis). He expressed interest in trading notes about operations and AI integration at OBDS.",
-        "actions": [
+        "title": "TD SYNNEX Credit Discussion — Bank Letter Option",
+        "summary": "Patrick Molen from TD SYNNEX responds to Matthew's mention of senior leadership position and interest in preparing a bank letter, asking if this would be a Standby Letter of Credit (SLOC). Proposes meeting times for Thursday April 16th.",
+        "actions": [],
+        "tracked_items": [
           {
-            "text": "Schedule call with Charles Louis Guerin to discuss operations and AI",
+            "text": "Matthew to clarify if bank letter would be an SLOC and schedule meeting with TD SYNNEX",
             "completed": false,
-            "completed_proof_url": null
+            "completed_proof_url": null,
+            "person": null
           }
         ],
-        "tracked_items": [],
         "individual_sources": [],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlOzAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Intro"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPVAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Aptum #815669   RE: Credit App | TD SYNNEX"
           }
         ],
         "sources": [
@@ -191,20 +125,95 @@
           "email_count": 2,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-14 07:45–13:39"
+          "date_range": "2026-04-15 11:51–17:23"
         }
       },
       {
-        "id": "65af56893b98",
+        "id": "ef635b60d139",
         "item_ids": [
-          "65af56893b98"
+          "ef635b60d139"
         ],
         "discard": false,
-        "title": "Bell Master Communication Agreement — Legal Review",
-        "summary": "Matthew Carter reviewed three Bell agreements with key terms: 36-month terms with 2.5% annual escalation, auto-renewal clauses (1-3 years), $2M CGL insurance requirement, and vendor relocation rights. Technical provisions require additional review outside legal's area.",
+        "title": "Bell Supplier Onboarding — Follow-up Needed",
+        "summary": "Ben Kennedy asks team to continue following up with Bell on supplier onboarding, noting Aptum is very close to signing agreements with Bell for DC and connectivity services.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Team to follow up with Bell on supplier onboarding completion",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPUAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Fw: Supplier Onboarding Package"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-15 16:35"
+        }
+      },
+      {
+        "id": "086f1d1c6efa",
+        "item_ids": [
+          "086f1d1c6efa"
+        ],
+        "discard": false,
+        "title": "Accenture DBA Support Contract — End Date Confirmation",
+        "summary": "Jason Auer asks Vinamra to confirm the last day of support services and contract end date for the Accenture (Navisite) DBA support contract renewal discussion.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Vinamra to confirm DBA support contract end date and last day of services",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPPAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: DBA Support Contract Renewal Discussion- Aptum Technologies || Accenture(Navisite)"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-15 14:16"
+        }
+      },
+      {
+        "id": "5a4fb9c6d1a9",
+        "item_ids": [
+          "5a4fb9c6d1a9"
+        ],
+        "discard": false,
+        "title": "AWS Ingram Micro US Partnership — New SPP Discounts Active",
+        "summary": "Rick Marshbanks from Ingram Micro confirms new SPP discounts are already in effect for Aptum's US AWS partnership (no action required on Aptum's side). Attached profitability framework and proposes establishing regular cadence meetings.",
         "actions": [
           {
-            "text": "Review technical provisions in Bell Master Communication Agreement",
+            "text": "Review attached AWS profitability framework from Ingram Micro",
+            "completed": false,
+            "completed_proof_url": null
+          },
+          {
+            "text": "Respond to Rick on preferred meeting cadence frequency",
             "completed": false,
             "completed_proof_url": null
           }
@@ -214,21 +223,269 @@
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlOvAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "RE: Master Communication Agreement from Bell"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPKAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: [EXTERNAL]RE: Formal Notice of AWS Distribution Agreement Change"
           }
         ],
         "sources": [
           "email"
         ],
         "source_stats": {
-          "email_count": 3,
+          "email_count": 2,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-14 09:24–11:57"
+          "date_range": "2026-04-15 11:59–12:40"
+        }
+      },
+      {
+        "id": "a23d79c2bb57",
+        "item_ids": [
+          "a23d79c2bb57"
+        ],
+        "discard": false,
+        "title": "Team Review Document Shared by Nikki Thind",
+        "summary": "Nikki Thind shared edit access to a document titled \"Team Review\" via Microsoft 365.",
+        "actions": [
+          {
+            "text": "Review the Team Review document shared by Nikki Thind",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPFAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Nikki Thind shared \"Team Review\" with you"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-15 09:57"
+        }
+      },
+      {
+        "id": "86ade48ade20",
+        "item_ids": [
+          "86ade48ade20"
+        ],
+        "discard": false,
+        "title": "Private Cloud Diagrams — Will's Comment on Ownership",
+        "summary": "Will Stevens commented on the Private Cloud Diagrams PowerPoint, noting that a particular offering would only work on Aptum-owned infrastructure, not customer-owned infrastructure.",
+        "actions": [
+          {
+            "text": "Review Will's comment on Private Cloud Diagrams regarding infrastructure ownership constraints",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPDAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Will Stevens left a comment in \"Private Cloud Diagrams\""
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-15 09:43"
+        }
+      },
+      {
+        "id": "042a3cc347f1",
+        "item_ids": [
+          "042a3cc347f1"
+        ],
+        "discard": false,
+        "title": "Private Cloud Launch Materials from Dave Pistacchio",
+        "summary": "Dave Pistacchio shared multiple documents discussed in morning call: Private Cloud launch plan (Word and Excel), Unified ICP derived from Marc Pare's strategy document, and Private Cloud diagrams with a potentially helpful page 4. Emphasizes collaborative approach with no pride of ownership.",
+        "actions": [
+          {
+            "text": "Review Private Cloud launch plan documents from Dave Pistacchio",
+            "completed": false,
+            "completed_proof_url": null
+          },
+          {
+            "text": "Review Unified ICP document derived from Marc Pare's strategy",
+            "completed": false,
+            "completed_proof_url": null
+          },
+          {
+            "text": "Review Private Cloud diagrams, particularly page 4",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPCAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Documents discussed on the call this morning,"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-15 09:24"
+        }
+      },
+      {
+        "id": "51c209636e34",
+        "item_ids": [
+          "51c209636e34"
+        ],
+        "discard": false,
+        "title": "PIP Templates from Nikki Thind",
+        "summary": "Nikki Thind sent the requested Performance Improvement Plan (PIP) templates as attachments.",
+        "actions": [
+          {
+            "text": "Review PIP templates provided by Nikki Thind",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPBAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "PIP Templates"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-15 09:19"
+        }
+      },
+      {
+        "id": "c97b6b1a0248",
+        "item_ids": [
+          "c97b6b1a0248"
+        ],
+        "discard": false,
+        "title": "March 2026 Cloud Management Analysis Data",
+        "summary": "Paul Billard provided March 2026 data for Azure/M365/AWS/GCP management analysis as attachment.",
+        "actions": [
+          {
+            "text": "Review March 2026 Azure/M365/AWS/GCP management analysis data",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlPAAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Azure-MO365-AWS-GCP Mgmt Analysis - Sep 2025"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-15 09:16"
+        }
+      },
+      {
+        "id": "0cc9da31839b",
+        "item_ids": [
+          "0cc9da31839b"
+        ],
+        "discard": false,
+        "title": "EOD Deadline — Monthly Deck to DBRG",
+        "summary": "Sarah Blanchard sent reminder about end-of-day deadline to send the monthly deck to DigitalBridge (DBRG).",
+        "actions": [
+          {
+            "text": "Send monthly deck to DBRG by end of day",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT3WlO%2FAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Deadline EOD to send the Monthly deck to DBRG"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-15 08:53"
+        }
+      },
+      {
+        "id": "6e48099547f6",
+        "item_ids": [
+          "6e48099547f6"
+        ],
+        "discard": false,
+        "title": "New W-AR Pricing Sheet — April 2026",
+        "summary": "Barbara Krzywoszanski posted in #cloud-platform-pm that a new W-AR pricing sheet for April 2026 has been uploaded to the SOW folder on SharePoint. The pricing sheet is intended for use with new templates.",
+        "actions": [
+          {
+            "text": "Review new W-AR Pricing Sheet (April 2026) in SharePoint SOW folder",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "slack",
+            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1776257913226679",
+            "subject": "#cloud-platform-pm"
+          }
+        ],
+        "sources": [
+          "slack"
+        ],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 0,
+          "slack_count": 1,
+          "date_range": "2026-04-15 08:58"
         }
       }
     ],
-    "discard_count": 36
+    "discard_count": 26
   }
 }
