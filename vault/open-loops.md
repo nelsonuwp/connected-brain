@@ -90,3 +90,5 @@ Coordination piece w/ the customers up-front.
 
 Much like Charles' Bonveilla thing, can we have a canned response generator for tickets? it could be like a "soundboard" for stuff ... with different tones and whatever... 
 Enter the ticket #, click the button to generate the response or provide a canned response suggestion. 
+
+When looking at churned services 

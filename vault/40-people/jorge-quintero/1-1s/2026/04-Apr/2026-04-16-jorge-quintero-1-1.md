@@ -120,7 +120,7 @@ Jorge was in the VMware P&L session.
 ---
 
 ## Discussion Notes
-<!-- Raw capture — don't over-format in real time, just get it down -->
+-
 
 ---
 
