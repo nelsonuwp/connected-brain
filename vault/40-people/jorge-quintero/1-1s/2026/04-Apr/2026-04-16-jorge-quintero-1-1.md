@@ -39,7 +39,7 @@ SORT file.mtime DESC
 ### Framing: Return from Vacation + Big Acknowledgment + Accountability Check
 Two things are true simultaneously: Jorge shipped the Salesforce deployment while I was out (Apr 12, confirmed working) — that's a real win and I need to name it. And he had three strategic deliverables that were due while I was out. I'll open with the win, then move to the accountability check.
 
-This meeting also has one non-negotiable: I'm giving him the Zabbix consolidation mandate today. I've been carrying it as an open item since Mar 31. That changes in this session.
+**New context from yesterday's meetings:** The [[2026-04-15-product-delivery-flow|Product Delivery Flow]] session confirmed that monitoring/tool ownership (Zabbix, DataDog, LogicMonitor, Hyperview, Ocean, PagerDuty) is an org-wide problem that was NOT resolved. Multiple teams use multiple tools with no clear ownership model. This is relevant to OI's scope — but the decision about who owns what monitoring tool is an org-wide conversation, not something to drop on Jorge alone. His role is to own the data layer and monitoring stack *decisions* once the org is ready to make them.
 
 ### 1. Open With the Win: Salesforce Deployment (3 min)
 Jorge completed the Salesforce deployment on April 12 and confirmed it's working. Users were asked to reach out if they encounter issues. This is the kind of thing I need to acknowledge explicitly:
@@ -66,19 +66,7 @@ Go through each one with specifics.
 - Not asking for a build — just: "here's what it would take, here's what we'd need from each team."
 - This is the kind of work that makes OI indispensable to the org.
 
-### 3. ZABBIX MANDATE — FORMAL VP ACTION (5 min)
-I've been carrying this since the Mar 31 session. Today it closes.
-
-**The mandate:** As VP of Operations, I am formally directing a consolidation of the two Zabbix monitoring systems into a single platform. Jorge's team owns the execution: alert schema design, routing rules, migration planning, coverage validation. The decision is mine. The work is his.
-
-What I need from Jorge:
-- Acknowledgment that he has the mandate and understands what it means
-- A scoping question: What does Phase 1 of this look like? Not a full plan — just: what's the first 30 days?
-- Who does he need to talk to? Ben, Andrei, and Jason all have preferences for their current monitoring setup. I'm giving him the authority to override those preferences if needed.
-
-This is one of the signals that OI is operational, not just planned. Name it that way.
-
-### 4. Service Description Review: OI-Specific Talking Points (10 min)
+### 3. Service Description Review: OI-Specific Talking Points (10 min)
 Walk through the key flags:
 
 **OI does NOT own source data — but does own the data layer:**
@@ -105,7 +93,7 @@ The HSDM service description calls out a CEM gap (no one owns proactive customer
 **Team size:**
 The org is pushing OI toward Alpha on a "Discovery phase, team size TBD" budget. The scope is significant: 8+ service pipelines, unified monitoring, customer health view, financial accuracy, capacity visibility, Salesforce integration. What does Jorge think he actually needs?
 
-### 5. DBRG: Consulting vs. Professional Services Tagging (5 min)
+### 4. DBRG: Consulting vs. Professional Services Tagging (5 min)
 From the April 10 DBRG notes: Jorge is on the hook to work with Chameleon on consulting vs. professional services tagging in Salesforce.
 - What's the scope of this? Is it a data pipeline change, a Salesforce config change, or something else?
 - Does this conflict with other priorities, or can it run in parallel?
@@ -113,21 +101,21 @@ From the April 10 DBRG notes: Jorge is on the hook to work with Chameleon on con
 
 Note: The DBRG also clarified that PS attribution moves to Sarah Blanchard for the LOB financial reporting, but Jorge stays involved from a data pipeline coherence perspective. Does he understand that distinction?
 
-### 6. AI Huddle (Apr 14) — Quick Debrief (3 min)
+### 5. AI Huddle (Apr 14) — Quick Debrief (3 min)
 Jorge was in the AI huddle with Brett, Fred, and Will yesterday.
 - Anything actionable that affects OI's work?
 - Any AI tooling or data pipeline use cases that surfaced?
 
-### 7. VMware P&L Analysis (Apr 13) — OI Angle (3 min)
+### 6. VMware P&L Analysis (Apr 13) — OI Angle (3 min)
 Jorge was in the VMware P&L session.
 - Was his role providing data, or was he there to learn context?
 - Does this surface a new data pipeline need (VMware P&L visibility)?
 
-### 8. Priorities Going Forward (5 min)
+### 7. Priorities Going Forward (5 min)
 1. **Service description:** Circulated to all SMs, feedback collected. Deadline Fri Apr 18.
 2. **State of the data map:** This is Jorge's north star document for the function. If it doesn't exist, everything else is noise.
-3. **Zabbix Phase 1 scope:** He has the mandate. What are the first 30 days?
-4. **Chameleon tagging work:** Get a timeline and make sure it doesn't crowd out the above.
+3. **Chameleon tagging work:** Get a timeline and make sure it doesn't crowd out the above.
+4. **Monitoring landscape awareness:** The Product Delivery Flow session surfaced that monitoring/tool ownership is unresolved org-wide. Jorge should be thinking about what OI's role is in that conversation — but it's not his sole mandate to execute. Frame it as: "When the org is ready to consolidate, OI will own the data layer and standards. Start thinking about what that looks like."
 
 ---
 
@@ -140,19 +128,15 @@ Jorge was in the VMware P&L session.
 
 | Action | Owner | By When |
 |--------|-------|---------|
-| VP mandate given: Zabbix consolidation — Jorge owns execution | Adam | DONE THIS MEETING |
 | Circulate OI service description to all service managers (if not yet done) | Jorge | Fri Apr 18 |
 | Deliver first draft state of the data map (if not yet done) | Jorge | Next 1:1 |
-| Scoping: Phase 1 plan for Zabbix consolidation (first 30 days) | Jorge | Next 1:1 |
 | Chameleon consulting vs. PS tagging — timeline defined | Jorge | This week |
 | Update jorge-quintero.md with OI service ownership | Adam | This week |
 | | | |
 
 <!-- Inline tracking tasks -->
-- [ ] Adam to formally deliver VP Zabbix consolidation mandate to Jorge #tracking [person::jorge-quintero]
 - [ ] Jorge to circulate OI service description to all service managers by Fri Apr 18 #tracking [person::jorge-quintero]
 - [ ] Jorge to deliver first draft state of the data map #tracking [person::jorge-quintero]
-- [ ] Jorge to produce Phase 1 Zabbix consolidation scoping (first 30 days) #tracking [person::jorge-quintero]
 - [ ] Jorge to work with Chameleon on consulting vs. PS tagging — timeline to be confirmed #tracking [person::jorge-quintero]
 - [ ] Adam to update jorge-quintero.md with OI service ownership #tracking [person::jorge-quintero]
 
@@ -160,7 +144,7 @@ Jorge was in the VMware P&L session.
 
 ## Capability Observation
 <!-- One line: what did this meeting show about their growth or gaps? Be specific. -->
-<!-- Watch for: Does Jorge respond to the Zabbix mandate with a plan (function owner) or with questions about whether people will cooperate (defers authority)? Does he have a view on what OI needs to exit Discovery, or does he wait for me to tell him? How does he talk about the state of the data map — does he have a clear picture in his head, or is it still fuzzy? Does the Salesforce deployment tell you he can ship, or was it a one-off? -->
+<!-- Watch for: Does he have a view on what OI needs to exit Discovery, or does he wait for me to tell him? How does he talk about the state of the data map — does he have a clear picture in his head, or is it still fuzzy? Does the Salesforce deployment tell you he can ship, or was it a one-off? When monitoring ownership comes up, does he see OI's role clearly, or does he try to take on the whole problem? -->
 
 ## Next session focus
-<!-- Service description feedback reviewed. State of the data map in hand — use it as the OI roadmap. Zabbix Phase 1 scope reviewed. Begin scoping headcount needs to move OI out of Discovery. Check Chameleon tagging progress. -->
+<!-- Service description feedback reviewed. State of the data map in hand — use it as the OI roadmap. Begin scoping headcount needs to move OI out of Discovery. Check Chameleon tagging progress. Monitoring/tool ownership is org-wide — revisit OI's role once the broader conversation happens. -->

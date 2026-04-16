@@ -109,9 +109,6 @@ Pulse check on items he's likely working on:
 **Financial data accuracy**
 - The MCP cost correction was a big win. Are there other known cost allocation issues he's tracking?
 
-**Two-Zabbix problem**
-- Per the service description: "VP of Operations owns the decision. Operational Intelligence owns the execution." I need to give him the mandate. Flag this for a deeper conversation post-vacation, but ask: has he started scoping what consolidation would look like?
-
 ### 7. Priorities for the Week (5 min)
 Three things for the week while I'm out:
 
@@ -135,7 +132,6 @@ Everything else continues as BAU. The message: you're building a function, not r
 | Review OI service description and circulate to all service managers for feedback | Jorge | Fri Apr 4 |
 | Produce first draft "state of the data" map (sources, pipeline status, owners, gaps) | Jorge | Mon Apr 7 |
 | Draft rough proposal for capacity data consolidation via OI | Jorge | Mon Apr 7 |
-| Give Jorge explicit VP mandate on Zabbix consolidation (deeper conversation) | Adam | Post-vacation |
 | Update jorge-quintero.md with OI service ownership | Adam | Before vacation |
 | | | |
 
@@ -143,7 +139,6 @@ Everything else continues as BAU. The message: you're building a function, not r
 - [ ] Jorge to review and circulate OI service description to all service managers by Fri Apr 4 #tracking [person::jorge-quintero]
 - [ ] Jorge to produce first draft "state of the data" map by Mon Apr 7 #tracking [person::jorge-quintero]
 - [ ] Jorge to draft rough proposal for capacity data consolidation via OI by Mon Apr 7 #tracking [person::jorge-quintero]
-- [ ] Adam to give Jorge explicit VP mandate on Zabbix consolidation post-vacation #tracking [person::jorge-quintero]
 - [ ] Adam to update jorge-quintero.md with OI service ownership #tracking [person::jorge-quintero]
 
 ---
@@ -153,4 +148,4 @@ Everything else continues as BAU. The message: you're building a function, not r
 <!-- Watch for: Does Jorge think of himself as a function owner or a report builder? Can he articulate what OI needs to move out of Discovery, or does he wait for direction? Does the capacity framework opportunity excite him or overwhelm him? How does he react to the "circulate to all service managers" ask (this requires cross-org influence, not just technical skill). -->
 
 ## Next session focus
-<!-- After vacation: Did the service description get circulated? Did the data map land? If yes, Jorge can operate as a function owner. If the data map is good, it becomes the OI roadmap. Start planning the Zabbix consolidation mandate conversation. Begin scoping headcount needs to get OI out of Discovery. -->
+<!-- After vacation: Did the service description get circulated? Did the data map land? If yes, Jorge can operate as a function owner. If the data map is good, it becomes the OI roadmap. Begin scoping headcount needs to get OI out of Discovery. -->
