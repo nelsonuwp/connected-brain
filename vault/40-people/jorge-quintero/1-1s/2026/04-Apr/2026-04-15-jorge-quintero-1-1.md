@@ -1,10 +1,10 @@
 ---
 type: 1-1
-date: 2026-04-15
+date: 2026-04-16
 person: jorge-quintero
 ---
 
-# 1:1 — Jorge Quintero — 2026-04-15
+# 1:1 — Jorge Quintero — 2026-04-16
 
 ---
 
@@ -27,7 +27,6 @@ SORT file.mtime DESC
 - [ ] Jorge to work with Chameleon on consulting vs. professional services tagging in Salesforce (DBRG Apr 10) #tracking [person::jorge-quintero]
 
 **Adam's open items:**
-- [ ] Give Jorge explicit VP mandate on Zabbix consolidation — DO THIS IN THIS MEETING #tracking [person::jorge-quintero]
 - [ ] Update jorge-quintero.md with OI service ownership (carried from Mar 31) #tracking [person::jorge-quintero]
 
 ---

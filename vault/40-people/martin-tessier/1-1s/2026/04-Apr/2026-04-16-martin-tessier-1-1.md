@@ -64,9 +64,9 @@ Go through each one. Specifics, not summaries.
 Walk through the key flags from the service description:
 
 **The scope boundary with George — is it clean in practice?**
-The description is clear: George's team delivers powered, racked, cabled hardware. Martin's team takes over from there (OS, config, monitoring agents, backup agents, handoff). 
+The description is clear — and confirmed in the [[2026-04-15-product-delivery-flow|Product Delivery Flow]] session: George's team delivers powered, racked, cabled hardware. Martin's team takes over from there (OS, config, monitoring agents, backup agents, handoff). 
 - In practice, are there grey areas? Cases where there's confusion about whose job it is?
-- Does George's team agree with this framing?
+- Does George's team agree with this framing? (George was in the room and agreed — confirm Martin sees it the same way.)
 
 **Direction of travel — automation team, not manual provisioning crew:**
 The service description is explicit: Martin's team's value is in the playbooks and standards, not in manual execution. As the environment matures, manual provisioning work should shrink.
@@ -85,24 +85,49 @@ All metrics in the service description are "To be defined." Start with two:
 - First-time accuracy: what percentage of builds require rework?
 - Even informal tracking is better than nothing. Where would he start?
 
-### 3. VMware P&L Analysis (Apr 13) — Debrief (5 min)
+### 3. Board OKR Targets: Hosting / Compute — Alignment Check (5 min)
+The [[fy26-operations-okrs|FY26 OKRs]] from the Q2 Board Deck (March 25) set explicit targets for Martin's function. Walk through the headline numbers so he knows what the board is measuring:
+
+**Ignite / CloudStack-KVM commercial traction:**
+- 7 new logos, C$39K MRR committed, ~74% compute margin (vs. ~37% hosting average).
+- SCADAcore: $25K/mo, 36-month contract — proof point that CloudStack/KVM works commercially.
+- Is this pipeline growing? Are there more Ignite opportunities in the queue?
+
+**VMware → Proxmox migration savings:**
+- C$339K/yr annualized savings from internal migration (complete).
+- Board expects this to continue — any further VMware environments in scope for migration?
+
+**AptCloud maturity path:**
+- Board target: move toward Beta. Alpha running on excess server inventory.
+- H2 deliverables include: AptCloud rollout, Aptum IaaS GTM, AptCloud operational readiness review before exiting Alpha.
+- This connects to Section 6 below — the Beta criteria list is the bridge between "Alpha on excess inventory" and "board-ready Beta."
+
+**Other H2 board-visible items:**
+- Ignite + Centrilogic compute migration opportunities
+- Q3: Imperva renewal, Alert Logic renewal (evaluate consolidation & cost reduction)
+- Q4: Dell OMSA (server lifecycle management), DataDomain refresh (storage)
+- Deferred from H1: EOL DCC, ESXi 9 (pending testing), Next Gen Linux (Rocky/RHEL/Alma 10)
+
+Does Martin know these are the board-level targets? Is he tracking against them?
+
+### 4. VMware P&L Analysis (Apr 13) — Debrief (5 min)
 Martin was in the VMware P&L analysis session with Carlton, Jorge, Matthew, Noe, and Sarah.
 - What was the headline finding?
 - Any implications for Compute Platforms — are VMware environments becoming less commercially viable?
 - Does this change how Martin is thinking about the VMware vs. Proxmox vs. AptCloud split going forward?
 
-### 4. Proxmox Pricing — $150/Host Proposal (5 min)
+### 5. Proxmox Pricing — $150/Host Proposal (5 min)
 There's a discussion about adding a $150/host charge for Proxmox environments.
 - Is this driven by actual cost or is it a commercial positioning decision?
 - Does Martin have a view on whether the $150 reflects the real cost of his team's provisioning effort for Proxmox?
 - Any implications for AptCloud pricing when it exits Alpha?
 
-### 5. Managed Private Cloud Service Guide — Carlton/Emma Meeting (Today) (5 min)
+### 6. Managed Private Cloud Service Guide — Carlton/Emma Meeting (Today) (5 min)
 Martin relayed Adam's approval for service guide revisions. Carlton and Emma are meeting today (Apr 15) to review changes.
 - Does Martin need to be involved in or aware of what comes out of that meeting?
 - Any changes to the service guide that will affect Compute Platforms scope or standards?
 
-### 6. AptCloud Beta Path — Clarity Check (5 min)
+### 7. AptCloud Beta Path — Clarity Check (5 min)
 This was a board-level topic. Alpha on excess server inventory is a good start. But the board expects a maturation path.
 - What specifically needs to be true before AptCloud can be called Beta-ready?
 - Is it a technical threshold (stability, uptime, cluster coverage)?
@@ -110,11 +135,12 @@ This was a board-level topic. Alpha on excess server inventory is a good start. 
 - Is it a headcount/capacity question?
 - Does Martin feel adequately staffed to run both BAU provisioning AND AptCloud build in parallel?
 
-### 7. Priorities Going Forward (5 min)
+### 8. Priorities Going Forward (5 min)
 1. **Service description:** Circulated and feedback collected. Deadline Fri Apr 18.
 2. **Capacity snapshot:** Baseline view of compute by type and location. This week.
-3. **AptCloud Beta criteria:** Give me a concrete list of what "Beta-ready" means. Not a date — a criteria list. That becomes the plan.
+3. **AptCloud Beta criteria:** Give me a concrete list of what "Beta-ready" means. Not a date — a criteria list. That becomes the plan. Board expects an operational readiness review before exiting Alpha.
 4. **Metrics baseline:** Pick one metric (provisioning turnaround time) and start tracking it informally. Even a spreadsheet is fine.
+5. **OKR awareness:** Make sure he's tracking against the board-visible targets — Ignite pipeline growth, VMware→Proxmox migration scope, AptCloud maturity path. These are what the board measures his function by.
 
 ---
 
