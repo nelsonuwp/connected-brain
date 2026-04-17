@@ -95,7 +95,7 @@ Customer sees restored service — never touches the physical layer
 
 ### Direct Cost Driver
 - Facilities: lease, power, cooling — largest non-labor cost in the org
-- Labor: George's team distributed across multiple physical locations
+- Labor: Data Center Ops team distributed across multiple physical locations
 - Geographic spread means cost is inherently distributed and cannot be fully centralized
 
 ### Margin Profile
