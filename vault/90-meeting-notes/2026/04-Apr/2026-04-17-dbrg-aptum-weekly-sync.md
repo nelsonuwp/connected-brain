@@ -18,7 +18,8 @@ initiative:
 
 
 ## Notes
-Inventory
+Inventory & procurement
+* model the *
 Product
 * Team Definitions & Roles (consolidation)
 
