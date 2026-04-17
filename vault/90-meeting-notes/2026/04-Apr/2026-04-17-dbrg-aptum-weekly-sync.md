@@ -18,7 +18,12 @@ initiative:
 
 
 ## Notes
-<!-- Raw — don't over-format in real time, just capture -->
+Inventory
+Product
+* Team Definitions & Roles (consolidation)
+
+Churn 
+STG (meeting with them at 12) & Centrilogic (we have the white glove costs identified and are ready to give those)
 
 
 ## Decisions Made
