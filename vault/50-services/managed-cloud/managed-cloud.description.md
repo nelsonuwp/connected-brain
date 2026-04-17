@@ -82,11 +82,13 @@ This team owns the **security and application delivery layer** on top of network
 
 ## What This Team Does NOT Do
 
-- Own the physical or hypervisor build layer — that is Compute Platforms
-- Perform L1/L2 ticket response for infra-layer incidents — that is Service Desk
-- Provision new environments — that is Compute Platforms
-- Own data center facilities or dispatch remote hands — that is Data Center Ops
-- Manage network infrastructure, routing, or physical connectivity — that is Network
+- Own the physical or hypervisor build layer -- that is Compute Platforms
+- Perform L1/L2 ticket response for infra-layer incidents -- that is Service Desk
+- Provision new environments -- that is Compute Platforms
+- Own data center facilities or dispatch remote hands -- that is Data Center Ops
+- Manage network infrastructure, routing, or physical connectivity -- that is Network
+- **Manage the VMware/Proxmox hypervisor layer for Private Cloud customers** -- that is Service Desk
+- **Own cluster infrastructure operations for Shared Cluster or Dedicated Cluster nodes** -- cluster node hardware health is Service Desk; platform build and standards are Compute Platforms
 
 ---
 
@@ -98,8 +100,8 @@ This team owns the **security and application delivery layer** on top of network
 - AptCloud: pre-revenue (Alpha); target pricing and margin to be defined at Beta
 
 ### Direct Cost Driver
-- ~8 people (Andrei's direct team)
-- **Important:** 25 people were previously allocated to this cost center in financial reporting. Approximately 17 of those belong to Service Desk (Jason's org). This misallocation is being corrected.
+- ~8 people (Managed Cloud direct team)
+- **Important:** 25 people were previously allocated to this cost center in financial reporting. Approximately 17 of those belong to Service Desk. This misallocation is being corrected.
 - Corrected direct labor: ~$249K (8/25 of the reported $777K)
 - Tooling: Datadog licenses, cloud management platform costs
 
@@ -135,14 +137,15 @@ Managed Cloud is one of the highest-margin products in the portfolio when correc
 |---|---|---|
 | Compute Platforms | Inbound | Receives provisioned environments at handoff |
 | Service Desk | Inbound | Receives hyperscaler and platform triage escalations |
-| Network (Ben) | Lateral | Physical network layer underneath cloud networking services |
+| Network | Lateral | Physical network layer underneath cloud networking services |
 | IT Operations & Engineering | Lateral | Corporate tooling and infrastructure support |
-| Commercial (Fred's team) | Inbound | Customer onboarding and commercial context |
+| Commercial | Inbound | Customer onboarding and commercial context |
 
 ---
 
 ## Open Questions / Flags
 
-- **AptCloud operational readiness:** Shared-cluster operations require more rigorous change management than dedicated hosting. One misconfiguration affects all tenants on that cluster. The team needs to be at operational readiness before AptCloud exits Alpha. Growth investment should happen before Beta, not after the first incident.
-- **Team sizing:** 8 people carrying public cloud managed operations, private cloud operations, AptCloud build, and cloud networking services is thin. As AptCloud matures, build work will cannibalize BAU operational capacity without additional headcount.
-- **Tooling ownership:** Datadog is currently used by this team. Who owns the Datadog contract, configuration standards, and integration with the broader monitoring stack is an open org question — see Tooling section in operational gaps.
+- **AptCloud portal application scope clarification:** Service Desk owns the infrastructure layer (the Dedicated Servers the portal runs on). Managed Cloud owns the portal application layer. The boundary and the runbooks defining it need to be documented before the portal expands its feature set.
+- **Private Cloud hypervisor transition:** With Service Desk now the confirmed owner of the Private Cloud hypervisor layer, any operational runbooks that Managed Cloud previously maintained for VMware/Proxmox host management need to be formally transferred to Service Desk with an explicit handoff review.
+- **Team sizing:** The current team is carrying public cloud managed operations, optional managed OS across all hosted products, cloud networking security services, and portal application management. As the managed services catalog grows, headcount needs to be reviewed against the actual service scope -- not the previously inflated cost center allocation.
+- **Tooling ownership:** Datadog is currently used by this team. Who owns the Datadog contract, configuration standards, and integration with the broader monitoring stack is an open org question -- see Tooling section in operational gaps.

@@ -25,15 +25,15 @@ These are the "base products." Customers can consume them self-service (where av
 |---|---|---|---|---|
 | **Colocation** | Customer-owned hardware in Aptum DC | Manual (George's team) | Future: power/bandwidth visibility | Facility only — customer owns everything above the rack |
 | **Dedicated Server** | Aptum-owned bare metal, single-tenant | Manual (Martin builds, George racks) | Future: inventory/status | Hardware health monitoring, replacement |
-| **BMaaS** | Canonical MAAS via CloudStack Extensions | Self-service (roadmap) | Roadmap | Hardware health, MAAS platform ops |
-| **VPC** | CloudStack VMs, multi-tenant shared hosts | **Self-service (live)** | **Live** | CloudStack cluster ops, hypervisor health, network |
-| **Dedicated Cloud** | CloudStack VMs, single-tenant dedicated hosts (KVM/CloudStack via Apt Cloud) | Semi-automated | Platform capable | Dedicated host management, hypervisor, storage |
+| **BMaaS** | Canonical MAAS via CloudStack Extensions Framework 4.22 | Self-service (roadmap) | Roadmap | Hardware health layer (Service Desk); MAAS platform owned by Apt Cloud software/portal team |
+| **Shared Cluster (VPC)** | CloudStack VMs, multi-tenant shared hosts | **Self-service (live)** | **Live** | CloudStack cluster ops, hypervisor health, network |
+| **Dedicated Cluster** | CloudStack VMs, single-tenant dedicated hosts (KVM/CloudStack via Apt Cloud) | Semi-automated | Platform capable | Dedicated host management, hypervisor, storage |
 | **Private Cloud** | VMware or Proxmox on dedicated hosts (not necessarily via Apt Cloud) | Manual | Platform capable | Hypervisor ops, VMware/Proxmox cluster management |
 | **Proxmox** | Proxmox VE via CloudStack Extensions | Roadmap | Roadmap | Proxmox cluster ops (Jason's team, new skill) |
 | **Public Cloud** | Azure (live), AWS/GCP (roadmap) | **Self-service (live — Azure)** | **Live** | N/A — hyperscaler owns infra |
 | **Kubernetes** | K8s via CSI integration | Roadmap | Roadmap | Cluster infrastructure ops |
 
-**Who operates the infrastructure commodity:** Jason's Service Desk (L2/L3 infra engineers) + Martin's Compute Platforms (builds, standards, L3 escalation) + George's DC Ops (physical layer) + Ben's Network (connectivity).
+**Who operates the infrastructure commodity:** Service Desk (L2/L3 infra engineers) + Compute Platforms (builds, standards, L3 escalation) + Data Center Ops (physical layer) + Network (connectivity).
 
 ---
 
@@ -50,9 +50,44 @@ These are the products that stack on top of any infrastructure commodity. Each l
 | **Hardware Replacement SLA** | Failed component replaced within defined window (4hr/8hr/NBD). PSU, disk, CMOS, memory. | DC Ops (George) dispatched by Service Desk | All physical infra | Incident status tracking | Not built (portal) |
 | **Network Monitoring** | 99.999% uptime SLA on connectivity. BGP, transit, switching health. | Network (Ben) | All customers with Aptum connectivity | Bandwidth utilization, uptime | Not built (portal) |
 
-**Included with:** Every managed hosting and dedicated server product. This is the baseline — customers paying for Aptum infrastructure get this by default. For colo customers, this is an add-on.
+**Included with -- varies by product:**
+
+| Product | Layer 1 Status |
+|---|---|
+| **Dedicated Server** | **Mandatory and included in every engagement.** This is not optional. All Dedicated Server customers receive 24/7 monitoring, hardware health alerting, and baseline management. **This is a deliberate change from prior operations and must be explicitly communicated during onboarding and in customer-facing documentation.** |
+| **Shared Cluster (VPC)** | Included internally -- Service Desk monitors cluster nodes as an internal operational function. Customer-facing managed services are optional add-ons. |
+| **Dedicated Cluster** | Same as Shared Cluster -- internal operational monitoring of Aptum's cluster hardware. |
+| **Private Cloud (VMware/Proxmox)** | Included at the hypervisor layer -- Service Desk manages the platform. Guest OS and application monitoring are optional Managed Cloud add-ons. |
+| **Colocation** | Not included by default -- add-on purchase. Colo customers own their hardware and the management responsibility above the physical facility. |
+| **Public Cloud** | Hyperscaler provides infrastructure monitoring. Aptum provides the managed layer above it. |
 
 **Margin note:** This layer is largely covered by existing Service Desk labor. The cost is already incurred. The revenue opportunity is making it explicit, priced, and visible in the portal.
+
+---
+
+### Dedicated Server -- Cost Structure and Contract Pricing
+
+The Dedicated Server product price reflects six components. **Only the margin component is discountable.** The cost base is not negotiable below cost.
+
+| Component | Description |
+|---|---|
+| Physical server | CapEx amortized over the contract term. Residual value at term end: 40% (12mo), 20% (24mo), 0% (36mo). |
+| Power | Per-kW cost varies by data center location (illustrative: Herndon $110/kW, Atlanta $337/kW, Miami $48/kW, Los Angeles $457/kW, Toronto/Montreal $253/kW, Portsmouth $46/kW). |
+| Data Center Ops | George's team labor allocated per server -- facilities, rack, physical ops. |
+| Network | Network team cost allocated per server (~$59/server). |
+| **Service Desk (mandatory managed layer)** | **Service Desk labor. Included in every Dedicated Server. Not optional, not removable.** (~$80/tech time hr base). |
+| Licensing | OS and software licensing where applicable. |
+
+**Contract term pricing -- illustrative example (Pro Series 6.0, Herndon DC):**
+
+| Term | Residual Value | List MRC | Effective MRC |
+|---|---|---|---|
+| 12 months | 40% | $1,521.39 | $1,521.39 |
+| 24 months | 20% | $1,521.39 | $1,182.99 |
+| 36 months | 0% | $1,521.39 | $1,013.79 |
+| Month-to-month | n/a | Full list | Full list |
+
+*Pricing varies by server spec and data center location. The above is illustrative for one server configuration at one location. The margin component -- the difference between cost base and list MRC -- is the only component that can be discounted in commercial conversations.*
 
 ---
 
@@ -82,7 +117,7 @@ These are the products that stack on top of any infrastructure commodity. Each l
 | **App Performance Monitoring — Datadog** | Full-stack observability. APM, infrastructure metrics, log management, custom dashboards. Proactive alerting and incident response. | Managed Cloud (Andrei) | Any infra commodity; strongest fit with VPC, Private Cloud, Public Cloud | Datadog dashboard embedded/linked in portal | Not built (portal); delivered today for CUST-* customers |
 | **App Security — WAF** | Web Application Firewall. HTTP/HTTPS inspection, OWASP rule sets, custom policies. Managed as a service, not a network device. | Managed Cloud (Andrei) | Any customer with web-facing applications | WAF event log, policy status, block rate | Not built (portal) |
 | **DDoS Protection** | Volumetric scrubbing service. Always-on at network edge (included) + managed scrubbing appliance (add-on). | Managed Cloud (Andrei) + Network (Ben) for edge | All customers (basic included); enhanced scrubbing is add-on | Attack history, scrubbing status | Not built (portal) |
-| **Load Balancing — L7/SSL** | Application-layer load balancing. SSL termination, health checks, routing policies. (L4 is self-service in portal today.) | Managed Cloud (Andrei) | VPC, Private Cloud, Public Cloud | LB health, backend pool status | L4 self-service live; L7 managed tier roadmap |
+| **Load Balancing — L7/SSL** | Application-layer load balancing. SSL termination, health checks, routing policies. (L4 is self-service in portal today.) | Managed Cloud | Shared Cluster, Private Cloud, Public Cloud | LB health, backend pool status | L4 self-service live; L7 managed tier roadmap |
 | **DB Tuning** | Database performance optimization. Query analysis, index recommendations, capacity planning. | Managed Cloud (Andrei) or PS engagement | Any infra with managed databases | N/A — advisory/PS model | Available as PS |
 | **DevOps Monitoring & Maintenance** | CI/CD pipeline health, container monitoring, infrastructure-as-code drift detection. | Managed Cloud (Andrei) | Kubernetes, Public Cloud, VPC | Future | Roadmap |
 
@@ -288,7 +323,7 @@ This is the gap. The portal delivers Layer 0 (self-service provisioning) well to
 
 ## Team Responsibility Summary — Who Delivers What
 
-| Managed Service | Jason (Service Desk) | Andrei (Managed Cloud) | Martin (Compute) | George (DC Ops) | Ben (Network) | Pat/Lacie (HSA/HSDM) |
+| Managed Service | Service Desk | Managed Cloud | Compute Platforms | Data Center Ops | Network | HSA / HSDM |
 |---|---|---|---|---|---|---|
 | Infra Monitoring | **Operates** | | | | | |
 | Hardware Replacement | Dispatches | | | **Executes** | | |

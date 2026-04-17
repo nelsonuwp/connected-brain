@@ -22,6 +22,20 @@
 
 ---
 
+## Connectivity as Both a Standalone Product and an Embedded Component
+
+Connectivity occupies a dual role in the Aptum product catalog:
+
+**Embedded in every hosting product:** Every Dedicated Server, Shared Cluster, Dedicated Cluster, and Private Cloud customer receives connectivity as part of the product. It is not a separate line item -- it is included and cannot be removed. Network operates this connectivity and ensures it meets the 99.999% uptime SLA that every hosting customer depends on.
+
+**Separate purchase for Colocation:** Colo customers own their hardware. Connectivity is a separate purchase. A customer can be in an Aptum Colo cage with zero Aptum connectivity services -- they can bring their own. This is the exception to the embedded model and must be explicitly stated in Colo commercial conversations to avoid customer confusion.
+
+**Standalone product in its own right:** Connectivity (MPLS, internet, bandwidth blocks, IP blocks) is also sold independently, without any hosting product attached. This is the traditional carrier business and is a distinct revenue line.
+
+**Hybrid Solution Architecture's role in Connectivity:** Solution Architects size and specify connectivity requirements as part of every engagement scope. Network provisions and operates what HSA has specified. For complex hybrid environments (Cloud Connect, ExpressRoute, Direct Connect physical circuits), HSA defines the design; Network executes and owns the physical layer.
+
+---
+
 ## Problems We Solve
 
 - Customers need reliable, performant connectivity to their hosted environments
@@ -37,7 +51,7 @@
 - MPLS connectivity: Off-Net and On-Net ports (100Mbps, 1GigE, fiber)
 - Internet access ports
 - Fiber cross-connects and patch panel connections
-- Cloud Connect / Direct Links (physical circuit — logical config handed to Managed Cloud)
+- Cloud Connect / Direct Links (physical circuit -- logical config handed to Managed Cloud)
 - Bandwidth blocks
 - IP address blocks
 - Network switching: Juniper EX-4300T (48 ports, 81 units in estate)
@@ -50,15 +64,15 @@ This boundary is defined by the OSI model and by whether a service requires phys
 
 | Service | Owner | Reasoning |
 |---|---|---|
-| MPLS circuits, internet ports, routing, BGP peering | Network (Ben) | Physical and logical network infrastructure — OSI Layer 1–3 |
-| Switching, patching, physical cable | Network (Ben) | Physical layer |
-| Cloud Connect physical circuit and port | Network (Ben) | The physical pipe is Network's; provisioning the port |
-| WAF (Web Application Firewall) | Managed Cloud (Andrei) | Service configuration and policy, not a network device |
-| DDoS protection | Managed Cloud (Andrei) | Managed scrubbing service — cloud or managed appliance |
-| ExpressRoute / Direct Connect logical config | Managed Cloud (Andrei) | Configuration, monitoring, and managed service wrapper |
-| Juniper SRX firewall — physical connectivity | Network (Ben) escalation | When the physical port or circuit is the issue |
-| Juniper SRX firewall — security policy | Managed Cloud (Andrei) escalation | When firewall rules or policy is the issue |
-| Juniper SRX firewall — L2 ops and ticket response | Service Desk (Jason) | Day-to-day management and ticket response |
+| MPLS circuits, internet ports, routing, BGP peering | Network | Physical and logical network infrastructure -- OSI Layer 1-3 |
+| Switching, patching, physical cable | Network | Physical layer |
+| Cloud Connect physical circuit and port | Network | The physical pipe is Network's; provisioning the port |
+| WAF (Web Application Firewall) | Managed Cloud | Service configuration and policy, not a network device |
+| DDoS protection | Managed Cloud | Managed scrubbing service -- cloud or managed appliance |
+| ExpressRoute / Direct Connect logical config | Managed Cloud | Configuration, monitoring, and managed service wrapper |
+| Juniper SRX firewall -- physical connectivity | Network (escalation) | When the physical port or circuit is the issue |
+| Juniper SRX firewall -- security policy | Managed Cloud (escalation) | When firewall rules or policy is the issue |
+| Juniper SRX firewall -- L2 ops and ticket response | Service Desk | Day-to-day management and ticket response |
 
 **Practical test:** If it requires a Juniper CLI or a physical cable, it is Network. If it requires a portal, a policy, or a service configuration, it is Managed Cloud.
 
@@ -83,7 +97,7 @@ This boundary is defined by the OSI model and by whether a service requires phys
 - Bandwidth blocks: ~51 services with direct MRC
 
 ### Direct Cost Driver
-- Labor: Ben's team
+- Labor: Network team
 - Transit costs: upstream network provider fees are a direct COGS
 - Hardware depreciation: Juniper switching estate (EX-4300T, SRX series)
 
