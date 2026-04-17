@@ -5,7 +5,7 @@
 **Lifecycle:** Live
 **Confluence Link**: [Data Center Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045747729/Data+Center+Operations)
 
-> We own the physical layer. The building, the power, the hardware in the rack. Everything Compute Platforms builds sits on what we provide.
+> We own the physical layer. The building, the power, the hardware in the rack. We also run the provisioning packages that Compute Platforms authors -- every server that goes live goes through us. Everything above the physical layer is someone else's problem.
 
 ---
 
@@ -17,9 +17,10 @@
 - Colocation environment management for customer-owned hardware
 - Lease management and real estate runway across all sites
 - Space and power capacity planning
-- Physical asset inventory and CMDB accuracy
+- **Physical asset CMDB ownership** for all hardware in Aptum facilities, including customer-owned equipment in Colocation. This accountability sits with Data Center Ops -- not procurement -- because Data Center Ops has physical presence, performs cycle counts, and is the only team that touches the hardware. Procurement records a purchase order; Data Center Ops records what is actually in the rack.
 - Hardware remediation dispatched from Service Desk tickets (CMOS, PSU, disk, physical sensors)
 - Delivering powered, racked, cabled, network-connected hardware to Compute Platforms for environment build
+- **Executing Compute Platforms' provisioning packages** for each new server kickoff. Data Center Ops runs the package; Compute Platforms maintains the package. This is not Data Center Ops writing automation -- it is Data Center Ops running a defined, tested procedure that Compute Platforms has authored and owns.
 
 ---
 
@@ -57,11 +58,11 @@
 
 ## What This Team Does NOT Do
 
-- Install operating systems or run configuration playbooks — that is Compute Platforms
-- Network configuration or logical network management — that is Network
-- Own monitoring alerts — DC Ops receives tickets from Service Desk; it does not own alert intake
-- Customer relationship management — that is HSDM
-- Financial reporting or cost center allocation — that is Finance with Operational Intelligence support
+- Author provisioning playbooks or configuration standards -- those are Compute Platforms' product-level assets. Data Center Ops executes them.
+- Network configuration or logical network management -- that is Network
+- Own monitoring alerts -- Data Center Ops receives tickets from Service Desk; it does not own alert intake
+- Customer relationship management -- that is HSDM
+- Financial reporting or cost center allocation -- that is Finance with Operational Intelligence support
 
 ---
 
