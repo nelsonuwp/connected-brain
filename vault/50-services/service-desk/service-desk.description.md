@@ -6,14 +6,14 @@
 **Lifecycle:** Live
 **Confluence Link**: [Service Desk Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5045223425/Service+Desk+NOC)
 
-> We are the first call for every managed customer. We own day 2 operations. We triage, we route, we resolve — and the ticket stays with us until it is closed.
+> We are the first call for every managed customer. We own Day 2 operations -- and what Day 2 means is different by product. Dedicated Server customers get it included. Private Cloud customers get hypervisor management included. Everyone else chooses what they need. The ticket stays with us until it is closed.
 
 ---
 
 ## Accountable For
 
-- Day 2 operations for all dedicated and managed hosting customers
-- First response on all inbound tickets — customer-submitted and monitoring-generated
+- Day 2 operations for all dedicated and managed hosting customers -- scope varies by product type (see Day 2 Operations by Product below)
+- First response on all inbound tickets -- customer-submitted and monitoring-generated
 - Infrastructure-layer incident ownership (L2/L3)
 - Hardware health alert receipt and routing to Data Center Ops for physical remediation
 - Hyperscaler and cloud platform triage, escalation to Managed Cloud
@@ -21,6 +21,8 @@
 - Customer portal and real-time ticket status visibility
 - Shift coverage across NA and UK time zones (3 shifts, including 2-person graveyard)
 - L3 resource contribution to PS engagements (with SM approval)
+- **Private Cloud hypervisor layer management** -- Service Desk owns Day 2 operations at the VMware ESXi and Proxmox hypervisor layer for all Private Cloud customers. This includes hypervisor host health, vCenter management, storage management, and monitoring at the platform level. Compute Platforms provides the runbooks and standards; Service Desk executes them.
+- **Internal infrastructure operations for IaaS cluster nodes** -- the dedicated servers that underpin Shared Cluster and Dedicated Cluster are Aptum-owned hardware. Service Desk monitors their hardware health as an internal operational function, the same way it does for customer-facing Dedicated Servers.
 
 ---
 
@@ -43,7 +45,7 @@
 - Managed backup: Veeam
 - OS support: Debian 12.x, Windows Server (2016/2019/2022), Ubuntu, CentOS, RHEL, Alma Linux, Rocky Linux
 - Hardware health monitoring: power supply, CMOS, disk health, temperature, physical sensors
-- VMware ESXi environments: ~126 hypervisor hosts (L2 ops; escalation to Compute Platforms for L3)
+- Private Cloud environments (VMware ESXi / Proxmox): ~126 hypervisor hosts -- Service Desk owns Day 2 management of the hypervisor layer. Compute Platforms provides runbooks and configuration standards; Service Desk executes them. Escalation to Compute Platforms is for genuine L3 issues beyond runbook scope -- not for routine operations.
 
 ---
 
@@ -84,6 +86,21 @@ At shift end, graveyard engineers update every touched ticket with a structured 
 - Assignee automation based on shift schedule (Opsgenie integration)
 - SLA clock runs regardless of status or assignee — does not pause for shift changes
 - Waiting on Customer status: ticket stays assigned; JSM automation sends follow-up reminder to assignee after defined interval
+
+---
+
+## Day 2 Operations by Product
+
+The scope of Service Desk's managed layer is not uniform across products. Each product has a defined baseline and a defined set of optional add-ons.
+
+| Product | Service Desk Baseline | Notes |
+|---|---|---|
+| **Dedicated Server** | **Mandatory -- included in every engagement** | 24/7 Zabbix monitoring, hardware health alerting, baseline OS management. This layer is not optional. Every Dedicated Server customer receives it. **This is a change from prior operations and must be explicitly communicated during onboarding and in customer-facing documentation.** |
+| **Shared Cluster (VPC)** | Internal cluster infrastructure monitoring | Service Desk monitors the underlying cluster nodes as an internal operational function. Customer-facing managed services are purchased separately. |
+| **Dedicated Cluster** | Internal cluster infrastructure monitoring | Same as Shared Cluster. Service Desk monitors Aptum's cluster hardware internally. Customer Day 2 is optional. |
+| **Private Cloud (VMware/Proxmox)** | Hypervisor layer included | Service Desk owns the hypervisor: ESXi hosts, vCenter, storage management per the service plan, and platform-level monitoring. The guest OS and application layer above the hypervisor are optional Managed Cloud add-ons. |
+| **Colocation** | Not included by default | Colo customers own their hardware and the management responsibility above the physical facility layer. Service Desk monitoring and management are available as add-ons. |
+| **Connectivity** | Network monitoring included | 99.999% uptime SLA on all Aptum-managed connectivity. Network incidents route through Service Desk to Network for resolution. |
 
 ---
 
@@ -157,3 +174,4 @@ Customer never interacts with the physical layer
 - **UK coverage:** ~1,091 services in Portsmouth/UK. Whether UK customers receive adequate response during UK business hours from a North American NOC needs explicit confirmation. A UK team lead or UK-based headcount is likely required.
 - **Two Zabbix systems:** One internal-facing, one customer-facing. Consolidation decision sits with VP of Operations; execution with Operational Intelligence.
 - **Tooling ownership:** Who owns the Zabbix configuration, thresholds, and routing schema is an open organizational question pending the broader tooling ownership decision.
+- **Mandatory managed layer activation for Dedicated Server:** The decision to make the managed layer mandatory for all Dedicated Server customers represents a change from how some accounts have historically been operated. A transition plan is needed for any Dedicated Server customers currently on a no-management model to bring them into compliance with the baseline standard.

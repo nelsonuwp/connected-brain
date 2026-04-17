@@ -6,20 +6,25 @@
 **Note:** Source PDF is archived. Content reflects confirmed current state. Cost allocation correction in progress — see financial model.
 **Confluence Link**: [Managed Cloud Service Description](https://aptum.atlassian.net/wiki/spaces/svcnet/pages/5044273167/Managed+Cloud)
 
-> We manage everything from the OS upward. Public cloud, private cloud, AptCloud. The platform runs so customers do not have to think about it.
+> We manage the hyperscaler layer and the application layer. Azure, AWS, GCP -- plus the services that run on top, regardless of whether the underlying infrastructure is public cloud or Aptum-hosted. The OS upward, where the customer has bought managed services.
 
 ---
 
 ## Accountable For
 
-- Managed operations from the OS layer upward across all cloud environment types
-- Public cloud managed layer: Azure, AWS, GCP
-- Private cloud operations: VMware ESXi, Proxmox (OS and above)
-- AptCloud platform operations: Apache CloudStack (OS and above, post-handoff from Compute Platforms)
-- Cloud-layer security and application delivery services (see delineation below)
-- L3 escalation receipt from Service Desk for hyperscaler and platform issues
-- Runbook ownership for all managed cloud environments
+- Hyperscaler managed layer: Azure, AWS, GCP -- management from the OS upward on customer workloads running in public cloud
+- Optional managed OS layer for Aptum-hosted products: patching (Debian, Windows Server, Ubuntu, RHEL, Alma Linux), Veeam backup, managed firewall policy -- applied on top of Service Desk's infrastructure management when the customer purchases this layer
+- Application platform services: Datadog APM and monitoring, WAF, DDoS scrubbing management, application-layer load balancing (L7/SSL)
+- Security services: Alert Logic MDR, compliance reporting, vulnerability scanning
+- Business continuity: DRaaS design and testing, BCP planning
+- Hybrid cloud interconnects: logical config and monitoring for ExpressRoute (Azure) and Direct Connect (AWS) -- physical circuit is Network
+- M365 managed services
+- **Apt Cloud portal application layer:** The Apt Cloud portal (portal.aptum.com) runs on Aptum-owned Dedicated Servers. Service Desk manages the infrastructure layer (the servers themselves). Managed Cloud manages the application layer of the portal -- monitoring, patching, and operational management of the portal application.
+- L3 escalation receipt from Service Desk for hyperscaler and application-layer incidents
+- Runbook ownership for all managed cloud environments (public cloud and application-layer services)
 - BCP/DRaaS planning and testing for cloud customers
+
+**What Managed Cloud does NOT manage at the hypervisor layer:** For Private Cloud customers (VMware/Proxmox), Service Desk owns the hypervisor layer. Managed Cloud's role in Private Cloud is as an optional add-on for the guest OS and application layers above the hypervisor -- not for the platform itself.
 
 ---
 
@@ -36,23 +41,39 @@
 ## Products and Services Supported
 
 - Managed Cloud Platform (MCP): Azure, AWS, GCP managed layer
-- Private cloud managed operations: VMware ESXi 7.0/8.0, Proxmox
-- AptCloud managed operations: Apache CloudStack shared and dedicated clusters (Alpha — building toward Beta)
+- Optional managed OS layer: patching, Veeam backup, managed firewall policy -- applies to any Aptum-hosted product where the customer purchases this layer (Dedicated Server, Shared Cluster, Dedicated Cluster, Private Cloud guest OS)
+- Application performance monitoring: Datadog (APM, infrastructure metrics, log management)
+- Application security: WAF, DDoS scrubbing management
+- Security and compliance: Alert Logic MDR, compliance reporting (SOC 2, PCI-DSS, HIPAA), vulnerability scanning
+- Business continuity: DRaaS, BCP planning
+- Hybrid interconnects: ExpressRoute (Azure), Direct Connect (AWS) -- logical config and monitoring; physical circuit by Network
 - M365 managed services
-- OS patching and management (Debian, Windows Server, Ubuntu, RHEL, Alma Linux)
-- Managed backup: Veeam (cloud environments)
-- Application performance monitoring: Datadog
+- Apt Cloud portal application layer management
 
-### Cloud Networking — Boundary Clarification
+### Private Cloud -- Who Owns What
 
-This team owns the **security and application delivery layer** on top of network infrastructure. Ben's Network team owns the physical and logical network pipes. The practical delineation:
+The Private Cloud product (VMware/Proxmox on dedicated hosts) has distinct management layers with distinct owners.
+
+| Layer | Owner | Notes |
+|---|---|---|
+| Physical hardware | Data Center Ops | Rack, power, physical remediation |
+| Network connectivity | Network | Physical and logical network layer |
+| Hypervisor (ESXi hosts, vCenter, storage, Proxmox cluster) | Service Desk | Day 2 management of the platform layer. Included in Private Cloud. |
+| Guest OS on VMs (patching, backup, firewall policy) | Managed Cloud -- optional | Available as an add-on; not included by default |
+| Application layer (Datadog, WAF, DDoS, L7 LB) | Managed Cloud -- optional | Available as an add-on; not included by default |
+
+**Practical test:** If it is the VMware host, vCenter, or Proxmox cluster -- that is Service Desk. If it is a guest VM's operating system or anything running inside it -- that is Managed Cloud (if purchased).
+
+### Cloud Networking -- Boundary Clarification
+
+This team owns the **security and application delivery layer** on top of network infrastructure. Network owns the physical and logical network pipes. The practical delineation:
 
 | Service | Owner | Why |
 |---|---|---|
 | WAF (Web Application Firewall) | Managed Cloud | Configured as a managed service policy, not a network device. Inspects HTTP/HTTPS traffic against customer application. |
 | DDoS protection | Managed Cloud | Scrubbing service — cloud or managed appliance. Service configuration, not network infrastructure. |
 | Hybrid cloud interconnects (ExpressRoute, Direct Connect) | Managed Cloud | The managed service wrapper and configuration. Physical circuit provisioned by Network; logical config and monitoring owned here. |
-| MPLS, internet ports, routing, BGP | Network (Ben) | Physical and logical network infrastructure — OSI Layer 1-3. |
+| MPLS, internet ports, routing, BGP | Network | Physical and logical network infrastructure -- OSI Layer 1-3. |
 | Juniper SRX firewall (physical appliance) | Service Desk (L2 ops) + Network (connectivity escalation) + Managed Cloud (security policy escalation) | L2 ticket response: Service Desk. Physical connectivity issue: Network. Security policy / rule issue: Managed Cloud. |
 
 **Practical test:** If it requires a Juniper CLI or a physical cable, it is Network. If it requires a portal, a policy, or a service configuration, it is Managed Cloud.

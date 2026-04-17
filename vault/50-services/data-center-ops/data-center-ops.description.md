@@ -36,9 +36,9 @@
 
 ## Products and Services Supported
 
-- Colocation: ~768 services across all locations — customer-owned hardware in Aptum facilities
+- Colocation: ~768 services across all locations -- customer-owned hardware in Aptum facilities. **Important: connectivity is not included in Colocation by default.** Colo customers own their hardware and the management responsibility above the physical facility layer. Connectivity (MPLS, internet, cross-connects) is a separate purchase, unlike every other Aptum hosting product where connectivity is embedded. This must be explicit in Colo commercial conversations.
 - Facility services: space, power, cooling, physical security
-- Connectivity services: physical layer (cross-connects, fiber, patch panels)
+- Connectivity services: physical layer only (cross-connects, fiber, patch panels) -- logical network configuration is Network
 - Remote hands: all locations
 - Physical asset management: servers, switches, firewalls, storage arrays across the estate
 
@@ -130,5 +130,6 @@ Customer sees restored service — never touches the physical layer
 
 ## Open Questions / Flags
 
-- **UK physical presence:** Portsmouth/Croydon/Horner accounts for ~1,091 services. Whether George's team has adequate local staffing in the UK for remote hands and hardware remediation — or relies on contracted third-party remote hands — needs to be explicit and documented.
-- **LA/Malibu:** 551 services — comparable scale to Atlanta and Miami. Whether this location has equivalent local coverage is worth auditing.
+- **UK physical presence:** Portsmouth/Croydon/Horner accounts for ~1,091 services. Whether Data Center Ops has adequate local staffing in the UK for remote hands and hardware remediation -- or relies on contracted third-party remote hands -- needs to be explicit and documented.
+- **LA/Malibu:** 551 services -- comparable scale to Atlanta and Miami. Whether this location has equivalent local coverage is worth auditing.
+- **CMDB tooling for shelved assets:** Two candidate tools exist for managing asset inventory of undeployed and shelved hardware -- Hyperview (purpose-built DCIM) and Canonical MAAS (the BMaaS platform that will also provide hardware inventory visibility through the Apt Cloud portal). Which system becomes the system of record for shelved and in-transit hardware is an open decision. Live customer inventory must ultimately sync to both the operational CMDB and the portal.
