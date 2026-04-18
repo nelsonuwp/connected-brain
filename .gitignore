@@ -21,6 +21,7 @@ venv/
 *.egg-info/
 dist/
 .pytest_cache/
+.mypy_cache/
 
 # ── OS NOISE ──────────────────────────────────────────────────────────────────
 .DS_Store
@@ -29,5 +30,11 @@ desktop.ini
 
 # ── EDITOR ────────────────────────────────────────────────────────────────────
 .vscode/
+.idea/
 *.swp
 *.swovault/.obsidian/plugins/whisper/data.json
+
+# ── JSM-SYNC ──────────────────────────────────────────────────────────────────
+projects/jsm-sync/postgres_data/
+projects/jsm-sync/logs/
+*.log
