@@ -23,18 +23,13 @@ docker compose logs -f postgres   # wait for "ready to accept connections", then
 # 3. Verify schema loaded (7 tables expected)
 docker compose exec postgres psql -U jsm_sync -d jsm_sync -c "\dt"
 
-# 4. Create Python environment
-python3 -m venv .venv
-source .venv/bin/activate
+# 4. Install Python dependencies
 pip install -r requirements.txt
 ```
 
 ## Running the backfill
 
 ```bash
-# Activate venv first
-source .venv/bin/activate
-
 # Quick sanity check — last 1 day
 python -m jsm_sync.backfill --lookback-days 1
 
@@ -52,7 +47,7 @@ python -m jsm_sync.backfill --lookback-days 30
 python -m jsm_sync.incremental
 
 # Schedule via cron (every 10 min)
-*/10 * * * * cd /path/to/connected-brain/projects/jsm-sync && .venv/bin/python -m jsm_sync.incremental >> logs/incremental.log 2>&1
+*/10 * * * * cd /path/to/connected-brain/projects/jsm-sync && python3 -m jsm_sync.incremental >> logs/incremental.log 2>&1
 ```
 
 ## Checking progress
