@@ -1,0 +1,21 @@
+{
+  "email_patterns": [
+    "noreply@",
+    "no-reply@",
+    "-scraper@",
+    "automation@",
+    "notifications.",
+    "alerts@",
+    "monitoring@",
+    "veeam",
+    "alertlogic"
+  ],
+  "specific_users": {
+    "by_email": [],
+    "by_display_name": [
+      "PagerDuty",
+      "Automation for Jira",
+      "Zabbix"
+    ]
+  }
+}

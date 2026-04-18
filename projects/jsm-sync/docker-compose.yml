@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: jsm-sync-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: jsm_sync
+      POSTGRES_USER: jsm_sync
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-localdev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./schema:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jsm_sync -d jsm_sync"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
