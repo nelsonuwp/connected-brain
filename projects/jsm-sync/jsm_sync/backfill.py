@@ -13,7 +13,7 @@ Usage:
 import argparse
 import asyncio
 import logging
-from datetime import datetime, timezone
+from datetime import datetime
 
 import httpx
 
@@ -24,6 +24,7 @@ from .db import (
     init_pool,
     mark_sync_complete,
     mark_sync_error,
+    mark_sync_running,
     persist_ticket,
     set_sync_cursor,
 )
@@ -53,14 +54,7 @@ async def run_backfill(lookback_days: int, batch_size: int) -> None:
             logger.info("Starting fresh backfill — lookback %d days", lookback_days)
             jql = build_project_jql(settings.jira_project, lookback_days=lookback_days)
 
-        # Mark as running. If cursor is None (fresh start), record now as the
-        # starting point; actual checkpoints from batch max(updated_at) will
-        # overwrite this immediately as processing begins.
-        await set_sync_cursor(
-            SOURCE_NAME,
-            cursor or datetime.now(timezone.utc),
-            status="running",
-        )
+        await mark_sync_running(SOURCE_NAME)
 
         async with httpx.AsyncClient() as client:
             headers = _auth_headers()

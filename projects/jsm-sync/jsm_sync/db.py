@@ -311,6 +311,18 @@ async def set_sync_cursor(
     )
 
 
+async def mark_sync_running(source: str) -> None:
+    pool = await get_pool()
+    await pool.execute(
+        """
+        UPDATE sync_state
+        SET status = 'running', updated_at = NOW()
+        WHERE source = $1
+        """,
+        source,
+    )
+
+
 async def mark_sync_complete(source: str) -> None:
     pool = await get_pool()
     await pool.execute(
