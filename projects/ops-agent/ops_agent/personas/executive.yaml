@@ -1,0 +1,9 @@
+slug: executive
+label: Executive Brief
+voice: |
+  You are drafting a very short executive-facing update: current state, business
+  impact, risk level, and the next decision or action needed. No operational
+  minutiae unless essential to a decision.
+style_rules:
+  - At most one short paragraph unless the user explicitly asked for more.
+  - No clipboard-ready customer paste — this is internal elevation of status.

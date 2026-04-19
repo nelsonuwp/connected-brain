@@ -174,38 +174,57 @@ async def get_ticket_assignee(conn: asyncpg.Connection, issue_key: str) -> Optio
     return dict(row) if row else None
 
 
-async def get_engineer_past_comments(
+async def list_customer_tickets(
     conn: asyncpg.Connection,
-    account_id: str,
-    summary_pattern: str,
-    limit: int = 5,
-    min_body_length: int = 50,
-    max_body_length: int = 500,
+    ocean_client_id: int,
+    *,
+    exclude_issue_key: str,
+    limit: int = 30,
 ) -> list[dict]:
-    """
-    Pull the engineer's recent public close-out comments on tickets whose
-    summary matches the given ILIKE pattern. Used as few-shot examples.
-    """
     rows = await conn.fetch(
         """
-        SELECT te.body, te.created_at, t.summary, t.issue_key
-        FROM thread_events te
-        JOIN tickets t ON t.issue_key = te.issue_key
-        WHERE te.author_account_id = $1
-          AND t.summary ILIKE $2
-          AND te.is_public = true
-          AND te.kind = 'comment'
-          AND length(te.body) >= $3
-          AND length(te.body) <= $4
-          AND te.deleted_at IS NULL
-          AND t.deleted_at IS NULL
-        ORDER BY te.created_at DESC
-        LIMIT $5
+        SELECT issue_key, summary, status, ocean_client_id, updated_at, resolved_at
+        FROM tickets
+        WHERE ocean_client_id = $1
+          AND deleted_at IS NULL
+          AND issue_key <> $2
+        ORDER BY updated_at DESC
+        LIMIT $3
         """,
-        account_id,
-        summary_pattern,
-        min_body_length,
-        max_body_length,
+        ocean_client_id,
+        exclude_issue_key,
+        limit,
+    )
+    return [dict(r) for r in rows]
+
+
+async def list_tickets_for_service_ids(
+    conn: asyncpg.Connection,
+    service_ids: list[str],
+    *,
+    exclude_issue_key: str,
+    limit: int = 25,
+) -> list[dict]:
+    if not service_ids:
+        return []
+    rows = await conn.fetch(
+        """
+        SELECT t.issue_key, t.summary, t.status, t.ocean_client_id, t.updated_at, t.resolved_at
+        FROM tickets t
+        WHERE t.deleted_at IS NULL
+          AND t.issue_key <> $2
+          AND EXISTS (
+            SELECT 1
+            FROM ticket_assets ta
+            JOIN assets a ON a.object_id = ta.object_id
+            WHERE ta.issue_key = t.issue_key
+              AND a.service_id = ANY($1::text[])
+          )
+        ORDER BY t.updated_at DESC
+        LIMIT $3
+        """,
+        service_ids,
+        exclude_issue_key,
         limit,
     )
     return [dict(r) for r in rows]
@@ -228,12 +247,13 @@ async def log_draft(conn: asyncpg.Connection, draft: dict) -> int:
         INSERT INTO ops.draft_log
             (issue_key, pattern_slug, engineer_account_id,
              prompt_tokens, completion_tokens, model,
-             system_prompt, user_prompt, generated_text)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+             system_prompt, user_prompt, generated_text,
+             draft_type, persona_slug, system_prompt_override)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         RETURNING id
         """,
         draft["issue_key"],
-        draft["pattern_slug"],
+        draft.get("pattern_slug"),
         draft.get("engineer_account_id"),
         draft.get("prompt_tokens"),
         draft.get("completion_tokens"),
@@ -241,6 +261,9 @@ async def log_draft(conn: asyncpg.Connection, draft: dict) -> int:
         draft.get("system_prompt"),
         draft.get("user_prompt"),
         draft["generated_text"],
+        draft.get("draft_type"),
+        draft.get("persona_slug"),
+        draft.get("system_prompt_override"),
     )
     return row["id"]
 
