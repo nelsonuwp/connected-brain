@@ -46,7 +46,7 @@ def _median(vals: list[float]) -> float:
     return float(median(vals))
 
 
-_LABEL_GUARD_PCT = 20.0  # min distance (%) from ends before nudging label
+_LABEL_GUARD_PCT = 20.0  # min natural distance (%) from ends to show median label
 
 
 def _range_bar(seconds: list[float]) -> Optional[dict[str, Any]]:
@@ -61,24 +61,24 @@ def _range_bar(seconds: list[float]) -> Optional[dict[str, Any]]:
             "min_label": _format_duration(lo),
             "median_label": _format_duration(med),
             "max_label": _format_duration(hi),
-            # Flat bar: tick at 50%, but hide median label (it equals min & max).
             "median_pct": 50.0,
             "median_label_pct": 50.0,
             "hide_median_label": True,
         }
     med_pct = (med - lo) / (hi - lo) * 100.0
     med_pct = max(0.0, min(100.0, med_pct))
-    # Clamp the *label* position so it doesn't collide with min (0%) or max (100%).
-    # The tick position (median_pct) stays proportionally accurate.
-    label_pct = max(_LABEL_GUARD_PCT, min(100.0 - _LABEL_GUARD_PCT, med_pct))
+    # Hide the median label if it sits too close to either endpoint — this
+    # avoids overlap with the min/max labels. The tick still renders at the
+    # correct proportional position so the visual structure stays honest.
+    hide_label = med_pct < _LABEL_GUARD_PCT or med_pct > (100.0 - _LABEL_GUARD_PCT)
     return {
         "flat": False,
         "min_label": _format_duration(lo),
         "median_label": _format_duration(med),
         "max_label": _format_duration(hi),
         "median_pct": med_pct,
-        "median_label_pct": label_pct,
-        "hide_median_label": False,
+        "median_label_pct": med_pct,
+        "hide_median_label": hide_label,
     }
 
 
