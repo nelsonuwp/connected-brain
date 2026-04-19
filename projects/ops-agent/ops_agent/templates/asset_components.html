@@ -3,27 +3,8 @@
 {% elif not components %}
 <p class="muted small">No component data found.</p>
 {% else %}
-{# Group components by service_id so they stay visually tied to their asset #}
-{% set ns = namespace(last_sid=None) %}
 <ul class="hw-comp-list asset-comp-list">
     {% for c in components %}
-    {% if c.service_id != ns.last_sid %}
-    {% set ns.last_sid = c.service_id %}
-    {% if c.product_nickname or c.product_label or c.service_id %}
-    <li class="hw-comp-service-header">
-        <span class="asset-name small">{{ c.product_nickname or c.product_label or ("service " ~ c.service_id) }}</span>
-        {% if c.product_name and c.product_nickname and c.product_name != c.product_nickname %}
-        <span class="asset-meta-pill">{{ c.product_name }}</span>
-        {% endif %}
-        {% if c.pl_abbr %}
-        <span class="asset-meta-pill asset-meta-pill--lob">{{ c.pl_abbr }}</span>
-        {% elif c.pl_name %}
-        <span class="asset-meta-pill asset-meta-pill--lob">{{ c.pl_name }}</span>
-        {% endif %}
-        <span class="muted small">#{{ c.service_id }}</span>
-    </li>
-    {% endif %}
-    {% endif %}
     <li class="hw-comp-item">
         <span class="comp-category">{{ c.component_category }}</span>/<span class="comp-type">{{ c.component_type }}</span>
         <span class="comp-name">{{ c.component }}</span>
