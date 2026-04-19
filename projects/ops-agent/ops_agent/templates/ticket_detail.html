@@ -76,15 +76,26 @@
 
 {% if assets %}
 <section class="section">
-    <h3>Assets</h3>
+    <div class="section-header-row">
+        <h3>Assets</h3>
+        <button type="button" class="btn-ghost asset-components-toggle"
+            hx-get="/tickets/{{ ticket.issue_key }}/assets/components"
+            hx-target="#asset-components-area"
+            hx-swap="innerHTML"
+            hx-trigger="click once"
+            onclick="this.closest('.section').querySelector('#asset-components-area').classList.toggle('is-open'); this.classList.toggle('active')">
+            Hardware components
+        </button>
+    </div>
     <ul class="asset-list">
         {% for a in assets %}
         <li>
             <span class="asset-name">{{ a.asset_name or a.object_id }}</span>
-            {% if a.service_id %}<span class="muted">service_id: {{ a.service_id }}</span>{% endif %}
+            {% if a.service_id %}<span class="muted small">service {{ a.service_id }}</span>{% endif %}
         </li>
         {% endfor %}
     </ul>
+    <div id="asset-components-area" class="asset-components-area"></div>
 </section>
 {% endif %}
 

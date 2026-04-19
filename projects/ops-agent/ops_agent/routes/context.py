@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from ..db import get_pool
-from ..context.t_context import build_t_context
+from ..context.t_context import build_t_context, fetch_ticket_components
 
 logger = logging.getLogger(__name__)
 
@@ -34,4 +34,20 @@ async def related_panel(request: Request, issue_key: str):
         request,
         "related_panel.html",
         {"issue_key": issue_key, "error": None, "ctx": ctx},
+    )
+
+
+@router.get("/tickets/{issue_key}/assets/components", response_class=HTMLResponse)
+async def asset_components(request: Request, issue_key: str):
+    pool = await get_pool()
+    try:
+        data = await fetch_ticket_components(pool, issue_key)
+    except Exception as e:
+        logger.exception("asset_components failed for %s", issue_key)
+        return HTMLResponse(f'<p class="related-warn">Could not load components: {e}</p>')
+
+    return templates.TemplateResponse(
+        request,
+        "asset_components.html",
+        {"components": data["components"], "mssql_error": data["mssql_error"]},
     )

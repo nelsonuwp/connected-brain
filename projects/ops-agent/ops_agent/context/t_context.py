@@ -606,3 +606,29 @@ async def build_t_context(pool, issue_key: str) -> dict[str, Any]:
         )
 
         return view.to_template_dict() | {"prompt_block": view.prompt_block()}
+
+
+async def fetch_ticket_components(pool, issue_key: str) -> dict[str, Any]:
+    """
+    Lightweight fetch of just the hardware components for a ticket's assets.
+    Returns {"components": [...enriched...], "mssql_error": str|None}
+    """
+    async with pool.acquire() as conn:
+        assets = await get_ticket_assets(conn, issue_key)
+    service_ids = _parse_service_ids(assets)
+    if not service_ids:
+        return {"components": [], "mssql_error": None}
+
+    mssql_data = await asyncio.to_thread(_mssql_slice, service_ids)
+    components: list[dict[str, Any]] = list(mssql_data.get("components") or [])
+
+    label_ids = sorted(set(int(c["service_id"]) for c in components if c.get("service_id")))
+    if label_ids:
+        label_map = await asyncio.to_thread(_fusion_service_labels, label_ids)
+        for c in components:
+            sid = c.get("service_id")
+            info = label_map.get(int(sid)) if sid is not None else None
+            c["product_label"] = info.get("product_label") if info else None
+            c["fusion_company_name"] = info.get("fusion_company_name") if info else None
+
+    return {"components": components, "mssql_error": mssql_data.get("mssql_error")}
