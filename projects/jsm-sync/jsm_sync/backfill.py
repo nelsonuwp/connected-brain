@@ -39,7 +39,7 @@ from .transform import transform_ticket
 logger = logging.getLogger(__name__)
 
 SOURCE_NAME = "jira_tickets"
-DEFAULT_BATCH_SIZE = 20
+DEFAULT_BATCH_SIZE = 50
 
 
 async def run_backfill(lookback_days: int, batch_size: int) -> None:
