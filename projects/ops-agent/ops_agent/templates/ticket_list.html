@@ -4,8 +4,11 @@
 {% macro familiarity_cell(issue_key, score) -%}
 {% set R = score | familiarity_ring %}
 <td class="familiarity-cell"
+    tabindex="0"
+    role="button"
+    aria-label="Familiarity {% if score is none %}unknown{% else %}{{ score }} out of 100{% endif %} — hover or focus for similar tickets"
     hx-get="/tickets/{{ issue_key }}/familiarity/tooltip"
-    hx-trigger="mouseenter once"
+    hx-trigger="mouseenter once, focus once, touchstart once"
     hx-target="#f-tip-{{ issue_key }}"
     hx-swap="innerHTML">
     <div class="familiarity-stack">

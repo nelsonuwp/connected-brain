@@ -376,8 +376,15 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   font-size: .8rem;
   line-height: 1.45;
 }
-.ticket-table td.familiarity-cell:hover .familiarity-tip {
+.ticket-table td.familiarity-cell:hover .familiarity-tip,
+.ticket-table td.familiarity-cell:focus-visible .familiarity-tip,
+.ticket-table td.familiarity-cell:focus-within .familiarity-tip {
   display: block;
+}
+.ticket-table td.familiarity-cell:focus-visible {
+  outline: 2px solid var(--ring-lavender, #b497ff);
+  outline-offset: -2px;
+  border-radius: 6px;
 }
 .familiarity-tooltip-inner { max-height: 70vh; overflow-y: auto; }
 .familiarity-tooltip__section + .familiarity-tooltip__section {
