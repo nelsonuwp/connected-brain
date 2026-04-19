@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ticket Detail — Layout Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #F8F7FA;
+  --surface:     #FFFFFF;
+  --navy:        #081820;
+  --soft-black:  #101010;
+  --body:        #515357;
+  --muted:       #88898D;
+  --dim:         #D0D1DE;
+  --lav:         #7D7AE8;
+  --lav-1:       #E7E6FF;
+  --lav-2:       #D4D3FF;
+  --lav-s1:      #655BD9;
+  --lav-s3:      #3A2699;
+  --green:       #BED6A8;
+  --green-text:  #1e4a10;
+  --orange:      #FFBE81;
+  --orange-text: #5c2800;
+  --blue:        #B8CDFF;
+  --blue-text:   #1a3580;
+  --border:      rgba(208,209,222,.5);
+  --border-light:rgba(208,209,222,.35);
+}
+
+html, body {
+  background: var(--bg);
+  font-family: 'Geist', -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--soft-black);
+  height: 100%;
+}
+
+/* ─── BRAINSTORM SHELL ─────────────────────────────── */
+.shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Left selector nav */
+.sel-nav {
+  width: 228px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sel-nav-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.sel-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.sel-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.sel-subtitle {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.sel-list {
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sel-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background .12s, border-color .12s;
+  text-align: left;
+  background: none;
+  font-family: 'Geist', sans-serif;
+  color: inherit;
+  width: 100%;
+}
+
+.sel-item:hover {
+  background: var(--bg);
+}
+
+.sel-item.active {
+  background: var(--lav-1);
+  border-color: rgba(125,122,232,.25);
+}
+
+.sel-letter {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: var(--bg);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  transition: background .12s, color .12s, border-color .12s;
+}
+
+.sel-item.active .sel-letter {
+  background: var(--lav);
+  color: #fff;
+  border-color: var(--lav);
+}
+
+.sel-item-body {}
+
+.sel-item-name {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.sel-item.active .sel-item-name {
+  color: var(--lav-s3);
+}
+
+.sel-item-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.sel-rec {
+  display: inline-block;
+  margin-top: 4px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  padding: 1.5px 6px;
+  border-radius: 3px;
+  background: var(--lav-2);
+  color: var(--lav-s3);
+}
+
+/* Trade-offs strip inside active item */
+.sel-tradeoffs {
+  display: none;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(125,122,232,.2);
+}
+.sel-item.active .sel-tradeoffs { display: block; }
+
+.tf-row { display: flex; gap: 8px; }
+.tf-col { flex: 1; }
+.tf-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.tf-pro .tf-label { color: var(--green-text); }
+.tf-con .tf-label { color: var(--orange-text); }
+.tf-ul { list-style: none; display: flex; flex-direction: column; gap: 1px; }
+.tf-ul li {
+  font-size: 10px;
+  color: var(--body);
+  padding-left: 9px;
+  position: relative;
+  line-height: 1.5;
+}
+.tf-pro .tf-ul li::before { content: '+'; position: absolute; left: 0; color: var(--green-text); }
+.tf-con .tf-ul li::before { content: '–'; position: absolute; left: 0; color: var(--orange-text); }
+
+.sel-divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 4px 20px;
+}
+
+.sel-nav-footer {
+  padding: 16px 20px;
+  margin-top: auto;
+  border-top: 1px solid var(--border-light);
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Preview area */
+.preview-area {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+}
+
+.preview { display: none; }
+.preview.active { display: block; }
+
+/* ─── TICKET PAGE BASE STYLES ─────────────────────── */
+.tp {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px 36px 80px;
+  font-family: 'Geist', sans-serif;
+}
+
+.tp-wide {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 28px 36px 80px;
+}
+
+.tp-back {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tp-back a { color: var(--muted); text-decoration: none; }
+.tp-back a:hover { color: var(--lav-s1); }
+
+/* Ticket key row */
+.tp-key {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--lav-s1);
+  letter-spacing: .04em;
+  margin-bottom: 6px;
+}
+
+.tp-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.25;
+  margin-bottom: 12px;
+  letter-spacing: -.01em;
+}
+
+/* Meta row */
+.tp-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.tp-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: .01em;
+}
+.tp-badge.status  { background: var(--green);  color: var(--green-text); }
+.tp-badge.priority{ background: var(--orange); color: var(--orange-text); }
+.tp-badge.type    { background: var(--lav-2);  color: var(--lav-s3); }
+
+/* People row */
+.tp-people {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 4px;
+}
+
+.tp-person {}
+.tp-person-label {
+  font-size: 10.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 1px;
+  font-family: 'Geist Mono', monospace;
+}
+.tp-person-name {
+  font-size: 13px;
+  color: var(--body);
+  font-weight: 400;
+}
+.tp-person-name.unassigned { color: var(--dim); font-style: italic; }
+
+/* Time strip */
+.tp-times {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+.tp-times-item { display: flex; flex-direction: column; }
+.tp-times-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--dim);
+}
+.tp-times-val { font-size: 11.5px; color: var(--muted); }
+.tp-times-arrow { color: var(--dim); font-size: 12px; margin: 0 2px; }
+
+.tp-divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 20px 0;
+}
+
+/* Section heading */
+.tp-section-head {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-family: 'Geist Mono', monospace;
+  margin-bottom: 10px;
+}
+
+/* Description */
+.tp-description {
+  font-size: 13.5px;
+  color: var(--body);
+  line-height: 1.65;
+  margin-bottom: 24px;
+  max-width: 72ch;
+}
+
+/* Assets */
+.tp-assets {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.tp-asset {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+}
+
+.tp-asset-name { font-weight: 500; color: var(--navy); }
+.tp-asset-type { color: var(--muted); }
+.tp-asset-lob {
+  background: var(--lav-1);
+  color: var(--lav-s3);
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+/* Thread */
+.tp-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tp-event {}
+
+.tp-changelog {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 0;
+  font-size: 11.5px;
+  color: var(--muted);
+  border-left: 2px solid var(--border-light);
+  padding-left: 10px;
+  margin-left: 4px;
+}
+
+.tp-comment {
+  padding: 11px 14px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.tp-comment.pub {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--lav);
+}
+
+.tp-comment.priv {
+  background: #FFF9F0;
+  border: 1px solid rgba(255,190,129,.2);
+  border-left: 3px solid var(--orange);
+}
+
+.tp-comment-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.tp-comment-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.tp-role-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.tp-role-badge.customer { background: var(--lav-1); color: var(--lav-s3); }
+.tp-role-badge.internal { background: #FFF0DC; color: var(--orange-text); }
+.tp-role-badge.aptum    { background: var(--green); color: var(--green-text); }
+
+.tp-vis-badge {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: 'Geist Mono', monospace;
+}
+
+.tp-comment-date {
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.tp-comment-body {
+  font-size: 13px;
+  color: var(--body);
+  line-height: 1.6;
+}
+
+/* Similar issues chips */
+.tp-similar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.tp-sim-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-decoration: none;
+  transition: border-color .12s;
+}
+
+.tp-sim-chip:hover { border-color: var(--lav); }
+.tp-sim-chip-key {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--lav-s1);
+  font-weight: 400;
+}
+.tp-sim-chip-sim {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--green-text);
+  background: var(--green);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+.tp-sim-chip-status {
+  font-size: 10px;
+  color: var(--muted);
+}
+.tp-sim-chip-more {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px dashed var(--border);
+}
+
+/* ── AI STRIP (Option A & B quick tray) ────────────── */
+.tp-ai-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 7px;
+  border: 1px solid rgba(125,122,232,.25);
+  background: var(--lav-1);
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.tp-ai-icon {
+  width: 20px; height: 20px;
+  border-radius: 4px;
+  background: var(--lav);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #fff;
+  flex-shrink: 0;
+}
+
+.tp-ai-word {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--lav-s3);
+  margin-right: 4px;
+}
+
+.tp-btn {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: opacity .1s;
+}
+.tp-btn:hover { opacity: .85; }
+.tp-btn.primary { background: var(--lav); color: #fff; }
+.tp-btn.ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--body);
+  background: var(--surface);
+}
+
+.tp-ai-sep {
+  width: 1px; height: 16px;
+  background: rgba(125,122,232,.3);
+  margin: 0 2px;
+}
+
+.tp-ai-persona {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 6px;
+}
+.tp-persona-label { font-size: 11px; color: var(--lav-s3); }
+.tp-persona-select {
+  font-family: 'Geist', sans-serif;
+  font-size: 11.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(125,122,232,.3);
+  background: var(--surface);
+  color: var(--navy);
+}
+
+/* ── AI OUTPUT AREA ─────────────────────────────────── */
+.tp-ai-output {
+  background: var(--surface);
+  border: 1px solid rgba(125,122,232,.2);
+  border-radius: 7px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+}
+
+.tp-ai-output-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.tp-ai-output-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--lav-s1);
+  font-weight: 400;
+}
+
+.tp-ai-output-body {
+  font-size: 13px;
+  color: var(--body);
+  line-height: 1.65;
+  border-top: 1px solid var(--border-light);
+  padding-top: 10px;
+}
+
+.tp-ai-actions-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+
+/* ── STICKY TRAY (Option B) ────────────────────────── */
+.tp-sticky-tray {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 10px 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  box-shadow: 0 -2px 12px rgba(8,24,32,.06);
+  margin: 0 -36px;
+}
+
+.tp-tray-expanded {
+  background: var(--lav-1);
+  border: 1px solid rgba(125,122,232,.25);
+  border-radius: 7px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.tp-tray-expanded-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+/* ── TWO-ZONE SPLIT (Option C) ──────────────────────── */
+.tp-zones {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 0;
+  min-height: 0;
+}
+
+.tp-zone-main {
+  padding-right: 32px;
+  border-right: 1px solid var(--border-light);
+}
+
+.tp-zone-side {
+  padding-left: 28px;
+}
+
+/* AI panel in side zone */
+.tp-ai-side-panel {
+  background: var(--lav-1);
+  border: 1px solid rgba(125,122,232,.25);
+  border-radius: 7px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.tp-ai-side-head {
+  display: flex; align-items: center; gap: 7px;
+  margin-bottom: 11px;
+}
+.tp-ai-side-title { font-size: 12px; font-weight: 600; color: var(--lav-s3); }
+
+.tp-ai-side-actions {
+  display: flex; flex-direction: column; gap: 5px;
+  margin-bottom: 10px;
+}
+.tp-ai-side-actions .tp-btn { text-align: left; }
+
+.tp-ai-side-output {
+  background: var(--surface);
+  border-radius: 5px;
+  border: 1px solid rgba(125,122,232,.15);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--body);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.tp-related-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.tp-related-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-light);
+  background: var(--surface);
+  text-decoration: none;
+  font-size: 12px;
+  transition: border-color .12s;
+}
+.tp-related-item:hover { border-color: var(--lav); }
+.tp-related-key {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--lav-s1);
+  flex-shrink: 0;
+}
+.tp-related-body { flex: 1; min-width: 0; }
+.tp-related-sum {
+  font-size: 11.5px;
+  color: var(--navy);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 1px;
+}
+.tp-related-meta { font-size: 10.5px; color: var(--muted); }
+.tp-related-sim {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  background: var(--green);
+  color: var(--green-text);
+  padding: 1.5px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* Customer block */
+.tp-customer-block {
+  padding: 12px 0;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+.tp-customer-name { font-size: 13px; font-weight: 500; color: var(--navy); margin-bottom: 2px; }
+.tp-customer-meta { font-size: 11.5px; color: var(--muted); font-family: 'Geist Mono', monospace; }
+
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ═════════════ LEFT SELECTOR NAV ═════════════ -->
+  <nav class="sel-nav">
+    <div class="sel-nav-header">
+      <div class="sel-eyebrow">ops-agent · design</div>
+      <div class="sel-title">Ticket detail layout</div>
+      <div class="sel-subtitle">No right sidebar. Future left-nav shell assumed.</div>
+    </div>
+
+    <div class="sel-list">
+
+      <button class="sel-item" data-opt="a" onclick="show('a')">
+        <div class="sel-letter">A</div>
+        <div class="sel-item-body">
+          <div class="sel-item-name">Inline AI panel</div>
+          <div class="sel-item-desc">Similar issues + AI panel above description. Single column scroll.</div>
+          <div class="sel-tradeoffs">
+            <div class="tf-row">
+              <div class="tf-col tf-pro"><div class="tf-label">Pros</div><ul class="tf-ul"><li>No extra clicks</li><li>All in one flow</li></ul></div>
+              <div class="tf-col tf-con"><div class="tf-label">Cons</div><ul class="tf-ul"><li>AI before content</li><li>Interrupts reading</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <div class="sel-divider"></div>
+
+      <button class="sel-item" data-opt="b" onclick="show('b')">
+        <div class="sel-letter">B</div>
+        <div class="sel-item-body">
+          <div class="sel-item-name">Read-first + sticky tray</div>
+          <div class="sel-item-desc">Clean content column. AI tray pinned to bottom of viewport.</div>
+          <div class="sel-rec">recommended</div>
+          <div class="sel-tradeoffs">
+            <div class="tf-row">
+              <div class="tf-col tf-pro"><div class="tf-label">Pros</div><ul class="tf-ul"><li>Clean reading</li><li>AI always reachable</li><li>Fits any container</li></ul></div>
+              <div class="tf-col tf-con"><div class="tf-label">Cons</div><ul class="tf-ul"><li>Extra click to act</li><li>Related at bottom</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <div class="sel-divider"></div>
+
+      <button class="sel-item" data-opt="c" onclick="show('c')">
+        <div class="sel-letter">C</div>
+        <div class="sel-item-body">
+          <div class="sel-item-name">Two-zone split</div>
+          <div class="sel-item-desc">Content left (65%), related + AI actions right (35%). Header spans full width.</div>
+          <div class="sel-tradeoffs">
+            <div class="tf-row">
+              <div class="tf-col tf-pro"><div class="tf-label">Pros</div><ul class="tf-ul"><li>AI beside context</li><li>Both visible at once</li></ul></div>
+              <div class="tf-col tf-con"><div class="tf-label">Cons</div><ul class="tf-ul"><li>Right zone narrow</li><li>Dense on screen</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </button>
+
+    </div>
+
+    <div class="sel-nav-footer">
+      Click an option to preview it. The left-nav stub on each mockup represents your future org shell.
+    </div>
+  </nav>
+
+  <!-- ═════════════ PREVIEW AREA ═════════════ -->
+  <main class="preview-area">
+
+    <!-- ─────────── OPTION A: Inline AI Panel ─────────── -->
+    <div id="preview-a" class="preview">
+      <div class="tp">
+        <div class="tp-back"><a href="#">← All tickets</a></div>
+
+        <div class="tp-key">APTUM-38272</div>
+        <h1 class="tp-title">Customer unable to access VPN endpoint after scheduled maintenance</h1>
+
+        <div class="tp-meta">
+          <span class="tp-badge status">In Progress</span>
+          <span class="tp-badge priority">High</span>
+          <span class="tp-badge type">Network / Connectivity</span>
+        </div>
+
+        <div class="tp-people">
+          <div class="tp-person">
+            <div class="tp-person-label">Assignee</div>
+            <div class="tp-person-name">Adam Nelson</div>
+          </div>
+          <div class="tp-person">
+            <div class="tp-person-label">Reporter</div>
+            <div class="tp-person-name">Karen Holt</div>
+          </div>
+          <div class="tp-person">
+            <div class="tp-person-label">Customer</div>
+            <div class="tp-person-name">Northbridge Financial</div>
+          </div>
+          <div class="tp-person">
+            <div class="tp-person-label">Fusion</div>
+            <div class="tp-person-name">#4082</div>
+          </div>
+        </div>
+
+        <div class="tp-times">
+          <div class="tp-times-item"><div class="tp-times-label">Created</div><div class="tp-times-val">Apr 14, 09:02</div></div>
+          <span class="tp-times-arrow">→</span>
+          <div class="tp-times-item"><div class="tp-times-label">Updated</div><div class="tp-times-val">Apr 18, 14:37</div></div>
+        </div>
+
+        <div class="tp-divider"></div>
+
+        <!-- Similar issues BEFORE AI, as context chips -->
+        <div class="tp-section-head">Similar issues</div>
+        <div class="tp-similar" style="margin-bottom: 16px;">
+          <a href="#" class="tp-sim-chip">
+            <span class="tp-sim-chip-key">APTUM-36100</span>
+            <span class="tp-sim-chip-sim">94%</span>
+            <span class="tp-sim-chip-status">Resolved · VPN IKEv2 failure post-MPLS maintenance</span>
+          </a>
+          <a href="#" class="tp-sim-chip">
+            <span class="tp-sim-chip-key">APTUM-35800</span>
+            <span class="tp-sim-chip-sim">88%</span>
+            <span class="tp-sim-chip-status">Resolved · BGP routing table corruption</span>
+          </a>
+          <a href="#" class="tp-sim-chip">
+            <span class="tp-sim-chip-key">APTUM-34210</span>
+            <span class="tp-sim-chip-sim">76%</span>
+            <span class="tp-sim-chip-status">Resolved · BGP peer dropped after firmware update</span>
+          </a>
+          <span class="tp-sim-chip-more">+4 more</span>
+        </div>
+
+        <!-- Unified AI action strip -->
+        <div class="tp-ai-strip">
+          <div class="tp-ai-icon">✦</div>
+          <span class="tp-ai-word">AI</span>
+          <button class="tp-btn primary">Identify fix</button>
+          <button class="tp-btn ghost">Internal note</button>
+          <button class="tp-btn ghost">Public reply</button>
+          <div class="tp-ai-sep"></div>
+          <div class="tp-ai-persona">
+            <span class="tp-persona-label">Persona</span>
+            <select class="tp-persona-select"><option>L2 Support</option><option>L3 Network</option></select>
+          </div>
+        </div>
+
+        <!-- AI output (shown as if "Identify fix" was clicked) -->
+        <div class="tp-ai-output">
+          <div class="tp-ai-output-head">
+            <div class="tp-ai-icon">✦</div>
+            <span class="tp-ai-output-label">Fix suggestion</span>
+          </div>
+          <div class="tp-ai-output-body">
+            Based on APTUM-36100 and APTUM-35800, this is consistent with a BGP route advertisement failure after the maintenance window. The VPN concentrator lost its return path, causing IKEv2 negotiation to fail silently.<br><br>
+            <strong>Check order:</strong> (1) BGP neighbor state on the core router — run <code style="font-family:'Geist Mono',monospace;font-size:12px;background:var(--bg);padding:1px 4px;border-radius:2px">show bgp summary</code> and look for a downed peer. (2) Confirm the static route to the VPN concentrator IP is present. (3) Re-advertise the default route from core if missing. Resolution in APTUM-36100 was a one-line BGP config fix — took ~15 min under an emergency change window.
+          </div>
+          <div class="tp-ai-actions-row">
+            <button class="tp-btn ghost" style="font-size:11.5px">Copy</button>
+            <button class="tp-btn ghost" style="font-size:11.5px;margin-left:auto;color:var(--muted)">Dismiss</button>
+          </div>
+        </div>
+
+        <div class="tp-divider" style="margin-top:0"></div>
+
+        <div class="tp-section-head">Description</div>
+        <div class="tp-description">
+          Since the scheduled maintenance window on the night of Apr 13–14, approximately 40 employees at Northbridge Financial are unable to connect to the office VPN gateway. The error reported is <em>"IKEv2 negotiation failed."</em> The issue appears to affect all VPN users simultaneously and began immediately after the maintenance window closed.
+        </div>
+
+        <div class="tp-section-head">Assets</div>
+        <div class="tp-assets">
+          <div class="tp-asset">
+            <span class="tp-asset-name">SVC-10421</span>
+            <span class="tp-asset-type">MPLS Connect</span>
+            <span class="tp-asset-lob">Connectivity</span>
+          </div>
+          <div class="tp-asset">
+            <span class="tp-asset-name">SVC-10422</span>
+            <span class="tp-asset-type">Internet Direct</span>
+            <span class="tp-asset-lob">Connectivity</span>
+          </div>
+        </div>
+
+        <div class="tp-section-head">Thread <span style="font-weight:400;color:var(--muted);font-family:inherit">· 6 events</span></div>
+        <div class="tp-thread">
+          <div class="tp-comment pub">
+            <div class="tp-comment-meta">
+              <span class="tp-comment-author">Karen Holt</span>
+              <span class="tp-role-badge customer">Customer</span>
+              <span class="tp-vis-badge">public</span>
+              <span class="tp-comment-date">Apr 14, 09:02</span>
+            </div>
+            <div class="tp-comment-body">Since the maintenance window last night, our VPN users can't connect to the office gateway. Error: "IKEv2 negotiation failed". This is affecting ~40 employees. Please advise urgently.</div>
+          </div>
+          <div class="tp-comment priv">
+            <div class="tp-comment-meta">
+              <span class="tp-comment-author">Adam Nelson</span>
+              <span class="tp-role-badge internal">Internal</span>
+              <span class="tp-vis-badge">private</span>
+              <span class="tp-comment-date">Apr 15, 08:15</span>
+            </div>
+            <div class="tp-comment-body">Checked firewall logs — pre-shared key mismatch after config push. Will schedule call with customer. Likely BGP route issue — see APTUM-36100 for precedent.</div>
+          </div>
+          <div class="tp-comment pub">
+            <div class="tp-comment-meta">
+              <span class="tp-comment-author">Adam Nelson</span>
+              <span class="tp-role-badge aptum">Aptum</span>
+              <span class="tp-vis-badge">public</span>
+              <span class="tp-comment-date">Apr 15, 09:40</span>
+            </div>
+            <div class="tp-comment-body">Hi Karen, we've identified a configuration issue with the VPN gateway related to the maintenance window. Our team is actively working on a resolution and will have an update within 2 hours.</div>
+          </div>
+          <div class="tp-comment pub">
+            <div class="tp-comment-meta">
+              <span class="tp-comment-author">Karen Holt</span>
+              <span class="tp-role-badge customer">Customer</span>
+              <span class="tp-vis-badge">public</span>
+              <span class="tp-comment-date">Apr 16, 08:00</span>
+            </div>
+            <div class="tp-comment-body">Still no resolution. This is now day 2 and our entire remote workforce is impacted. We need escalation and a firm commitment to a resolution time.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────── OPTION B: Read-first + Sticky Tray ─────────── -->
+    <div id="preview-b" class="preview">
+      <div class="tp" style="position:relative">
+        <div class="tp-back"><a href="#">← All tickets</a></div>
+
+        <div class="tp-key">APTUM-38272</div>
+        <h1 class="tp-title">Customer unable to access VPN endpoint after scheduled maintenance</h1>
+
+        <div class="tp-meta">
+          <span class="tp-badge status">In Progress</span>
+          <span class="tp-badge priority">High</span>
+          <span class="tp-badge type">Network / Connectivity</span>
+        </div>
+
+        <div class="tp-people">
+          <div class="tp-person"><div class="tp-person-label">Assignee</div><div class="tp-person-name">Adam Nelson</div></div>
+          <div class="tp-person"><div class="tp-person-label">Reporter</div><div class="tp-person-name">Karen Holt</div></div>
+          <div class="tp-person"><div class="tp-person-label">Customer</div><div class="tp-person-name">Northbridge Financial</div></div>
+          <div class="tp-person"><div class="tp-person-label">Fusion</div><div class="tp-person-name">#4082</div></div>
+        </div>
+
+        <div class="tp-divider"></div>
+
+        <div class="tp-section-head">Description</div>
+        <div class="tp-description">
+          Since the scheduled maintenance window on the night of Apr 13–14, approximately 40 employees at Northbridge Financial are unable to connect to the office VPN gateway. The error reported is <em>"IKEv2 negotiation failed."</em> The issue appears to affect all VPN users simultaneously and began immediately after the maintenance window closed.
+        </div>
+
+        <div class="tp-section-head">Assets</div>
+        <div class="tp-assets">
+          <div class="tp-asset"><span class="tp-asset-name">SVC-10421</span><span class="tp-asset-type">MPLS Connect</span><span class="tp-asset-lob">Connectivity</span></div>
+          <div class="tp-asset"><span class="tp-asset-name">SVC-10422</span><span class="tp-asset-type">Internet Direct</span><span class="tp-asset-lob">Connectivity</span></div>
+        </div>
+
+        <div class="tp-section-head">Thread <span style="font-weight:400;color:var(--muted);font-family:inherit">· 6 events</span></div>
+        <div class="tp-thread">
+          <div class="tp-comment pub">
+            <div class="tp-comment-meta"><span class="tp-comment-author">Karen Holt</span><span class="tp-role-badge customer">Customer</span><span class="tp-vis-badge">public</span><span class="tp-comment-date">Apr 14, 09:02</span></div>
+            <div class="tp-comment-body">Since the maintenance window last night, our VPN users can't connect to the office gateway. Error: "IKEv2 negotiation failed". This is affecting ~40 employees. Please advise urgently.</div>
+          </div>
+          <div class="tp-comment priv">
+            <div class="tp-comment-meta"><span class="tp-comment-author">Adam Nelson</span><span class="tp-role-badge internal">Internal</span><span class="tp-vis-badge">private</span><span class="tp-comment-date">Apr 15, 08:15</span></div>
+            <div class="tp-comment-body">Checked firewall logs — pre-shared key mismatch after config push. Likely BGP route issue — see APTUM-36100 for precedent.</div>
+          </div>
+          <div class="tp-comment pub">
+            <div class="tp-comment-meta"><span class="tp-comment-author">Adam Nelson</span><span class="tp-role-badge aptum">Aptum</span><span class="tp-vis-badge">public</span><span class="tp-comment-date">Apr 15, 09:40</span></div>
+            <div class="tp-comment-body">Hi Karen, we've identified a configuration issue with the VPN gateway. Our team is actively working on a resolution and will have an update within 2 hours.</div>
+          </div>
+          <div class="tp-comment pub">
+            <div class="tp-comment-meta"><span class="tp-comment-author">Karen Holt</span><span class="tp-role-badge customer">Customer</span><span class="tp-vis-badge">public</span><span class="tp-comment-date">Apr 16, 08:00</span></div>
+            <div class="tp-comment-body">Still no resolution. This is now day 2 and our entire remote workforce is impacted. We need escalation and a firm commitment to a resolution time.</div>
+          </div>
+          <div class="tp-comment priv">
+            <div class="tp-comment-meta"><span class="tp-comment-author">Adam Nelson</span><span class="tp-role-badge internal">Internal</span><span class="tp-vis-badge">private</span><span class="tp-comment-date">Apr 17, 11:20</span></div>
+            <div class="tp-comment-body">Escalated to L3. Root cause: BGP route table wasn't updated post-maintenance. Fix requires emergency change window. Requesting approval now.</div>
+          </div>
+        </div>
+
+        <div class="tp-divider"></div>
+
+        <div class="tp-section-head">Similar issues</div>
+        <div class="tp-similar" style="margin-bottom:40px">
+          <a href="#" class="tp-sim-chip"><span class="tp-sim-chip-key">APTUM-36100</span><span class="tp-sim-chip-sim">94%</span><span class="tp-sim-chip-status">Resolved · VPN IKEv2 failure post-maintenance</span></a>
+          <a href="#" class="tp-sim-chip"><span class="tp-sim-chip-key">APTUM-35800</span><span class="tp-sim-chip-sim">88%</span><span class="tp-sim-chip-status">Resolved · BGP routing table corruption</span></a>
+          <a href="#" class="tp-sim-chip"><span class="tp-sim-chip-key">APTUM-34210</span><span class="tp-sim-chip-sim">76%</span><span class="tp-sim-chip-status">Resolved · BGP peer dropped after firmware update</span></a>
+          <span class="tp-sim-chip-more">+4 more</span>
+        </div>
+
+        <!-- AI expanded output (shown as "Identify fix" was triggered) -->
+        <div class="tp-tray-expanded">
+          <div class="tp-tray-expanded-head">
+            <div class="tp-ai-icon">✦</div>
+            <span class="tp-ai-output-label">Fix suggestion — expanded after clicking "Identify fix" in tray below</span>
+          </div>
+          <div class="tp-ai-output-body" style="font-size:13px;color:var(--body);line-height:1.65">
+            Based on APTUM-36100 and APTUM-35800: BGP route advertisement failed after the maintenance window. Check BGP neighbor state, confirm static route to VPN concentrator, and re-advertise the default route from core if missing.
+          </div>
+          <div class="tp-ai-actions-row">
+            <button class="tp-btn primary" style="font-size:11.5px">Copy to clipboard</button>
+            <button class="tp-btn ghost" style="font-size:11.5px;margin-left:auto">Dismiss ✕</button>
+          </div>
+        </div>
+
+        <!-- Sticky tray -->
+        <div class="tp-sticky-tray">
+          <div class="tp-ai-icon">✦</div>
+          <span class="tp-ai-word">AI</span>
+          <button class="tp-btn primary">Identify fix</button>
+          <button class="tp-btn ghost">Internal note</button>
+          <button class="tp-btn ghost">Public reply</button>
+          <div class="tp-ai-sep"></div>
+          <div class="tp-ai-persona">
+            <span class="tp-persona-label">Persona</span>
+            <select class="tp-persona-select"><option>L2 Support</option><option>L3 Network</option></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────── OPTION C: Two-zone split ─────────── -->
+    <div id="preview-c" class="preview">
+      <div class="tp-wide">
+        <div class="tp-back"><a href="#">← All tickets</a></div>
+
+        <div class="tp-key">APTUM-38272</div>
+        <h1 class="tp-title">Customer unable to access VPN endpoint after scheduled maintenance</h1>
+
+        <div class="tp-meta">
+          <span class="tp-badge status">In Progress</span>
+          <span class="tp-badge priority">High</span>
+          <span class="tp-badge type">Network / Connectivity</span>
+        </div>
+
+        <div class="tp-people" style="margin-bottom:0">
+          <div class="tp-person"><div class="tp-person-label">Assignee</div><div class="tp-person-name">Adam Nelson</div></div>
+          <div class="tp-person"><div class="tp-person-label">Reporter</div><div class="tp-person-name">Karen Holt</div></div>
+          <div class="tp-person"><div class="tp-person-label">Customer</div><div class="tp-person-name">Northbridge Financial</div></div>
+          <div class="tp-person"><div class="tp-person-label">Fusion</div><div class="tp-person-name">#4082</div></div>
+        </div>
+
+        <div class="tp-divider"></div>
+
+        <div class="tp-zones">
+          <!-- LEFT: description + thread -->
+          <div class="tp-zone-main">
+            <div class="tp-section-head">Description</div>
+            <div class="tp-description">
+              Since the scheduled maintenance window on Apr 13–14, approximately 40 employees at Northbridge Financial are unable to connect to the office VPN gateway. Error: <em>"IKEv2 negotiation failed."</em> Began immediately after the maintenance window closed.
+            </div>
+
+            <div class="tp-section-head">Assets</div>
+            <div class="tp-assets" style="margin-bottom:20px">
+              <div class="tp-asset"><span class="tp-asset-name">SVC-10421</span><span class="tp-asset-type">MPLS Connect</span><span class="tp-asset-lob">Connectivity</span></div>
+              <div class="tp-asset"><span class="tp-asset-name">SVC-10422</span><span class="tp-asset-type">Internet Direct</span><span class="tp-asset-lob">Connectivity</span></div>
+            </div>
+
+            <div class="tp-section-head">Thread <span style="font-weight:400;color:var(--muted);font-family:inherit">· 6 events</span></div>
+            <div class="tp-thread">
+              <div class="tp-comment pub">
+                <div class="tp-comment-meta"><span class="tp-comment-author">Karen Holt</span><span class="tp-role-badge customer">Customer</span><span class="tp-vis-badge">public</span><span class="tp-comment-date">Apr 14, 09:02</span></div>
+                <div class="tp-comment-body">VPN users can't connect. Error: "IKEv2 negotiation failed". Affecting ~40 employees since maintenance window last night.</div>
+              </div>
+              <div class="tp-comment priv">
+                <div class="tp-comment-meta"><span class="tp-comment-author">Adam Nelson</span><span class="tp-role-badge internal">Internal</span><span class="tp-vis-badge">private</span><span class="tp-comment-date">Apr 15, 08:15</span></div>
+                <div class="tp-comment-body">Firewall logs: pre-shared key mismatch after config push. Likely BGP route issue — see APTUM-36100.</div>
+              </div>
+              <div class="tp-comment pub">
+                <div class="tp-comment-meta"><span class="tp-comment-author">Adam Nelson</span><span class="tp-role-badge aptum">Aptum</span><span class="tp-vis-badge">public</span><span class="tp-comment-date">Apr 15, 09:40</span></div>
+                <div class="tp-comment-body">Karen, we've identified a configuration issue and are actively working on a fix. Update in 2 hours.</div>
+              </div>
+              <div class="tp-comment pub">
+                <div class="tp-comment-meta"><span class="tp-comment-author">Karen Holt</span><span class="tp-role-badge customer">Customer</span><span class="tp-vis-badge">public</span><span class="tp-comment-date">Apr 16, 08:00</span></div>
+                <div class="tp-comment-body">Day 2 — still no resolution. Our entire remote workforce is impacted. We need escalation.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: similar issues + AI panel -->
+          <div class="tp-zone-side">
+
+            <div class="tp-customer-block">
+              <div class="tp-section-head" style="margin-bottom:6px">Customer</div>
+              <div class="tp-customer-name">Northbridge Financial</div>
+              <div class="tp-customer-meta">Fusion #4082 · TAM: S. Okafor</div>
+            </div>
+
+            <div class="tp-section-head" style="margin-top:16px">Similar issues</div>
+            <div class="tp-related-list">
+              <a href="#" class="tp-related-item">
+                <div class="tp-related-body"><div class="tp-related-sum">VPN IKEv2 failure post-MPLS maintenance</div><div class="tp-related-meta">APTUM-36100 · Resolved</div></div>
+                <span class="tp-related-sim">94%</span>
+              </a>
+              <a href="#" class="tp-related-item">
+                <div class="tp-related-body"><div class="tp-related-sum">BGP routing table corruption post-update</div><div class="tp-related-meta">APTUM-35800 · Resolved</div></div>
+                <span class="tp-related-sim">88%</span>
+              </a>
+              <a href="#" class="tp-related-item">
+                <div class="tp-related-body"><div class="tp-related-sum">BGP peer dropped after firewall firmware</div><div class="tp-related-meta">APTUM-34210 · Resolved</div></div>
+                <span class="tp-related-sim">76%</span>
+              </a>
+            </div>
+
+            <div class="tp-section-head">AI actions</div>
+            <div class="tp-ai-side-panel">
+              <div class="tp-ai-side-head">
+                <div class="tp-ai-icon">✦</div>
+                <span class="tp-ai-side-title">AI</span>
+                <select class="tp-persona-select" style="margin-left:auto;font-size:11px"><option>L2 Support</option><option>L3 Network</option></select>
+              </div>
+              <div class="tp-ai-side-actions">
+                <button class="tp-btn primary">Identify fix</button>
+                <button class="tp-btn ghost">Internal note</button>
+                <button class="tp-btn ghost">Public reply</button>
+              </div>
+              <div class="tp-ai-side-output">
+                BGP route advertisement failed post-maintenance. Check BGP neighbor state, confirm static route to VPN concentrator. Re-advertise default route from core if missing. See APTUM-36100 for step-by-step.
+              </div>
+              <div style="display:flex;gap:5px;margin-top:8px">
+                <button class="tp-btn ghost" style="font-size:11px">Copy</button>
+                <button class="tp-btn ghost" style="font-size:11px;margin-left:auto;color:var(--muted)">Dismiss</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function show(opt) {
+  // Update previews
+  document.querySelectorAll('.preview').forEach(p => p.classList.remove('active'));
+  document.getElementById('preview-' + opt).classList.add('active');
+
+  // Update nav items
+  document.querySelectorAll('.sel-item').forEach(i => i.classList.remove('active'));
+  document.querySelector('[data-opt="' + opt + '"]').classList.add('active');
+
+  // Scroll preview area to top
+  document.querySelector('.preview-area').scrollTop = 0;
+}
+
+// Default to B (recommended)
+show('b');
+</script>
+
+</body>
+</html>
