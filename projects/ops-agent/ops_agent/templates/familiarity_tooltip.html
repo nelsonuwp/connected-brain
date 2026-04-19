@@ -32,7 +32,9 @@
                 <span class="range-bar__tick" style="left: 100%"></span>
             </div>
         </div>
-        <p class="muted tiny">Min · median · max across up to 10 nearest semantic matches (created → resolved).</p>
+        {% if ctx.close_bar.hide_median_label and not ctx.close_bar.flat %}
+        <p class="muted tiny">Median: {{ ctx.close_bar.median_label }}</p>
+        {% endif %}
         {% else %}
         <p class="muted small">No resolved matches in the pool yet.</p>
         {% endif %}
@@ -55,7 +57,9 @@
                 <span class="range-bar__tick" style="left: 100%"></span>
             </div>
         </div>
-        <p class="muted tiny">Min · median · max total worklog time per ticket (tickets with zero worklog omitted).</p>
+        {% if ctx.worklog_bar.hide_median_label and not ctx.worklog_bar.flat %}
+        <p class="muted tiny">Median: {{ ctx.worklog_bar.median_label }}</p>
+        {% endif %}
         {% else %}
         <p class="muted small">No worklogs on similar tickets in the pool.</p>
         {% endif %}
