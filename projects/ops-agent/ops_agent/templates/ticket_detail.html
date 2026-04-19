@@ -16,55 +16,71 @@
     <h2 class="ticket-summary">{{ ticket.summary }}</h2>
 </div>
 
-<div class="meta-grid">
-    <div class="meta-block">
-        <span class="meta-label">Status</span>
-        <span class="status-badge status-{{ ticket.status|lower|replace(' ', '-') }}">{{ ticket.status }}</span>
+<div class="ticket-card">
+    <!-- Row 1: State signals -->
+    <div class="tc-state-row">
+        <span class="status-badge status-{{ ticket.status|lower|replace(' ', '-') }} tc-status">{{ ticket.status }}</span>
+        {% if ticket.priority %}
+        {% set _p = (ticket.priority or '')|lower %}
+        <span class="tc-priority tc-priority-{{ 'high' if 'high' in _p else ('medium' if 'medium' in _p else ('low' if 'low' in _p else 'default')) }}">{{ ticket.priority }}</span>
+        {% endif %}
+        {% if ticket.request_type or ticket.issue_type %}
+        <span class="tc-type">{{ ticket.request_type or ticket.issue_type }}</span>
+        {% endif %}
+        {% if ticket.labels %}
+        <span class="tc-labels">{% for label in ticket.labels %}<span class="label-tag">{{ label }}</span>{% endfor %}</span>
+        {% endif %}
     </div>
-    <div class="meta-block">
-        <span class="meta-label">Priority</span>
-        <span>{{ ticket.priority or "—" }}</span>
-    </div>
-    <div class="meta-block">
-        <span class="meta-label">Type</span>
-        <span>{{ ticket.request_type or ticket.issue_type or "—" }}</span>
-    </div>
-    <div class="meta-block">
-        <span class="meta-label">Org</span>
-        <span>{{ ticket.jira_org_name or "—" }}{% if ticket.ocean_client_id %} <span class="muted">(#{{ ticket.ocean_client_id }})</span>{% endif %}</span>
-    </div>
-    <div class="meta-block">
-        <span class="meta-label">Creator</span>
-        <span>{{ ticket.creator_display_name or ticket.creator_account_id or "—" }}</span>
-    </div>
-    <div class="meta-block">
-        <span class="meta-label">Reporter</span>
-        <span>{{ ticket.reporter_display_name or ticket.reporter_account_id or "—" }}</span>
-    </div>
-    <div class="meta-block">
-        <span class="meta-label">Assignee</span>
-        <span>{{ ticket.assignee_display_name or ticket.assignee_account_id or "Unassigned" }}</span>
-    </div>
-    <div class="meta-block">
-        <span class="meta-label">Created</span>
-        <span>{{ ticket.created_at | localtime }}</span>
-    </div>
-    <div class="meta-block">
-        <span class="meta-label">Updated</span>
-        <span>{{ ticket.updated_at | localtime }}</span>
-    </div>
-    {% if ticket.resolved_at %}
-    <div class="meta-block">
-        <span class="meta-label">Resolved</span>
-        <span>{{ ticket.resolved_at | localtime }}</span>
+
+    <!-- Row 2: Customer -->
+    {% if ticket.jira_org_name %}
+    <div class="tc-customer-row">
+        <span class="tc-customer-name">{{ ticket.jira_org_name }}</span>
+        {% if ticket.ocean_client_id %}<span class="tc-customer-id mono">Fusion #{{ ticket.ocean_client_id }}</span>{% endif %}
     </div>
     {% endif %}
-    {% if ticket.labels %}
-    <div class="meta-block meta-block-wide">
-        <span class="meta-label">Labels</span>
-        <span>{% for label in ticket.labels %}<span class="label-tag">{{ label }}</span>{% endfor %}</span>
+
+    <!-- Row 3: People -->
+    <div class="tc-people-row">
+        <div class="tc-person">
+            <span class="tc-person-label">Assignee</span>
+            <span class="tc-person-name{% if not ticket.assignee_display_name and not ticket.assignee_account_id %} tc-unassigned{% endif %}">
+                {{ ticket.assignee_display_name or ticket.assignee_account_id or "Unassigned" }}
+            </span>
+        </div>
+        <div class="tc-person">
+            <span class="tc-person-label">Reporter</span>
+            <span class="tc-person-name">{{ ticket.reporter_display_name or ticket.reporter_account_id or "—" }}</span>
+        </div>
+        {% set creator = ticket.creator_display_name or ticket.creator_account_id %}
+        {% set reporter = ticket.reporter_display_name or ticket.reporter_account_id %}
+        {% if creator and creator != reporter %}
+        <div class="tc-person">
+            <span class="tc-person-label">Creator</span>
+            <span class="tc-person-name">{{ creator }}</span>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
+
+    <!-- Row 4: Time strip -->
+    <div class="tc-time-strip">
+        <span class="tc-time-item">
+            <span class="tc-time-label">Created</span>
+            <span>{{ ticket.created_at | localtime }}</span>
+        </span>
+        <span class="tc-time-arrow" aria-hidden="true">→</span>
+        <span class="tc-time-item">
+            <span class="tc-time-label">Updated</span>
+            <span>{{ ticket.updated_at | localtime }}</span>
+        </span>
+        {% if ticket.resolved_at %}
+        <span class="tc-time-arrow" aria-hidden="true">→</span>
+        <span class="tc-time-item tc-time-resolved">
+            <span class="tc-time-label">Resolved</span>
+            <span>{{ ticket.resolved_at | localtime }}</span>
+        </span>
+        {% endif %}
+    </div>
 </div>
 
 <div class="quick-actions-strip">
@@ -186,39 +202,17 @@
 </section>
 
 <section id="llm-draft-section" class="section draft-section">
-    <h3>LLM actions</h3>
-    <p class="muted">Uses T-shaped context (customer history + hardware neighbors) from the sidebar.</p>
-
-    <div class="draft-actions-row">
-        <button type="button"
-            class="btn-primary hx-draft-trigger"
-            hx-post="/tickets/{{ ticket.issue_key }}/draft/fix"
-            hx-target="#draft-area"
-            hx-swap="innerHTML"
-            hx-indicator="#draft-spinner"
-            hx-disabled-elt="#llm-draft-section .hx-draft-trigger">
-            Identify potential fix
-        </button>
-        <button type="button"
-            class="btn-secondary hx-draft-trigger"
-            hx-post="/tickets/{{ ticket.issue_key }}/draft/internal"
-            hx-target="#draft-area"
-            hx-swap="innerHTML"
-            hx-indicator="#draft-spinner"
-            hx-disabled-elt="#llm-draft-section .hx-draft-trigger">
-            Generate internal comment
-        </button>
-    </div>
+    <h3>Public reply <span class="draft-section-sub">— customize persona &amp; prompt</span></h3>
 
     <form id="public-draft-form" class="public-draft-form" onsubmit="return false;">
-        <label class="meta-label" for="persona_slug">Public comment — persona</label>
+        <label class="meta-label" for="persona_slug">Persona</label>
         <select name="persona_slug" id="persona_slug" class="persona-select">
             {% for p in persona_rows %}
             <option value="{{ p.slug }}" {% if p.slug == default_persona_slug %}selected{% endif %}>{{ p.label }}</option>
             {% endfor %}
         </select>
         <label class="meta-label" for="system_prompt">System prompt (editable)</label>
-        <textarea name="system_prompt" id="system_prompt" rows="10" class="persona-textarea"></textarea>
+        <textarea name="system_prompt" id="system_prompt" rows="8" class="persona-textarea"></textarea>
         <button type="button"
             class="btn-primary hx-draft-trigger"
             hx-post="/tickets/{{ ticket.issue_key }}/draft/public"

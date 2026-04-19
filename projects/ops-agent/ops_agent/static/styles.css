@@ -635,19 +635,7 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   letter-spacing: -0.02em;
 }
 
-/* ── Meta grid ─────────────────────────────────────────────── */
-.meta-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: var(--space-4) var(--space-5);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--space-5);
-  margin-bottom: var(--space-5);
-  box-shadow: var(--shadow);
-}
-.meta-block-wide { grid-column: 1 / -1; }
+/* ── Meta label (shared utility) ───────────────────────────── */
 .meta-label {
   display: block;
   font-size: .67rem;
@@ -656,6 +644,131 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   color: var(--aptum-neutral-2);
   margin-bottom: .25rem;
   font-weight: 700;
+}
+
+/* ── Ticket card (replaces flat meta-grid) ─────────────────── */
+.ticket-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Row 1: status + priority + type + labels */
+.tc-state-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.tc-status {
+  font-size: .8rem;
+  padding: .2em .65em;
+}
+.tc-priority {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .18em .6em;
+  border-radius: 99px;
+  border: 1px solid currentColor;
+  opacity: .75;
+}
+.tc-priority-p1-high, .tc-priority-high { color: #c53030; border-color: #fecaca; background: #fee2e2; opacity: 1; }
+.tc-priority-p2-medium, .tc-priority-medium { color: #b45309; border-color: #fde68a; background: #fef9c3; }
+.tc-priority-p3-low, .tc-priority-low { color: #166534; border-color: #a7f3d0; background: #d1fae5; }
+.tc-type {
+  font-size: .75rem;
+  color: var(--muted);
+  padding: .18em .6em;
+  border-radius: 99px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+.tc-labels { display: inline-flex; gap: .25rem; flex-wrap: wrap; }
+
+/* Row 2: customer */
+.tc-customer-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--aptum-lavender-t1);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--aptum-lavender);
+}
+.tc-customer-name {
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--aptum-navy);
+}
+.tc-customer-id {
+  font-size: .72rem;
+  color: var(--muted);
+}
+
+/* Row 3: people */
+.tc-people-row {
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+.tc-person {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 120px;
+}
+.tc-person-label {
+  font-size: .65rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  font-weight: 700;
+  color: var(--aptum-neutral-2);
+}
+.tc-person-name {
+  font-size: .875rem;
+  font-weight: 500;
+  color: var(--text);
+}
+.tc-unassigned { color: var(--aptum-neutral-2); font-style: italic; }
+
+/* Row 4: time strip */
+.tc-time-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border);
+}
+.tc-time-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.tc-time-label {
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  font-weight: 700;
+  color: var(--aptum-neutral-2);
+}
+.tc-time-item span:last-child { font-size: .8rem; color: var(--text); }
+.tc-time-resolved span:last-child { color: var(--green); font-weight: 500; }
+.tc-time-arrow {
+  color: var(--aptum-neutral-1);
+  font-size: .75rem;
+  margin: 0 var(--space-1);
+  align-self: flex-end;
+  padding-bottom: 2px;
 }
 
 .label-tag {
@@ -903,6 +1016,7 @@ details.asset-row[open] > summary .asset-chevron { transform: rotate(90deg); }
 /* ── Draft section ─────────────────────────────────────────── */
 .draft-section { border-top: 3px solid var(--aptum-lavender-t2); }
 .draft-section p { font-size: .875rem; margin-bottom: var(--space-4); color: var(--muted); }
+.draft-section-sub { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: .78rem; color: var(--muted); }
 
 .draft-actions-row {
   display: flex;
