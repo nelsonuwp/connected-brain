@@ -23,6 +23,15 @@ _HERE = Path(__file__).parent
 async def lifespan(app: FastAPI):
     await init_pool()
     start_fusion()
+    # Warm the sentence-transformer so first user request isn't slow.
+    # This downloads ~440MB on the very first run of this process; from then on
+    # it's a local disk cache (~/.cache/huggingface/…).
+    from .embedder import get_model, MODEL_NAME
+    try:
+        get_model()
+        logger.info("Embedder warm (%s)", MODEL_NAME)
+    except Exception:
+        logger.exception("Embedder failed to warm — sidebar will fall back to recency ordering")
     logger.info("ops-agent started at http://%s:%d", settings.ops_agent_host, settings.ops_agent_port)
     yield
     stop_fusion()
