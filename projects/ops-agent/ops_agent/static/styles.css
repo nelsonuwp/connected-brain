@@ -394,3 +394,21 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+/* Semantic similarity badges in the related-panel sidebar (Task v3). */
+.sim-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    margin-left: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 10px;
+    background: #e3f2fd;
+    color: #0d47a1;
+    vertical-align: middle;
+}
+.sim-badge-recency {
+    background: #f5f5f5;
+    color: #616161;
+    font-weight: 500;
+}

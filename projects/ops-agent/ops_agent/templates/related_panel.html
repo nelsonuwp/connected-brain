@@ -25,6 +25,13 @@
         <li>
             <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
             <span class="muted">{{ t.status }}</span>
+            {% if t.similarity_score is not none %}
+            <span class="sim-badge" title="cosine similarity to current ticket">
+                {{ (t.similarity_score * 100) | round(0, 'floor') | int }}%
+            </span>
+            {% elif t.ranked_by == 'recency' %}
+            <span class="sim-badge sim-badge-recency" title="no embedding yet — showing by recency">recent</span>
+            {% endif %}
             {% if t.fusion_company_name or t.jira_org_name %}
             <span class="related-entity">{{ t.fusion_company_name or t.jira_org_name }}</span>
             {% endif %}
@@ -87,6 +94,13 @@
         <li>
             <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
             <span class="muted">{{ t.status }}</span>
+            {% if t.similarity_score is not none %}
+            <span class="sim-badge" title="cosine similarity to current ticket">
+                {{ (t.similarity_score * 100) | round(0, 'floor') | int }}%
+            </span>
+            {% elif t.ranked_by == 'recency' %}
+            <span class="sim-badge sim-badge-recency" title="no embedding yet — showing by recency">recent</span>
+            {% endif %}
             {% if t.fusion_company_name or t.jira_org_name %}
             <span class="related-entity">{{ t.fusion_company_name or t.jira_org_name }}</span>
             {% elif t.ocean_client_id %}
