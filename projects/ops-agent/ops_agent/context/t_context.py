@@ -217,17 +217,21 @@ def _fusion_slice(client_id: Optional[int], service_ids: list[int]) -> dict[str,
                 if row:
                     out["customer"] = dict(row)
 
-                cur.execute(
-                    """
-                    SELECT e.employees_firstname, e.employees_lastname, e.email
-                    FROM customer_tam ct
-                    JOIN employees e ON e.id = ct.employees_id
-                    WHERE ct.customers_id = %s
-                    LIMIT 5
-                    """,
-                    (resolved,),
-                )
-                out["tam"] = [dict(r) for r in cur.fetchall()]
+                try:
+                    cur.execute(
+                        """
+                        SELECT e.first_name, e.last_name, e.email_address
+                        FROM customer_tam ct
+                        JOIN employees e ON e.id = ct.employees_id
+                        WHERE ct.customers_id = %s
+                        LIMIT 5
+                        """,
+                        (resolved,),
+                    )
+                    out["tam"] = [dict(r) for r in cur.fetchall()]
+                except Exception as tam_e:
+                    logger.warning("customer_tam join failed (non-fatal): %s", tam_e)
+                    out["tam"] = []
 
                 cur.execute(
                     """
@@ -369,9 +373,9 @@ async def build_t_context(pool, issue_key: str) -> dict[str, Any]:
         tam_rows = fusion_data.get("tam") or []
         tam_parts = []
         for t in tam_rows[:2]:
-            fn = (t.get("employees_firstname") or "").strip()
-            ln = (t.get("employees_lastname") or "").strip()
-            em = t.get("email") or ""
+            fn = (t.get("first_name") or "").strip()
+            ln = (t.get("last_name") or "").strip()
+            em = t.get("email_address") or ""
             label = f"{fn} {ln}".strip() or em
             if em and label != em:
                 label = f"{label} <{em}>"

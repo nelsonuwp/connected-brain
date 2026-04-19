@@ -1,6 +1,6 @@
 # ops-agent
 
-Local web app that reads from the `jsm-sync` Postgres mirror and lets you browse APTUM tickets, auto-classify them into workflow patterns, and generate persona-matched draft responses using OpenRouter (Claude Sonnet via the workhorse model).
+Local web app that reads from the `jsm-sync` Postgres mirror, loads **T-shaped context** (customer ticket history from Postgres, hardware components and neighbors from MSSQL `dimComponents`, service/customer facts from Fusion PostgreSQL), and runs **OpenRouter**-backed drafts: potential fix analysis, internal comment, or public customer reply with a **role persona** you choose (editable system prompt).
 
 ## Project layout
 
@@ -26,10 +26,13 @@ pip install -r requirements.txt
 docker compose -f ../jsm-sync/docker-compose.yml exec -T postgres \
     psql -U jsm_sync -d jsm_sync < schema/001_ops_agent_tables.sql
 
-# Verify
+# Verify + apply v2 draft_log columns
 docker compose -f ../jsm-sync/docker-compose.yml exec postgres \
     psql -U jsm_sync -d jsm_sync -c "\dt ops.*"
 # → ops.draft_log
+
+docker compose -f ../jsm-sync/docker-compose.yml exec -T postgres \
+    psql -U jsm_sync -d jsm_sync < schema/002_draft_log_v2.sql
 ```
 
 ## Running
@@ -56,18 +59,19 @@ These are read-only probes. They exit `0` on success and `1` on failure (missing
 
 ## What you get
 
-- **Ticket list** — browse all APTUM tickets from Postgres with filters (status, customer-originated, search)
-- **Ticket detail** — full thread with author roles and public/private flags, assets, linked org
-- **Generate Draft** — one click on a matched pattern ticket produces a persona-matched close-out comment in the assigned engineer's voice, logged to `ops.draft_log`
-- **Copy to clipboard** — paste directly into Jira
+- **Ticket list** — browse APTUM tickets from Postgres (filters: status, customer-originated, search)
+- **Ticket detail** — two-column layout: thread + **Related context** sidebar (HTMX-loaded): customer history, `dimComponents` slice, neighbor services, tickets on similar hardware, Fusion `customer_products` rows for linked services
+- **LLM actions** — (1) Identify potential fix, (2) Generate internal comment, (3) Generate public comment with persona dropdown + editable system prompt; all logged to `ops.draft_log` with `draft_type`
+- **Copy to clipboard** on generated drafts
 
-## Patterns (v1)
+## Validate T-context (CLI)
 
-| Pattern | Slug | Matches |
-|---|---|---|
-| Firewall Upgrade Close-out | `firewall_upgrade` | Summary contains "firewall" + "upgrade"/"cutover"/"firmware" |
+```bash
+cd projects/ops-agent
+python3 -m ops_agent.validate_context APTUM-38273
+```
 
-Adding a new pattern = one new file in `ops_agent/patterns/` + one import line in `__init__.py`.
+Requires running Postgres (`jsm_sync`), Fusion SSH + creds, and MSSQL BI in root `.env`.
 
 ## LLM
 
@@ -79,6 +83,6 @@ Uses OpenRouter with `MODEL_WORKHORSE` (default: `anthropic/claude-sonnet-4-5`) 
 
 **`OPENROUTER_API_KEY not set`** — Fill in the key in `connected-brain/.env`
 
-**`No pattern matched`** — Expected for tickets that don't fit any known pattern. The classifier badge shows `(unclassified)`.
+**Related context stuck on “Loading”** — Check browser devtools / server logs; Fusion tunnel or MSSQL must be reachable.
 
-**`No examples found`** — The assigned engineer has no past public comments on matching tickets in the 30-day corpus. Run a longer backfill or assign a different engineer.
+**`INSERT` into `draft_log` fails** — Apply `schema/002_draft_log_v2.sql` (adds nullable `pattern_slug` + new columns).

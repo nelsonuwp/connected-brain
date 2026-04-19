@@ -21,6 +21,14 @@ log = logging.getLogger(__name__)
 def smoke() -> int:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
 
+    import warnings
+
+    warnings.filterwarnings(
+        "ignore",
+        message=".*TripleDES.*",
+        category=DeprecationWarning,
+    )
+
     try:
         import psycopg2
         from sshtunnel import SSHTunnelForwarder
