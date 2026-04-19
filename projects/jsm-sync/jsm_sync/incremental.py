@@ -128,12 +128,71 @@ async def run_incremental() -> None:
         await close_pool()
 
 
+async def _embed_pending(pool_init_required: bool = True) -> None:
+    """
+    Embed any tickets that are missing/stale for our current model.
+    Opens its own short-lived pool (with pgvector codec registered) to keep
+    the main sync pool free of vector-typed concerns.
+    """
+    import asyncpg
+
+    from .embed_db import (
+        fetch_text_for_issue_keys,
+        list_issue_keys_needing_embedding,
+        register_pgvector,
+        upsert_embeddings,
+    )
+    from .embedder import MODEL_NAME, build_embed_text, embed_texts, text_hash
+
+    pool = await asyncpg.create_pool(
+        dsn=settings.database_url,
+        min_size=1,
+        max_size=2,
+        command_timeout=120,
+        init=register_pgvector,
+    )
+    try:
+        async with pool.acquire() as conn:
+            keys = await list_issue_keys_needing_embedding(conn, MODEL_NAME)
+        if not keys:
+            logger.info("Embedding catch-up: nothing to do")
+            return
+        logger.info("Embedding catch-up: %d ticket(s) need embedding", len(keys))
+
+        BATCH = 64
+        for start in range(0, len(keys), BATCH):
+            batch_keys = keys[start : start + BATCH]
+            async with pool.acquire() as conn:
+                rows = await fetch_text_for_issue_keys(conn, batch_keys)
+            texts = [build_embed_text(s, d) for (_, s, d) in rows]
+            vectors = embed_texts(texts, batch_size=BATCH)
+            write_rows = [
+                (rows[i][0], text_hash(texts[i]), vectors[i])
+                for i in range(len(rows))
+            ]
+            async with pool.acquire() as conn:
+                await upsert_embeddings(conn, write_rows)
+        logger.info("Embedding catch-up complete (%d tickets)", len(keys))
+    finally:
+        await pool.close()
+
+
 def main() -> None:
     logging.basicConfig(
         level=getattr(logging, settings.log_level.upper(), logging.INFO),
         format="%(asctime)s %(levelname)-8s %(name)s: %(message)s",
     )
-    asyncio.run(run_incremental())
+
+    async def _runner() -> None:
+        await run_incremental()
+        # Embedding is a best-effort side step; an exception here should
+        # not mark the sync as failed.
+        try:
+            await _embed_pending()
+        except Exception:
+            logger.exception("Embedding catch-up failed (non-fatal)")
+
+    asyncio.run(_runner())
 
 
 if __name__ == "__main__":
