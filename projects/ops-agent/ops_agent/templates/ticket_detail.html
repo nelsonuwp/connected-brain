@@ -93,6 +93,13 @@
     {% if thread %}
     <div class="thread">
         {% for event in thread %}
+        {% if event.kind == 'changelog' %}
+        <div class="changelog-line">
+            <span class="cl-author cl-author-{{ (event.author_role or 'unknown')|lower }}">{{ event.author_display_name or event.author_account_id or "System" }}</span>
+            <span class="cl-body">{{ event.body }}</span>
+            <span class="cl-date">{{ event.created_at | localtime }}</span>
+        </div>
+        {% else %}
         <div class="thread-event{% if not event.is_public %} thread-private{% endif %}">
             <div class="thread-meta">
                 <span class="thread-author">{{ event.author_display_name or event.author_account_id or "Unknown" }}</span>
@@ -104,6 +111,7 @@
             </div>
             <div class="thread-body">{{ event.body }}</div>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
     {% else %}

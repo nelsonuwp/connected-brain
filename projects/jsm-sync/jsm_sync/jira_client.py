@@ -300,9 +300,83 @@ def create_history_trail(issue: dict, comments: list) -> list:
             "author": author.get("displayName"),
             "author_account_id": author.get("accountId"),
             "author_email": author.get("emailAddress"),
+            "account_type": author.get("accountType"),
             "is_public": comment.get("jsdPublic"),
             "body": text,
             "kind": "comment",
+        })
+    return events
+
+
+_CHANGELOG_SKIP_FIELDS = frozenset({
+    "timeestimate", "timespent", "WorklogId", "Sentiment",
+    "remoteIssueLink", "Rank", "rank",
+})
+
+_CHANGELOG_FIELD_LABELS = {
+    "status": "Status",
+    "resolution": "Resolution",
+    "reporter": "Reporter",
+    "assignee": "Assignee",
+    "Request Type": "Request type",
+    "security": "Visibility",
+    "Organizations": "Organization",
+    "CustomerID": "Customer ID",
+    "Team": "Team",
+    "Link": "Link",
+    "priority": "Priority",
+    "summary": "Summary",
+    "issuetype": "Issue type",
+}
+
+
+def _format_changelog_body(items: list[dict]) -> str:
+    """Format changelog items into a human-readable single line."""
+    parts = []
+    for item in items:
+        field = item.get("field", "")
+        if field in _CHANGELOG_SKIP_FIELDS:
+            continue
+        label = _CHANGELOG_FIELD_LABELS.get(field, field)
+        from_str = item.get("fromString") or ""
+        to_str = item.get("toString") or ""
+        if from_str and to_str and from_str != to_str:
+            parts.append(f"{label}: {from_str} → {to_str}")
+        elif to_str:
+            parts.append(f"{label}: {to_str}")
+        elif from_str:
+            parts.append(f"{label} removed: {from_str}")
+    return " · ".join(parts)
+
+
+def create_changelog_events(issue: dict) -> list:
+    """Build thread_events list from Jira changelog histories."""
+    changelog = issue.get("changelog") or {}
+    histories = changelog.get("histories") or []
+    events = []
+    for history in histories:
+        items = history.get("items") or []
+        body = _format_changelog_body(items)
+        if not body:
+            continue
+        try:
+            created = parser.parse(history.get("created"))
+        except (ValueError, TypeError):
+            created = datetime.min.replace(tzinfo=timezone.utc)
+        author = history.get("author") or {}
+        role = determine_role(author)
+        events.append({
+            "id": f"changelog-{history['id']}",
+            "date": created.isoformat(),
+            "created_at": created,
+            "role": role,
+            "author": author.get("displayName"),
+            "author_account_id": author.get("accountId"),
+            "author_email": author.get("emailAddress"),
+            "account_type": author.get("accountType"),
+            "is_public": None,
+            "body": body,
+            "kind": "changelog",
         })
     return events
 
@@ -426,7 +500,10 @@ def _process_issue_to_ticket(
         "created_at": created_at,
         "updated_at": updated_at,
         "resolved_at": resolved_at,
-        "thread_events": create_history_trail(issue, comments),
+        "thread_events": sorted(
+            create_history_trail(issue, comments) + create_changelog_events(issue),
+            key=lambda e: e["created_at"],
+        ),
         "assets": asset_details,
     }
 

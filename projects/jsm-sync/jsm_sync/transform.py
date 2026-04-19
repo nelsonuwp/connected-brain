@@ -69,7 +69,7 @@ def transform_ticket(raw: dict) -> TransformedTicket:
                 "display_name": event.get("author") or "",
                 "email": event.get("author_email"),
                 "role": event.get("role", "Unknown"),
-                "account_type": None,
+                "account_type": event.get("account_type"),
             }
     users = list(users_by_id.values())
 
