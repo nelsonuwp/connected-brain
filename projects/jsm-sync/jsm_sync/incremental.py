@@ -40,7 +40,7 @@ from .transform import transform_ticket
 logger = logging.getLogger(__name__)
 
 SOURCE_NAME = "jira_tickets"
-BATCH_SIZE = 20
+BATCH_SIZE = 50
 CURSOR_SLOP = timedelta(minutes=1)
 
 
