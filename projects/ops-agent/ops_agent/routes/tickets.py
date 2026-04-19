@@ -45,9 +45,9 @@ async def ticket_list(
         statuses = await get_distinct_statuses(conn)
 
     return templates.TemplateResponse(
+        request,
         "ticket_list.html",
         {
-            "request": request,
             "tickets": tickets,
             "statuses": statuses,
             "filter_status": status or "",
@@ -76,9 +76,9 @@ async def ticket_detail(request: Request, issue_key: str):
             pattern_display = p.display_name
 
     return templates.TemplateResponse(
+        request,
         "ticket_detail.html",
         {
-            "request": request,
             "ticket": ticket,
             "thread": thread,
             "assets": assets,

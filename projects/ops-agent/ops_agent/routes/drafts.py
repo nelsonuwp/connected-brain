@@ -23,19 +23,16 @@ async def generate_draft(request: Request, issue_key: str):
         except Exception as e:
             logger.exception("Draft generation failed for %s", issue_key)
             return templates.TemplateResponse(
+                request,
                 "draft_preview.html",
                 {
-                    "request": request,
                     "status": "error",
                     "issue_key": issue_key,
                     "message": f"Draft generation failed: {e}",
                 },
             )
 
-    return templates.TemplateResponse(
-        "draft_preview.html",
-        {"request": request, **result},
-    )
+    return templates.TemplateResponse(request, "draft_preview.html", result)
 
 
 @router.post("/drafts/{draft_id}/used", response_class=HTMLResponse)
