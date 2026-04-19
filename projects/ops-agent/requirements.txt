@@ -10,3 +10,4 @@ python-multipart>=0.0.12
 pymssql>=2.2
 psycopg2-binary>=2.9
 sshtunnel>=0.4
+PyYAML>=6.0

@@ -1,3 +1,4 @@
+import json
 import logging
 from pathlib import Path
 from typing import Optional
@@ -6,8 +7,8 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-from ..classifier import classify
 from ..db import get_distinct_statuses, get_pool, get_thread, get_ticket, get_ticket_assets, list_tickets
+from ..personas import load_personas, persona_system_prompt
 
 logger = logging.getLogger(__name__)
 
@@ -67,13 +68,10 @@ async def ticket_detail(request: Request, issue_key: str):
         thread = await get_thread(conn, issue_key)
         assets = await get_ticket_assets(conn, issue_key)
 
-    pattern_slug = classify(ticket)
-    pattern_display = None
-    if pattern_slug:
-        from ..patterns import REGISTERED_PATTERNS
-        p = next((p for p in REGISTERED_PATTERNS if p.slug == pattern_slug), None)
-        if p:
-            pattern_display = p.display_name
+    personas = load_personas()
+    persona_rows = [{"slug": p.slug, "label": p.label} for p in personas.values()]
+    defaults = {p.slug: persona_system_prompt(p) for p in personas.values()}
+    default_slug = persona_rows[0]["slug"] if persona_rows else "l2_support"
 
     return templates.TemplateResponse(
         request,
@@ -82,7 +80,8 @@ async def ticket_detail(request: Request, issue_key: str):
             "ticket": ticket,
             "thread": thread,
             "assets": assets,
-            "pattern_slug": pattern_slug,
-            "pattern_display": pattern_display,
+            "persona_rows": persona_rows,
+            "personas_json": json.dumps(defaults),
+            "default_persona_slug": default_slug,
         },
     )

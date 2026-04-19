@@ -6,14 +6,12 @@
     <a href="/tickets">← All tickets</a>
 </div>
 
+<div class="ticket-layout">
+<div class="ticket-main">
+
 <div class="ticket-header">
     <div class="ticket-key-row">
         <span class="ticket-key">{{ ticket.issue_key }}</span>
-        {% if pattern_display %}
-        <span class="pattern-badge" title="Auto-classified">⚡ {{ pattern_display }}</span>
-        {% else %}
-        <span class="pattern-badge unclassified" title="No pattern matched">unclassified</span>
-        {% endif %}
     </div>
     <h2 class="ticket-summary">{{ ticket.summary }}</h2>
 </div>
@@ -113,25 +111,76 @@
     {% endif %}
 </section>
 
-{% if pattern_slug %}
 <section class="section draft-section">
-    <h3>Generate Draft</h3>
-    <p class="muted">Pattern matched: <strong>{{ pattern_display }}</strong>. Uses {{ ticket.assignee_display_name or "the assignee" }}'s past close-out comments as examples.</p>
-    <button
-        hx-post="/tickets/{{ ticket.issue_key }}/draft"
-        hx-target="#draft-area"
-        hx-swap="innerHTML"
-        hx-indicator="#draft-spinner"
-        class="btn-primary">
-        ⚡ Generate Draft
-    </button>
+    <h3>LLM actions</h3>
+    <p class="muted">Uses T-shaped context (customer history + hardware neighbors) from the sidebar.</p>
+
+    <div class="draft-actions-row">
+        <button type="button"
+            class="btn-primary"
+            hx-post="/tickets/{{ ticket.issue_key }}/draft/fix"
+            hx-target="#draft-area"
+            hx-swap="innerHTML"
+            hx-indicator="#draft-spinner">
+            Identify potential fix
+        </button>
+        <button type="button"
+            class="btn-secondary"
+            hx-post="/tickets/{{ ticket.issue_key }}/draft/internal"
+            hx-target="#draft-area"
+            hx-swap="innerHTML"
+            hx-indicator="#draft-spinner">
+            Generate internal comment
+        </button>
+    </div>
+
+    <form id="public-draft-form" class="public-draft-form" onsubmit="return false;">
+        <label class="meta-label" for="persona_slug">Public comment — persona</label>
+        <select name="persona_slug" id="persona_slug" class="persona-select">
+            {% for p in persona_rows %}
+            <option value="{{ p.slug }}" {% if p.slug == default_persona_slug %}selected{% endif %}>{{ p.label }}</option>
+            {% endfor %}
+        </select>
+        <label class="meta-label" for="system_prompt">System prompt (editable)</label>
+        <textarea name="system_prompt" id="system_prompt" rows="10" class="persona-textarea"></textarea>
+        <button type="button"
+            class="btn-primary"
+            hx-post="/tickets/{{ ticket.issue_key }}/draft/public"
+            hx-target="#draft-area"
+            hx-swap="innerHTML"
+            hx-indicator="#draft-spinner"
+            hx-include="#public-draft-form">
+            Generate public comment
+        </button>
+    </form>
+
     <span id="draft-spinner" class="htmx-indicator spinner">Generating…</span>
     <div id="draft-area"></div>
 </section>
-{% else %}
-<section class="section draft-section">
-    <h3>Generate Draft</h3>
-    <p class="muted">No pattern matched this ticket — manual drafting required.</p>
-</section>
-{% endif %}
+
+<script type="application/json" id="persona-defaults-data">{{ personas_json|safe }}</script>
+<script>
+(function () {
+    const raw = document.getElementById("persona-defaults-data").textContent;
+    const defaults = JSON.parse(raw);
+    const sel = document.getElementById("persona_slug");
+    const ta = document.getElementById("system_prompt");
+    function sync() {
+        const slug = sel.value;
+        ta.value = defaults[slug] || "";
+    }
+    sel.addEventListener("change", sync);
+    sync();
+})();
+</script>
+
+</div>
+
+<aside class="ticket-aside"
+    hx-get="/tickets/{{ ticket.issue_key }}/related"
+    hx-trigger="load"
+    hx-swap="innerHTML">
+    <p class="muted">Loading related context…</p>
+</aside>
+</div>
 {% endblock %}

@@ -19,7 +19,13 @@ _OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 _RETRY_STATUSES = (429, 500, 502, 503, 504)
 
 
-async def generate_draft(system_prompt: str, user_prompt: str) -> dict:
+async def generate_draft(
+    system_prompt: str,
+    user_prompt: str,
+    *,
+    max_tokens: int = 1024,
+    temperature: float | None = None,
+) -> dict:
     """
     Call OpenRouter with the workhorse model.
 
@@ -29,10 +35,11 @@ async def generate_draft(system_prompt: str, user_prompt: str) -> dict:
     Raises:
         RuntimeError on unrecoverable failure after all retries.
     """
+    temp = settings.temperature_workhorse if temperature is None else temperature
     payload = {
         "model": settings.model_workhorse,
-        "temperature": settings.temperature_workhorse,
-        "max_tokens": 1024,
+        "temperature": temp,
+        "max_tokens": max_tokens,
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},

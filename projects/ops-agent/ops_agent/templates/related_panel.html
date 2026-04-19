@@ -1,0 +1,100 @@
+{% if error %}
+<p class="related-error"><strong>Context load error.</strong> {{ error }}</p>
+{% elif ctx %}
+<section class="related-section">
+    <h4>Customer</h4>
+    {% if ctx.client_id %}
+    <p class="related-line"><span class="muted">Ocean / Fusion ID</span> {{ ctx.client_id }}</p>
+    {% endif %}
+    {% if ctx.customer_name %}
+    <p class="related-line">{{ ctx.customer_name }}</p>
+    {% endif %}
+    {% if ctx.tam_display %}
+    <p class="related-line muted">TAM: {{ ctx.tam_display }}</p>
+    {% endif %}
+    {% if ctx.fusion_error %}
+    <p class="related-warn">{{ ctx.fusion_error }}</p>
+    {% endif %}
+</section>
+
+<section class="related-section">
+    <h4>Customer ticket history <span class="count">({{ ctx.customer_tickets|length }})</span></h4>
+    {% if ctx.customer_tickets %}
+    <ul class="related-list">
+        {% for t in ctx.customer_tickets[:15] %}
+        <li>
+            <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
+            <span class="muted">{{ t.status }}</span>
+            {% set summ = t.summary or '' %}
+            <div class="related-summary">{{ summ[:140] }}{% if summ|length > 140 %}…{% endif %}</div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">No other tickets for this client in mirror (or client unknown).</p>
+    {% endif %}
+</section>
+
+<section class="related-section">
+    <h4>Hardware components <span class="count">({{ ctx.components_sample|length }})</span></h4>
+    {% if ctx.mssql_error %}
+    <p class="related-warn">{{ ctx.mssql_error }}</p>
+    {% endif %}
+    {% if ctx.components_sample %}
+    <ul class="related-list related-compact">
+        {% for c in ctx.components_sample[:12] %}
+        <li>
+            <span class="mono">{{ c.service_id }}</span>
+            · {{ c.component_category }}/{{ c.component_type }}
+            · {{ c.component }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">No linked assets with numeric service_id, or no dimComponents rows.</p>
+    {% endif %}
+</section>
+
+<section class="related-section">
+    <h4>Neighbor services <span class="count">({{ ctx.neighbor_services|length }})</span></h4>
+    {% if ctx.neighbor_services %}
+    <ul class="related-list related-compact">
+        {% for n in ctx.neighbor_services[:10] %}
+        <li class="mono">svc {{ n.service_id }} · Jaccard {{ n.jaccard }} · shared {{ n.shared_components }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">No neighbors above component-overlap threshold.</p>
+    {% endif %}
+</section>
+
+<section class="related-section">
+    <h4>Tickets on similar hardware <span class="count">({{ ctx.neighbor_tickets|length }})</span></h4>
+    {% if ctx.neighbor_tickets %}
+    <ul class="related-list">
+        {% for t in ctx.neighbor_tickets[:12] %}
+        <li>
+            <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
+            <span class="muted">{{ t.status }}</span>
+            {% if t.ocean_client_id %}<span class="muted">client {{ t.ocean_client_id }}</span>{% endif %}
+            {% set summ2 = t.summary or '' %}
+            <div class="related-summary">{{ summ2[:120] }}{% if summ2|length > 120 %}…{% endif %}</div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">No mirrored tickets on neighbor services.</p>
+    {% endif %}
+</section>
+
+{% if ctx.ticket_fusion_services %}
+<section class="related-section">
+    <h4>Fusion services (this ticket)</h4>
+    <ul class="related-list related-compact">
+        {% for s in ctx.ticket_fusion_services %}
+        <li><span class="mono">{{ s.id }}</span> · {{ s.products_name or s.products_nickname }} · status_id {{ s.products_status_id }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+{% endif %}
