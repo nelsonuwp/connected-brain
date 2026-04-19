@@ -21,9 +21,14 @@
                 alt="Aptum">
         </a>
         <span class="brand-divider"></span>
-        <div class="brand-text">
-            <span class="brand-product">Support workspace</span>
-            <span class="brand-sub">JSM mirror · T-shaped context · LLM drafts</span>
+        <span class="brand-product">Support Hub</span>
+        <div class="header-right">
+            <div id="status-cluster"
+                 hx-get="/api/status"
+                 hx-trigger="load, every 30s"
+                 hx-swap="outerHTML">
+                <span class="status-pill status-unknown"><span class="status-dot"></span>…</span>
+            </div>
         </div>
     </header>
     <main>
