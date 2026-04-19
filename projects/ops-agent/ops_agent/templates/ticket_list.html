@@ -53,7 +53,7 @@
             <td class="muted">{{ t.jira_org_name or "—" }}</td>
             <td class="muted">{{ t.assignee_display_name or "—" }}</td>
             <td><span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span></td>
-            <td class="muted date-cell">{{ t.updated_at.strftime("%b %d") if t.updated_at else "—" }}</td>
+            <td class="muted date-cell">{{ t.updated_at | localtime }}</td>
             <td class="center">{% if t.is_customer_originated %}<span class="dot-green" title="Customer-originated">●</span>{% endif %}</td>
         </tr>
         {% endfor %}

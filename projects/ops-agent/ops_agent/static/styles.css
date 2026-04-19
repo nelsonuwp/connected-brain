@@ -230,14 +230,20 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 /* ── Ticket table ──────────────────────────────────────────── */
 .ticket-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  overflow: hidden;
   box-shadow: var(--shadow);
   font-size: .875rem;
 }
+
+/* border-radius on corner cells (overflow:hidden removed to allow sticky thead) */
+.ticket-table thead tr th:first-child { border-radius: var(--radius) 0 0 0; }
+.ticket-table thead tr th:last-child  { border-radius: 0 var(--radius) 0 0; }
+.ticket-table tbody tr:last-child td:first-child { border-radius: 0 0 0 var(--radius); }
+.ticket-table tbody tr:last-child td:last-child  { border-radius: 0 0 var(--radius) 0; }
 
 .ticket-table thead { position: sticky; top: 56px; z-index: 1; }
 
