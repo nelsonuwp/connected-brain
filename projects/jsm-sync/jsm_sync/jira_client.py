@@ -405,11 +405,20 @@ def _process_issue_to_ticket(
     issue: dict,
     comments: list,
     asset_details: list,
+    worklogs: list[dict] | None = None,
 ) -> Optional[dict]:
-    """Build one ticket dict from raw issue + comments + hydrated assets."""
+    """Build one ticket dict from raw issue + comments + hydrated assets + worklogs."""
     key = issue.get("key")
     if not key:
         return None
+
+    issue_id: int | None = None
+    raw_id = issue.get("id")
+    if raw_id is not None:
+        try:
+            issue_id = int(raw_id)
+        except (ValueError, TypeError):
+            issue_id = None
 
     fields = issue.get("fields") or {}
 
@@ -500,11 +509,13 @@ def _process_issue_to_ticket(
         "created_at": created_at,
         "updated_at": updated_at,
         "resolved_at": resolved_at,
+        "issue_id": issue_id,
         "thread_events": sorted(
             create_history_trail(issue, comments) + create_changelog_events(issue),
             key=lambda e: e["created_at"],
         ),
         "assets": asset_details,
+        "worklogs": worklogs or [],
     }
 
 
@@ -621,49 +632,159 @@ async def _fetch_comments(
     return all_comments
 
 
-async def _fetch_worklog(
+async def _fetch_issue_worklogs(
     client: httpx.AsyncClient,
     issue_key: str,
     semaphore: asyncio.Semaphore,
     headers: dict,
-) -> list:
-    """Fetch and aggregate worklog entries. Kept for on-demand use; not called in backfill."""
+) -> list[dict]:
+    """
+    Fetch ALL worklog entries for an issue, paginated.
+    Returns raw Jira worklog objects (not processed).
+    """
     base_url = settings.jira_base_url.rstrip("/")
     url = f"{base_url}/rest/api/3/issue/{issue_key}/worklog"
+    all_worklogs: list[dict] = []
+    start_at = 0
 
-    async with semaphore:
-        async def _do_fetch() -> Any:
-            r = await client.get(url, headers=headers, timeout=30.0)
-            r.raise_for_status()
-            return r.json()
+    while True:
+        _start = start_at
+        async with semaphore:
+            async def _do_page() -> Any:
+                r = await client.get(
+                    url,
+                    params={"startAt": _start, "maxResults": 100},
+                    headers=headers,
+                    timeout=30.0,
+                )
+                r.raise_for_status()
+                return r.json()
 
-        data = await retry_with_backoff(_do_fetch, max_retries=3)
+            data = await retry_with_backoff(_do_page, max_retries=3)
 
-    worklogs = data.get("worklogs", [])
-    agg_map: Dict[str, Any] = {}
-    for log_entry in worklogs:
-        author = log_entry.get("author")
-        if not author:
-            continue
-        account_id = author.get("accountId") or author.get("displayName")
-        seconds = log_entry.get("timeSpentSeconds", 0)
-        if account_id not in agg_map:
-            agg_map[account_id] = {
-                "name": author.get("displayName", "Unknown"),
-                "email": author.get("emailAddress", ""),
-                "total_seconds": 0,
-            }
-        agg_map[account_id]["total_seconds"] += seconds
+        worklogs = data.get("worklogs", [])
+        all_worklogs.extend(worklogs)
+        total = data.get("total", 0)
+        if start_at + len(worklogs) >= total or not worklogs:
+            break
+        start_at += 100
 
-    return [
-        {
-            "name": v["name"],
-            "email": v["email"],
-            "total_seconds": v["total_seconds"],
-            "total_hours": round(v["total_seconds"] / 3600, 2),
-        }
-        for v in agg_map.values()
-    ]
+    return all_worklogs
+
+
+async def fetch_worklog_updates_since(
+    client: httpx.AsyncClient,
+    since_ms: int,
+    semaphore: asyncio.Semaphore,
+    headers: dict,
+) -> tuple[list[int], int]:
+    """
+    Walk /rest/api/3/worklog/updated pagination.
+    Returns (deduped list of worklog IDs, the 'until' epoch-ms watermark from Jira).
+    """
+    base_url = settings.jira_base_url.rstrip("/")
+    url = f"{base_url}/rest/api/3/worklog/updated"
+    all_ids: list[int] = []
+    current_since = since_ms
+    last_until = since_ms
+
+    while True:
+        _since = current_since
+        async with semaphore:
+            async def _do_page() -> Any:
+                r = await client.get(
+                    url,
+                    params={"since": _since},
+                    headers=headers,
+                    timeout=30.0,
+                )
+                r.raise_for_status()
+                return r.json()
+
+            data = await retry_with_backoff(_do_page, max_retries=3)
+
+        values = data.get("values", [])
+        all_ids.extend(int(v["worklogId"]) for v in values)
+        last_until = int(data.get("until", current_since))
+        if data.get("lastPage", True):
+            break
+        current_since = last_until
+
+    deduped = list(dict.fromkeys(all_ids))
+    return deduped, last_until
+
+
+async def fetch_worklog_deletes_since(
+    client: httpx.AsyncClient,
+    since_ms: int,
+    semaphore: asyncio.Semaphore,
+    headers: dict,
+) -> tuple[list[int], int]:
+    """Same shape as fetch_worklog_updates_since but hits /worklog/deleted."""
+    base_url = settings.jira_base_url.rstrip("/")
+    url = f"{base_url}/rest/api/3/worklog/deleted"
+    all_ids: list[int] = []
+    current_since = since_ms
+    last_until = since_ms
+
+    while True:
+        _since = current_since
+        async with semaphore:
+            async def _do_page() -> Any:
+                r = await client.get(
+                    url,
+                    params={"since": _since},
+                    headers=headers,
+                    timeout=30.0,
+                )
+                r.raise_for_status()
+                return r.json()
+
+            data = await retry_with_backoff(_do_page, max_retries=3)
+
+        values = data.get("values", [])
+        all_ids.extend(int(v["worklogId"]) for v in values)
+        last_until = int(data.get("until", current_since))
+        if data.get("lastPage", True):
+            break
+        current_since = last_until
+
+    deduped = list(dict.fromkeys(all_ids))
+    return deduped, last_until
+
+
+async def fetch_worklogs_bulk(
+    client: httpx.AsyncClient,
+    worklog_ids: list[int],
+    semaphore: asyncio.Semaphore,
+    headers: dict,
+    batch_size: int = 1000,
+) -> list[dict]:
+    """
+    POST /rest/api/3/worklog/list in batches of up to 1000 IDs.
+    Returns full worklog objects (with issueId, author, comment, etc.).
+    """
+    base_url = settings.jira_base_url.rstrip("/")
+    url = f"{base_url}/rest/api/3/worklog/list"
+    all_worklogs: list[dict] = []
+
+    for i in range(0, len(worklog_ids), batch_size):
+        chunk = worklog_ids[i : i + batch_size]
+        async with semaphore:
+            async def _do_batch() -> Any:
+                r = await client.post(
+                    url,
+                    json={"ids": chunk},
+                    headers=headers,
+                    timeout=60.0,
+                )
+                r.raise_for_status()
+                return r.json()
+
+            data = await retry_with_backoff(_do_batch, max_retries=3)
+        all_worklogs.extend(data if isinstance(data, list) else [])
+
+    return all_worklogs
 
 
 async def _fetch_one_ticket(
@@ -671,8 +792,9 @@ async def _fetch_one_ticket(
     issue_key: str,
     semaphore: asyncio.Semaphore,
     headers: dict,
+    include_worklogs: bool = True,
 ) -> Optional[dict]:
-    """Fetch one ticket: issue + comments + assets (no worklog in backfill path)."""
+    """Fetch one ticket: issue + comments + assets (+ optional worklogs)."""
     base_url = settings.jira_base_url.rstrip("/")
 
     # 1. Main issue (expand changelog for resolved_at)
@@ -699,7 +821,11 @@ async def _fetch_one_ticket(
         if det:
             asset_details.append(det)
 
-    return _process_issue_to_ticket(issue, comments, asset_details)
+    worklogs: list[dict] = []
+    if include_worklogs:
+        worklogs = await _fetch_issue_worklogs(client, issue_key, semaphore, headers)
+
+    return _process_issue_to_ticket(issue, comments, asset_details, worklogs)
 
 
 # ---------------------------------------------------------------------------
@@ -726,9 +852,13 @@ async def fetch_ticket_batch(
     keys: List[str],
     semaphore: asyncio.Semaphore,
     headers: dict,
+    include_worklogs: bool = True,
 ) -> List[dict]:
     """Fetch a batch of tickets in parallel. Returns only successful, non-None results."""
-    tasks = [_fetch_one_ticket(client, key, semaphore, headers) for key in keys]
+    tasks = [
+        _fetch_one_ticket(client, key, semaphore, headers, include_worklogs=include_worklogs)
+        for key in keys
+    ]
     results = await asyncio.gather(*tasks, return_exceptions=True)
     tickets = []
     for key, result in zip(keys, results):
