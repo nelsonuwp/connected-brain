@@ -363,6 +363,27 @@ None formally injected. If resuming and doing code work, the following
 should be loaded if they exist:
 - Any `vault/20-context/apis/` block for Jira or OpenRouter
 - Any `vault/20-context/schemas/` block for the Fusion or MSSQL BI schemas
-  (the user referenced `/Users/anelson-macbook-air/Code/python scripts/AccountIntelV2/docs/reference`
+  (  the user referenced `/Users/anelson-macbook-air/Code/python scripts/AccountIntelV2/docs/reference`
   during this session as the Fusion schema source of truth — not inside
   the vault yet)
+
+---
+
+## Addendum — v3 embeddings shipped (2026-04-19)
+
+The sidebar panels now rank tickets by **semantic similarity** to the current ticket, not recency.
+
+- pgvector is enabled on the local Postgres (image `pgvector/pgvector:pg16`).
+- `ticket_embeddings` table holds 768-dim `BAAI/bge-base-en-v1.5` vectors; HNSW cosine index.
+- `jsm_sync.embed_backfill` is idempotent (`python3 -m jsm_sync.embed_backfill`).
+- `jsm_sync.incremental` embeds new/stale tickets at the end of each cron run (non-fatal on failure).
+- ops-agent loads the same model once in `lifespan`. Query path in
+  `ops_agent/context/semantic.py`; recency fallback in `merge_with_recency_fallback`.
+- Sidebar rows carry `similarity_score` (0-1) and `ranked_by` (`semantic` | `recency`);
+  the template shows a `NN%` badge.
+
+**DO NOT replace the recency fallback without thinking.** It is what keeps the sidebar
+from ever being empty for a brand-new ticket the cron hasn't embedded yet.
+
+**To add a new model later:** pick a new `MODEL_NAME` in `embedder.py`, re-run
+`embed_backfill.py` — rows are keyed by `(issue_key, model)` so old + new coexist.
