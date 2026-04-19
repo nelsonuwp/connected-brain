@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ticket Detail — Layout Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #081820;
+    --navy-2:    #0c2030;
+    --navy-3:    #122838;
+    --navy-4:    #1a3248;
+    --lav:       #7D7AE8;
+    --lav-dim:   rgba(125,122,232,.12);
+    --lav-border:rgba(125,122,232,.22);
+    --white:     #F8F7FA;
+    --n1:        #D0D1DE;
+    --n2:        #88898D;
+    --n3:        #515357;
+    --green:     #BED6A8;
+    --green-bg:  rgba(190,214,168,.10);
+    --orange:    #FFBE81;
+    --orange-bg: rgba(255,190,129,.10);
+    --blue:      #B8CDFF;
+    --blue-bg:   rgba(184,205,255,.08);
+    --border:    rgba(208,209,222,.08);
+    --border-2:  rgba(208,209,222,.14);
+  }
+
+  html, body {
+    background: var(--navy);
+    color: var(--n1);
+    font-family: 'Geist', system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  /* Page chrome */
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  .page-eyebrow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    color: var(--n3);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .page-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .page-sub {
+    font-size: 13px;
+    color: var(--n2);
+    margin-bottom: 40px;
+    max-width: 62ch;
+  }
+
+  /* Options grid */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .opt-card {
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+    background: var(--navy-2);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .opt-card:hover {
+    border-color: var(--lav-border);
+  }
+
+  .opt-card.selected {
+    border-color: var(--lav);
+    box-shadow: 0 0 0 1px var(--lav);
+  }
+
+  .opt-card.selected .opt-letter {
+    background: var(--lav);
+    color: var(--navy);
+  }
+
+  /* Option header */
+  .opt-head {
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .opt-letter {
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    background: var(--lav-dim);
+    border: 1px solid var(--lav-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--lav);
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: background .15s, color .15s;
+  }
+
+  .opt-meta h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .opt-meta p {
+    font-size: 11.5px;
+    color: var(--n2);
+    line-height: 1.5;
+  }
+
+  /* Trade-offs */
+  .tradeoffs {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .tf-col-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .tf-pro .tf-col-label { color: var(--green); }
+  .tf-con .tf-col-label { color: var(--orange); }
+
+  .tf-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .tf-list li {
+    font-size: 11px;
+    color: var(--n2);
+    padding-left: 10px;
+    position: relative;
+  }
+
+  .tf-pro .tf-list li::before { content: '+'; position: absolute; left: 0; color: var(--green); }
+  .tf-con .tf-list li::before { content: '–'; position: absolute; left: 0; color: var(--orange); }
+
+  /* Screen mockup */
+  .screen-wrap {
+    flex: 1;
+    padding: 14px;
+    background: var(--navy);
+  }
+
+  .screen {
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--navy);
+    font-size: 10px;
+  }
+
+  /* --- Shared screen chrome --- */
+  .s-nav {
+    height: 30px;
+    background: var(--navy-2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 6px;
+  }
+  .s-nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border-2); }
+  .s-nav-logo {
+    margin-left: 6px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    color: var(--n3);
+    letter-spacing: .06em;
+  }
+  .s-nav-crumb { font-size: 9px; color: var(--n3); display: flex; align-items: center; gap: 4px; margin-left: auto; }
+  .s-nav-crumb span { color: var(--n2); }
+
+  .s-body { display: flex; }
+
+  .s-main { flex: 1; min-width: 0; padding: 10px; }
+  .s-aside { width: 88px; border-left: 1px solid var(--border); padding: 8px; flex-shrink: 0; }
+
+  /* Ticket header */
+  .s-key {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    color: var(--blue);
+    letter-spacing: .04em;
+    margin-bottom: 3px;
+  }
+  .s-title {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .s-badges { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+  .s-badge {
+    font-size: 8.5px;
+    padding: 1.5px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+    letter-spacing: .02em;
+  }
+  .s-badge.status { background: var(--green-bg); color: var(--green); border: 1px solid rgba(190,214,168,.2); }
+  .s-badge.priority { background: var(--orange-bg); color: var(--orange); border: 1px solid rgba(255,190,129,.2); }
+  .s-badge.type { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(184,205,255,.15); }
+
+  .s-divider { height: 1px; background: var(--border); margin: 8px 0; }
+
+  /* Text placeholders */
+  .ph { height: 7px; background: var(--border-2); border-radius: 2px; margin-bottom: 4px; }
+  .ph.w-full { width: 100%; }
+  .ph.w-80 { width: 80%; }
+  .ph.w-60 { width: 60%; }
+  .ph.w-40 { width: 40%; }
+
+  /* Section label */
+  .s-section-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 8px;
+    color: var(--n3);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    margin-top: 8px;
+  }
+
+  /* Thread items */
+  .s-comment {
+    padding: 5px 7px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    border-left: 2px solid var(--border-2);
+  }
+  .s-comment.pub { border-left-color: var(--lav); background: var(--lav-dim); }
+  .s-comment.priv { border-left-color: var(--n3); background: rgba(81,83,87,.08); }
+  .s-comment-meta { font-size: 8px; color: var(--n3); margin-bottom: 3px; display: flex; gap: 4px; }
+  .s-comment-meta .role { color: var(--n2); }
+
+  /* AI strip */
+  .s-ai-strip {
+    background: var(--navy-3);
+    border: 1px solid var(--lav-border);
+    border-radius: 5px;
+    padding: 7px 9px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 7px;
+    flex-wrap: wrap;
+  }
+  .s-ai-icon {
+    width: 14px; height: 14px;
+    background: var(--lav-dim);
+    border: 1px solid var(--lav-border);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; color: var(--lav); flex-shrink: 0;
+  }
+  .s-ai-label { font-size: 9px; color: var(--lav); font-weight: 500; margin-right: 2px; }
+  .s-btn {
+    font-size: 8.5px;
+    padding: 2.5px 8px;
+    border-radius: 3px;
+    border: none;
+    cursor: default;
+    font-family: 'Geist', sans-serif;
+    font-weight: 500;
+  }
+  .s-btn.primary { background: var(--lav); color: var(--navy); }
+  .s-btn.ghost { background: transparent; border: 1px solid var(--border-2); color: var(--n1); }
+  .s-select {
+    font-size: 8.5px; padding: 2px 6px; border-radius: 3px;
+    background: var(--navy-2); border: 1px solid var(--border-2);
+    color: var(--n2); font-family: 'Geist', sans-serif;
+  }
+
+  /* AI output area */
+  .s-ai-out {
+    background: var(--navy-3);
+    border: 1px solid var(--lav-border);
+    border-radius: 4px;
+    padding: 7px 9px;
+    margin-bottom: 7px;
+  }
+  .s-ai-out-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 8px; color: var(--lav);
+    letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  /* Related sidebar items */
+  .s-rel-item {
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .s-rel-key {
+    font-family: 'Geist Mono', monospace;
+    font-size: 8px; color: var(--blue);
+  }
+  .s-rel-sim {
+    font-size: 7.5px; color: var(--green);
+    font-family: 'Geist Mono', monospace;
+  }
+
+  /* People row */
+  .s-people { display: flex; gap: 8px; margin-bottom: 6px; }
+  .s-person-label { font-size: 8px; color: var(--n3); margin-bottom: 1px; }
+  .s-person-name { font-size: 9px; color: var(--n2); }
+
+  /* Recommend tag */
+  .rec-tag {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--lav-dim);
+    border: 1px solid var(--lav-border);
+    color: var(--lav);
+    margin-top: 6px;
+  }
+
+  /* Option footer */
+  .opt-footer {
+    padding: 10px 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .opt-select-hint {
+    font-size: 11px;
+    color: var(--n3);
+  }
+  .opt-card.selected .opt-select-hint {
+    color: var(--lav);
+  }
+
+  /* Duplicate warning */
+  .s-dup-warn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 8px;
+    color: var(--orange);
+    background: var(--orange-bg);
+    border: 1px solid rgba(255,190,129,.2);
+    border-radius: 3px;
+    padding: 2px 6px;
+    margin-bottom: 5px;
+  }
+
+  /* Tab bar */
+  .s-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .s-tab {
+    font-size: 9px; padding: 5px 10px; cursor: default;
+    color: var(--n3); border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  .s-tab.active { color: var(--white); border-bottom-color: var(--lav); }
+
+  /* Sticky tray (Option C) */
+  .s-tray {
+    background: var(--navy-3);
+    border-top: 1px solid var(--lav-border);
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Aside sections */
+  .s-aside-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 7.5px; color: var(--n3);
+    letter-spacing: .1em; text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .s-aside-section { margin-bottom: 8px; }
+  .s-customer-name { font-size: 9px; color: var(--n1); margin-bottom: 1px; }
+  .s-customer-meta { font-size: 8px; color: var(--n3); font-family: 'Geist Mono', monospace; }
+
+  /* AI panel in aside */
+  .s-ai-aside {
+    background: var(--navy-3);
+    border: 1px solid var(--lav-border);
+    border-radius: 4px;
+    padding: 6px 7px;
+    margin-bottom: 7px;
+  }
+  .s-ai-aside-head {
+    display: flex; align-items: center; gap: 5px; margin-bottom: 5px;
+  }
+  .s-ai-aside-label { font-size: 9px; color: var(--lav); font-weight: 500; }
+
+  /* Page-level selections state */
+  .selected-indicator {
+    display: none;
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: var(--lav);
+    color: var(--navy);
+    font-family: 'Geist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(125,122,232,.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="page-eyebrow">ops-agent · ticket detail</div>
+  <h1 class="page-title">Three approaches to the duplicate AI actions problem</h1>
+  <p class="page-sub">The current page has "Identify fix" + "Public reply" in a quick strip <em>and</em> a full Public reply form at the bottom. Which structure resolves this best?</p>
+
+  <div class="options-grid">
+
+    <!-- ═══════════════════════════════════════════════ OPTION A -->
+    <div class="opt-card" data-choice="a" onclick="toggleSelect(this)">
+      <div class="opt-head">
+        <div class="opt-letter">A</div>
+        <div class="opt-meta">
+          <h3>Unified AI panel</h3>
+          <p>Replace both the strip and the bottom section with one consolidated block. Persona selector always visible. Single output area.</p>
+        </div>
+      </div>
+
+      <div class="tradeoffs">
+        <div class="tf-pro">
+          <div class="tf-col-label">Pros</div>
+          <ul class="tf-list">
+            <li>No duplication</li>
+            <li>All controls together</li>
+            <li>Cleaner scroll</li>
+          </ul>
+        </div>
+        <div class="tf-con">
+          <div class="tf-col-label">Cons</div>
+          <ul class="tf-list">
+            <li>Panel above description</li>
+            <li>Interrupts read flow</li>
+            <li>Panel grows tall</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="screen-wrap">
+        <div class="screen">
+          <div class="s-nav">
+            <div class="s-nav-dot"></div><div class="s-nav-dot"></div><div class="s-nav-dot"></div>
+            <div class="s-nav-logo">ops-agent</div>
+            <div class="s-nav-crumb">Tickets / <span>APTUM-38272</span></div>
+          </div>
+          <div class="s-body">
+            <div class="s-main">
+              <div class="s-key">APTUM-38272</div>
+              <div class="s-title">Customer unable to access VPN endpoint after maintenance window</div>
+              <div class="s-badges">
+                <span class="s-badge status">In Progress</span>
+                <span class="s-badge priority">High</span>
+                <span class="s-badge type">Network</span>
+              </div>
+              <div class="s-people">
+                <div><div class="s-person-label">Assignee</div><div class="s-person-name">Adam Nelson</div></div>
+                <div><div class="s-person-label">Reporter</div><div class="s-person-name">J. Smith (Acme)</div></div>
+              </div>
+              <div class="s-divider"></div>
+              <!-- Unified AI panel -->
+              <div class="s-ai-strip">
+                <div class="s-ai-icon">✦</div>
+                <span class="s-ai-label">AI</span>
+                <span class="s-btn primary">Identify fix</span>
+                <span class="s-btn ghost">Internal note</span>
+                <span class="s-btn ghost">Public reply</span>
+                <span style="flex:1"></span>
+                <select class="s-select"><option>L2 Support</option></select>
+              </div>
+              <div class="s-ai-out">
+                <div class="s-ai-out-label">Fix suggestion</div>
+                <div class="ph w-full"></div>
+                <div class="ph w-80"></div>
+                <div class="ph w-60"></div>
+              </div>
+              <div class="s-section-label">Description</div>
+              <div class="ph w-full"></div>
+              <div class="ph w-80"></div>
+              <div class="ph w-full"></div>
+              <div class="ph w-40"></div>
+              <div class="s-section-label">Thread · 6 events</div>
+              <div class="s-comment pub"><div class="s-comment-meta"><span class="role">Customer</span> · public · Apr 15</div><div class="ph w-full"></div><div class="ph w-60"></div></div>
+              <div class="s-comment priv"><div class="s-comment-meta"><span class="role">Adam N</span> · internal · Apr 16</div><div class="ph w-80"></div></div>
+            </div>
+            <div class="s-aside">
+              <div class="s-aside-section">
+                <div class="s-aside-label">Customer</div>
+                <div class="s-customer-name">Acme Corp</div>
+                <div class="s-customer-meta">Fusion #1042</div>
+              </div>
+              <div class="s-aside-section">
+                <div class="s-aside-label">Similar</div>
+                <div class="s-rel-item"><div class="s-rel-key">APTUM-36100</div><div class="s-rel-sim">94% match</div><div class="ph w-full" style="margin-top:2px"></div></div>
+                <div class="s-rel-item"><div class="s-rel-key">APTUM-35800</div><div class="s-rel-sim">88% match</div><div class="ph w-full" style="margin-top:2px"></div></div>
+                <div class="s-rel-item"><div class="s-rel-key">APTUM-34210</div><div class="s-rel-sim">76% match</div><div class="ph w-full" style="margin-top:2px"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opt-footer">
+        <span class="opt-select-hint">Click to select</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ OPTION B -->
+    <div class="opt-card" data-choice="b" onclick="toggleSelect(this)">
+      <div class="opt-head">
+        <div class="opt-letter">B</div>
+        <div class="opt-meta">
+          <h3>Read-first — AI in sidebar</h3>
+          <p>Main column: description → thread only. Right sidebar: related issues on top, AI actions panel below. No strip, no bottom section.</p>
+          <div class="rec-tag">↑ recommended</div>
+        </div>
+      </div>
+
+      <div class="tradeoffs">
+        <div class="tf-pro">
+          <div class="tf-col-label">Pros</div>
+          <ul class="tf-list">
+            <li>Clean read flow</li>
+            <li>AI beside related issues</li>
+            <li>Natural act→read pairing</li>
+          </ul>
+        </div>
+        <div class="tf-con">
+          <div class="tf-col-label">Cons</div>
+          <ul class="tf-list">
+            <li>Sidebar gets tall</li>
+            <li>AI output area narrow</li>
+            <li>Related pushed down</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="screen-wrap">
+        <div class="screen">
+          <div class="s-nav">
+            <div class="s-nav-dot"></div><div class="s-nav-dot"></div><div class="s-nav-dot"></div>
+            <div class="s-nav-logo">ops-agent</div>
+            <div class="s-nav-crumb">Tickets / <span>APTUM-38272</span></div>
+          </div>
+          <div class="s-body">
+            <div class="s-main">
+              <div class="s-key">APTUM-38272</div>
+              <div class="s-title">Customer unable to access VPN endpoint after maintenance window</div>
+              <div class="s-badges">
+                <span class="s-badge status">In Progress</span>
+                <span class="s-badge priority">High</span>
+              </div>
+              <div class="s-people">
+                <div><div class="s-person-label">Assignee</div><div class="s-person-name">Adam Nelson</div></div>
+                <div><div class="s-person-label">Reporter</div><div class="s-person-name">J. Smith (Acme)</div></div>
+              </div>
+              <div class="s-divider"></div>
+              <div class="s-section-label">Description</div>
+              <div class="ph w-full"></div>
+              <div class="ph w-80"></div>
+              <div class="ph w-full"></div>
+              <div class="ph w-60"></div>
+              <div class="ph w-80"></div>
+              <div class="s-section-label">Assets · 2</div>
+              <div style="display:flex;gap:4px;margin-bottom:6px">
+                <span class="s-badge type">SVC-10421 · MPLS</span>
+                <span class="s-badge type">SVC-10422 · Internet</span>
+              </div>
+              <div class="s-section-label">Thread · 6 events</div>
+              <div class="s-comment pub"><div class="s-comment-meta"><span class="role">Customer</span> · public · Apr 15</div><div class="ph w-full"></div><div class="ph w-60"></div></div>
+              <div class="s-comment priv"><div class="s-comment-meta"><span class="role">Adam N</span> · internal · Apr 16</div><div class="ph w-80"></div></div>
+              <div class="s-comment pub"><div class="s-comment-meta"><span class="role">Customer</span> · public · Apr 18</div><div class="ph w-full"></div></div>
+            </div>
+            <div class="s-aside">
+              <div class="s-aside-section">
+                <div class="s-aside-label">Customer</div>
+                <div class="s-customer-name">Acme Corp</div>
+                <div class="s-customer-meta">Fusion #1042</div>
+              </div>
+              <!-- Similar issues FIRST -->
+              <div class="s-aside-section">
+                <div class="s-aside-label">Similar</div>
+                <div class="s-rel-item"><div class="s-rel-key">APTUM-36100</div><div class="s-rel-sim">94%</div><div class="ph w-full" style="margin-top:2px"></div></div>
+                <div class="s-rel-item"><div class="s-rel-key">APTUM-35800</div><div class="s-rel-sim">88%</div><div class="ph w-full" style="margin-top:2px"></div></div>
+              </div>
+              <!-- AI BELOW related -->
+              <div class="s-ai-aside">
+                <div class="s-ai-aside-head">
+                  <div class="s-ai-icon">✦</div>
+                  <span class="s-ai-aside-label">AI Actions</span>
+                </div>
+                <select class="s-select" style="width:100%;margin-bottom:5px"><option>L2 Support ▾</option></select>
+                <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:5px">
+                  <span class="s-btn primary" style="text-align:center">Identify fix</span>
+                  <span class="s-btn ghost" style="text-align:center">Internal note</span>
+                  <span class="s-btn ghost" style="text-align:center">Public reply</span>
+                </div>
+                <div class="ph w-full"></div>
+                <div class="ph w-80"></div>
+                <div class="ph w-60"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opt-footer">
+        <span class="opt-select-hint">Click to select</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ OPTION C -->
+    <div class="opt-card" data-choice="c" onclick="toggleSelect(this)">
+      <div class="opt-head">
+        <div class="opt-letter">C</div>
+        <div class="opt-meta">
+          <h3>Sticky action tray</h3>
+          <p>Main column is pure reading. A compact tray is pinned to the bottom of the viewport. Clicking any action expands it into a full panel — collapses after copy/submit.</p>
+        </div>
+      </div>
+
+      <div class="tradeoffs">
+        <div class="tf-pro">
+          <div class="tf-col-label">Pros</div>
+          <ul class="tf-list">
+            <li>Maximum reading area</li>
+            <li>Actions always reachable</li>
+            <li>Expandable = no clutter</li>
+          </ul>
+        </div>
+        <div class="tf-con">
+          <div class="tf-col-label">Cons</div>
+          <ul class="tf-list">
+            <li>More interaction to act</li>
+            <li>Expanded panel overlaps</li>
+            <li>Needs JS expand/collapse</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="screen-wrap">
+        <div class="screen" style="display:flex;flex-direction:column">
+          <div class="s-nav">
+            <div class="s-nav-dot"></div><div class="s-nav-dot"></div><div class="s-nav-dot"></div>
+            <div class="s-nav-logo">ops-agent</div>
+            <div class="s-nav-crumb">Tickets / <span>APTUM-38272</span></div>
+          </div>
+          <div class="s-body" style="flex:1">
+            <div class="s-main">
+              <div class="s-key">APTUM-38272</div>
+              <div class="s-title">Customer unable to access VPN endpoint after maintenance window</div>
+              <div class="s-badges">
+                <span class="s-badge status">In Progress</span>
+                <span class="s-badge priority">High</span>
+              </div>
+              <div class="s-divider"></div>
+              <div class="s-section-label">Description</div>
+              <div class="ph w-full"></div>
+              <div class="ph w-80"></div>
+              <div class="ph w-full"></div>
+              <div class="ph w-60"></div>
+              <div class="s-section-label">Thread · 6 events</div>
+              <div class="s-comment pub"><div class="s-comment-meta"><span class="role">Customer</span> · public · Apr 15</div><div class="ph w-full"></div><div class="ph w-60"></div></div>
+              <div class="s-comment priv"><div class="s-comment-meta"><span class="role">Adam N</span> · internal · Apr 16</div><div class="ph w-80"></div></div>
+              <div class="s-comment pub"><div class="s-comment-meta"><span class="role">Customer</span> · public · Apr 17</div><div class="ph w-full"></div></div>
+            </div>
+            <div class="s-aside">
+              <div class="s-aside-section">
+                <div class="s-aside-label">Customer</div>
+                <div class="s-customer-name">Acme Corp</div>
+                <div class="s-customer-meta">Fusion #1042</div>
+              </div>
+              <div class="s-aside-section">
+                <div class="s-aside-label">Similar</div>
+                <div class="s-rel-item"><div class="s-rel-key">APTUM-36100</div><div class="s-rel-sim">94%</div><div class="ph w-full" style="margin-top:2px"></div></div>
+                <div class="s-rel-item"><div class="s-rel-key">APTUM-35800</div><div class="s-rel-sim">88%</div><div class="ph w-full" style="margin-top:2px"></div></div>
+                <div class="s-rel-item"><div class="s-rel-key">APTUM-34210</div><div class="s-rel-sim">76%</div><div class="ph w-full" style="margin-top:2px"></div></div>
+              </div>
+            </div>
+          </div>
+          <!-- Sticky tray -->
+          <div class="s-tray">
+            <div class="s-ai-icon">✦</div>
+            <span class="s-ai-label" style="font-size:8px">AI</span>
+            <span class="s-btn primary">Identify fix</span>
+            <span class="s-btn ghost">Internal note</span>
+            <span class="s-btn ghost">Public reply</span>
+            <span style="flex:1"></span>
+            <select class="s-select"><option>L2 Support</option></select>
+          </div>
+          <!-- Expanded AI panel preview (shown as if opened) -->
+          <div style="background:var(--navy-3);border-top:1px solid var(--lav-border);padding:7px 10px">
+            <div class="s-ai-out-label" style="margin-bottom:4px">↑ Expanded when triggered — collapses after use</div>
+            <div class="ph w-full"></div>
+            <div class="ph w-80"></div>
+            <div style="display:flex;gap:4px;margin-top:5px">
+              <span class="s-btn primary" style="font-size:8px">Copy to clipboard</span>
+              <span class="s-btn ghost" style="font-size:8px">Dismiss</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opt-footer">
+        <span class="opt-select-hint">Click to select</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleSelect(el) {
+  const wasSelected = el.classList.contains('selected');
+  document.querySelectorAll('.opt-card').forEach(c => {
+    c.classList.remove('selected');
+    c.querySelector('.opt-select-hint').textContent = 'Click to select';
+  });
+  if (!wasSelected) {
+    el.classList.add('selected');
+    el.querySelector('.opt-select-hint').textContent = '✓ Selected';
+  }
+}
+</script>
+
+</body>
+</html>
