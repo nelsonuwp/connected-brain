@@ -23,6 +23,14 @@ from ..db import (
     list_customer_tickets,
     list_tickets_for_service_ids,
 )
+from .semantic import (
+    SEMANTIC_LIMIT_CUSTOMER,
+    SEMANTIC_LIMIT_NEIGHBOR,
+    embed_current_ticket,
+    merge_with_recency_fallback,
+    similar_customer_tickets,
+    similar_neighbor_tickets,
+)
 
 logger = logging.getLogger(__name__)
 

@@ -21,6 +21,18 @@ _pool: Optional[asyncpg.Pool] = None
 # Pool lifecycle
 # ---------------------------------------------------------------------------
 
+async def _register_pgvector_on_conn(conn: asyncpg.Connection) -> None:
+    """Register pgvector codec on each acquired connection. Best-effort —
+    if pgvector isn't installed yet (e.g. during initial migration) we
+    log and continue."""
+    try:
+        from pgvector.asyncpg import register_vector
+
+        await register_vector(conn)
+    except Exception as e:
+        logger.warning("pgvector.asyncpg.register_vector failed: %s", e)
+
+
 async def init_pool() -> None:
     global _pool
     if _pool is not None:
@@ -30,6 +42,7 @@ async def init_pool() -> None:
         min_size=1,
         max_size=10,
         command_timeout=30,
+        init=_register_pgvector_on_conn,
     )
     logger.info("DB pool ready → %s", settings.database_url)
 
