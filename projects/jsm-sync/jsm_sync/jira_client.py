@@ -7,7 +7,6 @@ Removed vs reference:
   - fetch_jira_data / fetch_jira_data_sync (artifact-shaped orchestrators)
   - fetch_organization_users
   - pandas import
-  - worklogs: paginated _fetch_issue_worklogs (used in backfill / incremental)
 
 Changed vs reference:
   - All log("⚠️", ...) / log("✗", ...) → stdlib logger calls
@@ -20,6 +19,7 @@ Changed vs reference:
 Added vs reference:
   - build_project_jql — project-scoped JQL (no cf[11709])
   - fetch_ticket_batch — public entry point for backfill/incremental
+  - _fetch_issue_worklogs + global worklog API helpers (updated/deleted/list)
 """
 
 import asyncio
