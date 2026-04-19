@@ -67,6 +67,46 @@
     {% endif %}
 </div>
 
+<div class="quick-actions-strip">
+    <div class="quick-actions-group">
+        <button type="button" class="btn-qa btn-qa-primary hx-qa-trigger"
+            hx-post="/tickets/{{ ticket.issue_key }}/draft/fix"
+            hx-target="#quick-draft-out"
+            hx-swap="innerHTML"
+            hx-indicator="#qa-spinner"
+            hx-disabled-elt=".hx-qa-trigger">
+            Identify fix
+        </button>
+        <button type="button" class="btn-qa btn-qa-ghost hx-qa-trigger"
+            hx-post="/tickets/{{ ticket.issue_key }}/draft/internal"
+            hx-target="#quick-draft-out"
+            hx-swap="innerHTML"
+            hx-indicator="#qa-spinner"
+            hx-disabled-elt=".hx-qa-trigger">
+            Internal note
+        </button>
+        <span class="qa-sep" aria-hidden="true">|</span>
+        <select id="qa-persona-slug" name="persona_slug" class="qa-persona-select">
+            {% for p in persona_rows %}
+            <option value="{{ p.slug }}" {% if p.slug == default_persona_slug %}selected{% endif %}>{{ p.label }}</option>
+            {% endfor %}
+        </select>
+        <button type="button" class="btn-qa btn-qa-ghost hx-qa-trigger"
+            hx-post="/tickets/{{ ticket.issue_key }}/draft/public"
+            hx-target="#quick-draft-out"
+            hx-swap="innerHTML"
+            hx-indicator="#qa-spinner"
+            hx-include="#qa-persona-slug"
+            hx-disabled-elt=".hx-qa-trigger">
+            Public reply
+        </button>
+        <span id="qa-spinner" class="htmx-indicator qa-spinner-inline" aria-hidden="true">
+            <span class="spinner-orbit"></span>
+        </span>
+    </div>
+</div>
+<div id="quick-draft-out" class="quick-draft-out"></div>
+
 {% if ticket.description %}
 <section class="section">
     <h3>Description</h3>
