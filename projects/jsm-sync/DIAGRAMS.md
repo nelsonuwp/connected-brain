@@ -157,11 +157,12 @@ jsm-sync/
       │      │      _fetch_one_ticket(key)
       │      │        ├─► GET /issue/{key}?expand=changelog
       │      │        ├─► GET /issue/{key}/comment
+      │      │        ├─► GET /issue/{key}/worklog (paginated)
       │      │        └─► for each asset in customfield_12173:
       │      │              _fetch_asset_details_sync(objectId)
       │      │              → GET /jsm/assets/.../object/{objectId}
       │      │              → extract service_id attribute
-      │      │
+      │      │      
       │      ├─► transform.py:
       │      │      raw Jira dict → TransformedTicket
       │      │        .ticket_row
@@ -170,6 +171,7 @@ jsm-sync/
       │      │        .thread_events[]
       │      │        .assets[]
       │      │        .ticket_asset_links[]
+      │      │        .worklogs[]
       │      │
       │      ├─► db.persist_ticket() — ONE TRANSACTION:
       │      │      ├─► upsert users
@@ -177,7 +179,9 @@ jsm-sync/
       │      │      ├─► upsert ticket
       │      │      ├─► upsert thread_events
       │      │      ├─► upsert assets
-      │      │      └─► upsert ticket_asset_links
+      │      │      ├─► upsert ticket_asset_links
+      │      │      ├─► upsert ticket_worklogs
+      │      │      └─► soft-delete missing worklogs (per issue)
       │      │
       │      └─► CHECKPOINT: sync_state.last_cursor = max(updated_at)
       │         (if process dies here, next run resumes from cursor)
@@ -295,7 +299,7 @@ jsm-sync/
   ┌──────────────────────────┬──────────────────────────┐
   │    IN POSTGRES (bulk)    │   ONLY IN JIRA (nuance)  │
   ├──────────────────────────┼──────────────────────────┤
-  │ ✓ issue_key              │ × Live SLA timers (live) │
+  │ ✓ issue_key              │ ·                        │
   │ ✓ summary                │ × Live SLA timers        │
   │ ✓ description (plain)    │ × Attachments (blobs)    │
   │ ✓ status, priority       │ × Full ADF formatting    │

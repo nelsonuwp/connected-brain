@@ -17,7 +17,7 @@ import argparse
 import asyncio
 import logging
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta, timezone
 
 import httpx
 from rich.console import Console

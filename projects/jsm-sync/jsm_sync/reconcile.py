@@ -6,6 +6,10 @@ Postgres, and sets deleted_at on any rows that no longer exist in Jira.
 
 Status: stub for v1. Not called automatically; run manually when needed.
 
+Worklogs: v1 reconcile does not cascade-soft-delete `ticket_worklogs` for removed
+tickets; orphan worklog rows are unlikely in practice (ticket FK CASCADE on hard
+delete). A follow-up pass can be added later if needed.
+
 Usage:
     python -m jsm_sync.reconcile
 """

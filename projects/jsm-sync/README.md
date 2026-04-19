@@ -20,8 +20,12 @@ cd projects/jsm-sync
 docker compose up -d
 docker compose logs -f postgres   # wait for "ready to accept connections", then Ctrl-C
 
-# 3. Verify schema loaded (7 tables expected)
+# 3. Verify schema loaded (expect tickets, thread_events, ticket_worklogs, …)
 docker compose exec postgres psql -U jsm_sync -d jsm_sync -c "\dt"
+
+# If postgres_data/ already existed before ticket_worklogs, apply migrations manually:
+# docker compose exec postgres psql -U jsm_sync -d jsm_sync -f /docker-entrypoint-initdb.d/003_worklogs.sql
+# (from host:) psql "postgresql://jsm_sync:…@localhost:5433/jsm_sync" -f schema/003_worklogs.sql
 
 # 4. Install Python dependencies
 pip install -r requirements.txt
@@ -38,13 +42,28 @@ python -m jsm_sync.backfill --lookback-days 30
 
 # Safe to kill and re-run — resumes from last checkpoint
 python -m jsm_sync.backfill --lookback-days 30
+
+# Skip worklogs (faster; ticket_worklogs / global sweep stay stale)
+python -m jsm_sync.backfill --lookback-days 30 --no-worklogs
 ```
+
+## Worklog sync
+
+Worklogs are stored per entry in `ticket_worklogs` (raw ADF in `comment_adf`). **Backfill** fetches `/issue/{key}/worklog` for every ticket. **Incremental** re-fetches worklogs for tickets in the JQL window **and** runs a global sweep (`/worklog/updated`, `/worklog/list`, `/worklog/deleted`) under a second cursor `sync_state.source = jira_worklogs`, so edits that do not bump the parent issue still sync.
+
+- **Opt out:** `--no-worklogs` on both `backfill` and `incremental`.
+- **First run after upgrading:** if `jira_worklogs.last_cursor` is null, run a backfill once (or your usual lookback) so the worklog cursor is pinned; incremental’s Phase B is a no-op until then.
+- **Jira lag:** `/worklog/updated` and `/worklog/deleted` omit changes from roughly the last 60 seconds; combined with your incremental interval, expect worst-case ~interval+60s before a row appears in Postgres.
+- **Progress / logs:** backfill and incremental use Rich for a progress bar; `httpx` request lines are suppressed to WARNING so logs stay readable (including under launchd when stdout is a file).
 
 ## Running incremental sync
 
 ```bash
 # Run once manually
 python -m jsm_sync.incremental
+
+# Opt out of worklogs for this run only
+python -m jsm_sync.incremental --no-worklogs
 
 # Schedule via cron (every 10 min)
 */10 * * * * cd /path/to/connected-brain/projects/jsm-sync && python3 -m jsm_sync.incremental >> logs/incremental.log 2>&1
@@ -59,11 +78,12 @@ SELECT
   (SELECT COUNT(*) FROM tickets WHERE is_customer_originated) AS customer_tickets,
   (SELECT COUNT(*) FROM thread_events) AS comments,
   (SELECT COUNT(*) FROM thread_events WHERE is_public = true) AS public_comments,
+  (SELECT COUNT(*) FROM ticket_worklogs WHERE deleted_at IS NULL) AS worklogs,
   (SELECT COUNT(*) FROM jira_users) AS users,
   (SELECT COUNT(*) FROM organizations) AS orgs;
 
 -- Sync state
-SELECT status, last_sync_at, last_cursor FROM sync_state;
+SELECT source, status, last_sync_at, last_cursor FROM sync_state;
 
 -- Top 10 orgs by ticket volume (last 30 days)
 SELECT o.name, COUNT(t.issue_key) AS tickets
@@ -79,7 +99,7 @@ GROUP BY o.name ORDER BY tickets DESC LIMIT 10;
 docker compose exec postgres psql -U jsm_sync -d jsm_sync
 ```
 
-Or from any SQL client: `host=localhost port=5432 dbname=jsm_sync user=jsm_sync`
+Or from any SQL client: `host=localhost port=5433 dbname=jsm_sync user=jsm_sync` (see `docker-compose.yml` for the published port).
 
 ## Troubleshooting
 
