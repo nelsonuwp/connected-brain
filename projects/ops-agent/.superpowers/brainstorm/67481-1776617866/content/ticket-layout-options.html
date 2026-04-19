@@ -1,0 +1,249 @@
+<style>
+  .wf { font-family: system-ui, sans-serif; font-size: 12px; color: #ccc; }
+  .wf-header { background: #1e1e2e; border-radius: 6px; padding: 10px 14px; margin-bottom: 6px; }
+  .wf-key { font-size: 11px; color: #7c85a8; font-weight: 600; letter-spacing: .05em; }
+  .wf-title { font-size: 14px; color: #e0e0f0; font-weight: 600; margin-top: 2px; }
+  .wf-meta { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .wf-badge { font-size: 10px; padding: 2px 7px; border-radius: 3px; background: #2a2a3e; border: 1px solid #3a3a55; color: #a0a8c0; }
+  .wf-badge.open { background: #1a3a2e; border-color: #2d6b4a; color: #4caf82; }
+  .wf-badge.high { background: #3a1a1a; border-color: #6b2d2d; color: #cf6464; }
+  .wf-section { background: #1a1a2a; border-radius: 5px; padding: 8px 12px; margin-bottom: 6px; border: 1px solid #2a2a3e; }
+  .wf-section-title { font-size: 10px; color: #7c85a8; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+  .wf-para { height: 8px; background: #2a2a3e; border-radius: 2px; margin-bottom: 4px; }
+  .wf-para.short { width: 60%; }
+  .wf-para.medium { width: 80%; }
+  .wf-ai-strip { display: flex; gap: 6px; padding: 8px 12px; background: #1a1a2a; border-radius: 5px; border: 1px solid #2a2a3e; margin-bottom: 6px; align-items: center; }
+  .wf-btn { font-size: 10px; padding: 4px 10px; border-radius: 4px; border: none; cursor: default; }
+  .wf-btn.primary { background: #3d5afe; color: #fff; }
+  .wf-btn.ghost { background: transparent; border: 1px solid #3a3a55; color: #a0a8c0; }
+  .wf-draft-out { background: #1a2535; border: 1px dashed #3d5afe44; border-radius: 5px; padding: 8px 12px; margin-bottom: 6px; }
+  .wf-draft-label { font-size: 10px; color: #3d5afe; font-weight: 600; margin-bottom: 4px; }
+  .wf-thread-item { padding: 6px 10px; border-left: 2px solid #2a2a3e; margin-bottom: 4px; }
+  .wf-thread-item.internal { border-left-color: #4a3a1a; background: #1f1a10; border-radius: 0 4px 4px 0; }
+  .wf-thread-meta { font-size: 9px; color: #6a7090; margin-bottom: 3px; }
+  .wf-thread-body { height: 7px; background: #2a2a3e; border-radius: 2px; margin-bottom: 3px; }
+  .wf-thread-body.short { width: 55%; }
+  .wf-sidebar-section { background: #1a1a2a; border-radius: 5px; padding: 8px 12px; margin-bottom: 6px; border: 1px solid #2a2a3e; }
+  .wf-related-item { display: flex; align-items: center; gap: 6px; padding: 4px 0; border-bottom: 1px solid #22222f; }
+  .wf-related-key { font-size: 10px; color: #3d5afe; font-family: monospace; }
+  .wf-related-sim { font-size: 9px; padding: 1px 5px; background: #1a3a2e; color: #4caf82; border-radius: 2px; }
+  .wf-related-sum { font-size: 9px; color: #6a7090; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .wf-layout { display: grid; gap: 8px; }
+  .wf-main { min-width: 0; }
+  .wf-aside { min-width: 0; }
+  .wf-two-col { grid-template-columns: 1fr 280px; }
+  .wf-label-pill { font-size: 9px; padding: 1px 6px; border-radius: 10px; background: #2a2a3e; color: #6a7090; border: 1px solid #3a3a55; }
+  .wf-duplicate-marker { font-size: 9px; color: #ef5350; background: #3a1010; border: 1px solid #6b2020; border-radius: 3px; padding: 2px 7px; display: inline-block; margin-bottom: 4px; }
+  .wf-ai-panel { background: #12192a; border: 1px solid #2a3a5a; border-radius: 6px; padding: 10px 12px; margin-bottom: 6px; }
+  .wf-ai-panel-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .wf-ai-icon { width: 18px; height: 18px; background: #3d5afe22; border: 1px solid #3d5afe44; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+  .wf-ai-title { font-size: 11px; color: #8090c0; font-weight: 600; }
+  .wf-ai-actions { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+  .wf-ai-output { background: #0f1520; border-radius: 4px; padding: 8px; min-height: 40px; border: 1px solid #1e2a3e; }
+  .wf-ai-out-text { height: 7px; background: #1e2a3e; border-radius: 2px; margin-bottom: 3px; }
+  .wf-persona-row { display: flex; gap: 6px; align-items: center; margin-bottom: 6px; }
+  .wf-select { font-size: 10px; padding: 3px 8px; border-radius: 3px; background: #1e1e2e; border: 1px solid #3a3a55; color: #a0a8c0; }
+  .problem-tag { display: inline-block; font-size: 10px; color: #ef5350; background: #3a1010; border: 1px solid #6b2020; border-radius: 3px; padding: 2px 8px; margin-bottom: 8px; }
+  .ok-tag { display: inline-block; font-size: 10px; color: #4caf82; background: #1a3a2e; border: 1px solid #2d6b4a; border-radius: 3px; padding: 2px 8px; margin-bottom: 8px; }
+</style>
+
+<h2>Ticket Detail — 3 Layout Approaches</h2>
+<p class="subtitle">The core problem: "Identify fix" and "Public reply" appear twice — once in the quick strip, once as a full section at the bottom. Pick the structure that best solves it.</p>
+
+<div class="options">
+
+  <!-- OPTION A -->
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Unified AI Panel — one place to act</h3>
+      <p>Remove the duplicate bottom section. One consolidated AI panel lives just below the header. All actions (fix, internal note, public reply) target the same output area. Persona selector always visible.</p>
+      <div class="pros-cons" style="margin-top:10px">
+        <div class="pros"><h4>Pros</h4><ul><li>No duplication</li><li>AI actions close to context</li><li>Persona always accessible</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Panel can grow tall before description</li><li>Still interrupts read flow slightly</li></ul></div>
+      </div>
+      <div class="mockup" style="margin-top:12px">
+        <div class="mockup-header">Mockup — Unified AI Panel</div>
+        <div class="mockup-body wf" style="padding:10px">
+          <div class="wf-layout wf-two-col">
+            <div class="wf-main">
+              <div class="wf-header">
+                <div class="wf-key">APTUM-38272</div>
+                <div class="wf-title">Customer unable to access VPN endpoint after maintenance</div>
+                <div class="wf-meta">
+                  <span class="wf-badge open">In Progress</span>
+                  <span class="wf-badge high">High</span>
+                  <span class="wf-badge">Network</span>
+                </div>
+              </div>
+              <div class="wf-ai-panel">
+                <div class="wf-ai-panel-header">
+                  <div class="wf-ai-icon">✦</div>
+                  <span class="wf-ai-title">AI Actions</span>
+                  <div class="wf-persona-row" style="margin:0 0 0 auto">
+                    <span style="font-size:9px;color:#6a7090">Persona:</span>
+                    <div class="wf-select">L2 Support ▾</div>
+                  </div>
+                </div>
+                <div class="wf-ai-actions">
+                  <div class="wf-btn primary">Identify fix</div>
+                  <div class="wf-btn ghost">Internal note</div>
+                  <div class="wf-btn ghost">Public reply</div>
+                </div>
+                <div class="wf-ai-output">
+                  <div class="wf-ai-out-text"></div>
+                  <div class="wf-ai-out-text medium"></div>
+                  <div class="wf-ai-out-text short"></div>
+                </div>
+              </div>
+              <div class="wf-section">
+                <div class="wf-section-title">Description</div>
+                <div class="wf-para"></div>
+                <div class="wf-para short"></div>
+                <div class="wf-para medium"></div>
+              </div>
+              <div class="wf-section">
+                <div class="wf-section-title">Thread (7 events)</div>
+                <div class="wf-thread-item"><div class="wf-thread-meta">Customer · public · Apr 15</div><div class="wf-thread-body"></div><div class="wf-thread-body short"></div></div>
+                <div class="wf-thread-item internal"><div class="wf-thread-meta">Adam N · internal · Apr 16</div><div class="wf-thread-body"></div></div>
+              </div>
+            </div>
+            <div class="wf-aside">
+              <div class="wf-sidebar-section">
+                <div class="wf-section-title">Customer</div>
+                <div style="font-size:11px;color:#c0c8e0;margin-bottom:4px">Acme Corp</div>
+                <div style="font-size:10px;color:#6a7090">Fusion #1042</div>
+              </div>
+              <div class="wf-sidebar-section">
+                <div class="wf-section-title">Similar issues</div>
+                <div class="wf-related-item"><span class="wf-related-key">APTUM-36100</span><span class="wf-related-sim">94%</span><span class="wf-related-sum">VPN timeout post-patch</span></div>
+                <div class="wf-related-item"><span class="wf-related-key">APTUM-35800</span><span class="wf-related-sim">88%</span><span class="wf-related-sum">Routing issue after maintenance window</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Read-first — AI in the sidebar</h3>
+      <p>Main column is pure reading: description → assets → thread. Right sidebar gets two panels: related issues on top, AI actions panel below. The engineer reads first, acts from the side.</p>
+      <div class="pros-cons" style="margin-top:10px">
+        <div class="pros"><h4>Pros</h4><ul><li>Clean read flow — no interruptions</li><li>Context (similar issues) sits next to AI actions naturally</li><li>Best separation of concerns</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Sidebar gets dense</li><li>AI output area is narrow</li><li>May need horizontal scroll on smaller screens</li></ul></div>
+      </div>
+      <div class="mockup" style="margin-top:12px">
+        <div class="mockup-header">Mockup — Read-first / AI in Sidebar</div>
+        <div class="mockup-body wf" style="padding:10px">
+          <div class="wf-layout wf-two-col">
+            <div class="wf-main">
+              <div class="wf-header">
+                <div class="wf-key">APTUM-38272</div>
+                <div class="wf-title">Customer unable to access VPN endpoint after maintenance</div>
+                <div class="wf-meta">
+                  <span class="wf-badge open">In Progress</span>
+                  <span class="wf-badge high">High</span>
+                </div>
+              </div>
+              <div class="wf-section">
+                <div class="wf-section-title">Description</div>
+                <div class="wf-para"></div>
+                <div class="wf-para short"></div>
+                <div class="wf-para medium"></div>
+                <div class="wf-para short"></div>
+              </div>
+              <div class="wf-section">
+                <div class="wf-section-title">Assets</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <span class="wf-badge">SVC-10421 · MPLS</span>
+                  <span class="wf-badge">SVC-10422 · Internet</span>
+                </div>
+              </div>
+              <div class="wf-section">
+                <div class="wf-section-title">Thread (7 events)</div>
+                <div class="wf-thread-item"><div class="wf-thread-meta">Customer · public · Apr 15</div><div class="wf-thread-body"></div><div class="wf-thread-body short"></div></div>
+                <div class="wf-thread-item internal"><div class="wf-thread-meta">Adam N · internal · Apr 16</div><div class="wf-thread-body"></div></div>
+                <div class="wf-thread-item"><div class="wf-thread-meta">Customer · public · Apr 17</div><div class="wf-thread-body"></div><div class="wf-thread-body short"></div></div>
+              </div>
+            </div>
+            <div class="wf-aside">
+              <div class="wf-sidebar-section">
+                <div class="wf-section-title">Similar issues</div>
+                <div class="wf-related-item"><span class="wf-related-key">APTUM-36100</span><span class="wf-related-sim">94%</span><span class="wf-related-sum">VPN timeout post-patch</span></div>
+                <div class="wf-related-item"><span class="wf-related-key">APTUM-35800</span><span class="wf-related-sim">88%</span><span class="wf-related-sum">Routing issue after maintenance</span></div>
+              </div>
+              <div class="wf-ai-panel" style="margin-bottom:6px">
+                <div class="wf-ai-panel-header">
+                  <div class="wf-ai-icon">✦</div>
+                  <span class="wf-ai-title">AI Actions</span>
+                </div>
+                <div class="wf-persona-row">
+                  <span style="font-size:9px;color:#6a7090">Persona:</span>
+                  <div class="wf-select">L2 Support ▾</div>
+                </div>
+                <div class="wf-ai-actions">
+                  <div class="wf-btn primary" style="font-size:9px">Identify fix</div>
+                  <div class="wf-btn ghost" style="font-size:9px">Internal note</div>
+                  <div class="wf-btn ghost" style="font-size:9px">Public reply</div>
+                </div>
+                <div class="wf-ai-output" style="min-height:50px">
+                  <div class="wf-ai-out-text"></div>
+                  <div class="wf-ai-out-text medium"></div>
+                </div>
+              </div>
+              <div class="wf-sidebar-section">
+                <div class="wf-section-title">Customer</div>
+                <div style="font-size:11px;color:#c0c8e0;margin-bottom:2px">Acme Corp</div>
+                <div style="font-size:10px;color:#6a7090">Fusion #1042 · TAM: J. Smith</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Tab split — "Read" vs "Act"</h3>
+      <p>Two tabs: <strong>Ticket</strong> (description, assets, thread) and <strong>AI Copilot</strong> (fix identification, draft composition, similar issues all in one view). No sidebar — full width for each mode.</p>
+      <div class="pros-cons" style="margin-top:10px">
+        <div class="pros"><h4>Pros</h4><ul><li>Maximum width for both content and AI output</li><li>AI tab can show richer output (edit system prompt, etc)</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Context switching cost — can't see ticket & AI at once</li><li>Related issues buried in AI tab</li></ul></div>
+      </div>
+      <div class="mockup" style="margin-top:12px">
+        <div class="mockup-header">Mockup — Tab Split</div>
+        <div class="mockup-body wf" style="padding:10px">
+          <div class="wf-header">
+            <div class="wf-key">APTUM-38272</div>
+            <div class="wf-title">Customer unable to access VPN endpoint after maintenance</div>
+            <div class="wf-meta"><span class="wf-badge open">In Progress</span><span class="wf-badge high">High</span></div>
+          </div>
+          <div style="display:flex;gap:0;margin-bottom:8px;border-bottom:1px solid #2a2a3e">
+            <div style="font-size:11px;padding:5px 14px;border-bottom:2px solid #3d5afe;color:#c0d0ff;cursor:default">Ticket</div>
+            <div style="font-size:11px;padding:5px 14px;color:#6a7090;cursor:default">✦ AI Copilot</div>
+          </div>
+          <!-- Ticket tab content -->
+          <div class="wf-section">
+            <div class="wf-section-title">Description</div>
+            <div class="wf-para"></div>
+            <div class="wf-para short"></div>
+          </div>
+          <div class="wf-section">
+            <div class="wf-section-title">Thread</div>
+            <div class="wf-thread-item"><div class="wf-thread-meta">Customer · public</div><div class="wf-thread-body"></div></div>
+            <div class="wf-thread-item internal"><div class="wf-thread-meta">Adam N · internal</div><div class="wf-thread-body"></div></div>
+          </div>
+          <div style="opacity:.4;margin-top:6px;font-size:10px;color:#6a7090;font-style:italic">← AI Copilot tab: full-width fix identification, draft editing, similar issues list</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
