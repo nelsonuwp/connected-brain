@@ -473,19 +473,60 @@ async def build_t_context(pool, issue_key: str) -> dict[str, Any]:
         elif client_id is not None:
             resolved_client = int(client_id)
 
+        # Build query vector from the current ticket.
+        query_vec = await asyncio.to_thread(
+            embed_current_ticket,
+            ticket.get("summary") or "",
+            ticket.get("description") or "",
+        )
+
+        # Vertical panel — semantic first, recency fallback to pad.
         customer_tickets: list[dict] = []
         if resolved_client is not None:
-            customer_tickets = await list_customer_tickets(
-                conn, resolved_client, exclude_issue_key=issue_key, limit=CUSTOMER_TICKET_LIMIT
+            sem_rows = await similar_customer_tickets(
+                conn,
+                query_vec,
+                resolved_client,
+                exclude_issue_key=issue_key,
+                limit=SEMANTIC_LIMIT_CUSTOMER,
             )
+            if len(sem_rows) < SEMANTIC_LIMIT_CUSTOMER:
+                rec_rows = await list_customer_tickets(
+                    conn,
+                    resolved_client,
+                    exclude_issue_key=issue_key,
+                    limit=CUSTOMER_TICKET_LIMIT,
+                )
+                customer_tickets = merge_with_recency_fallback(
+                    sem_rows, rec_rows, target=SEMANTIC_LIMIT_CUSTOMER
+                )
+            else:
+                customer_tickets = sem_rows
 
+        # Horizontal panel — semantic first, recency fallback to pad.
         neighbor_sids = [n["service_id"] for n in mssql_data.get("neighbor_services") or []]
         neighbor_sid_strs = [str(x) for x in neighbor_sids]
         neighbor_tickets: list[dict] = []
         if neighbor_sid_strs:
-            neighbor_tickets = await list_tickets_for_service_ids(
-                conn, neighbor_sid_strs, exclude_issue_key=issue_key, limit=NEIGHBOR_TICKET_LIMIT
+            sem_rows = await similar_neighbor_tickets(
+                conn,
+                query_vec,
+                neighbor_sid_strs,
+                exclude_issue_key=issue_key,
+                limit=SEMANTIC_LIMIT_NEIGHBOR,
             )
+            if len(sem_rows) < SEMANTIC_LIMIT_NEIGHBOR:
+                rec_rows = await list_tickets_for_service_ids(
+                    conn,
+                    neighbor_sid_strs,
+                    exclude_issue_key=issue_key,
+                    limit=NEIGHBOR_TICKET_LIMIT,
+                )
+                neighbor_tickets = merge_with_recency_fallback(
+                    sem_rows, rec_rows, target=SEMANTIC_LIMIT_NEIGHBOR
+                )
+            else:
+                neighbor_tickets = sem_rows
 
         # Fusion labels for every service_id appearing in components + neighbors (+ ticket assets)
         label_ids: set[int] = set(service_ids)
