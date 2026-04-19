@@ -1,6 +1,6 @@
 # ops-agent PLAN v2 — T-shaped ticket analyst
 
-**Status:** spec (supersedes `ops-agent-PLAN.md`)
+**Status:** spec (supersedes `docs/ops-agent-PLAN.md`)
 **Mode:** written in Think/Specify; to be executed after user approval
 **Author:** session 2026-04-18
 
@@ -55,8 +55,9 @@ FUSION_DB_SERVER, FUSION_DB_PORT, FUSION_DB_NAME, FUSION_DB_USER, FUSION_DB_PASS
 SSH_HOST, SSH_PORT, SSH_USER, SSH_PASS
 ```
 
-Legacy `OCEAN_DB_*` and `SSH_USERNAME/SSH_PASSWORD` are removed from root `.env`.
-Existing bubble projects (`db-sync`, `cpq-replacement-db-only`, `_shared/config.py`) still use their own local copies and are unaffected — they migrate on their next credential refresh.
+Root `.env` uses the names above. `projects/_shared/config.py`, `db-sync`, and `cpq-replacement-db-only` accept **MSSQL_BI_*** first and fall back to legacy **OCEAN_DB_*** so older local `.env` copies keep working. **SSH_USER** / **SSH_PASS** are canonical; **SSH_USERNAME** / **SSH_PASSWORD** are still read as fallbacks.
+
+Spec and diagrams for this project live under `projects/ops-agent/docs/` (not a nested `ops-agent/` folder — the Python package is `ops_agent/` with an underscore).
 
 ---
 

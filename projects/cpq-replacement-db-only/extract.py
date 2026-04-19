@@ -11,10 +11,8 @@ Usage:
     Pass --all to pull every row (useful for debugging or auditing).
 
 Env vars (in .env at connected-brain root):
-    OCEAN_DB_USERNAME
-    OCEAN_DB_PASSWORD
-    OCEAN_DB_SERVER
-    OCEAN_DB_NAME
+    MSSQL_BI_USER, MSSQL_BI_PASS, MSSQL_BI_SERVER, MSSQL_BI_NAME
+    (legacy OCEAN_DB_* still accepted by the connector)
 """
 
 import argparse

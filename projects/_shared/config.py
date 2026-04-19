@@ -56,11 +56,24 @@ class Config:
     ZOOMINFO_CLIENT_SECRET = _env("ZOOMINFO_CLIENT_SECRET", legacy="ZI_CLIENT_SECRET")
     ZOOMINFO_REFRESH_TOKEN = _env("ZOOMINFO_REFRESH_TOKEN", legacy="ZI_REFRESH_TOKEN")
 
-    # --- Ocean Database ---
-    OCEAN_DB_SERVER   = _env("OCEAN_DB_SERVER", legacy="DB_SERVER")
-    OCEAN_DB_NAME     = _env("OCEAN_DB_NAME", legacy="DB_NAME")
-    OCEAN_DB_USERNAME = _env("OCEAN_DB_USERNAME", legacy="OCEAN_DB_USER")
-    OCEAN_DB_PASSWORD = _env("OCEAN_DB_PASSWORD", legacy="DB_PASSWORD")
+    # --- MSSQL BI (DM_BusinessInsights) — prefer MSSQL_BI_*; legacy OCEAN_DB_* still accepted ---
+    MSSQL_BI_SERVER = _env("MSSQL_BI_SERVER", legacy="OCEAN_DB_SERVER")
+    MSSQL_BI_NAME   = _env("MSSQL_BI_NAME", legacy="OCEAN_DB_NAME")
+    MSSQL_BI_USER   = _env("MSSQL_BI_USER", legacy="OCEAN_DB_USERNAME")
+    MSSQL_BI_PASS   = _env("MSSQL_BI_PASS", legacy="OCEAN_DB_PASSWORD")
+
+    # Aliases for older code that still reads OCEAN_DB_*
+    OCEAN_DB_SERVER   = MSSQL_BI_SERVER
+    OCEAN_DB_NAME     = MSSQL_BI_NAME
+    OCEAN_DB_USERNAME = MSSQL_BI_USER
+    OCEAN_DB_PASSWORD = MSSQL_BI_PASS
+
+    # --- Fusion PostgreSQL (read-only; tunnel via SSH) ---
+    FUSION_DB_SERVER = os.getenv("FUSION_DB_SERVER")
+    FUSION_DB_PORT   = os.getenv("FUSION_DB_PORT", "5432")
+    FUSION_DB_NAME   = os.getenv("FUSION_DB_NAME")
+    FUSION_DB_USER   = os.getenv("FUSION_DB_USER")
+    FUSION_DB_PASS   = os.getenv("FUSION_DB_PASS")
 
     # --- Azure Billing Database ---
     AZURE_BILLING_DB_NAME     = _env("AZURE_BILLING_DB_NAME", legacy="DB_NAME")
@@ -71,10 +84,13 @@ class Config:
     )
 
     # --- SSH Tunnel ---
-    SSH_HOST     = _env("SSH_HOST")
-    SSH_PORT     = _env("SSH_PORT", default="22")
-    SSH_USERNAME = _env("SSH_USERNAME", legacy="SSH_USER")
-    SSH_PASSWORD = _env("SSH_PASSWORD", legacy="SSH_PASS")
+    SSH_HOST = _env("SSH_HOST")
+    SSH_PORT = _env("SSH_PORT", default="22")
+    SSH_USER = _env("SSH_USER", legacy="SSH_USERNAME")
+    SSH_PASS = _env("SSH_PASS", legacy="SSH_PASSWORD")
+    # Aliases for older code
+    SSH_USERNAME = SSH_USER
+    SSH_PASSWORD = SSH_PASS
     AZURE_BILLING_SSH_HOST     = os.getenv("AZURE_BILLING_SSH_HOST")
     AZURE_BILLING_SSH_PORT     = os.getenv("AZURE_BILLING_SSH_PORT")
     AZURE_BILLING_SSH_USERNAME = _env("AZURE_BILLING_SSH_USERNAME", legacy="AZURE_BILLING_SSH_USER")

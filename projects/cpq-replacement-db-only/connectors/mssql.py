@@ -5,10 +5,8 @@ Copy this file into any project's connectors/ folder. No other internal
 imports required — just pymssql, sqlalchemy, and os.
 
 Env vars (from .env):
-    {PREFIX}_DB_USERNAME   (supports domain usernames like CORP\\user)
-    {PREFIX}_DB_PASSWORD
-    {PREFIX}_DB_SERVER
-    {PREFIX}_DB_NAME
+    For prefix OCEAN: prefer MSSQL_BI_SERVER, MSSQL_BI_NAME, MSSQL_BI_USER, MSSQL_BI_PASS
+    (legacy OCEAN_DB_* still accepted). Other prefixes use {PREFIX}_DB_*.
 
 Usage:
     connector = MSSQLConnector("OCEAN")
@@ -24,16 +22,32 @@ from sqlalchemy import create_engine
 
 class MSSQLConnector:
     def __init__(self, env_prefix: str = "OCEAN"):
-        user     = os.getenv(f"{env_prefix}_DB_USERNAME", "")
-        password = os.getenv(f"{env_prefix}_DB_PASSWORD", "")
-        server   = os.getenv(f"{env_prefix}_DB_SERVER", "")
-        db       = os.getenv(f"{env_prefix}_DB_NAME", "")
+        if str(env_prefix).upper() == "OCEAN":
+            server = os.getenv("MSSQL_BI_SERVER") or os.getenv("OCEAN_DB_SERVER", "")
+            db = os.getenv("MSSQL_BI_NAME") or os.getenv("OCEAN_DB_NAME", "")
+            user = os.getenv("MSSQL_BI_USER") or os.getenv("OCEAN_DB_USERNAME", "")
+            password = os.getenv("MSSQL_BI_PASS") or os.getenv("OCEAN_DB_PASSWORD", "")
+        else:
+            user = os.getenv(f"{env_prefix}_DB_USERNAME", "")
+            password = os.getenv(f"{env_prefix}_DB_PASSWORD", "")
+            server = os.getenv(f"{env_prefix}_DB_SERVER", "")
+            db = os.getenv(f"{env_prefix}_DB_NAME", "")
 
-        missing = [k for k, v in {
-            f"{env_prefix}_DB_USERNAME": user,
-            f"{env_prefix}_DB_SERVER":   server,
-            f"{env_prefix}_DB_NAME":     db,
-        }.items() if not v]
+        if str(env_prefix).upper() == "OCEAN":
+            missing_map = {
+                "MSSQL_BI_SERVER or OCEAN_DB_SERVER": server,
+                "MSSQL_BI_NAME or OCEAN_DB_NAME": db,
+                "MSSQL_BI_USER or OCEAN_DB_USERNAME": user,
+                "MSSQL_BI_PASS or OCEAN_DB_PASSWORD": password,
+            }
+        else:
+            missing_map = {
+                f"{env_prefix}_DB_SERVER": server,
+                f"{env_prefix}_DB_NAME": db,
+                f"{env_prefix}_DB_USERNAME": user,
+                f"{env_prefix}_DB_PASSWORD": password,
+            }
+        missing = [k for k, v in missing_map.items() if not v]
 
         if missing:
             raise RuntimeError(f"Missing env vars: {', '.join(missing)}")

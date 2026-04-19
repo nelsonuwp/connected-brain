@@ -1,11 +1,11 @@
 """
 MSSQL connector using pymssql via SQLAlchemy.
 
-Env vars (from .env):
-  OCEAN_DB_USERNAME   (supports domain usernames like CORP\\user)
-  OCEAN_DB_PASSWORD
-  OCEAN_DB_SERVER
-  OCEAN_DB_NAME
+Env vars (from .env), preferred names:
+  MSSQL_BI_SERVER, MSSQL_BI_NAME, MSSQL_BI_USER, MSSQL_BI_PASS
+
+Legacy (still accepted when env_prefix is OCEAN):
+  OCEAN_DB_SERVER, OCEAN_DB_NAME, OCEAN_DB_USERNAME, OCEAN_DB_PASSWORD
 
 Uses creator= instead of a URI string so the backslash in domain
 usernames (CORP\\user) is never URL-encoded by urllib.
@@ -19,19 +19,32 @@ from sqlalchemy import create_engine, text
 from .base import BaseConnector
 
 
+def _read_bi_credentials(prefix: str) -> tuple[str, str, str, str]:
+    """Prefer MSSQL_BI_*; fall back to legacy OCEAN_DB_* when prefix is OCEAN."""
+    if str(prefix).upper() == "OCEAN":
+        server = os.getenv("MSSQL_BI_SERVER") or os.getenv("OCEAN_DB_SERVER", "")
+        db = os.getenv("MSSQL_BI_NAME") or os.getenv("OCEAN_DB_NAME", "")
+        user = os.getenv("MSSQL_BI_USER") or os.getenv("OCEAN_DB_USERNAME", "")
+        password = os.getenv("MSSQL_BI_PASS") or os.getenv("OCEAN_DB_PASSWORD", "")
+        return server, db, user, password
+    user = os.getenv(f"{prefix}_DB_USERNAME", "")
+    password = os.getenv(f"{prefix}_DB_PASSWORD", "")
+    server = os.getenv(f"{prefix}_DB_SERVER", "")
+    db = os.getenv(f"{prefix}_DB_NAME", "")
+    return server, db, user, password
+
+
 class MSSQLConnector(BaseConnector):
     def __init__(self, config: dict):
         prefix = config.get("env_prefix", "OCEAN")
 
-        user     = os.getenv(f"{prefix}_DB_USERNAME", "")
-        password = os.getenv(f"{prefix}_DB_PASSWORD", "")
-        server   = os.getenv(f"{prefix}_DB_SERVER", "")
-        db       = os.getenv(f"{prefix}_DB_NAME", "")
+        server, db, user, password = _read_bi_credentials(prefix)
 
         missing = [k for k, v in {
-            f"{prefix}_DB_USERNAME": user,
-            f"{prefix}_DB_SERVER":   server,
-            f"{prefix}_DB_NAME":     db,
+            "MSSQL_BI_SERVER or OCEAN_DB_SERVER": server,
+            "MSSQL_BI_NAME or OCEAN_DB_NAME": db,
+            "MSSQL_BI_USER or OCEAN_DB_USERNAME": user,
+            "MSSQL_BI_PASS or OCEAN_DB_PASSWORD": password,
         }.items() if not v]
 
         if missing:

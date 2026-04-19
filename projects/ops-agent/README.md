@@ -2,6 +2,11 @@
 
 Local web app that reads from the `jsm-sync` Postgres mirror and lets you browse APTUM tickets, auto-classify them into workflow patterns, and generate persona-matched draft responses using OpenRouter (Claude Sonnet via the workhorse model).
 
+## Project layout
+
+- **`ops_agent/`** (underscore) — Python package (FastAPI app, routes, templates).
+- **`docs/`** — specs and diagrams (`docs/ops-agent-PLAN-v2.md` is the current v2 plan). There is no `ops-agent/ops-agent/` nested project folder; hyphen vs underscore distinguishes the repo folder from the importable package.
+
 ## Prerequisites
 
 - `jsm-sync` Postgres container running (`docker compose -f ../jsm-sync/docker-compose.yml up -d`)
@@ -34,6 +39,20 @@ docker compose -f ../jsm-sync/docker-compose.yml exec postgres \
 ```
 
 Open http://127.0.0.1:8080/tickets
+
+## Connection smoke tests (option 3)
+
+After `pip install -r requirements.txt`, from `projects/ops-agent`:
+
+```bash
+# MSSQL BI (DM_BusinessInsights) — direct LAN; needs MSSQL_BI_* in root .env
+python3 -m ops_agent.mssql
+
+# Fusion PostgreSQL — SSH tunnel + Fusion creds + SSH_USER/SSH_PASS
+python3 -m ops_agent.fusion
+```
+
+These are read-only probes. They exit `0` on success and `1` on failure (missing env, network, or auth).
 
 ## What you get
 
