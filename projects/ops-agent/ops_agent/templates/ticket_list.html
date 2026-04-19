@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Tickets · ops-agent{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Tickets</h2>
+    <span class="count">{{ tickets|length }} shown</span>
+</div>
+
+<form class="filters" method="get" action="/tickets">
+    <select name="status">
+        <option value="">All statuses</option>
+        {% for s in statuses %}
+        <option value="{{ s }}" {% if filter_status == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="customer_originated">
+        <option value="">All originators</option>
+        <option value="1" {% if filter_customer == "1" %}selected{% endif %}>Customer-originated</option>
+        <option value="0" {% if filter_customer == "0" %}selected{% endif %}>Internal / automated</option>
+    </select>
+
+    <input type="text" name="q" placeholder="Search summary…" value="{{ filter_q }}">
+    <button type="submit">Filter</button>
+    {% if filter_status or filter_customer or filter_q %}
+    <a href="/tickets" class="clear-link">Clear</a>
+    {% endif %}
+</form>
+
+{% if tickets %}
+<table class="ticket-table">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Summary</th>
+            <th>Org</th>
+            <th>Assignee</th>
+            <th>Status</th>
+            <th>Updated</th>
+            <th>Cust?</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in tickets %}
+        <tr>
+            <td><a href="/tickets/{{ t.issue_key }}" class="key-link">{{ t.issue_key }}</a></td>
+            <td class="summary-cell">
+                <a href="/tickets/{{ t.issue_key }}">
+                    {{ t.summary[:80] }}{% if t.summary|length > 80 %}…{% endif %}
+                </a>
+            </td>
+            <td class="muted">{{ t.jira_org_name or "—" }}</td>
+            <td class="muted">{{ t.assignee_display_name or "—" }}</td>
+            <td><span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span></td>
+            <td class="muted date-cell">{{ t.updated_at.strftime("%b %d") if t.updated_at else "—" }}</td>
+            <td class="center">{% if t.is_customer_originated %}<span class="dot-green" title="Customer-originated">●</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="empty-state">
+    <p>No tickets match your filters.</p>
+    {% if filter_status or filter_customer or filter_q %}
+    <a href="/tickets">Clear all filters</a>
+    {% else %}
+    <p class="muted">Make sure the jsm-sync backfill has run at least once.</p>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

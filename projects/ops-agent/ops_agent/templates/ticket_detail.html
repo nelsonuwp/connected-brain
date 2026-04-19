@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block title %}{{ ticket.issue_key }} · ops-agent{% endblock %}
+
+{% block content %}
+<div class="back-nav">
+    <a href="/tickets">← All tickets</a>
+</div>
+
+<div class="ticket-header">
+    <div class="ticket-key-row">
+        <span class="ticket-key">{{ ticket.issue_key }}</span>
+        {% if pattern_display %}
+        <span class="pattern-badge" title="Auto-classified">⚡ {{ pattern_display }}</span>
+        {% else %}
+        <span class="pattern-badge unclassified" title="No pattern matched">unclassified</span>
+        {% endif %}
+    </div>
+    <h2 class="ticket-summary">{{ ticket.summary }}</h2>
+</div>
+
+<div class="meta-grid">
+    <div class="meta-block">
+        <span class="meta-label">Status</span>
+        <span class="status-badge status-{{ ticket.status|lower|replace(' ', '-') }}">{{ ticket.status }}</span>
+    </div>
+    <div class="meta-block">
+        <span class="meta-label">Priority</span>
+        <span>{{ ticket.priority or "—" }}</span>
+    </div>
+    <div class="meta-block">
+        <span class="meta-label">Type</span>
+        <span>{{ ticket.request_type or ticket.issue_type or "—" }}</span>
+    </div>
+    <div class="meta-block">
+        <span class="meta-label">Org</span>
+        <span>{{ ticket.jira_org_name or "—" }}{% if ticket.ocean_client_id %} <span class="muted">(#{{ ticket.ocean_client_id }})</span>{% endif %}</span>
+    </div>
+    <div class="meta-block">
+        <span class="meta-label">Creator</span>
+        <span>{{ ticket.creator_display_name or ticket.creator_account_id or "—" }}</span>
+    </div>
+    <div class="meta-block">
+        <span class="meta-label">Reporter</span>
+        <span>{{ ticket.reporter_display_name or ticket.reporter_account_id or "—" }}</span>
+    </div>
+    <div class="meta-block">
+        <span class="meta-label">Assignee</span>
+        <span>{{ ticket.assignee_display_name or ticket.assignee_account_id or "Unassigned" }}</span>
+    </div>
+    <div class="meta-block">
+        <span class="meta-label">Created</span>
+        <span>{{ ticket.created_at.strftime("%Y-%m-%d %H:%M") if ticket.created_at else "—" }}</span>
+    </div>
+    <div class="meta-block">
+        <span class="meta-label">Updated</span>
+        <span>{{ ticket.updated_at.strftime("%Y-%m-%d %H:%M") if ticket.updated_at else "—" }}</span>
+    </div>
+    {% if ticket.resolved_at %}
+    <div class="meta-block">
+        <span class="meta-label">Resolved</span>
+        <span>{{ ticket.resolved_at.strftime("%Y-%m-%d %H:%M") }}</span>
+    </div>
+    {% endif %}
+    {% if ticket.labels %}
+    <div class="meta-block meta-block-wide">
+        <span class="meta-label">Labels</span>
+        <span>{% for label in ticket.labels %}<span class="label-tag">{{ label }}</span>{% endfor %}</span>
+    </div>
+    {% endif %}
+</div>
+
+{% if ticket.description %}
+<section class="section">
+    <h3>Description</h3>
+    <div class="description-body">{{ ticket.description }}</div>
+</section>
+{% endif %}
+
+{% if assets %}
+<section class="section">
+    <h3>Assets</h3>
+    <ul class="asset-list">
+        {% for a in assets %}
+        <li>
+            <span class="asset-name">{{ a.asset_name or a.object_id }}</span>
+            {% if a.service_id %}<span class="muted">service_id: {{ a.service_id }}</span>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<section class="section">
+    <h3>Thread <span class="muted">({{ thread|length }} events)</span></h3>
+    {% if thread %}
+    <div class="thread">
+        {% for event in thread %}
+        <div class="thread-event{% if not event.is_public %} thread-private{% endif %}">
+            <div class="thread-meta">
+                <span class="thread-author">{{ event.author_display_name or event.author_account_id or "Unknown" }}</span>
+                <span class="role-badge role-{{ (event.author_role or 'unknown')|lower }}">{{ event.author_role or "?" }}</span>
+                {% if event.is_public is not none %}
+                <span class="visibility-badge">{% if event.is_public %}public{% else %}private{% endif %}</span>
+                {% endif %}
+                <span class="thread-date muted">{{ event.created_at.strftime("%Y-%m-%d %H:%M") if event.created_at else "" }}</span>
+            </div>
+            <div class="thread-body">{{ event.body }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="muted">No comments on this ticket.</p>
+    {% endif %}
+</section>
+
+{% if pattern_slug %}
+<section class="section draft-section">
+    <h3>Generate Draft</h3>
+    <p class="muted">Pattern matched: <strong>{{ pattern_display }}</strong>. Uses {{ ticket.assignee_display_name or "the assignee" }}'s past close-out comments as examples.</p>
+    <button
+        hx-post="/tickets/{{ ticket.issue_key }}/draft"
+        hx-target="#draft-area"
+        hx-swap="innerHTML"
+        hx-indicator="#draft-spinner"
+        class="btn-primary">
+        ⚡ Generate Draft
+    </button>
+    <span id="draft-spinner" class="htmx-indicator spinner">Generating…</span>
+    <div id="draft-area"></div>
+</section>
+{% else %}
+<section class="section draft-section">
+    <h3>Generate Draft</h3>
+    <p class="muted">No pattern matched this ticket — manual drafting required.</p>
+</section>
+{% endif %}
+{% endblock %}

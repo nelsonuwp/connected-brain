@@ -1,0 +1,59 @@
+{% if status == "ok" %}
+<div class="draft-card">
+    <div class="draft-card-header">
+        <span class="pattern-badge">⚡ {{ pattern_display_name }}</span>
+        <span class="muted">{{ examples_used }} example{{ "s" if examples_used != 1 }} used · {{ tokens.input }} in / {{ tokens.output }} out tokens</span>
+    </div>
+
+    <div class="draft-text" id="draft-text-{{ draft_id }}">{{ generated_text }}</div>
+
+    <div class="draft-actions">
+        <button
+            onclick="copyDraft('draft-text-{{ draft_id }}', this)"
+            hx-post="/drafts/{{ draft_id }}/used"
+            hx-swap="none"
+            class="btn-primary">
+            📋 Copy to clipboard
+        </button>
+        <button
+            hx-post="/tickets/{{ issue_key }}/draft"
+            hx-target="#draft-area"
+            hx-swap="innerHTML"
+            class="btn-secondary">
+            ↺ Generate another
+        </button>
+    </div>
+</div>
+
+<script>
+function copyDraft(elementId, btn) {
+    const text = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => btn.textContent = orig, 2000);
+    });
+}
+</script>
+
+{% elif status == "no_examples" %}
+<div class="draft-card draft-card-warn">
+    <div class="draft-card-header">
+        <span class="pattern-badge">⚡ {{ pattern_display_name }}</span>
+    </div>
+    <p><strong>Pattern matched, but no examples found.</strong></p>
+    <p class="muted">{{ message }}</p>
+</div>
+
+{% elif status == "no_pattern_match" %}
+<div class="draft-card draft-card-muted">
+    <p><strong>No pattern matched.</strong></p>
+    <p class="muted">{{ message }}</p>
+</div>
+
+{% elif status == "error" %}
+<div class="draft-card draft-card-error">
+    <p><strong>Generation failed.</strong></p>
+    <p class="muted">{{ message }}</p>
+</div>
+{% endif %}
