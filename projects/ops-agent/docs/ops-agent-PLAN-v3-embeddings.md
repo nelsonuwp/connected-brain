@@ -471,8 +471,6 @@ def embed_one(text: str) -> np.ndarray:
 
 ```bash
 cd /Users/anelson-macbook-air/connected-brain/projects/jsm-sync
-/opt/homebrew/bin/python3 -m jsm_sync.embedder --help 2>&1 | head -5 || true
-
 /opt/homebrew/bin/python3 -c "
 from jsm_sync.embedder import embed_texts, build_embed_text, text_hash, MODEL_DIM
 import numpy as np

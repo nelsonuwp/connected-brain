@@ -1,0 +1,12 @@
+# Docker bind-mount volume — never commit
+postgres_data/
+
+# Logs
+logs/
+
+# Python
+__pycache__/
+*.pyc
+
+# Local env
+.env
