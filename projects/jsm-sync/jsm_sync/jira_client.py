@@ -770,11 +770,12 @@ async def fetch_worklogs_bulk(
 
     for i in range(0, len(worklog_ids), batch_size):
         chunk = worklog_ids[i : i + batch_size]
+        _chunk = chunk
         async with semaphore:
             async def _do_batch() -> Any:
                 r = await client.post(
                     url,
-                    json={"ids": chunk},
+                    json={"ids": _chunk},
                     headers=headers,
                     timeout=60.0,
                 )

@@ -9,9 +9,10 @@ Design:
   - tickets upsert is guarded by updated_at to avoid unnecessary writes.
 """
 
+import json
 import logging
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Any, Optional
 
 import asyncpg
 
@@ -104,15 +105,15 @@ async def upsert_ticket(conn: asyncpg.Connection, row: dict) -> None:
             issue_key, summary, description, status, priority, issue_type,
             request_type, is_customer_originated,
             creator_account_id, reporter_account_id, assignee_account_id,
-            jira_org_id, ocean_client_id, labels,
+            jira_org_id, ocean_client_id, labels, issue_id,
             sla_first_response_breached, sla_first_response_elapsed_s,
             sla_first_response_threshold_s,
             sla_resolution_breached, sla_resolution_elapsed_s,
             sla_resolution_threshold_s,
             created_at, updated_at, resolved_at, synced_at
         ) VALUES (
-            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14,
-            $15, $16, $17, $18, $19, $20, $21, $22, $23, NOW()
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15,
+            $16, $17, $18, $19, $20, $21, $22, $23, $24, NOW()
         )
         ON CONFLICT (issue_key) DO UPDATE SET
             summary                       = EXCLUDED.summary,
@@ -128,6 +129,7 @@ async def upsert_ticket(conn: asyncpg.Connection, row: dict) -> None:
             jira_org_id                   = EXCLUDED.jira_org_id,
             ocean_client_id               = EXCLUDED.ocean_client_id,
             labels                        = EXCLUDED.labels,
+            issue_id                      = COALESCE(EXCLUDED.issue_id, tickets.issue_id),
             sla_first_response_breached   = EXCLUDED.sla_first_response_breached,
             sla_first_response_elapsed_s  = EXCLUDED.sla_first_response_elapsed_s,
             sla_first_response_threshold_s = EXCLUDED.sla_first_response_threshold_s,
@@ -154,6 +156,7 @@ async def upsert_ticket(conn: asyncpg.Connection, row: dict) -> None:
         row.get("jira_org_id"),
         row.get("ocean_client_id"),
         row.get("labels", []),
+        row.get("issue_id"),
         row.get("sla_first_response_breached"),
         row.get("sla_first_response_elapsed_s"),
         row.get("sla_first_response_threshold_s"),
@@ -164,6 +167,121 @@ async def upsert_ticket(conn: asyncpg.Connection, row: dict) -> None:
         row["updated_at"],
         row.get("resolved_at"),
     )
+
+
+def _jsonb_or_none(val: Any) -> str | None:
+    if val is None:
+        return None
+    return json.dumps(val)
+
+
+async def upsert_worklogs(
+    conn: asyncpg.Connection,
+    worklogs: list[dict],
+) -> None:
+    if not worklogs:
+        return
+    await conn.executemany(
+        """
+        INSERT INTO ticket_worklogs (
+            worklog_id, issue_key, issue_id, author_account_id,
+            time_spent_seconds, started_at, comment_adf, visibility,
+            jira_created_at, jira_updated_at, synced_at, deleted_at
+        )
+        VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb, $8::jsonb, $9, $10, NOW(), NULL)
+        ON CONFLICT (worklog_id) DO UPDATE SET
+            issue_key          = EXCLUDED.issue_key,
+            issue_id           = EXCLUDED.issue_id,
+            author_account_id  = EXCLUDED.author_account_id,
+            time_spent_seconds = EXCLUDED.time_spent_seconds,
+            started_at         = EXCLUDED.started_at,
+            comment_adf        = EXCLUDED.comment_adf,
+            visibility         = EXCLUDED.visibility,
+            jira_created_at    = EXCLUDED.jira_created_at,
+            jira_updated_at    = EXCLUDED.jira_updated_at,
+            synced_at          = NOW(),
+            deleted_at         = NULL
+        """,
+        [
+            (
+                w["worklog_id"],
+                w["issue_key"],
+                w["issue_id"],
+                w.get("author_account_id"),
+                w["time_spent_seconds"],
+                w["started_at"],
+                _jsonb_or_none(w.get("comment_adf")),
+                _jsonb_or_none(w.get("visibility")),
+                w["jira_created_at"],
+                w["jira_updated_at"],
+            )
+            for w in worklogs
+        ],
+    )
+
+
+async def soft_delete_missing_worklogs(
+    conn: asyncpg.Connection,
+    issue_key: str,
+    present_worklog_ids: list[int],
+) -> int:
+    """
+    For per-ticket sync mode (Phase A): mark any DB worklogs for this issue_key
+    that were NOT in the latest Jira response as deleted. Returns count.
+    """
+    n = await conn.fetchval(
+        """
+        WITH deleted AS (
+            UPDATE ticket_worklogs
+            SET deleted_at = NOW(), synced_at = NOW()
+            WHERE issue_key = $1
+              AND deleted_at IS NULL
+              AND NOT (worklog_id = ANY($2::bigint[]))
+            RETURNING 1
+        )
+        SELECT COUNT(*)::bigint FROM deleted
+        """,
+        issue_key,
+        present_worklog_ids or [],
+    )
+    return int(n or 0)
+
+
+async def soft_delete_worklogs_by_id(
+    conn: asyncpg.Connection,
+    worklog_ids: list[int],
+) -> int:
+    """For global sweep: mark specific worklog IDs deleted."""
+    if not worklog_ids:
+        return 0
+    n = await conn.fetchval(
+        """
+        WITH deleted AS (
+            UPDATE ticket_worklogs
+            SET deleted_at = NOW(), synced_at = NOW()
+            WHERE worklog_id = ANY($1::bigint[])
+              AND deleted_at IS NULL
+            RETURNING 1
+        )
+        SELECT COUNT(*)::bigint FROM deleted
+        """,
+        worklog_ids,
+    )
+    return int(n or 0)
+
+
+async def map_issue_ids_to_keys(
+    conn: asyncpg.Connection,
+    issue_ids: list[int],
+) -> dict[int, str]:
+    """For global worklog sweep: filter worklogs to our project by resolving issueId→issueKey."""
+    if not issue_ids:
+        return {}
+    rows = await conn.fetch(
+        "SELECT issue_id, issue_key FROM tickets WHERE issue_id = ANY($1::bigint[])",
+        issue_ids,
+    )
+    return {int(r["issue_id"]): r["issue_key"] for r in rows}
 
 
 async def upsert_thread_events(
@@ -263,10 +381,32 @@ async def persist_ticket(transformed: TransformedTicket) -> None:
             await upsert_assets(conn, transformed.assets)
             await upsert_ticket_asset_links(conn, transformed.ticket_asset_links)
 
+            await upsert_worklogs(conn, transformed.worklogs)
+            present_ids = [w["worklog_id"] for w in transformed.worklogs]
+            await soft_delete_missing_worklogs(
+                conn,
+                transformed.ticket_row["issue_key"],
+                present_ids,
+            )
+
 
 # ---------------------------------------------------------------------------
 # Sync state helpers
 # ---------------------------------------------------------------------------
+
+
+async def get_worklog_cursor_ms(source: str = "jira_worklogs") -> Optional[int]:
+    """Return worklog cursor as epoch milliseconds (the format /worklog/updated wants)."""
+    dt = await get_sync_cursor(source)
+    if dt is None:
+        return None
+    return int(dt.timestamp() * 1000)
+
+
+async def set_worklog_cursor_ms(since_ms: int, source: str = "jira_worklogs") -> None:
+    dt = datetime.fromtimestamp(since_ms / 1000, tz=timezone.utc)
+    await set_sync_cursor(source, dt, status="idle")
+
 
 async def get_sync_cursor(source: str) -> Optional[datetime]:
     pool = await get_pool()
