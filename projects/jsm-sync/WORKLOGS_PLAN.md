@@ -763,21 +763,261 @@ Optional in v1 — if the weekly reconcile runs, consider adding a post-step tha
 
 ---
 
-## 5. Task list (execute in order)
+## 5. Progress display (new — addresses "massive stream of http requests")
 
-Each task is a discrete commit-sized unit. Mark complete only when acceptance criteria are met.
+The current backfill emits a flood of per-batch log lines and relies on `LOG_LEVEL` to control httpx's request-level chatter. Replace with a single live progress bar using [`rich`](https://rich.readthedocs.io/) so the user sees count, rate, ETA, and elapsed time at a glance. Logs keep scrolling ABOVE the bar.
 
-### Task 1 — Verify Jira API shapes via context7
-**Inputs:** none  
-**Actions:**
-- Pull current Jira Cloud API docs for the four endpoints listed in Section 2.
-- If any response shape or parameter differs from this plan, write the deltas to `projects/jsm-sync/WORKLOGS_PLAN_NOTES.md` and adjust subsequent tasks accordingly.
+### 5.1 Dependency
 
-**Acceptance:** `WORKLOGS_PLAN_NOTES.md` exists with either "no deviations" or a list of concrete corrections.
+Add `rich>=13.7` to the project's dependency manifest (check if `pyproject.toml` or `requirements.txt` is the source of truth before editing — likely `pyproject.toml` per the project's layout). Also ensure `httpx` logging is quieted:
+
+```python
+# In the basicConfig block of backfill.py and incremental.py
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
+```
+
+### 5.2 New module `jsm_sync/progress.py`
+
+Centralize the progress-display logic so backfill, incremental, and the worklog sweep all share the same UX.
+
+```python
+"""
+Rich-based progress display for long-running sync operations.
+
+Usage:
+    async with SyncProgress("Backfill") as p:
+        scout_task = p.add_task("Scouting ticket keys", total=None)   # indeterminate
+        # ... do scout work ...
+        p.update(scout_task, total=count, completed=count)
+
+        process_task = p.add_task("Processing tickets", total=len(keys))
+        for batch in batches:
+            # ...
+            p.advance(process_task, len(batch))
+"""
+from __future__ import annotations
+
+import logging
+from contextlib import asynccontextmanager
+from typing import AsyncIterator, Optional
+
+from rich.console import Console
+from rich.logging import RichHandler
+from rich.progress import (
+    BarColumn,
+    MofNCompleteColumn,
+    Progress,
+    SpinnerColumn,
+    TaskID,
+    TextColumn,
+    TimeElapsedColumn,
+    TimeRemainingColumn,
+)
+
+
+def install_rich_logging(level: str = "INFO") -> Console:
+    """
+    Replace basicConfig with a Rich handler. Call ONCE early in main().
+    Returns the shared Console so the Progress can render on it.
+    """
+    console = Console(stderr=False)
+    logging.basicConfig(
+        level=getattr(logging, level.upper(), logging.INFO),
+        format="%(message)s",
+        datefmt="[%X]",
+        handlers=[RichHandler(
+            console=console,
+            show_time=True,
+            show_level=True,
+            show_path=False,
+            markup=False,
+            rich_tracebacks=True,
+        )],
+    )
+    # Quiet the HTTP noise
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)
+    return console
+
+
+class SyncProgress:
+    """Thin wrapper around rich.progress.Progress with sensible defaults for sync work."""
+
+    def __init__(self, title: str, console: Optional[Console] = None) -> None:
+        self.title = title
+        self.console = console or Console()
+        self._progress: Optional[Progress] = None
+
+    def __enter__(self) -> "SyncProgress":
+        self._progress = Progress(
+            SpinnerColumn(),
+            TextColumn("[bold blue]{task.description}"),
+            BarColumn(bar_width=40),
+            MofNCompleteColumn(),
+            TextColumn("•"),
+            TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+            TextColumn("•"),
+            TimeElapsedColumn(),
+            TextColumn("•"),
+            TimeRemainingColumn(),
+            console=self.console,
+            transient=False,
+            refresh_per_second=4,
+        )
+        self._progress.__enter__()
+        self.console.rule(f"[bold]{self.title}")
+        return self
+
+    def __exit__(self, *exc) -> None:
+        assert self._progress is not None
+        self._progress.__exit__(*exc)
+        self._progress = None
+
+    def add_task(self, description: str, total: Optional[int] = None) -> TaskID:
+        assert self._progress is not None
+        return self._progress.add_task(description, total=total)
+
+    def advance(self, task_id: TaskID, n: int = 1) -> None:
+        assert self._progress is not None
+        self._progress.advance(task_id, n)
+
+    def update(self, task_id: TaskID, **kwargs) -> None:
+        assert self._progress is not None
+        self._progress.update(task_id, **kwargs)
+
+    def stop_task(self, task_id: TaskID) -> None:
+        assert self._progress is not None
+        self._progress.update(task_id, visible=True)
+        # Progress auto-shows completed when total is set; no special action needed.
+```
+
+### 5.3 Wire into `backfill.py`
+
+Replace the ad-hoc `logger.info("Batch %d/%d …")` noise with a three-phase progress display:
+
+```python
+from .progress import SyncProgress, install_rich_logging
+
+async def run_backfill(lookback_days, batch_size, force_lookback=False):
+    console = install_rich_logging(settings.log_level)  # moved from main()
+    await init_pool()
+    try:
+        # ... cursor resolution (same as today) ...
+        await mark_sync_running(SOURCE_NAME)
+
+        async with httpx.AsyncClient() as client:
+            headers = _auth_headers()
+            semaphore = asyncio.Semaphore(settings.jira_semaphore_limit)
+
+            with SyncProgress("Backfill", console=console) as p:
+                # Phase 1: scout (indeterminate — we don't know count upfront)
+                scout_task = p.add_task("Scouting ticket keys", total=None)
+                all_keys = await _fetch_all_keys_jql(client, jql, semaphore, headers)
+                p.update(scout_task, total=len(all_keys), completed=len(all_keys))
+
+                # Phase 2: process tickets
+                process_task = p.add_task(
+                    f"Fetching & persisting {len(all_keys):,} tickets",
+                    total=len(all_keys),
+                )
+
+                for i in range(0, len(all_keys), batch_size):
+                    batch = all_keys[i : i + batch_size]
+                    tickets = await fetch_ticket_batch(
+                        client, batch, semaphore, headers,
+                        include_worklogs=not args.no_worklogs,
+                    )
+                    # ... persist loop (same as today) ...
+                    for ticket in tickets:
+                        try:
+                            transformed = transform_ticket(ticket)
+                            await persist_ticket(transformed)
+                            # cursor tracking unchanged
+                        except Exception:
+                            logger.exception("Failed %s", ticket.get("issue_key"))
+                    p.advance(process_task, len(batch))
+                    if max_updated:
+                        await set_sync_cursor(SOURCE_NAME, max_updated, status="running")
+
+                # Phase 3: worklog cursor pinning / top-up sweep
+                if not args.no_worklogs:
+                    existing_cursor = await get_worklog_cursor_ms(WORKLOG_SOURCE)
+                    if existing_cursor is None:
+                        await set_worklog_cursor_ms(backfill_start_ms, WORKLOG_SOURCE)
+                        logger.info("Pinned worklog cursor to backfill start")
+                    else:
+                        sweep_task = p.add_task("Worklog top-up sweep", total=None)
+                        await run_worklog_sweep(client, semaphore, headers, progress=p, task_id=sweep_task)
+
+        await mark_sync_complete(SOURCE_NAME)
+```
+
+### 5.4 Wire into `worklog_sync.py` (pass-through progress)
+
+`run_worklog_sweep` takes optional `progress` and `task_id` kwargs so both backfill and incremental can attach it to their existing Progress display:
+
+```python
+async def run_worklog_sweep(
+    client, semaphore, headers,
+    initial_cursor_ms=None,
+    progress: Optional["SyncProgress"] = None,
+    task_id=None,
+) -> int:
+    # ... fetch updated_ids / deleted_ids as before ...
+    if progress and task_id is not None:
+        progress.update(task_id, total=len(updated_ids) + len(deleted_ids))
+
+    # During bulk fetch & upsert:
+    for i in range(0, len(updated_ids), 1000):
+        batch = updated_ids[i:i+1000]
+        # ... fetch + transform + persist ...
+        if progress and task_id is not None:
+            progress.advance(task_id, len(batch))
+
+    # After soft-deletes:
+    if progress and task_id is not None:
+        progress.advance(task_id, len(deleted_ids))
+```
+
+### 5.5 Wire into `incremental.py`
+
+Same `SyncProgress` wrapper, two phases:
+
+```python
+with SyncProgress("Incremental sync", console=console) as p:
+    scout_task = p.add_task("Scouting updated tickets", total=None)
+    all_keys = await _fetch_all_keys_jql(...)
+    p.update(scout_task, total=len(all_keys), completed=len(all_keys))
+
+    if all_keys:
+        process_task = p.add_task(
+            f"Processing {len(all_keys)} tickets", total=len(all_keys),
+        )
+        # ... loop with p.advance(process_task, len(batch)) ...
+
+    if not args.no_worklogs:
+        sweep_task = p.add_task("Worklog sweep", total=None)
+        await run_worklog_sweep(client, semaphore, headers, progress=p, task_id=sweep_task)
+```
+
+### 5.6 launchd / non-TTY behavior
+
+Rich auto-detects TTY. When launchd runs `jsm_sync.incremental` and pipes stdout to a log file, the Progress display degrades to occasional "elapsed: Xs, Y/Z completed" lines rather than ANSI cursor control — clean in the log file, still useful. No special handling needed, but the implementer should confirm by running:
+```bash
+python -m jsm_sync.incremental > /tmp/test.log 2>&1
+```
+and verifying the log file is readable (no stray ANSI escape sequences).
 
 ---
 
-### Task 2 — Create schema migration `schema/003_worklogs.sql`
+## 6. Task list (execute in order)
+
+Each task is a discrete commit-sized unit. Mark complete only when acceptance criteria are met.
+
+API shapes were already validated in Section 2 against the official Atlassian docs — no additional verification task needed. If any real-world response deviates during implementation, record it in a new `WORKLOGS_PLAN_NOTES.md` and adjust.
+
+### Task 1 — Create schema migration `schema/003_worklogs.sql`
 **Actions:**
 - Write the SQL from Section 3 verbatim.
 - Apply to running Postgres: `docker exec -i <pg-container> psql -U <user> -d <db> < schema/003_worklogs.sql`.
@@ -787,7 +1027,7 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 
 ---
 
-### Task 3 — Add worklog fetchers to `jira_client.py`
+### Task 2 — Add worklog fetchers to `jira_client.py`
 **Actions:**
 - Implement `_fetch_issue_worklogs` (paginated).
 - Implement `fetch_worklog_updates_since`, `fetch_worklog_deletes_since`, `fetch_worklogs_bulk`.
@@ -797,7 +1037,7 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 
 ---
 
-### Task 4 — Wire worklogs into `_fetch_one_ticket` / `_process_issue_to_ticket` / `fetch_ticket_batch`
+### Task 3 — Wire worklogs into `_fetch_one_ticket` / `_process_issue_to_ticket` / `fetch_ticket_batch`
 **Actions:**
 - Extend signatures per Section 4.1.
 - `_process_issue_to_ticket` now emits `issue_id` and `worklogs` fields.
@@ -806,7 +1046,7 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 
 ---
 
-### Task 5 — Extend `transform.py`
+### Task 4 — Extend `transform.py`
 **Actions:**
 - Add `worklogs` and `worklog_author_ids_seen` to `TransformedTicket`.
 - Add `issue_id` to `ticket_row`.
@@ -817,7 +1057,7 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 
 ---
 
-### Task 6 — Extend `db.py`
+### Task 5 — Extend `db.py`
 **Actions:**
 - Modify `upsert_ticket` to write `issue_id` with the `COALESCE` guard on conflict.
 - Add `upsert_worklogs`, `soft_delete_missing_worklogs`, `soft_delete_worklogs_by_id`, `map_issue_ids_to_keys`.
@@ -828,7 +1068,7 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 
 ---
 
-### Task 7 — Create `worklog_sync.py`
+### Task 6 — Create `worklog_sync.py`
 **Actions:**
 - Implement `run_worklog_sweep` per Section 4.4.
 - Make sure `_parse_iso` is imported or copy-pasted (it's trivial — do NOT introduce a circular import).
@@ -837,24 +1077,46 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 
 ---
 
+### Task 7 — Add `progress.py` and install Rich logging
+**Actions:**
+- Add `rich>=13.7` to the project's dependency file (check `pyproject.toml` first, fall back to `requirements.txt`).
+- Create `jsm_sync/progress.py` per Section 5.2.
+- Verify it runs standalone: `python -c "from jsm_sync.progress import SyncProgress; import time; p=SyncProgress('test');
+p.__enter__(); t=p.add_task('work', total=10); [p.advance(t) or time.sleep(0.1) for _ in range(10)]; p.__exit__()"` — should display a filling bar.
+
+**Acceptance:** Smoke test shows a working progress bar in the terminal. `pip install -e .` (or equivalent) picks up `rich` without errors.
+
+---
+
 ### Task 8 — Wire into `backfill.py`
 **Actions:**
+- Replace `logging.basicConfig` call with `install_rich_logging(settings.log_level)`.
 - Add `--no-worklogs` flag.
-- Capture `backfill_start_ms` at start.
-- Pass `include_worklogs` into `fetch_ticket_batch`.
-- After ticket loop: pin cursor on first backfill OR run sweep on re-backfill.
+- Capture `backfill_start_ms = int(datetime.now(timezone.utc).timestamp() * 1000)` at start.
+- Wrap the existing ticket loop in `with SyncProgress("Backfill") as p:` per Section 5.3.
+- Replace the per-batch `logger.info("Batch …")` with `p.advance(process_task, len(batch))`. KEEP the checkpoint cursor log (important for resumability debugging) but demote from info to debug if it's too chatty.
+- Pass `include_worklogs=not args.no_worklogs` into `fetch_ticket_batch`.
+- After ticket loop: pin cursor on first backfill OR run sweep on re-backfill (with progress attached).
 
-**Acceptance:** Running `python -m jsm_sync.backfill --lookback-days 1` populates `ticket_worklogs` rows for that window, and `sync_state.jira_worklogs.last_cursor` is set to a timestamp within the last few minutes.
+**Acceptance:**
+1. Running `python -m jsm_sync.backfill --lookback-days 1` shows ONE persistent progress bar for the full run (scout → process), NOT a wall of per-batch log lines. Bar shows count, percentage, elapsed, ETA.
+2. httpx request logs are silent.
+3. `ticket_worklogs` is populated for the window, and `sync_state.jira_worklogs.last_cursor` is set to a timestamp within the last few minutes.
 
 ---
 
 ### Task 9 — Wire into `incremental.py`
 **Actions:**
+- Same logging swap (`install_rich_logging`).
 - Add `--no-worklogs` flag.
+- Wrap work in `SyncProgress("Incremental sync")` per Section 5.5.
 - Pass `include_worklogs` into `fetch_ticket_batch`.
-- Call `run_worklog_sweep` after the ticket loop, wrapped in try/except (non-fatal).
+- Call `run_worklog_sweep(..., progress=p, task_id=sweep_task)` after the ticket loop, wrapped in try/except (non-fatal).
 
-**Acceptance:** After backfill completes, adding a worklog in Jira UI and running `python -m jsm_sync.incremental` results in exactly one new row in `ticket_worklogs`.
+**Acceptance:**
+1. Adding a worklog in Jira UI, then running `python -m jsm_sync.incremental`, results in exactly one new row in `ticket_worklogs`.
+2. Output is a clean progress bar, not a log flood.
+3. When piped to a file (simulating launchd), the log is ANSI-clean and readable.
 
 ---
 
@@ -870,13 +1132,13 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 
 ---
 
-### Task 11 — launchd plist verification
+### Task 11 — launchd agent verification
 **Actions:**
 - User has an existing launchd agent running `python -m jsm_sync.incremental` on a cadence.
 - No changes required — incremental now handles worklogs internally.
 - Verify by tailing its log after the next scheduled run: should see "Starting global worklog sweep (Phase B)" and "cursor advanced to X".
 
-**Acceptance:** Next launchd run logs both the ticket sweep AND the worklog sweep without errors.
+**Acceptance:** Next launchd run logs both the ticket sweep AND the worklog sweep without errors. The log file is free of ANSI escape sequences (Rich auto-detected non-TTY).
 
 ---
 
@@ -884,13 +1146,13 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 **Actions:**
 - Update the "Do not fetch worklogs during backfill" line in `PLAN.md` (line ~915) to reflect the new behavior.
 - Update the schema section and `DIAGRAMS.md` (lines ~29, 298, 324) to show worklogs are now in DB.
-- Add a short README section: "Worklog sync" — how it works, how to opt out, how to manually re-run the sweep.
+- Add a short README section: "Worklog sync" — how it works, how to opt out (`--no-worklogs`), how to manually re-run the sweep, the 1-minute lag caveat, and the progress bar UX.
 
 **Acceptance:** `rg -i worklog PLAN.md DIAGRAMS.md README.md` shows descriptions consistent with actual behavior.
 
 ---
 
-## 6. Guardrails & rollback
+## 7. Guardrails & rollback
 
 - **Schema rollback:** worklogs are additive — `DROP TABLE ticket_worklogs; ALTER TABLE tickets DROP COLUMN issue_id; DELETE FROM sync_state WHERE source='jira_worklogs';` restores pre-state. The `tickets` table is unaffected for non-worklog reads.
 - **Code rollback:** if Task 9 (incremental wiring) breaks the cron, flip the `--no-worklogs` flag in the launchd plist. Ticket sync continues unaffected.
@@ -900,17 +1162,18 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 
 ---
 
-## 7. Out of scope for v1
+## 8. Out of scope for v1
 
 - Embedding worklog comments.
 - Per-ticket aggregate columns on `tickets` (use a view if needed later).
 - Reconcile-worklog support.
 - Historical backfill of `issue_id` for pre-existing tickets if Option B is chosen in Task 10 (separate one-shot SQL task).
 - Metrics / alerting on worklog sweep latency.
+- Multi-panel Rich Live display (e.g. current ticket key, last HTTP status code, in-flight request count). Single bar is enough for v1.
 
 ---
 
-## 8. Files touched (summary)
+## 9. Files touched (summary)
 
 | File | Change type |
 |---|---|
@@ -919,7 +1182,8 @@ Each task is a discrete commit-sized unit. Mark complete only when acceptance cr
 | `jsm_sync/transform.py` | MODIFY — worklog rows, issue_id, extended users |
 | `jsm_sync/db.py` | MODIFY — new upserts, modified `upsert_ticket`, extended `persist_ticket` |
 | `jsm_sync/worklog_sync.py` | NEW |
-| `jsm_sync/backfill.py` | MODIFY — flag, cursor pinning, pass-through |
-| `jsm_sync/incremental.py` | MODIFY — flag, pass-through, Phase B sweep |
+| `jsm_sync/progress.py` | NEW — Rich-based progress bar + log handler |
+| `jsm_sync/backfill.py` | MODIFY — flag, cursor pinning, progress bar, Rich logging |
+| `jsm_sync/incremental.py` | MODIFY — flag, Phase B sweep, progress bar, Rich logging |
+| `pyproject.toml` (or `requirements.txt`) | MODIFY — add `rich>=13.7` |
 | `PLAN.md`, `DIAGRAMS.md`, `README.md` | MODIFY — doc updates |
-| `WORKLOGS_PLAN_NOTES.md` | NEW (from Task 1) |
