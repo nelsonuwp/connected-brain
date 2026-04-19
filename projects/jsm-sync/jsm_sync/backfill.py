@@ -42,15 +42,17 @@ SOURCE_NAME = "jira_tickets"
 DEFAULT_BATCH_SIZE = 50
 
 
-async def run_backfill(lookback_days: int, batch_size: int) -> None:
+async def run_backfill(lookback_days: int, batch_size: int, force_lookback: bool = False) -> None:
     await init_pool()
     try:
         cursor = await get_sync_cursor(SOURCE_NAME)
 
-        if cursor:
+        if cursor and not force_lookback:
             logger.info("Resuming backfill from cursor %s", cursor.isoformat())
             jql = build_project_jql(settings.jira_project, updated_since=cursor)
         else:
+            if force_lookback and cursor:
+                logger.info("--lookback-days explicitly set — ignoring cursor %s", cursor.isoformat())
             logger.info("Starting fresh backfill — lookback %d days", lookback_days)
             jql = build_project_jql(settings.jira_project, lookback_days=lookback_days)
 
@@ -115,8 +117,8 @@ def main() -> None:
     p.add_argument(
         "--lookback-days",
         type=int,
-        default=settings.jira_lookback_days,
-        help="Days of history to pull on a fresh backfill (default: %(default)s)",
+        default=None,
+        help="Days of history to pull — overrides resume cursor when explicitly set",
     )
     p.add_argument(
         "--batch-size",
@@ -131,7 +133,9 @@ def main() -> None:
         format="%(asctime)s %(levelname)-8s %(name)s: %(message)s",
     )
 
-    asyncio.run(run_backfill(args.lookback_days, args.batch_size))
+    force_lookback = args.lookback_days is not None
+    lookback_days = args.lookback_days if force_lookback else settings.jira_lookback_days
+    asyncio.run(run_backfill(lookback_days, args.batch_size, force_lookback=force_lookback))
 
 
 if __name__ == "__main__":
