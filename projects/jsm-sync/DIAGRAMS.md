@@ -26,8 +26,8 @@ AFTER (what jsm-sync builds)
        ▲                              │
        │                              │  any query, any time
        │  on-demand fetch for         │  SQL, no rate limits
-       │  nuanced data (worklogs,     │
-       │  live SLAs, attachments)     │
+       │  nuanced data (live SLAs,    │
+       │  attachments)                │
        └──────────────────────────────┘
 ```
 
@@ -295,7 +295,7 @@ jsm-sync/
   ┌──────────────────────────┬──────────────────────────┐
   │    IN POSTGRES (bulk)    │   ONLY IN JIRA (nuance)  │
   ├──────────────────────────┼──────────────────────────┤
-  │ ✓ issue_key              │ × Worklog / time entries │
+  │ ✓ issue_key              │ × Live SLA timers (live) │
   │ ✓ summary                │ × Live SLA timers        │
   │ ✓ description (plain)    │ × Attachments (blobs)    │
   │ ✓ status, priority       │ × Full ADF formatting    │
@@ -313,16 +313,17 @@ jsm-sync/
   │ ✓ comment authors        │                          │
   │ ✓ asset objectIds →      │                          │
   │   service_ids            │                          │
+  │ ✓ worklog rows           │                          │
+  │   (`ticket_worklogs`)    │                          │
   │ ✓ users: name, email,    │                          │
   │   role                   │                          │
   │ ✓ orgs: name, ocean_id   │                          │
   └──────────────────────────┴──────────────────────────┘
 
   Strategy:
-    "Run SQL against everything on the left.
-     When a user clicks a specific ticket and
-     wants to see worklog or full timeline,
-     THEN hit Jira for that one ticket."
+    "Run SQL against everything on the left (including worklogs).
+     For live SLA countdowns, attachment blobs, or Jira-only fields,
+     hit Jira for that one ticket when needed."
 ```
 
 ---

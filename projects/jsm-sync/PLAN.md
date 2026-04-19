@@ -4,7 +4,7 @@
 
 Mirror the APTUM Jira Service Management project into a local Postgres database so downstream tools (persona-drafting assistant, AccountIntel, ad-hoc SQL analysis) can run rapid queries without hitting Jira rate limits.
 
-The split: bulk, append-mostly data (tickets, comments, users, orgs, assets) lives in Postgres. Nuanced per-ticket data (worklogs, live SLA timers, attachments) stays in Jira and gets fetched on-demand when a specific ticket key is already known.
+The split: bulk, append-mostly data (tickets, comments, users, orgs, assets, **per-entry worklogs** in `ticket_worklogs`) lives in Postgres. Live SLA timers and attachments still stay in Jira for on-demand fetch when a specific ticket key is already known.
 
 ## Scope for v1
 
@@ -361,9 +361,9 @@ This is the largest file. It's a port of Adam's existing `jiraClient.py` with th
 - `_get_closure_info`
 - `_fetch_all_keys_jql` (but update the JQL construction — see below)
 - `_fetch_comments`
-- `_fetch_worklog` (keep for future on-demand use; don't call it in backfill)
+- `_fetch_issue_worklogs` (paginated; used during backfill and incremental)
 - `_fetch_asset_details_sync`
-- `_fetch_one_ticket` (will modify slightly — no worklog in backfill path)
+- `_fetch_one_ticket` (includes optional worklog fetch; default on)
 
 **Add:**
 - `_process_issue_to_ticket` returns a richer dict including the new fields listed below
@@ -912,7 +912,7 @@ ORDER BY t.created_at DESC;
 - Do not add Prefect, Airflow, or any orchestrator. Cron is enough.
 - Do not add webhooks. Polling works.
 - Do not parse ADF beyond what `parse_adf_to_text` already does.
-- Do not fetch worklogs during backfill.
+- Worklogs **are** synced during backfill and incremental (see `WORKLOGS_PLAN.md`); use `--no-worklogs` only to opt out.
 - Do not over-index `tickets`.
 - Do not use `alembic` for schema migrations yet.
 - Do not add a `security_level` column. Adam doesn't use it. If internal-only filtering is ever needed, derive it from `request_type = 'Internal Incident'` at query time.
