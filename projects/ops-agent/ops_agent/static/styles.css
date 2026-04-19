@@ -770,9 +770,9 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 
 /* ── Sim badges (sidebar) ──────────────────────────────────── */
 .sim-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: 1px 6px;
-  margin-left: 4px;
   font-size: 10px;
   font-weight: 700;
   border-radius: 10px;
@@ -780,6 +780,22 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   color: var(--aptum-lavender-s2);
   vertical-align: middle;
   letter-spacing: .02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+/* Tier variants */
+.sim-badge-high {
+  background: var(--aptum-lavender);
+  color: var(--aptum-white);
+}
+.sim-badge-mid {
+  background: var(--aptum-lavender-t1);
+  color: var(--aptum-lavender-s1);
+  border: 1px solid var(--aptum-lavender-t2);
+}
+.sim-badge-low {
+  background: var(--aptum-neutral-1);
+  color: var(--aptum-neutral-3);
 }
 .sim-badge-recency {
   background: var(--aptum-off-white);
@@ -787,6 +803,100 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   border: 1px solid var(--aptum-neutral-1);
   font-weight: 500;
 }
+
+/* ── Ticket row inline layout ──────────────────────────────── */
+.ticket-row-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+.ticket-row-top .status-badge {
+  font-size: .65rem;
+  padding: .1em .4em;
+}
+
+/* ── Similarity tier dividers ──────────────────────────────── */
+.sim-tier-divider {
+  list-style: none;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--aptum-neutral-2);
+  padding: var(--space-2) 0 var(--space-1);
+  margin-top: var(--space-1);
+  border-top: 1px solid var(--border);
+}
+.sim-tier-divider:first-child {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* ── Overflow note ─────────────────────────────────────────── */
+.related-overflow-note {
+  list-style: none;
+  font-size: .72rem;
+  color: var(--aptum-neutral-2);
+  padding: var(--space-2) 0 0;
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-1);
+}
+
+/* ── Hardware component groups ─────────────────────────────── */
+.hw-groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.hw-group {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.hw-group-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--aptum-lavender-t1);
+  border-bottom: 1px solid var(--aptum-lavender-t2);
+  font-size: .78rem;
+}
+.hw-group-meta {
+  color: var(--aptum-neutral-3);
+  font-size: .72rem;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hw-comp-count {
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--aptum-lavender-t2);
+  color: var(--aptum-lavender-s2);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hw-comp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.hw-comp-item {
+  font-size: .75rem;
+  color: var(--aptum-neutral-3);
+  padding: var(--space-1) var(--space-3);
+  border-bottom: 1px solid var(--aptum-neutral-1);
+  line-height: 1.4;
+}
+.hw-comp-item:last-child { border-bottom: none; }
 
 /* ── Scrollbar ─────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
