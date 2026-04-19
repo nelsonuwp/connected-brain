@@ -1,6 +1,8 @@
 {% if error %}
 <p class="related-error"><strong>Context load error.</strong> {{ error }}</p>
 {% elif ctx %}
+
+{# ── Customer ──────────────────────────────────────────────── #}
 <section class="related-section">
     <h4>Customer</h4>
     {% if ctx.client_id %}
@@ -17,157 +19,296 @@
     {% endif %}
 </section>
 
+{# ── Customer ticket history ───────────────────────────────── #}
 <section class="related-section">
     <h4>Customer ticket history <span class="count">({{ ctx.customer_tickets|length }})</span></h4>
     {% if ctx.customer_tickets %}
-    {% set ns = namespace(last_tier='') %}
-    <ul class="related-list">
-        {% for t in ctx.customer_tickets[:15] %}
-        {% if t.similarity_score is not none %}
-            {% set score = (t.similarity_score * 100) | round(0, 'floor') | int %}
-            {% if score >= 90 %}{% set tier = 'high' %}{% set tier_label = '≥ 90% — very similar' %}
-            {% elif score >= 70 %}{% set tier = 'mid' %}{% set tier_label = '70–89% — related' %}
-            {% else %}{% set tier = 'low' %}{% set tier_label = 'Below 70%' %}
-            {% endif %}
-        {% else %}
-            {% set tier = 'recency' %}{% set tier_label = 'Recent (unscored)' %}{% set score = 0 %}
-        {% endif %}
-        {% if tier != ns.last_tier %}
-        <li class="sim-tier-divider">{{ tier_label }}</li>
-        {% set ns.last_tier = tier %}
-        {% endif %}
-        <li>
-            <div class="ticket-row-top">
-                <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
-                <span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span>
-                {% if t.similarity_score is not none %}
-                <span class="sim-badge sim-badge-{{ tier }}" title="cosine similarity to current ticket">{{ score }}%</span>
-                {% else %}
-                <span class="sim-badge sim-badge-recency" title="no embedding yet — showing by recency">recent</span>
-                {% endif %}
+
+    {# Count per tier (iterate once) #}
+    {% set ns = namespace(high=0, mid=0, low=0) %}
+    {% for t in ctx.customer_tickets[:15] %}
+        {% set s = (t.similarity_score * 100)|round(0,'floor')|int if t.similarity_score is not none else 0 %}
+        {% if s >= 90 %}{% set ns.high = ns.high + 1 %}
+        {% elif s >= 70 %}{% set ns.mid = ns.mid + 1 %}
+        {% else %}{% set ns.low = ns.low + 1 %}{% endif %}
+    {% endfor %}
+    {% set max_count = [ns.high, ns.mid, ns.low] | max %}
+
+    {# ≥ 90% tier #}
+    {% if ns.high > 0 %}
+    <details class="sim-tier" open>
+        <summary class="sim-tier-summary">
+            <div class="sim-tier-bar-row">
+                <span class="sim-tier-label tier-high">≥ 90%</span>
+                <div class="sim-tier-track"><div class="sim-tier-fill sim-fill-high" style="width:{{ (ns.high / max_count * 100)|int }}%"></div></div>
+                <span class="sim-tier-count">{{ ns.high }}</span>
+                <span class="sim-tier-chevron">▸</span>
             </div>
-            {% set summ = t.summary or '' %}
-            <div class="related-summary">{{ summ[:140] }}{% if summ|length > 140 %}…{% endif %}</div>
-        </li>
-        {% endfor %}
-        {% if ctx.customer_tickets|length > 15 %}
-        <li class="related-overflow-note">+ {{ ctx.customer_tickets|length - 15 }} more not shown</li>
-        {% endif %}
-    </ul>
+        </summary>
+        <ul class="related-list sim-tier-items">
+            {% for t in ctx.customer_tickets[:15] %}
+            {% set s = (t.similarity_score * 100)|round(0,'floor')|int if t.similarity_score is not none else 0 %}
+            {% if s >= 90 %}
+            <li>
+                <div class="ticket-row-top">
+                    <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
+                    <span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span>
+                    <span class="sim-badge sim-badge-high" title="cosine similarity">{{ s }}%</span>
+                </div>
+                {% set summ = t.summary or '' %}
+                <div class="related-summary">{{ summ[:140] }}{% if summ|length > 140 %}…{% endif %}</div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </details>
+    {% endif %}
+
+    {# 70–89% tier #}
+    {% if ns.mid > 0 %}
+    <details class="sim-tier">
+        <summary class="sim-tier-summary">
+            <div class="sim-tier-bar-row">
+                <span class="sim-tier-label tier-mid">70–89%</span>
+                <div class="sim-tier-track"><div class="sim-tier-fill sim-fill-mid" style="width:{{ (ns.mid / max_count * 100)|int }}%"></div></div>
+                <span class="sim-tier-count">{{ ns.mid }}</span>
+                <span class="sim-tier-chevron">▸</span>
+            </div>
+        </summary>
+        <ul class="related-list sim-tier-items">
+            {% for t in ctx.customer_tickets[:15] %}
+            {% set s = (t.similarity_score * 100)|round(0,'floor')|int if t.similarity_score is not none else 0 %}
+            {% if s >= 70 and s < 90 %}
+            <li>
+                <div class="ticket-row-top">
+                    <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
+                    <span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span>
+                    <span class="sim-badge sim-badge-mid" title="cosine similarity">{{ s }}%</span>
+                </div>
+                {% set summ = t.summary or '' %}
+                <div class="related-summary">{{ summ[:140] }}{% if summ|length > 140 %}…{% endif %}</div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </details>
+    {% endif %}
+
+    {# < 70% tier #}
+    {% if ns.low > 0 %}
+    <details class="sim-tier">
+        <summary class="sim-tier-summary">
+            <div class="sim-tier-bar-row">
+                <span class="sim-tier-label tier-low">&lt; 70%</span>
+                <div class="sim-tier-track"><div class="sim-tier-fill sim-fill-low" style="width:{{ (ns.low / max_count * 100)|int }}%"></div></div>
+                <span class="sim-tier-count">{{ ns.low }}</span>
+                <span class="sim-tier-chevron">▸</span>
+            </div>
+        </summary>
+        <ul class="related-list sim-tier-items">
+            {% for t in ctx.customer_tickets[:15] %}
+            {% set s = (t.similarity_score * 100)|round(0,'floor')|int if t.similarity_score is not none else 0 %}
+            {% if s < 70 %}
+            <li>
+                <div class="ticket-row-top">
+                    <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
+                    <span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span>
+                    {% if t.similarity_score is not none %}
+                    <span class="sim-badge sim-badge-low" title="cosine similarity">{{ s }}%</span>
+                    {% else %}
+                    <span class="sim-badge sim-badge-recency">recent</span>
+                    {% endif %}
+                </div>
+                {% set summ = t.summary or '' %}
+                <div class="related-summary">{{ summ[:140] }}{% if summ|length > 140 %}…{% endif %}</div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </details>
+    {% endif %}
+
+    {% if ctx.customer_tickets|length > 15 %}
+    <p class="related-overflow-note">+ {{ ctx.customer_tickets|length - 15 }} more not shown</p>
+    {% endif %}
+
     {% else %}
     <p class="muted">No other tickets for this client in mirror (or client unknown).</p>
     {% endif %}
 </section>
 
+{# ── This ticket's hardware ────────────────────────────────── #}
+{% if ctx.components_sample %}
 <section class="related-section">
-    <h4>Hardware components <span class="count">({{ ctx.components_sample|length }})</span></h4>
+    <h4>This ticket's hardware <span class="count">({{ ctx.components_sample|length }} components)</span></h4>
     {% if ctx.mssql_error %}
     <p class="related-warn">{{ ctx.mssql_error }}</p>
     {% endif %}
-    {% if ctx.components_sample %}
     <div class="hw-groups">
         {% for svc_id, comps in ctx.components_sample | groupby('service_id') %}
         {% set first_comp = comps | first %}
         {% set comp_list = comps | list %}
-        <div class="hw-group">
-            <div class="hw-group-header">
+        <details class="hw-group" open>
+            <summary class="hw-group-header">
                 <span class="mono">{{ svc_id }}</span>
                 {% if first_comp.product_label or first_comp.fusion_company_name %}
                 <span class="hw-group-meta">{{ first_comp.product_label or '' }}{% if first_comp.fusion_company_name %} · {{ first_comp.fusion_company_name }}{% endif %}</span>
                 {% endif %}
                 <span class="hw-comp-count">{{ comp_list | length }}</span>
-            </div>
+                <span class="hw-toggle-icon">▸</span>
+            </summary>
             <ul class="hw-comp-list">
                 {% for c in comp_list %}
                 <li class="hw-comp-item">{{ c.component_category }}/{{ c.component_type }} — {{ c.component }}</li>
                 {% endfor %}
             </ul>
-        </div>
+        </details>
         {% endfor %}
     </div>
-    {% else %}
-    <p class="muted">No linked assets with numeric service_id, or no dimComponents rows.</p>
-    {% endif %}
 </section>
-
+{% elif ctx.mssql_error %}
 <section class="related-section">
-    <h4>Neighbor services <span class="count">({{ ctx.neighbor_services|length }})</span></h4>
-    {% if ctx.neighbor_services %}
-    <ul class="related-list related-compact">
-        {% for n in ctx.neighbor_services[:10] %}
-        {% set j_pct = (n.jaccard * 100) | round(0) | int %}
-        {% if j_pct >= 45 %}{% set j_tier = 'high' %}
-        {% elif j_pct >= 35 %}{% set j_tier = 'mid' %}
-        {% else %}{% set j_tier = 'low' %}{% endif %}
-        <li>
-            <div class="ticket-row-top">
-                <span class="mono">{{ n.service_id }}</span>
-                <span class="sim-badge sim-badge-{{ j_tier }}" title="Jaccard index — proportion of shared hardware components">{{ j_pct }}% overlap</span>
-            </div>
-            {% if n.product_label or n.fusion_company_name %}
-            <span class="related-entity">{{ n.product_label or '' }}{% if n.fusion_company_name %} · {{ n.fusion_company_name }}{% endif %}</span>
-            {% endif %}
-            <span class="muted small">{{ n.shared_components }} shared components</span>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p class="muted">No neighbors above component-overlap threshold.</p>
-    {% endif %}
-</section>
-
-<section class="related-section">
-    <h4>Tickets on similar hardware <span class="count">({{ ctx.neighbor_tickets|length }})</span></h4>
-    {% if ctx.neighbor_tickets %}
-    {% set ns2 = namespace(last_tier='') %}
-    <ul class="related-list">
-        {% for t in ctx.neighbor_tickets[:12] %}
-        {% if t.similarity_score is not none %}
-            {% set score = (t.similarity_score * 100) | round(0, 'floor') | int %}
-            {% if score >= 90 %}{% set tier = 'high' %}{% set tier_label = '≥ 90% — very similar' %}
-            {% elif score >= 70 %}{% set tier = 'mid' %}{% set tier_label = '70–89% — related' %}
-            {% else %}{% set tier = 'low' %}{% set tier_label = 'Below 70%' %}
-            {% endif %}
-        {% else %}
-            {% set tier = 'recency' %}{% set tier_label = 'Recent (unscored)' %}{% set score = 0 %}
-        {% endif %}
-        {% if tier != ns2.last_tier %}
-        <li class="sim-tier-divider">{{ tier_label }}</li>
-        {% set ns2.last_tier = tier %}
-        {% endif %}
-        <li>
-            <div class="ticket-row-top">
-                <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
-                <span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span>
-                {% if t.similarity_score is not none %}
-                <span class="sim-badge sim-badge-{{ tier }}" title="cosine similarity to current ticket">{{ score }}%</span>
-                {% else %}
-                <span class="sim-badge sim-badge-recency" title="no embedding yet — showing by recency">recent</span>
-                {% endif %}
-            </div>
-            {% if t.fusion_company_name or t.jira_org_name %}
-            <span class="related-entity">{{ t.fusion_company_name or t.jira_org_name }}</span>
-            {% elif t.ocean_client_id %}
-            <span class="muted small">client {{ t.ocean_client_id }}</span>
-            {% endif %}
-            {% set summ2 = t.summary or '' %}
-            <div class="related-summary">{{ summ2[:120] }}{% if summ2|length > 120 %}…{% endif %}</div>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p class="muted">No mirrored tickets on neighbor services.</p>
-    {% endif %}
-</section>
-
-{% if ctx.ticket_fusion_services %}
-<section class="related-section">
-    <h4>Fusion services (this ticket)</h4>
-    <ul class="related-list related-compact">
-        {% for s in ctx.ticket_fusion_services %}
-        <li><span class="mono">{{ s.id }}</span> · {{ s.products_name or s.products_nickname }} · status_id {{ s.products_status_id }}</li>
-        {% endfor %}
-    </ul>
+    <h4>This ticket's hardware</h4>
+    <p class="related-warn">{{ ctx.mssql_error }}</p>
 </section>
 {% endif %}
+
+{# ── Similar issues on related hardware ───────────────────── #}
+<section class="related-section">
+    <h4>Similar issues — related hardware
+        {% if ctx.neighbor_tickets %}
+        <span class="count">({{ ctx.neighbor_tickets|length }})</span>
+        {% endif %}
+    </h4>
+
+    {% if ctx.neighbor_tickets %}
+
+    {# Count per tier #}
+    {% set ns2 = namespace(high=0, mid=0, low=0) %}
+    {% for t in ctx.neighbor_tickets[:12] %}
+        {% set s = (t.similarity_score * 100)|round(0,'floor')|int if t.similarity_score is not none else 0 %}
+        {% if s >= 90 %}{% set ns2.high = ns2.high + 1 %}
+        {% elif s >= 70 %}{% set ns2.mid = ns2.mid + 1 %}
+        {% else %}{% set ns2.low = ns2.low + 1 %}{% endif %}
+    {% endfor %}
+    {% set max2 = [ns2.high, ns2.mid, ns2.low] | max %}
+
+    {% if ns2.high > 0 %}
+    <details class="sim-tier" open>
+        <summary class="sim-tier-summary">
+            <div class="sim-tier-bar-row">
+                <span class="sim-tier-label tier-high">≥ 90%</span>
+                <div class="sim-tier-track"><div class="sim-tier-fill sim-fill-high" style="width:{{ (ns2.high / max2 * 100)|int }}%"></div></div>
+                <span class="sim-tier-count">{{ ns2.high }}</span>
+                <span class="sim-tier-chevron">▸</span>
+            </div>
+        </summary>
+        <ul class="related-list sim-tier-items">
+            {% for t in ctx.neighbor_tickets[:12] %}
+            {% set s = (t.similarity_score * 100)|round(0,'floor')|int if t.similarity_score is not none else 0 %}
+            {% if s >= 90 %}
+            <li>
+                <div class="ticket-row-top">
+                    <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
+                    <span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span>
+                    <span class="sim-badge sim-badge-high" title="cosine similarity">{{ s }}%</span>
+                </div>
+                {% if t.fusion_company_name or t.jira_org_name %}
+                <span class="related-entity">{{ t.fusion_company_name or t.jira_org_name }}</span>
+                {% elif t.ocean_client_id %}
+                <span class="muted small">client {{ t.ocean_client_id }}</span>
+                {% endif %}
+                {% set summ2 = t.summary or '' %}
+                <div class="related-summary">{{ summ2[:120] }}{% if summ2|length > 120 %}…{% endif %}</div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </details>
+    {% endif %}
+
+    {% if ns2.mid > 0 %}
+    <details class="sim-tier">
+        <summary class="sim-tier-summary">
+            <div class="sim-tier-bar-row">
+                <span class="sim-tier-label tier-mid">70–89%</span>
+                <div class="sim-tier-track"><div class="sim-tier-fill sim-fill-mid" style="width:{{ (ns2.mid / max2 * 100)|int }}%"></div></div>
+                <span class="sim-tier-count">{{ ns2.mid }}</span>
+                <span class="sim-tier-chevron">▸</span>
+            </div>
+        </summary>
+        <ul class="related-list sim-tier-items">
+            {% for t in ctx.neighbor_tickets[:12] %}
+            {% set s = (t.similarity_score * 100)|round(0,'floor')|int if t.similarity_score is not none else 0 %}
+            {% if s >= 70 and s < 90 %}
+            <li>
+                <div class="ticket-row-top">
+                    <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
+                    <span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span>
+                    <span class="sim-badge sim-badge-mid" title="cosine similarity">{{ s }}%</span>
+                </div>
+                {% if t.fusion_company_name or t.jira_org_name %}
+                <span class="related-entity">{{ t.fusion_company_name or t.jira_org_name }}</span>
+                {% elif t.ocean_client_id %}
+                <span class="muted small">client {{ t.ocean_client_id }}</span>
+                {% endif %}
+                {% set summ2 = t.summary or '' %}
+                <div class="related-summary">{{ summ2[:120] }}{% if summ2|length > 120 %}…{% endif %}</div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </details>
+    {% endif %}
+
+    {% if ns2.low > 0 %}
+    <details class="sim-tier">
+        <summary class="sim-tier-summary">
+            <div class="sim-tier-bar-row">
+                <span class="sim-tier-label tier-low">&lt; 70%</span>
+                <div class="sim-tier-track"><div class="sim-tier-fill sim-fill-low" style="width:{{ (ns2.low / max2 * 100)|int }}%"></div></div>
+                <span class="sim-tier-count">{{ ns2.low }}</span>
+                <span class="sim-tier-chevron">▸</span>
+            </div>
+        </summary>
+        <ul class="related-list sim-tier-items">
+            {% for t in ctx.neighbor_tickets[:12] %}
+            {% set s = (t.similarity_score * 100)|round(0,'floor')|int if t.similarity_score is not none else 0 %}
+            {% if s < 70 %}
+            <li>
+                <div class="ticket-row-top">
+                    <a href="/tickets/{{ t.issue_key }}">{{ t.issue_key }}</a>
+                    <span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span>
+                    {% if t.similarity_score is not none %}
+                    <span class="sim-badge sim-badge-low" title="cosine similarity">{{ s }}%</span>
+                    {% else %}
+                    <span class="sim-badge sim-badge-recency">recent</span>
+                    {% endif %}
+                </div>
+                {% if t.fusion_company_name or t.jira_org_name %}
+                <span class="related-entity">{{ t.fusion_company_name or t.jira_org_name }}</span>
+                {% elif t.ocean_client_id %}
+                <span class="muted small">client {{ t.ocean_client_id }}</span>
+                {% endif %}
+                {% set summ2 = t.summary or '' %}
+                <div class="related-summary">{{ summ2[:120] }}{% if summ2|length > 120 %}…{% endif %}</div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </details>
+    {% endif %}
+
+    {% if ctx.neighbor_services %}
+    <p class="related-neighbor-note">Across {{ ctx.neighbor_services|length }} services with similar hardware</p>
+    {% endif %}
+
+    {% else %}
+    <p class="muted">No tickets found on similar hardware.</p>
+    {% if ctx.neighbor_services %}
+    <p class="related-neighbor-note">{{ ctx.neighbor_services|length }} services share similar hardware but have no matching tickets.</p>
+    {% endif %}
+    {% endif %}
+</section>
+
 {% endif %}
