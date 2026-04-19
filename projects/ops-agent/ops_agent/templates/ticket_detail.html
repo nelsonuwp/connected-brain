@@ -47,16 +47,16 @@
     </div>
     <div class="meta-block">
         <span class="meta-label">Created</span>
-        <span>{{ ticket.created_at.strftime("%Y-%m-%d %H:%M") if ticket.created_at else "—" }}</span>
+        <span>{{ ticket.created_at | localtime }}</span>
     </div>
     <div class="meta-block">
         <span class="meta-label">Updated</span>
-        <span>{{ ticket.updated_at.strftime("%Y-%m-%d %H:%M") if ticket.updated_at else "—" }}</span>
+        <span>{{ ticket.updated_at | localtime }}</span>
     </div>
     {% if ticket.resolved_at %}
     <div class="meta-block">
         <span class="meta-label">Resolved</span>
-        <span>{{ ticket.resolved_at.strftime("%Y-%m-%d %H:%M") }}</span>
+        <span>{{ ticket.resolved_at | localtime }}</span>
     </div>
     {% endif %}
     {% if ticket.labels %}
@@ -100,7 +100,7 @@
                 {% if event.is_public is not none %}
                 <span class="visibility-badge">{% if event.is_public %}public{% else %}private{% endif %}</span>
                 {% endif %}
-                <span class="thread-date muted">{{ event.created_at.strftime("%Y-%m-%d %H:%M") if event.created_at else "" }}</span>
+                <span class="thread-date muted">{{ event.created_at | localtime }}</span>
             </div>
             <div class="thread-body">{{ event.body }}</div>
         </div>
