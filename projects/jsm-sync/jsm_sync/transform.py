@@ -5,8 +5,23 @@ into DB-ready records for db.py upsert functions.
 No side effects. Fully testable without hitting Jira or Postgres.
 """
 
-from dataclasses import dataclass, field
-from typing import Optional
+from dataclasses import dataclass
+from datetime import datetime
+from typing import Any, Optional
+
+from dateutil import parser as _dparser
+
+from .jira_client import determine_role
+
+
+def parse_iso(s: Any) -> Optional[datetime]:
+    """Parse Jira ISO timestamp; return None on failure or empty input."""
+    if not s:
+        return None
+    try:
+        return _dparser.parse(s)
+    except (ValueError, TypeError):
+        return None
 
 
 @dataclass
@@ -17,6 +32,8 @@ class TransformedTicket:
     thread_events: list[dict]
     assets: list[dict]
     ticket_asset_links: list[tuple[str, str]]
+    worklogs: list[dict]
+    worklog_author_ids_seen: set[str]
 
 
 def transform_ticket(raw: dict) -> TransformedTicket:
@@ -42,6 +59,7 @@ def transform_ticket(raw: dict) -> TransformedTicket:
         "jira_org_id": raw.get("jira_org_id"),
         "ocean_client_id": raw.get("ocean_client_id"),
         "labels": raw.get("labels") or [],
+        "issue_id": raw.get("issue_id"),
         "sla_first_response_breached": sla_fr["breached"] if sla_fr else None,
         "sla_first_response_elapsed_s": sla_fr["elapsed_seconds"] if sla_fr else None,
         "sla_first_response_threshold_s": sla_fr["threshold_seconds"] if sla_fr else None,
@@ -71,7 +89,6 @@ def transform_ticket(raw: dict) -> TransformedTicket:
                 "role": event.get("role", "Unknown"),
                 "account_type": event.get("account_type"),
             }
-    users = list(users_by_id.values())
 
     # --- organization ---
     organization = None
@@ -113,6 +130,61 @@ def transform_ticket(raw: dict) -> TransformedTicket:
         })
         ticket_asset_links.append((issue_key, oid))
 
+    # --- worklogs (per-entry; comment as raw ADF jsonb in DB layer) ---
+    worklog_rows: list[dict] = []
+    worklog_author_ids: set[str] = set()
+    raw_issue_id = raw.get("issue_id")
+
+    for w in raw.get("worklogs", []):
+        wid = w.get("id")
+        if not wid:
+            continue
+        author = w.get("author") or {}
+        author_account_id = author.get("accountId")
+
+        if author_account_id:
+            worklog_author_ids.add(author_account_id)
+            if author_account_id not in users_by_id:
+                users_by_id[author_account_id] = {
+                    "account_id": author_account_id,
+                    "display_name": author.get("displayName") or "",
+                    "email": author.get("emailAddress"),
+                    "role": determine_role(author),
+                    "account_type": author.get("accountType"),
+                }
+
+        jira_created = parse_iso(w.get("created")) or parse_iso(w.get("started"))
+        jira_updated = parse_iso(w.get("updated")) or jira_created
+        started_at = parse_iso(w.get("started")) or jira_created
+
+        if jira_created is None or started_at is None or jira_updated is None:
+            continue
+
+        issue_id_val = w.get("issueId")
+        try:
+            issue_id_int = int(issue_id_val) if issue_id_val is not None else raw_issue_id
+        except (ValueError, TypeError):
+            issue_id_int = raw_issue_id
+        if issue_id_int is None:
+            continue
+
+        worklog_rows.append(
+            {
+                "worklog_id": int(wid),
+                "issue_key": issue_key,
+                "issue_id": int(issue_id_int),
+                "author_account_id": author_account_id,
+                "time_spent_seconds": int(w.get("timeSpentSeconds") or 0),
+                "started_at": started_at,
+                "comment_adf": w.get("comment"),
+                "visibility": w.get("visibility"),
+                "jira_created_at": jira_created,
+                "jira_updated_at": jira_updated,
+            }
+        )
+
+    users = list(users_by_id.values())
+
     return TransformedTicket(
         ticket_row=ticket_row,
         users=users,
@@ -120,4 +192,6 @@ def transform_ticket(raw: dict) -> TransformedTicket:
         thread_events=thread_events,
         assets=assets,
         ticket_asset_links=ticket_asset_links,
+        worklogs=worklog_rows,
+        worklog_author_ids_seen=worklog_author_ids,
     )

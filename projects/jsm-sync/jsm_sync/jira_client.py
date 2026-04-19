@@ -7,7 +7,7 @@ Removed vs reference:
   - fetch_jira_data / fetch_jira_data_sync (artifact-shaped orchestrators)
   - fetch_organization_users
   - pandas import
-  - worklog fetch in backfill path (_fetch_worklog kept for on-demand use)
+  - worklogs: paginated _fetch_issue_worklogs (used in backfill / incremental)
 
 Changed vs reference:
   - All log("⚠️", ...) / log("✗", ...) → stdlib logger calls
