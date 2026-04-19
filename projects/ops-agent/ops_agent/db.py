@@ -183,12 +183,15 @@ async def list_customer_tickets(
 ) -> list[dict]:
     rows = await conn.fetch(
         """
-        SELECT issue_key, summary, status, ocean_client_id, updated_at, resolved_at
-        FROM tickets
-        WHERE ocean_client_id = $1
-          AND deleted_at IS NULL
-          AND issue_key <> $2
-        ORDER BY updated_at DESC
+        SELECT
+            t.issue_key, t.summary, t.status, t.ocean_client_id, t.updated_at, t.resolved_at,
+            org.name AS jira_org_name
+        FROM tickets t
+        LEFT JOIN organizations org ON org.jira_org_id = t.jira_org_id
+        WHERE t.ocean_client_id = $1
+          AND t.deleted_at IS NULL
+          AND t.issue_key <> $2
+        ORDER BY t.updated_at DESC
         LIMIT $3
         """,
         ocean_client_id,
@@ -209,8 +212,11 @@ async def list_tickets_for_service_ids(
         return []
     rows = await conn.fetch(
         """
-        SELECT t.issue_key, t.summary, t.status, t.ocean_client_id, t.updated_at, t.resolved_at
+        SELECT
+            t.issue_key, t.summary, t.status, t.ocean_client_id, t.updated_at, t.resolved_at,
+            org.name AS jira_org_name
         FROM tickets t
+        LEFT JOIN organizations org ON org.jira_org_id = t.jira_org_id
         WHERE t.deleted_at IS NULL
           AND t.issue_key <> $2
           AND EXISTS (

@@ -89,6 +89,14 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
 .related-list li { margin-bottom: 0.65rem; line-height: 1.35; }
 .related-summary { color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
 .related-compact li { font-size: 0.78rem; margin-bottom: 0.35rem; }
+.related-entity {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0.1rem 0 0.15rem;
+}
+.related-comp-line { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
 .related-warn { color: var(--amber); font-size: 0.8rem; margin: 0.25rem 0; }
 .related-error { color: var(--red); font-size: 0.875rem; }
 .count { font-weight: 400; color: var(--muted); }

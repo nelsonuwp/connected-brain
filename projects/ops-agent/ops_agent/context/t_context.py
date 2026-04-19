@@ -254,6 +254,99 @@ def _fusion_slice(client_id: Optional[int], service_ids: list[int]) -> dict[str,
     return out
 
 
+def _fusion_service_labels(service_ids: list[int]) -> dict[int, dict[str, Any]]:
+    """
+    Map Fusion customer_products.id (service PK) → product label + owning customer company.
+    """
+    out: dict[int, dict[str, Any]] = {}
+    if not service_ids:
+        return out
+    pool = fusion_pool()
+    if pool is None:
+        return out
+    conn = pool.getconn()
+    try:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(
+                """
+                SELECT cp.id, cp.products_name, cp.products_nickname, cp.customers_id,
+                       c.company_name
+                FROM customer_products cp
+                JOIN customers c ON c.customers_id = cp.customers_id
+                WHERE cp.id = ANY(%s)
+                """,
+                (service_ids,),
+            )
+            for r in cur.fetchall():
+                sid = int(r["id"])
+                name = (r.get("products_name") or "").strip()
+                nick = (r.get("products_nickname") or "").strip()
+                product_label = name or nick or f"service {sid}"
+                out[sid] = {
+                    "product_name": name or nick,
+                    "product_nickname": nick,
+                    "product_label": product_label,
+                    "fusion_company_name": (r.get("company_name") or "").strip(),
+                    "customers_id": r.get("customers_id"),
+                }
+    finally:
+        pool.putconn(conn)
+    return out
+
+
+def _fusion_company_by_client_ids(client_ids: list[int]) -> dict[int, str]:
+    """Map customers_id → company_name for ticket rows."""
+    out: dict[int, str] = {}
+    if not client_ids:
+        return out
+    pool = fusion_pool()
+    if pool is None:
+        return out
+    conn = pool.getconn()
+    try:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(
+                """
+                SELECT customers_id, company_name
+                FROM customers
+                WHERE customers_id = ANY(%s)
+                """,
+                (client_ids,),
+            )
+            for r in cur.fetchall():
+                cid = r.get("customers_id")
+                if cid is not None:
+                    out[int(cid)] = (r.get("company_name") or "").strip()
+    finally:
+        pool.putconn(conn)
+    return out
+
+
+def _apply_service_labels(
+    components: list[dict[str, Any]],
+    neighbor_services: list[dict[str, Any]],
+    label_map: dict[int, dict[str, Any]],
+) -> None:
+    for row in components:
+        sid = row.get("service_id")
+        if sid is None:
+            continue
+        info = label_map.get(int(sid))
+        if not info:
+            continue
+        row["product_label"] = info.get("product_label")
+        row["fusion_company_name"] = info.get("fusion_company_name")
+    for row in neighbor_services:
+        sid = row.get("service_id")
+        if sid is None:
+            continue
+        info = label_map.get(int(sid))
+        if not info:
+            continue
+        row["product_label"] = info.get("product_label")
+        row["fusion_company_name"] = info.get("fusion_company_name")
+
+
 def _json_safe(obj: Any) -> Any:
     if isinstance(obj, datetime):
         return obj.isoformat()
@@ -305,29 +398,46 @@ class TContextView:
 
         lines.append("\n=== CUSTOMER TICKET HISTORY (recent) ===")
         for t in self.customer_tickets[:20]:
+            cust = (
+                t.get("fusion_company_name")
+                or t.get("jira_org_name")
+                or (f"client {t.get('ocean_client_id')}" if t.get("ocean_client_id") else "")
+            )
             lines.append(
-                f"- {t.get('issue_key')} | {t.get('status')} | {t.get('summary', '')[:120]}"
+                f"- {t.get('issue_key')} | {t.get('status')} | {cust} | "
+                f"{(t.get('summary') or '')[:120]}"
             )
 
         lines.append("\n=== HARDWARE COMPONENTS (this ticket's services, MSSQL dimComponents) ===")
         for c in self.components_sample[:40]:
+            pl = c.get("product_label") or ""
+            co = c.get("fusion_company_name") or ""
+            extra = f" [{pl}] [{co}]" if (pl or co) else ""
             lines.append(
-                f"- svc {c.get('service_id')} comp {c.get('component_id')} "
+                f"- svc {c.get('service_id')}{extra} · comp {c.get('component_id')} "
                 f"{c.get('component_category')}/{c.get('component_type')}: {c.get('component')}"
             )
 
         lines.append("\n=== NEIGHBOR SERVICES (shared components / Jaccard) ===")
         for n in self.neighbor_services[:15]:
+            pl = n.get("product_label") or ""
+            co = n.get("fusion_company_name") or ""
+            extra = f" · {pl} · {co}" if (pl or co) else ""
             lines.append(
-                f"- service_id {n.get('service_id')} "
+                f"- service_id {n.get('service_id')}{extra} · "
                 f"jaccard={n.get('jaccard')} shared={n.get('shared_components')}"
             )
 
         lines.append("\n=== TICKETS ON NEIGHBOR SERVICES (any customer) ===")
         for t in self.neighbor_tickets[:20]:
+            cust = (
+                t.get("fusion_company_name")
+                or t.get("jira_org_name")
+                or (f"client {t.get('ocean_client_id')}" if t.get("ocean_client_id") else "")
+            )
             lines.append(
-                f"- {t.get('issue_key')} | {t.get('status')} | "
-                f"client {t.get('ocean_client_id')} | {t.get('summary', '')[:100]}"
+                f"- {t.get('issue_key')} | {t.get('status')} | {cust} | "
+                f"{(t.get('summary') or '')[:100]}"
             )
 
         return "\n".join(lines)
@@ -369,6 +479,50 @@ async def build_t_context(pool, issue_key: str) -> dict[str, Any]:
                 conn, neighbor_sid_strs, exclude_issue_key=issue_key, limit=NEIGHBOR_TICKET_LIMIT
             )
 
+        # Fusion labels for every service_id appearing in components + neighbors (+ ticket assets)
+        label_ids: set[int] = set(service_ids)
+        for c in mssql_data.get("components") or []:
+            if c.get("service_id") is not None:
+                label_ids.add(int(c["service_id"]))
+        for n in mssql_data.get("neighbor_services") or []:
+            if n.get("service_id") is not None:
+                label_ids.add(int(n["service_id"]))
+        label_map: dict[int, dict[str, Any]] = {}
+        if label_ids and fusion_pool() is not None:
+            label_map = await asyncio.to_thread(_fusion_service_labels, sorted(label_ids))
+
+        comps = list(mssql_data.get("components") or [])
+        neigh_svcs = list(mssql_data.get("neighbor_services") or [])
+        _apply_service_labels(comps, neigh_svcs, label_map)
+
+        # Fusion company for ticket rows (Ocean client id = Fusion customers_id)
+        client_label_ids: set[int] = set()
+        for trow in neighbor_tickets:
+            oc = trow.get("ocean_client_id")
+            if oc is not None:
+                client_label_ids.add(int(oc))
+        for trow in customer_tickets:
+            oc = trow.get("ocean_client_id")
+            if oc is not None:
+                client_label_ids.add(int(oc))
+        company_map: dict[int, str] = {}
+        if client_label_ids and fusion_pool() is not None:
+            company_map = await asyncio.to_thread(
+                _fusion_company_by_client_ids, sorted(client_label_ids)
+            )
+        for trow in neighbor_tickets:
+            oc = trow.get("ocean_client_id")
+            if oc is not None:
+                name = company_map.get(int(oc))
+                if name:
+                    trow["fusion_company_name"] = name
+        for trow in customer_tickets:
+            oc = trow.get("ocean_client_id")
+            if oc is not None:
+                name = company_map.get(int(oc))
+                if name:
+                    trow["fusion_company_name"] = name
+
         cust = fusion_data.get("customer") or {}
         tam_rows = fusion_data.get("tam") or []
         tam_parts = []
@@ -395,8 +549,8 @@ async def build_t_context(pool, issue_key: str) -> dict[str, Any]:
             fusion_error=fusion_data.get("fusion_error"),
             mssql_error=mssql_data.get("mssql_error"),
             customer_tickets=customer_tickets,
-            components_sample=mssql_data.get("components") or [],
-            neighbor_services=mssql_data.get("neighbor_services") or [],
+            components_sample=comps,
+            neighbor_services=neigh_svcs,
             neighbor_tickets=neighbor_tickets,
             ticket_fusion_services=fusion_data.get("ticket_services_fusion") or [],
             fusion_services_for_client=fusion_data.get("services") or [],
