@@ -3,14 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#7D7AE8">
     <title>{% block title %}ops-agent{% endblock %}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://aptumlogos.pages.dev/Aptum-Symbol-Lavender%2032x32.png">
+    <link rel="preconnect" href="https://aptumlogos.pages.dev" crossorigin>
     <script src="https://unpkg.com/htmx.org@2.0.3"></script>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <header>
-        <a href="/tickets" class="brand">ops-agent</a>
-        <span class="brand-sub">APTUM · JSM viewer + T-context LLM</span>
+    <header class="site-header">
+        <a href="/tickets" class="brand-lockup" aria-label="Aptum — tickets home">
+            <img
+                class="brand-logo"
+                src="https://aptumlogos.pages.dev/aptum_horizontal_color_logo.svg"
+                width="200"
+                height="40"
+                alt="Aptum">
+        </a>
+        <div class="brand-text">
+            <span class="brand-product">Support workspace</span>
+            <span class="brand-sub">JSM mirror · T-shaped context · LLM drafts</span>
+        </div>
     </header>
     <main>
         {% block content %}{% endblock %}

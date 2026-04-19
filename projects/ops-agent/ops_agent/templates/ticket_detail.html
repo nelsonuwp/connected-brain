@@ -111,25 +111,27 @@
     {% endif %}
 </section>
 
-<section class="section draft-section">
+<section id="llm-draft-section" class="section draft-section">
     <h3>LLM actions</h3>
     <p class="muted">Uses T-shaped context (customer history + hardware neighbors) from the sidebar.</p>
 
     <div class="draft-actions-row">
         <button type="button"
-            class="btn-primary"
+            class="btn-primary hx-draft-trigger"
             hx-post="/tickets/{{ ticket.issue_key }}/draft/fix"
             hx-target="#draft-area"
             hx-swap="innerHTML"
-            hx-indicator="#draft-spinner">
+            hx-indicator="#draft-spinner"
+            hx-disabled-elt="#llm-draft-section .hx-draft-trigger">
             Identify potential fix
         </button>
         <button type="button"
-            class="btn-secondary"
+            class="btn-secondary hx-draft-trigger"
             hx-post="/tickets/{{ ticket.issue_key }}/draft/internal"
             hx-target="#draft-area"
             hx-swap="innerHTML"
-            hx-indicator="#draft-spinner">
+            hx-indicator="#draft-spinner"
+            hx-disabled-elt="#llm-draft-section .hx-draft-trigger">
             Generate internal comment
         </button>
     </div>
@@ -144,17 +146,21 @@
         <label class="meta-label" for="system_prompt">System prompt (editable)</label>
         <textarea name="system_prompt" id="system_prompt" rows="10" class="persona-textarea"></textarea>
         <button type="button"
-            class="btn-primary"
+            class="btn-primary hx-draft-trigger"
             hx-post="/tickets/{{ ticket.issue_key }}/draft/public"
             hx-target="#draft-area"
             hx-swap="innerHTML"
             hx-indicator="#draft-spinner"
-            hx-include="#public-draft-form">
+            hx-include="#public-draft-form"
+            hx-disabled-elt="#llm-draft-section .hx-draft-trigger">
             Generate public comment
         </button>
     </form>
 
-    <span id="draft-spinner" class="htmx-indicator spinner">Generating…</span>
+    <div id="draft-spinner" class="htmx-indicator draft-spinner" role="status" aria-live="polite" aria-atomic="true">
+        <span class="spinner-orbit" aria-hidden="true"></span>
+        <span class="draft-spinner-label">Working…</span>
+    </div>
     <div id="draft-area"></div>
 </section>
 
@@ -176,11 +182,19 @@
 
 </div>
 
-<aside class="ticket-aside"
-    hx-get="/tickets/{{ ticket.issue_key }}/related"
-    hx-trigger="load"
-    hx-swap="innerHTML">
-    <p class="muted">Loading related context…</p>
+<aside class="ticket-aside">
+    <div
+        class="related-panel-mount"
+        hx-get="/tickets/{{ ticket.issue_key }}/related"
+        hx-trigger="load"
+        hx-swap="innerHTML"
+        hx-indicator="#related-spinner">
+        <p class="muted">Loading related context…</p>
+    </div>
+    <div id="related-spinner" class="htmx-indicator related-spinner" role="status" aria-live="polite">
+        <span class="spinner-orbit" aria-hidden="true"></span>
+        <span>Loading context…</span>
+    </div>
 </aside>
 </div>
 {% endblock %}

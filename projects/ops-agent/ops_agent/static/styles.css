@@ -1,55 +1,129 @@
+/* ── Aptum brand tokens (vault/20-context/business/aptum-branding.md) ─ */
+@font-face {
+  font-family: "Geist";
+  src: url("https://aptumlogos.pages.dev/Geist-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("https://aptumlogos.pages.dev/Geist-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("https://aptumlogos.pages.dev/Geist-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("https://aptumlogos.pages.dev/GeistMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ── Reset & base ──────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:        #f8f8f6;
-  --surface:   #ffffff;
-  --border:    #e4e4e0;
-  --text:      #1a1a1a;
-  --muted:     #6b6b6b;
-  --accent:    #1a56db;
-  --accent-h:  #1446b8;
-  --green:     #16a34a;
+  /* Aptum palette */
+  --aptum-lavender:       #7D7AE8;
+  --aptum-lavender-t1:    #E7E6FF;
+  --aptum-lavender-t2:    #D4D3FF;
+  --aptum-lavender-s1:    #655BD9;
+  --aptum-lavender-s2:    #5041B9;
+  --aptum-white:          #FFFFFF;
+  --aptum-off-white:      #F8F7FA;
+  --aptum-neutral-1:      #D0D1DE;
+  --aptum-neutral-2:      #88898D;
+  --aptum-neutral-3:      #515357;
+  --aptum-navy:           #081820;
+  --aptum-soft-black:     #101010;
+  --aptum-accent-blue:    #E0E9FF;
+
+  --bg:        var(--aptum-off-white);
+  --surface:   var(--aptum-white);
+  --border:    var(--aptum-neutral-1);
+  --text:      var(--aptum-soft-black);
+  --muted:     var(--aptum-neutral-3);
+  --accent:    var(--aptum-lavender-s1);
+  --accent-h:  var(--aptum-lavender-s2);
+  --green:     #4a7c3f;
   --amber:     #b45309;
-  --red:       #dc2626;
-  --purple:    #7c3aed;
-  --radius:    6px;
-  --shadow:    0 1px 3px rgba(0,0,0,.07);
+  --red:       #c53030;
+  --purple:    var(--aptum-lavender);
+  --radius:    8px;
+  --shadow:    0 1px 3px rgba(8, 24, 32, 0.06);
   font-size:   15px;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Geist", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
 }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; color: var(--accent-h); }
+a { color: var(--aptum-lavender-s1); text-decoration: none; }
+a:hover { text-decoration: underline; color: var(--aptum-lavender-s2); }
 
 /* ── Layout ────────────────────────────────────────────────── */
-header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 0 2rem;
-  height: 52px;
+.site-header {
+  background: var(--aptum-white);
+  border-bottom: 1px solid var(--aptum-neutral-1);
+  padding: 0.5rem 1.5rem;
+  min-height: 56px;
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
-.brand {
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--text);
-  letter-spacing: -0.02em;
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  line-height: 0;
 }
-.brand:hover { text-decoration: none; color: var(--accent); }
-.brand-sub { color: var(--muted); font-size: .8rem; }
+.brand-lockup:hover { text-decoration: none; opacity: 0.92; }
+
+.brand-logo {
+  display: block;
+  height: 36px;
+  width: auto;
+  max-width: min(200px, 42vw);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-left: auto;
+  text-align: right;
+}
+@media (max-width: 640px) {
+  .brand-text { margin-left: 0; text-align: left; width: 100%; }
+}
+
+.brand-product {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--aptum-navy);
+  letter-spacing: -0.01em;
+}
+.brand-sub {
+  font-size: 0.75rem;
+  color: var(--aptum-neutral-2);
+  font-weight: 400;
+}
 
 main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
 
@@ -65,9 +139,9 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
 }
 .ticket-aside {
   position: sticky;
-  top: 60px;
+  top: 72px;
   align-self: start;
-  max-height: calc(100vh - 72px);
+  max-height: calc(100vh - 88px);
   overflow-y: auto;
   padding: 1rem 1.1rem;
   background: var(--surface);
@@ -75,7 +149,26 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   font-size: 0.85rem;
+  position: relative;
 }
+.related-panel-mount { min-height: 2rem; }
+.related-spinner {
+  display: none;
+  position: absolute;
+  inset: 0;
+  margin: 0.5rem;
+  border-radius: var(--radius);
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(248, 247, 250, 0.92);
+  color: var(--aptum-navy);
+  font-size: 0.8rem;
+  font-weight: 500;
+  z-index: 2;
+  pointer-events: none;
+}
+.related-spinner.htmx-request { display: flex; }
 .related-section { margin-bottom: 1.25rem; }
 .related-section h4 {
   font-size: 0.75rem;
@@ -168,10 +261,10 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
 .ticket-table th {
   text-align: left;
   padding: .625rem 1rem;
-  background: #f2f2ef;
+  background: var(--aptum-lavender-t1);
   border-bottom: 1px solid var(--border);
   font-weight: 600;
-  color: var(--muted);
+  color: var(--aptum-navy);
   font-size: .8rem;
   text-transform: uppercase;
   letter-spacing: .04em;
@@ -179,10 +272,10 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
 
 .ticket-table td { padding: .625rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
 .ticket-table tr:last-child td { border-bottom: none; }
-.ticket-table tr:hover td { background: #fafaf8; }
+.ticket-table tr:hover td { background: var(--aptum-off-white); }
 
-.key-link { font-family: monospace; font-size: .8rem; font-weight: 600; color: var(--muted); }
-.key-link:hover { color: var(--accent); }
+.key-link { font-family: "Geist Mono", ui-monospace, monospace; font-size: .8rem; font-weight: 600; color: var(--muted); }
+.key-link:hover { color: var(--aptum-lavender-s1); }
 .summary-cell { max-width: 360px; }
 .date-cell { white-space: nowrap; }
 .center { text-align: center; }
@@ -213,8 +306,8 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
   border-radius: 99px;
   font-size: .75rem;
   font-weight: 600;
-  background: #ede9fe;
-  color: #5b21b6;
+  background: var(--aptum-lavender-t2);
+  color: var(--aptum-lavender-s2);
   white-space: nowrap;
 }
 .pattern-badge.unclassified { background: #f3f4f6; color: var(--muted); }
@@ -316,31 +409,33 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
 /* ── Buttons ───────────────────────────────────────────────── */
 .btn-primary {
   display: inline-block;
-  background: var(--accent);
-  color: #fff;
+  background: var(--aptum-lavender);
+  color: var(--aptum-white);
   border: none;
   border-radius: var(--radius);
   padding: .5rem 1.1rem;
   font-size: .875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background .15s;
+  transition: background .15s, opacity .15s;
 }
-.btn-primary:hover { background: var(--accent-h); }
+.btn-primary:hover { background: var(--aptum-lavender-s1); }
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .btn-secondary {
   display: inline-block;
   background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
+  color: var(--aptum-navy);
+  border: 1px solid var(--aptum-neutral-1);
   border-radius: var(--radius);
   padding: .5rem 1.1rem;
   font-size: .875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color .15s;
+  transition: border-color .15s, color .15s, opacity .15s;
 }
-.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.btn-secondary:hover { border-color: var(--aptum-lavender); color: var(--aptum-lavender-s1); }
+.btn-secondary:disabled { opacity: 0.55; cursor: not-allowed; }
 
 /* ── Draft card ────────────────────────────────────────────── */
 .draft-card {
@@ -361,7 +456,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
   gap: .75rem;
   padding: .75rem 1rem;
   border-bottom: 1px solid var(--border);
-  background: #fafaf8;
+  background: var(--aptum-off-white);
 }
 .draft-card-warn  .draft-card-header { background: #fef9c3; border-color: #fde68a; }
 .draft-card-error .draft-card-header { background: #fee2e2; border-color: #fecaca; }
@@ -380,12 +475,37 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
   gap: .625rem;
   padding: .875rem 1.25rem;
   border-top: 1px solid var(--border);
-  background: #fafaf8;
+  background: var(--aptum-off-white);
 }
 
-/* ── Spinner ───────────────────────────────────────────────── */
-.spinner { display: none; font-size: .8rem; color: var(--muted); margin-left: .5rem; }
-.htmx-request .spinner { display: inline; }
+/* ── HTMX loading: draft LLM + related panel ───────────────── */
+@keyframes aptum-spin {
+  to { transform: rotate(360deg); }
+}
+.spinner-orbit {
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid var(--aptum-lavender-t2);
+  border-top-color: var(--aptum-lavender);
+  border-radius: 50%;
+  animation: aptum-spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+.draft-spinner {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.5rem 0;
+  color: var(--aptum-navy);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.draft-spinner.htmx-request {
+  display: inline-flex;
+}
+.draft-spinner-label { letter-spacing: 0.01em; }
 
 /* ── Empty state ───────────────────────────────────────────── */
 .empty-state { text-align: center; padding: 3rem; color: var(--muted); }
@@ -403,12 +523,13 @@ main { max-width: 1280px; margin: 0 auto; padding: 2rem; }
     font-size: 11px;
     font-weight: 600;
     border-radius: 10px;
-    background: #e3f2fd;
-    color: #0d47a1;
+    background: var(--aptum-accent-blue);
+    color: var(--aptum-lavender-s2);
     vertical-align: middle;
 }
 .sim-badge-recency {
-    background: #f5f5f5;
-    color: #616161;
+    background: var(--aptum-off-white);
+    color: var(--aptum-neutral-2);
+    border: 1px solid var(--aptum-neutral-1);
     font-weight: 500;
 }

@@ -20,20 +20,22 @@
         </button>
         {% if draft_type == "fix_suggestion" %}
         <button type="button"
-            class="btn-secondary"
+            class="btn-secondary hx-draft-trigger"
             hx-post="/tickets/{{ issue_key }}/draft/fix"
             hx-target="#draft-area"
             hx-swap="innerHTML"
-            hx-indicator="#draft-spinner">
+            hx-indicator="#draft-spinner"
+            hx-disabled-elt="#llm-draft-section .hx-draft-trigger">
             Regenerate
         </button>
         {% elif draft_type == "internal" %}
         <button type="button"
-            class="btn-secondary"
+            class="btn-secondary hx-draft-trigger"
             hx-post="/tickets/{{ issue_key }}/draft/internal"
             hx-target="#draft-area"
             hx-swap="innerHTML"
-            hx-indicator="#draft-spinner">
+            hx-indicator="#draft-spinner"
+            hx-disabled-elt="#llm-draft-section .hx-draft-trigger">
             Regenerate
         </button>
         {% elif draft_type == "public" %}
