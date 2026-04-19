@@ -1,5 +1,6 @@
 import json
 import logging
+from datetime import timezone
 from pathlib import Path
 from typing import Optional
 
@@ -14,6 +15,17 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(Path(__file__).resolve().parents[1] / "templates"))
+
+
+def _localtime(dt) -> str:
+    if dt is None:
+        return "—"
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone().strftime("%b %d %H:%M")
+
+
+templates.env.filters["localtime"] = _localtime
 
 
 @router.get("/", response_class=RedirectResponse)
