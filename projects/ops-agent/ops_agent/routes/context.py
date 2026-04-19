@@ -1,7 +1,8 @@
 import logging
 from pathlib import Path
+from typing import Optional
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Query, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
@@ -38,16 +39,24 @@ async def related_panel(request: Request, issue_key: str):
 
 
 @router.get("/tickets/{issue_key}/assets/components", response_class=HTMLResponse)
-async def asset_components(request: Request, issue_key: str):
+async def asset_components(
+    request: Request,
+    issue_key: str,
+    service_id: Optional[int] = Query(default=None),
+):
     pool = await get_pool()
     try:
         data = await fetch_ticket_components(pool, issue_key)
     except Exception as e:
         logger.exception("asset_components failed for %s", issue_key)
-        return HTMLResponse(f'<p class="related-warn">Could not load components: {e}</p>')
+        return HTMLResponse(f'<p class="related-warn small">Could not load components: {e}</p>')
+
+    components = data["components"]
+    if service_id is not None:
+        components = [c for c in components if c.get("service_id") == service_id]
 
     return templates.TemplateResponse(
         request,
         "asset_components.html",
-        {"components": data["components"], "mssql_error": data["mssql_error"]},
+        {"components": components, "mssql_error": data["mssql_error"]},
     )

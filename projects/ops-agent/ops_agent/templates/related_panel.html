@@ -137,41 +137,6 @@
     {% endif %}
 </section>
 
-{# ── This ticket's hardware ────────────────────────────────── #}
-{% if ctx.components_sample %}
-<section class="related-section">
-    <h4>This ticket's hardware <span class="count">({{ ctx.components_sample|length }} components)</span></h4>
-    {% if ctx.mssql_error %}
-    <p class="related-warn">{{ ctx.mssql_error }}</p>
-    {% endif %}
-    <div class="hw-groups">
-        {% for svc_id, comps in ctx.components_sample | groupby('service_id') %}
-        {% set first_comp = comps | first %}
-        {% set comp_list = comps | list %}
-        <details class="hw-group">
-            <summary class="hw-group-header">
-                <span class="mono">{{ svc_id }}</span>
-                {% if first_comp.product_label or first_comp.fusion_company_name %}
-                <span class="hw-group-meta">{{ first_comp.product_label or '' }}{% if first_comp.fusion_company_name %} · {{ first_comp.fusion_company_name }}{% endif %}</span>
-                {% endif %}
-                <span class="hw-comp-count">{{ comp_list | length }}</span>
-                <span class="hw-toggle-icon">▸</span>
-            </summary>
-            <ul class="hw-comp-list">
-                {% for c in comp_list %}
-                <li class="hw-comp-item">{{ c.component_category }}/{{ c.component_type }} — {{ c.component }}</li>
-                {% endfor %}
-            </ul>
-        </details>
-        {% endfor %}
-    </div>
-</section>
-{% elif ctx.mssql_error %}
-<section class="related-section">
-    <h4>This ticket's hardware</h4>
-    <p class="related-warn">{{ ctx.mssql_error }}</p>
-</section>
-{% endif %}
 
 {# ── Similar issues on related hardware ───────────────────── #}
 <section class="related-section">

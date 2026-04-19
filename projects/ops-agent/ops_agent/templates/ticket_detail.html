@@ -76,26 +76,33 @@
 
 {% if assets %}
 <section class="section">
-    <div class="section-header-row">
-        <h3>Assets</h3>
-        <button type="button" class="btn-ghost asset-components-toggle"
-            hx-get="/tickets/{{ ticket.issue_key }}/assets/components"
-            hx-target="#asset-components-area"
-            hx-swap="innerHTML"
-            hx-trigger="click once"
-            onclick="this.closest('.section').querySelector('#asset-components-area').classList.toggle('is-open'); this.classList.toggle('active')">
-            Hardware components
-        </button>
-    </div>
-    <ul class="asset-list">
+    <h3>Assets</h3>
+    <div class="asset-list">
         {% for a in assets %}
-        <li>
-            <span class="asset-name">{{ a.asset_name or a.object_id }}</span>
-            {% if a.service_id %}<span class="muted small">service {{ a.service_id }}</span>{% endif %}
-        </li>
+        <details class="asset-row"
+            {% if a.service_id %}
+            hx-get="/tickets/{{ ticket.issue_key }}/assets/components?service_id={{ a.service_id }}"
+            hx-trigger="toggle once"
+            hx-target="find .asset-comp-area"
+            hx-swap="innerHTML"
+            {% endif %}>
+            <summary class="asset-summary">
+                {% if a.service_id %}
+                <svg class="asset-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M4 2.5L8 6L4 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {% else %}
+                <span class="asset-chevron-placeholder"></span>
+                {% endif %}
+                <span class="asset-name">{{ a.asset_name or a.object_id }}</span>
+                {% if a.service_id %}<span class="muted small">service {{ a.service_id }}</span>{% endif %}
+            </summary>
+            {% if a.service_id %}
+            <div class="asset-comp-area"></div>
+            {% endif %}
+        </details>
         {% endfor %}
-    </ul>
-    <div id="asset-components-area" class="asset-components-area"></div>
+    </div>
 </section>
 {% endif %}
 
