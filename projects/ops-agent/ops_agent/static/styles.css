@@ -59,6 +59,10 @@
   --red:       #c53030;
   --purple:    var(--aptum-lavender);
 
+  /* Familiarity ring */
+  --ring-lavender: #b497ff;
+  --ring-grey:     #a0a0a8;
+
   /* Spacing scale */
   --space-1:  0.25rem;
   --space-2:  0.5rem;
@@ -322,6 +326,141 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 .date-cell { white-space: nowrap; }
 .center { text-align: center; }
 .muted { color: var(--muted); }
+.tiny { font-size: .68rem; line-height: 1.35; }
+
+/* ── Familiarity ring (ticket list) ───────────────────────── */
+.familiarity-th {
+  width: 52px;
+  text-align: center;
+  font-size: .65rem;
+}
+.ticket-table td.familiarity-cell {
+  position: relative;
+  width: 52px;
+  padding: var(--space-2) var(--space-2);
+  vertical-align: middle;
+}
+.familiarity-stack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 40px;
+}
+.familiarity-ring-svg {
+  display: block;
+  flex-shrink: 0;
+}
+.familiarity-ring-num {
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  fill: var(--aptum-soft-black);
+  pointer-events: none;
+}
+.familiarity-tip {
+  display: none;
+  position: absolute;
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  min-width: 260px;
+  max-width: min(360px, 92vw);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  text-align: left;
+  font-size: .8rem;
+  line-height: 1.45;
+}
+.ticket-table td.familiarity-cell:hover .familiarity-tip {
+  display: block;
+}
+.familiarity-tooltip-inner { max-height: 70vh; overflow-y: auto; }
+.familiarity-tooltip__section + .familiarity-tooltip__section {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+.familiarity-tooltip__heading {
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--aptum-lavender-s2);
+  margin-bottom: var(--space-2);
+}
+.familiarity-tooltip__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.familiarity-tooltip__list li {
+  margin-bottom: var(--space-2);
+}
+.familiarity-tooltip__list li:last-child { margin-bottom: 0; }
+.familiarity-tooltip__list .sim-chip {
+  display: inline-block;
+  margin: 0 .35rem;
+  padding: .08em .4em;
+  border-radius: 4px;
+  font-size: .68rem;
+  font-weight: 700;
+  font-family: "Geist Mono", monospace;
+  background: var(--aptum-lavender-t2);
+  color: var(--aptum-lavender-s2);
+}
+
+/* Range bar: labels row + tick row */
+.range-bar {
+  margin-top: var(--space-1);
+}
+.range-bar__labels {
+  position: relative;
+  height: 1.1rem;
+  margin-bottom: 2px;
+}
+.range-bar__label {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: .68rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.range-bar__label--median { z-index: 1; }
+.range-bar__label--max { transform: translateX(-100%); }
+.range-bar__track {
+  position: relative;
+  height: 6px;
+  margin-top: 2px;
+  background: linear-gradient(
+    to right,
+    var(--aptum-neutral-1) 0%,
+    var(--aptum-lavender-t2) 50%,
+    var(--aptum-neutral-1) 100%
+  );
+  border-radius: 3px;
+}
+.range-bar__tick {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 12px;
+  margin-left: -1px;
+  background: var(--aptum-neutral-3);
+  border-radius: 1px;
+}
+.range-bar__tick--median {
+  background: var(--aptum-lavender-s1);
+  width: 3px;
+  margin-left: -1.5px;
+}
 
 /* ── Status badges ─────────────────────────────────────────── */
 .status-badge {

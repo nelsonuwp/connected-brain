@@ -9,6 +9,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from ..db import get_distinct_statuses, get_pool, get_thread, get_ticket, get_ticket_assets, list_tickets
+from ..jinja_tools import familiarity_ring_filter
 from ..personas import load_personas, persona_system_prompt
 
 logger = logging.getLogger(__name__)
@@ -26,6 +27,7 @@ def _localtime(dt) -> str:
 
 
 templates.env.filters["localtime"] = _localtime
+templates.env.filters["familiarity_ring"] = familiarity_ring_filter
 
 
 @router.get("/", response_class=RedirectResponse)

@@ -11,6 +11,7 @@ from typing import Optional
 import asyncpg
 
 from .config import settings
+from .embedder import MODEL_NAME
 
 logger = logging.getLogger(__name__)
 
@@ -72,8 +73,8 @@ async def list_tickets(
     search: Optional[str] = None,
 ) -> list[dict]:
     conditions = ["t.deleted_at IS NULL"]
-    params: list = []
-    idx = 1
+    params: list = [MODEL_NAME]
+    idx = 2
 
     if customer_originated is not None:
         conditions.append(f"t.is_customer_originated = ${idx}")
@@ -91,22 +92,123 @@ async def list_tickets(
         idx += 1
 
     where = " AND ".join(conditions)
+    limit_param = idx
     params.append(limit)
 
     rows = await conn.fetch(
         f"""
+        WITH anchors AS (
+            SELECT
+                t.issue_key,
+                t.summary,
+                t.status,
+                t.priority,
+                t.is_customer_originated,
+                t.created_at,
+                t.updated_at,
+                t.request_type,
+                t.ocean_client_id,
+                o.name AS jira_org_name,
+                u.display_name AS assignee_display_name
+            FROM tickets t
+            LEFT JOIN organizations o ON o.jira_org_id = t.jira_org_id
+            LEFT JOIN jira_users u ON u.account_id = t.assignee_account_id
+            WHERE {where}
+            ORDER BY t.updated_at DESC
+            LIMIT ${limit_param}
+        ),
+        anchor_services AS (
+            SELECT
+                a.issue_key,
+                COALESCE(
+                    ARRAY_AGG(DISTINCT ast.service_id::text) FILTER (
+                        WHERE ast.service_id IS NOT NULL
+                          AND btrim(ast.service_id::text) <> ''
+                    ),
+                    ARRAY[]::text[]
+                ) AS service_ids
+            FROM anchors a
+            LEFT JOIN ticket_assets ta ON ta.issue_key = a.issue_key
+            LEFT JOIN assets ast ON ast.object_id = ta.object_id
+            GROUP BY a.issue_key
+        ),
+        cust AS (
+            SELECT
+                a.issue_key,
+                COALESCE(SUM((s.sim >= 0.90)::int), 0)::int AS c90,
+                COALESCE(SUM((s.sim >= 0.70)::int), 0)::int AS c70
+            FROM anchors a
+            INNER JOIN ticket_embeddings ae
+                ON ae.issue_key = a.issue_key AND ae.model = $1
+            LEFT JOIN LATERAL (
+                SELECT (1 - (oe.embedding <=> ae.embedding))::double precision AS sim
+                FROM tickets ot
+                INNER JOIN ticket_embeddings oe
+                    ON oe.issue_key = ot.issue_key AND oe.model = $1
+                WHERE a.ocean_client_id IS NOT NULL
+                  AND ot.ocean_client_id = a.ocean_client_id
+                  AND ot.issue_key <> a.issue_key
+                  AND ot.deleted_at IS NULL
+                ORDER BY oe.embedding <=> ae.embedding
+                LIMIT 20
+            ) s ON TRUE
+            GROUP BY a.issue_key
+        ),
+        nbr AS (
+            SELECT
+                a.issue_key,
+                COALESCE(SUM((s.sim >= 0.90)::int), 0)::int AS n90,
+                COALESCE(SUM((s.sim >= 0.70)::int), 0)::int AS n70
+            FROM anchors a
+            INNER JOIN ticket_embeddings ae
+                ON ae.issue_key = a.issue_key AND ae.model = $1
+            LEFT JOIN anchor_services svc ON svc.issue_key = a.issue_key
+            LEFT JOIN LATERAL (
+                SELECT (1 - (oe.embedding <=> ae.embedding))::double precision AS sim
+                FROM tickets ot
+                INNER JOIN ticket_embeddings oe
+                    ON oe.issue_key = ot.issue_key AND oe.model = $1
+                WHERE ot.deleted_at IS NULL
+                  AND ot.issue_key <> a.issue_key
+                  AND cardinality(COALESCE(svc.service_ids, ARRAY[]::text[])) > 0
+                  AND EXISTS (
+                      SELECT 1
+                      FROM ticket_assets ta
+                      INNER JOIN assets ast ON ast.object_id = ta.object_id
+                      WHERE ta.issue_key = ot.issue_key
+                        AND ast.service_id = ANY(svc.service_ids)
+                  )
+                ORDER BY oe.embedding <=> ae.embedding
+                LIMIT 20
+            ) s ON TRUE
+            GROUP BY a.issue_key
+        )
         SELECT
-            t.issue_key, t.summary, t.status, t.priority,
-            t.is_customer_originated, t.created_at, t.updated_at,
-            t.request_type,
-            o.name AS jira_org_name,
-            u.display_name AS assignee_display_name
-        FROM tickets t
-        LEFT JOIN organizations o ON o.jira_org_id = t.jira_org_id
-        LEFT JOIN jira_users u ON u.account_id = t.assignee_account_id
-        WHERE {where}
-        ORDER BY t.updated_at DESC
-        LIMIT ${idx}
+            a.issue_key,
+            a.summary,
+            a.status,
+            a.priority,
+            a.is_customer_originated,
+            a.created_at,
+            a.updated_at,
+            a.request_type,
+            a.jira_org_name,
+            a.assignee_display_name,
+            CASE
+                WHEN ae.embedding IS NULL THEN NULL
+                ELSE LEAST(
+                    100,
+                    COALESCE(c.c90, 0) * 5
+                    + (COALESCE(c.c70, 0) - COALESCE(c.c90, 0)) * 2
+                    + COALESCE(n.n90, 0) * 3
+                    + (COALESCE(n.n70, 0) - COALESCE(n.n90, 0))
+                )::int
+            END AS familiarity_score
+        FROM anchors a
+        LEFT JOIN ticket_embeddings ae
+            ON ae.issue_key = a.issue_key AND ae.model = $1
+        LEFT JOIN cust c ON c.issue_key = a.issue_key
+        LEFT JOIN nbr n ON n.issue_key = a.issue_key
         """,
         *params,
     )

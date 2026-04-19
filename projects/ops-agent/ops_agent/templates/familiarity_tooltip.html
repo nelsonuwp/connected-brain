@@ -1,0 +1,60 @@
+<div class="familiarity-tooltip-inner">
+    {% if ctx.empty %}
+    <p class="muted small">No similar tickets with embeddings yet.</p>
+    {% else %}
+    <div class="familiarity-tooltip__section">
+        <div class="familiarity-tooltip__heading">Top similar tickets</div>
+        <ul class="familiarity-tooltip__list">
+            {% for row in ctx.top3 %}
+            <li>
+                <a href="/tickets/{{ row.issue_key }}">{{ row.issue_key }}</a>
+                <span class="sim-chip">{{ row.similarity_pct }}%</span>
+                <span class="muted small">{{ row.summary[:56] }}{% if row.summary|length > 56 %}…{% endif %}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="familiarity-tooltip__section">
+        <div class="familiarity-tooltip__heading">Time to close (similar tickets)</div>
+        {% if ctx.close_bar %}
+        <div class="range-bar">
+            <div class="range-bar__labels">
+                <span class="range-bar__label" style="left: 0%">{{ ctx.close_bar.min_label }}</span>
+                <span class="range-bar__label range-bar__label--median" style="left: {{ ctx.close_bar.median_pct }}%">{{ ctx.close_bar.median_label }}</span>
+                <span class="range-bar__label range-bar__label--max" style="left: 100%">{{ ctx.close_bar.max_label }}</span>
+            </div>
+            <div class="range-bar__track">
+                <span class="range-bar__tick" style="left: 0%"></span>
+                <span class="range-bar__tick range-bar__tick--median" style="left: {{ ctx.close_bar.median_pct }}%"></span>
+                <span class="range-bar__tick" style="left: 100%"></span>
+            </div>
+        </div>
+        <p class="muted tiny">Min · median · max across up to 10 nearest semantic matches (created → resolved).</p>
+        {% else %}
+        <p class="muted small">No resolved matches in the pool yet.</p>
+        {% endif %}
+    </div>
+
+    <div class="familiarity-tooltip__section">
+        <div class="familiarity-tooltip__heading">Work logged (similar tickets)</div>
+        {% if ctx.worklog_bar %}
+        <div class="range-bar">
+            <div class="range-bar__labels">
+                <span class="range-bar__label" style="left: 0%">{{ ctx.worklog_bar.min_label }}</span>
+                <span class="range-bar__label range-bar__label--median" style="left: {{ ctx.worklog_bar.median_pct }}%">{{ ctx.worklog_bar.median_label }}</span>
+                <span class="range-bar__label range-bar__label--max" style="left: 100%">{{ ctx.worklog_bar.max_label }}</span>
+            </div>
+            <div class="range-bar__track">
+                <span class="range-bar__tick" style="left: 0%"></span>
+                <span class="range-bar__tick range-bar__tick--median" style="left: {{ ctx.worklog_bar.median_pct }}%"></span>
+                <span class="range-bar__tick" style="left: 100%"></span>
+            </div>
+        </div>
+        <p class="muted tiny">Min · median · max total worklog time per ticket (tickets with zero worklog omitted).</p>
+        {% else %}
+        <p class="muted small">No worklogs on similar tickets in the pool.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>

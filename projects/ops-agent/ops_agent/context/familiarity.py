@@ -4,7 +4,6 @@ Familiarity tooltip: merged semantic neighbors + time-to-close + worklog stats.
 
 from __future__ import annotations
 
-import logging
 from statistics import median
 from typing import Any, Optional
 
@@ -16,8 +15,6 @@ from .semantic import (
     similar_customer_tickets,
     similar_neighbor_tickets,
 )
-
-logger = logging.getLogger(__name__)
 
 TOP_MERGE = 10
 TOP_SHOW = 3

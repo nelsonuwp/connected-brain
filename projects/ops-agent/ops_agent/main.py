@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from .config import settings
 from .db import close_pool, init_pool
 from .fusion_conn import start_fusion, stop_fusion
-from .routes import context, drafts, status, tickets
+from .routes import context, drafts, familiarity, status, tickets
 
 logging.basicConfig(
     level=getattr(logging, settings.log_level.upper(), logging.INFO),
@@ -43,6 +43,7 @@ app = FastAPI(title="ops-agent", lifespan=lifespan)
 
 app.mount("/static", StaticFiles(directory=str(_HERE / "static")), name="static")
 app.include_router(tickets.router)
+app.include_router(familiarity.router)
 app.include_router(context.router)
 app.include_router(drafts.router)
 app.include_router(status.router)

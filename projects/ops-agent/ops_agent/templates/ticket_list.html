@@ -1,6 +1,48 @@
 {% extends "base.html" %}
 {% block title %}Tickets · ops-agent{% endblock %}
 
+{% macro familiarity_cell(issue_key, score) -%}
+{% set R = score | familiarity_ring %}
+<td class="familiarity-cell"
+    hx-get="/tickets/{{ issue_key }}/familiarity/tooltip"
+    hx-trigger="mouseenter once"
+    hx-target="#f-tip-{{ issue_key }}"
+    hx-swap="innerHTML">
+    <div class="familiarity-stack">
+        <svg class="familiarity-ring-svg" width="36" height="36" viewBox="0 0 {{ R.view }} {{ R.view }}" aria-hidden="true">
+            <circle
+                fill="none"
+                stroke="{{ R.track_color }}"
+                stroke-width="{{ R.sw }}"
+                r="{{ R.r }}"
+                cx="{{ R.cx }}"
+                cy="{{ R.cy }}"
+                stroke-dasharray="{{ R.circumference }} {{ R.circumference }}"
+                transform="rotate(-90 {{ R.cx }} {{ R.cy }})" />
+            <circle
+                fill="none"
+                stroke="{{ R.arc_color }}"
+                stroke-width="{{ R.sw }}"
+                stroke-linecap="round"
+                r="{{ R.r }}"
+                cx="{{ R.cx }}"
+                cy="{{ R.cy }}"
+                stroke-dasharray="{{ R.dash }}"
+                transform="rotate(-90 {{ R.cx }} {{ R.cy }})" />
+            {% if R.show_number %}
+            <text
+                class="familiarity-ring-num"
+                x="{{ R.cx }}"
+                y="{{ R.cy }}"
+                text-anchor="middle"
+                dominant-baseline="central">{{ R.number }}</text>
+            {% endif %}
+        </svg>
+        <div class="familiarity-tip" id="f-tip-{{ issue_key }}"><span class="muted tiny">…</span></div>
+    </div>
+</td>
+{%- endmacro %}
+
 {% block content %}
 <div class="page-header">
     <h2>Tickets</h2>
@@ -32,6 +74,7 @@
 <table class="ticket-table">
     <thead>
         <tr>
+            <th class="familiarity-th" title="Familiarity (semantic match density)">◉</th>
             <th>Key</th>
             <th>Summary</th>
             <th>Org</th>
@@ -44,6 +87,7 @@
     <tbody>
         {% for t in tickets %}
         <tr>
+            {{ familiarity_cell(t.issue_key, t.familiarity_score) }}
             <td><a href="/tickets/{{ t.issue_key }}" class="key-link">{{ t.issue_key }}</a></td>
             <td class="summary-cell">
                 <a href="/tickets/{{ t.issue_key }}">
