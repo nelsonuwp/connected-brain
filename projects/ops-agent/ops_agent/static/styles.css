@@ -727,6 +727,51 @@ details.asset-row[open] > summary .asset-chevron { transform: rotate(90deg); }
 .asset-chevron-placeholder { width: 12px; flex-shrink: 0; }
 
 .asset-name { font-weight: 600; font-size: .875rem; }
+.asset-service-id { margin-left: auto; }
+
+/* ── Asset meta pills (product name + line-of-business) ─── */
+.asset-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 99px;
+  font-size: .7rem;
+  font-weight: 500;
+  background: var(--aptum-lavender-t1, #f0eeff);
+  color: var(--aptum-lavender-s1, #7b5ea7);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.asset-meta-pill--lob {
+  background: #eef6f0;
+  color: #2e7d50;
+}
+
+/* ── Component service header (grouped by service) ──────── */
+.hw-comp-service-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) 0 var(--space-1);
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--border);
+}
+.hw-comp-service-header:first-child { border-top: none; margin-top: 0; }
+
+/* ── Component item inline layout ───────────────────────── */
+.comp-category { color: var(--aptum-neutral-3); }
+.comp-type { color: var(--aptum-neutral-3); }
+.comp-name { font-weight: 500; margin-left: var(--space-1); }
+.comp-online-badge {
+  display: inline-block;
+  padding: 0 5px;
+  border-radius: 3px;
+  font-size: .65rem;
+  font-weight: 600;
+  margin-left: var(--space-1);
+}
+.comp-online-yes { background: #e6f4ea; color: #2e7d50; }
+.comp-online-no  { background: #fdecea; color: #b71c1c; }
 
 .asset-comp-area {
   padding: 0 0 var(--space-3) var(--space-6);

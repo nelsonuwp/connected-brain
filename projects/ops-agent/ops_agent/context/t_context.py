@@ -635,6 +635,10 @@ async def fetch_ticket_components(pool, issue_key: str) -> dict[str, Any]:
             sid = c.get("service_id")
             info = label_map.get(int(sid)) if sid is not None else None
             c["product_label"] = info.get("product_label") if info else None
+            c["product_name"] = info.get("product_name") if info else None
+            c["product_nickname"] = info.get("product_nickname") if info else None
             c["fusion_company_name"] = info.get("fusion_company_name") if info else None
+            c["pl_name"] = info.get("pl_name") if info else None
+            c["pl_abbr"] = info.get("pl_abbr") if info else None
 
     return {"components": components, "mssql_error": mssql_data.get("mssql_error")}
