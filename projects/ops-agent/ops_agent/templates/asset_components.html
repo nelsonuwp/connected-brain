@@ -7,7 +7,7 @@
     {% for svc_id, comps in components | groupby('service_id') %}
     {% set first = comps | first %}
     {% set comp_list = comps | list %}
-    <details class="hw-group" open>
+    <details class="hw-group">
         <summary class="hw-group-header">
             <span class="mono">{{ svc_id }}</span>
             {% if first.product_label or first.fusion_company_name %}
