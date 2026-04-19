@@ -64,6 +64,26 @@ Validated against https://developer.atlassian.com/cloud/jira/platform/rest/v3/ap
 - **Cursor advancement** — advance to `until` from the last page of `/updated`. Do NOT advance past `until` manually. Since Jira already trims worklogs newer than ~60s ago, `until` is safe to use directly.
 - **Hard-delete detection for per-ticket Phase A** — `/issue/{key}/worklog` does not flag deletes; it just omits the row. The diff-based `soft_delete_missing_worklogs` in Task 6 is therefore the correct approach for per-ticket mode.
 
+### 2.6 Live validation (write-cycle smoke test, 2026-04-19)
+
+Every detection path was verified end-to-end against production Jira (APTUM-1) before codification. Test worklog id `211705` was created, edited (60s → 120s), and deleted. All four detection paths fired correctly:
+
+| Event | Path | Result |
+|---|---|---|
+| Create | Path A (`/issue/{key}/worklog`) — immediate | ✅ |
+| Create | Path B (`/worklog/updated`) — after 65s lag | ✅ |
+| Edit   | Path B (`updatedTime` bumps) | ✅ advanced by ~66s |
+| Delete | Path A (diff against DB set) — immediate | ✅ |
+| Delete | Path B (`/worklog/deleted`) — after 65s lag | ✅ |
+
+APTUM-1 was returned to its pre-test state (1 pre-existing worklog, no leftover). The two smoke scripts — `scripts/_smoke_worklog_observe.py` (read-only, no side effects) and `scripts/_smoke_worklog_writecycle.py` (write-edit-delete cycle with safety cleanup) — should be **kept in the repo as regression tools**. If worklog sync ever starts missing events in production, running these two scripts isolates whether the fault is Jira-side, API-shape-side, or sync-code-side within ~4 minutes.
+
+### 2.7 Duplicate-work acknowledgement (design choice)
+
+`/worklog/updated` reports every mutation of a worklog at its current `updatedTime`, which means a worklog edited N times in a day will be re-upserted N times across incremental runs. For Aptum's volume (~24 changes/day across the project), this is trivial and has been accepted. The `ON CONFLICT (worklog_id) DO UPDATE` statement guarantees the **last sweep wins** — the DB row always reflects the latest Jira state, never a stale intermediate edit. No version tracking or edit history is kept by design (see 4.3 `upsert_worklogs`).
+
+If volume ever grows an order of magnitude, add a short-circuit inside Path B: `WHERE excluded.jira_updated_at > ticket_worklogs.jira_updated_at` on the conflict clause. Out of scope for v1.
+
 ---
 
 ## 3. Schema changes — `schema/003_worklogs.sql`
@@ -1187,3 +1207,5 @@ p.__enter__(); t=p.add_task('work', total=10); [p.advance(t) or time.sleep(0.1) 
 | `jsm_sync/incremental.py` | MODIFY — flag, Phase B sweep, progress bar, Rich logging |
 | `pyproject.toml` (or `requirements.txt`) | MODIFY — add `rich>=13.7` |
 | `PLAN.md`, `DIAGRAMS.md`, `README.md` | MODIFY — doc updates |
+| `scripts/_smoke_worklog_observe.py` | KEEP — read-only regression tool (already on disk) |
+| `scripts/_smoke_worklog_writecycle.py` | KEEP — write-cycle regression tool (already on disk) |
