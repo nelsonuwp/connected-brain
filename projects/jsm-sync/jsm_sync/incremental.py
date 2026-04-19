@@ -128,7 +128,7 @@ async def run_incremental() -> None:
         await close_pool()
 
 
-async def _embed_pending(pool_init_required: bool = True) -> None:
+async def _embed_pending() -> None:
     """
     Embed any tickets that are missing/stale for our current model.
     Opens its own short-lived pool (with pgvector codec registered) to keep
