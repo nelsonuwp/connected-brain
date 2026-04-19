@@ -11,12 +11,16 @@ Cron example:
     */10 * * * * cd /path/to/jsm-sync && .venv/bin/python -m jsm_sync.incremental >> logs/incremental.log 2>&1
 """
 
+from __future__ import annotations
+
+import argparse
 import asyncio
 import logging
 import sys
 from datetime import datetime, timedelta, timezone
 
 import httpx
+from rich.console import Console
 
 from .config import settings
 from .db import (
@@ -35,7 +39,9 @@ from .jira_client import (
     build_project_jql,
     fetch_ticket_batch,
 )
+from .progress import SyncProgress, install_rich_logging
 from .transform import transform_ticket
+from .worklog_sync import run_worklog_sweep
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +50,9 @@ BATCH_SIZE = 50
 CURSOR_SLOP = timedelta(minutes=1)
 
 
-async def run_incremental() -> None:
+async def run_incremental(*, no_worklogs: bool = False, console: Console | None = None) -> None:
+    con = console or Console()
+
     await init_pool()
     try:
         status = await get_sync_status(SOURCE_NAME)
@@ -70,55 +78,82 @@ async def run_incremental() -> None:
             headers = _auth_headers()
             semaphore = asyncio.Semaphore(settings.jira_semaphore_limit)
 
-            all_keys = await _fetch_all_keys_jql(client, jql, semaphore, headers)
-            logger.info("Scout found %d tickets since last cursor", len(all_keys))
+            with SyncProgress("Incremental sync", console=con) as p:
+                scout_task = p.add_task("Scouting updated tickets", total=None)
+                all_keys = await _fetch_all_keys_jql(client, jql, semaphore, headers)
+                p.update(scout_task, total=len(all_keys), completed=len(all_keys))
+                logger.info("Scout found %d tickets since last cursor", len(all_keys))
 
-            if not all_keys:
-                await mark_sync_complete(SOURCE_NAME)
-                logger.info("No new tickets — incremental sync complete")
-                return
+                max_updated: datetime | None = None
 
-            max_updated: datetime | None = None
+                if all_keys:
+                    process_task = p.add_task(
+                        f"Processing {len(all_keys):,} tickets",
+                        total=len(all_keys),
+                    )
 
-            for i in range(0, len(all_keys), BATCH_SIZE):
-                batch = all_keys[i : i + BATCH_SIZE]
-                logger.info(
-                    "Batch %d — keys %d-%d of %d",
-                    i // BATCH_SIZE + 1,
-                    i + 1,
-                    min(i + BATCH_SIZE, len(all_keys)),
-                    len(all_keys),
-                )
-
-                tickets = await fetch_ticket_batch(client, batch, semaphore, headers)
-
-                for ticket in tickets:
-                    try:
-                        transformed = transform_ticket(ticket)
-                        await persist_ticket(transformed)
-                        ticket_updated = ticket.get("updated_at")
-                        if ticket_updated and (
-                            max_updated is None or ticket_updated > max_updated
-                        ):
-                            max_updated = ticket_updated
-                    except Exception:
-                        logger.error(
-                            "Failed to persist %s",
-                            ticket.get("issue_key", "?"),
-                            exc_info=True,
+                    for i in range(0, len(all_keys), BATCH_SIZE):
+                        batch = all_keys[i : i + BATCH_SIZE]
+                        tickets = await fetch_ticket_batch(
+                            client,
+                            batch,
+                            semaphore,
+                            headers,
+                            include_worklogs=not no_worklogs,
                         )
 
-                if max_updated:
-                    await set_sync_cursor(SOURCE_NAME, max_updated, status="running")
+                        for ticket in tickets:
+                            try:
+                                transformed = transform_ticket(ticket)
+                                await persist_ticket(transformed)
+                                ticket_updated = ticket.get("updated_at")
+                                if ticket_updated and (
+                                    max_updated is None or ticket_updated > max_updated
+                                ):
+                                    max_updated = ticket_updated
+                            except Exception:
+                                logger.error(
+                                    "Failed to persist %s",
+                                    ticket.get("issue_key", "?"),
+                                    exc_info=True,
+                                )
 
-        # Advance cursor by slop to handle Jira eventual consistency
-        final_cursor = (max_updated or cursor) + CURSOR_SLOP
-        await set_sync_cursor(SOURCE_NAME, final_cursor, status="running")
+                        p.advance(process_task, len(batch))
+
+                        if max_updated:
+                            await set_sync_cursor(SOURCE_NAME, max_updated, status="running")
+
+                    final_cursor = (max_updated or cursor) + CURSOR_SLOP
+                    await set_sync_cursor(SOURCE_NAME, final_cursor, status="running")
+                    logger.info(
+                        "Ticket cursor advanced to %s",
+                        final_cursor.isoformat(),
+                    )
+                else:
+                    logger.info("No updated tickets in JQL window")
+
+                if not no_worklogs:
+                    logger.info("Starting global worklog sweep (Phase B)")
+                    sweep_task = p.add_task("Worklog sweep", total=None)
+                    try:
+                        touched = await run_worklog_sweep(
+                            client,
+                            semaphore,
+                            headers,
+                            progress=p,
+                            task_id=sweep_task,
+                        )
+                        logger.info(
+                            "Global worklog sweep complete — %d entries touched",
+                            touched,
+                        )
+                    except Exception:
+                        logger.exception(
+                            "Worklog sweep failed — ticket sync already committed"
+                        )
+
         await mark_sync_complete(SOURCE_NAME)
-        logger.info(
-            "Incremental sync complete — cursor advanced to %s",
-            final_cursor.isoformat(),
-        )
+        logger.info("Incremental sync complete")
 
     except Exception:
         logger.exception("Incremental sync failed")
@@ -178,15 +213,18 @@ async def _embed_pending() -> None:
 
 
 def main() -> None:
-    logging.basicConfig(
-        level=getattr(logging, settings.log_level.upper(), logging.INFO),
-        format="%(asctime)s %(levelname)-8s %(name)s: %(message)s",
+    p = argparse.ArgumentParser(description="Incremental APTUM JSM ticket sync")
+    p.add_argument(
+        "--no-worklogs",
+        action="store_true",
+        help="Skip per-ticket worklogs and the global worklog sweep",
     )
+    args = p.parse_args()
+
+    console = install_rich_logging(settings.log_level)
 
     async def _runner() -> None:
-        await run_incremental()
-        # Embedding is a best-effort side step; an exception here should
-        # not mark the sync as failed.
+        await run_incremental(no_worklogs=args.no_worklogs, console=console)
         try:
             await _embed_pending()
         except Exception:
