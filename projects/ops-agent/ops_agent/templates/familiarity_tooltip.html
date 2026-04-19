@@ -21,7 +21,9 @@
         <div class="range-bar">
             <div class="range-bar__labels">
                 <span class="range-bar__label" style="left: 0%">{{ ctx.close_bar.min_label }}</span>
-                <span class="range-bar__label range-bar__label--median" style="left: {{ ctx.close_bar.median_pct }}%">{{ ctx.close_bar.median_label }}</span>
+                {% if not ctx.close_bar.hide_median_label %}
+                <span class="range-bar__label range-bar__label--median" style="left: {{ ctx.close_bar.median_label_pct }}%">{{ ctx.close_bar.median_label }}</span>
+                {% endif %}
                 <span class="range-bar__label range-bar__label--max" style="left: 100%">{{ ctx.close_bar.max_label }}</span>
             </div>
             <div class="range-bar__track">
@@ -42,7 +44,9 @@
         <div class="range-bar">
             <div class="range-bar__labels">
                 <span class="range-bar__label" style="left: 0%">{{ ctx.worklog_bar.min_label }}</span>
-                <span class="range-bar__label range-bar__label--median" style="left: {{ ctx.worklog_bar.median_pct }}%">{{ ctx.worklog_bar.median_label }}</span>
+                {% if not ctx.worklog_bar.hide_median_label %}
+                <span class="range-bar__label range-bar__label--median" style="left: {{ ctx.worklog_bar.median_label_pct }}%">{{ ctx.worklog_bar.median_label }}</span>
+                {% endif %}
                 <span class="range-bar__label range-bar__label--max" style="left: 100%">{{ ctx.worklog_bar.max_label }}</span>
             </div>
             <div class="range-bar__track">

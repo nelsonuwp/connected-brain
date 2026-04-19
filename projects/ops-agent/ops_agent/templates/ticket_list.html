@@ -22,6 +22,7 @@
                 cy="{{ R.cy }}"
                 stroke-dasharray="{{ R.circumference }} {{ R.circumference }}"
                 transform="rotate(-90 {{ R.cx }} {{ R.cy }})" />
+            {% if R.show_arc %}
             <circle
                 fill="none"
                 stroke="{{ R.arc_color }}"
@@ -32,6 +33,7 @@
                 cy="{{ R.cy }}"
                 stroke-dasharray="{{ R.dash }}"
                 transform="rotate(-90 {{ R.cx }} {{ R.cy }})" />
+            {% endif %}
             {% if R.show_number %}
             <text
                 class="familiarity-ring-num"
