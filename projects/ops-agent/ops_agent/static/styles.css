@@ -433,7 +433,7 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 .range-bar__label {
   position: absolute;
   top: 0;
-  transform: translateX(-50%);
+  transform: translateX(-50%);  /* median: centred on tick */
   font-family: "Geist Mono", ui-monospace, monospace;
   font-size: .68rem;
   font-weight: 600;
@@ -442,6 +442,8 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 }
 .range-bar__label--median { z-index: 1; }
 .range-bar__label--max { transform: translateX(-100%); }
+/* min label: left-aligned so it doesn't bleed off the left edge */
+.range-bar__labels > .range-bar__label:first-child { transform: translateX(0); }
 .range-bar__track {
   position: relative;
   height: 6px;

@@ -46,7 +46,7 @@ def _median(vals: list[float]) -> float:
     return float(median(vals))
 
 
-_LABEL_GUARD_PCT = 12.0  # min distance (%) from ends before nudging label
+_LABEL_GUARD_PCT = 20.0  # min distance (%) from ends before nudging label
 
 
 def _range_bar(seconds: list[float]) -> Optional[dict[str, Any]]:
