@@ -94,8 +94,16 @@
                 {% else %}
                 <span class="asset-chevron-placeholder"></span>
                 {% endif %}
-                <span class="asset-name">{{ a.asset_name or a.object_id }}</span>
-                {% if a.service_id %}<span class="muted small">service {{ a.service_id }}</span>{% endif %}
+                <span class="asset-name">{{ a.product_nickname or a.asset_name or a.object_id }}</span>
+                {% if a.product_name %}
+                <span class="asset-meta-pill">{{ a.product_name }}</span>
+                {% endif %}
+                {% if a.pl_abbr %}
+                <span class="asset-meta-pill asset-meta-pill--lob">{{ a.pl_abbr }}</span>
+                {% elif a.pl_name %}
+                <span class="asset-meta-pill asset-meta-pill--lob">{{ a.pl_name }}</span>
+                {% endif %}
+                {% if a.service_id %}<span class="asset-service-id muted small">#{{ a.service_id }}</span>{% endif %}
             </summary>
             {% if a.service_id %}
             <div class="asset-comp-area"></div>

@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 from datetime import timezone
@@ -11,6 +12,7 @@ from fastapi.templating import Jinja2Templates
 from ..db import get_distinct_statuses, get_pool, get_thread, get_ticket, get_ticket_assets, list_tickets
 from ..jinja_tools import familiarity_ring_filter
 from ..personas import load_personas, persona_system_prompt
+from ..context.t_context import _fusion_service_labels, _parse_service_ids
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +83,27 @@ async def ticket_detail(request: Request, issue_key: str):
             return HTMLResponse("<h2>Ticket not found</h2>", status_code=404)
         thread = await get_thread(conn, issue_key)
         assets = await get_ticket_assets(conn, issue_key)
+
+    # Enrich assets with Fusion service labels (nickname, product name, line of business).
+    # Best-effort: if Fusion is unavailable the assets still render with Postgres-only data.
+    service_ids = _parse_service_ids(assets)
+    if service_ids:
+        try:
+            label_map = await asyncio.to_thread(_fusion_service_labels, service_ids)
+            for a in assets:
+                sid = a.get("service_id")
+                if sid is None:
+                    continue
+                info = label_map.get(int(sid))
+                if not info:
+                    continue
+                a["product_name"] = info.get("product_name") or None
+                a["product_nickname"] = info.get("product_nickname") or None
+                a["pl_name"] = info.get("pl_name") or None
+                a["pl_abbr"] = info.get("pl_abbr") or None
+                a["fusion_company_name"] = info.get("fusion_company_name") or None
+        except Exception:
+            logger.exception("Fusion asset label enrichment failed (non-fatal) for %s", issue_key)
 
     personas = load_personas()
     persona_rows = [{"slug": p.slug, "label": p.label} for p in personas.values()]

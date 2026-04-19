@@ -264,7 +264,8 @@ def _fusion_slice(client_id: Optional[int], service_ids: list[int]) -> dict[str,
 
 def _fusion_service_labels(service_ids: list[int]) -> dict[int, dict[str, Any]]:
     """
-    Map Fusion customer_products.id (service PK) → product label + owning customer company.
+    Map Fusion customer_products.id (service PK) → product label, line of business,
+    owning customer company.
     """
     out: dict[int, dict[str, Any]] = {}
     if not service_ids:
@@ -278,9 +279,12 @@ def _fusion_service_labels(service_ids: list[int]) -> dict[int, dict[str, Any]]:
             cur.execute(
                 """
                 SELECT cp.id, cp.products_name, cp.products_nickname, cp.customers_id,
-                       c.company_name
+                       c.company_name,
+                       pl.name  AS pl_name,
+                       pl.abbr  AS pl_abbr
                 FROM customer_products cp
                 JOIN customers c ON c.customers_id = cp.customers_id
+                LEFT JOIN product_lines pl ON pl.id = cp.product_line_id
                 WHERE cp.id = ANY(%s)
                 """,
                 (service_ids,),
@@ -291,11 +295,13 @@ def _fusion_service_labels(service_ids: list[int]) -> dict[int, dict[str, Any]]:
                 nick = (r.get("products_nickname") or "").strip()
                 product_label = name or nick or f"service {sid}"
                 out[sid] = {
-                    "product_name": name or nick,
+                    "product_name": name,
                     "product_nickname": nick,
                     "product_label": product_label,
                     "fusion_company_name": (r.get("company_name") or "").strip(),
                     "customers_id": r.get("customers_id"),
+                    "pl_name": (r.get("pl_name") or "").strip() or None,
+                    "pl_abbr": (r.get("pl_abbr") or "").strip() or None,
                 }
     finally:
         pool.putconn(conn)
