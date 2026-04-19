@@ -53,7 +53,7 @@ def transform_ticket(raw: dict) -> TransformedTicket:
         "resolved_at": raw.get("resolved_at"),
     }
 
-    # --- users (creator + reporter + assignee, deduplicated by account_id) ---
+    # --- users (creator + reporter + assignee + comment authors, deduplicated) ---
     users_by_id: dict[str, dict] = {}
     for person_key in ("creator", "reporter", "assignee"):
         person = raw.get(person_key)
@@ -61,6 +61,16 @@ def transform_ticket(raw: dict) -> TransformedTicket:
             aid = person["account_id"]
             if aid not in users_by_id:
                 users_by_id[aid] = person
+    for event in raw.get("thread_events", []):
+        aid = event.get("author_account_id")
+        if aid and aid not in users_by_id:
+            users_by_id[aid] = {
+                "account_id": aid,
+                "display_name": event.get("author") or "",
+                "email": event.get("author_email"),
+                "role": event.get("role", "Unknown"),
+                "account_type": None,
+            }
     users = list(users_by_id.values())
 
     # --- organization ---

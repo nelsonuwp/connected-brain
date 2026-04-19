@@ -499,8 +499,6 @@ async def _fetch_all_keys_jql(
 
             data = await retry_with_backoff(_do_page, max_retries=3)
 
-        logger.info("Scout page: top-level keys=%s issues_type=%s sample=%s",
-                    list(data.keys()), type(data.get("issues")).__name__, str(data.get("issues"))[:300])
         issues = data.get("issues", [])
         all_keys.extend([i["key"] for i in issues])
         next_token = data.get("nextPageToken")
