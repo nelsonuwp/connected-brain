@@ -31,16 +31,38 @@ For the initial historical load (~600 days, ~55k tickets), calling `/worklog/upd
 
 ---
 
-## 2. Context7 verification checkpoints (do these FIRST)
+## 2. Jira API — validated against official docs
 
-Before writing any code, verify the following against live Jira Cloud docs via the `plugin-context7-context7` MCP. Do not rely on this plan's assumptions where it matters:
+Validated against https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-worklogs/ on 2026-04-19. Endpoint shapes below are confirmed; code in Section 4 reflects them.
 
-1. **`GET /rest/api/3/worklog/updated`** — confirm response shape (`values[].worklogId`, `values[].updatedTime`, `since`, `until`, `lastPage`, `nextPage`). Confirm `since` unit (epoch milliseconds). Confirm default lookback window and max window if any.
-2. **`POST /rest/api/3/worklog/list`** — confirm max IDs per call (documented as 1000), confirm response is array of full worklog objects, confirm fields present (`id`, `issueId`, `author`, `started`, `timeSpentSeconds`, `created`, `updated`, `comment`, `visibility`).
-3. **`GET /rest/api/3/worklog/deleted`** — same shape/units as `/updated`.
-4. **`GET /rest/api/3/issue/{key}/worklog`** — confirm it paginates with `startAt`/`maxResults`/`total` (vs. the newer `nextPageToken` scheme). The existing `_fetch_worklog` in `jira_client.py` does NOT paginate — **this is a bug**; tickets with >20 worklogs will be silently truncated. Fix it in Task 4.
+### 2.1 `GET /rest/api/3/issue/{issueIdOrKey}/worklog`
+- Paginated via `startAt` / `maxResults` / `total`. Use `maxResults=100` (doc-max is instance-configurable; 100 is safe).
+- Returns `PageOfWorklogs`: `{startAt, maxResults, total, worklogs[]}`.
+- Each `worklogs[i]` has: `id` (string, numeric), `issueId` (string, numeric), `author` (full user object with accountId/displayName/emailAddress/accountType), `started` (ISO 8601), `timeSpent` (human), `timeSpentSeconds` (int), `updateAuthor`, `updated` (ISO), `comment` (ADF doc or absent), `visibility` (`{identifier, type, value}` or absent), `self` (URL).
+- **`created` field**: shown in the Add Worklog (POST) 201 response schema but **NOT in the GET response example**. Treat `created` as optional; if absent, fall back to `started` for `jira_created_at`. Code in Task 5 must tolerate both.
+- The existing `_fetch_worklog` in `jira_client.py` does NOT paginate — **this is a latent bug**; tickets with >20 worklogs would be silently truncated. Task 3 replaces it.
 
-**Document any API shape deviation from this plan in `WORKLOGS_PLAN_NOTES.md` before coding.**
+### 2.2 `GET /rest/api/3/worklog/updated?since=<epoch-ms>`
+- Returns `ChangedWorklogs`: `{since, until, lastPage, nextPage, self, values[]}`.
+- `values[i]` = `{worklogId: int, updatedTime: epoch-ms, properties: []}`. We only need `worklogId`.
+- **1000 items per page.** If `lastPage=false`, fetch next page with `?since=<until>` (equivalent to the `nextPage` URL Jira provides).
+- **1-minute lag gotcha**: "This resource does not return worklogs updated during the minute preceding the request." Acceptable — the launchd-driven incremental runs on a cadence longer than 1 minute, and the cursor only advances to `until`, which is already clamped by Jira to ≥60s ago. Document in README.
+- `since` is required epoch-ms.
+
+### 2.3 `GET /rest/api/3/worklog/deleted?since=<epoch-ms>`
+- Same response shape and same pagination semantics as `/updated`.
+- Same 1-minute lag.
+
+### 2.4 `POST /rest/api/3/worklog/list`
+- Request body: `{ids: array<integer>}`. **Hard limit of 1000 IDs per call** — batch accordingly.
+- Response: `array<Worklog>` (the same Worklog object shape described in 2.1).
+- **Visibility gotcha**: "worklogs are only returned where... the worklog is set as _Viewable by All Users_, or the user is a member of a project role or group with permission to view the worklog." A group-restricted worklog can therefore be silently omitted from the response if the API user isn't in the allowed group. Our API token has admin scope, so we expect full visibility; if a future audit shows missing rows, check token permissions first.
+
+### 2.5 Implications for the plan
+
+- **Timestamps in milliseconds** — `since` and `until` are epoch-ms, not seconds. Existing `sync_state.last_cursor` stores ISO datetimes, so helpers in `db.py` must convert: `int(dt.timestamp() * 1000)` on read, `datetime.fromtimestamp(ms/1000, tz=UTC)` on write.
+- **Cursor advancement** — advance to `until` from the last page of `/updated`. Do NOT advance past `until` manually. Since Jira already trims worklogs newer than ~60s ago, `until` is safe to use directly.
+- **Hard-delete detection for per-ticket Phase A** — `/issue/{key}/worklog` does not flag deletes; it just omits the row. The diff-based `soft_delete_missing_worklogs` in Task 6 is therefore the correct approach for per-ticket mode.
 
 ---
 
@@ -347,6 +369,11 @@ for w in raw.get("worklogs", []):
         except (ValueError, TypeError):
             return None
 
+    # `created` may be absent on GET responses (docs only show it on POST 201).
+    # Fall back to `started` so the NOT NULL column is satisfied.
+    jira_created = _parse_iso(w.get("created")) or _parse_iso(w.get("started"))
+    jira_updated = _parse_iso(w.get("updated")) or jira_created
+
     worklog_rows.append({
         "worklog_id": int(wid),
         "issue_key": issue_key,
@@ -356,8 +383,8 @@ for w in raw.get("worklogs", []):
         "started_at": _parse_iso(w.get("started")),
         "comment_adf": w.get("comment"),       # keep as dict, asyncpg will JSONB it
         "visibility": w.get("visibility"),
-        "jira_created_at": _parse_iso(w.get("created")),
-        "jira_updated_at": _parse_iso(w.get("updated")),
+        "jira_created_at": jira_created,
+        "jira_updated_at": jira_updated,
     })
 ```
 
