@@ -116,7 +116,15 @@ async def list_tickets(
                 t.sla_resolution_elapsed_s,
                 t.sla_resolution_threshold_s,
                 o.name AS jira_org_name,
-                u.display_name AS assignee_display_name
+                u.display_name AS assignee_display_name,
+                EXISTS (
+                    SELECT 1 FROM thread_events te
+                    JOIN jira_users ju ON ju.account_id = te.author_account_id
+                    WHERE te.issue_key = t.issue_key
+                      AND te.kind = 'comment'
+                      AND te.deleted_at IS NULL
+                      AND ju.role != 'Automation'
+                ) AS has_human_comment
             FROM tickets t
             LEFT JOIN organizations o ON o.jira_org_id = t.jira_org_id
             LEFT JOIN jira_users u ON u.account_id = t.assignee_account_id
@@ -208,6 +216,7 @@ async def list_tickets(
             a.sla_resolution_threshold_s,
             a.jira_org_name,
             a.assignee_display_name,
+            a.has_human_comment,
             CASE
                 WHEN ae.embedding IS NULL THEN NULL
                 ELSE LEAST(

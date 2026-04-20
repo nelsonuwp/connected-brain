@@ -11,11 +11,19 @@
     "alertlogic"
   ],
   "specific_users": {
-    "by_email": [],
+    "by_email": [
+      "bu10atl@cogecopeer1.net",
+      "bu2tor@cogecopeer1.net",
+      "bu9mia@cogecopeer1.net",
+      "bu2uk@cogecopeer1.net",
+      "bu1lax@cogecopeer1.net",
+      "svc_atlassianautomation@aptum.com"
+    ],
     "by_display_name": [
       "PagerDuty",
       "Automation for Jira",
-      "Zabbix"
+      "Zabbix",
+      "Aptum Automation"
     ]
   }
 }
