@@ -5,6 +5,22 @@ from __future__ import annotations
 import math
 from typing import Any, Optional
 
+
+def sla_remaining_filter(threshold_s: Optional[int], elapsed_s: Optional[int]) -> Optional[str]:
+    """Return human-readable time remaining for an SLA, or None if not applicable."""
+    if threshold_s is None or elapsed_s is None:
+        return None
+    remaining = int(threshold_s) - int(elapsed_s)
+    if remaining <= 0:
+        return None
+    hours = remaining // 3600
+    minutes = (remaining % 3600) // 60
+    if hours >= 48:
+        return f"{hours // 24}d"
+    if hours >= 1:
+        return f"{hours}h {minutes:02d}m"
+    return f"{minutes}m"
+
 # Ring: grey #a0a0a8 -> lavender #b497ff
 _GREY = (160, 160, 168)
 _LAV = (180, 151, 255)
