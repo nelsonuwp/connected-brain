@@ -1,10 +1,324 @@
 {
-  "generated_at": "2026-04-20T13:35:12.185255Z",
-  "model": "none",
-  "tokens": {},
-  "sources": [],
+  "generated_at": "2026-04-20T14:06:23.902898Z",
+  "model": "anthropic/claude-4.5-sonnet-20250929",
+  "tokens": {
+    "prompt": 10422,
+    "completion": 1749,
+    "total": 12171
+  },
+  "sources": [
+    "email",
+    "teams",
+    "slack"
+  ],
   "output": {
-    "items": [],
-    "discard_count": 44
+    "items": [
+      {
+        "id": "83731cc8eef7",
+        "item_ids": [
+          "83731cc8eef7"
+        ],
+        "discard": false,
+        "title": "Bell MCA Signature Required — Aptum Managed Services",
+        "summary": "DocuSign signature request from Bell Canada for Master Customer Agreement (MCA) for Aptum Managed Services (Canada) Inc. Document requires electronic signature.",
+        "actions": [
+          {
+            "text": "Review and sign the Bell MCA document via DocuSign",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAUKh77tAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Aptum Managed Services (Canada) Inc. - 01396924 - MCA | Bell eSignature - Signature request"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-19 00:05"
+        }
+      },
+      {
+        "id": "2b10a51fdd76",
+        "item_ids": [
+          "2b10a51fdd76"
+        ],
+        "discard": false,
+        "title": "ThinkOn Meeting Rescheduled — Friday April 24",
+        "summary": "Craig's CTO Ahsan Khan and VP of Product Bik Dutta unavailable for original meeting time. Ian Rae's chief of staff proposing Friday April 24, 12:30-1:30 PM for ThinkOn/Aptum discussion.",
+        "actions": [
+          {
+            "text": "Confirm availability for Friday April 24, 12:30-1:30 PM meeting with ThinkOn",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAUINufqAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Aptum/ThinkOn"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 3,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-17 11:41–2026-04-18 09:28"
+        }
+      },
+      {
+        "id": "275c7b11d709",
+        "item_ids": [
+          "275c7b11d709"
+        ],
+        "discard": false,
+        "title": "Q3 Sales Forecast Update — April 17",
+        "summary": "Tom Kelsch's weekly sales forecast shows Q3 open pipeline and forecast reductions driven by two losses (Technicost $37K MRC, Ayzenberg) and several large opportunities pushed (WEBNX, Great Circle, NetIntegrity, Cofomo). No notable wins this week.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT%2B1NOPAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Sales Forecast & Pipeline - April 17th Update"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-17 17:38"
+        }
+      },
+      {
+        "id": "7e650b74a31f",
+        "item_ids": [
+          "7e650b74a31f"
+        ],
+        "discard": false,
+        "title": "AWS TDSynnex Transfer — Scheduling Coordination Call",
+        "summary": "Matthew Carter coordinating call with TDSynnex for AWS account transfer. Erik Tanguay confirms account setup with TD Synnex is complete. Matt proposing multiple time slots: 4/20 (12pm or 4pm ET), 4/21 (11:30am or 1pm ET), 4/22 (9:30am, 1pm or 3pm ET).",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Matthew Carter to schedule and coordinate TDSynnex call for AWS transfer",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": "matthew-carter"
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT%2B1NOOAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: [Ingram Micro] Re: AWS – Outbound Transfer – Payer ID 140023366597 and 736692106039 and 447630109432 and 701369934313 (Ticket Number: 26733782)"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-17 11:39–17:13"
+        }
+      },
+      {
+        "id": "0b104dd22858",
+        "item_ids": [
+          "0b104dd22858"
+        ],
+        "discard": false,
+        "title": "DigitalBridge Incident Escalation Policy — Draft Review",
+        "summary": "Matthew Carter forwarding draft DigitalBridge incident escalation policy requiring PortCos to identify and report major incidents (serious harm, regulatory/legal risk, reputational damage, or >$1M financial impact). Policy covers safety, environment, cyber, financial fraud, operational failures, outages, and legal/regulatory issues. Final version expected May/June.",
+        "actions": [
+          {
+            "text": "Review DigitalBridge incident escalation policy draft and attachment",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT%2B1NOLAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "FW: DigitalBridge Incident Escalation Policy - DRAFT"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-17 15:47"
+        }
+      },
+      {
+        "id": "a40460310dfe",
+        "item_ids": [
+          "a40460310dfe"
+        ],
+        "discard": false,
+        "title": "Salesforce Improvements — Dave Involvement Coordination",
+        "summary": "Ian Rae agrees Dave should be involved in Salesforce improvements discussion. Ian asks Sarah Blanchard to coordinate connecting the dots on this initiative.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Sarah Blanchard to coordinate Dave's involvement in Salesforce improvements",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT%2B1NOCAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Salesforce Improvements"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 4,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-17 11:19–12:13"
+        }
+      },
+      {
+        "id": "705a75cca33e",
+        "item_ids": [
+          "705a75cca33e"
+        ],
+        "discard": false,
+        "title": "Smart Scale SQL Server License — Customer Compliant",
+        "summary": "Elizabeth Perez confirms Smart Scale customer is compliant with SQL Server + CALs. Call scheduled Monday April 20 to verify proper CAL count and provide purchasing guidance. Question raised about obtaining legal letter for record.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Elizabeth Perez to conduct Monday April 20 call with Smart Scale on SQL CAL verification",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT%2B1NN7AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Smart - Scale - Ticket 12028 - Smart Scale - SQL Server License Verification"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-17 10:47"
+        }
+      },
+      {
+        "id": "39e8b79e1f7a",
+        "item_ids": [
+          "39e8b79e1f7a"
+        ],
+        "discard": false,
+        "title": "Claude Mythos Security Tool — Monitoring Developments",
+        "summary": "Will Stevens confirms Claude Mythos is changing security practices development. Not yet generally available (limited access preview). Will's team will dig deeper when GA and stay on top of developments. David Pistacchio raised the topic.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Will Stevens to monitor Claude Mythos developments as it becomes generally available",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT%2B1NN3AAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: Something we should be watching very closely…"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-17 08:25–10:06"
+        }
+      },
+      {
+        "id": "4912d80e7231",
+        "item_ids": [
+          "4912d80e7231"
+        ],
+        "discard": false,
+        "title": "CPQ VMware Pricing Verification — Cost per Core",
+        "summary": "Matthew Carter asking Tom/Kathy to verify CPQ Software Cost in column AE. VMware should be charged at $20 USD per core and $24 USD for overage according to Matt's knowledge.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Tom/Kathy to verify VMware pricing in CPQ column AE ($20/core, $24 overage)",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAT%2B1NNxAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "CPQ VMware Cost per Core"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-16 21:45"
+        }
+      }
+    ],
+    "discard_count": 48
   }
 }

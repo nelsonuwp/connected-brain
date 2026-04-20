@@ -1,6 +1,6 @@
 {
   "source": "calendar",
-  "collected_at": "2026-04-20T13:35:02.342188Z",
+  "collected_at": "2026-04-20T14:05:14.580010Z",
   "status": "success",
   "objects": {
     "events": {
@@ -94,7 +94,7 @@
           }
         },
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHzT/TiA==\"",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAH2pa88g==\"",
           "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAENAABAscG_D3c-SI-xeA_iWIqgAAUABgSJAAA=",
           "subject": "[INT] Discussion about Staffing",
           "sensitivity": "normal",
@@ -157,7 +157,7 @@
           }
         },
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAH2pa88A==\"",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAH2pa88w==\"",
           "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAENAABAscG_D3c-SI-xeA_iWIqgAAURnGuoAAA=",
           "subject": "Vergent",
           "sensitivity": "normal",
@@ -242,7 +242,7 @@
           }
         },
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHicAg9w==\"",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAH2pa89A==\"",
           "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3p5vw-7AAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAClSBUoQAAEA==",
           "subject": "ESL Sync",
           "sensitivity": "normal",
