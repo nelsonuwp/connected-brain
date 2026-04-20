@@ -75,8 +75,6 @@
                     <div class="sbar-track">
                         <div class="sbar-fill {{ 'sbar-red' if _pct > 85 else ('sbar-amber' if _pct > 60 else 'sbar-green') }}" style="width:{{ _pct }}%"></div>
                     </div>
-                {% else %}
-                    <div class="sbar-track sbar-none"></div>
                 {% endif %}
             {% else %}
                 <div class="sbar-track sbar-none"></div>
