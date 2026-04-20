@@ -100,7 +100,6 @@
 <table class="ticket-table">
     <thead>
         <tr>
-            <th class="signal-th" title="Familiarity · First response SLA · Resolution SLA">▪▪▪</th>
             <th>Key</th>
             <th>Summary</th>
             <th>Org</th>
@@ -108,12 +107,12 @@
             <th>Status</th>
             <th>Updated</th>
             <th>Cust?</th>
+            <th class="signal-th" title="Familiarity · First response SLA · Resolution SLA">Signals</th>
         </tr>
     </thead>
     <tbody>
         {% for t in tickets %}
         <tr>
-            {{ signal_cell(t) }}
             <td><a href="/tickets/{{ t.issue_key }}" class="key-link">{{ t.issue_key }}</a></td>
             <td class="summary-cell">
                 <a href="/tickets/{{ t.issue_key }}">
@@ -125,6 +124,7 @@
             <td><span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span></td>
             <td class="muted date-cell">{{ t.updated_at | localtime }}</td>
             <td class="center">{% if t.is_customer_originated %}<span class="dot-green" title="Customer-originated">●</span>{% endif %}</td>
+            {{ signal_cell(t) }}
         </tr>
         {% endfor %}
     </tbody>

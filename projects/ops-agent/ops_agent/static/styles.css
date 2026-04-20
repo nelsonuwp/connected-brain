@@ -330,16 +330,18 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 
 /* ── Signal bars cell (familiarity + SLA) ─────────────────── */
 .signal-th {
-  width: 48px;
+  width: 72px;
   text-align: center;
-  font-size: .55rem;
-  letter-spacing: .04em;
+  font-size: .65rem;
+  font-weight: 600;
   color: var(--aptum-lavender-s2);
+  text-transform: uppercase;
+  letter-spacing: .05em;
 }
 .ticket-table td.signal-cell {
   position: relative;
-  width: 48px;
-  padding: var(--space-2) 8px;
+  width: 72px;
+  padding: var(--space-2) 10px;
   vertical-align: middle;
   cursor: default;
 }
@@ -348,14 +350,14 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 .signal-bars {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   justify-content: center;
   min-height: 36px;
 }
 
-/* Each row is 9px tall — bar (3px) is centered, check fits too */
+/* Each slot: 11px tall, bar centered at 5px */
 .sbar-slot {
-  height: 9px;
+  height: 11px;
   display: flex;
   align-items: center;
 }
@@ -363,14 +365,14 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 /* Track = the grey background rail */
 .sbar-track {
   flex: 1;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--aptum-neutral-1);
+  height: 5px;
+  border-radius: 3px;
+  background: #e2e2ea;
   overflow: hidden;
 }
 
-/* No SLA configured */
-.sbar-none { opacity: .35; }
+/* No SLA configured — dimmer track */
+.sbar-none { opacity: .4; }
 
 /* Full-width solid fill for breached */
 .sbar-full { overflow: visible; }
@@ -379,19 +381,19 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 /* Colored fill segments */
 .sbar-fill {
   height: 100%;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 .sbar-fam   { background: var(--aptum-lavender); }
 .sbar-green { background: #22c55e; }
 .sbar-amber { background: #f59e0b; }
 .sbar-red   { background: #ef4444; }
 
-/* Cleared SLA — shows a checkmark instead of a bar */
+/* Cleared SLA — SVG checkmark in green */
 .sbar-check {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   color: #22c55e;
 }
 .familiarity-tip {
