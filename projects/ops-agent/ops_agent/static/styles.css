@@ -330,7 +330,7 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 
 /* ── Signal bars cell (familiarity + SLA) ─────────────────── */
 .signal-th {
-  width: 72px;
+  width: 110px;
   text-align: center;
   font-size: .65rem;
   font-weight: 600;
@@ -339,27 +339,36 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   letter-spacing: .05em;
 }
 .ticket-table td.signal-cell {
-  position: relative;
-  width: 72px;
+  width: 110px;
   padding: var(--space-2) 10px;
   vertical-align: middle;
-  cursor: default;
 }
 
-/* Three stacked bars */
+/* Three labeled rows */
 .signal-bars {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   justify-content: center;
-  min-height: 36px;
 }
 
-/* Each slot: 11px tall, bar centered at 5px */
-.sbar-slot {
-  height: 11px;
+/* Each row: label + bar/icon side by side */
+.sbar-row {
   display: flex;
   align-items: center;
+  gap: 5px;
+  height: 12px;
+}
+
+.sbar-label {
+  font-size: .58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: var(--aptum-neutral-2);
+  width: 20px;
+  flex-shrink: 0;
+  line-height: 1;
 }
 
 /* Track = the grey background rail */
@@ -369,17 +378,16 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   border-radius: 3px;
   background: #e2e2ea;
   overflow: hidden;
+  display: block;
+  min-width: 20px;
 }
 
-/* No SLA configured — dimmer track */
-.sbar-none { opacity: .4; }
+/* No SLA configured — dimmer */
+.sbar-none { opacity: .35; }
 
-/* Full-width solid fill for breached */
-.sbar-full { overflow: visible; }
-.sbar-red-full { background: #ef4444; }
-
-/* Colored fill segments */
+/* Colored fill */
 .sbar-fill {
+  display: block;
   height: 100%;
   border-radius: 3px;
 }
@@ -388,14 +396,16 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 .sbar-amber { background: #f59e0b; }
 .sbar-red   { background: #ef4444; }
 
-/* Cleared SLA — SVG checkmark in green */
-.sbar-check {
-  flex: 1;
+/* Icon states (check / x) replace the bar */
+.sbar-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #22c55e;
+  width: 100%;
+  flex: 1;
 }
+.sbar-icon-check { color: #22c55e; }
+.sbar-icon-x     { color: #ef4444; }
 .familiarity-tip {
   display: none;
   position: absolute;
@@ -414,15 +424,13 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   font-size: .8rem;
   line-height: 1.45;
 }
-.ticket-table td.signal-cell:hover .familiarity-tip,
-.ticket-table td.signal-cell:focus-visible .familiarity-tip,
-.ticket-table td.signal-cell:focus-within .familiarity-tip {
+.ticket-table td.summary-cell--hoverable:hover .familiarity-tip,
+.ticket-table td.summary-cell--hoverable:focus-visible .familiarity-tip,
+.ticket-table td.summary-cell--hoverable:focus-within .familiarity-tip {
   display: block;
 }
-.ticket-table td.signal-cell:focus-visible {
-  outline: 2px solid var(--ring-lavender, #b497ff);
-  outline-offset: -2px;
-  border-radius: 6px;
+.ticket-table td.summary-cell--hoverable {
+  position: relative;
 }
 .familiarity-tooltip-inner { }
 .familiarity-tooltip__section + .familiarity-tooltip__section {
