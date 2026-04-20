@@ -80,6 +80,50 @@
             <span>{{ ticket.resolved_at | localtime }}</span>
         </span>
         {% endif %}
+
+        {%- set _t_resolved = ticket.status|lower in ['resolved', 'closed', 'done', 'complete', 'completed'] -%}
+
+        {% if ticket.sla_first_response_threshold_s %}
+        <span class="tc-sla-sep" aria-hidden="true">·</span>
+        <span class="tc-time-item">
+            <span class="tc-time-label">FR SLA</span>
+            {% if ticket.sla_first_response_breached %}
+            <span class="tc-sla-val tc-sla-red">breached</span>
+            {% elif _t_resolved %}
+            <span class="tc-sla-val tc-sla-green">
+                <svg width="9" height="7" viewBox="0 0 10 8" fill="none" aria-hidden="true"><polyline points="1,4.5 3.5,7 9,1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                met
+            </span>
+            {% else %}
+                {%- set _rem = ticket.sla_first_response_threshold_s - (ticket.sla_first_response_elapsed_s or 0) -%}
+                {%- set _pct = ((ticket.sla_first_response_elapsed_s or 0) * 100) // ticket.sla_first_response_threshold_s -%}
+            <span class="tc-sla-val {{ 'tc-sla-red' if _pct > 85 else ('tc-sla-amber' if _pct > 60 else 'tc-sla-green') }}">
+                {{ ticket.sla_first_response_threshold_s | sla_remaining(ticket.sla_first_response_elapsed_s or 0) }} left
+            </span>
+            {% endif %}
+        </span>
+        {% endif %}
+
+        {% if ticket.sla_resolution_threshold_s %}
+        <span class="tc-sla-sep" aria-hidden="true">·</span>
+        <span class="tc-time-item">
+            <span class="tc-time-label">Res SLA</span>
+            {% if ticket.sla_resolution_breached %}
+            <span class="tc-sla-val tc-sla-red">breached</span>
+            {% elif _t_resolved %}
+            <span class="tc-sla-val tc-sla-green">
+                <svg width="9" height="7" viewBox="0 0 10 8" fill="none" aria-hidden="true"><polyline points="1,4.5 3.5,7 9,1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                met
+            </span>
+            {% else %}
+                {%- set _pct = ((ticket.sla_resolution_elapsed_s or 0) * 100) // ticket.sla_resolution_threshold_s -%}
+            <span class="tc-sla-val {{ 'tc-sla-red' if _pct > 85 else ('tc-sla-amber' if _pct > 60 else 'tc-sla-green') }}">
+                {{ ticket.sla_resolution_threshold_s | sla_remaining(ticket.sla_resolution_elapsed_s or 0) }} left
+            </span>
+            {% endif %}
+        </span>
+        {% endif %}
+
     </div>
 </div>
 

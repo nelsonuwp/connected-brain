@@ -107,7 +107,14 @@ async def list_tickets(
                 t.created_at,
                 t.updated_at,
                 t.request_type,
+                t.issue_type,
                 t.ocean_client_id,
+                t.sla_first_response_breached,
+                t.sla_first_response_elapsed_s,
+                t.sla_first_response_threshold_s,
+                t.sla_resolution_breached,
+                t.sla_resolution_elapsed_s,
+                t.sla_resolution_threshold_s,
                 o.name AS jira_org_name,
                 u.display_name AS assignee_display_name
             FROM tickets t
@@ -192,6 +199,13 @@ async def list_tickets(
             a.created_at,
             a.updated_at,
             a.request_type,
+            a.issue_type,
+            a.sla_first_response_breached,
+            a.sla_first_response_elapsed_s,
+            a.sla_first_response_threshold_s,
+            a.sla_resolution_breached,
+            a.sla_resolution_elapsed_s,
+            a.sla_resolution_threshold_s,
             a.jira_org_name,
             a.assignee_display_name,
             CASE

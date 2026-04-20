@@ -328,35 +328,71 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
 .muted { color: var(--muted); }
 .tiny { font-size: .68rem; line-height: 1.35; }
 
-/* ── Familiarity ring (ticket list) ───────────────────────── */
-.familiarity-th {
-  width: 52px;
+/* ── Signal bars cell (familiarity + SLA) ─────────────────── */
+.signal-th {
+  width: 48px;
   text-align: center;
-  font-size: .65rem;
+  font-size: .55rem;
+  letter-spacing: .04em;
+  color: var(--aptum-lavender-s2);
 }
-.ticket-table td.familiarity-cell {
+.ticket-table td.signal-cell {
   position: relative;
-  width: 52px;
-  padding: var(--space-2) var(--space-2);
+  width: 48px;
+  padding: var(--space-2) 8px;
   vertical-align: middle;
+  cursor: default;
 }
-.familiarity-stack {
+
+/* Three stacked bars */
+.signal-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  min-height: 36px;
+}
+
+/* Each row is 9px tall — bar (3px) is centered, check fits too */
+.sbar-slot {
+  height: 9px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  position: relative;
-  min-height: 40px;
 }
-.familiarity-ring-svg {
-  display: block;
-  flex-shrink: 0;
+
+/* Track = the grey background rail */
+.sbar-track {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--aptum-neutral-1);
+  overflow: hidden;
 }
-.familiarity-ring-num {
-  font-family: "Geist", system-ui, sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  fill: var(--aptum-soft-black);
-  pointer-events: none;
+
+/* No SLA configured */
+.sbar-none { opacity: .35; }
+
+/* Full-width solid fill for breached */
+.sbar-full { overflow: visible; }
+.sbar-red-full { background: #ef4444; }
+
+/* Colored fill segments */
+.sbar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+.sbar-fam   { background: var(--aptum-lavender); }
+.sbar-green { background: #22c55e; }
+.sbar-amber { background: #f59e0b; }
+.sbar-red   { background: #ef4444; }
+
+/* Cleared SLA — shows a checkmark instead of a bar */
+.sbar-check {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #22c55e;
 }
 .familiarity-tip {
   display: none;
@@ -376,12 +412,12 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   font-size: .8rem;
   line-height: 1.45;
 }
-.ticket-table td.familiarity-cell:hover .familiarity-tip,
-.ticket-table td.familiarity-cell:focus-visible .familiarity-tip,
-.ticket-table td.familiarity-cell:focus-within .familiarity-tip {
+.ticket-table td.signal-cell:hover .familiarity-tip,
+.ticket-table td.signal-cell:focus-visible .familiarity-tip,
+.ticket-table td.signal-cell:focus-within .familiarity-tip {
   display: block;
 }
-.ticket-table td.familiarity-cell:focus-visible {
+.ticket-table td.signal-cell:focus-visible {
   outline: 2px solid var(--ring-lavender, #b497ff);
   outline-offset: -2px;
   border-radius: 6px;
@@ -770,6 +806,23 @@ main { max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--space-8)
   align-self: flex-end;
   padding-bottom: 2px;
 }
+.tc-sla-sep {
+  color: var(--aptum-neutral-1);
+  font-size: .75rem;
+  align-self: flex-end;
+  padding-bottom: 2px;
+  margin: 0 var(--space-2);
+}
+.tc-sla-val {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: .78rem;
+  font-weight: 500;
+}
+.tc-sla-green { color: var(--green); }
+.tc-sla-amber { color: var(--amber); }
+.tc-sla-red   { color: var(--red); }
 
 .label-tag {
   display: inline-block;

@@ -1,50 +1,71 @@
 {% extends "base.html" %}
 {% block title %}Tickets · ops-agent{% endblock %}
 
-{% macro familiarity_cell(issue_key, score) -%}
-{% set R = score | familiarity_ring %}
-<td class="familiarity-cell"
+{% macro signal_cell(t) -%}
+{%- set _terminal = t.status|lower in ['resolved', 'closed', 'done', 'complete', 'completed'] -%}
+<td class="signal-cell"
     tabindex="0"
     role="button"
-    aria-label="Familiarity {% if score is none %}unknown{% else %}{{ score }} out of 100{% endif %} — hover or focus for similar tickets"
-    hx-get="/tickets/{{ issue_key }}/familiarity/tooltip"
+    aria-label="Signals — hover for similar tickets"
+    hx-get="/tickets/{{ t.issue_key }}/familiarity/tooltip"
     hx-trigger="mouseenter once, focus once, touchstart once"
-    hx-target="#f-tip-{{ issue_key }}"
+    hx-target="#f-tip-{{ t.issue_key }}"
     hx-swap="innerHTML">
-    <div class="familiarity-stack">
-        <svg class="familiarity-ring-svg" width="36" height="36" viewBox="0 0 {{ R.view }} {{ R.view }}" aria-hidden="true">
-            <circle
-                fill="none"
-                stroke="{{ R.track_color }}"
-                stroke-width="{{ R.sw }}"
-                r="{{ R.r }}"
-                cx="{{ R.cx }}"
-                cy="{{ R.cy }}"
-                stroke-dasharray="{{ R.circumference }} {{ R.circumference }}"
-                transform="rotate(-90 {{ R.cx }} {{ R.cy }})" />
-            {% if R.show_arc %}
-            <circle
-                fill="none"
-                stroke="{{ R.arc_color }}"
-                stroke-width="{{ R.sw }}"
-                stroke-linecap="round"
-                r="{{ R.r }}"
-                cx="{{ R.cx }}"
-                cy="{{ R.cy }}"
-                stroke-dasharray="{{ R.dash }}"
-                transform="rotate(-90 {{ R.cx }} {{ R.cy }})" />
+    <div class="signal-bars">
+
+        {# ── Bar 1: Familiarity (purple) ── #}
+        <div class="sbar-slot" title="Familiarity: {{ t.familiarity_score or 0 }}%">
+            <div class="sbar-track">
+                {% if t.familiarity_score %}
+                <div class="sbar-fill sbar-fam" style="width:{{ [t.familiarity_score, 100]|min }}%"></div>
+                {% endif %}
+            </div>
+        </div>
+
+        {# ── Bar 2: First Response SLA ── #}
+        <div class="sbar-slot"
+            title="{% if not t.sla_first_response_threshold_s %}No FR SLA{% elif t.sla_first_response_breached %}FR SLA breached{% elif _terminal %}FR SLA met{% else %}FR SLA: {{ (((t.sla_first_response_elapsed_s or 0) * 100) // t.sla_first_response_threshold_s)|int }}% consumed{% endif %}">
+            {% if t.sla_first_response_threshold_s %}
+                {% if t.sla_first_response_breached %}
+                    <div class="sbar-track sbar-full sbar-red-full"></div>
+                {% elif _terminal %}
+                    <div class="sbar-check">
+                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden="true"><polyline points="1,4.5 3.5,7 9,1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                {% else %}
+                    {%- set _pct = [((t.sla_first_response_elapsed_s or 0) * 100) // t.sla_first_response_threshold_s, 100]|min -%}
+                    <div class="sbar-track">
+                        <div class="sbar-fill {{ 'sbar-red' if _pct > 85 else ('sbar-amber' if _pct > 60 else 'sbar-green') }}" style="width:{{ _pct }}%"></div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="sbar-track sbar-none"></div>
             {% endif %}
-            {% if R.show_number %}
-            <text
-                class="familiarity-ring-num"
-                x="{{ R.cx }}"
-                y="{{ R.cy }}"
-                text-anchor="middle"
-                dominant-baseline="central">{{ R.number }}</text>
+        </div>
+
+        {# ── Bar 3: Resolution SLA ── #}
+        <div class="sbar-slot"
+            title="{% if not t.sla_resolution_threshold_s %}No resolution SLA{% elif t.sla_resolution_breached %}Resolution SLA breached{% elif _terminal %}Resolution SLA met{% else %}Resolution SLA: {{ (((t.sla_resolution_elapsed_s or 0) * 100) // t.sla_resolution_threshold_s)|int }}% consumed{% endif %}">
+            {% if t.sla_resolution_threshold_s %}
+                {% if t.sla_resolution_breached %}
+                    <div class="sbar-track sbar-full sbar-red-full"></div>
+                {% elif _terminal %}
+                    <div class="sbar-check">
+                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden="true"><polyline points="1,4.5 3.5,7 9,1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                {% else %}
+                    {%- set _pct = [((t.sla_resolution_elapsed_s or 0) * 100) // t.sla_resolution_threshold_s, 100]|min -%}
+                    <div class="sbar-track">
+                        <div class="sbar-fill {{ 'sbar-red' if _pct > 85 else ('sbar-amber' if _pct > 60 else 'sbar-green') }}" style="width:{{ _pct }}%"></div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="sbar-track sbar-none"></div>
             {% endif %}
-        </svg>
-        <div class="familiarity-tip" id="f-tip-{{ issue_key }}"><span class="muted tiny">…</span></div>
+        </div>
+
     </div>
+    <div class="familiarity-tip" id="f-tip-{{ t.issue_key }}"><span class="muted tiny">…</span></div>
 </td>
 {%- endmacro %}
 
@@ -79,7 +100,7 @@
 <table class="ticket-table">
     <thead>
         <tr>
-            <th class="familiarity-th" title="Familiarity (semantic match density)">◉</th>
+            <th class="signal-th" title="Familiarity · First response SLA · Resolution SLA">▪▪▪</th>
             <th>Key</th>
             <th>Summary</th>
             <th>Org</th>
@@ -92,7 +113,7 @@
     <tbody>
         {% for t in tickets %}
         <tr>
-            {{ familiarity_cell(t.issue_key, t.familiarity_score) }}
+            {{ signal_cell(t) }}
             <td><a href="/tickets/{{ t.issue_key }}" class="key-link">{{ t.issue_key }}</a></td>
             <td class="summary-cell">
                 <a href="/tickets/{{ t.issue_key }}">
