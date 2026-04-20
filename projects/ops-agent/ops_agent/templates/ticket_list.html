@@ -1,37 +1,43 @@
 {% extends "base.html" %}
 {% block title %}Tickets · ops-agent{% endblock %}
 
+{% macro _sbar_icon_check() %}<svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden="true"><polyline points="1,4.5 3.5,7 9,1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>{% endmacro %}
+{% macro _sbar_icon_x() %}<svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true"><line x1="1.5" y1="1.5" x2="7.5" y2="7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="7.5" y1="1.5" x2="1.5" y2="7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>{% endmacro %}
+
 {% macro signal_cell(t) -%}
 {%- set _terminal = t.status|lower in ['resolved', 'closed', 'done', 'complete', 'completed'] -%}
-<td class="signal-cell"
-    tabindex="0"
-    role="button"
-    aria-label="Signals — hover for similar tickets"
-    hx-get="/tickets/{{ t.issue_key }}/familiarity/tooltip"
-    hx-trigger="mouseenter once, focus once, touchstart once"
-    hx-target="#f-tip-{{ t.issue_key }}"
-    hx-swap="innerHTML">
+<td class="signal-cell">
     <div class="signal-bars">
 
-        {# ── Bar 1: Familiarity (purple) ── #}
-        <div class="sbar-slot" title="Familiarity: {{ t.familiarity_score or 0 }}%">
+        {# ── Row 1: Familiarity ── #}
+        <div class="sbar-row" title="Familiarity: {{ t.familiarity_score or 0 }}%">
+            <span class="sbar-label">Sim</span>
             <div class="sbar-track">
-                {% if t.familiarity_score %}
-                <div class="sbar-fill sbar-fam" style="width:{{ [t.familiarity_score, 100]|min }}%"></div>
-                {% endif %}
+                <div class="sbar-fill sbar-fam" style="width:{{ [t.familiarity_score or 0, 100]|min }}%"></div>
             </div>
         </div>
 
-        {# ── Bar 2: First Response SLA ── #}
-        <div class="sbar-slot"
-            title="{% if not t.sla_first_response_threshold_s %}No FR SLA{% elif t.sla_first_response_breached %}FR SLA breached{% elif _terminal %}FR SLA met{% else %}FR SLA: {{ (((t.sla_first_response_elapsed_s or 0) * 100) // t.sla_first_response_threshold_s)|int }}% consumed{% endif %}">
+        {# ── Row 2: First Response SLA ── #}
+        {%- if t.sla_first_response_threshold_s -%}
+            {%- if t.sla_first_response_breached -%}
+                {%- set _fr_title = "FR SLA breached" -%}
+            {%- elif _terminal -%}
+                {%- set _fr_title = "FR SLA met" -%}
+            {%- else -%}
+                {%- set _fr_pct = [((t.sla_first_response_elapsed_s or 0) * 100) // t.sla_first_response_threshold_s, 100]|min -%}
+                {%- set _fr_rem = t.sla_first_response_threshold_s | sla_remaining(t.sla_first_response_elapsed_s or 0) -%}
+                {%- set _fr_title = (_fr_rem ~ " remaining") if _fr_rem else "FR SLA: " ~ _fr_pct ~ "% consumed" -%}
+            {%- endif -%}
+        {%- else -%}
+            {%- set _fr_title = "No first response SLA" -%}
+        {%- endif -%}
+        <div class="sbar-row" title="{{ _fr_title }}">
+            <span class="sbar-label">FR</span>
             {% if t.sla_first_response_threshold_s %}
                 {% if t.sla_first_response_breached %}
-                    <div class="sbar-track sbar-full sbar-red-full"></div>
+                    <span class="sbar-icon sbar-icon-x">{{ _sbar_icon_x() }}</span>
                 {% elif _terminal %}
-                    <div class="sbar-check">
-                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden="true"><polyline points="1,4.5 3.5,7 9,1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
+                    <span class="sbar-icon sbar-icon-check">{{ _sbar_icon_check() }}</span>
                 {% else %}
                     {%- set _pct = [((t.sla_first_response_elapsed_s or 0) * 100) // t.sla_first_response_threshold_s, 100]|min -%}
                     <div class="sbar-track">
@@ -43,21 +49,34 @@
             {% endif %}
         </div>
 
-        {# ── Bar 3: Resolution SLA ── #}
-        <div class="sbar-slot"
-            title="{% if not t.sla_resolution_threshold_s %}No resolution SLA{% elif t.sla_resolution_breached %}Resolution SLA breached{% elif _terminal %}Resolution SLA met{% else %}Resolution SLA: {{ (((t.sla_resolution_elapsed_s or 0) * 100) // t.sla_resolution_threshold_s)|int }}% consumed{% endif %}">
+        {# ── Row 3: Resolution SLA ── #}
+        {%- if t.sla_resolution_threshold_s -%}
+            {%- if t.sla_resolution_breached -%}
+                {%- set _res_title = "Resolution SLA breached" -%}
+            {%- elif _terminal -%}
+                {%- set _res_title = "Resolution SLA met" -%}
+            {%- else -%}
+                {%- set _res_pct = [((t.sla_resolution_elapsed_s or 0) * 100) // t.sla_resolution_threshold_s, 100]|min -%}
+                {%- set _res_rem = t.sla_resolution_threshold_s | sla_remaining(t.sla_resolution_elapsed_s or 0) -%}
+                {%- set _res_title = (_res_rem ~ " remaining") if _res_rem else "Res SLA: " ~ _res_pct ~ "% consumed" -%}
+            {%- endif -%}
+        {%- else -%}
+            {%- set _res_title = "No resolution SLA" -%}
+        {%- endif -%}
+        <div class="sbar-row" title="{{ _res_title }}">
+            <span class="sbar-label">Res</span>
             {% if t.sla_resolution_threshold_s %}
                 {% if t.sla_resolution_breached %}
-                    <div class="sbar-track sbar-full sbar-red-full"></div>
+                    <span class="sbar-icon sbar-icon-x">{{ _sbar_icon_x() }}</span>
                 {% elif _terminal %}
-                    <div class="sbar-check">
-                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden="true"><polyline points="1,4.5 3.5,7 9,1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
+                    <span class="sbar-icon sbar-icon-check">{{ _sbar_icon_check() }}</span>
                 {% else %}
                     {%- set _pct = [((t.sla_resolution_elapsed_s or 0) * 100) // t.sla_resolution_threshold_s, 100]|min -%}
                     <div class="sbar-track">
                         <div class="sbar-fill {{ 'sbar-red' if _pct > 85 else ('sbar-amber' if _pct > 60 else 'sbar-green') }}" style="width:{{ _pct }}%"></div>
                     </div>
+                {% else %}
+                    <div class="sbar-track sbar-none"></div>
                 {% endif %}
             {% else %}
                 <div class="sbar-track sbar-none"></div>
@@ -65,6 +84,19 @@
         </div>
 
     </div>
+</td>
+{%- endmacro %}
+
+{% macro summary_cell(t) -%}
+<td class="summary-cell summary-cell--hoverable"
+    tabindex="0"
+    hx-get="/tickets/{{ t.issue_key }}/familiarity/tooltip"
+    hx-trigger="mouseenter once, focus once, touchstart once"
+    hx-target="#f-tip-{{ t.issue_key }}"
+    hx-swap="innerHTML">
+    <a href="/tickets/{{ t.issue_key }}">
+        {{ t.summary[:80] }}{% if t.summary|length > 80 %}…{% endif %}
+    </a>
     <div class="familiarity-tip" id="f-tip-{{ t.issue_key }}"><span class="muted tiny">…</span></div>
 </td>
 {%- endmacro %}
@@ -114,11 +146,7 @@
         {% for t in tickets %}
         <tr>
             <td><a href="/tickets/{{ t.issue_key }}" class="key-link">{{ t.issue_key }}</a></td>
-            <td class="summary-cell">
-                <a href="/tickets/{{ t.issue_key }}">
-                    {{ t.summary[:80] }}{% if t.summary|length > 80 %}…{% endif %}
-                </a>
-            </td>
+            {{ summary_cell(t) }}
             <td class="muted">{{ t.jira_org_name or "—" }}</td>
             <td class="muted">{{ t.assignee_display_name or "—" }}</td>
             <td><span class="status-badge status-{{ t.status|lower|replace(' ', '-') }}">{{ t.status }}</span></td>
