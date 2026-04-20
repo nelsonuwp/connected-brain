@@ -1,6 +1,6 @@
 {
   "source": "slack",
-  "collected_at": "2026-04-17T12:36:50.871707Z",
+  "collected_at": "2026-04-20T13:35:00.981178Z",
   "status": "success",
   "objects": {
     "channels": {
@@ -139,45 +139,14 @@
     },
     "messages": {
       "status": "success",
-      "record_count": 1,
+      "record_count": 0,
       "error": null,
-      "data": [
-        {
-          "user": "U015PLFUQET",
-          "type": "message",
-          "ts": "1776354838.219239",
-          "client_msg_id": "342e9d77-81bd-4e2a-bae0-2b64353c5999",
-          "text": "lol",
-          "team": "T024XGS0G",
-          "blocks": [
-            {
-              "type": "rich_text",
-              "block_id": "y+M65",
-              "elements": [
-                {
-                  "type": "rich_text_section",
-                  "elements": [
-                    {
-                      "type": "text",
-                      "text": "lol"
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "_channel_id": "C054X8DKQ3G",
-          "_channel_name": "cloud-platform-pm",
-          "_is_im": false,
-          "_is_mpim": false,
-          "_user_name": "Adam Nelson"
-        }
-      ]
+      "data": []
     }
   },
   "error": null,
   "date_range": {
-    "start": "2026-04-16",
-    "end": "2026-04-16"
+    "start": "2026-04-17",
+    "end": "2026-04-19"
   }
 }
