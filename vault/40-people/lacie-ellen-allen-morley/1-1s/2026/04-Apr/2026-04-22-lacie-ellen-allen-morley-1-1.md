@@ -23,7 +23,7 @@ person: lacie-ellen-allen-morley
 - [ ] Adam to update lacie-ellen-morley.md with HSDM service ownership — **still open** #tracking [person::lacie-ellen-allen-morley]
 
 **Persistent gap (no deadline ever set):**
-- [ ] CSM / Customer Success service description published to Confluence — **exists locally in 50-services/customer-success/ but never published** #tracking [person::lacie-ellen-allen-morley]
+- [ ] CSM / Customer Success service description — **not started; CEM flagged as open question in HSDM page since Mar 31 with no resolution** #tracking [person::lacie-ellen-allen-morley]
 
 ---
 
@@ -75,18 +75,25 @@ If CSAT is on the page as a target metric, the obvious question is: what's the c
 
 ---
 
-### 3. CSM Service Description — Good News, But It Needs to Ship (10 min)
-Here's the good news: the CSM service description already exists locally (`50-services/customer-success/customer-success.description.md`). It's well-written. The CSM/HSDM split is clearly articulated with a trigger model and handoff table. The financial framing is solid. It just has never been published to Confluence.
+### 3. CSM Service Description — Not Started (10 min)
+The HSDM page flags the CEM/proactive customer health monitoring gap as an unresolved open question. It's been sitting there since at least the Mar 31 conversation. Lacie was supposed to either create CSM as a sub-service of HSDM or define it as a distinct sibling service. Neither has happened.
 
-Walk her through what needs to happen:
-1. **Publish the CSM page to Confluence** — as a child page of HSDM, or as a sibling service page in the service network space. Either works; pick one and do it.
-2. **Update the HSDM page** to reference CSM and close the CEM open question.
-3. **Remove account operations scope from HSDM** — it now lives in CSM.
-4. **Circulate both pages together** — they're a pair and should go out at the same time.
+This is now overdue. Have the conversation:
+- Does she have a view on what CSM should look like? Has she thought about it at all, or has it been back-burnered?
+- Does she see it as a subset of HSDM, or a distinct function with its own Confluence page?
+- Who would own it operationally — is this a headcount gap, a process gap, or both?
 
-The CSM description already has some "To be defined" metrics (renewal turnaround, order entry accuracy, churn early-warning rate, proactive touchpoint cadence). That's fine for v1 — flag it as a known gap and set a date to fill them in.
+Adam has done his own thinking on the CSM/HSDM split (trigger model: HSDM fires when a SOW is signed; CSM fires for ongoing between-engagement relationship management). Share the framing in the session and see if it resonates — but the point is that she needs to own the definition and the Confluence page, not just receive a spec to publish.
 
-**Hard deadline: Fri Apr 25** — CSM page published to Confluence, HSDM page updated to remove CEM open flag and account ops duplication, both circulated for review.
+Key questions to resolve in this meeting:
+1. **Is CSM a child page of HSDM, or a standalone service page?**
+2. **Who is the operational owner?** Is this Lacie herself, a named SDM, or a future hire?
+3. **What's the scope?** At minimum: proactive customer health monitoring, between-engagement relationship continuity, and the account operations (order entry, renewals, credits, cancellations) that are already in HSDM but should arguably live here.
+4. **When will she have a v1 in Confluence?** Set a hard date in this session.
+
+The CEM gap is a retention risk on a $13.5M revenue base. It cannot stay in "open questions" indefinitely.
+
+**Hard deadline to set in this session: Fri May 1** — CSM service description v1 in Confluence, even if rough.
 
 ---
 
@@ -121,9 +128,9 @@ The CSM description already has some "To be defined" metrics (renewal turnaround
 
 | Action | Owner | By When |
 |--------|-------|---------|
-| Update HSDM Confluence page: remove CEM open flag, remove account ops duplication, link to CSM | Lacie | Fri Apr 25 |
-| Publish CSM service description to Confluence | Lacie | Fri Apr 25 |
-| Circulate both HSDM and CSM pages for review (Jason, Andrei, Martin, George, Fred at minimum) | Lacie | Fri Apr 25 |
+| Update HSDM Confluence page: close CEM open flag (CSM is the answer), update metrics | Lacie | Fri Apr 25 |
+| Circulate HSDM page for review (Jason, Andrei, Martin, George, Fred at minimum) | Lacie | Fri Apr 25 |
+| Produce CSM service description v1 in Confluence | Lacie | Fri May 1 |
 | Define SOW turnaround time and estimate accuracy baselines/targets in HSDM page | Lacie | Next 1:1 |
 | Confirm Azure specialization status documented with Melvin | Lacie | |
 | Confirm Ocean elevated access status | Adam | This week |
@@ -131,9 +138,8 @@ The CSM description already has some "To be defined" metrics (renewal turnaround
 | | | |
 
 <!-- Inline tracking tasks -->
-- [ ] Lacie to update HSDM Confluence page (CEM flag resolved, account ops removed) by Fri Apr 25 #tracking [person::lacie-ellen-allen-morley]
-- [ ] Lacie to publish CSM service description to Confluence by Fri Apr 25 #tracking [person::lacie-ellen-allen-morley]
-- [ ] Lacie to circulate both HSDM and CSM pages for review by Fri Apr 25 #tracking [person::lacie-ellen-allen-morley]
+- [ ] Lacie to update and circulate HSDM Confluence page by Fri Apr 25 #tracking [person::lacie-ellen-allen-morley]
+- [ ] Lacie to produce CSM service description v1 in Confluence by Fri May 1 #tracking [person::lacie-ellen-allen-morley]
 - [ ] Lacie to define SOW turnaround and estimate accuracy targets #tracking [person::lacie-ellen-allen-morley]
 - [ ] Lacie to confirm Azure specialization status documented #tracking [person::lacie-ellen-allen-morley]
 - [ ] Adam to confirm/grant Ocean elevated access for Lacie #tracking [person::lacie-ellen-allen-morley]
