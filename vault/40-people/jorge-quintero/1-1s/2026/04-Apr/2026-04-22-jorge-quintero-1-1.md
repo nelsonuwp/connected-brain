@@ -53,14 +53,14 @@ Jorge asked two specific questions over the weekend that need clear answers befo
 
 The goal is not just a list of hardware. It's a decision-support instrument built on three numbers across six dimensions:
 
-| Dimension | Owned | Sold | Available to Sell |
-|---|---|---|---|
-| Space | Sellable sqft per DC | Allocated to cages, racks | Immediately monetizable |
-| Power | kW provisioned per DC | Committed to customers + internal | Without new capex |
-| Racks | Racks installed on floor | Sold/filled | Ready to sell today |
-| Network | Bandwidth, ports, cross-connects, IPs, firewalls | Deployed to customers | Caveats apply (see below) |
-| Compute | Servers owned (deployed + shelf) + storage | Customer committed + IaaS | Without new procurement |
-| People | Managed services hours available | Committed to active delivery | Capacity left to sell |
+| Dimension | Owned                                            | Sold                              | Available to Sell         |
+| --------- | ------------------------------------------------ | --------------------------------- | ------------------------- |
+| Space     | Sellable sqft per DC                             | Allocated to cages, racks         | Immediately monetizable   |
+| Power     | kW provisioned per DC                            | Committed to customers + internal | Without new capex         |
+| Racks     | Racks installed on floor                         | Sold/filled                       | Ready to sell today       |
+| Network   | Bandwidth, ports, cross-connects, IPs, firewalls | Deployed to customers             | Caveats apply (see below) |
+| Compute   | Servers owned (deployed + shelf) + storage       | Customer committed + IaaS         | Without new procurement   |
+| People    | Managed services hours available                 | Committed to active delivery      | Capacity left to sell     |
 
 The **"Available to Sell"** number is the strategic output. It answers: *what can we offer a customer today, without a capex conversation?* This is what governs Private Cloud siting decisions for UK and US buildouts — and it's what Dave Pistacchio (DigitalBridge) independently came to Ian Rae asking for, at the same time we were already working on this internally. That external pressure creates a real timeline and a real audience for this work.
 
