@@ -1,90 +1,16 @@
 {
   "source": "calendar",
-  "collected_at": "2026-04-22T12:50:30.319535Z",
+  "collected_at": "2026-04-23T11:35:23.135290Z",
   "status": "success",
   "objects": {
     "events": {
       "status": "success",
-      "record_count": 15,
+      "record_count": 13,
       "error": null,
       "data": [
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYNYQ==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAENAABAscG_D3c-SI-xeA_iWIqgAAURnGunAAA=",
-          "subject": "Final review of Monthly",
-          "sensitivity": "normal",
-          "isAllDay": false,
-          "isCancelled": false,
-          "showAs": "tentative",
-          "onlineMeetingUrl": null,
-          "responseStatus": {
-            "response": "notResponded",
-            "time": "0001-01-01T00:00:00Z"
-          },
-          "start": {
-            "dateTime": "2026-04-22T08:00:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "end": {
-            "dateTime": "2026-04-22T08:20:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "attendees": [
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Ian Rae",
-                "address": "Ian.Rae@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Sarah Blanchard",
-                "address": "Sarah.Blanchard@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Marc Alex Forget",
-                "address": "Marc-Alexandre.Forget@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Adam Nelson",
-                "address": "Adam.Nelson@aptum.com"
-              }
-            }
-          ],
-          "organizer": {
-            "emailAddress": {
-              "name": "Ian Rae",
-              "address": "Ian.Rae@aptum.com"
-            }
-          }
-        },
-        {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYNfw==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAESTDeCQAAEA==",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYN4Q==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAESTDeCQAAEA==",
           "subject": "Three Musketeers Sync",
           "sensitivity": "private",
           "isAllDay": false,
@@ -96,11 +22,11 @@
             "time": "2026-03-11T08:15:08.3359682-04:00"
           },
           "start": {
-            "dateTime": "2026-04-22T08:30:00.0000000",
+            "dateTime": "2026-04-23T08:30:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "end": {
-            "dateTime": "2026-04-22T09:00:00.0000000",
+            "dateTime": "2026-04-23T09:00:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "attendees": [
@@ -147,6 +73,17 @@
                 "name": "Ian Rae",
                 "address": "Ian.Rae@aptum.com"
               }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Sabrina La Villa",
+                "address": "Sabrina.LaVilla@aptum.com"
+              }
             }
           ],
           "organizer": {
@@ -157,9 +94,9 @@
           }
         },
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYNjQ==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAADEBmxUAAAEA==",
-          "subject": "[INT] Service Delivery Queue Review",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYOVg==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAENAABAscG_D3c-SI-xeA_iWIqgAAVdtUA2AAA=",
+          "subject": "Aptum IaaS Monitoring, Storage, Backup, Management",
           "sensitivity": "normal",
           "isAllDay": false,
           "isCancelled": false,
@@ -167,14 +104,14 @@
           "onlineMeetingUrl": null,
           "responseStatus": {
             "response": "accepted",
-            "time": "2026-03-18T08:34:18.1142142-04:00"
+            "time": "2026-04-22T14:23:24.6130551-04:00"
           },
           "start": {
-            "dateTime": "2026-04-22T09:00:00.0000000",
+            "dateTime": "2026-04-23T09:00:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "end": {
-            "dateTime": "2026-04-22T09:30:00.0000000",
+            "dateTime": "2026-04-23T10:00:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "attendees": [
@@ -185,8 +122,8 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Lacie Allen-Morley",
-                "address": "Lacie.Allen-Morley@aptum.com"
+                "name": "Martin Tessier",
+                "address": "Martin.Tessier@aptum.com"
               }
             },
             {
@@ -196,8 +133,8 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Barbara Krzywoszanski",
-                "address": "Barbara.Krzywoszanski@aptum.com"
+                "name": "Will Stevens",
+                "address": "Will.Stevens@aptum.com"
               }
             },
             {
@@ -207,14 +144,162 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Erik Tanguay",
-                "address": "Erik.Tanguay@aptum.com"
+                "name": "Vera Tchebotareva",
+                "address": "Vera.Tchebotareva@aptum.com"
               }
             },
             {
               "type": "required",
               "status": {
                 "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "George Mihai",
+                "address": "George.Mihai@Aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "David Taylor",
+                "address": "David.Taylor@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Albert Bicchi",
+                "address": "Albert.Bicchi@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Marc-Andre Jutras",
+                "address": "Marc-Andre.Jutras@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Marius Racovita",
+                "address": "Marius.Racovita@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              }
+            }
+          ],
+          "organizer": {
+            "emailAddress": {
+              "name": "Martin Tessier",
+              "address": "Martin.Tessier@aptum.com"
+            }
+          }
+        },
+        {
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYOTg==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAEqzLZ_QAAEA==",
+          "subject": "George 1-1",
+          "sensitivity": "normal",
+          "isAllDay": false,
+          "isCancelled": false,
+          "showAs": "busy",
+          "onlineMeetingUrl": null,
+          "responseStatus": {
+            "response": "organizer",
+            "time": "0001-01-01T00:00:00Z"
+          },
+          "start": {
+            "dateTime": "2026-04-23T10:30:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "end": {
+            "dateTime": "2026-04-23T10:55:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "attendees": [
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "2026-04-22T18:24:04.9381842Z"
+              },
+              "emailAddress": {
+                "name": "George Revie",
+                "address": "George.Revie@aptum.com"
+              }
+            }
+          ],
+          "organizer": {
+            "emailAddress": {
+              "name": "Adam Nelson",
+              "address": "Adam.Nelson@aptum.com"
+            }
+          }
+        },
+        {
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHqaZzhg==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAACHRjJzAAAEA==",
+          "subject": "CAB and customer weekend prep",
+          "sensitivity": "normal",
+          "isAllDay": false,
+          "isCancelled": false,
+          "showAs": "tentative",
+          "onlineMeetingUrl": null,
+          "responseStatus": {
+            "response": "tentativelyAccepted",
+            "time": "0001-01-01T00:00:00Z"
+          },
+          "start": {
+            "dateTime": "2026-04-23T11:00:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "end": {
+            "dateTime": "2026-04-23T11:30:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "attendees": [
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Martin Tessier",
+                "address": "Martin.Tessier@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
@@ -229,8 +314,19 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Caroline Searle",
-                "address": "Caroline.Searle@aptum.com"
+                "name": "Albert Bicchi",
+                "address": "Albert.Bicchi@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "declined",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Alex Irwin",
+                "address": "Alex.Irwin@aptum.com"
               }
             },
             {
@@ -240,8 +336,30 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Kristina Soriano",
-                "address": "Kristina.Soriano@aptum.com"
+                "name": "Andrei Ianouchkevitch",
+                "address": "Andrei.Ianouchkevitch@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Andrew Manneh",
+                "address": "Andrew.Manneh@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "tentativelyAccepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Ben Kennedy",
+                "address": "Ben.Kennedy@aptum.com"
               }
             },
             {
@@ -251,126 +369,330 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Marc Alex Forget",
-                "address": "Marc-Alexandre.Forget@aptum.com"
+                "name": "Bertie Killen",
+                "address": "Bertie.Killen@aptum.com"
               }
             },
-            {
-              "type": "optional",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Frederic Gingras",
-                "address": "Frederic.Gingras@aptum.com"
-              }
-            },
-            {
-              "type": "optional",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Mike Julier",
-                "address": "Mike.Julier@aptum.com"
-              }
-            }
-          ],
-          "organizer": {
-            "emailAddress": {
-              "name": "Lacie Allen-Morley",
-              "address": "Lacie.Kemp@aptum.com"
-            }
-          }
-        },
-        {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIJIWNag==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3p847miAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAEqzLZ-QAAEA==",
-          "subject": "Jason 1-1",
-          "sensitivity": "normal",
-          "isAllDay": false,
-          "isCancelled": false,
-          "showAs": "busy",
-          "onlineMeetingUrl": null,
-          "responseStatus": {
-            "response": "organizer",
-            "time": "0001-01-01T00:00:00Z"
-          },
-          "start": {
-            "dateTime": "2026-04-22T09:30:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "end": {
-            "dateTime": "2026-04-22T09:55:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "attendees": [
             {
               "type": "required",
               "status": {
                 "response": "accepted",
-                "time": "2026-04-21T13:21:22.0603293Z"
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Brett Hausdorf",
+                "address": "Brett.Hausdorf@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Carlton Currey",
+                "address": "Carlton.Currey@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Cesar Romero",
+                "address": "Cesar.Romero@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "David Taylor",
+                "address": "David.Taylor@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "David White",
+                "address": "David.White@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Eddie Hwang",
+                "address": "Eddie.Hwang@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Eugene Beliaev",
+                "address": "Eugene.Beliaev@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Fred Taylor-Young",
+                "address": "Fred.Taylor-Young@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "George Mihai",
+                "address": "George.Mihai@Aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "George Revie",
+                "address": "George.Revie@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "IT Operations & Engineering",
+                "address": "itoe@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
                 "name": "Jason Auer",
                 "address": "Jason.Auer@aptum.com"
               }
-            }
-          ],
-          "organizer": {
-            "emailAddress": {
-              "name": "Adam Nelson",
-              "address": "Adam.Nelson@aptum.com"
-            }
-          }
-        },
-        {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHmHTP3A==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAACkIWFZQAAEA==",
-          "subject": "Lacie/Adam - 1-1",
-          "sensitivity": "normal",
-          "isAllDay": false,
-          "isCancelled": false,
-          "showAs": "busy",
-          "onlineMeetingUrl": null,
-          "responseStatus": {
-            "response": "organizer",
-            "time": "0001-01-01T00:00:00Z"
-          },
-          "start": {
-            "dateTime": "2026-04-22T10:05:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "end": {
-            "dateTime": "2026-04-22T10:30:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "attendees": [
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "John Armstrong",
+                "address": "John.Armstrong@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Jonathan Richardson",
+                "address": "jonathan.richardson@aptum.com"
+              }
+            },
             {
               "type": "required",
               "status": {
                 "response": "accepted",
-                "time": "2025-10-20T13:02:13.5160519Z"
+                "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Lacie-Ellen Kemp",
-                "address": "Lacie.Kemp@aptum.com"
+                "name": "Juan Cornejo",
+                "address": "Juan.Cornejo@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Les Parrott",
+                "address": "Les.Parrott@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Marco Perez",
+                "address": "Marco.Perez@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Mark Smyth",
+                "address": "Mark.Smyth@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Michael Phung",
+                "address": "Michael.Phung@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Nicholas Andrae",
+                "address": "Nicholas.Andrae@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Omar Colina",
+                "address": "Omar.Colina@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Philip Pyne",
+                "address": "Philip.Pyne@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Sam Carter",
+                "address": "Sam.Carter@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Shuji Miyamoto",
+                "address": "Shuji.Miyamoto@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Tomas Wooller-Bailey",
+                "address": "Tomas.Wooller-Bailey@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Vera Tchebotareva",
+                "address": "Vera.Tchebotareva@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "William Mariner",
+                "address": "William.Mariner@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Hector Iriarte",
+                "address": "Hector.Iriarte@aptum.com"
               }
             }
           ],
           "organizer": {
             "emailAddress": {
-              "name": "Adam Nelson",
-              "address": "Adam.Nelson@aptum.com"
+              "name": "Martin Tessier",
+              "address": "Martin.Tessier@aptum.com"
             }
           }
         },
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIJIWOBA==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAADQKCMbwAAEA==",
-          "subject": "[INT] Global Service Delivery Team Sync ",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIJIWNgA==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAEvmNNjgAAEA==",
+          "subject": "[INT] SA Sync",
           "sensitivity": "normal",
           "isAllDay": false,
           "isCancelled": false,
@@ -378,14 +700,14 @@
           "onlineMeetingUrl": null,
           "responseStatus": {
             "response": "accepted",
-            "time": "2026-03-18T08:38:41.9772089-04:00"
+            "time": "2026-03-31T05:22:24.5255111-04:00"
           },
           "start": {
-            "dateTime": "2026-04-22T11:00:00.0000000",
+            "dateTime": "2026-04-23T11:00:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "end": {
-            "dateTime": "2026-04-22T11:30:00.0000000",
+            "dateTime": "2026-04-23T11:30:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "attendees": [
@@ -396,74 +718,8 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Lacie Allen-Morley",
-                "address": "Lacie.Allen-Morley@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Adam Nelson",
-                "address": "Adam.Nelson@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Nathan Wandji",
-                "address": "Nathan.Wandji@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Tristan Kosciuch",
-                "address": "Tristan.Kosciuch@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
                 "name": "Patrick Wolthausen",
                 "address": "Patrick.Wolthausen@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Erik Tanguay",
-                "address": "Erik.Tanguay@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Andy Petterson",
-                "address": "Andy.Petterson@aptum.com"
               }
             },
             {
@@ -484,19 +740,8 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Daud Walizarif",
-                "address": "Daud.Walizarif@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Adedayosola Adediran",
-                "address": "Adedayosola.Adediran@aptum.com"
+                "name": "Andy Petterson",
+                "address": "Andy.Petterson@aptum.com"
               }
             },
             {
@@ -506,19 +751,8 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Robert Grafton",
-                "address": "Robert.Grafton@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "tentativelyAccepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Taha Darwish",
-                "address": "Taha.Darwish@aptum.com"
+                "name": "Marc-Andre Jutras",
+                "address": "Marc-Andre.Jutras@aptum.com"
               }
             },
             {
@@ -528,10 +762,51 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Terri Jones",
-                "address": "Terri.Jones@aptum.com"
+                "name": "Cody Bond",
+                "address": "Cody.Bond@aptum.com"
               }
             },
+            {
+              "type": "optional",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              }
+            }
+          ],
+          "organizer": {
+            "emailAddress": {
+              "name": "Patrick Wolthausen",
+              "address": "Patrick.Wolthausen@aptum.com"
+            }
+          }
+        },
+        {
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYOjw==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAEUdH3xQAAEA==",
+          "subject": "[INT] Weekly Customer Risk Call",
+          "sensitivity": "normal",
+          "isAllDay": false,
+          "isCancelled": false,
+          "showAs": "tentative",
+          "onlineMeetingUrl": null,
+          "responseStatus": {
+            "response": "accepted",
+            "time": "2026-04-16T10:15:47.3638096-04:00"
+          },
+          "start": {
+            "dateTime": "2026-04-23T11:00:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "end": {
+            "dateTime": "2026-04-23T11:30:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "attendees": [
             {
               "type": "required",
               "status": {
@@ -539,19 +814,96 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Amandeep Sadioura",
-                "address": "Amandeep.Sadioura@aptum.com"
+                "name": "Lacie Allen-Morley",
+                "address": "Lacie.Allen-Morley@aptum.com"
               }
             },
             {
               "type": "required",
               "status": {
-                "response": "tentativelyAccepted",
+                "response": "accepted",
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Jason Auer",
-                "address": "Jason.Auer@aptum.com"
+                "name": "Adam Nelson",
+                "address": "Adam.Nelson@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Elizabeth Perez",
+                "address": "Elizabeth.Perez@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Roger Gonzales",
+                "address": "Roger.Gonzales@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Darren Wells",
+                "address": "Darren.Wells@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Marko Andjelkovic",
+                "address": "Marko.Andjelkovic@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Steve Rioux",
+                "address": "Steve.Rioux@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Barbara Krzywoszanski",
+                "address": "Barbara.Krzywoszanski@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Erik Tanguay",
+                "address": "Erik.Tanguay@aptum.com"
               }
             },
             {
@@ -568,444 +920,18 @@
             {
               "type": "required",
               "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Ibukun Oladejo",
-                "address": "Ibukun.Oladejo@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Hector Iriarte",
-                "address": "Hector.Iriarte@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
                 "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Sam Messer",
-                "address": "Samuel.Messer@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Daniel Vinkler",
-                "address": "Daniel.Vinkler@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Jack Crook",
-                "address": "Jack.Crook@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "William Mariner",
-                "address": "William.Mariner@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Jed Gromoll",
-                "address": "Jed.Gromoll@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Justin Ownby",
-                "address": "Justin.Ownby@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Luis Cruz",
-                "address": "Luis.Cruz@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Chris Hargens",
-                "address": "Christopher.Hargens@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Charles Rutledge",
-                "address": "Charles.Rutledge@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Aaron Angel",
-                "address": "Aaron.Angel@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Jacob Stillwell",
-                "address": "Jacob.Stillwell@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Chris Templeman",
-                "address": "Christopher.Templeman@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Cody Bond",
-                "address": "Cody.Bond@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Sam Carter",
-                "address": "Sam.Carter@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Akin Onigbanjo",
-                "address": "Akin.Onigbanjo@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Juan Guerrero",
-                "address": "Juan.Guerrero@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Daniel Langler",
-                "address": "Daniel.Langler@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Cristi Mihalache",
-                "address": "Cristi.Mihalache@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Edward Chavelas",
-                "address": "Edward.Chavelas@aptum.com"
-              }
-            },
-            {
-              "type": "optional",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Marc Pare",
-                "address": "Marc.Pare@aptum.com"
-              }
-            },
-            {
-              "type": "optional",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "David Smith",
-                "address": "David.Smith@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Kristina Soriano",
-                "address": "Kristina.Soriano@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "notResponded",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Andrei Ianouchkevitch",
-                "address": "Andrei.Ianouchkevitch@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "notResponded",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Marc Hosang",
-                "address": "Marc.Hosang@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "notResponded",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Marc-Andre Jutras",
-                "address": "Marc-Andre.Jutras@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "notResponded",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Barbara Krzywoszanski",
-                "address": "Barbara.Krzywoszanski@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "notResponded",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Traci Hardnett",
-                "address": "Traci.Hardnett@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Gary Cox",
-                "address": "Gary.Cox@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
                 "name": "Caroline Searle",
                 "address": "Caroline.Searle@aptum.com"
               }
-            }
-          ],
-          "organizer": {
-            "emailAddress": {
-              "name": "Lacie Allen-Morley",
-              "address": "Lacie.Kemp@aptum.com"
-            }
-          }
-        },
-        {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIJIWN3A==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAADGd2GfAAAEA==",
-          "subject": "COE review",
-          "sensitivity": "normal",
-          "isAllDay": false,
-          "isCancelled": false,
-          "showAs": "busy",
-          "onlineMeetingUrl": null,
-          "responseStatus": {
-            "response": "accepted",
-            "time": "2026-01-12T10:34:15.5051856-05:00"
-          },
-          "start": {
-            "dateTime": "2026-04-22T11:30:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "end": {
-            "dateTime": "2026-04-22T12:00:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "attendees": [
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Ian Rae",
-                "address": "Ian.Rae@aptum.com"
-              }
             },
             {
               "type": "required",
               "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Adam Nelson",
-                "address": "Adam.Nelson@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Marc Pare",
-                "address": "Marc.Pare@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "George Revie",
-                "address": "George.Revie@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Ben Kennedy",
-                "address": "Ben.Kennedy@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Martin Tessier",
-                "address": "Martin.Tessier@aptum.com"
-              }
-            },
-            {
-              "type": "optional",
-              "status": {
-                "response": "accepted",
+                "response": "tentativelyAccepted",
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
@@ -1014,9 +940,9 @@
               }
             },
             {
-              "type": "optional",
+              "type": "required",
               "status": {
-                "response": "accepted",
+                "response": "notResponded",
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
@@ -1025,72 +951,9 @@
               }
             },
             {
-              "type": "optional",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Lacie Allen-Morley",
-                "address": "Lacie.Allen-Morley@aptum.com"
-              }
-            },
-            {
-              "type": "optional",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Patrick Wolthausen",
-                "address": "Patrick.Wolthausen@aptum.com"
-              }
-            },
-            {
               "type": "required",
               "status": {
                 "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Will Stevens",
-                "address": "Will.Stevens@aptum.com"
-              }
-            }
-          ],
-          "organizer": {
-            "emailAddress": {
-              "name": "Ian Rae",
-              "address": "Ian.Rae@aptum.com"
-            }
-          }
-        },
-        {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYNfQ==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAENAABAscG_D3c-SI-xeA_iWIqgAAVVlVsTAAA=",
-          "subject": "12:00 PM - Three Musketeers + Ian ► MA Commercial Updates and Recommendations – Team & Forecast",
-          "sensitivity": "private",
-          "isAllDay": false,
-          "isCancelled": false,
-          "showAs": "busy",
-          "onlineMeetingUrl": null,
-          "responseStatus": {
-            "response": "accepted",
-            "time": "2026-04-22T08:09:54.2051769-04:00"
-          },
-          "start": {
-            "dateTime": "2026-04-22T12:00:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "end": {
-            "dateTime": "2026-04-22T12:45:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "attendees": [
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
@@ -1105,8 +968,8 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Adam Nelson",
-                "address": "Adam.Nelson@aptum.com"
+                "name": "Jorge Quintero",
+                "address": "Jorge.Quintero@aptum.com"
               }
             },
             {
@@ -1116,32 +979,227 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Sarah Blanchard",
-                "address": "Sarah.Blanchard@aptum.com"
+                "name": "Jennifer Wilson",
+                "address": "Jennifer.Wilson@aptum.com"
               }
             },
             {
               "type": "required",
               "status": {
                 "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Roland Gonzales",
+                "address": "Roland.Gonzales@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Frederic Gingras",
+                "address": "Frederic.Gingras@aptum.com"
+              }
+            }
+          ],
+          "organizer": {
+            "emailAddress": {
+              "name": "Lacie Allen-Morley",
+              "address": "Lacie.Allen-Morley@aptum.com"
+            }
+          }
+        },
+        {
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHzU8Vyg==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAACdMkdBQAAEA==",
+          "subject": "The Weekly Update",
+          "sensitivity": "normal",
+          "isAllDay": false,
+          "isCancelled": false,
+          "showAs": "tentative",
+          "onlineMeetingUrl": null,
+          "responseStatus": {
+            "response": "tentativelyAccepted",
+            "time": "0001-01-01T00:00:00Z"
+          },
+          "start": {
+            "dateTime": "2026-04-23T11:30:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "end": {
+            "dateTime": "2026-04-23T12:00:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "attendees": [
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Aptum",
+                "address": "Aptum262@disks.onmicrosoft.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Aptum Teams Automated Service User",
+                "address": "svc_teamsautomation@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
                 "name": "Ian Rae",
                 "address": "Ian.Rae@aptum.com"
               }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Will Stevens",
+                "address": "Will.Stevens@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Fred Taylor-Young",
+                "address": "Fred.Taylor-Young@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Nikki Thind",
+                "address": "Nikki.Thind@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Juan Guerrero",
+                "address": "Juan.Guerrero@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Marko Andjelkovic",
+                "address": "Marko.Andjelkovic@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Franz Garcia",
+                "address": "Franz.Garcia@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Kristi Orais",
+                "address": "Kristi.Orais@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Kristina Soriano",
+                "address": "Kristina.Soriano@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Ryan Walsh",
+                "address": "Ryan.Walsh@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Kathy Wu",
+                "address": "Kathy.Wu@aptum.com"
+              }
+            },
+            {
+              "type": "optional",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Sabrina La Villa",
+                "address": "Sabrina.LaVilla@aptum.com"
+              }
             }
           ],
           "organizer": {
             "emailAddress": {
-              "name": "Marc Alex Forget",
-              "address": "Marc-Alexandre.Forget@aptum.com"
+              "name": "Aptum",
+              "address": "Aptum262@disks.onmicrosoft.com"
             }
           }
         },
         {
           "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAACg8DuZA==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAABKuUmbwAAEA==",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAABKuUmbwAAEA==",
           "subject": "Busy",
           "sensitivity": "normal",
           "isAllDay": false,
@@ -1153,11 +1211,11 @@
             "time": "0001-01-01T00:00:00Z"
           },
           "start": {
-            "dateTime": "2026-04-22T12:00:00.0000000",
+            "dateTime": "2026-04-23T12:00:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "end": {
-            "dateTime": "2026-04-22T13:20:00.0000000",
+            "dateTime": "2026-04-23T13:20:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "attendees": [],
@@ -1169,8 +1227,49 @@
           }
         },
         {
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIJIWNsw==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3p847miAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAEqzLZ_gAAEA==",
+          "subject": "Ben 1-1",
+          "sensitivity": "normal",
+          "isAllDay": false,
+          "isCancelled": false,
+          "showAs": "busy",
+          "onlineMeetingUrl": null,
+          "responseStatus": {
+            "response": "organizer",
+            "time": "0001-01-01T00:00:00Z"
+          },
+          "start": {
+            "dateTime": "2026-04-23T12:30:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "end": {
+            "dateTime": "2026-04-23T12:55:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "attendees": [
+            {
+              "type": "required",
+              "status": {
+                "response": "accepted",
+                "time": "2026-04-21T17:33:29.2473934Z"
+              },
+              "emailAddress": {
+                "name": "Ben Kennedy",
+                "address": "Ben.Kennedy@aptum.com"
+              }
+            }
+          ],
+          "organizer": {
+            "emailAddress": {
+              "name": "Adam Nelson",
+              "address": "Adam.Nelson@aptum.com"
+            }
+          }
+        },
+        {
           "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAACBBZFLQ==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAACBbRB9gAAEA==",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAACBbRB9gAAEA==",
           "subject": "SoW Review/Unblocking",
           "sensitivity": "normal",
           "isAllDay": false,
@@ -1182,11 +1281,11 @@
             "time": "0001-01-01T00:00:00Z"
           },
           "start": {
-            "dateTime": "2026-04-22T13:30:00.0000000",
+            "dateTime": "2026-04-23T13:30:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "end": {
-            "dateTime": "2026-04-22T13:55:00.0000000",
+            "dateTime": "2026-04-23T13:55:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "attendees": [],
@@ -1198,132 +1297,9 @@
           }
         },
         {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHmHTQLQ==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAEqzLZ-wAAEA==",
-          "subject": "Pat 1-1",
-          "sensitivity": "normal",
-          "isAllDay": false,
-          "isCancelled": false,
-          "showAs": "busy",
-          "onlineMeetingUrl": null,
-          "responseStatus": {
-            "response": "organizer",
-            "time": "0001-01-01T00:00:00Z"
-          },
-          "start": {
-            "dateTime": "2026-04-22T13:35:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "end": {
-            "dateTime": "2026-04-22T14:00:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "attendees": [
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "2026-03-26T16:17:04.1671118Z"
-              },
-              "emailAddress": {
-                "name": "Patrick Wolthausen",
-                "address": "Patrick.Wolthausen@aptum.com"
-              }
-            }
-          ],
-          "organizer": {
-            "emailAddress": {
-              "name": "Adam Nelson",
-              "address": "Adam.Nelson@aptum.com"
-            }
-          }
-        },
-        {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHqaZy9Q==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAEqzLZ_wAAEA==",
-          "subject": "Martin 1-1",
-          "sensitivity": "normal",
-          "isAllDay": false,
-          "isCancelled": false,
-          "showAs": "busy",
-          "onlineMeetingUrl": null,
-          "responseStatus": {
-            "response": "organizer",
-            "time": "0001-01-01T00:00:00Z"
-          },
-          "start": {
-            "dateTime": "2026-04-22T14:05:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "end": {
-            "dateTime": "2026-04-22T14:30:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "attendees": [
-            {
-              "type": "required",
-              "status": {
-                "response": "none",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Martin Tessier",
-                "address": "Martin.Tessier@aptum.com"
-              }
-            }
-          ],
-          "organizer": {
-            "emailAddress": {
-              "name": "Adam Nelson",
-              "address": "Adam.Nelson@aptum.com"
-            }
-          }
-        },
-        {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAHmHTQLg==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAEqzLZ-AAAEA==",
-          "subject": "Jorge 1-1",
-          "sensitivity": "normal",
-          "isAllDay": false,
-          "isCancelled": false,
-          "showAs": "busy",
-          "onlineMeetingUrl": null,
-          "responseStatus": {
-            "response": "organizer",
-            "time": "0001-01-01T00:00:00Z"
-          },
-          "start": {
-            "dateTime": "2026-04-22T14:35:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "end": {
-            "dateTime": "2026-04-22T15:00:00.0000000",
-            "timeZone": "Eastern Standard Time"
-          },
-          "attendees": [
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "2026-03-26T15:17:31.4549681Z"
-              },
-              "emailAddress": {
-                "name": "Jorge Quintero",
-                "address": "Jorge.Quintero@aptum.com"
-              }
-            }
-          ],
-          "organizer": {
-            "emailAddress": {
-              "name": "Adam Nelson",
-              "address": "Adam.Nelson@aptum.com"
-            }
-          }
-        },
-        {
-          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAH2pa9JQ==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAACdMkdCgAAEA==",
-          "subject": "Product delivery flow",
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAIMwYNfg==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAENAABAscG_D3c-SI-xeA_iWIqgAAUABgR_AAA=",
+          "subject": "Sync Up",
           "sensitivity": "normal",
           "isAllDay": false,
           "isCancelled": false,
@@ -1331,14 +1307,14 @@
           "onlineMeetingUrl": null,
           "responseStatus": {
             "response": "accepted",
-            "time": "2026-03-18T15:02:27.4663596-04:00"
+            "time": "2026-04-22T08:10:46.3599996-04:00"
           },
           "start": {
-            "dateTime": "2026-04-22T15:00:00.0000000",
+            "dateTime": "2026-04-23T14:00:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "end": {
-            "dateTime": "2026-04-22T16:00:00.0000000",
+            "dateTime": "2026-04-23T15:00:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "attendees": [
@@ -1349,8 +1325,8 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "Martin Tessier",
-                "address": "Martin.Tessier@aptum.com"
+                "name": "Nikki Thind",
+                "address": "Nikki.Thind@aptum.com"
               }
             },
             {
@@ -1360,19 +1336,8 @@
                 "time": "0001-01-01T00:00:00Z"
               },
               "emailAddress": {
-                "name": "George Revie",
-                "address": "George.Revie@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Ben Kennedy",
-                "address": "Ben.Kennedy@aptum.com"
+                "name": "Sabrina La Villa",
+                "address": "Sabrina.LaVilla@aptum.com"
               }
             },
             {
@@ -1385,40 +1350,18 @@
                 "name": "Adam Nelson",
                 "address": "Adam.Nelson@aptum.com"
               }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Patrick Wolthausen",
-                "address": "Patrick.Wolthausen@aptum.com"
-              }
-            },
-            {
-              "type": "required",
-              "status": {
-                "response": "accepted",
-                "time": "0001-01-01T00:00:00Z"
-              },
-              "emailAddress": {
-                "name": "Will Stevens",
-                "address": "Will.Stevens@aptum.com"
-              }
             }
           ],
           "organizer": {
             "emailAddress": {
-              "name": "Martin Tessier",
-              "address": "Martin.Tessier@aptum.com"
+              "name": "Nikki Thind",
+              "address": "Nikki.Thind@aptum.com"
             }
           }
         },
         {
           "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAACgB8HDw==\"",
-          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qACGNJAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAB0n0YAQAAEA==",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMAFRAAgI3qDLQzwAAEYAAAAA_Qfs3SgwVEGPD1CQ2xav9AcAQLHBvg93P0iP8XgPoliKoAAAAAABDQAAQLHBvg93P0iP8XgPoliKoAAB0n0YAQAAEA==",
           "subject": "No meetings after 4, available before 8am if required",
           "sensitivity": "normal",
           "isAllDay": false,
@@ -1430,14 +1373,77 @@
             "time": "0001-01-01T00:00:00Z"
           },
           "start": {
-            "dateTime": "2026-04-22T16:00:00.0000000",
+            "dateTime": "2026-04-23T16:00:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "end": {
-            "dateTime": "2026-04-22T18:50:00.0000000",
+            "dateTime": "2026-04-23T18:50:00.0000000",
             "timeZone": "Eastern Standard Time"
           },
           "attendees": [],
+          "organizer": {
+            "emailAddress": {
+              "name": "Adam Nelson",
+              "address": "Adam.Nelson@aptum.com"
+            }
+          }
+        },
+        {
+          "@odata.etag": "W/\"QLHBvg93P0iP8XgPoliKoAAITjR/sQ==\"",
+          "id": "AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B_zdKDBUQY8PUJDbFq-0BwBAscG_D3c-SI-xeA_iWIqgAAAAAAENAABAscG_D3c-SI-xeA_iWIqgAAVmLHuuAAA=",
+          "subject": "Wingtervention",
+          "sensitivity": "normal",
+          "isAllDay": false,
+          "isCancelled": false,
+          "showAs": "busy",
+          "onlineMeetingUrl": null,
+          "responseStatus": {
+            "response": "organizer",
+            "time": "0001-01-01T00:00:00Z"
+          },
+          "start": {
+            "dateTime": "2026-04-23T18:00:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "end": {
+            "dateTime": "2026-04-23T20:50:00.0000000",
+            "timeZone": "Eastern Standard Time"
+          },
+          "attendees": [
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Andrei Ianouchkevitch",
+                "address": "Andrei.Ianouchkevitch@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Patrick Wolthausen",
+                "address": "Patrick.Wolthausen@aptum.com"
+              }
+            },
+            {
+              "type": "required",
+              "status": {
+                "response": "none",
+                "time": "0001-01-01T00:00:00Z"
+              },
+              "emailAddress": {
+                "name": "Erik Tanguay",
+                "address": "Erik.Tanguay@aptum.com"
+              }
+            }
+          ],
           "organizer": {
             "emailAddress": {
               "name": "Adam Nelson",
@@ -1449,5 +1455,5 @@
     }
   },
   "error": null,
-  "note_date": "2026-04-22"
+  "note_date": "2026-04-23"
 }
