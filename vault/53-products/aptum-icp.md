@@ -22,13 +22,13 @@ They are most commonly found in these verticals: SaaS/digital platforms, eCommer
 
 ### Firmographic Anchors
 
-| Attribute | Ideal Range | Why |
-|---|---|---|
-| Employee count | 50 to 2,000 | Large enough to have real infrastructure needs, small enough that their IT team (2 to 15 people) needs a partner |
-| Annual revenue | $10M to $500M | Budget exists for managed services, but they aren't large enough to build everything internally |
-| IT team size | 2 to 15 people | This is the sweet spot. Overwhelmed, stretched thin, doing too many things. They need a safety net. |
-| Infrastructure spend | $10K to $100K/mo MRC | Below $10K the economics don't work for managed services stacking. Above $100K they typically have in-house capability. |
-| Cloud maturity | Hybrid (on-prem + at least one hyperscaler) | Pure cloud-native companies won't need Aptum's infrastructure. Pure on-prem companies aren't ready for the conversation. |
+| Attribute            | Ideal Range                                 | Why                                                                                                                      |
+| -------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Employee count       | 50 to 2,000                                 | Large enough to have real infrastructure needs, small enough that their IT team (2 to 15 people) needs a partner         |
+| Annual revenue       | $10M to $500M                               | Budget exists for managed services, but they aren't large enough to build everything internally                          |
+| IT team size         | 2 to 15 people                              | This is the sweet spot. Overwhelmed, stretched thin, doing too many things. They need a safety net.                      |
+| Infrastructure spend | $10K to $100K/mo MRC                        | Below $10K the economics don't work for managed services stacking. Above $100K they typically have in-house capability.  |
+| Cloud maturity       | Hybrid (on-prem + at least one hyperscaler) | Pure cloud-native companies won't need Aptum's infrastructure. Pure on-prem companies aren't ready for the conversation. |
 
 ### Behavioral Indicators
 
