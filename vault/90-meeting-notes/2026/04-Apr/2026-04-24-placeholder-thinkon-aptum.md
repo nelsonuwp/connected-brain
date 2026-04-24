@@ -16,6 +16,10 @@ initiative:
 ## Context
 JP setting the stage from the whole Digital Bridge portfolio. 
 
+Broadcom consolidation
+UK specific
+
+
 
 ## Notes
 <!-- Raw — don't over-format in real time, just capture -->
