@@ -14,7 +14,7 @@ initiative:
 ---
 
 ## Context
-<!-- What does this meeting need to accomplish? Link to initiative or person note. -->
+JP setting the stage from the whole Digital Bridge portfolio. 
 
 
 ## Notes
