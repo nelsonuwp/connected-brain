@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-23T11:36:50.858165Z",
+  "generated_at": "2026-04-24T12:23:33.552562Z",
   "model": "anthropic/claude-4.5-sonnet-20250929",
   "tokens": {
-    "prompt": 18456,
-    "completion": 3412,
-    "total": 21868
+    "prompt": 14567,
+    "completion": 2236,
+    "total": 16803
   },
   "sources": [
     "email",
@@ -16,71 +16,22 @@
       {
         "id": "cluster_1",
         "item_ids": [
-          "394cae3957a8",
-          "b8e35d02af35"
+          "84cb5bd2b577",
+          "f177fe26c173"
         ],
         "discard": false,
-        "title": "SummitHQ SOW — Signature Completed",
-        "summary": "Barbara Krzywoszanski requested signature on Aptum SOW for SummitHQ - Evolve (GSE-328) via Adobe Acrobat Sign. Adam signed the document, and confirmation was received with final agreement attached.",
-        "actions": [],
-        "tracked_items": [],
-        "individual_sources": [
-          {
-            "label": "Signature request from Barbara Krzywoszanski",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMaAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Signature confirmation received",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMbAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMbAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "You signed: \"[GSE-328] Aptum SOW for SummitHQ - Evolve (April 21 2026)\""
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMaAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Signature requested on \"[GSE-328] Aptum SOW for SummitHQ - Evolve (April 21 2026)\""
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 2,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-22 14:02–14:04"
-        }
-      },
-      {
-        "id": "cluster_2",
-        "item_ids": [
-          "b3490bae379d",
-          "7efe32e056ff"
-        ],
-        "discard": false,
-        "title": "AWS Cloud Operations Competency & Marketplace — TD Synnex Coordination",
-        "summary": "Lacie following up on AWS Cloud Operations Competency application (App-0059154) awaiting update on next steps. Barbara recapping TD Synnex meeting plan: scheduling call between Aptum and TD with Rob and David representing Basis concerns, preparing introduction package, and coordinating second call between TD/Basis/Aptum.",
+        "title": "AWS TDSynnex Migration — Customer Breach Investigation",
+        "summary": "Matthew Carter reports a major customer experienced a breach during the 4/21 AWS migration to TDSynnex. Customer reported scans and items beyond the documented Root Access change and MFA logout. Matthew is requesting detailed information on all scans and activities performed during the offboard process from both TDSynnex and Ingram.",
         "actions": [],
         "tracked_items": [
           {
-            "text": "Lacie to get update on AWS Cloud Operations Competency application next steps",
-            "completed": false,
-            "completed_proof_url": null,
-            "person": "lacie-ellen-morley"
-          },
-          {
-            "text": "Barbara to schedule TD Synnex call with Erik, including Rob and David",
+            "text": "Matthew Carter to get detailed scan/activity report from TDSynnex",
             "completed": false,
             "completed_proof_url": null,
             "person": null
           },
           {
-            "text": "Barbara to prepare introduction package for Basis-TD call",
+            "text": "Matthew Carter to get detailed scan/activity report from Ingram",
             "completed": false,
             "completed_proof_url": null,
             "person": null
@@ -88,67 +39,24 @@
         ],
         "individual_sources": [
           {
-            "label": "Re: AWS Cloud Operations Competency — Lacie follow-up",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMUAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            "label": "AWS Outbound Transfer — Payer IDs (Ticket 26733782)",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVmDfcmAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
           },
           {
-            "label": "Re: AWS Cloud Marketplace — Barbara TD meeting recap",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMPAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+            "label": "TDSynnex AWS Call",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVmDfclAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
           }
         ],
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMUAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: AWS Cloud Operations Competency App-0059154 - Aptum"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVmDfcmAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "AWS – Outbound Transfer – Payer ID 140023366597 and 736692106039 and 447630109432 and 701369934313 (Ticket Number: 26733782)"
           },
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMPAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: AWS Cloud Marketplace"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 4,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-22 07:39–11:17"
-        }
-      },
-      {
-        "id": "cluster_4",
-        "item_ids": [
-          "c0981f3fc785",
-          "151f11160bc9"
-        ],
-        "discard": false,
-        "title": "Bell Canada MCA — Signature Completed",
-        "summary": "Bell Canada requested electronic signature on MCA agreement (01396924) via DocuSign. Adam signed the document, and confirmation was received with completed agreement attached.",
-        "actions": [],
-        "tracked_items": [],
-        "individual_sources": [
-          {
-            "label": "Bell signature request",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVcVknaAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          },
-          {
-            "label": "Bell signature confirmation",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVcVknsAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
-          }
-        ],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVcVknsAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Aptum Managed Services (Canada) Inc. - 01396924 - MCA | Bell eSignature - Signature Notification"
-          },
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAETAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVcVknaAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Aptum Managed Services (Canada) Inc. - 01396924 - MCA | Bell eSignature - Signature request"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVmDfclAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "TDSynnex AWS Call"
           }
         ],
         "sources": [
@@ -158,151 +66,21 @@
           "email_count": 2,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-22 00:06–08:44"
+          "date_range": "2026-04-23 11:28–11:35"
         }
       },
       {
-        "id": "a632d84264e8",
+        "id": "9d8fecd14502",
         "item_ids": [
-          "a632d84264e8"
+          "9d8fecd14502"
         ],
         "discard": false,
-        "title": "Pax8 Follow-Up — Decision Communicated",
-        "summary": "Matthew Carter responded to Pax8's Stephen Slattery explaining Aptum chose a competitor with more robust program, stronger technical resources, shorter billing cycle, and top-tier AWS partner status. Expressed hope to work together in future.",
+        "title": "VMware Cost Carve-Out — 13 Customers Need Line Item Changes",
+        "summary": "Matthew Carter identified 13 unique customers with VMware cost embedded in their TLS that need to be carved out as separate line items. He's asking who should enter the internal change orders (SDMs suggested). Martin noted 26 of 38 customers are month-to-month, out of contract, or expiring by April 2027, which will inform long-term strategy.",
         "actions": [],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMiAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "RE: [External] Re: Pax8 Follow Up"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 1,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-22 16:16"
-        }
-      },
-      {
-        "id": "a0aa4f0c1917",
-        "item_ids": [
-          "a0aa4f0c1917"
-        ],
-        "discard": false,
-        "title": "Urgent Discussion Before 3 PM — Resolved",
-        "summary": "Matthew Carter flagged urgent discussion needed before 3 PM ET. Barbara confirmed all good, information passed to Rob and David. Includes attachment.",
-        "actions": [],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMfAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Re: Urgent: Discussion Required Today Before 3 PM ET"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 3,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-22 11:42–15:08"
-        }
-      },
-      {
-        "id": "0d7d3879265a",
-        "item_ids": [
-          "0d7d3879265a"
-        ],
-        "discard": false,
-        "title": "Sales Forecast Analysis — Confidential Draft",
-        "summary": "Marc Alex Forget forwarded confidential draft forecast analysis from Tom Kelsch comparing updated views. Marked as DO NOT DISTRIBUTE with attachment.",
-        "actions": [
-          {
-            "text": "Review confidential forecast analysis attachment",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMYAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "FW: DRAFT - DO NOT DISTRIBUTE - Forecast"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 1,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-22 12:52"
-        }
-      },
-      {
-        "id": "9d6607c184d1",
-        "item_ids": [
-          "9d6607c184d1"
-        ],
-        "discard": false,
-        "title": "Team MA Proposed Changes — Document Shared",
-        "summary": "Marc Alex Forget shared document 'Team MA - Proposed Changes April 2026' for editing access.",
-        "actions": [
-          {
-            "text": "Review Team MA proposed changes document",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
-        "tracked_items": [],
-        "individual_sources": [],
-        "urls": [
-          {
-            "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVbYiMXAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Marc Alex Forget shared \"Team MA -Proposed Changes April 2026\" with you"
-          }
-        ],
-        "sources": [
-          "email"
-        ],
-        "source_stats": {
-          "email_count": 1,
-          "teams_count": 0,
-          "slack_count": 0,
-          "date_range": "2026-04-22 12:41"
-        }
-      },
-      {
-        "id": "f18545bbbae2",
-        "item_ids": [
-          "f18545bbbae2"
-        ],
-        "discard": false,
-        "title": "CMI Discussion — DR and SQL Collation Issues",
-        "summary": "Barbara scheduled meeting to identify next steps for CMI's outstanding requests: updated DR information requiring fix and SQL Collation decision (renaming vs rebuild = 75 hours work and delays). Needs answer for client. Adam accepted meeting.",
-        "actions": [
-          {
-            "text": "Decide on CMI SQL Collation approach (rename vs rebuild)",
-            "completed": false,
-            "completed_proof_url": null
-          }
-        ],
         "tracked_items": [
           {
-            "text": "Barbara to provide CMI with answer on DR and SQL Collation",
+            "text": "Determine ownership for entering VMware carve-out change orders",
             "completed": false,
             "completed_proof_url": null,
             "person": null
@@ -312,8 +90,8 @@
         "urls": [
           {
             "source": "email",
-            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVcRwWjAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
-            "subject": "Accepted: CMI Discussion - Next Steps"
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVmDfcxAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "FW: VMWARE"
           }
         ],
         "sources": [
@@ -323,10 +101,163 @@
           "email_count": 2,
           "teams_count": 0,
           "slack_count": 0,
-          "date_range": "2026-04-22 11:58–12:03"
+          "date_range": "2026-04-23 13:19–18:57"
+        }
+      },
+      {
+        "id": "cfdf5c8b6309",
+        "item_ids": [
+          "cfdf5c8b6309"
+        ],
+        "discard": false,
+        "title": "Centrilogic Partnership — Engagement Process Clarification",
+        "summary": "Marc Alex Forget confirms understanding that Aptum should not engage directly with Centrilogic clients unless warm introductions are made by Centrilogic per the MOU. One exception noted: Azamour was already introduced and is engaged with local team.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVmDfcvAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Centrilogic & Aptum - Customer list - Update to Technical Information"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-23 15:52–16:26"
+        }
+      },
+      {
+        "id": "2105ab3f0292",
+        "item_ids": [
+          "2105ab3f0292"
+        ],
+        "discard": false,
+        "title": "Purchase Requisition PR0003983 — Approval Required",
+        "summary": "D365 system requesting approval for purchase requisition PR0003983.",
+        "actions": [
+          {
+            "text": "Approve purchase requisition PR0003983 in D365",
+            "completed": false,
+            "completed_proof_url": null
+          }
+        ],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVmDfcrAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Please approve PR PR0003983."
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-23 15:40"
+        }
+      },
+      {
+        "id": "3c8111711844",
+        "item_ids": [
+          "3c8111711844"
+        ],
+        "discard": false,
+        "title": "Microsoft Certification Requirements — DP-300 Needed for Specialization",
+        "summary": "Melvin Ching clarified two skilling areas: Azure Database Administrator Associate (DP-300) is required for Specialization pre-requisite. AZ-700 certs go toward Solutions Partner Designation where they're in good shape with additional Azure Virtual Desktop candidates.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEMAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVmDfcqAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "RE: Microsoft skill certification - need your assistance"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 1,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-23 15:07"
+        }
+      },
+      {
+        "id": "33017fabf3d1",
+        "item_ids": [
+          "33017fabf3d1"
+        ],
+        "discard": false,
+        "title": "Basis Incident — Dinner with Andy Went Well",
+        "summary": "Adam thanked Ian Rae for his communication regarding an incident. Ian reported that Rob Station's dinner with Andy went very well. Context suggests successful relationship management following an operational incident.",
+        "actions": [],
+        "tracked_items": [],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "email",
+            "url": "https://outlook.office365.com/owa/?ItemID=AAMkAGJlOTlmOWI5LTRkMjctNGVlOS04MTc2LWNhZjk3MGFiMWZkMABGAAAAAAD5B%2BzdKDBUQY8PUJDbFq%2F0BwBAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAAAAAEJAABAscG%2BD3c%2FSI%2FxeA%2BiWIqgAAVlbE2fAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+            "subject": "Re: today's incident"
+          }
+        ],
+        "sources": [
+          "email"
+        ],
+        "source_stats": {
+          "email_count": 2,
+          "teams_count": 0,
+          "slack_count": 0,
+          "date_range": "2026-04-22 20:42–2026-04-23 07:03"
+        }
+      },
+      {
+        "id": "6cf43054d7e4",
+        "item_ids": [
+          "6cf43054d7e4"
+        ],
+        "discard": false,
+        "title": "AWS Shared Account Migration — Root Email Alerts",
+        "summary": "Erik Tanguay explains an AWS account moved from Ingram shared account to TD Synnex shared account now has Aptum listed on root email, generating alerts. Erik notes this should eventually move to a Dedicated Payer account and there's significant work to sort out these accounts properly.",
+        "actions": [],
+        "tracked_items": [
+          {
+            "text": "Erik Tanguay to migrate AWS accounts to Dedicated Payer accounts",
+            "completed": false,
+            "completed_proof_url": null,
+            "person": null
+          }
+        ],
+        "individual_sources": [],
+        "urls": [
+          {
+            "source": "slack",
+            "url": "https://aptum.slack.com/archives/C054X8DKQ3G/p1776955775305599",
+            "subject": "#cloud-platform-pm"
+          }
+        ],
+        "sources": [
+          "slack"
+        ],
+        "source_stats": {
+          "email_count": 0,
+          "teams_count": 0,
+          "slack_count": 2,
+          "date_range": "2026-04-23 07:38–10:49"
         }
       }
     ],
-    "discard_count": 38
+    "discard_count": 28
   }
 }

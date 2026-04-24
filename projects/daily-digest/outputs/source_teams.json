@@ -1,6 +1,6 @@
 {
   "source": "teams",
-  "collected_at": "2026-04-23T11:35:14.197695Z",
+  "collected_at": "2026-04-24T12:22:26.048666Z",
   "status": "success",
   "objects": {
     "chats": {
@@ -18,7 +18,7 @@
   },
   "error": null,
   "date_range": {
-    "start": "2026-04-22",
-    "end": "2026-04-22"
+    "start": "2026-04-23",
+    "end": "2026-04-23"
   }
 }

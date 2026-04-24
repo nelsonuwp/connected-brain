@@ -1,6 +1,6 @@
 {
   "source": "slack",
-  "collected_at": "2026-04-23T11:35:22.382247Z",
+  "collected_at": "2026-04-24T12:22:32.441293Z",
   "status": "success",
   "objects": {
     "channels": {
@@ -139,14 +139,169 @@
     },
     "messages": {
       "status": "success",
-      "record_count": 0,
+      "record_count": 2,
       "error": null,
-      "data": []
+      "data": [
+        {
+          "user": "U015PLFUQET",
+          "type": "message",
+          "ts": "1776945867.767719",
+          "client_msg_id": "8dc2e739-e18d-48b6-9b1e-33cf003b56c6",
+          "text": "ah..ok... are they receiving these alerts?",
+          "team": "T024XGS0G",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "W4Lp9",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "ah..ok... are they receiving these alerts?"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        },
+        {
+          "text": "<@U03GRCWC5>, is this Basis' account? If so, are they getting these emails?",
+          "files": [
+            {
+              "id": "F0AUC6H847R",
+              "created": 1776944326,
+              "timestamp": 1776944326,
+              "mimetype": "image/png",
+              "filetype": "png",
+              "pretty_type": "PNG",
+              "user": "U015PLFUQET",
+              "user_team": "T024XGS0G",
+              "editable": false,
+              "size": 101926,
+              "mode": "hosted",
+              "is_external": false,
+              "external_type": "",
+              "is_public": false,
+              "public_url_shared": false,
+              "display_as_bot": false,
+              "username": "",
+              "name": "image.png",
+              "title": "image.png",
+              "url_private": "https://files.slack.com/files-pri/T024XGS0G-F0AUC6H847R/image.png",
+              "url_private_download": "https://files.slack.com/files-pri/T024XGS0G-F0AUC6H847R/download/image.png",
+              "media_display_type": "unknown",
+              "thumb_64": "https://files.slack.com/files-tmb/T024XGS0G-F0AUC6H847R-5ed647b6c9/image_64.png",
+              "thumb_80": "https://files.slack.com/files-tmb/T024XGS0G-F0AUC6H847R-5ed647b6c9/image_80.png",
+              "thumb_360": "https://files.slack.com/files-tmb/T024XGS0G-F0AUC6H847R-5ed647b6c9/image_360.png",
+              "thumb_360_w": 360,
+              "thumb_360_h": 250,
+              "thumb_480": "https://files.slack.com/files-tmb/T024XGS0G-F0AUC6H847R-5ed647b6c9/image_480.png",
+              "thumb_480_w": 480,
+              "thumb_480_h": 334,
+              "thumb_160": "https://files.slack.com/files-tmb/T024XGS0G-F0AUC6H847R-5ed647b6c9/image_160.png",
+              "thumb_720": "https://files.slack.com/files-tmb/T024XGS0G-F0AUC6H847R-5ed647b6c9/image_720.png",
+              "thumb_720_w": 720,
+              "thumb_720_h": 500,
+              "thumb_800": "https://files.slack.com/files-tmb/T024XGS0G-F0AUC6H847R-5ed647b6c9/image_800.png",
+              "thumb_800_w": 800,
+              "thumb_800_h": 556,
+              "original_w": 918,
+              "original_h": 638,
+              "thumb_tiny": "AwAiADClwSPmx9RQcAn5wf605Tj0/EUvmRgAcAjrxQBHketGR61J5kXt+VJvi9f0oAYMHvTiv+0KXfF6/wA6Tg8jpQADpTUUlmO3cpODyBTh0pgRW3Fn2kHpj/69ACmNuB5YGO4PWnGeIuWNsuDjgEiowil9rSBcdSRkfpTvKTeB5qlc/eHp60ARlsqBgcfnUy/cH0pjRKEz5ik+gp6/cH0oAB0qFvvH61MOlQt94/WgBKKKKACp1+4PpUFTr9wfSgD/2Q==",
+              "permalink": "https://aptum.slack.com/files/U0702H42WRE/F0AUC6H847R/image.png",
+              "permalink_public": "https://slack-files.com/T024XGS0G-F0AUC6H847R-3d86b44eb8",
+              "is_starred": false,
+              "skipped_shares": true,
+              "has_rich_preview": false,
+              "file_access": "visible"
+            }
+          ],
+          "upload": false,
+          "user": "U015PLFUQET",
+          "display_as_bot": false,
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "BAzRI",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "user",
+                      "user_id": "U03GRCWC5"
+                    },
+                    {
+                      "type": "text",
+                      "text": ", is this Basis' account? If so, are they getting these emails?"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "type": "message",
+          "ts": "1776944334.181929",
+          "client_msg_id": "266c644d-b49f-45aa-8cbb-24dfcc550ced",
+          "thread_ts": "1776944334.181929",
+          "reply_count": 1,
+          "reply_users_count": 1,
+          "latest_reply": "1776955775.305599",
+          "reply_users": [
+            "U03GRCWC5"
+          ],
+          "is_locked": false,
+          "subscribed": false,
+          "_thread_replies": [
+            {
+              "user": "U03GRCWC5",
+              "type": "message",
+              "ts": "1776955775.305599",
+              "client_msg_id": "778dd173-cfaf-4782-b7f9-7cb3721efa7b",
+              "text": "No it isn't.  I noticed it last night but I knew it wasn't basis.\n\nThis was going through a shared account at Ingram and when we moved it to TD Synnex, I had to move it under it's own shared account and we are listed on the root email.\n\nThey recommend that we move this at a later stage to a Dedicated Payer account, which is what we should have done in the first place.\n\nThere's a lot of work on our part on getting these accounts sorted out.",
+              "team": "T024XGS0G",
+              "thread_ts": "1776944334.181929",
+              "parent_user_id": "U015PLFUQET",
+              "blocks": [
+                {
+                  "type": "rich_text",
+                  "block_id": "6bJ81",
+                  "elements": [
+                    {
+                      "type": "rich_text_section",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": "No it isn't.  I noticed it last night but I knew it wasn't basis.\n\nThis was going through a shared account at Ingram and when we moved it to TD Synnex, I had to move it under it's own shared account and we are listed on the root email.\n\nThey recommend that we move this at a later stage to a Dedicated Payer account, which is what we should have done in the first place.\n\nThere's a lot of work on our part on getting these accounts sorted out."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "_user_name": "Erik Tanguay"
+            }
+          ],
+          "_channel_id": "C054X8DKQ3G",
+          "_channel_name": "cloud-platform-pm",
+          "_is_im": false,
+          "_is_mpim": false,
+          "_user_name": "Adam Nelson"
+        }
+      ]
     }
   },
   "error": null,
   "date_range": {
-    "start": "2026-04-22",
-    "end": "2026-04-22"
+    "start": "2026-04-23",
+    "end": "2026-04-23"
   }
 }
