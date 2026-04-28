@@ -1,6 +1,6 @@
 # Aptum Managed Services Catalog
-## Value-Added Products Layered on Apt Cloud Commodities
-**Version 2.0 | April 1, 2026**
+## Value-Added Products Layered on Aptum Portal Commodities
+**Version 2.1 | April 28, 2026**
 
 ---
 
@@ -8,29 +8,35 @@
 
 The old tiering model (Tier 0-3) mixed infrastructure products with managed services in a vertical stack. This model separates them into two dimensions:
 
-- **Horizontal: Infrastructure Commodities** — what the customer provisions through Apt Cloud (or what Aptum provisions on their behalf). These are the base products. They are increasingly self-service and increasingly commoditized.
-- **Vertical: Managed Service Layers** — what Aptum operates on top of the commodity. These are the margin multipliers. They require human expertise. They are what makes Aptum different from a VPS provider.
+- **Horizontal: Infrastructure Commodities** are what the customer provisions through the Aptum Portal (or what Aptum provisions on their behalf). These are the base products. They are increasingly self-service and increasingly commoditized.
+- **Vertical: Managed Service Layers** are what Aptum operates on top of the commodity. These are the margin multipliers. They require human expertise. They are what makes Aptum different from a VPS provider.
 
 Every customer picks an infrastructure commodity and then stacks managed service layers on top. The more layers, the higher the MRR, the lower the churn.
 
-The assessment framework (see Product Strategy) defines how customers enter this catalog. Structured advisory assessments diagnose the customer's environment and produce findings that map directly to specific layers. The assessment report becomes the evidence base that justifies each layer's investment. The table below summarizes the assessment-to-layer mapping; detailed onboarding paths appear at the end of this document.
+The assessment framework (see `/53-products/aptum-product-strategy.md` v2.1) defines how customers enter this catalog. Structured advisory assessments diagnose the customer's environment and produce findings that map directly to specific layers. The assessment report becomes the evidence base that justifies each layer's investment. The table below summarizes the assessment-to-layer mapping; detailed onboarding paths appear at the end of this document.
 
 ---
 
-## Infrastructure Commodities (Provisioned via Apt Cloud)
+## Naming convention: products vs. implementation
 
-These are the "base products." Customers can consume them self-service (where available) or have Aptum provision them. The infrastructure itself is not the margin story — it's the entry point.
+Customer-facing product names in this catalog are vendor-neutral. The customer buys "Managed Backup," not the underlying tool. The implementation detail (which platform delivers the service) is captured in the description column where it informs delivery teams. This is a deliberate choice: vendor neutrality in product names protects flexibility (Aptum can change implementations without changing product SKUs) and aligns with the brand promise of tech-agnostic guidance. Service guides for delivery teams may reference specific vendor tooling; customer-facing materials should not.
+
+---
+
+## Infrastructure Commodities (Provisioned via Aptum Portal)
+
+These are the "base products." Customers can consume them self-service (where available) or have Aptum provision them. The infrastructure itself is not the margin story; it is the entry point.
 
 | Commodity | Technology | Provisioning | Portal Status | Infra Ops (Service Desk) |
 |---|---|---|---|---|
 | **Colocation** | Customer-owned hardware in Aptum DC | Manual (Data Center Ops) | Future: power/bandwidth visibility | Facility only -- customer owns everything above the rack |
 | **Dedicated Server** | Aptum-owned bare metal, single-tenant | Manual (Compute Platforms builds, Data Center Ops racks) | Future: inventory/status | Hardware health monitoring, replacement |
-| **BMaaS** | Canonical MAAS via CloudStack Extensions Framework 4.22 | Self-service (roadmap) | Roadmap | Hardware health layer (Service Desk); MAAS platform owned by Apt Cloud software/portal team |
+| **BMaaS** | Canonical MAAS via CloudStack Extensions Framework 4.22 | Self-service (roadmap) | Roadmap | Hardware health layer (Service Desk); MAAS platform owned by Aptum Portal software/portal team |
 | **Shared Cluster (VPC)** | CloudStack VMs, multi-tenant shared hosts | **Self-service (live)** | **Live** | CloudStack cluster ops, hypervisor health, network |
-| **Dedicated Cluster** | CloudStack VMs, single-tenant dedicated hosts (KVM/CloudStack via Apt Cloud) | Semi-automated | Platform capable | Dedicated host management, hypervisor, storage |
-| **Private Cloud** | VMware or Proxmox on dedicated hosts (not necessarily via Apt Cloud) | Manual | Platform capable | Hypervisor ops, VMware/Proxmox cluster management |
+| **Dedicated Cluster** | CloudStack VMs, single-tenant dedicated hosts (KVM/CloudStack via Aptum Portal) | Semi-automated | Platform capable | Dedicated host management, hypervisor, storage |
+| **Private Cloud** | VMware or Proxmox on dedicated hosts (not necessarily via Aptum Portal) | Manual | Platform capable | Hypervisor ops, VMware/Proxmox cluster management |
 | **Proxmox** | Proxmox VE via CloudStack Extensions | Roadmap | Roadmap | Proxmox cluster ops (Service Desk, new skill) |
-| **Public Cloud** | Azure (live), AWS/GCP (roadmap) | **Self-service (live — Azure)** | **Live** | N/A — hyperscaler owns infra |
+| **Public Cloud** | Azure (live), AWS/GCP (roadmap) | **Self-service (live; Azure only today)** | **Live** | N/A; hyperscaler owns infra |
 | **Kubernetes** | K8s via CSI integration | Roadmap | Roadmap | Cluster infrastructure ops |
 
 **Who operates the infrastructure commodity:** Service Desk (L2/L3 infra engineers) + Compute Platforms (builds, standards, L3 escalation) + Data Center Ops (physical layer) + Network (connectivity).
@@ -97,7 +103,7 @@ The Dedicated Server product price reflects six components. **Only the margin co
 | Service | What It Is | Delivering Team | Applies To | Portal Visibility | Status |
 |---|---|---|---|---|---|
 | **OS Patching** | Scheduled patch cycles for Windows Server and Linux (Debian, Ubuntu, RHEL, Alma, Rocky). Patch compliance reporting. | Managed Cloud | Any infra commodity where Aptum manages the OS | Patch compliance dashboard, schedule, history | Not built (portal); delivered today via runbook |
-| **Managed Backup — Veeam** | Backup job scheduling, monitoring, and restore operations. Policy-based retention. Backup success/failure reporting. | Managed Cloud | All infra commodities (Veeam supports physical, virtual, and cloud) | Backup job status, success rate, storage consumption, restore requests | Not built (portal); delivered today via tickets |
+| **Managed Backup** | Backup job scheduling, monitoring, and restore operations. Policy-based retention. Backup success/failure reporting. Implementation today is Veeam (physical, virtual, and cloud). | Managed Cloud | All infra commodities | Backup job status, success rate, storage consumption, restore requests | Not built (portal); delivered today via tickets |
 | **Managed Firewall** | Security policy management on Juniper SRX (physical) or virtual firewall (pfSense, FortiGate VM). Rule changes, audit, compliance. | Service Desk (L2 ops) + Managed Cloud (policy escalation) | Dedicated, Private Cloud, VPC (advanced tier) | Firewall rule audit log, policy status | Not built (portal); Advanced/Managed tiers near-term roadmap |
 | **Endpoint Security (AV/EDR)** | Managed antivirus and endpoint detection on customer servers. Alert triage and response. | Managed Cloud | Any infra where Aptum manages OS | Agent status, threat detection log | Not built (portal) |
 
@@ -114,11 +120,11 @@ The Dedicated Server product price reflects six components. **Only the margin co
 
 | Service | What It Is | Delivering Team | Applies To | Portal Visibility | Status |
 |---|---|---|---|---|---|
-| **App Performance Monitoring — Datadog** | Full-stack observability. APM, infrastructure metrics, log management, custom dashboards. Proactive alerting and incident response. | Managed Cloud | Any infra commodity; strongest fit with Shared Cluster, Private Cloud, Public Cloud | Datadog dashboard embedded/linked in portal | Not built (portal); delivered today for CUST-* customers |
-| **App Security — WAF** | Web Application Firewall. HTTP/HTTPS inspection, OWASP rule sets, custom policies. Managed as a service, not a network device. | Managed Cloud | Any customer with web-facing applications | WAF event log, policy status, block rate | Not built (portal) |
-| **DDoS Protection** | Volumetric scrubbing service. Always-on at network edge (included) + managed scrubbing appliance (add-on). | Managed Cloud + Network for edge | All customers (basic included); enhanced scrubbing is add-on | Attack history, scrubbing status | Not built (portal) |
-| **Load Balancing — L7/SSL** | Application-layer load balancing. SSL termination, health checks, routing policies. (L4 is self-service in portal today.) | Managed Cloud | Shared Cluster, Private Cloud, Public Cloud | LB health, backend pool status | L4 self-service live; L7 managed tier roadmap |
-| **DB Tuning** | Database performance optimization. Query analysis, index recommendations, capacity planning. | Managed Cloud or PS engagement | Any infra with managed databases | N/A — advisory/PS model | Available as PS |
+| **Application Performance Monitoring** | Full-stack observability. APM, infrastructure metrics, log management, custom dashboards. Proactive alerting and incident response. Implementation today is Datadog. | Managed Cloud | Any infra commodity; strongest fit with Shared Cluster, Private Cloud, Public Cloud | Observability dashboard embedded/linked in portal | Not built (portal); delivered today for CUST-* customers |
+| **Web Application Firewall (WAF)** | HTTP/HTTPS inspection, OWASP rule sets, custom policies. Managed as a service, not a network device. | Managed Cloud | Any customer with web-facing applications | WAF event log, policy status, block rate | Not built (portal) |
+| **DDoS Protection** | Volumetric scrubbing service. Always-on at network edge (included) plus managed scrubbing appliance (add-on). | Managed Cloud + Network for edge | All customers (basic included); enhanced scrubbing is add-on | Attack history, scrubbing status | Not built (portal) |
+| **Load Balancing (L7/SSL)** | Application-layer load balancing. SSL termination, health checks, routing policies. (L4 is self-service in portal today.) | Managed Cloud | Shared Cluster, Private Cloud, Public Cloud | LB health, backend pool status | L4 self-service live; L7 managed tier roadmap |
+| **Database Tuning** | Database performance optimization. Query analysis, index recommendations, capacity planning. | Managed Cloud or PS engagement | Any infra with managed databases | N/A (advisory/PS model) | Available as PS |
 | **DevOps Monitoring & Maintenance** | CI/CD pipeline health, container monitoring, infrastructure-as-code drift detection. | Managed Cloud | Kubernetes, Public Cloud, Shared Cluster | Future | Roadmap |
 
 **ICP for this layer:** CTOs, DevOps leads, Product Leads at SaaS/eCommerce companies where "slow = lost revenue."
@@ -134,11 +140,11 @@ The Dedicated Server product price reflects six components. **Only the margin co
 
 | Service | What It Is | Delivering Team | Applies To | Portal Visibility | Status |
 |---|---|---|---|---|---|
-| **Alert Logic MDR** | Managed Detection & Response. 24/7 threat monitoring, SOC-as-a-service, compliance reporting. | Managed Cloud + Alert Logic (partner) | Any infra commodity | Threat dashboard, compliance reports | IN DEVELOPMENT |
+| **Managed Detection and Response (MDR)** | 24/7 threat monitoring, SOC-as-a-service, compliance reporting. Delivered in partnership with a SOC provider; current implementation is Alert Logic. | Managed Cloud + SOC partner | Any infra commodity | Threat dashboard, compliance reports | IN DEVELOPMENT |
 | **Compliance Reporting** | SOC 2, PCI-DSS, HIPAA evidence collection and reporting. Leverages Aptum's own SOC 2 Type II. | Managed Cloud + PS for initial setup | Regulated industries on any infra | Compliance status dashboard | Not built; PS-led today |
 | **Vulnerability Scanning** | Scheduled scans, remediation tracking, posture scoring. | Managed Cloud | Any infra where Aptum manages OS | Scan results, remediation status | Not built |
 
-**ICP for this layer:** Regulated industries — healthcare, financial services, government. Companies where an audit failure is a business-ending event.
+**ICP for this layer:** Regulated industries (healthcare, financial services, government). Companies where an audit failure is a business-ending event.
 
 **Revenue uplift:** +$2,000–$5,000/mo for MDR; compliance reporting often bundled with PS engagement.
 
@@ -149,11 +155,11 @@ The Dedicated Server product price reflects six components. **Only the margin co
 
 | Service | What It Is | Delivering Team | Applies To | Portal Visibility | Status |
 |---|---|---|---|---|---|
-| **DRaaS — Disaster Recovery as a Service** | Defined RPO/RTO. Failover environment (secondary site or cloud). Runbook-based recovery. Quarterly DR tests. | Managed Cloud + PS for design | Private Cloud, Shared Cluster, Public Cloud | DR plan status, last test date/result, RPO/RTO targets | Not built (portal); delivered today for some CUST-* customers |
+| **DRaaS (Disaster Recovery as a Service)** | Defined RPO/RTO. Failover environment (secondary site or cloud). Runbook-based recovery. Quarterly DR tests. | Managed Cloud + PS for design | Private Cloud, Shared Cluster, Public Cloud | DR plan status, last test date/result, RPO/RTO targets | Not built (portal); delivered today for some CUST-* customers |
 | **BCP Planning & Testing** | Business Continuity Plan development, tabletop exercises, annual review. | Managed Cloud | All managed customers | Plan status, test schedule | Advisory/PS-led today |
 | **Hybrid Cloud Interconnects** | ExpressRoute (Azure), Direct Connect (AWS). Managed logical config, monitoring, failover. Physical circuit by Network. | Managed Cloud + Network for physical | Customers with hybrid (private + public cloud) | Interconnect status (up/down), bandwidth utilization | Not built (portal) |
-| **M365 Managed Services** | Exchange Online, SharePoint, Teams administration. Licensing, user provisioning, security configuration. | Managed Cloud | Any customer using M365 | N/A — managed via M365 admin center | Delivered today |
-| **Managed DNS — Cloudflare** | DNS management, Cloudflare proxy mode, DDoS at edge. | Self-service via Apt Cloud | Any customer | **Live in portal** | Live |
+| **Managed Productivity (M365)** | Exchange Online, SharePoint, Teams administration. Licensing, user provisioning, security configuration. | Managed Cloud | Any customer using M365 | N/A (managed via M365 admin center) | Delivered today |
+| **Managed DNS** | DNS management, proxy mode, DDoS at edge. Implementation today is Cloudflare. | Self-service via Aptum Portal | Any customer | **Live in portal** | Live |
 
 **Revenue uplift:** DRaaS = +$1,500–$5,000/mo; ExpressRoute = +$500–$1,500/mo.
 
@@ -194,7 +200,7 @@ The execute motion acts on assessment findings. These are SOW-scoped, milestone-
 
 ---
 
-## The Stacking Model — Revenue Per Customer
+## The Stacking Model: Revenue Per Customer
 
 The infrastructure commodity is the entry point. Each managed service layer multiplies MRR.
 
@@ -203,7 +209,7 @@ Example: Mid-market company, 20 VMs on Shared Cluster (VPC) + Azure hybrid
 
 Infrastructure Commodity:
   Shared Cluster (20 VMs, ~$7K/mo compute + storage)    $7,000
-  Azure managed through Apt Cloud (~$8K/mo spend)       included in management fee
+  Azure managed through Aptum Portal (~$8K/mo spend)       included in management fee
 
 Managed Service Layers:
   Layer 1: 24/7 Infra Monitoring & Response             included
@@ -297,15 +303,15 @@ Each assessment produces findings that point at specific managed service layers.
 
 **Execute step:** Remediation project (architecture improvements, cost optimization implementation, governance framework).
 
-**Operate destination:** L3 App Platform (ongoing monitoring, WAF, performance optimization) + Public Cloud Management (continued optimization, governance enforcement, cost reporting through Apt Cloud).
+**Operate destination:** L3 App Platform (ongoing monitoring, WAF, performance optimization) + Public Cloud Management (continued optimization, governance enforcement, cost reporting through Aptum Portal).
 
 **Expected MRC uplift:** $6K–$15K/mo
 
 ---
 
-## Portal Visibility Roadmap — What Apt Cloud Should Surface Per Layer
+## Portal Visibility Roadmap: What the Aptum Portal Should Surface Per Layer
 
-This is the gap. The portal delivers Layer 0 (self-service provisioning) well today. Layers 1-5 are operationally delivered but invisible in the portal. Making them visible is what turns Apt Cloud from a provisioning tool into a retention engine.
+This is the gap. The portal delivers Layer 0 (self-service provisioning) well today. Layers 1-5 are operationally delivered but invisible in the portal. Making them visible is what turns Aptum Portal from a provisioning tool into a retention engine.
 
 | Layer | What the Portal Should Show | Priority | Complexity |
 |---|---|---|---|
@@ -321,7 +327,7 @@ This is the gap. The portal delivers Layer 0 (self-service provisioning) well to
 
 ---
 
-## Team Responsibility Summary — Who Delivers What
+## Team Responsibility Summary: Who Delivers What
 
 | Managed Service | Service Desk | Managed Cloud | Compute Platforms | Data Center Ops | Network | HSA / HSDM |
 |---|---|---|---|---|---|---|
