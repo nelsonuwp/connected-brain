@@ -167,9 +167,9 @@ The assessments serve as the structured entry point for customers coming from tw
 
 **From on-premises (non-Aptum infrastructure):** Infrastructure Risk Assessment and Operational Maturity Assessment are the primary entry points. These customers have aging hardware, overwhelmed IT teams, and deferred maintenance. The assessment documents the risk, the remediation roadmap points at Aptum infrastructure (VPC, Private Cloud) with managed services stacked on top. The customer moves from self-managed on-prem to Aptum-managed hybrid.
 
-**From hyperscalers (pulled back to Aptum services):** Cloud Repatriation Assessment and Well-Architected Review are the primary entry points. These customers have rising cloud bills, flat usage, and workloads that don't need to be in a hyperscaler. The assessment builds the financial business case for selective repatriation to Aptum Dedicated Cloud (KVM/CloudStack through Apt Cloud) or Private Cloud (VMware/Proxmox, for customers with existing VMware requirements), with managed services providing the operational capability they would lose by leaving the hyperscaler's managed offerings.
+**From hyperscalers (pulled back to Aptum services):** Cloud Repatriation Assessment and Well-Architected Review are the primary entry points. These customers have rising cloud bills, flat usage, and workloads that don't need to be in a hyperscaler. The assessment builds the financial business case for selective repatriation to Aptum Dedicated Cloud (KVM/CloudStack through Aptum Portal) or Private Cloud (VMware/Proxmox, for customers with existing VMware requirements), with managed services providing the operational capability they would lose by leaving the hyperscaler's managed offerings.
 
-**From hybrid-by-accident (rationalization):** Hybrid Cloud Assessment catches customers who have sprawled across on-prem, colo, and one or more hyperscalers without a deliberate strategy. The assessment maps workloads to optimal placement and builds a rationalization plan that typically consolidates through Apt Cloud.
+**From hybrid-by-accident (rationalization):** Hybrid Cloud Assessment catches customers who have sprawled across on-prem, colo, and one or more hyperscalers without a deliberate strategy. The assessment maps workloads to optimal placement and builds a rationalization plan that typically consolidates through Aptum Portal.
 
 **Security-driven entry:** Security Posture Assessment catches customers with compliance obligations, audit findings, or simply aging security infrastructure. The assessment documents the gap, and the remediation path includes both infrastructure upgrades (Execute) and ongoing managed security services (Operate).
 
@@ -288,8 +288,8 @@ This is a critical organizational and commercial distinction:
 
 | Engagement | What It Produces | Typical Assessment Origin | Where It Leads (Operate) |
 |---|---|---|---|
-| Cloud Migration | Workload assessment, migration plan, execution | Hybrid Cloud Assessment, Cloud Repatriation Assessment | Customer lands on Aptum IaaS or Apt Cloud-managed Azure/AWS, buys managed services |
-| Repatriation Project | Workload moved from hyperscaler to Aptum Dedicated Cloud or Private Cloud | Cloud Repatriation Assessment | Customer on Dedicated Cloud (KVM/Apt Cloud) or Private Cloud (VMware/Proxmox) with full managed services stack |
+| Cloud Migration | Workload assessment, migration plan, execution | Hybrid Cloud Assessment, Cloud Repatriation Assessment | Customer lands on Aptum IaaS or Aptum Portal-managed Azure/AWS, buys managed services |
+| Repatriation Project | Workload moved from hyperscaler to Aptum Dedicated Cloud or Private Cloud | Cloud Repatriation Assessment | Customer on Dedicated Cloud (KVM/Aptum Portal) or Private Cloud (VMware/Proxmox) with full managed services stack |
 | Hardware Refresh | EOL server replacement, spec, procure, build, migrate, decommission | Infrastructure Risk Assessment | Customer moves from legacy dedicated to VPC or Private Cloud |
 | Security Remediation | Firewall replacement, OS upgrades, hardening, compliance alignment | Security Posture Assessment | Customer buys Alert Logic MDR, managed firewall, compliance reporting |
 | Platform Build | Kubernetes implementation, CI/CD pipeline, container platform | Platform Modernization Assessment | Customer on managed Kubernetes/CloudStack with DevOps monitoring |
@@ -320,7 +320,7 @@ The managed services catalog (see separate document) defines the five layers in 
 | Customer Origin | Entry Assessment | Execute Step | Operate Destination | Expected MRC |
 |---|---|---|---|---|
 | On-prem with aging hardware | Infrastructure Risk | Hardware refresh or migration to VPC/Private Cloud | L1 + L2 (Monitoring + Managed OS) | $5K-$15K/mo |
-| Hyperscaler with rising costs | Cloud Repatriation | Selective repatriation to Dedicated Cloud (KVM/Apt Cloud) or Private Cloud (VMware/Proxmox) | L1 + L2 + L5 (Monitoring + Managed OS + Hybrid Connectivity) | $10K-$50K/mo |
+| Hyperscaler with rising costs | Cloud Repatriation | Selective repatriation to Dedicated Cloud (KVM/Aptum Portal) or Private Cloud (VMware/Proxmox) | L1 + L2 + L5 (Monitoring + Managed OS + Hybrid Connectivity) | $10K-$50K/mo |
 | Hybrid-by-accident | Hybrid Cloud | Architecture rationalization, workload placement | L2 + L3 + L5 (Managed OS + App Platform + Hybrid Connectivity) | $8K-$25K/mo |
 | Compliance-driven | Security Posture | Security remediation, firewall upgrades | L2 + L4 (Managed Firewall + Security & Compliance) | $5K-$17K/mo |
 | Overwhelmed IT team | Operational Maturity | Managed services transition | L2 + L3 + L4 (full ops handoff) | $8K-$30K/mo |
@@ -344,7 +344,7 @@ Each motion is delivered by specific operational teams. The organizational model
 | Networking | Ben Kennedy | MPLS, internet, cloud connects | Network topology documentation for assessments | Connectivity implementation for Execute projects | OSI Layer 1 to 3 operations |
 | HSA | Pat Wolthausen + 3 architects | Pre-sales design, SOW scoping | **Leads assessment delivery** (SA role) | Defines technical scope for Execute SOWs | Target: 50%+ billable utilization |
 | HSDM | Lacie Allen-Morley | Project delivery (non-recurring / Execute motion) | AE coordination during assessment delivery | **Owns Execute project delivery** and timeline | Hands to CSM at project close |
-| CSM | Lacie Allen-Morley | Recurring customer relationship, account ops | — | Supports customer continuity between Execute engagements | Inbound queues, orders, renewals, credits, cancellations; proactive retention |
+| CSM | Lacie Allen-Morley | Recurring customer relationship, account ops | n/a | Supports customer continuity between Execute engagements | Inbound queues, orders, renewals, credits, cancellations; proactive retention |
 | Professional Services | (Open, no defined manager) | Project-based execution | Assessment framework ownership (to be assigned) | Cross-functional Execute delivery | Handoff to operational teams |
 | Operational Intelligence | Jorge Quintero | Data pipelines, unified customer view | Assessment data analysis support | Metrics and reporting for project outcomes | Unified monitoring and customer view |
 
@@ -359,13 +359,15 @@ No reorg needed. The product tier determines whether a customer gets an APTUM ti
 
 ---
 
-## Apt Cloud: The Portal Strategy
+## Aptum Portal: The Portal Strategy
 
-Apt Cloud today does provisioning well. VPC self-service is live. Azure subscription management is live. Cloudflare DNS is live. The monetization engine (catalogs, pricing, billing) works.
+The Aptum Portal today does provisioning well. VPC self-service is live. Azure subscription management is live. Cloudflare DNS is live. The monetization engine (catalogs, pricing, billing) works.
 
-What Apt Cloud does not yet do is surface the managed services layers. A customer paying for Managed OS, Datadog monitoring, Veeam backup, and Alert Logic MDR cannot see any of that in the portal. The managed services are operationally delivered but invisible.
+The portal's strategic role is to make Aptum's products and services easier for Aptum's customers to consume. The underlying software (CloudMC, also called CloudOps Software) was originally built and sold as a B2B2B SaaS for service providers. That motion has had limited traction over multiple years and is no longer a primary GTM focus. The pivot is to use the portal to sell Aptum's own products and services more effectively. The standalone B2B2B sale remains possible for the existing anchor tenants and inbound demand, but new investment is organized around in-Aptum use, not outbound resale.
 
-This is the highest-priority product gap. Making managed services visible in the portal converts Apt Cloud from a provisioning tool into a retention engine.
+What the Aptum Portal does not yet do is surface the managed services layers. A customer paying for Managed OS, application performance monitoring, managed backup, and managed detection and response cannot see any of that in the portal. The managed services are operationally delivered but invisible.
+
+This is the highest-priority product gap. Making managed services visible in the portal converts the Aptum Portal from a provisioning tool into a retention engine.
 
 ### Portal Visibility Roadmap
 
@@ -394,7 +396,7 @@ The assessment framework supercharges this engine. Instead of a generic upsell p
 Recommended assessment plays for existing base:
 - Hosting-only customers (429 accounts, $659K/mo): Infrastructure Risk Assessment or Operational Maturity Assessment. These customers are sitting on aging infrastructure with no managed services. The assessment quantifies the risk they are carrying.
 - Multi-LOB customers (135 accounts, $1.8M/mo): Security Posture Assessment or Hybrid Cloud Assessment. These customers already buy across product lines. The assessment identifies the next layer of managed services to stack.
-- Cloud-only customers (~116 accounts, $18K/mo): Well-Architected Review. These customers are on hyperscaler infrastructure managed through Apt Cloud. The review identifies optimization opportunities and opens the managed services conversation.
+- Cloud-only customers (~116 accounts, $18K/mo): Well-Architected Review. These customers are on hyperscaler infrastructure managed through Aptum Portal. The review identifies optimization opportunities and opens the managed services conversation.
 
 Target: Move managed services penetration from 6.5% to 15% within 12 months. At current portfolio size, that represents approximately $100K to $250K in incremental MRC from upsell alone.
 
@@ -405,17 +407,17 @@ The Ignite program proved the model: 7 new logos, $39K/mo MRC, 74 to 89% gross m
 For new logos, the assessment is the first engagement. The customer does not start by signing a managed services contract. The customer starts by paying $5K to $40K for an assessment that maps their environment, quantifies their pain, and produces a roadmap that happens to land on Aptum infrastructure and services.
 
 Recommended assessment plays for new logos:
-- VMware customers feeling Broadcom pressure: Hybrid Cloud Assessment or Cloud Repatriation Assessment. The assessment builds the business case for moving to Dedicated Cloud (KVM/CloudStack via Apt Cloud) or Private Cloud (Proxmox on dedicated hardware) on Aptum IaaS.
+- VMware customers feeling Broadcom pressure: Hybrid Cloud Assessment or Cloud Repatriation Assessment. The assessment builds the business case for moving to Dedicated Cloud (KVM/CloudStack via Aptum Portal) or Private Cloud (Proxmox on dedicated hardware) on Aptum IaaS.
 - Cloud-fatigued mid-market: Cloud Repatriation Assessment. The assessment documents the overspend and models the savings from selective repatriation.
 - Compliance-driven organizations: Security Posture Assessment. The assessment documents the compliance gaps and positions Aptum's managed security stack as the remediation path.
 
 Target: Phase 1 (Q2 2026) focuses on revenue enablement and operational readiness. Phase 2 (Q3 to Q4 2026) expands the catalog (MAAS, Proxmox, Kubernetes) and recruits MSP resellers. Phase 3 (H1 2027) scales to multi-region and activates AWS/GCP through the portal.
 
-The Broadcom disruption is the market catalyst. 35% of VMware workloads migrating by 2028 per Gartner. Aptum's CloudStack and Proxmox alternatives, delivered through Apt Cloud with managed services stacking, are a direct answer.
+The Broadcom disruption is the market catalyst. 35% of VMware workloads migrating by 2028 per Gartner. Aptum's CloudStack and Proxmox alternatives, delivered through Aptum Portal with managed services stacking, are a direct answer.
 
 ### Engine 3: MSP/Reseller Channel (Scale)
 
-ES Williams (Ignite customer) is already being explored as an early reseller model beta customer. The Apt Cloud white-label capability, combined with the monetization engine, lets MSPs build their own branded infrastructure and managed services offerings on top of Aptum's platform.
+ES Williams (Ignite customer) is already being explored as an early reseller model beta customer. The Aptum Portal white-label capability, combined with the monetization engine, lets MSPs build their own branded infrastructure and managed services offerings on top of Aptum's platform.
 
 Target MSP profile: Regional MSPs with 50 to 500 end customers, currently running VMware Cloud Director, squeezed by Broadcom pricing, looking for an alternative infrastructure partner. These are the MSPs Marc Pare described: "They've been so squeezed by Broadcom and other stuff that they can't operate and run it themselves and are looking for a partner who can."
 
@@ -439,7 +441,7 @@ Year 1 pipeline target: 14-18 assessments pitched, 11-14 sold, $330K-$807K total
 
 ## The MAAS Differentiator
 
-The CloudStack 4.22 Extensions Framework enables integration with Canonical MAAS (Metal as a Service) without core Java development. When MAAS is implemented, Aptum will be able to offer bare-metal provisioning through the same Apt Cloud portal that handles VMs, public cloud, and managed services.
+The CloudStack 4.22 Extensions Framework enables integration with Canonical MAAS (Metal as a Service) without core Java development. When MAAS is implemented, Aptum will be able to offer bare-metal provisioning through the same Aptum Portal portal that handles VMs, public cloud, and managed services.
 
 This is a market differentiator because no other mid-market MSP offers self-service bare metal + VPC + private cloud + hyperscaler management through a single portal with managed services layered on top. The closest competitors (OVH, Hetzner) offer bare metal but not managed services. The managed services competitors (Rackspace, Navisite) offer managed services but not self-service bare metal.
 
@@ -451,15 +453,21 @@ MAAS is on the Phase 2 roadmap (Q3 to Q4 2026) alongside Proxmox and Kubernetes.
 
 Strategic clarity requires saying no to some things:
 
-We stop positioning VPC as a lead product for new logos. Marc Pare was explicit: VPC is the "french fries, not the hamburger." It's a cost management and margin play for existing workloads, not a go-to-market product. New logo hunting leads with Private Cloud and managed services.
+We stop positioning VPC as a lead product for new logos. Marc Pare was explicit: VPC is the "french fries, not the hamburger." It is a cost management and margin play for existing workloads, not a go-to-market product. New logo hunting leads with Dedicated Cloud, Private Cloud, and managed services.
 
-We stop reselling Azure at a loss. Ian Rae identified this directly: "We have to get out of the mindset of I'm going to resell Azure and support at a loss." Azure subscription revenue should be a vehicle for managed services revenue, not an end in itself. The margin is in the management layer, not the resell.
+We stop reselling hyperscaler subscriptions at a loss. Ian Rae identified this directly for Azure: "We have to get out of the mindset of I'm going to resell Azure and support at a loss." The principle is the same for AWS and GCP. Hyperscaler subscription revenue is a vehicle for managed services revenue, not an end in itself. The margin is in the management layer, not the resell.
 
-We stop building service guides around vendor names. Service guides should be void of other companies' products unless explicitly necessary. The customer buys "Managed Backup," not "Veeam." They buy "App Performance Monitoring," not "Datadog." The vendor is the implementation detail, not the product.
+We stop building service guides around vendor names. Service guides describe outcomes, not implementations. The customer buys "Managed Backup," not the underlying tool. They buy "App Performance Monitoring," not the specific platform. Vendors and tools are implementation details that the delivery teams care about; they are not the product the customer is buying. This also creates the freedom to swap implementation vendors without breaking the customer-facing product.
+
+We stop hiding the agnostic guidance behind a managed-services-first reflex. The brand promises tech-agnostic guidance: the customer should expect Aptum to recommend the right answer for their situation, even when that answer is "stay on AWS, here is how to optimize." The advisory motion is built to do this honestly. The downstream conversion to Aptum-stack services depends on the credibility of the upstream advice, not on steering it.
+
+We stop selling the Aptum Portal (or its underlying software, CloudMC/CloudOps Software) as a primary B2B2B product. Existing anchor tenants are honored; the standalone B2B2B sales motion is no longer a primary GTM focus. The portal exists to make Aptum's own products and services easier to consume.
 
 We stop chasing large enterprise accounts as sustainable managed services customers. Telesat, CN, Bell: these are consulting engagements, not managed services relationships. Ian Rae: "An organization that has 10,000 employees and has an IT department that is 3 times the size of Aptum is not going to be like, Aptum, we want you to manage all of our public cloud stuff."
 
 We stop running professional services as an undifferentiated bucket. The advisory/execute distinction is now formalized. Assessments are advisory. Migrations, builds, and remediations are execute. They have different delivery models, different commercial models, different success metrics, and different team structures. Treating them as one blended "PS" line masks both the strategic value of advisory and the operational discipline required for execute.
+
+We do not adopt Build-Operate-Transfer (BOT) as a strategic motion. BOT remains useful as a customer-facing reassurance ("yes, you can bring this back in-house if you want to") that is consistent with the brand promise of "maintained with or without us." It is not a goal. The product goal is Assess to Build to Operate, forever, where forever is earned by operating better than DIY.
 
 ---
 
@@ -469,15 +477,17 @@ We stop running professional services as an undifferentiated bucket. The advisor
 |---|---|---|---|
 | Phase 1 | Q2 2026 | Revenue enablement, GTM for Aptum IaaS, assessment pipeline activation, advisory/execute PS split | Ignite customer migrations complete, pricing validated with finance, commercial team armed with managed services catalog + assessment sell sheets, portal L1+L2 visibility scoped, first 3-5 assessments pitched |
 | Phase 2 | Q3 to Q4 2026 | Catalog expansion, MSP channel recruitment, assessment pipeline scaling | MAAS integration, Proxmox via CloudStack Extensions, second DC scoping, first MSP reseller signed, managed services penetration from 6.5% to 15%, 8-10 assessments delivered, PS service manager hired |
-| Phase 3 | H1 2027 | Multi-region, channel scale, assessment framework maturity | AWS/GCP activation in Apt Cloud, multi-region infrastructure (Miami or second Toronto), channel revenue exceeding $100K MRC, assessment-to-operate conversion rate exceeding 60% |
+| Phase 3 | H1 2027 | Multi-region, channel scale, assessment framework maturity | AWS/GCP activation in Aptum Portal, multi-region infrastructure (Miami or second Toronto), channel revenue exceeding $100K MRC, assessment-to-operate conversion rate exceeding 60% |
 
 ---
 
 ## Open Items Requiring Resolution
 
-1. Apt Cloud needs a new name. The current name creates confusion with "App Cloud" in conversation and is not differentiated in market. This is a known issue without a resolution date.
+1. Aptum Portal naming is resolved (the previous placeholder was the old name). File paths, folder names, and supporting documents in `/53-products/aptcloud-aptum-iaas/` still use the old prefix. These need to be renamed in a separate housekeeping pass.
 
-2. Professional Services needs a service manager. The operating model has a gap. No single owner coordinates PS delivery (both advisory and execute), resource allocation, and margin accountability. With the advisory/execute formalization, this role becomes even more critical: the PS service manager needs to own assessment pipeline tracking, delivery quality, and follow-on conversion metrics.
+2. AI and GPU positioning is undecided. Aptum sits at the server level and does not buy GPUs. There is real customer demand and partner interest (5C.ai for AI private clouds, the broader market for AI infrastructure), and there are partner conversations in flight. The strategy does not currently take a position on whether AI infrastructure becomes a Phase 3 roadmap item, a partner-led offering, or a deliberate "stop doing." A decision is needed; until then, opportunistic engagement is acceptable but should not drive product commitments.
+
+3. Professional Services needs a service manager. The operating model has a gap. No single owner coordinates PS delivery (both advisory and execute), resource allocation, and margin accountability. With the advisory/execute formalization, this role becomes even more critical: the PS service manager needs to own assessment pipeline tracking, delivery quality, and follow-on conversion metrics.
 
    **Update (April 15, 2026):** The CEM/customer relationship gap previously noted has been resolved by splitting Lacie's org into two distinct functions: HSDM (project delivery / Execute motion, non-recurring) and a new Customer Success Management (CSM) function (recurring customer ops, queues, orders, renewals, proactive retention). Both report to Lacie Allen-Morley. HSDM hands to CSM at project close; CSM hands back to HSDM at new engagement start.
 
@@ -497,4 +507,4 @@ We stop running professional services as an undifferentiated bucket. The advisor
 
 ---
 
-*Sources: dimServices extract (April 1, 2026), Product Strategy v1.3.1 (Confluence), CloudOps SW Product Strategy 1.0 (Confluence), Service Guides (Confluence), Product Discussion VTT (March 31, 2026), AptCloud/Aptum IaaS Strategy v1.2, AptCloud/Aptum IaaS PRD, Managed Services Catalog, Service Team descriptions (all 9 teams), STG Assessment & Commercial Playbook v1.0 (7 assessments, engagement workflow, revenue model, success metrics, post-assessment pathways), Reanchor session notes (April 1, 2026).*
+*Sources: dimServices extract (April 1, 2026), Aptum Identity & Values (Confluence, Marketing space), Aptum Messaging (Confluence, Marketing space), Product Strategy v1.3.1 (Confluence, treated as historical), CloudOps SW Product Strategy 1.0 (Confluence, B2B2B framing now superseded), Service Guides (Confluence), Product Discussion VTT (March 31, 2026), `/53-products/aptcloud-aptum-iaas/AptCloud_Aptum_IaaS_Strategy.md` (file path pending rename), `/53-products/aptcloud-aptum-iaas/AptCloud_Aptum_IaaS_PRD.md` (file path pending rename), `/53-products/managed-services-catalog.md`, Service Team descriptions (all 9 teams), STG Assessment & Commercial Playbook v1.0 (7 assessments, engagement workflow, revenue model, success metrics, post-assessment pathways), Reanchor session notes (April 1, 2026), Ian Rae Transition document 1.1 DRAFT (April 27, 2026), Dave Pistacchio review email (April 28, 2026).*
