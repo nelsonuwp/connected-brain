@@ -1,14 +1,16 @@
 # Aptum Ideal Customer Profile
 ## Single Unified ICP, Grounded in Portfolio Data
-**Version 2.0 | April 1, 2026**
+**Version 2.1 | April 28, 2026**
 
 ---
 
 ## Why a Single ICP
 
-The original product strategy document ([Product Strategy v1.3.1](https://aptum.atlassian.net/wiki/spaces/Product/pages/3376513043/Product+Strategy+v1.3.1)) defined two ICPs: one for infrastructure buyers and one for digital natives with 7+ developers. The board directed the team to consolidate to a single ICP. Ian Rae put it simply in the March 31 product discussion: "We're a mid-market company selling to mid-market."
+The earlier Product Strategy v1.3.1 ([Confluence page](https://aptum.atlassian.net/wiki/spaces/Product/pages/3376513043/Product+Strategy+v1.3.1)) defined two ICPs: one for infrastructure buyers and one for digital natives with 7+ developers. The board directed the team to consolidate to a single ICP. Ian Rae put it simply in the March 31, 2026 product discussion: "We're a mid-market company selling to mid-market."
 
 This document defines one Ideal Customer Profile. It also defines what an ideal customer is not, using real portfolio data to show where the current customer base aligns and where it diverges. It integrates the assessment framework as the qualification and onboarding mechanism: the way Aptum determines whether a prospect fits the ICP, builds the relationship, and funnels the customer into the managed services and infrastructure stack.
+
+The ICP also reflects the brand promise that anchors product strategy. Aptum's brand commits to the right workload on the right platform, the right expertise at the right time, and your cloud, your way. The ideal customer is one who values that proposition: someone with workloads that genuinely belong on different platforms, the operational maturity to want a partner instead of a single vendor, and the willingness to pay for managed services that are demonstrably better than what they could do in-house.
 
 ---
 
@@ -62,7 +64,7 @@ Each behavioral indicator maps to a specific assessment. The assessment validate
 |---|---|---|---|
 | Aging infrastructure | "Our servers are 7 years old," "We haven't patched in months," "Our SAN is at 85% capacity" | Infrastructure Risk & Readiness | Whether the customer has enough technical debt to justify hardware refresh + managed services |
 | Cloud cost pressure | "Our AWS bill doubled but usage is flat," "We're paying for stuff we don't use" | Cloud Repatriation | Whether workloads are portable and whether the savings justify repatriation to Aptum IaaS |
-| Hybrid sprawl | "We have stuff everywhere and no one knows what's where," "We're hybrid by accident" | Hybrid Cloud | Whether the customer has enough workload complexity to benefit from Apt Cloud consolidation |
+| Hybrid sprawl | "We have stuff everywhere and no one knows what's where," "We're hybrid by accident" | Hybrid Cloud | Whether the customer has enough workload complexity to benefit from Aptum Portal consolidation |
 | Security/compliance gaps | "Our auditor flagged us," "Our firewalls are EOL," "We're not sure we'd pass a SOC 2 audit" | Security Posture & Compliance | Whether the customer has compliance obligations that require ongoing managed security services |
 | Overwhelmed IT team | "My team spends 80% of their time keeping the lights on," "We can't innovate because we're firefighting" | Operational Maturity | Whether the customer's operational burden is large enough to justify a managed services transition |
 | Platform ambitions on legacy infra | "We want to do Kubernetes but we're running on 7-year-old hardware," "Our CI/CD is manual" | App & Platform Modernization | Whether the customer's application architecture is ready for platform modernization on Aptum infra |
@@ -160,11 +162,11 @@ A fully engaged ideal customer generates $15,000 to $48,000/mo in MRC. The blend
 
 | Layer | What They Buy | Assessment That Drives It | Monthly Value |
 |---|---|---|---|
-| Infrastructure commodity | VPC, Private Cloud, or Dedicated + Azure/AWS through Apt Cloud | Hybrid Cloud, Cloud Repatriation, Infrastructure Risk | $7,000 to $25,000 |
-| Layer 2: Managed OS | Patching, Veeam backup, managed firewall, endpoint security | Infrastructure Risk, Operational Maturity, Security Posture | +$2,000 to $5,000 |
-| Layer 3: App Platform | Datadog APM, WAF, DDoS, load balancing | Platform Modernization, Well-Architected Review, Hybrid Cloud | +$3,000 to $8,000 |
-| Layer 4: Security | Alert Logic MDR, compliance reporting, vulnerability scanning | Security Posture | +$2,000 to $5,000 |
-| Layer 5: Business Continuity | DRaaS, hybrid interconnects, M365 managed services | Hybrid Cloud, Cloud Repatriation | +$1,500 to $5,000 |
+| Infrastructure commodity | VPC, Dedicated Cloud, Private Cloud, or hyperscaler subscription through Aptum Portal | Hybrid Cloud, Cloud Repatriation, Infrastructure Risk | $7,000 to $25,000 |
+| Layer 2: Managed OS | OS patching, managed backup, managed firewall, endpoint security | Infrastructure Risk, Operational Maturity, Security Posture | +$2,000 to $5,000 |
+| Layer 3: App Platform | Application performance monitoring, web application firewall, DDoS protection, load balancing, database tuning | Platform Modernization, Well-Architected Review, Hybrid Cloud | +$3,000 to $8,000 |
+| Layer 4: Security | Managed detection and response, compliance reporting, vulnerability scanning | Security Posture | +$2,000 to $5,000 |
+| Layer 5: Business Continuity | DRaaS, hybrid interconnects, managed productivity (M365), managed DNS | Hybrid Cloud, Cloud Repatriation | +$1,500 to $5,000 |
 
 ---
 
@@ -267,7 +269,7 @@ These are organizations that moved to AWS, Azure, or GCP and are now experiencin
 
 **What the assessment reveals:** Cloud spend breakdown by service/region/workload, workload portability scores (highly portable, moderately portable, low portability, not recommended for repatriation), TCO comparison across scenarios (status quo, selective repatriation, aggressive repatriation, hybrid optimized), break-even analysis.
 
-**Funnel path:** Assessment builds the financial business case. The repatriation project (Execute) moves selected workloads to Aptum Private Cloud. Managed services (Operate) provide the operational capability the customer would lose by leaving the hyperscaler. The customer retains hyperscaler for workloads that genuinely benefit from it (managed through Apt Cloud) and runs cost-predictable workloads on Aptum IaaS.
+**Funnel path:** Assessment builds the financial business case. The repatriation project (Execute) moves selected workloads to Aptum Private Cloud. Managed services (Operate) provide the operational capability the customer would lose by leaving the hyperscaler. The customer retains hyperscaler for workloads that genuinely benefit from it (managed through Aptum Portal) and runs cost-predictable workloads on Aptum IaaS.
 
 **Expected journey revenue:** $10K-$35K assessment, $50K-$300K repatriation project, $10K-$50K/mo ongoing managed services. This is the highest-value customer journey in the portfolio ($200K-$1M+ TCV).
 
@@ -279,7 +281,7 @@ These are organizations that have sprawled across on-prem, colo, and one or more
 
 **What the assessment reveals:** Complete workload inventory with dependency mapping, suitability scoring for each workload (best fit: on-prem, private cloud, public cloud, SaaS), TCO modeling across placement scenarios, security and compliance gaps across environments.
 
-**Funnel path:** Assessment produces a rationalization roadmap. Architecture consulting (Execute) designs the target state. Migration projects move workloads to optimal placement. Managed services (Operate) provide consistent operational coverage across all environments through Apt Cloud.
+**Funnel path:** Assessment produces a rationalization roadmap. Architecture consulting (Execute) designs the target state. Migration projects move workloads to optimal placement. Managed services (Operate) provide consistent operational coverage across all environments through Aptum Portal.
 
 **Expected journey revenue:** $7.5K-$40K assessment, $30K-$200K architecture + migration, $8K-$25K/mo ongoing managed services.
 
@@ -291,7 +293,7 @@ These are organizations in regulated industries (healthcare, financial services,
 
 **What the assessment reveals:** EOL/EOS device inventory with CVE mapping, firewall rule audit, compliance gap analysis against specific frameworks (SOC 2, HIPAA, PCI-DSS), penetration testing results (L/XL engagements), remediation priority matrix with cost/effort estimates.
 
-**Funnel path:** Assessment findings drive security remediation project (Execute): firewall replacement, OS upgrades, hardening, compliance alignment. Managed security services (Operate) provide ongoing protection: Alert Logic MDR, managed firewall, compliance reporting, vulnerability scanning. The customer can't go back to self-managed security because the assessment demonstrated the gap.
+**Funnel path:** Assessment findings drive security remediation project (Execute): firewall replacement, OS upgrades, hardening, compliance alignment. Managed security services (Operate) provide ongoing protection: managed detection and response, managed firewall, compliance reporting, vulnerability scanning. The customer can't go back to self-managed security because the assessment demonstrated the gap.
 
 **Expected journey revenue:** $5K-$30K assessment, $20K-$100K remediation project, $5K-$17K/mo ongoing managed security services.
 
@@ -332,7 +334,7 @@ For new logo acquisition against the ICP:
 
 | Region | Rationale | Assessment Entry Point |
 |---|---|---|
-| Greater Toronto / Southern Ontario | Largest existing base, Canadian data sovereignty, proximity to Pullman DC (Apt Cloud/IaaS primary site) | Infrastructure Risk, Cloud Repatriation (Canadian data sovereignty angle) |
+| Greater Toronto / Southern Ontario | Largest existing base, Canadian data sovereignty, proximity to Pullman DC (Aptum Portal/IaaS primary site) | Infrastructure Risk, Cloud Repatriation (Canadian data sovereignty angle) |
 | US East Coast (Virginia, Atlanta, Miami) | Existing DC presence, large mid-market population, Miami specifically for LatAm-adjacent demand | Hybrid Cloud, Cloud Repatriation, Operational Maturity |
 | UK (Portsmouth + London) | Existing customer base, but constrained by facility situation. Selective. | Infrastructure Risk (existing base renewal + upsell) |
 
@@ -366,9 +368,9 @@ The assessment framework makes this operationally concrete: every renewal in the
 
 Several market forces are pulling mid-market companies toward exactly the profile described above:
 
-The Broadcom/VMware disruption is real and ongoing. Gartner estimates 35% of VMware workloads will migrate by 2028. Forrester projects VMware's largest 2,000 customers will shrink deployments by 40%. These organizations need somewhere to go, and Aptum's CloudStack and Proxmox alternatives, delivered through Apt Cloud with managed services layered on top, are a direct answer. The Hybrid Cloud Assessment and Cloud Repatriation Assessment are the specific tools that start this conversation.
+The Broadcom/VMware disruption is real and ongoing. Gartner estimates 35% of VMware workloads will migrate by 2028. Forrester projects VMware's largest 2,000 customers will shrink deployments by 40%. These organizations need somewhere to go, and Aptum's CloudStack and Proxmox alternatives, delivered through Aptum Portal with managed services layered on top, are a direct answer. The Hybrid Cloud Assessment and Cloud Repatriation Assessment are the specific tools that start this conversation.
 
-Cloud repatriation is accelerating. Andreessen Horowitz's "Cost of Cloud" research and the 37signals case study ($7M savings over 5 years from their cloud exit) have given mid-market CFOs permission to question their hyperscaler bills. 21% of surveyed organizations have repatriated workloads. Aptum's ability to provide private cloud with a public-cloud-like portal experience (through Apt Cloud) positions it as the repatriation destination. The Cloud Repatriation Assessment is designed to capitalize on this trend with a structured business case methodology.
+Cloud repatriation is accelerating. Andreessen Horowitz's "Cost of Cloud" research and the 37signals case study ($7M savings over 5 years from their cloud exit) have given mid-market CFOs permission to question their hyperscaler bills. 21% of surveyed organizations have repatriated workloads. Aptum's ability to provide private cloud with a public-cloud-like portal experience (through Aptum Portal) positions it as the repatriation destination. The Cloud Repatriation Assessment is designed to capitalize on this trend with a structured business case methodology.
 
 The Canadian cloud market is growing at 17.3% CAGR, reaching an estimated $121.6B by 2030. Canadian data sovereignty requirements continue to tighten. Aptum's Toronto DC presence and Canadian identity are meaningful differentiators.
 
@@ -410,9 +412,9 @@ Use the managed services stacking model to score existing customers against the 
 
 ### For Product and Engineering
 
-Everything that makes Apt Cloud more visible to the customer (monitoring dashboards, backup status, patch compliance, ticket integration) deepens the managed services relationship and increases switching cost. Portal visibility for Layers 1 and 2 is the highest-impact work for customer retention.
+Everything that makes Aptum Portal more visible to the customer (monitoring dashboards, backup status, patch compliance, ticket integration) deepens the managed services relationship and increases switching cost. Portal visibility for Layers 1 and 2 is the highest-impact work for customer retention.
 
-The assessment framework creates a secondary requirement: assessment findings should eventually be trackable in Apt Cloud. When a customer completes a Security Posture Assessment and then purchases Alert Logic MDR, the portal should show the connection between the finding and the remediation.
+The assessment framework creates a secondary requirement: assessment findings should eventually be trackable in the Aptum Portal. When a customer completes a Security Posture Assessment and then purchases managed detection and response, the portal should show the connection between the finding and the remediation.
 
 ---
 
@@ -428,4 +430,4 @@ Very small businesses below $5K/mo MRC potential. The economics of managed servi
 
 ---
 
-*Sources: dimServices extract (April 1, 2026), Product Strategy v1.3.1 (Confluence), Product Discussion transcript (March 31, 2026), AptCloud/Aptum IaaS Strategy v1.2, Managed Services Catalog, Service Team descriptions, STG Assessment & Commercial Playbook v1.0 (7 assessments, engagement workflow, revenue model, success metrics, post-assessment pathways, customer-to-assessment matrix).*
+*Sources: dimServices extract (April 1, 2026), Aptum Identity & Values (Confluence, Marketing space), Aptum Messaging (Confluence, Marketing space), Product Strategy v1.3.1 (Confluence, treated as historical), Product Discussion transcript (March 31, 2026), `/53-products/aptum-product-strategy.md` v2.1, `/53-products/managed-services-catalog.md`, `/53-products/aptcloud-aptum-iaas/AptCloud_Aptum_IaaS_Strategy.md` (file path pending rename), Service Team descriptions, STG Assessment & Commercial Playbook v1.0 (7 assessments, engagement workflow, revenue model, success metrics, post-assessment pathways, customer-to-assessment matrix).*
