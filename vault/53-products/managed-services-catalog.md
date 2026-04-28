@@ -338,13 +338,17 @@ This is the gap. The portal delivers Layer 0 (self-service provisioning) well to
 | Managed Backup | | **Operates** | | | | |
 | Managed Firewall | **L2 ops** | Policy escalation | | | | |
 | Endpoint Security | | **Operates** | | | | |
-| App Monitoring (Datadog) | | **Operates** | | | | |
-| WAF | | **Operates** | | | | |
+| Application Performance Monitoring | | **Operates** | | | | |
+| Web Application Firewall | | **Operates** | | | | |
 | DDoS | | **Manages** | | | Edge protection | |
 | L7 Load Balancing | | **Operates** | | | | |
-| Alert Logic MDR | | **Manages** (+ partner) | | | | |
+| Managed Detection and Response (MDR) | | **Manages** (+ partner) | | | | |
 | DRaaS | | **Operates** | | | | PS designs |
 | Hybrid Interconnects | | **Manages** logical | | | **Operates** physical | |
-| M365 | | **Operates** | | | | |
+| Managed Productivity (M365) | | **Operates** | | | | |
 | Advisory (Assessments) | Data collection support | SME support | Environment docs | Asset inventory | Network topology | **SA leads delivery** |
 | Execute (Projects) | Contributes | Contributes | Contributes | Contributes | Contributes | **HSA scopes, HSDM delivers** |
+
+---
+
+*Sources: `/53-products/aptum-product-strategy.md` v2.1 (April 28, 2026), `/53-products/aptum-icp.md` v2.1 (April 28, 2026), Aptum Identity & Values (Confluence, Marketing space), STG Assessment & Commercial Playbook v1.0, dimServices extract (April 1, 2026), Service Team descriptions (all 9 teams), Reanchor session notes (April 1, 2026).*
