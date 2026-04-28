@@ -1,20 +1,36 @@
 # Aptum Product Strategy
 ## From Commodity Hosting to Hybrid Cloud Managed Services
-**Version 2.0 | April 1, 2026**
+**Version 2.1 | April 28, 2026**
+
+---
+
+## Vision and Mission
+
+Aptum's vision is a future where businesses have the freedom to innovate, grow, thrive, and own their destiny in the cloud. The mission is to help customers run their cloud, their way, with the right platforms and right expertise, right when they need them.
+
+This strategy is the operating realization of that brand promise. The brand commits to three things: the right workload on the right platform, the right expertise at the right time, and your cloud, your way. The job of product strategy is to make those promises true at the level of services, motions, and revenue.
 
 ---
 
 ## The Position
 
-Aptum is a hybrid cloud managed services provider. The aspiration is to be the company that makes infrastructure disappear into the background for mid-market organizations, so they can focus on their business instead of managing servers, patching operating systems, and arguing about firewall rules.
+Aptum is a hybrid cloud managed services provider built on the principle that the right workload runs on the right platform. Aptum is truly cloud agnostic. Customers can run on any of the major hyperscalers (Azure, AWS, GCP), on Aptum-delivered virtual or dedicated infrastructure (VPC, Dedicated Cloud), on dedicated VMware or Proxmox stacks, or on bare metal. Aptum's job is to help the customer figure out which of these is right for which workload, deliver it, manage it, and remove the complexity of running it across more than one place.
+
+The aspiration is to be the company that makes infrastructure disappear into the background for mid-market organizations, so they can focus on their business instead of managing servers, patching operating systems, and arguing about firewall rules.
 
 The company has two core assets that make this possible:
 
-1. Apt Cloud (the portal, the control plane, the customer experience). Powered by CloudOps Software (formerly CloudMC). This is what the customer sees and touches. It delivers self-service provisioning, cost visibility, lifecycle management, and will increasingly surface the managed services the customer is paying for.
+1. **Aptum Portal** (the customer-facing control plane). The Aptum Portal is how customers consume Aptum's products and services. It delivers self-service provisioning, cost visibility, lifecycle management, and will increasingly surface the managed services the customer is paying for. The underlying software (CloudMC, also branded CloudOps Software) is mature, in production with anchor tenants, and capable of presenting a single pane of glass across Aptum infrastructure and the hyperscalers. The portal's strategic purpose is to make Aptum's own products easier to consume, not to be sold as a standalone B2B2B platform. We eat our own dogfood.
 
-2. Aptum IaaS (the infrastructure). Compute, storage, networking on Apache CloudStack 4.22 with KVM virtualization. Delivered as VPC (multi-tenant shared hosts), Dedicated Cloud (single-tenant dedicated hosts, KVM/CloudStack), and Private Cloud (dedicated hosts with VMware or Proxmox, not necessarily through Apt Cloud portal). This is the foundation that replaces commodity dedicated hosting and offers an alternative to hyperscaler infrastructure at better economics.
+2. **Aptum IaaS** (the infrastructure). Compute, storage, networking on Apache CloudStack 4.22 with KVM virtualization. Delivered as VPC (multi-tenant shared hosts), Dedicated Cloud (single-tenant dedicated hosts, KVM/CloudStack), and Private Cloud (dedicated hosts with VMware or Proxmox, not necessarily through the Aptum Portal). This is the foundation that replaces commodity dedicated hosting and offers an alternative to hyperscaler infrastructure at better economics.
 
-These two assets, combined with operational teams that manage everything from the physical rack to the application layer, are what lets Aptum sell managed outcomes rather than just infrastructure components.
+These two assets, combined with operational teams that manage everything from the physical rack to the application layer, and with deep technical expertise in hyperscaler MSP delivery, Kubernetes, DevOps, and platform engineering, are what lets Aptum sell managed outcomes rather than just infrastructure components.
+
+### Brand promise and the forever-operate goal
+
+The Identity & Values brand promise commits that customer solutions are designed to be maintained "with or without us, so you can grow on your own terms." The strategy commits that every engagement should funnel toward an Operate outcome and that recurring management is where the margin lives. These are not in tension. The customer is always free to leave; the goal is to operate the customer's environment so much better than they could in-house that staying is the obvious choice. The freedom to leave is real and is part of the brand promise. The way Aptum earns forever is by being better than DIY, not by lock-in.
+
+Build-Operate-Transfer (BOT) is therefore not a strategic motion. It is a customer-onboarding narrative for skeptics who need reassurance that they can bring operations home if they want to. The product goal is Assess to Build to Operate, forever.
 
 ---
 
@@ -167,7 +183,9 @@ The advisory motion opens doors. The two revenue pillars are what generate the m
 
 ### Pillar 1: Managed Services (The Margin Multiplier)
 
-Managed services are what differentiate Aptum from a VPS provider. They require human expertise. They create stickiness. They are the reason a customer stays when someone offers cheaper compute.
+Managed services are what differentiate Aptum from a VPS provider. They require human expertise. They create stickiness through superior operations, not lock-in. They are the reason a customer stays when someone offers cheaper compute.
+
+The technical depth that makes managed services defensible is broader than commodity infrastructure ops. Aptum's operating teams cover the full stack: hyperscaler MSP delivery (Azure Expert MSP heritage, AWS competencies in migration, EKS, DevOps, Cloud Operations, GenAI in development, GCP), Kubernetes and platform engineering (the CloudOps team), CloudStack and KVM hypervisor expertise, VMware operations, and a security partnership stack. This combination is unusual in mid-market managed services. Most competitors lead with a single hyperscaler or with VMware. Aptum leads with the workload and matches the platform to it.
 
 The managed services catalog defines five layers that stack on top of any infrastructure commodity:
 
@@ -195,24 +213,24 @@ The stacking math is compelling. A mid-market customer with 20 VMs on VPC + Azur
 
 Compare to the same customer buying unmanaged VPC only: $7,000/mo. Managed services nearly triple revenue per customer. The assessment is what produces the evidence that justifies each layer.
 
-### Pillar 2: Aptum IaaS / Private Cloud (The Infrastructure Foundation)
+### Pillar 2: Aptum IaaS and the Cloud-Agnostic Stack (The Infrastructure Foundation)
 
-Aptum IaaS, delivered through Apt Cloud, is the new infrastructure product. It replaces the legacy dedicated hosting model with a modern, self-service, software-defined infrastructure platform.
+Pillar 2 is not just Aptum IaaS. It is the cloud-agnostic infrastructure stack that Aptum delivers and manages, with Aptum IaaS as the new core. Aptum is one of the few mid-market providers that can credibly say "we will help you place this workload on the right platform" and mean any of: hyperscaler, Aptum VPC, Aptum Dedicated Cloud, dedicated VMware, dedicated Proxmox, or bare metal. Most competitors are tied to a single hyperscaler or to the VMware stack. Aptum is not.
 
-**Taxonomy clarification (April 15, 2026):** Based on alignment with Will Stevens and the product team, Aptum offers three distinct infrastructure delivery models. These had previously been conflated under the "Private Cloud" label — that conflation is resolved here. All teams should use these definitions consistently.
+Aptum IaaS, delivered through the Aptum Portal, is the new infrastructure product. It replaces the legacy dedicated hosting model with a modern, self-service, software-defined infrastructure platform.
 
-Three delivery models:
+**Taxonomy clarification (April 15, 2026):** Aptum offers three distinct infrastructure delivery models. These had previously been conflated under the "Private Cloud" label. The conflation is resolved here.
 
-| Model | Tenancy | Hypervisor / Stack | Delivered via Apt Cloud? | Target Customer | Assessment Entry Point |
+| Model | Tenancy | Hypervisor / Stack | Delivered via Aptum Portal? | Target Customer | Assessment Entry Point |
 |---|---|---|---|---|---|
-| VPC | Multi-tenant (shared physical hosts) | KVM / Apache CloudStack | Yes — self-service via Apt Cloud portal | Cost-conscious workloads, dev/test, general purpose | Hybrid Cloud Assessment (workload placement), Operational Maturity (infrastructure transition) |
-| Dedicated Cloud | Single-tenant (dedicated physical hosts) | KVM / Apache CloudStack | Yes — delivered through Apt Cloud control plane | Production workloads requiring dedicated compute, compliance-sensitive, performance-critical, cost-predictable | Cloud Repatriation Assessment (the business case), Infrastructure Risk (the hardware refresh path) |
-| Private Cloud | Single-tenant (dedicated physical hosts) | VMware or Proxmox | No — not necessarily through Apt Cloud; direct infrastructure layer | Customers with existing VMware estates, Broadcom displacement candidates, workloads requiring VMware feature parity (vMotion, vSAN, etc.) | Cloud Repatriation Assessment, Infrastructure Risk Assessment (VMware refresh path) |
+| VPC | Multi-tenant (shared physical hosts) | KVM / Apache CloudStack | Yes, self-service via Aptum Portal | Cost-conscious workloads, dev/test, general purpose | Hybrid Cloud Assessment (workload placement), Operational Maturity (infrastructure transition) |
+| Dedicated Cloud | Single-tenant (dedicated physical hosts) | KVM / Apache CloudStack | Yes, delivered through Aptum Portal | Production workloads requiring dedicated compute, compliance-sensitive, performance-critical, cost-predictable | Cloud Repatriation Assessment (the business case), Infrastructure Risk (the hardware refresh path) |
+| Private Cloud | Single-tenant (dedicated physical hosts) | VMware or Proxmox | No, not necessarily through the Aptum Portal | Customers with existing VMware estates, Broadcom displacement candidates, workloads requiring VMware feature parity (vMotion, vSAN, etc.) | Cloud Repatriation Assessment, Infrastructure Risk Assessment (VMware refresh path) |
 
 **Key distinctions:**
-- VPC and Dedicated Cloud both run KVM/CloudStack and are delivered through the Apt Cloud portal. The difference is tenancy: VPC shares physical hosts, Dedicated Cloud gets dedicated hardware.
-- Private Cloud uses VMware or Proxmox on dedicated hardware and does not require the Apt Cloud control plane. It is infrastructure with managed services on top, not a cloud portal product.
-- "Private Cloud" as used in earlier documentation often referred to what is now called Dedicated Cloud. When referencing infrastructure delivered through Apt Cloud on dedicated hosts, the correct term going forward is **Dedicated Cloud**.
+- VPC and Dedicated Cloud both run KVM/CloudStack and are delivered through the Aptum Portal. The difference is tenancy: VPC shares physical hosts, Dedicated Cloud gets dedicated hardware.
+- Private Cloud uses VMware or Proxmox on dedicated hardware and does not require the Aptum Portal. It is infrastructure with managed services on top, not a portal product.
+- "Private Cloud" as used in earlier documentation often referred to what is now called Dedicated Cloud. When referencing infrastructure delivered through the Aptum Portal on dedicated hosts, the correct term going forward is **Dedicated Cloud**.
 
 The board demo on March 31 confirmed production readiness of VPC and Dedicated Cloud. Dave Pistacchio called it "true private cloud" and directed the team to determine a fast-follow GTM timeline.
 
@@ -221,15 +239,28 @@ Pre-launch validation: 7 Ignite customers, $39,119/mo CAD MRC, 36-month contract
 Key differentiators vs. hyperscalers:
 - Predictable pricing (per vCPU/GB, no transaction costs, no surprise egress)
 - Data sovereignty (Canadian-owned, Toronto DC with SOC 2 Type II)
-- Single portal for private + public cloud (Apt Cloud manages both Aptum IaaS and Azure/AWS/GCP)
+- Single portal for private and public cloud (Aptum Portal manages both Aptum IaaS and Azure/AWS/GCP)
 - Managed services layered on top (hyperscalers don't do this, that's the customer's problem)
 - Assessment-driven onboarding (the customer arrives with a documented environment, a business case, and a roadmap, not a cold signup)
 
 Key differentiators vs. commodity hosting providers (OVH, Hetzner, DigitalOcean):
 - Managed services stack (they sell infrastructure, Aptum sells outcomes)
 - Enterprise-grade portal with RBAC, multi-tenant governance, cost visibility
-- MSP/reseller white-label capability (ES Williams/Ignite model)
 - Advisory and professional services to design, migrate, and manage
+
+### What cloud agnosticism looks like for a real customer
+
+The agnostic story is best told concretely, not abstractly. A representative example:
+
+A mid-market customer is spending $40,000/month on Azure. Their bill has grown faster than their usage. They engage Aptum for a Cloud Repatriation Assessment. The assessment finds three categories of workload:
+
+- **Workload A (cloud-native, bursty, integrated with Azure-only services):** stays on Azure. The assessment identifies $10,000/month of right-sized Azure spend. Aptum manages this through the Aptum Portal as part of the multi-cloud managed services pillar.
+- **Workload B (predictable production VMs, compliance-friendly, Aptum sovereignty an advantage):** moves to Aptum IaaS Dedicated Cloud. Steady-state cost: $2,000/month.
+- **Workload C (database tier with high IO, latency-sensitive, fits a tuned dedicated server better than a virtualized environment):** moves to Aptum dedicated servers. Steady-state cost: $6,000/month.
+
+Pre-Aptum: $40,000/month on Azure, with the customer carrying the operational burden.
+
+Post-Aptum: $18,000/month total ($10K Azure + $2K Aptum IaaS + $6K dedicated server) plus managed services layered on top of all three. The customer saves money, the workloads are placed where they belong, and Aptum has three service relationships where Azure had one. This is what "the right workload on the right platform" looks like operationally, and it is the kind of outcome the strategy is organized to produce.
 
 ---
 
