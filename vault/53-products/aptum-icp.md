@@ -38,15 +38,27 @@ They are most commonly found in these verticals: SaaS/digital platforms, eCommer
 
 ### Behavioral Indicators
 
-The ideal customer exhibits one or more these patterns:
+These are signals to listen for, not a checklist to score. A prospect does not need to show all of them. One strong signal is enough to open the right conversation. Two or three in combination means you are almost certainly talking to the right person at the right time. Read these as patterns you will recognize when you hear them, not as qualifying criteria that must all be present.
 
-They have workloads they cannot or will not move to a hyperscaler. This could be for cost reasons (they've done the math and repatriation makes sense), regulatory reasons (data sovereignty, compliance requirements), performance reasons (latency-sensitive applications), or inertia reasons (legacy applications that would cost more to re-architect than to host).
+**Their workloads have reasons to stay off a hyperscaler.**
 
-They are running a VMware estate and feeling Broadcom's licensing pressure. The 300 to 1,050% price increases validated by Gartner are real, and these customers are actively looking for alternatives. Aptum's CloudStack and Proxmox options are directly relevant.
+The reason varies and does not matter as much as the signal itself. Some customers have done the TCO math and repatriation to private infrastructure makes financial sense. Some have regulatory or data sovereignty constraints that limit their hyperscaler options. Some have latency-sensitive applications that hyperscalers cannot serve cost-effectively. Some have legacy applications that would cost more to re-architect than to simply host.
 
-They consume multiple product types. The portfolio data is clear on this: multi-product customers generate 94.46% of Aptum's revenue while representing 63.9% of the customer base. The average multi-LOB customer generates 2.8x the revenue of a single-LOB customer and churns at a materially lower rate.
+The related variant worth listening for: they know their infrastructure situation needs attention, but their team does not have the internal capacity or expertise to act on it. The urgency is real. The problem is real. But there are three people in IT, all of them reactive, and no one has bandwidth to plan a migration. This is what "I need a partner, not just a vendor" sounds like before the customer has figured out how to say it.
 
-They value the relationship over the commodity. They want a partner who understands their environment, not just a provider who racks a server. The consulting engagement is the start of the relationship, not the end of it.
+**They are on VMware and their Broadcom renewal is coming.**
+
+The 300 to 1,050% price increases are validated by Gartner and are not going away. When you hear this signal, there is almost always a renewal date attached, which creates urgency that is not manufactured. These customers are actively looking for alternatives. Aptum's CloudStack and Proxmox options through Aptum Portal are a direct answer to the problem they are trying to solve right now.
+
+**Their IT team is overwhelmed and stretched thin.**
+
+Small team, high reactive load, someone carrying a pager they resent. They are not doing planned work because they cannot get ahead of the unplanned work. The telling phrase is some version of "we spend all our time keeping the lights on." These customers are not shopping for a cheaper version of what they have. They are looking for someone who will actually take things off their plate, which is a fundamentally different and more durable conversation.
+
+**They ask questions that signal they want a relationship, not a transaction.**
+
+They want to know how Aptum's team is structured. They ask about experience with similar customers. They are not leading with price per GB in the first conversation. This signal often shows up in how they engage rather than in something they state directly. Customers who are shopping for commodity do not ask these questions.
+
+> **On multi-product customers:** The portfolio data is clear that multi-product customers generate 94.46% of Aptum's revenue and churn at materially lower rates than single-product customers. This is not a qualifying signal for new logos; it is the target outcome. The goal of the assessment and Execute motion is to build customers who buy across the stack. Do not use this to pre-qualify prospects. Use it to remind yourself what you are building toward.
 
 ### The Buyer
 
