@@ -74,52 +74,39 @@ The ideal customer does not arrive as a managed services buyer. They arrive with
 
 ### The Story: How a Customer Relationship Actually Develops
 
-A SaaS company with about 120 employees has been running on AWS for five years. They started simple: a couple of EC2 instances, an RDS database, a founder who knew enough to get things going. As the company grew, so did the infrastructure, but without a deliberate plan. A DevOps person was hired. A contractor joined part-time. Their AWS bill is now $22,000 a month and climbing, and when the CFO brought it up at the last board meeting, nobody had a clean answer.
+A mid-market distribution company has been running a substantial on-premises environment for years. At the center of it is a legacy ERP system supported by roughly 15 virtual machines that touch everything from order processing to warehouse fulfillment. The broader environment spans about 100 VMs, with 300 users on the domain and two dedicated connectivity lines feeding into a warehouse floor where availability is not optional.
 
-Six weeks ago they had a four-hour outage on a Saturday. A large customer called on Monday. The DevOps person traced it to a misconfigured auto-scaling policy that had been wrong for eight months without anyone noticing. Backups are "probably running." IAM policies have not been reviewed in two years. The team wants to move to Kubernetes but the one person who could build it is too busy keeping the current environment alive.
+The business runs lean on IT, and recently it got leaner. Their most critical technical person left without leaving behind passwords, documentation, or a runbook for the environment. The ERP is still running, but the CIO is now managing an environment he cannot fully see. He knows what the system does. He is less certain about what holds it together. That uncertainty sits on top of a spring office move requiring a full network redesign across three locations, a busy season starting in March that makes major changes operationally impossible, and a DR posture that, if tested today, would not pass.
 
-An Aptum AM reaches out after seeing the company at an industry event. The conversation is 40 minutes. A few days later, the AM sends a follow-up email that plays the story back:
+The departure of that one person made something visible that had probably been true for a while. The company was not operating an infrastructure strategy. They were operating a person. When that person left, the CIO and COO looked at what remained and agreed: this could not be how the business continued to run. Aptum was already a trusted provider for the parent company's infrastructure, and the reference held. The conversation became less about a specific project and more about building something that does not depend on who happens to be in the seat.
 
-> You have built something real: 120 people, a product customers rely on, five years of growth that your infrastructure has mostly kept up with. What is making it harder now is that the environment you built to get here is not quite the environment you need to stay here. The AWS bill is climbing in ways that are hard to explain. The outage six weeks ago was manageable, but it surfaced something about single points of failure that has been in the back of your mind. Your DevOps person is talented, but they are one person managing everything, which means the important projects keep getting pushed by the urgent incidents.
->
-> What seems to have changed is that the board is paying attention now. The question is not whether to get the environment in order. It is whether you have the bandwidth to do it internally, or whether this is the moment to bring in a partner who has done it before.
->
-> What good looks like from your perspective is not a massive rearchitecture. It is clarity: a picture of what you are running, what it costs, what the risk is, and a realistic plan for closing the gaps so you can stop firefighting and start making deliberate decisions.
+An Aptum AM, already familiar with the parent company relationship, reaches out. The conversation covers the full situation in 45 minutes. The AM sends a follow-up that plays the story back:
 
-The customer responds: "Yeah, that's exactly it."
+> You have built a distribution operation that moves product reliably, and your infrastructure has largely kept up with that. What is making this harder now is that the environment you built depends on knowledge that walked out the door. The ERP is running, but the team around it is thinner than it should be, and a spring office move is coming whether the infrastructure is ready or not. What the CIO and COO seem to have landed on is that this cannot keep running the way it has been. The question is what a more deliberate model looks like, and whether there is a partner who can help build it before March.
 
-A Salesforce opportunity is created. The proposal that follows is a Well-Architected Review.
+The CIO responds: "That's exactly where we are."
 
-**The Well-Architected Review ($15,000) surfaces:**
+A Salesforce opportunity is created. The proposal is an Infrastructure Risk and Readiness Assessment.
 
-- Three EC2 instances that can be right-sized, saving approximately $2,800/month
-- A staging environment running 24/7 that should be scheduled off-hours, saving approximately $1,200/month
-- No backup policy on two production RDS instances
-- IAM roles with overly permissive access, flagged as a compliance risk
-- No real observability beyond basic CloudWatch, with no alerting on latency or error rates
-- The Saturday outage traced to a misconfigured auto-scaling policy that had been wrong for months
+**The Infrastructure Risk and Readiness Assessment (~$15,000)**
 
-The assessment report becomes the sales tool for everything that follows. The customer does not need to be convinced they have a problem. The assessment already proved it.
+The assessment covers the full environment: all 100 VMs catalogued and risk-scored, the ERP ecosystem dependency-mapped so the 15 machines that actually run the business are clearly identified, network architecture reviewed against the office move requirements, and a DR gap analysis tested against the two to three hour RTO. The documentation gap left by the departing engineer gets closed here too. Aptum produces the runbook that should have existed already.
 
-**Engagement 2: Architecture Remediation Project (~$35,000)**
+What it produces: a prioritized remediation roadmap, a clear picture of what moves to Aptum infrastructure and what stays, and the evidence base for every commercial conversation that follows. The customer does not need to be convinced they have a problem. The assessment already proved it.
 
-Right-size the instances. Implement a proper backup policy on RDS. Fix IAM. Correct the auto-scaling configuration. Separate staging and production properly. The customer's DevOps person stops being the person who has to find and fix everything. They become the person who reviews and approves.
+**Execute: Two Phases Driven by the Spring Deadline**
 
-**Engagement 3: Aptum Managed Backup and OS Patching (~$3,500/month)**
+Phase 1 (before March): Migrate the ERP ecosystem to Aptum Dedicated or Private Cloud, properly documented and redundant, with a managed handoff. Network design and hardware refresh across all three locations. DRaaS implemented and tested against the two to three hour RTO before the move happens. (~$75,000 to $150,000 SOW)
 
-Aptum takes over backup scheduling, monitoring, and restore operations. OS patching runs on a defined cycle with compliance reporting. Backup status is visible in Aptum Portal. The DevOps person stops being the person who gets called at 2am about a failed backup job.
+Phase 2 (post-move): The remaining VM estate gets rationalized. What moves to hosted infrastructure, what gets decommissioned, what gets backed up and left alone. (~$25,000 to $50,000 SOW)
 
-**Engagement 4: Application Performance Monitoring (~$2,500/month)**
+**Operate: What the Relationship Looks Like Ongoing**
 
-Full-stack observability deployed across the environment. Latency dashboards, error rate alerting, custom dashboards for the metrics that matter. The next time something starts going wrong, the customer finds out in minutes, not hours after.
+With the ERP ecosystem on Aptum infrastructure, Managed Cloud wraps around it: 24/7 monitoring, OS patching, Managed Backup, and Managed Firewall across the ERP environment. DRaaS provides ongoing tested recovery with a defined RTO. Network management covers all three locations.
 
-**Six months later: Managed Detection and Response**
+The CIO stops being the person who gets called at 2am. The business stops depending on who happens to be sitting in the IT chair.
 
-A prospect asks the customer about their SOC 2 posture during a sales process. The customer cannot answer confidently. They call the AM. The Well-Architected Review findings, specifically the IAM exposure and absence of real monitoring, become the starting point for a new conversation. Aptum proposes a Security Posture Assessment, which leads to Managed Detection and Response and Compliance Reporting.
-
-**What the relationship looks like at 12 months:**
-
-Assessment and project revenue of approximately $50,000. Monthly managed services of approximately $7,000/month across Managed Backup, OS Patching, and Application Performance Monitoring, with MDR in the pipeline. A customer whose DevOps person is no longer drowning, whose board can see the environment is under control, and who has three more managed service conversations on the roadmap.
+What the relationship is worth at 12 months: approximately $15,000 in assessment revenue, $100,000 to $200,000 in project revenue, and approximately $8,000 to $9,000/month in managed services MRC across Managed Cloud, DRaaS, and network management.
 
 The customer did not come to Aptum looking for any of this. They came because an AM listened well enough to play their story back to them.
 
