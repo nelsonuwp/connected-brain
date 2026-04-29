@@ -68,110 +68,78 @@ The secondary influencer is the CFO or finance leader. Aptum's single-bill, sing
 
 ---
 
-## Assessment-Based Qualification
-
-The assessment framework replaces the traditional qualification checklist with a structured diagnostic that simultaneously validates ICP fit and builds the relationship. Instead of asking "does this prospect fit our ICP?" in the abstract, the AE offers a specific assessment that tests the hypothesis while delivering value.
-
-### ICP Signals and Assessment Mapping
-
-Each behavioral indicator maps to a specific assessment. The assessment validates the signal, quantifies the opportunity, and produces the evidence base for the commercial conversation.
-
-
-| ICP Signal                         | What You Hear                                                                                            | Assessment to Offer             | What It Validates                                                                                  |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Aging infrastructure               | "Our servers are 7 years old," "We haven't patched in months," "Our SAN is at 85% capacity"              | Infrastructure Risk & Readiness | Whether the customer has enough technical debt to justify hardware refresh + managed services      |
-| Cloud cost pressure                | "Our AWS bill doubled but usage is flat," "We're paying for stuff we don't use"                          | Cloud Repatriation              | Whether workloads are portable and whether the savings justify repatriation to Aptum IaaS          |
-| Hybrid sprawl                      | "We have stuff everywhere and no one knows what's where," "We're hybrid by accident"                     | Hybrid Cloud                    | Whether the customer has enough workload complexity to benefit from Aptum Portal consolidation     |
-| Security/compliance gaps           | "Our auditor flagged us," "Our firewalls are EOL," "We're not sure we'd pass a SOC 2 audit"              | Security Posture & Compliance   | Whether the customer has compliance obligations that require ongoing managed security services     |
-| Overwhelmed IT team                | "My team spends 80% of their time keeping the lights on," "We can't innovate because we're firefighting" | Operational Maturity            | Whether the customer's operational burden is large enough to justify a managed services transition |
-| Platform ambitions on legacy infra | "We want to do Kubernetes but we're running on 7-year-old hardware," "Our CI/CD is manual"               | App & Platform Modernization    | Whether the customer's application architecture is ready for platform modernization on Aptum infra |
-| Unreviewed cloud estate            | "We built our AWS environment fast and never went back to check," "Performance is inconsistent"          | Well-Architected Review         | Whether the customer's cloud estate has optimization and governance opportunities                  |
-
-
-### The Assessment as Qualification Tool
-
-The assessment does three things simultaneously:
-
-1. It validates ICP fit. A customer who pays $5K to $40K for a structured assessment of their environment is demonstrating willingness to invest, recognition that they need help, and trust in Aptum's expertise. These are the behavioral markers of an ICP-fit customer.
-2. It maps the environment. The assessment deliverable is a detailed picture of the customer's infrastructure, applications, security posture, operational model, or cloud estate. This is the information the commercial team needs to scope the Execute and Operate phases. It replaces weeks of free pre-sales discovery with a paid engagement.
-3. It produces the business case. The assessment report includes findings, risk scores, and a remediation roadmap with cost estimates. This is the sales tool for the next motion. The customer doesn't need to be "sold" on managed services; the assessment has already demonstrated why they need them.
-
-### Qualification Questions by Assessment Type
-
-**Infrastructure Risk & Readiness (broadest entry point, fits nearly all ICP accounts):**
-
-1. How old is your server estate? When was the last hardware refresh?
-2. What operating systems are you running? Are any end-of-life or unsupported?
-3. Who handles patching today? How often does it actually happen?
-4. What would a 4-hour outage cost your business?
-5. Do you have a capacity plan for the next 12 months?
-
-**Cloud Repatriation (highest follow-on value, $200K-$1M+ TCV):**
-
-1. What is your monthly cloud spend? Which providers?
-2. Has your cloud bill grown faster than your usage?
-3. Which workloads have predictable, steady-state resource consumption?
-4. What cloud-native services are you using that would need to be replaced?
-5. When does your current cloud contract renew?
-
-**Hybrid Cloud (broadest cloud-related entry point):**
-
-1. How many applications do you run? Where do they live?
-2. Are you "hybrid by accident" or "hybrid by design"?
-3. What compliance or data sovereignty requirements apply?
-4. Have you done a TCO comparison of your current hybrid setup?
-5. How many IT teams manage different parts of the environment?
-
-**Security Posture & Compliance (regulated industry entry point):**
-
-1. What compliance frameworks apply to your business? (SOC 2, PCI, HIPAA, etc.)
-2. When was your last security assessment or penetration test?
-3. Are any of your firewalls or security appliances end-of-life?
-4. Who monitors for security incidents today? Do you have 24/7 coverage?
-5. Have you had any audit findings in the last 12 months?
-
-**Operational Maturity (stickiest recurring revenue outcome):**
-
-1. How many people are on your IT team?
-2. What percentage of their time goes to reactive operations vs. planned work?
-3. Who gets the 2 AM call when something goes down?
-4. Do you have documented runbooks for your critical processes?
-5. What monitoring and ticketing tools are you using?
-
-**App & Platform Modernization (developer-adjacent entry point):**
-
-1. How many applications do you maintain? How do you deploy them?
-2. Are you using containers or Kubernetes today?
-3. How many development teams do you have? Do they share tooling and practices?
-4. What is your biggest deployment frustration?
-5. How long does it take to go from code commit to production?
-
-**Well-Architected Review (cloud-native entry point):**
-
-1. When was the last time your AWS/Azure environment was formally reviewed?
-2. What are your biggest cloud cost concerns?
-3. Have you experienced performance issues or outages related to architecture?
-4. How do you manage IAM and access control?
-5. Do you have a disaster recovery plan that has been tested?
-
----
-
 ## What the Ideal Customer Buys: The Full Journey
 
-The ideal customer does not arrive as a managed services buyer. They arrive with a problem. The assessment framework defines the entry points and the journey from problem to long-term relationship.
+The ideal customer does not arrive as a managed services buyer. They arrive with a problem. The AM's job is to hear that problem clearly enough to play it back in a way that makes the customer feel understood, and then propose a structured first step from "something is wrong" to "here is exactly what to fix and why."
+
+### The Story: How a Customer Relationship Actually Develops
+
+A SaaS company with about 120 employees has been running on AWS for five years. They started simple: a couple of EC2 instances, an RDS database, a founder who knew enough to get things going. As the company grew, so did the infrastructure, but without a deliberate plan. A DevOps person was hired. A contractor joined part-time. Their AWS bill is now $22,000 a month and climbing, and when the CFO brought it up at the last board meeting, nobody had a clean answer.
+
+Six weeks ago they had a four-hour outage on a Saturday. A large customer called on Monday. The DevOps person traced it to a misconfigured auto-scaling policy that had been wrong for eight months without anyone noticing. Backups are "probably running." IAM policies have not been reviewed in two years. The team wants to move to Kubernetes but the one person who could build it is too busy keeping the current environment alive.
+
+An Aptum AM reaches out after seeing the company at an industry event. The conversation is 40 minutes. A few days later, the AM sends a follow-up email that plays the story back:
+
+> You have built something real: 120 people, a product customers rely on, five years of growth that your infrastructure has mostly kept up with. What is making it harder now is that the environment you built to get here is not quite the environment you need to stay here. The AWS bill is climbing in ways that are hard to explain. The outage six weeks ago was manageable, but it surfaced something about single points of failure that has been in the back of your mind. Your DevOps person is talented, but they are one person managing everything, which means the important projects keep getting pushed by the urgent incidents.
+>
+> What seems to have changed is that the board is paying attention now. The question is not whether to get the environment in order. It is whether you have the bandwidth to do it internally, or whether this is the moment to bring in a partner who has done it before.
+>
+> What good looks like from your perspective is not a massive rearchitecture. It is clarity: a picture of what you are running, what it costs, what the risk is, and a realistic plan for closing the gaps so you can stop firefighting and start making deliberate decisions.
+
+The customer responds: "Yeah, that's exactly it."
+
+A Salesforce opportunity is created. The proposal that follows is a Well-Architected Review.
+
+**The Well-Architected Review ($15,000) surfaces:**
+
+- Three EC2 instances that can be right-sized, saving approximately $2,800/month
+- A staging environment running 24/7 that should be scheduled off-hours, saving approximately $1,200/month
+- No backup policy on two production RDS instances
+- IAM roles with overly permissive access, flagged as a compliance risk
+- No real observability beyond basic CloudWatch, with no alerting on latency or error rates
+- The Saturday outage traced to a misconfigured auto-scaling policy that had been wrong for months
+
+The assessment report becomes the sales tool for everything that follows. The customer does not need to be convinced they have a problem. The assessment already proved it.
+
+**Engagement 2: Architecture Remediation Project (~$35,000)**
+
+Right-size the instances. Implement a proper backup policy on RDS. Fix IAM. Correct the auto-scaling configuration. Separate staging and production properly. The customer's DevOps person stops being the person who has to find and fix everything. They become the person who reviews and approves.
+
+**Engagement 3: Aptum Managed Backup and OS Patching (~$3,500/month)**
+
+Aptum takes over backup scheduling, monitoring, and restore operations. OS patching runs on a defined cycle with compliance reporting. Backup status is visible in Aptum Portal. The DevOps person stops being the person who gets called at 2am about a failed backup job.
+
+**Engagement 4: Application Performance Monitoring (~$2,500/month)**
+
+Full-stack observability deployed across the environment. Latency dashboards, error rate alerting, custom dashboards for the metrics that matter. The next time something starts going wrong, the customer finds out in minutes, not hours after.
+
+**Six months later: Managed Detection and Response**
+
+A prospect asks the customer about their SOC 2 posture during a sales process. The customer cannot answer confidently. They call the AM. The Well-Architected Review findings, specifically the IAM exposure and absence of real monitoring, become the starting point for a new conversation. Aptum proposes a Security Posture Assessment, which leads to Managed Detection and Response and Compliance Reporting.
+
+**What the relationship looks like at 12 months:**
+
+Assessment and project revenue of approximately $50,000. Monthly managed services of approximately $7,000/month across Managed Backup, OS Patching, and Application Performance Monitoring, with MDR in the pipeline. A customer whose DevOps person is no longer drowning, whose board can see the environment is under control, and who has three more managed service conversations on the roadmap.
+
+The customer did not come to Aptum looking for any of this. They came because an AM listened well enough to play their story back to them.
+
+---
 
 ### The Customer Journey
 
 ```
-AWARENESS                    ASSESSMENT                   EXECUTE                      OPERATE
-(Pain signal)         -->    (Advisory engagement)  -->   (Implementation project) --> (Managed services)
-"Our servers are old"        Infrastructure Risk          Hardware refresh             L1+L2: Monitoring
-"Cloud bill is insane"       Cloud Repatriation           Repatriation project         + Managed OS
-"We failed our audit"        Security Posture             Security remediation         L4: Security
-"Team is drowning"           Operational Maturity         Managed services transition  L2-L5: Full stack
+AWARENESS                      ASSESSMENT                     EXECUTE                         OPERATE
+(Pain signal)           -->    (Advisory engagement)   -->    (Implementation project)  -->   (Managed services)
+"Our servers are old"          Infrastructure Risk             Hardware refresh                24/7 Infrastructure Monitoring
+"Cloud bill is insane"         Cloud Repatriation              Repatriation project            Managed Backup + OS Patching
+"We failed our audit"          Security Posture                Security remediation            Managed Detection and Response
+"Team is drowning"             Operational Maturity            Managed services transition     Full managed stack
+"Hybrid by accident"           Hybrid Cloud                    Workload rationalization        Application Performance Monitoring
+"CI/CD is still manual"        App & Platform Modernization    Platform build                  DevOps Monitoring and Maintenance
+"Never reviewed our cloud"     Well-Architected Review         Architecture remediation        Application Performance Monitoring
 ```
 
-### Revenue by Journey Stage
+### What a Relationship Is Worth
 
 
 | Stage                      | Revenue Type        | Typical Value   | Margin                                            |
@@ -181,18 +149,23 @@ AWARENESS                    ASSESSMENT                   EXECUTE               
 | Managed Services (Operate) | Monthly recurring   | $15K to $48K/mo | 50-60% blended                                    |
 
 
-A fully engaged ideal customer generates $15,000 to $48,000/mo in MRC. The blended margin is 50 to 60%, compared to 70 to 80% for infrastructure-only, but the absolute margin dollars are 2 to 3x higher and the customer is deeply embedded.
+A fully engaged ideal customer generates $15,000 to $48,000/mo in managed services MRC. The blended margin is 50 to 60%, compared to 70 to 80% for infrastructure only, but the absolute margin dollars are 2 to 3x higher and the customer is deeply embedded.
 
-### What They Buy by Layer
+---
+
+### Quick Reference: What They Say, What to Offer, What They Might Buy
 
 
-| Layer                        | What They Buy                                                                                                  | Assessment That Drives It                                     | Monthly Value     |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ----------------- |
-| Infrastructure commodity     | VPC, Dedicated Cloud, Private Cloud, or hyperscaler subscription through Aptum Portal                          | Hybrid Cloud, Cloud Repatriation, Infrastructure Risk         | $7,000 to $25,000 |
-| Layer 2: Managed OS          | OS patching, managed backup, managed firewall, endpoint security                                               | Infrastructure Risk, Operational Maturity, Security Posture   | +$2,000 to $5,000 |
-| Layer 3: App Platform        | Application performance monitoring, web application firewall, DDoS protection, load balancing, database tuning | Platform Modernization, Well-Architected Review, Hybrid Cloud | +$3,000 to $8,000 |
-| Layer 4: Security            | Managed detection and response, compliance reporting, vulnerability scanning                                   | Security Posture                                              | +$2,000 to $5,000 |
-| Layer 5: Business Continuity | DRaaS, hybrid interconnects, managed productivity (M365), managed DNS                                          | Hybrid Cloud, Cloud Repatriation                              | +$1,500 to $5,000 |
+| What You Hear                                                                                  | Assessment to Offer             | Products and Services                                                                                                          |
+| ---------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| "Our servers are 7 years old," "Haven't patched in months," "SAN at 85% capacity"             | Infrastructure Risk & Readiness | 24/7 Infrastructure Monitoring, OS Patching, Managed Backup, Hardware Replacement                                              |
+| "Our AWS bill doubled but usage is flat," "Paying for stuff we don't use"                     | Cloud Repatriation              | Private Cloud or Shared Cluster via Aptum Portal, OS Patching, Managed Backup, Hybrid Cloud Interconnects                     |
+| "We have stuff everywhere and no one knows what's where," "Hybrid by accident"                | Hybrid Cloud                    | Aptum Portal consolidation, OS Patching, Application Performance Monitoring, Hybrid Cloud Interconnects                        |
+| "Our auditor flagged us," "Firewalls are EOL," "Not sure we'd pass a SOC 2"                   | Security Posture & Compliance   | Managed Firewall, Managed Detection and Response, Compliance Reporting, Vulnerability Scanning                                 |
+| "My team spends 80% keeping the lights on," "Can't innovate, always firefighting"             | Operational Maturity            | OS Patching, Managed Backup, Managed Firewall, Application Performance Monitoring, Managed Detection and Response              |
+| "We want to do Kubernetes but running on old hardware," "Our CI/CD is manual"                 | App & Platform Modernization    | Kubernetes platform build on Aptum infrastructure, DevOps Monitoring and Maintenance, Application Performance Monitoring       |
+| "We built our cloud fast and never went back to check," "Performance is inconsistent"         | Well-Architected Review         | Architecture remediation project, Application Performance Monitoring, Web Application Firewall, Managed Backup                 |
+
 
 
 ---
