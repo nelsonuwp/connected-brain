@@ -23,23 +23,19 @@ Customer-facing product names in this catalog are vendor-neutral. The customer b
 
 ---
 
-## Infrastructure Commodities (Provisioned via Aptum Portal)
+## Infrastructure Commodities
 
 These are the "base products." Customers can consume them self-service (where available) or have Aptum provision them. The infrastructure itself is not the margin story; it is the entry point.
 
-| Commodity | Technology | Provisioning | Portal Status | Infra Ops (Service Desk) |
-|---|---|---|---|---|
-| **Colocation** | Customer-owned hardware in Aptum DC | Manual (Data Center Ops) | Future: power/bandwidth visibility | Facility only -- customer owns everything above the rack |
-| **Dedicated Server** | Aptum-owned bare metal, single-tenant | Manual (Compute Platforms builds, Data Center Ops racks) | Future: inventory/status | Hardware health monitoring, replacement |
-| **BMaaS** | Canonical MAAS via CloudStack Extensions Framework 4.22 | Self-service (roadmap) | Roadmap | Hardware health layer (Service Desk); MAAS platform owned by Aptum Portal software/portal team |
-| **Shared Cluster (VPC)** | CloudStack VMs, multi-tenant shared hosts | **Self-service (live)** | **Live** | CloudStack cluster ops, hypervisor health, network |
-| **Dedicated Cluster** | CloudStack VMs, single-tenant dedicated hosts (KVM/CloudStack via Aptum Portal) | Semi-automated | Platform capable | Dedicated host management, hypervisor, storage |
-| **Private Cloud** | VMware or Proxmox on dedicated hosts (not necessarily via Aptum Portal) | Manual | Platform capable | Hypervisor ops, VMware/Proxmox cluster management |
-| **Proxmox** | Proxmox VE via CloudStack Extensions | Roadmap | Roadmap | Proxmox cluster ops (Service Desk, new skill) |
-| **Public Cloud** | Azure (live), AWS/GCP (roadmap) | **Self-service (live; Azure only today)** | **Live** | N/A; hyperscaler owns infra |
-| **Kubernetes** | K8s via CSI integration | Roadmap | Roadmap | Cluster infrastructure ops |
-
-**Who operates the infrastructure commodity:** Service Desk (L2/L3 infra engineers) + Compute Platforms (builds, standards, L3 escalation) + Data Center Ops (physical layer) + Network (connectivity).
+| Core Product | Technology | Provisioning & Portal |
+|---|---|---|
+| **Colocation** | Physical data center space: rack units, power (kW), cooling, physical security | Manual (Data Center Ops); Portal: future — power and bandwidth visibility |
+| **Connectivity** | MPLS, internet ports, BGP, transit, cross-connects, fiber | Manual (Networking); Portal: future — bandwidth utilization and uptime visibility |
+| **Bare Metal** | Aptum-owned single-tenant physical servers | Manual today (Compute Platforms + Data Center Ops); Portal: roadmap via BMaaS (self-service provisioning) |
+| **Private Cloud** | VMware or Proxmox on dedicated hardware, built per-customer | Manual (SA specs, Compute Platforms builds); Portal: not applicable (Phase 1) |
+| **Shared Cluster (VPC)** | CloudStack/KVM on Aptum-owned shared hosts, multi-tenant | Self-service via Aptum Portal — live |
+| **Dedicated Cluster** | CloudStack/KVM on Aptum-owned dedicated hosts, single-tenant | Aptum Portal — live (SA involved for initial sizing) |
+| **Public Cloud** | Azure, AWS, GCP via Aptum CSP/partner agreements | Hyperscaler portals (self-service); Aptum Portal: cost and consumption visibility — live |
 
 ---
 
@@ -52,7 +48,7 @@ These are the products that stack on top of any infrastructure commodity. Each l
 
 | Service | What It Is | Delivering Team | Applies To | Portal Visibility | Status |
 |---|---|---|---|---|---|
-| **24/7 Infrastructure Monitoring** | Zabbix/LogicMonitor alerting on hardware health, ping, availability. Alert → ticket → triage → resolve. | Service Desk | All physical infra: Dedicated, BMaaS, Shared Cluster hosts, Private Cloud | Uptime dashboard, alert history | Not built (portal) |
+| **24/7 Infrastructure Monitoring** | Zabbix/LogicMonitor alerting on hardware health, ping, availability. Alert → ticket → triage → resolve. | Service Desk | All physical infra: Bare Metal, Shared Cluster hosts, Private Cloud | Uptime dashboard, alert history | Not built (portal) |
 | **Hardware Replacement SLA** | Failed component replaced within defined window (4hr/8hr/NBD). PSU, disk, CMOS, memory. | Data Center Ops dispatched by Service Desk | All physical infra | Incident status tracking | Not built (portal) |
 | **Network Monitoring** | 99.999% uptime SLA on connectivity. BGP, transit, switching health. | Network (Ben) | All customers with Aptum connectivity | Bandwidth utilization, uptime | Not built (portal) |
 
@@ -60,7 +56,7 @@ These are the products that stack on top of any infrastructure commodity. Each l
 
 | Product | Layer 1 Status |
 |---|---|
-| **Dedicated Server** | **Mandatory and included in every engagement.** This is not optional. All Dedicated Server customers receive 24/7 monitoring, hardware health alerting, and baseline management. **This is a deliberate change from prior operations and must be explicitly communicated during onboarding and in customer-facing documentation.** |
+| **Bare Metal** | **Mandatory and included in every engagement.** This is not optional. All Bare Metal customers receive 24/7 monitoring, hardware health alerting, and baseline management. **This is a deliberate change from prior operations and must be explicitly communicated during onboarding and in customer-facing documentation.** |
 | **Shared Cluster (VPC)** | Included internally -- Service Desk monitors cluster nodes as an internal operational function. Customer-facing managed services are optional add-ons. |
 | **Dedicated Cluster** | Same as Shared Cluster -- internal operational monitoring of Aptum's cluster hardware. |
 | **Private Cloud (VMware/Proxmox)** | Included at the hypervisor layer -- Service Desk manages the platform. Guest OS and application monitoring are optional Managed Cloud add-ons. |
@@ -71,7 +67,7 @@ These are the products that stack on top of any infrastructure commodity. Each l
 
 ---
 
-### Dedicated Server -- Cost Structure and Contract Pricing
+### Bare Metal -- Cost Structure and Contract Pricing
 
 The Dedicated Server product price reflects six components. **Only the margin component is discountable.** The cost base is not negotiable below cost.
 
