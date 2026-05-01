@@ -6,12 +6,13 @@
 
 ## The Reframe
 
-The old tiering model (Tier 0-3) mixed infrastructure products with managed services in a vertical stack. This model separates them into two dimensions:
+The old tiering model mixed infrastructure products with managed services in a vertical stack. This model separates them into three distinct tiers:
 
-- **Horizontal: Infrastructure Commodities** are what the customer provisions through the Aptum Portal (or what Aptum provisions on their behalf). These are the base products. They are increasingly self-service and increasingly commoditized.
-- **Vertical: Managed Service Layers** are what Aptum operates on top of the commodity. These are the margin multipliers. They require human expertise. They are what makes Aptum different from a VPS provider.
+- **Infrastructure Commodities** are the base products — hardware, connectivity, compute, and cloud access that Aptum provisions. Included with every commodity is a **Fundamental** layer: the baseline guarantee that the product works as sold. This is non-negotiable and cannot be removed or purchased separately.
+- **Machine Managed** addons activate automated tooling on the customer's environment. The machine does the work — scheduling, executing, reporting, exposing data. The customer or Aptum's Service Desk is in the decision loop and reacts when something needs attention. The customer retains control over decisions.
+- **Expert Managed** addons put Aptum's expert team in the driver's seat proactively. The expert team prevents problems rather than reacting to them — installing the fire suppression system, not just responding to the fire. The customer does not need to be involved in routine decisions.
 
-Every customer picks an infrastructure commodity and then stacks managed service layers on top. The more layers, the higher the MRR, the lower the churn.
+Every customer's environment sits on an infrastructure commodity with its Fundamental guarantee included. Machine Managed and Expert Managed addons are purchased on top. Some addons offer both tiers independently; a customer can buy Machine Managed without Expert Managed.
 
 The assessment framework (see `/53-products/aptum-product-strategy.md` v2.1) defines how customers enter this catalog. Structured advisory assessments diagnose the customer's environment and produce findings that map directly to specific layers. The assessment report becomes the evidence base that justifies each layer's investment. The table below summarizes the assessment-to-layer mapping; detailed onboarding paths appear at the end of this document.
 
@@ -27,49 +28,53 @@ Customer-facing product names in this catalog are vendor-neutral. The customer b
 
 These are the "base products." Customers can consume them self-service (where available) or have Aptum provision them. The infrastructure itself is not the margin story; it is the entry point.
 
-| Core Product | Technology | Provisioning & Portal |
-|---|---|---|
-| **Colocation** | Physical data center space: rack units, power (kW), cooling, physical security | Manual (Data Center Ops); Portal: future — power and bandwidth visibility |
-| **Connectivity** | MPLS, internet ports, BGP, transit, cross-connects, fiber | Manual (Networking); Portal: future — bandwidth utilization and uptime visibility |
-| **Bare Metal** | Aptum-owned single-tenant physical servers | Manual today (Compute Platforms + Data Center Ops); Portal: roadmap via BMaaS (self-service provisioning) |
-| **Private Cloud** | VMware or Proxmox on dedicated hardware, built per-customer | Manual (SA specs, Compute Platforms builds); Portal: not applicable (Phase 1) |
-| **Shared Cluster (VPC)** | CloudStack/KVM on Aptum-owned shared hosts, multi-tenant | Self-service via Aptum Portal — live |
-| **Dedicated Cluster** | CloudStack/KVM on Aptum-owned dedicated hosts, single-tenant | Aptum Portal — live (SA involved for initial sizing) |
-| **Public Cloud** | Azure, AWS, GCP via Aptum CSP/partner agreements | Hyperscaler portals (self-service); Aptum Portal: cost and consumption visibility — live |
+| Core Product | Technology | Provisioning & Portal | Fundamental (Always Included) |
+|---|---|---|---|
+| **Colocation** | Physical data center space: rack units, power (kW), cooling, physical security | Manual (Data Center Ops); Portal: future — power and bandwidth visibility | Power on, temperature within range, physical security maintained, rack space available. Network connectivity is a separate purchase. |
+| **Connectivity** | MPLS, internet ports, BGP, transit, cross-connects, fiber | Manual (Networking); Portal: future — bandwidth utilization and uptime visibility | BGP and routing healthy, 99.999% uptime SLA maintained. SD receives monitoring alerts, escalates to Network team for resolution. |
+| **Bare Metal** | Aptum-owned single-tenant physical servers | Manual today (Compute Platforms + Data Center Ops); Portal: roadmap via BMaaS (self-service provisioning) | Server powered and network-connected, Zabbix monitoring active, failed hardware components (PSU, disk, CMOS) replaced within SLA, OS deployed per standard build, L2 triage included. SD Day 2 mandatory and non-removable. |
+| **Private Cloud** | VMware or Proxmox on dedicated hardware, built per-customer | Manual (SA specs, Compute Platforms builds); Portal: not applicable (Phase 1) | All Bare Metal fundamentals plus VMware/Proxmox hypervisor healthy, vCenter/cluster operational, storage connected. Service Desk owns the hypervisor layer. |
+| **Shared Cluster (VPC)** | CloudStack/KVM on Aptum-owned shared hosts, multi-tenant | Self-service via Aptum Portal — live | Platform available, VMs in running state, CloudStack/KVM layer healthy, storage functioning, baseline platform triage priced into product floor. |
+| **Dedicated Cluster** | CloudStack/KVM on Aptum-owned dedicated hosts, single-tenant | Aptum Portal — live (SA involved for initial sizing) | Dedicated cluster available, VMs in running state, CloudStack/KVM cluster healthy, storage functioning, baseline platform triage priced into product floor. |
+| **Public Cloud** | Azure, AWS, GCP via Aptum CSP/partner agreements | Hyperscaler portals (self-service); Aptum Portal: cost and consumption visibility — live | CSP subscription active, billing consolidated through Aptum, Aptum communicates hyperscaler outages and relevant status to customers proactively. |
 
 ---
 
-## Managed Service Layers (The Revenue Multipliers)
+## Managed Service Addons
 
-These are the addons that stack on top of any infrastructure commodity. Each addon is independently sellable, priced as a monthly add-on per asset or endpoint, and delivered by a defined team. Each addon has two components: a **machine component** (automated tooling and execution, with a defined cost to deliver) and a **human component** (expert services on top, with an additional cost). Some addons are machine-only; some are human-only; most are both.
+These are the purchasable addons that stack on top of any infrastructure commodity. Each addon is independently sellable, priced per asset or endpoint per month, and has a defined owner from the Aptum service network. Each addon is available as **Machine Managed** (automated tooling, customer in decision loop), **Expert Managed** (proactive expert ownership), or both. *Note: "Machine Managed" and "Expert Managed" are working internal terms. Customer-facing naming to be finalised.*
 
 ---
 
 ## Compatibility Matrix
 
-The table below shows which addons apply to each core product and whether delivery is machine-powered (M), human-powered expert services (H), or both (M+H). A dash indicates the addon does not apply.
+**MM** = Machine Managed available. **EM** = Expert Managed available. **MM+EM** = both available independently. **—** = not applicable to this product.
 
 | Addon | Colo | Connectivity | Bare Metal | Private Cloud | IaaS (VPC / Dedicated) | Public Cloud |
 |---|---|---|---|---|---|---|
-| Infrastructure Monitoring | — | M | M | M | M | M |
-| Advanced Monitoring (APM) | — | — | M+H | M+H | M+H | M+H |
-| OS Patching | — | — | M+H | M+H | M+H | M+H |
-| Application Platform Patching | — | — | M+H | M+H | M+H | M+H |
-| Managed Backup | H | — | M+H | M+H | M+H | M+H |
-| DRaaS | — | — | M+H | M+H | M+H | M+H |
-| Managed Firewall | — | M+H | M+H | M+H | M+H | M+H |
-| Antivirus / EDR | — | — | M+H | M+H | M+H | M+H |
-| WAF | — | — | M+H | M+H | M+H | M+H |
-| DDoS Protection | — | M | M+H | M+H | M+H | M+H |
-| Load Balancing (L7) | — | — | M+H | M+H | M+H | M+H |
-| MDR | — | — | M+H | M+H | M+H | M+H |
-| Vulnerability Scanning | — | — | M+H | M+H | M+H | M+H |
-| Hybrid Interconnects | — | M+H | M+H | M+H | M+H | M+H |
-| FinOps / Cost Optimization | — | — | — | — | M | M+H |
-| Operational Logging | — | — | M+H | M+H | M+H | M+H |
-| Reviews & Touchpoints | H | H | H | H | H | H |
-| Managed DNS | — | — | M | M | M | M |
-| Managed Productivity (M365) | — | — | M+H | M+H | M+H | M+H |
+| Infrastructure Monitoring (visibility) | — | MM | MM | MM | MM | MM |
+| Advanced Monitoring / APM | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| OS Patching | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| Application Platform Patching | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| Managed Backup | EM | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| DRaaS | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| BCP Planning | — | — | EM | EM | EM | EM |
+| Managed Firewall | — | MM+EM | MM+EM | MM+EM | MM+EM | MM+EM |
+| Antivirus / EDR | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| WAF | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| DDoS Protection | — | MM | MM+EM | MM+EM | MM+EM | MM+EM |
+| Load Balancing (L7) | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| MDR | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| Vulnerability Scanning | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| Compliance Reporting | — | — | EM | EM | EM | EM |
+| Hybrid Interconnects | — | MM+EM | MM+EM | MM+EM | MM+EM | MM+EM |
+| FinOps / Cost Optimization | — | — | — | — | MM | MM+EM |
+| Operational Logging | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| Reviews & Touchpoints | EM | EM | EM | EM | EM | EM |
+| Managed DNS | — | — | MM | MM | MM | MM |
+| Managed Productivity (M365) | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| Database Tuning | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+| DevOps Monitoring & Maintenance | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
 
 ---
 
@@ -99,9 +104,9 @@ The Bare Metal product price reflects six components. **Only the margin componen
 
 ---
 
-## Managed Service Addons
+## Addon Detail
 
-Each addon below is structured around two components. The **machine component** is what runs automatically: tooling, agents, automated execution, and reporting. The **machine cost** is Aptum's baseline cost to deliver this automation per endpoint per month. The **human component** is what expert services add on top: policy design, oversight, incident response, and proactive management. The **human add-on cost** is the additional charge for that expertise. Where a cost shows TBD, it is either under the MC endpoint pricing umbrella or requires confirmation.
+Each addon below shows what it is, what it is not (where there is room for confusion), how Machine Managed and Expert Managed tiers differ, which service network team owns it, and real costs for both tiers. Costs in CAD unless noted. USD conversions approximate at current rates.
 
 ### Monitoring & Observability
 
