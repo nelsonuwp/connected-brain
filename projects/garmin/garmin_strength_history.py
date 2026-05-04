@@ -1,25 +1,23 @@
 #!/usr/bin/env python3
-"""Export Garmin strength workout history for the last year.
+"""Daily Garmin health snapshot — sleep, body battery, training readiness, strength workouts.
 
 Requirements:
   pip install garminconnect
 
-Environment variables:
+Environment variables (loaded from /Users/anelson-macbook-air/connected-brain/.env):
   GARMIN_EMAIL       Garmin Connect account email
   GARMIN_PASSWORD    Garmin Connect account password
-  GARMIN_TOKEN_PATH  Optional token cache path (default: ~/.garminconnect)
+  GARMIN_TOKEN_PATH  Token cache path (default: ~/.garminconnect)
 """
 
 from __future__ import annotations
 
 import argparse
-import csv
-import json
 import logging
 import os
 import sys
 import time
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -30,19 +28,14 @@ from garminconnect import (
     GarminConnectTooManyRequestsError,
 )
 
-
-DEFAULT_STRENGTH_TYPE_KEYS = {
-    "strength_training",
-    "strength",
-    "fitness_equipment",
-}
+DEFAULT_ENV_PATH = "/Users/anelson-macbook-air/connected-brain/.env"
+DEFAULT_STRENGTH_TYPE_KEYS = {"strength_training", "strength", "fitness_equipment"}
 
 
-def load_dotenv_if_present(path: str = ".env") -> None:
+def load_dotenv_if_present(path: str = DEFAULT_ENV_PATH) -> None:
     dotenv_path = Path(path)
     if not dotenv_path.exists():
         return
-
     for raw_line in dotenv_path.read_text(encoding="utf-8").splitlines():
         line = raw_line.strip()
         if not line or line.startswith("#") or "=" not in line:
@@ -61,34 +54,23 @@ def is_rate_limited_error(exc: Exception) -> bool:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Export Garmin strength workout history for a date range."
+        description="Export daily Garmin health snapshot as LLM-optimized markdown."
+    )
+    parser.add_argument(
+        "--date",
+        default=date.today().isoformat(),
+        help="Target date in YYYY-MM-DD format (default: today).",
     )
     parser.add_argument(
         "--days",
         type=int,
-        default=365,
-        help="How many days back to fetch (default: 365).",
+        default=1,
+        help="Number of days ending on --date to include (default: 1).",
     )
     parser.add_argument(
-        "--json-out",
-        default="garmin_strength_history.json",
-        help="Path to JSON output file.",
-    )
-    parser.add_argument(
-        "--csv-out",
-        default="garmin_strength_history.csv",
-        help="Path to CSV output file.",
-    )
-    parser.add_argument(
-        "--type-key",
-        action="append",
-        dest="type_keys",
-        default=[],
-        help=(
-            "Activity typeKey to include. "
-            "Repeat this flag to add more values. "
-            "Defaults to strength_training,strength,fitness_equipment."
-        ),
+        "--out-dir",
+        default=".",
+        help="Output directory for markdown files (default: current directory).",
     )
     parser.add_argument(
         "--login-retries",
@@ -111,7 +93,6 @@ def build_client(login_retries: int, login_backoff_seconds: int) -> Garmin:
     token_path = os.getenv("GARMIN_TOKEN_PATH", "~/.garminconnect")
     expanded_token_path = str(Path(token_path).expanduser())
 
-    # Try token-based login first to avoid frequent credential prompts.
     client = Garmin()
     try:
         client.login(expanded_token_path)
@@ -119,7 +100,6 @@ def build_client(login_retries: int, login_backoff_seconds: int) -> Garmin:
     except FileNotFoundError:
         pass
     except GarminConnectAuthenticationError:
-        # Fall back to credential login and refresh token cache.
         pass
 
     if not email or not password:
@@ -128,7 +108,6 @@ def build_client(login_retries: int, login_backoff_seconds: int) -> Garmin:
         )
 
     client = Garmin(email=email, password=password)
-
     attempts = max(1, login_retries)
     for attempt in range(1, attempts + 1):
         try:
@@ -157,78 +136,271 @@ def build_client(login_retries: int, login_backoff_seconds: int) -> Garmin:
     raise RuntimeError("Unable to log in to Garmin Connect after retries.")
 
 
-def extract_record(activity: dict[str, Any]) -> dict[str, Any]:
-    activity_type = activity.get("activityType") or {}
-    return {
-        "activityId": activity.get("activityId"),
-        "activityName": activity.get("activityName"),
-        "typeKey": activity_type.get("typeKey"),
-        "startTimeLocal": activity.get("startTimeLocal"),
-        "durationSeconds": activity.get("duration"),
-        "calories": activity.get("calories"),
-        "averageHR": activity.get("averageHR"),
-        "maxHR": activity.get("maxHR"),
-    }
+def _safe(fn, *args, **kwargs) -> Any:
+    try:
+        return fn(*args, **kwargs)
+    except Exception as exc:
+        print(f"  [warning] {fn.__name__} failed: {exc}", file=sys.stderr)
+        return None
+
+
+def seconds_to_hm(seconds: Any) -> str:
+    if seconds is None:
+        return "N/A"
+    try:
+        s = int(seconds)
+        h = s // 3600
+        m = (s % 3600) // 60
+        return f"{h}h {m:02d}m"
+    except (TypeError, ValueError):
+        return "N/A"
+
+
+def fmt(value: Any, suffix: str = "") -> str:
+    if value is None:
+        return "N/A"
+    return f"{value}{suffix}"
+
+
+def build_sleep_section(client: Garmin, date_str: str) -> str:
+    raw = _safe(client.get_sleep_data, date_str)
+    lines = ["### Sleep"]
+    if not raw:
+        lines += [
+            "- Sleep Score: N/A",
+            "- Duration: N/A",
+            "- Light Sleep: N/A",
+            "- Deep Sleep: N/A",
+            "- REM Sleep: N/A",
+            "- Awake: N/A",
+        ]
+        return "\n".join(lines)
+
+    dto = raw.get("dailySleepDTO") or {}
+    score_block = dto.get("sleepScores") or {}
+    overall = score_block.get("overall") or {}
+    score_val = overall.get("value") if isinstance(overall, dict) else None
+    # Some API versions put score directly on the sleepScores dict
+    if score_val is None and isinstance(score_block, dict):
+        score_val = score_block.get("value")
+
+    lines += [
+        f"- Sleep Score: {fmt(score_val, '/100')}",
+        f"- Duration: {seconds_to_hm(dto.get('sleepTimeSeconds'))}",
+        f"- Light Sleep: {seconds_to_hm(dto.get('lightSleepSeconds'))}",
+        f"- Deep Sleep: {seconds_to_hm(dto.get('deepSleepSeconds'))}",
+        f"- REM Sleep: {seconds_to_hm(dto.get('remSleepSeconds'))}",
+        f"- Awake: {seconds_to_hm(dto.get('awakeSleepSeconds'))}",
+    ]
+    return "\n".join(lines)
+
+
+def build_body_battery_section(client: Garmin, date_str: str) -> str:
+    raw = _safe(client.get_body_battery, date_str, date_str)
+    lines = ["### Body Battery"]
+    if not raw or not isinstance(raw, list):
+        lines += [
+            "- Start of Day: N/A",
+            "- End of Day: N/A",
+            "- Lowest Point: N/A",
+        ]
+        return "\n".join(lines)
+
+    entry = raw[0] if isinstance(raw[0], dict) else {}
+    stat_list = entry.get("bodyBatteryStatList") or []
+    values = [
+        s.get("bodyBatteryValue")
+        for s in stat_list
+        if s.get("bodyBatteryValue") is not None
+    ]
+
+    start_val = values[0] if values else None
+    end_val = values[-1] if values else None
+    low_val = min(values) if values else None
+
+    lines += [
+        f"- Start of Day: {fmt(start_val)}",
+        f"- End of Day: {fmt(end_val)}",
+        f"- Lowest Point: {fmt(low_val)}",
+    ]
+    return "\n".join(lines)
+
+
+def build_training_readiness_section(client: Garmin, date_str: str) -> str:
+    raw = _safe(client.get_training_readiness, date_str)
+    lines = ["### Training Readiness"]
+    if not raw:
+        lines += [
+            "- Score: N/A",
+            "- Level: N/A",
+            "- Key Factors: N/A",
+        ]
+        return "\n".join(lines)
+
+    entry = raw[0] if isinstance(raw, list) and raw else (raw if isinstance(raw, dict) else {})
+    score = entry.get("score") or entry.get("trainingReadinessScore")
+    level = entry.get("levelCode") or entry.get("level") or entry.get("trainingReadinessLevel")
+
+    factors_raw = entry.get("contributors") or entry.get("factorList") or []
+    factor_names = []
+    for f in factors_raw[:3]:
+        name = f.get("factorCode") or f.get("name") or f.get("type")
+        if name:
+            factor_names.append(str(name).replace("_", " ").title())
+
+    lines += [
+        f"- Score: {fmt(score, '/100')}",
+        f"- Level: {fmt(level)}",
+        f"- Key Factors: {', '.join(factor_names) if factor_names else 'N/A'}",
+    ]
+    return "\n".join(lines)
+
+
+def _grams_to_lbs(grams: Any) -> str:
+    if grams is None:
+        return "N/A"
+    try:
+        return f"{round(int(grams) / 1000 * 2.20462, 1)} lbs"
+    except (TypeError, ValueError):
+        return "N/A"
+
+
+def build_strength_section(client: Garmin, date_str: str) -> str:
+    lines = ["### Strength Training"]
+
+    activities_raw = _safe(client.get_activities_by_date, date_str, date_str)
+    if not activities_raw:
+        lines.append("No strength workouts recorded.")
+        return "\n".join(lines)
+
+    strength_activities = [
+        a for a in activities_raw
+        if ((a.get("activityType") or {}).get("typeKey") or "").strip().lower()
+        in DEFAULT_STRENGTH_TYPE_KEYS
+    ]
+
+    if not strength_activities:
+        lines.append("No strength workouts recorded.")
+        return "\n".join(lines)
+
+    for activity in strength_activities:
+        activity_id = activity.get("activityId")
+        name = activity.get("activityName") or "Strength Workout"
+        start_time = activity.get("startTimeLocal") or "N/A"
+        duration_str = seconds_to_hm(activity.get("duration"))
+        calories = fmt(activity.get("calories"))
+        avg_hr = fmt(activity.get("averageHR"), " bpm")
+        max_hr = fmt(activity.get("maxHR"), " bpm")
+
+        lines += [
+            "",
+            f"**{name}**",
+            f"- Start: {start_time}",
+            f"- Duration: {duration_str}",
+            f"- Calories: {calories}",
+            f"- Avg HR: {avg_hr}",
+            f"- Max HR: {max_hr}",
+        ]
+
+        if activity_id:
+            sets_raw = _safe(client.get_activity_exercise_sets, activity_id)
+            if sets_raw:
+                exercise_sets = sets_raw.get("exerciseSets") or []
+                exercises: dict[str, list[dict]] = {}
+                for s in exercise_sets:
+                    if s.get("setType") != "ACTIVE":
+                        continue
+                    ex_list = s.get("exercises") or []
+                    ex_name = "Unknown"
+                    if ex_list:
+                        ex = ex_list[0]
+                        ex_name = (
+                            ex.get("name") or ex.get("category") or "Unknown"
+                        ).replace("_", " ").title()
+                    exercises.setdefault(ex_name, []).append(s)
+
+                if exercises:
+                    lines += ["", "| Exercise | Sets | Reps | Weight |", "|----------|------|------|--------|"]
+                    for ex_name, ex_sets in exercises.items():
+                        num_sets = len(ex_sets)
+                        reps_list = [s["repetitionCount"] for s in ex_sets if s.get("repetitionCount")]
+                        weight_list = [s["weight"] for s in ex_sets if s.get("weight")]
+
+                        if reps_list:
+                            unique_reps = set(reps_list)
+                            reps_str = str(reps_list[0]) if len(unique_reps) == 1 else f"{min(reps_list)}-{max(reps_list)}"
+                        else:
+                            reps_str = "N/A"
+
+                        if weight_list:
+                            unique_w = set(weight_list)
+                            if len(unique_w) == 1:
+                                weight_str = _grams_to_lbs(weight_list[0])
+                            else:
+                                weight_str = f"{_grams_to_lbs(min(weight_list))}-{_grams_to_lbs(max(weight_list))}"
+                        else:
+                            weight_str = "N/A"
+
+                        lines.append(f"| {ex_name} | {num_sets} | {reps_str} | {weight_str} |")
+
+    return "\n".join(lines)
+
+
+def build_day_section(client: Garmin, target_date: date) -> str:
+    date_str = target_date.isoformat()
+    return "\n".join([
+        f"## {date_str}",
+        "",
+        build_sleep_section(client, date_str),
+        "",
+        build_body_battery_section(client, date_str),
+        "",
+        build_training_readiness_section(client, date_str),
+        "",
+        build_strength_section(client, date_str),
+    ])
 
 
 def main() -> None:
-    # Reduce noisy traceback-style logging from underlying libraries.
     logging.getLogger("garminconnect").setLevel(logging.ERROR)
     logging.getLogger("garth").setLevel(logging.ERROR)
     load_dotenv_if_present()
 
     args = parse_args()
 
-    type_keys = {key.strip().lower() for key in args.type_keys if key.strip()}
-    if not type_keys:
-        type_keys = set(DEFAULT_STRENGTH_TYPE_KEYS)
+    end_date = date.fromisoformat(args.date)
+    days = max(1, args.days)
+    start_date = end_date - timedelta(days=days - 1)
+    date_range = [start_date + timedelta(days=i) for i in range(days)]
 
-    end_date = date.today()
-    start_date = end_date - timedelta(days=max(args.days, 1))
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    if days == 1:
+        filename = f"garmin_{end_date.isoformat()}.md"
+    else:
+        filename = f"garmin_{start_date.isoformat()}_to_{end_date.isoformat()}.md"
+
+    out_path = out_dir / filename
 
     client = build_client(
         login_retries=args.login_retries,
         login_backoff_seconds=args.login_backoff_seconds,
     )
-    activities = client.get_activities_by_date(
-        startdate=start_date.isoformat(),
-        enddate=end_date.isoformat(),
+
+    generated_ts = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    date_range_str = (
+        end_date.isoformat() if days == 1
+        else f"{start_date.isoformat()} to {end_date.isoformat()}"
     )
 
-    filtered = []
-    for activity in activities:
-        type_key = (
-            ((activity.get("activityType") or {}).get("typeKey") or "").strip().lower()
-        )
-        if type_key in type_keys:
-            filtered.append(extract_record(activity))
+    output_lines = [f"<!-- garmin snapshot: {date_range_str}, generated: {generated_ts} -->", ""]
+    for d in date_range:
+        output_lines.append(build_day_section(client, d))
+        output_lines.append("")
 
-    json_path = Path(args.json_out)
-    csv_path = Path(args.csv_out)
-
-    json_path.write_text(json.dumps(filtered, indent=2), encoding="utf-8")
-
-    with csv_path.open("w", newline="", encoding="utf-8") as f:
-        fieldnames = [
-            "activityId",
-            "activityName",
-            "typeKey",
-            "startTimeLocal",
-            "durationSeconds",
-            "calories",
-            "averageHR",
-            "maxHR",
-        ]
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(filtered)
-
-    print(
-        f"Fetched {len(activities)} activities from {start_date} to {end_date}. "
-        f"Strength matches: {len(filtered)}."
-    )
-    print(f"Wrote: {json_path}")
-    print(f"Wrote: {csv_path}")
+    out_path.write_text("\n".join(output_lines), encoding="utf-8")
+    print(f"Wrote: {out_path}")
 
 
 if __name__ == "__main__":
