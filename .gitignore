@@ -39,4 +39,4 @@ projects/jsm-sync/postgres_data/
 projects/jsm-sync/logs/
 
 # ── GARMIN ────────────────────────────────────────────────────────────────────
-projects/garmin/output/
+projects/workout/output/
