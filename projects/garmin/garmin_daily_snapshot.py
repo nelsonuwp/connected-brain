@@ -114,7 +114,10 @@ def build_client(login_retries: int, login_backoff_seconds: int) -> Garmin:
             client.login()
             token_dir = Path(expanded_token_path).expanduser()
             token_dir.parent.mkdir(parents=True, exist_ok=True)
-            client.garth.dump(str(token_dir))
+            # 0.3.x uses client.client.dump(); 0.2.x used client.garth.dump()
+            token_dumper = getattr(client, "garth", None) or getattr(client, "client", None)
+            if token_dumper:
+                token_dumper.dump(str(token_dir))
             return client
         except (
             GarminConnectAuthenticationError,
