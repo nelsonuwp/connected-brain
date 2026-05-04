@@ -93,13 +93,25 @@ def build_client(login_retries: int, login_backoff_seconds: int) -> Garmin:
     token_path = os.getenv("GARMIN_TOKEN_PATH", "~/.garminconnect")
     expanded_token_path = str(Path(token_path).expanduser())
 
-    client = Garmin()
+    def _mfa_prompt() -> str:
+        return input("Garmin MFA code: ").strip()
+
+    def _save_tokens(c: Garmin, path: str) -> None:
+        token_dir = Path(path).expanduser()
+        token_dir.parent.mkdir(parents=True, exist_ok=True)
+        dumper = getattr(c, "garth", None) or getattr(c, "client", None)
+        if dumper:
+            dumper.dump(str(token_dir))
+
+    # Try cached tokens first.
+    client = Garmin(email=email, password=password, prompt_mfa=_mfa_prompt)
     try:
         client.login(expanded_token_path)
         return client
     except FileNotFoundError:
         pass
-    except GarminConnectAuthenticationError:
+    except (GarminConnectAuthenticationError, Exception):
+        # Stale or incompatible token cache — fall through to full login.
         pass
 
     if not email or not password:
@@ -107,17 +119,11 @@ def build_client(login_retries: int, login_backoff_seconds: int) -> Garmin:
             "GARMIN_EMAIL/GARMIN_PASSWORD are required when no valid token cache exists."
         )
 
-    client = Garmin(email=email, password=password)
     attempts = max(1, login_retries)
     for attempt in range(1, attempts + 1):
         try:
             client.login()
-            token_dir = Path(expanded_token_path).expanduser()
-            token_dir.parent.mkdir(parents=True, exist_ok=True)
-            # 0.3.x uses client.client.dump(); 0.2.x used client.garth.dump()
-            token_dumper = getattr(client, "garth", None) or getattr(client, "client", None)
-            if token_dumper:
-                token_dumper.dump(str(token_dir))
+            _save_tokens(client, expanded_token_path)
             return client
         except (
             GarminConnectAuthenticationError,
