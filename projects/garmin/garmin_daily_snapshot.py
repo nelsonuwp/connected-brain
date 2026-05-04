@@ -69,8 +69,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--out-dir",
-        default=".",
-        help="Output directory for markdown files (default: current directory).",
+        default="/Users/anelson-macbook-air/connected-brain/projects/garmin/output",
+        help="Output directory for markdown files (default: projects/garmin/output).",
     )
     parser.add_argument(
         "--login-retries",
@@ -329,28 +329,13 @@ def build_strength_section(client: Garmin, date_str: str) -> str:
                     exercises.setdefault(ex_name, []).append(s)
 
                 if exercises:
-                    lines += ["", "| Exercise | Sets | Reps | Weight |", "|----------|------|------|--------|"]
+                    lines += ["", "| Exercise | Set | Reps | Weight |", "|----------|-----|------|--------|"]
                     for ex_name, ex_sets in exercises.items():
-                        num_sets = len(ex_sets)
-                        reps_list = [s["repetitionCount"] for s in ex_sets if s.get("repetitionCount")]
-                        weight_list = [s["weight"] for s in ex_sets if s.get("weight")]
-
-                        if reps_list:
-                            unique_reps = set(reps_list)
-                            reps_str = str(reps_list[0]) if len(unique_reps) == 1 else f"{min(reps_list)}-{max(reps_list)}"
-                        else:
-                            reps_str = "N/A"
-
-                        if weight_list:
-                            unique_w = set(weight_list)
-                            if len(unique_w) == 1:
-                                weight_str = _grams_to_lbs(weight_list[0])
-                            else:
-                                weight_str = f"{_grams_to_lbs(min(weight_list))}-{_grams_to_lbs(max(weight_list))}"
-                        else:
-                            weight_str = "N/A"
-
-                        lines.append(f"| {ex_name} | {num_sets} | {reps_str} | {weight_str} |")
+                        for i, s in enumerate(ex_sets, start=1):
+                            reps = s.get("repetitionCount")
+                            reps_str = str(reps) if reps is not None else "N/A"
+                            weight_str = _grams_to_lbs(s.get("weight"))
+                            lines.append(f"| {ex_name} | {i} | {reps_str} | {weight_str} |")
 
     return "\n".join(lines)
 
