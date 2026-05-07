@@ -59,9 +59,9 @@ SORT file.mtime DESC
 - "I did a deep dive with Jeremy on DC Ops these last two days — anything you want me to circle back and re-emphasize?"
 - "Heads up — Jeremy is going to want your input on the strategic OKRs early. Want to set that expectation now."
 
-- [ ] "The sooner we get direction the better" - george on Jeremy. "company wide" - put together something that says here's our direction. What are we doing with Managed Hosting, Colo, Data Centers, everything. 
+- [ ] "The sooner we.   get direction the better" - george on Jeremy. "company wide" - put together something that says here's our direction. What are we doing with Managed Hosting, Colo, Data Centers, everything. 
 - [ ] Enhance customer experience by getting an n+1 superserver 
-- [ ] 7/24 in herdon - basis/illum
+- [ ] 7/24 in Herdon - Basis/Illumin (no flexiblity of remote hands there because it's our own DC)
 ### 2. Their open items waiting on me
 - **eStruxture migration approval — APTUM-38811.** George forwarded 2026-05-06: "I am looking to approve the migrations below. These are required to achieve our eStruxture agreement. Please let me know your thoughts." Direct ask sitting in my inbox. *Source: email "Fw: Aptum Managed Services (Canada) Inc.: Follow-Up on Required Server Migration (Ticket: APTUM-38811)" 2026-05-06.*
 - **Megaport On-Ramp — utility feed economics.** Marc Alex pushing the opportunity; George replied 2026-05-05 that the upgrade is technically possible but would require a new utility feed and the economics are "certainly a challenge." Needs my take on whether to push commercial harder or table it. *Source: email "Re: Connecting your customers via Megaport On Ramp as a Service" 2026-05-05.*
