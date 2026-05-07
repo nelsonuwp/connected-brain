@@ -59,7 +59,7 @@ SORT file.mtime DESC
 - "I did a deep dive with Jeremy on DC Ops these last two days — anything you want me to circle back and re-emphasize?"
 - "Heads up — Jeremy is going to want your input on the strategic OKRs early. Want to set that expectation now."
 
-- [ ] "The sooner we.   get direction the better" - george on Jeremy. "company wide" - put together something that says here's our direction. What are we doing with Managed Hosting, Colo, Data Centers, everything. 
+- [ ] "The sooner we  get direction the better" - george on Jeremy. "company wide" - put together something that says here's our direction. What are we doing with Managed Hosting, Colo, Data Centers, everything. 
 - [ ] Enhance customer experience by getting an n+1 superserver 
 - [ ] 7/24 in Herdon - Basis/Illumin (no flexiblity of remote hands there because it's our own DC)
 ### 2. Their open items waiting on me
