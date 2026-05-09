@@ -1,12 +1,13 @@
 ---
 type: schema-overview
-updated: 2026-03-06
+updated: 2026-04-13
 ---
 
-# Ocean — Database Overview
+# MSSQL Services — Schema Overview
 
 **Server:** 10.121.21.211  
 **Databases:** DM_BusinessInsights, FinancialReporting (same server, same credentials)  
+**Note:** "Ocean" is the web portal application name — the underlying databases are DM_BusinessInsights and FinancialReporting.  
 **Purpose:** Customer account intelligence — active services, components, renewals, churn, and revenue.  
 **Primary filter:** Always scope queries to a single `client_id` (integer).
 
