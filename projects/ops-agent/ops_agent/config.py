@@ -16,8 +16,8 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # Postgres — same instance as jsm-sync
-    database_url: str
+    # Postgres — jsm-sync DB (tunneled via SSH: localhost:5433 → toolsdbtor01:5432)
+    database_url: str = Field(validation_alias="JSM_SYNC_DATABASE_URL")
 
     # OpenRouter
     openrouter_api_key: str

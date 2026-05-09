@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # .env lives at the repo root (connected-brain/.env), not inside this project.
@@ -17,7 +18,7 @@ class Settings(BaseSettings):
     )
 
     # Postgres
-    database_url: str
+    database_url: str = Field(validation_alias="JSM_SYNC_DATABASE_URL")
 
     # Jira
     jira_base_url: str
