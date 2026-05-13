@@ -1,121 +1,230 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CPQ — Server Pricing · Aptum</title>
   <style>
-    @font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Light.ttf'); font-weight: 300; font-display: swap; }
-    @font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Regular.ttf'); font-weight: 400; font-display: swap; }
-    @font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Medium.ttf'); font-weight: 500; font-display: swap; }
-    @font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Bold.ttf'); font-weight: 700; font-display: swap; }
-    @font-face { font-family: 'Geist Mono'; src: url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf'); font-weight: 400; font-display: swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Light.ttf') format('truetype'); font-weight:300; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Medium.ttf') format('truetype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+    @font-face { font-family:'Geist Mono'; src:url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ── Tokens ──────────────────────────────────────────────────────── */
+    :root {
+      --bg:           #081820;
+      --bg-dot:       #142233;
+      --surface:      #0d1f2d;
+      --surface-2:    #060f15;
+      --border:       #142233;
+      --border-mid:   #1e3547;
+      --text-1:       #F8F7FA;
+      --text-2:       #88898D;
+      --text-3:       #515357;
+      --accent:       #7D7AE8;
+      --accent-dim:   #2A1F6E;
+      --accent-text:  #D4D3FF;
+      --green:        #BED6A8;
+      --green-dim:    #1a3d1f;
+      --orange:       #FFBE81;
+      --orange-dim:   #3d1a06;
+      --red:          #ef4444;
+      --shadow:       rgba(0,0,0,.25);
+    }
+    [data-theme="light"] {
+      --bg:           #F8F7FA;
+      --bg-dot:       #D0D1DE;
+      --surface:      #FFFFFF;
+      --surface-2:    #F0EFF5;
+      --border:       #D0D1DE;
+      --border-mid:   #88898D;
+      --text-1:       #081820;
+      --text-2:       #515357;
+      --text-3:       #88898D;
+      --accent:       #655BD9;
+      --accent-dim:   #E7E6FF;
+      --accent-text:  #3A2699;
+      --green:        #2d6e1f;
+      --green-dim:    #E9FEDF;
+      --orange:       #a05000;
+      --orange-dim:   #FFEBD9;
+      --red:          #c41c1c;
+      --shadow:       rgba(0,0,0,.06);
+    }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
     body {
-      font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #081820;
-      color: #D0D1DE;
+      font-family:'Geist', system-ui, sans-serif;
+      background-color: var(--bg);
+      background-image: radial-gradient(var(--bg-dot) 1px, transparent 0);
+      background-size: 28px 28px;
+      color: var(--text-2);
       min-height: 100vh;
       padding: 2rem;
+      transition: background-color .25s, color .25s;
     }
 
-    /* Header */
-    header { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2rem; }
-    header img.logo { height: 32px; width: auto; display: block; }
-    .header-divider { width: 1px; height: 28px; background: #142233; }
-    .header-sub { font-size: 0.8rem; font-weight: 500; color: #88898D; letter-spacing: 0.01em; }
+    /* ── Header ──────────────────────────────────────────────────────── */
+    header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 2rem; padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    header img.logo { height: 28px; width: auto; display: block; }
+    .hdr-divider { width: 1px; height: 22px; background: var(--border); }
+    .hdr-label { font-size: .75rem; color: var(--text-3); letter-spacing: .01em; }
+    .hdr-right { margin-left: auto; }
 
-    /* Filter bar */
+    .theme-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-2); font-size: .9rem; line-height: 1;
+      width: 34px; height: 34px; border-radius: 8px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s, background .2s;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Filter bar ──────────────────────────────────────────────────── */
     .filter-bar {
-      display: flex; align-items: flex-end; gap: 1.25rem;
-      background: #0d1f2d; border: 1px solid #142233; border-radius: 12px;
-      padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+      display: flex; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px var(--shadow);
+      transition: background .2s, border-color .2s;
     }
-    .filter-group { display: flex; flex-direction: column; gap: 0.35rem; }
-    .filter-group label { font-size: 0.68rem; font-weight: 600; color: #515357; text-transform: uppercase; letter-spacing: 0.07em; }
+    .filter-group { display: flex; flex-direction: column; gap: .3rem; }
+    .filter-group label { font-size: .63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-3); }
+    .filter-hint { font-size: .65rem; height: .9rem; margin-top: .15rem; }
+
+    /* Primary filter: DC */
+    .filter-group.is-primary label { color: var(--accent); }
+    .filter-group.is-primary select {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      color: var(--accent-text);
+      min-width: 230px;
+      font-weight: 500;
+    }
+    .filter-group.is-primary .filter-hint { color: var(--accent); }
+
     .select-wrap { position: relative; }
     select {
       appearance: none;
-      background: #081820;
-      border: 1px solid #1e3547;
-      color: #D0D1DE;
-      font-family: 'Geist', sans-serif;
-      font-size: 0.875rem;
-      padding: 0.5rem 2.2rem 0.5rem 0.85rem;
-      border-radius: 8px;
-      min-width: 160px;
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.15s;
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--text-1); font-family: 'Geist', sans-serif; font-size: .875rem;
+      padding: .5rem 2.2rem .5rem .85rem; border-radius: 8px;
+      min-width: 160px; cursor: pointer; outline: none;
+      transition: border-color .15s, background .2s;
     }
-    select:focus { border-color: #7D7AE8; }
+    select:focus { border-color: var(--accent); }
     .select-wrap::after {
-      content: "▾"; position: absolute; right: 0.7rem; top: 50%;
-      transform: translateY(-50%); pointer-events: none; color: #515357; font-size: 0.75rem;
+      content:"▾"; position:absolute; right:.7rem; top:50%;
+      transform:translateY(-50%); pointer-events:none;
+      color:var(--text-3); font-size:.75rem;
     }
 
-    #status-bar { font-size: 0.78rem; color: #515357; margin-bottom: 1rem; min-height: 1.1rem; }
+    /* ── Status bar ──────────────────────────────────────────────────── */
+    #status-bar { font-size:.78rem; color:var(--text-2); margin-bottom:1rem; min-height:1.1rem; }
 
-    /* Server grid */
-    .server-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    /* ── Grid ────────────────────────────────────────────────────────── */
+    .server-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
 
     .server-card {
-      background: #0d1f2d; border: 1px solid #142233; border-radius: 12px;
-      padding: 1.25rem; cursor: pointer; transition: border-color 0.15s, transform 0.1s;
-      text-decoration: none; display: block; color: inherit;
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid transparent; border-radius: 12px;
+      padding: 1.25rem; cursor: pointer;
+      transition: border-color .15s, border-left-color .15s, box-shadow .15s;
+      text-decoration: none; display: flex; flex-direction: column; color: inherit;
     }
-    .server-card:hover { border-color: #7D7AE8; transform: translateY(-2px); }
+    .server-card:hover {
+      border-color: var(--accent); border-left-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(125,122,232,.15);
+    }
 
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; }
-    .card-name { font-size: 0.95rem; font-weight: 600; color: #F8F7FA; line-height: 1.3; }
-    .card-sku { font-family: 'Geist Mono', monospace; font-size: 0.7rem; color: #7D7AE8; background: #0f1a30; padding: 2px 6px; border-radius: 4px; }
+    .card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.5rem; gap:.5rem; }
+    .card-name { font-size:.9rem; font-weight:600; color:var(--text-1); line-height:1.3; }
+    .card-sku { font-family:'Geist Mono',monospace; font-size:.67rem; color:var(--accent); background:var(--accent-dim); padding:2px 6px; border-radius:4px; white-space:nowrap; flex-shrink:0; }
 
-    .card-desc { font-size: 0.78rem; color: #88898D; margin-bottom: 1rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-desc {
+      font-size:.75rem; color:var(--text-3); line-height:1.55;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+      flex:1; padding-bottom:.85rem;
+    }
 
-    .card-footer { display: flex; justify-content: space-between; align-items: center; }
-    .card-mrc { font-size: 1.4rem; font-weight: 700; color: #7D7AE8; }
-    .card-mrc span { font-size: 0.7rem; font-weight: 400; color: #515357; margin-left: 2px; }
+    .card-footer {
+      display:flex; justify-content:space-between; align-items:center;
+      padding-top:.75rem; border-top:1px solid var(--border);
+      margin-top:auto;
+    }
+    .card-mrc { font-size:1.3rem; font-weight:700; color:var(--accent); font-family:'Geist Mono',monospace; }
+    .card-mrc span { font-size:.67rem; font-weight:400; color:var(--text-3); margin-left:2px; font-family:'Geist',sans-serif; }
 
-    .pill { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
-    .pill.soldout   { background: #3d1a06; color: #FFBE81; }
-    .pill.limited   { background: #3A2699; color: #E7E6FF; }
-    .pill.available { background: #1a3d1f; color: #BED6A8; }
+    /* ── Pills ───────────────────────────────────────────────────────── */
+    .pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:.63rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
+    .pill.soldout  { background:var(--orange-dim); color:var(--orange); }
+    .pill.limited  { background:var(--accent-dim); color:var(--accent-text); }
+    .pill.available{ background:var(--green-dim);  color:var(--green); }
 
-    .empty { text-align: center; padding: 4rem 1rem; color: #515357; font-size: 0.9rem; }
-    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid #142233; border-top-color: #7D7AE8; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    /* ── States ──────────────────────────────────────────────────────── */
+    .empty { text-align:center; padding:4rem 1rem; color:var(--text-3); font-size:.875rem; }
+    .error-pane { text-align:center; padding:3rem 1rem; }
+    .error-pane p { color:var(--text-3); font-size:.875rem; margin-bottom:1rem; }
+    .btn-retry {
+      background:var(--surface); border:1px solid var(--border);
+      color:var(--text-2); font-family:'Geist',sans-serif; font-size:.8rem; font-weight:500;
+      padding:.45rem 1.2rem; border-radius:8px; cursor:pointer; transition:border-color .15s, color .15s;
+    }
+    .btn-retry:hover { border-color:var(--accent); color:var(--accent); }
+
+    .spinner {
+      display:inline-block; width:18px; height:18px;
+      border:2px solid var(--border); border-top-color:var(--accent);
+      border-radius:50%; animation:spin .7s linear infinite;
+      vertical-align:middle; margin-right:6px;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
   </style>
 </head>
 <body>
 <header>
-  <img class="logo" src="https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png" alt="Aptum" />
-  <div class="header-divider"></div>
-  <span class="header-sub">Server Pricing · Fusion DB</span>
+  <img id="main-logo" class="logo" src="https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png" alt="Aptum" />
+  <div class="hdr-divider"></div>
+  <span class="hdr-label">Server Pricing</span>
+  <div class="hdr-right">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle colour scheme">☀</button>
+  </div>
 </header>
 
 <div class="filter-bar">
+  <div class="filter-group is-primary">
+    <label for="dc-select">Data Center</label>
+    <div class="select-wrap">
+      <select id="dc-select">
+        <option value="">Loading…</option>
+      </select>
+    </div>
+    <div class="filter-hint" id="dc-hint" style="color:var(--accent)">← Start here</div>
+  </div>
+
   <div class="filter-group">
-    <label>Product Line</label>
+    <label for="product-line">Product Line</label>
     <div class="select-wrap">
       <select id="product-line">
         <option value="4">Dedicated Hosting</option>
         <option value="3">Managed Hosting</option>
       </select>
     </div>
+    <div class="filter-hint"></div>
   </div>
 
   <div class="filter-group">
-    <label>Data Center</label>
-    <div class="select-wrap">
-      <select id="dc-select">
-        <option value="">Loading…</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="filter-group">
-    <label>Currency</label>
+    <label for="currency-select">Currency</label>
     <div class="select-wrap">
       <select id="currency-select">
         <option value="USD">USD — US Dollar</option>
@@ -123,27 +232,53 @@
         <option value="GBP">GBP — British Pound</option>
       </select>
     </div>
+    <div class="filter-hint" id="currency-hint"></div>
   </div>
 </div>
 
-<div id="status-bar"></div>
+<div id="status-bar" role="status" aria-live="polite"></div>
 <div id="server-grid" class="server-grid">
   <div class="empty">Select a data center to load available servers.</div>
 </div>
 
 <script>
+  // ── Theme ─────────────────────────────────────────────────────────────
+  const THEME_KEY = 'aptum-cpq-theme';
+  function initTheme() {
+    const saved     = localStorage.getItem(THEME_KEY);
+    const preferred = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    applyTheme(saved || preferred);
+  }
+  function toggleTheme() {
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  }
+  function applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+    localStorage.setItem(THEME_KEY, t);
+    const btn  = document.getElementById('theme-btn');
+    const logo = document.getElementById('main-logo');
+    if (btn)  btn.textContent  = t === 'dark' ? '☀' : '☽';
+    if (logo) logo.src = t === 'dark'
+      ? 'https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png'
+      : 'https://aptumlogos.pages.dev/Horizontal-Lockup-Black.png';
+  }
+  initTheme();
+
+  // ── DOM refs ──────────────────────────────────────────────────────────
   const dcSelect       = document.getElementById('dc-select');
   const currencySelect = document.getElementById('currency-select');
   const plSelect       = document.getElementById('product-line');
   const grid           = document.getElementById('server-grid');
   const statusBar      = document.getElementById('status-bar');
+  const dcHint         = document.getElementById('dc-hint');
+  const currencyHint   = document.getElementById('currency-hint');
+  const sym            = { USD:'$', CAD:'$', GBP:'£' };
 
-  const sym = { USD: '$', CAD: '$', GBP: '£' };
-
+  // ── Load DCs ──────────────────────────────────────────────────────────
   fetch('/api/datacenters')
-    .then(r => r.json())
+    .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
     .then(dcs => {
-      dcSelect.innerHTML = '<option value="">— select —</option>';
+      dcSelect.innerHTML = '<option value="">— select data center —</option>';
       dcs.forEach(dc => {
         const opt = document.createElement('option');
         opt.value = dc.code;
@@ -151,46 +286,56 @@
         opt.dataset.currency = dc.native_currency;
         dcSelect.appendChild(opt);
       });
-    });
+    })
+    .catch(() => { dcSelect.innerHTML = '<option value="">Failed to load — refresh</option>'; });
 
   dcSelect.addEventListener('change', () => {
     const opt = dcSelect.options[dcSelect.selectedIndex];
-    if (opt && opt.dataset.currency) {
+    if (opt?.dataset.currency) {
       currencySelect.value = opt.dataset.currency;
+      currencyHint.textContent = `Auto-matched to ${opt.dataset.currency}`;
     }
+    dcHint.textContent = dcSelect.value ? '' : '← Start here';
+    dcHint.style.color = dcSelect.value ? '' : 'var(--accent)';
     loadServers();
   });
-
   currencySelect.addEventListener('change', loadServers);
   plSelect.addEventListener('change', loadServers);
 
+  // ── Load servers ──────────────────────────────────────────────────────
+  let loadToken = 0;
   function loadServers() {
-    const dc = dcSelect.value;
+    const dc       = dcSelect.value;
     const currency = currencySelect.value;
-    const pl = plSelect.value;
+    const pl       = plSelect.value;
     if (!dc) {
       grid.innerHTML = '<div class="empty">Select a data center to load available servers.</div>';
       statusBar.textContent = '';
       return;
     }
+    const token = ++loadToken;
     grid.innerHTML = '<div class="empty"><span class="spinner"></span>Loading servers…</div>';
     statusBar.textContent = '';
 
     fetch(`/api/servers?dc=${dc}&currency=${currency}&product_line=${pl}`)
-      .then(r => r.json())
-      .then(servers => renderGrid(servers, currency, dc, pl))
-      .catch(err => {
-        grid.innerHTML = `<div class="empty">Error: ${err}</div>`;
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+      .then(data => { if (token === loadToken) renderGrid(data, currency, dc, pl); })
+      .catch(() => {
+        if (token !== loadToken) return;
+        grid.innerHTML = `<div class="error-pane"><p>Couldn't load servers — check your connection and try again.</p><button class="btn-retry" onclick="loadServers()">Try again</button></div>`;
       });
   }
 
+  // ── Render grid ───────────────────────────────────────────────────────
   function renderGrid(servers, currency, dc, pl) {
-    if (!servers.length || servers.error) {
+    if (!Array.isArray(servers) || !servers.length || servers.error) {
       grid.innerHTML = '<div class="empty">No servers available for this selection.</div>';
       statusBar.textContent = '0 results';
       return;
     }
-    statusBar.textContent = `${servers.length} servers — ${dcSelect.options[dcSelect.selectedIndex].text} · ${currency} · ${plSelect.options[plSelect.selectedIndex].text}`;
+    const dcLabel  = dcSelect.options[dcSelect.selectedIndex].text;
+    const plLabel  = plSelect.options[plSelect.selectedIndex].text;
+    statusBar.textContent = `${servers.length} servers · ${dcLabel} · ${currency} · ${plLabel}`;
 
     const s = sym[currency] || '$';
     grid.innerHTML = servers.map(sv => {
@@ -200,7 +345,7 @@
       else if (sv.available_in_shop)    badge = '<span class="pill available">Available</span>';
 
       const sku  = sv.sku ? `<span class="card-sku">${esc(sv.sku)}</span>` : '';
-      const desc = (sv.description || '').substring(0, 120);
+      const desc = (sv.description || '').substring(0, 140);
 
       return `
         <a class="server-card" href="/product/${sv.id}?dc=${dc}&currency=${currency}&product_line=${pl}">
@@ -210,7 +355,7 @@
           </div>
           <div class="card-desc">${esc(desc)}</div>
           <div class="card-footer">
-            <div class="card-mrc">${s}${sv.mrc.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}<span>/mo</span></div>
+            <div class="card-mrc">${s}${sv.mrc.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}<span>/mo</span></div>
             ${badge}
           </div>
         </a>`;
@@ -218,7 +363,7 @@
   }
 
   function esc(s) {
-    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 </script>
 </body>
