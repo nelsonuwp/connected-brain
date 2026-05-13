@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPQ — Product Catalog</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+    }
+
+    header span.badge {
+      background: #1e40af;
+      color: #bfdbfe;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .select-wrap {
+      position: relative;
+    }
+
+    select {
+      appearance: none;
+      background: #1e2130;
+      border: 1px solid #334155;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      padding: 0.55rem 2.4rem 0.55rem 0.9rem;
+      border-radius: 8px;
+      min-width: 220px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    select:focus { border-color: #3b82f6; }
+
+    .select-wrap::after {
+      content: "▾";
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+
+    /* Toggle switch */
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-wrap input[type="checkbox"] { display: none; }
+
+    .toggle-track {
+      width: 38px;
+      height: 22px;
+      background: #334155;
+      border-radius: 999px;
+      position: relative;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .toggle-track::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: left 0.2s;
+    }
+
+    .toggle-wrap input:checked + .toggle-track { background: #3b82f6; }
+    .toggle-wrap input:checked + .toggle-track::after { left: 19px; }
+
+    /* Status bar */
+    #status-bar {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 1.25rem;
+      min-height: 1.1rem;
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid #1e293b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    thead tr {
+      background: #161b27;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #1a2035;
+      transition: background 0.1s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #1a2236; }
+
+    tbody tr.inactive { opacity: 0.5; }
+
+    td {
+      padding: 0.7rem 1rem;
+      vertical-align: top;
+      color: #cbd5e1;
+    }
+
+    td.name { color: #f1f5f9; font-weight: 500; }
+    td.desc { color: #94a3b8; font-size: 0.8rem; max-width: 360px; }
+    td.sku  { font-family: monospace; font-size: 0.78rem; color: #7dd3fc; }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .pill.active   { background: #14532d; color: #86efac; }
+    .pill.inactive { background: #3b0a0a; color: #fca5a5; }
+    .pill.yes      { background: #1e3a5f; color: #93c5fd; }
+    .pill.soldout  { background: #78350f; color: #fcd34d; }
+    .pill.limited  { background: #4c1d95; color: #c4b5fd; }
+
+    /* Empty / loading states */
+    .empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #475569;
+      font-size: 0.9rem;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #334155;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>CPQ — Product Catalog</h1>
+  <span class="badge">Fusion DB</span>
+</header>
+
+<div class="controls">
+  <div class="select-wrap">
+    <select id="class-select">
+      <option value="">Loading product classes…</option>
+    </select>
+  </div>
+
+  <label class="toggle-wrap" title="Show inactive products">
+    <input type="checkbox" id="inactive-toggle" />
+    <span class="toggle-track"></span>
+    Show inactive
+  </label>
+</div>
+
+<div id="status-bar"></div>
+
+<div class="table-wrap" id="table-wrap">
+  <div class="empty">Select a product class above to load catalog items.</div>
+</div>
+
+<script>
+  const classSelect   = document.getElementById('class-select');
+  const inactiveToggle = document.getElementById('inactive-toggle');
+  const tableWrap     = document.getElementById('table-wrap');
+  const statusBar     = document.getElementById('status-bar');
+
+  // Load product classes on boot
+  fetch('/api/product-classes')
+    .then(r => r.json())
+    .then(classes => {
+      classSelect.innerHTML = '<option value="">— select a product class —</option>';
+      classes.forEach(pc => {
+        const opt = document.createElement('option');
+        opt.value = pc.id;
+        opt.textContent = pc.name;
+        classSelect.appendChild(opt);
+      });
+    })
+    .catch(() => {
+      classSelect.innerHTML = '<option value="">Failed to load — check server</option>';
+    });
+
+  function loadProducts() {
+    const classId = classSelect.value;
+    if (!classId) {
+      tableWrap.innerHTML = '<div class="empty">Select a product class above to load catalog items.</div>';
+      statusBar.textContent = '';
+      return;
+    }
+
+    const showInactive = inactiveToggle.checked;
+    tableWrap.innerHTML = '<div class="empty"><span class="spinner"></span>Loading…</div>';
+    statusBar.textContent = '';
+
+    fetch(`/api/products/${classId}?show_inactive=${showInactive}`)
+      .then(r => r.json())
+      .then(rows => renderTable(rows, showInactive))
+      .catch(err => {
+        tableWrap.innerHTML = `<div class="empty">Error loading products: ${err}</div>`;
+      });
+  }
+
+  function renderTable(rows, showInactive) {
+    if (!rows.length) {
+      tableWrap.innerHTML = '<div class="empty">No products found for this class.</div>';
+      statusBar.textContent = '0 results';
+      return;
+    }
+
+    const activeCount   = rows.filter(r => r.is_active).length;
+    const inactiveCount = rows.length - activeCount;
+    statusBar.textContent = showInactive
+      ? `${rows.length} products (${activeCount} active, ${inactiveCount} inactive)`
+      : `${rows.length} active products`;
+
+    let html = `
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>SKU</th>
+            <th>Status</th>
+            <th>Shop</th>
+            <th>Availability</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    rows.forEach(r => {
+      const rowClass = r.is_active ? '' : 'inactive';
+
+      const statusPill = r.is_active
+        ? '<span class="pill active">Active</span>'
+        : '<span class="pill inactive">Inactive</span>';
+
+      let availPills = '';
+      if (r.sold_out)            availPills += '<span class="pill soldout">Sold Out</span> ';
+      if (r.limited_availability) availPills += '<span class="pill limited">Limited</span> ';
+      if (!r.sold_out && !r.limited_availability && r.available_in_shop)
+        availPills = '<span class="pill yes">In Shop</span>';
+      if (!availPills) availPills = '<span style="color:#475569">—</span>';
+
+      const sku  = r.sku ? `<span class="pill" style="background:#1e293b;color:#7dd3fc;font-family:monospace">${r.sku}</span>` : '<span style="color:#475569">—</span>';
+      const desc = r.description || '';
+
+      html += `
+        <tr class="${rowClass}">
+          <td style="color:#475569;font-size:0.78rem">${r.id}</td>
+          <td class="name">${escHtml(r.name)}</td>
+          <td class="sku">${sku}</td>
+          <td>${statusPill}</td>
+          <td>${availPills}</td>
+          <td>${r.release_date ? `<span style="font-size:0.78rem;color:#64748b">${r.release_date}</span>` : '<span style="color:#475569">—</span>'}</td>
+          <td class="desc">${escHtml(desc)}</td>
+        </tr>
+      `;
+    });
+
+    html += '</tbody></table>';
+    tableWrap.innerHTML = html;
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  classSelect.addEventListener('change', loadProducts);
+  inactiveToggle.addEventListener('change', loadProducts);
+</script>
+</body>
+</html>
