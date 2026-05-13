@@ -1,0 +1,134 @@
+{
+  "version": "2026-05-13",
+  "notes": "DC cost overheads from CPQ finance spreadsheet. People cost lines are 0 pending data. Support = $80/hr rate, 0.5hr assumed per server per month = $40/server/month. Fusion sb_datacenter IDs included for pricebook joins.",
+  "overhead_constants": {
+    "sga_pct": 0.082,
+    "support_hours_per_server": 0.5
+  },
+  "data_centers": {
+    "ATL": {
+      "name": "Atlanta",
+      "fusion_dc_id": 1,
+      "native_currency": "USD",
+      "costs": {
+        "power_per_kw":        { "amount": 337, "measure": "per_kw",     "currency": "USD" },
+        "dc_rm_supplies":      { "amount": 0,   "measure": "per_kw",     "currency": "USD" },
+        "network":             { "amount": 59,  "measure": "per_server", "currency": "USD" },
+        "dc_infra_operations": { "amount": 21,  "measure": "per_server", "currency": "USD" },
+        "billing_collections": { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "supply_chain":        { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "support_tech_rate":   { "amount": 80,  "measure": "per_hour",   "currency": "USD" },
+        "dc_people":           { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "network_people":      { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "compute_team":        { "amount": 0,   "measure": "per_server", "currency": "USD" }
+      }
+    },
+    "MIA": {
+      "name": "Miami",
+      "fusion_dc_id": 2,
+      "native_currency": "USD",
+      "costs": {
+        "power_per_kw":        { "amount": 48,  "measure": "per_kw",     "currency": "USD" },
+        "dc_rm_supplies":      { "amount": 0,   "measure": "per_kw",     "currency": "USD" },
+        "network":             { "amount": 59,  "measure": "per_server", "currency": "USD" },
+        "dc_infra_operations": { "amount": 28,  "measure": "per_server", "currency": "USD" },
+        "billing_collections": { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "supply_chain":        { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "support_tech_rate":   { "amount": 80,  "measure": "per_hour",   "currency": "USD" },
+        "dc_people":           { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "network_people":      { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "compute_team":        { "amount": 0,   "measure": "per_server", "currency": "USD" }
+      }
+    },
+    "LAX": {
+      "name": "Los Angeles",
+      "fusion_dc_id": 7,
+      "fusion_dc_abbr": "LAX1",
+      "native_currency": "USD",
+      "costs": {
+        "power_per_kw":        { "amount": 457, "measure": "per_kw",     "currency": "USD" },
+        "dc_rm_supplies":      { "amount": 0,   "measure": "per_kw",     "currency": "USD" },
+        "network":             { "amount": 59,  "measure": "per_server", "currency": "USD" },
+        "dc_infra_operations": { "amount": 21,  "measure": "per_server", "currency": "USD" },
+        "billing_collections": { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "supply_chain":        { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "support_tech_rate":   { "amount": 80,  "measure": "per_hour",   "currency": "USD" },
+        "dc_people":           { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "network_people":      { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "compute_team":        { "amount": 0,   "measure": "per_server", "currency": "USD" }
+      }
+    },
+    "IAD": {
+      "name": "Herndon (Washington DC)",
+      "fusion_dc_id": 8,
+      "fusion_dc_abbr": "IAD2",
+      "native_currency": "USD",
+      "costs": {
+        "power_per_kw":        { "amount": 110, "measure": "per_kw",     "currency": "USD" },
+        "dc_rm_supplies":      { "amount": 0,   "measure": "per_kw",     "currency": "USD" },
+        "network":             { "amount": 59,  "measure": "per_server", "currency": "USD" },
+        "dc_infra_operations": { "amount": 19,  "measure": "per_server", "currency": "USD" },
+        "billing_collections": { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "supply_chain":        { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "support_tech_rate":   { "amount": 80,  "measure": "per_hour",   "currency": "USD" },
+        "dc_people":           { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "network_people":      { "amount": 0,   "measure": "per_server", "currency": "USD" },
+        "compute_team":        { "amount": 0,   "measure": "per_server", "currency": "USD" }
+      }
+    },
+    "TOR": {
+      "name": "Toronto",
+      "fusion_dc_id": 12,
+      "fusion_dc_abbr": "TOR",
+      "native_currency": "CAD",
+      "costs": {
+        "power_per_kw":        { "amount": 253, "measure": "per_kw",     "currency": "CAD" },
+        "dc_rm_supplies":      { "amount": 0,   "measure": "per_kw",     "currency": "CAD" },
+        "network":             { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "dc_infra_operations": { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "billing_collections": { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "supply_chain":        { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "support_tech_rate":   { "amount": 80,  "measure": "per_hour",   "currency": "CAD" },
+        "dc_people":           { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "network_people":      { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "compute_team":        { "amount": 0,   "measure": "per_server", "currency": "CAD" }
+      }
+    },
+    "MTL": {
+      "name": "Montreal",
+      "fusion_dc_id": 42,
+      "fusion_dc_abbr": "MTL-BH",
+      "native_currency": "CAD",
+      "costs": {
+        "power_per_kw":        { "amount": 253, "measure": "per_kw",     "currency": "CAD" },
+        "dc_rm_supplies":      { "amount": 0,   "measure": "per_kw",     "currency": "CAD" },
+        "network":             { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "dc_infra_operations": { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "billing_collections": { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "supply_chain":        { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "support_tech_rate":   { "amount": 80,  "measure": "per_hour",   "currency": "CAD" },
+        "dc_people":           { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "network_people":      { "amount": 0,   "measure": "per_server", "currency": "CAD" },
+        "compute_team":        { "amount": 0,   "measure": "per_server", "currency": "CAD" }
+      }
+    },
+    "POR": {
+      "name": "Portsmouth",
+      "fusion_dc_id": 13,
+      "fusion_dc_abbr": "POR",
+      "native_currency": "GBP",
+      "costs": {
+        "power_per_kw":        { "amount": 46,  "measure": "per_kw",     "currency": "GBP" },
+        "dc_rm_supplies":      { "amount": 0,   "measure": "per_kw",     "currency": "GBP" },
+        "network":             { "amount": 59,  "measure": "per_server", "currency": "GBP" },
+        "dc_infra_operations": { "amount": 27,  "measure": "per_server", "currency": "GBP" },
+        "billing_collections": { "amount": 0,   "measure": "per_server", "currency": "GBP" },
+        "supply_chain":        { "amount": 0,   "measure": "per_server", "currency": "GBP" },
+        "support_tech_rate":   { "amount": 80,  "measure": "per_hour",   "currency": "GBP" },
+        "dc_people":           { "amount": 0,   "measure": "per_server", "currency": "GBP" },
+        "network_people":      { "amount": 0,   "measure": "per_server", "currency": "GBP" },
+        "compute_team":        { "amount": 0,   "measure": "per_server", "currency": "GBP" }
+      }
+    }
+  }
+}
