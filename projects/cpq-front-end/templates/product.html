@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPQ — Configurator</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+
+    /* Layout */
+    .layout { display: grid; grid-template-columns: 1fr 320px; min-height: 100vh; }
+    .main   { padding: 2rem; overflow-y: auto; }
+    .sidebar { background: #0c1117; border-left: 1px solid #1e293b; padding: 1.5rem; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+
+    /* Back / header */
+    .back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: #64748b; text-decoration: none; margin-bottom: 1.5rem; }
+    .back:hover { color: #94a3b8; }
+
+    .server-header { margin-bottom: 2rem; }
+    .server-header h1 { font-size: 1.4rem; font-weight: 700; color: #f8fafc; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+    .server-meta { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; font-size: 0.8rem; color: #64748b; }
+    .server-meta .sku { font-family: monospace; color: #38bdf8; background: #0c1929; padding: 2px 7px; border-radius: 4px; }
+    .server-mrc-display { font-size: 2rem; font-weight: 700; color: #38bdf8; margin-top: 0.5rem; }
+    .server-mrc-display span { font-size: 0.85rem; font-weight: 400; color: #64748b; margin-left: 3px; }
+
+    /* Category sections */
+    .category { margin-bottom: 2rem; }
+    .category-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem; margin-bottom: 0.75rem; }
+
+    /* Component rows */
+    .component-row {
+      display: grid; grid-template-columns: 1fr auto auto;
+      align-items: center; gap: 0.75rem;
+      background: #161b27; border: 1px solid #1e293b; border-radius: 8px;
+      padding: 0.75rem 1rem; margin-bottom: 0.5rem; transition: border-color 0.15s;
+    }
+    .component-row.changed  { border-left: 3px solid #eab308; }
+    .component-row.added    { border-left: 3px solid #22c55e; }
+    .component-row.removed  { opacity: 0.4; border-left: 3px solid #ef4444; }
+
+    .comp-info .comp-name { font-size: 0.875rem; font-weight: 500; color: #f1f5f9; }
+    .comp-info .comp-type { font-size: 0.72rem; color: #64748b; margin-top: 1px; }
+
+    .comp-cost { text-align: right; }
+    .comp-cost .mrc { font-size: 0.875rem; font-weight: 600; color: #38bdf8; }
+    .comp-cost .hw  { font-size: 0.68rem; color: #64748b; }
+
+    .comp-actions { display: flex; gap: 0.4rem; }
+
+    /* Selects inline */
+    .comp-select {
+      background: #0f1117; border: 1px solid #334155; color: #e2e8f0;
+      font-size: 0.78rem; padding: 0.35rem 0.6rem; border-radius: 6px;
+      max-width: 260px; cursor: pointer;
+    }
+    .comp-select:focus { outline: none; border-color: #3b82f6; }
+
+    /* Buttons */
+    .btn { border: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 0.35rem 0.75rem; transition: opacity 0.15s; }
+    .btn:hover { opacity: 0.8; }
+    .btn-swap   { background: #1e3a5f; color: #93c5fd; }
+    .btn-add    { background: #14532d; color: #86efac; }
+    .btn-remove { background: #3b0a0a; color: #fca5a5; font-size: 0.9rem; padding: 0.2rem 0.55rem; }
+    .btn-reset  { background: #1e293b; color: #94a3b8; }
+
+    /* Add row button */
+    .add-row-btn {
+      width: 100%; background: transparent; border: 1px dashed #1e293b;
+      color: #475569; font-size: 0.78rem; padding: 0.55rem; border-radius: 8px;
+      cursor: pointer; margin-top: 0.25rem; transition: border-color 0.15s, color 0.15s;
+    }
+    .add-row-btn:hover { border-color: #22c55e; color: #86efac; }
+
+    /* Sidebar */
+    .sidebar h2 { font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .cost-section { margin-bottom: 1.5rem; }
+    .cost-section-title { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: #475569; margin-bottom: 0.6rem; font-weight: 600; }
+
+    .cost-line { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem; font-size: 0.78rem; }
+    .cost-line .label { color: #94a3b8; }
+    .cost-line .value { color: #e2e8f0; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .cost-line .value.muted { color: #475569; font-size: 0.72rem; }
+    .cost-line.total .label { color: #f1f5f9; font-weight: 700; }
+    .cost-line.total .value { color: #38bdf8; font-weight: 700; font-size: 0.9rem; }
+    .cost-line.margin .value { font-size: 0.9rem; }
+    .cost-line.margin .value.positive { color: #22c55e; font-weight: 700; }
+    .cost-line.margin .value.negative { color: #ef4444; font-weight: 700; }
+
+    .divider { border: none; border-top: 1px solid #1e293b; margin: 0.9rem 0; }
+
+    .pill { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; }
+    .pill.pl-dh { background: #1e3a5f; color: #93c5fd; }
+    .pill.pl-mh { background: #3b1e5f; color: #c4b5fd; }
+
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #334155; border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
+    .empty { color: #475569; font-size: 0.85rem; padding: 1rem 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; border-left: none; border-top: 1px solid #1e293b; }
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <!-- Main configurator -->
+  <div class="main">
+    <a class="back" href="javascript:history.back()">← Back</a>
+
+    <div class="server-header" id="server-header">
+      <div class="empty"><span class="spinner"></span> Loading…</div>
+    </div>
+
+    <div id="config-body"></div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Quote Summary</h2>
+    <div id="summary-body"><div class="empty">Loading…</div></div>
+  </div>
+</div>
+
+<script>
+  // ── URL params ───────────────────────────────────────────────────────────
+  const params      = new URLSearchParams(location.search);
+  const productId   = location.pathname.split('/').pop();
+  const DC          = params.get('dc')           || 'ATL';
+  const CURRENCY    = params.get('currency')      || 'USD';
+  const PRODUCT_LINE= params.get('product_line')  || '4';
+  const SYM         = { USD:'$', CAD:'$', GBP:'£' }[CURRENCY] || '$';
+  const PL_LABEL    = PRODUCT_LINE === '3' ? 'Managed Hosting' : 'Dedicated Hosting';
+
+  // ── State ────────────────────────────────────────────────────────────────
+  // changes: { component_id: { type:'swap'|'add'|'remove', orig, current } }
+  let CONFIG    = null;
+  let CHANGES   = {};  // component_id (int) → { type, orig_mrc, curr_mrc, name, hw_cost }
+
+  // ── Boot ─────────────────────────────────────────────────────────────────
+  Promise.all([
+    fetch(`/api/product/${productId}`).then(r => r.json()),
+    fetch(`/api/product/${productId}/config?dc=${DC}&currency=${CURRENCY}&product_line=${PRODUCT_LINE}`).then(r => r.json()),
+  ]).then(([product, config]) => {
+    CONFIG = config;
+    renderHeader(product, config);
+    renderConfig(config);
+    renderSummary();
+  }).catch(err => {
+    document.getElementById('server-header').innerHTML = `<div class="empty">Error: ${err}</div>`;
+  });
+
+  // ── Render header ────────────────────────────────────────────────────────
+  function renderHeader(product, config) {
+    const plClass = PRODUCT_LINE === '3' ? 'pl-mh' : 'pl-dh';
+    document.getElementById('server-header').innerHTML = `
+      <h1>${esc(product.name)}</h1>
+      <div class="server-meta">
+        <span class="pill ${plClass}">${PL_LABEL}</span>
+        <span>${DC}</span>
+        <span>${CURRENCY}</span>
+        ${product.sku ? `<span class="sku">${esc(product.sku)}</span>` : ''}
+      </div>
+      <div class="server-mrc-display">
+        ${SYM}${fmt(config.server_mrc)}<span>/mo base</span>
+      </div>
+    `;
+  }
+
+  // ── Render config ────────────────────────────────────────────────────────
+  function renderConfig(config) {
+    const body = document.getElementById('config-body');
+
+    // Group defaults by category
+    const cats = {};
+    config.defaults.forEach(d => {
+      if (!cats[d.category]) cats[d.category] = { sort: d.cat_sort, defaults: [], allowed: [] };
+      cats[d.category].defaults.push(d);
+    });
+    config.allowed.forEach(a => {
+      if (!cats[a.category]) cats[a.category] = { sort: a.cat_sort, defaults: [], allowed: [] };
+      cats[a.category].allowed.push(a);
+    });
+
+    const sorted = Object.entries(cats).sort((a,b) => a[1].sort - b[1].sort || a[0].localeCompare(b[0]));
+    const defaultIdSet = new Set(config.default_ids);
+
+    body.innerHTML = sorted.map(([catName, cat]) => {
+      const defaultRows = cat.defaults.map(d => defaultComponentRow(d, cat.allowed, defaultIdSet)).join('');
+      const addBtn = cat.allowed.filter(a => !defaultIdSet.has(a.component_id)).length > 0
+        ? `<button class="add-row-btn" onclick="addRow(${JSON.stringify(catName)})">+ Add ${esc(catName)} component</button>`
+        : '';
+      return `
+        <div class="category" id="cat-${slugify(catName)}">
+          <div class="category-title">${esc(catName)}</div>
+          <div id="rows-${slugify(catName)}">${defaultRows}</div>
+          ${addBtn}
+        </div>`;
+    }).join('');
+  }
+
+  function defaultComponentRow(comp, allowed, defaultIdSet) {
+    const cid = comp.component_id;
+    const mrcStr = comp.component_mrc > 0 ? `${SYM}${fmt(comp.component_mrc)}/mo` : `<span style="color:#475569">included</span>`;
+    const hwStr  = comp.hw_cost_usd != null ? `CapEx: $${fmt(comp.hw_cost_usd)}` : '';
+
+    // Build swap options: all allowed in same component_type, excluding current
+    const swapOptions = allowed
+      .filter(a => a.component_type === comp.component_type)
+      .map(a => `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_usd||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>${esc(a.name)}${a.component_mrc>0?' — '+SYM+fmt(a.component_mrc)+'/mo':' — included'}</option>`)
+      .join('');
+
+    const hasSwap = swapOptions.length > 1;
+
+    return `
+      <div class="component-row" id="row-${cid}" data-orig-id="${cid}" data-orig-mrc="${comp.component_mrc}" data-orig-name="${esc(comp.name)}" data-orig-hw="${comp.hw_cost_usd||0}">
+        <div class="comp-info">
+          <div class="comp-name" id="name-${cid}">${esc(comp.name)}</div>
+          <div class="comp-type">${esc(comp.component_type)} ${comp.quantity > 1 ? '× '+comp.quantity : ''}</div>
+        </div>
+        <div class="comp-cost">
+          <div class="mrc" id="mrc-${cid}">${mrcStr}</div>
+          <div class="hw"  id="hw-${cid}">${hwStr}</div>
+        </div>
+        <div class="comp-actions">
+          ${hasSwap ? `<select class="comp-select" id="sel-${cid}" onchange="onSwap(${cid}, this)">${swapOptions}</select>` : ''}
+        </div>
+      </div>`;
+  }
+
+  // ── Swap handler ──────────────────────────────────────────────────────────
+  function onSwap(origId, sel) {
+    const opt     = sel.options[sel.selectedIndex];
+    const newId   = parseInt(opt.value);
+    const newMrc  = parseFloat(opt.dataset.mrc) || 0;
+    const newHw   = parseFloat(opt.dataset.hw)  || 0;
+    const newName = opt.dataset.name;
+
+    const row     = document.getElementById(`row-${origId}`);
+    const origMrc = parseFloat(row.dataset.origMrc) || 0;
+
+    document.getElementById(`name-${origId}`).textContent = newName;
+    document.getElementById(`mrc-${origId}`).innerHTML =
+      newMrc > 0 ? `${SYM}${fmt(newMrc)}/mo` : `<span style="color:#475569">included</span>`;
+    document.getElementById(`hw-${origId}`).textContent =
+      newHw > 0 ? `CapEx: $${fmt(newHw)}` : '';
+
+    if (newId === origId) {
+      row.classList.remove('changed');
+      delete CHANGES[origId];
+    } else {
+      row.classList.add('changed');
+      CHANGES[origId] = { type: 'swap', orig_mrc: origMrc, curr_mrc: newMrc, name: newName, hw_cost: newHw };
+    }
+    renderSummary();
+  }
+
+  // ── Add row ───────────────────────────────────────────────────────────────
+  function addRow(catName) {
+    const cat = CONFIG.allowed.filter(a => a.category === catName && !document.getElementById(`added-${a.component_id}`));
+    const defaultIdSet = new Set(CONFIG.default_ids);
+    const addable = cat.filter(a => !defaultIdSet.has(a.component_id));
+    if (!addable.length) return;
+
+    const first = addable[0];
+    const tempId = `added-${first.component_id}`;
+    const options = addable.map(a =>
+      `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_usd||0}" data-name="${esc(a.name)}">${esc(a.name)}${a.component_mrc>0?' — '+SYM+fmt(a.component_mrc)+'/mo':' — included'}</option>`
+    ).join('');
+
+    const rowHtml = `
+      <div class="component-row added" id="${tempId}">
+        <div class="comp-info">
+          <div class="comp-name">
+            <select class="comp-select" style="max-width:100%" onchange="onAddChange(this, '${esc(catName)}')">${options}</select>
+          </div>
+          <div class="comp-type" style="color:#22c55e;font-size:0.7rem">Added</div>
+        </div>
+        <div class="comp-cost">
+          <div class="mrc" id="addmrc-${first.component_id}">
+            ${first.component_mrc > 0 ? SYM+fmt(first.component_mrc)+'/mo' : '<span style="color:#475569">included</span>'}
+          </div>
+          <div class="hw">${first.hw_cost_usd ? `CapEx: $${fmt(first.hw_cost_usd)}` : ''}</div>
+        </div>
+        <div class="comp-actions">
+          <button class="btn btn-remove" onclick="removeAdded('${tempId}', ${first.component_id})">×</button>
+        </div>
+      </div>`;
+
+    document.getElementById(`rows-${slugify(catName)}`).insertAdjacentHTML('beforeend', rowHtml);
+
+    CHANGES[`add-${first.component_id}`] = {
+      type: 'add', curr_mrc: first.component_mrc, name: first.name, hw_cost: first.hw_cost_usd || 0,
+      elem_id: tempId, comp_id: first.component_id,
+    };
+    renderSummary();
+  }
+
+  function onAddChange(sel, catName) {
+    const opt    = sel.options[sel.selectedIndex];
+    const compId = parseInt(opt.value);
+    const mrc    = parseFloat(opt.dataset.mrc) || 0;
+    const hw     = parseFloat(opt.dataset.hw)  || 0;
+    const name   = opt.dataset.name;
+    // Find the add entry and update
+    for (const key of Object.keys(CHANGES)) {
+      if (key.startsWith('add-') && CHANGES[key].elem_id === sel.closest('.component-row').id) {
+        CHANGES[key].curr_mrc = mrc;
+        CHANGES[key].name     = name;
+        CHANGES[key].hw_cost  = hw;
+        CHANGES[key].comp_id  = compId;
+      }
+    }
+    renderSummary();
+  }
+
+  function removeAdded(elemId, compId) {
+    const el = document.getElementById(elemId);
+    if (el) el.remove();
+    for (const key of Object.keys(CHANGES)) {
+      if (key.startsWith('add-') && CHANGES[key].elem_id === elemId) {
+        delete CHANGES[key];
+      }
+    }
+    renderSummary();
+  }
+
+  // ── Summary sidebar ───────────────────────────────────────────────────────
+  function renderSummary() {
+    if (!CONFIG) return;
+    const body = document.getElementById('summary-body');
+
+    // Recalculate MRC
+    let totalMrc = CONFIG.server_mrc;
+    CONFIG.defaults.forEach(d => { totalMrc += d.component_mrc * d.quantity; });
+
+    // Apply swaps
+    let swapDelta = 0;
+    for (const [key, ch] of Object.entries(CHANGES)) {
+      if (ch.type === 'swap') { swapDelta += ch.curr_mrc - ch.orig_mrc; }
+      if (ch.type === 'add')  { swapDelta += ch.curr_mrc; }
+    }
+    const adjMrc = totalMrc + swapDelta;
+
+    // Overhead lines
+    const ovh = CONFIG.overhead;
+    let totalOverhead = 0;
+    const ovhLines = [];
+    const labels = {
+      power_per_kw:        'Power (kW)',
+      dc_rm_supplies:      'DC R&M / Supplies',
+      network:             'Network',
+      dc_infra_operations: 'DC Infra / Ops',
+      billing_collections: 'Billing & Collections',
+      supply_chain:        'Supply Chain',
+      support_tech_rate:   'Support (Tech Time)',
+      dc_people:           'DC People',
+      network_people:      'Network People',
+      compute_team:        'Compute Team',
+      sga:                 'SG&A',
+    };
+    for (const [k, entry] of Object.entries(ovh)) {
+      if (entry.amount === null) {
+        ovhLines.push({ label: labels[k]||k, value: 'N/A (no watt data)', na: true });
+        continue;
+      }
+      if (entry.amount === 0) continue;
+      totalOverhead += entry.amount;
+      const curr = entry.currency || '';
+      ovhLines.push({ label: labels[k]||k, value: `${curr} ${fmt(entry.amount)}` });
+    }
+
+    // Hardware CapEx (amortized 36mo for margin calc)
+    const hwCapex  = CONFIG.total_hw_capex;
+    const hwMonthly = hwCapex / 36;
+
+    const totalCost   = totalOverhead + hwMonthly;
+    const margin      = adjMrc - totalCost;
+    const marginPct   = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
+    const marginClass = margin >= 0 ? 'positive' : 'negative';
+
+    // Changes list
+    const changeLines = Object.values(CHANGES).map(ch => {
+      const delta = ch.type === 'swap' ? ch.curr_mrc - ch.orig_mrc : ch.curr_mrc;
+      const sign  = delta >= 0 ? '+' : '';
+      return `<div class="cost-line"><span class="label">${esc(ch.name)}</span><span class="value">${sign}${SYM}${fmt(Math.abs(delta))}</span></div>`;
+    }).join('');
+
+    body.innerHTML = `
+      <div class="cost-section">
+        <div class="cost-section-title">Customer MRC</div>
+        <div class="cost-line"><span class="label">Server base</span><span class="value">${SYM}${fmt(CONFIG.server_mrc)}</span></div>
+        <div class="cost-line"><span class="label">Default components</span><span class="value">${SYM}${fmt(totalMrc - CONFIG.server_mrc)}</span></div>
+        ${changeLines ? `<hr class="divider">${changeLines}` : ''}
+        <hr class="divider">
+        <div class="cost-line total"><span class="label">Total MRC</span><span class="value">${SYM}${fmt(adjMrc)}</span></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="cost-section">
+        <div class="cost-section-title">Internal Costs / mo</div>
+        <div class="cost-line"><span class="label">HW CapEx (÷36mo)</span><span class="value">$${fmt(hwMonthly)}</span></div>
+        ${ovhLines.map(l => `<div class="cost-line"><span class="label">${esc(l.label)}</span><span class="value ${l.na?'muted':''}">${l.value}</span></div>`).join('')}
+        <hr class="divider">
+        <div class="cost-line total"><span class="label">Total Cost</span><span class="value">$${fmt(totalCost)}</span></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="cost-section">
+        <div class="cost-section-title">Margin</div>
+        <div class="cost-line margin"><span class="label">Monthly margin</span><span class="value ${marginClass}">${SYM}${fmt(margin)}</span></div>
+        <div class="cost-line margin"><span class="label">Margin %</span><span class="value ${marginClass}">${marginPct.toFixed(1)}%</span></div>
+        <div class="cost-line"><span class="label">HW CapEx (total)</span><span class="value muted">$${fmt(hwCapex)}</span></div>
+      </div>
+    `;
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function fmt(n) {
+    if (n === null || n === undefined) return '—';
+    return parseFloat(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function esc(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function slugify(s) { return s.replace(/[^a-z0-9]/gi, '-').toLowerCase(); }
+</script>
+</body>
+</html>
