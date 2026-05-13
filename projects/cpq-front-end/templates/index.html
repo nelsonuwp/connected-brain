@@ -3,358 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CPQ — Product Catalog</title>
+  <title>CPQ — Server Pricing</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; padding: 2rem; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0f1117;
-      color: #e2e8f0;
-      min-height: 100vh;
-      padding: 2rem;
+    header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+    header h1 { font-size: 1.5rem; font-weight: 700; color: #f8fafc; letter-spacing: -0.02em; }
+    .badge { background: #1e40af; color: #bfdbfe; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex; align-items: flex-end; gap: 1.25rem;
+      background: #161b27; border: 1px solid #1e293b; border-radius: 12px;
+      padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; flex-wrap: wrap;
     }
-
-    header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #f8fafc;
-      letter-spacing: -0.02em;
-    }
-
-    header span.badge {
-      background: #1e40af;
-      color: #bfdbfe;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .select-wrap {
-      position: relative;
-    }
-
+    .filter-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .filter-group label { font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; }
+    .select-wrap { position: relative; }
     select {
-      appearance: none;
-      background: #1e2130;
-      border: 1px solid #334155;
-      color: #e2e8f0;
-      font-size: 0.9rem;
-      padding: 0.55rem 2.4rem 0.55rem 0.9rem;
-      border-radius: 8px;
-      min-width: 220px;
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.15s;
+      appearance: none; background: #0f1117; border: 1px solid #334155; color: #e2e8f0;
+      font-size: 0.875rem; padding: 0.5rem 2.2rem 0.5rem 0.85rem; border-radius: 8px;
+      min-width: 160px; cursor: pointer; outline: none; transition: border-color 0.15s;
     }
-
     select:focus { border-color: #3b82f6; }
+    .select-wrap::after { content: "▾"; position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: #64748b; font-size: 0.75rem; }
 
-    .select-wrap::after {
-      content: "▾";
-      position: absolute;
-      right: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: #64748b;
-      font-size: 0.8rem;
+    #status-bar { font-size: 0.8rem; color: #64748b; margin-bottom: 1rem; min-height: 1.1rem; }
+
+    /* Server grid */
+    .server-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+
+    .server-card {
+      background: #161b27; border: 1px solid #1e293b; border-radius: 12px;
+      padding: 1.25rem; cursor: pointer; transition: border-color 0.15s, transform 0.1s;
+      text-decoration: none; display: block; color: inherit;
     }
+    .server-card:hover { border-color: #3b82f6; transform: translateY(-2px); }
 
-    /* Toggle switch */
-    .toggle-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.85rem;
-      color: #94a3b8;
-      cursor: pointer;
-      user-select: none;
-    }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; }
+    .card-name { font-size: 0.95rem; font-weight: 600; color: #f1f5f9; line-height: 1.3; }
+    .card-sku { font-family: monospace; font-size: 0.7rem; color: #38bdf8; background: #0c1929; padding: 2px 6px; border-radius: 4px; }
 
-    .toggle-wrap input[type="checkbox"] { display: none; }
+    .card-desc { font-size: 0.78rem; color: #64748b; margin-bottom: 1rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-    .toggle-track {
-      width: 38px;
-      height: 22px;
-      background: #334155;
-      border-radius: 999px;
-      position: relative;
-      transition: background 0.2s;
-      flex-shrink: 0;
-    }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; }
+    .card-mrc { font-size: 1.4rem; font-weight: 700; color: #38bdf8; }
+    .card-mrc span { font-size: 0.7rem; font-weight: 400; color: #64748b; margin-left: 2px; }
 
-    .toggle-track::after {
-      content: "";
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      background: #fff;
-      border-radius: 50%;
-      top: 3px;
-      left: 3px;
-      transition: left 0.2s;
-    }
+    .pill { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; }
+    .pill.soldout   { background: #78350f; color: #fcd34d; }
+    .pill.limited   { background: #4c1d95; color: #c4b5fd; }
+    .pill.available { background: #14532d; color: #86efac; }
 
-    .toggle-wrap input:checked + .toggle-track { background: #3b82f6; }
-    .toggle-wrap input:checked + .toggle-track::after { left: 19px; }
-
-    /* Status bar */
-    #status-bar {
-      font-size: 0.8rem;
-      color: #64748b;
-      margin-bottom: 1.25rem;
-      min-height: 1.1rem;
-    }
-
-    /* Table */
-    .table-wrap {
-      overflow-x: auto;
-      border-radius: 10px;
-      border: 1px solid #1e293b;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
-    }
-
-    thead tr {
-      background: #161b27;
-      border-bottom: 1px solid #1e293b;
-    }
-
-    thead th {
-      text-align: left;
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      color: #94a3b8;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-    }
-
-    tbody tr {
-      border-bottom: 1px solid #1a2035;
-      transition: background 0.1s;
-    }
-
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: #1a2236; }
-
-    tbody tr.inactive { opacity: 0.5; }
-
-    td {
-      padding: 0.7rem 1rem;
-      vertical-align: top;
-      color: #cbd5e1;
-    }
-
-    td.name { color: #f1f5f9; font-weight: 500; }
-    td.desc { color: #94a3b8; font-size: 0.8rem; max-width: 360px; }
-    td.sku  { font-family: monospace; font-size: 0.78rem; color: #7dd3fc; }
-
-    .pill {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .pill.active   { background: #14532d; color: #86efac; }
-    .pill.inactive { background: #3b0a0a; color: #fca5a5; }
-    .pill.yes      { background: #1e3a5f; color: #93c5fd; }
-    .pill.soldout  { background: #78350f; color: #fcd34d; }
-    .pill.limited  { background: #4c1d95; color: #c4b5fd; }
-
-    /* Empty / loading states */
-    .empty {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #475569;
-      font-size: 0.9rem;
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #334155;
-      border-top-color: #3b82f6;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      vertical-align: middle;
-      margin-right: 6px;
-    }
-
+    .empty { text-align: center; padding: 4rem 1rem; color: #475569; font-size: 0.9rem; }
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid #334155; border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-
 <header>
-  <h1>CPQ — Product Catalog</h1>
+  <h1>CPQ — Server Pricing</h1>
   <span class="badge">Fusion DB</span>
 </header>
 
-<div class="controls">
-  <div class="select-wrap">
-    <select id="class-select">
-      <option value="">Loading product classes…</option>
-    </select>
+<div class="filter-bar">
+  <div class="filter-group">
+    <label>Product Line</label>
+    <div class="select-wrap">
+      <select id="product-line">
+        <option value="4">Dedicated Hosting</option>
+        <option value="3">Managed Hosting</option>
+      </select>
+    </div>
   </div>
 
-  <label class="toggle-wrap" title="Show inactive products">
-    <input type="checkbox" id="inactive-toggle" />
-    <span class="toggle-track"></span>
-    Show inactive
-  </label>
+  <div class="filter-group">
+    <label>Data Center</label>
+    <div class="select-wrap">
+      <select id="dc-select">
+        <option value="">Loading…</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <label>Currency</label>
+    <div class="select-wrap">
+      <select id="currency-select">
+        <option value="USD">USD — US Dollar</option>
+        <option value="CAD">CAD — Canadian Dollar</option>
+        <option value="GBP">GBP — British Pound</option>
+      </select>
+    </div>
+  </div>
 </div>
 
 <div id="status-bar"></div>
-
-<div class="table-wrap" id="table-wrap">
-  <div class="empty">Select a product class above to load catalog items.</div>
+<div id="server-grid" class="server-grid">
+  <div class="empty">Select a data center to load available servers.</div>
 </div>
 
 <script>
-  const classSelect   = document.getElementById('class-select');
-  const inactiveToggle = document.getElementById('inactive-toggle');
-  const tableWrap     = document.getElementById('table-wrap');
-  const statusBar     = document.getElementById('status-bar');
+  const dcSelect       = document.getElementById('dc-select');
+  const currencySelect = document.getElementById('currency-select');
+  const plSelect       = document.getElementById('product-line');
+  const grid           = document.getElementById('server-grid');
+  const statusBar      = document.getElementById('status-bar');
 
-  // Load product classes on boot
-  fetch('/api/product-classes')
+  // Currency symbol helper
+  const sym = { USD: '$', CAD: '$', GBP: '£' };
+
+  // Load DCs
+  fetch('/api/datacenters')
     .then(r => r.json())
-    .then(classes => {
-      classSelect.innerHTML = '<option value="">— select a product class —</option>';
-      classes.forEach(pc => {
+    .then(dcs => {
+      dcSelect.innerHTML = '<option value="">— select —</option>';
+      dcs.forEach(dc => {
         const opt = document.createElement('option');
-        opt.value = pc.id;
-        opt.textContent = pc.name;
-        classSelect.appendChild(opt);
+        opt.value = dc.code;
+        opt.textContent = `${dc.code} — ${dc.name}`;
+        opt.dataset.currency = dc.native_currency;
+        dcSelect.appendChild(opt);
       });
-    })
-    .catch(() => {
-      classSelect.innerHTML = '<option value="">Failed to load — check server</option>';
     });
 
-  function loadProducts() {
-    const classId = classSelect.value;
-    if (!classId) {
-      tableWrap.innerHTML = '<div class="empty">Select a product class above to load catalog items.</div>';
+  // Auto-match currency to DC's native currency
+  dcSelect.addEventListener('change', () => {
+    const opt = dcSelect.options[dcSelect.selectedIndex];
+    if (opt && opt.dataset.currency) {
+      currencySelect.value = opt.dataset.currency;
+    }
+    loadServers();
+  });
+
+  currencySelect.addEventListener('change', loadServers);
+  plSelect.addEventListener('change', loadServers);
+
+  function loadServers() {
+    const dc = dcSelect.value;
+    const currency = currencySelect.value;
+    const pl = plSelect.value;
+    if (!dc) {
+      grid.innerHTML = '<div class="empty">Select a data center to load available servers.</div>';
       statusBar.textContent = '';
       return;
     }
-
-    const showInactive = inactiveToggle.checked;
-    tableWrap.innerHTML = '<div class="empty"><span class="spinner"></span>Loading…</div>';
+    grid.innerHTML = '<div class="empty"><span class="spinner"></span>Loading servers…</div>';
     statusBar.textContent = '';
 
-    fetch(`/api/products/${classId}?show_inactive=${showInactive}`)
+    fetch(`/api/servers?dc=${dc}&currency=${currency}&product_line=${pl}`)
       .then(r => r.json())
-      .then(rows => renderTable(rows, showInactive))
+      .then(servers => renderGrid(servers, currency, dc, pl))
       .catch(err => {
-        tableWrap.innerHTML = `<div class="empty">Error loading products: ${err}</div>`;
+        grid.innerHTML = `<div class="empty">Error: ${err}</div>`;
       });
   }
 
-  function renderTable(rows, showInactive) {
-    if (!rows.length) {
-      tableWrap.innerHTML = '<div class="empty">No products found for this class.</div>';
+  function renderGrid(servers, currency, dc, pl) {
+    if (!servers.length || servers.error) {
+      grid.innerHTML = '<div class="empty">No servers available for this selection.</div>';
       statusBar.textContent = '0 results';
       return;
     }
+    statusBar.textContent = `${servers.length} servers — ${dcSelect.options[dcSelect.selectedIndex].text} · ${currency} · ${plSelect.options[plSelect.selectedIndex].text}`;
 
-    const activeCount   = rows.filter(r => r.is_active).length;
-    const inactiveCount = rows.length - activeCount;
-    statusBar.textContent = showInactive
-      ? `${rows.length} products (${activeCount} active, ${inactiveCount} inactive)`
-      : `${rows.length} active products`;
+    const s = sym[currency] || '$';
+    grid.innerHTML = servers.map(sv => {
+      let badge = '';
+      if (sv.sold_out)             badge = '<span class="pill soldout">Sold Out</span>';
+      else if (sv.limited_availability) badge = '<span class="pill limited">Limited</span>';
+      else if (sv.available_in_shop)    badge = '<span class="pill available">Available</span>';
 
-    let html = `
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>SKU</th>
-            <th>Status</th>
-            <th>Shop</th>
-            <th>Availability</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
+      const sku = sv.sku ? `<span class="card-sku">${esc(sv.sku)}</span>` : '';
+      const desc = (sv.description || '').substring(0, 120);
 
-    rows.forEach(r => {
-      const rowClass = r.is_active ? '' : 'inactive';
-
-      const statusPill = r.is_active
-        ? '<span class="pill active">Active</span>'
-        : '<span class="pill inactive">Inactive</span>';
-
-      let availPills = '';
-      if (r.sold_out)            availPills += '<span class="pill soldout">Sold Out</span> ';
-      if (r.limited_availability) availPills += '<span class="pill limited">Limited</span> ';
-      if (!r.sold_out && !r.limited_availability && r.available_in_shop)
-        availPills = '<span class="pill yes">In Shop</span>';
-      if (!availPills) availPills = '<span style="color:#475569">—</span>';
-
-      const sku  = r.sku ? `<span class="pill" style="background:#1e293b;color:#7dd3fc;font-family:monospace">${r.sku}</span>` : '<span style="color:#475569">—</span>';
-      const desc = r.description || '';
-
-      html += `
-        <tr class="${rowClass}">
-          <td style="color:#475569;font-size:0.78rem">${r.id}</td>
-          <td class="name">${escHtml(r.name)}</td>
-          <td class="sku">${sku}</td>
-          <td>${statusPill}</td>
-          <td>${availPills}</td>
-          <td>${r.release_date ? `<span style="font-size:0.78rem;color:#64748b">${r.release_date}</span>` : '<span style="color:#475569">—</span>'}</td>
-          <td class="desc">${escHtml(desc)}</td>
-        </tr>
-      `;
-    });
-
-    html += '</tbody></table>';
-    tableWrap.innerHTML = html;
+      return `
+        <a class="server-card" href="/product/${sv.id}?dc=${dc}&currency=${currency}&product_line=${pl}">
+          <div class="card-header">
+            <div class="card-name">${esc(sv.name)}</div>
+            ${sku}
+          </div>
+          <div class="card-desc">${esc(desc)}</div>
+          <div class="card-footer">
+            <div class="card-mrc">${s}${sv.mrc.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}<span>/mo</span></div>
+            ${badge}
+          </div>
+        </a>`;
+    }).join('');
   }
 
-  function escHtml(s) {
-    return String(s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
-  classSelect.addEventListener('change', loadProducts);
-  inactiveToggle.addEventListener('change', loadProducts);
 </script>
 </body>
 </html>
