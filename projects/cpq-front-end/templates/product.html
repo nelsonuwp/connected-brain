@@ -459,6 +459,9 @@
   // ── Header ────────────────────────────────────────────────────────────
   function renderHeader(product, config) {
     const plClass = PRODUCT_LINE === '3' ? 'pl-mh' : 'pl-dh';
+    const term    = config.term_months || TERM;
+    const fxNote  = config.fx_native && config.native_currency !== CURRENCY
+      ? ` · ${config.native_currency}→${CURRENCY} @ ${config.fx_native.toFixed(4)}` : '';
     document.title = `${product.name} — CPQ · Aptum`;
     document.getElementById('server-header').innerHTML = `
       <h1>${esc(product.name)}</h1>
@@ -466,7 +469,9 @@
         <span class="pill ${plClass}">${PL_LABEL}</span>
         <span>${DC}</span>
         <span>${CURRENCY}</span>
+        <span>${term}mo term</span>
         ${product.sku ? `<span class="sku">${esc(product.sku)}</span>` : ''}
+        ${fxNote ? `<span style="color:var(--text-3);font-style:italic">${fxNote}</span>` : ''}
       </div>
       <div class="server-mrc-display">${SYM}${fmt(config.server_mrc)}<span>/mo base</span></div>`;
   }
@@ -720,8 +725,25 @@
     return               { cls:'mh-good',   badge:'Good',      badgeTip:'Healthy margin'    };
   }
 
+  // Build a rich provenance tooltip string from a provenance object
+  function provenanceTip(p) {
+    if (!p) return '';
+    const lines = [];
+    if (p.source)          lines.push(`src: ${p.source}`);
+    if (p.filters)         lines.push(`filter: ${p.filters}`);
+    if (p.field)           lines.push(`field: ${p.field}`);
+    if (p.sku_name)        lines.push(`sku: ${p.sku_name}`);
+    if (p.native_value != null) lines.push(`native: ${p.native_currency} ${p.native_value}`);
+    if (p.usd_value != null)    lines.push(`USD: ${p.usd_value}`);
+    if (p.fx_rate != null && p.fx_rate !== 1)  lines.push(`FX: ${p.fx_rate}`);
+    if (p.formula)         lines.push(`calc: ${p.formula}`);
+    if (p.method)          lines.push(`method: ${p.method}`);
+    return lines.join(' | ');
+  }
+
   function renderSummary() {
     if (!CONFIG) return;
+    const termMo = CONFIG.term_months || TERM;
 
     // ── MRC ──────────────────────────────────────────────────────────
     let totalMrc = CONFIG.server_mrc;
@@ -739,24 +761,27 @@
     const ovhLines = [];
     for (const [k, entry] of Object.entries(ovh)) {
       if (entry.amount === null) {
-        ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:'N/A — no watt data', na:true });
+        const tip = provenanceTip(entry.provenance) || TIPS[k] || '';
+        ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:'N/A — no watt data', na:true, tip });
         continue;
       }
       if (entry.amount === 0) continue;
       totalOverhead += entry.amount;
-      ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:`${entry.currency} ${fmt(entry.amount)}` });
+      const tip = provenanceTip(entry.provenance) || TIPS[k] || '';
+      ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:`${SYM}${fmt(entry.amount)}`, tip });
     }
 
     // ── HW / Margin ──────────────────────────────────────────────────
-    const hwMonthly = CONFIG.total_hw_capex / 36;
-    const totalCost = totalOverhead + hwMonthly;
-    const margin    = adjMrc - totalCost;
-    const marginPct = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
-    const ms        = marginStatus(marginPct);
+    const hwCapex    = CONFIG.total_hw_capex;            // display currency, one-time
+    const hwMonthly  = hwCapex / termMo;                 // amortized over term
+    const totalCost  = totalOverhead + hwMonthly;
+    const margin     = adjMrc - totalCost;
+    const marginPct  = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
+    const ms         = marginStatus(marginPct);
 
     // ── Margin hero ──────────────────────────────────────────────────
-    const hero  = document.getElementById('margin-hero');
-    const pctEl = document.getElementById('margin-pct');
+    const hero    = document.getElementById('margin-hero');
+    const pctEl   = document.getElementById('margin-pct');
     const badgeEl = document.getElementById('margin-badge');
     const monthEl = document.getElementById('margin-monthly');
 
@@ -770,6 +795,7 @@
     if (monthEl) monthEl.textContent  = `${SYM}${fmt(margin)}/mo`;
 
     // ── Customer MRC section ─────────────────────────────────────────
+    const mrcProvTip = provenanceTip(CONFIG.server_mrc_provenance);
     const changeLines = Object.values(CHANGES).map(ch => {
       const delta = ch.type === 'swap' ? ch.curr_mrc - ch.orig_mrc : ch.curr_mrc;
       const sign  = delta >= 0 ? '+' : '−';
@@ -777,34 +803,52 @@
     }).join('');
 
     document.getElementById('mrc-body').innerHTML = `
-      <div class="cost-line"><span class="label">Server base</span><span class="value">${SYM}${fmt(CONFIG.server_mrc)}/mo</span></div>
+      <div class="cost-line">
+        <span class="label"${mrcProvTip ? ` data-tip="${esc(mrcProvTip)}"` : ''}>Server base</span>
+        <span class="value">${SYM}${fmt(CONFIG.server_mrc)}/mo</span>
+      </div>
       <div class="cost-line"><span class="label">Default components</span><span class="value">${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo</span></div>
       ${changeLines ? `<hr class="divider">${changeLines}<hr class="divider">` : '<hr class="divider">'}
       <div class="cost-line total"><span class="label">Total MRC</span><span class="value">${SYM}${fmt(adjMrc)}/mo</span></div>`;
 
     // ── Internal costs section ────────────────────────────────────────
+    const hwProv    = CONFIG.hw_capex_provenance;
+    const hwProvTip = provenanceTip(hwProv);
+    const hwAmorTip = hwProv
+      ? `${hwProvTip} | amortized: ${SYM}${fmt(hwCapex)} ÷ ${termMo}mo = ${SYM}${fmt(hwMonthly)}/mo`
+      : `HW CapEx amortized over ${termMo} months`;
+
     document.getElementById('cost-body').innerHTML = `
-      <div class="cost-line">
-        <span class="label" data-tip="Hardware cost from MSSQL profitability data, amortized over 36 months">HW CapEx (÷36mo)</span>
-        <span class="value">$${fmt(hwMonthly)}/mo</span>
+      <div class="cost-line" style="margin-bottom:.5rem">
+        <span class="label"${hwProvTip ? ` data-tip="${esc(hwProvTip)}"` : ''}>HW CapEx (one-time)</span>
+        <span class="value">${SYM}${fmt(hwCapex)}</span>
       </div>
+      <div class="cost-line">
+        <span class="label" data-tip="${esc(hwAmorTip)}">HW CapEx (÷${termMo}mo)</span>
+        <span class="value">${SYM}${fmt(hwMonthly)}/mo</span>
+      </div>
+      <hr class="divider">
       ${ovhLines.map(l => `
         <div class="cost-line">
-          <span class="label"${TIPS[l.key]?` data-tip="${esc(TIPS[l.key])}"`:''}>${esc(l.label)}</span>
+          <span class="label"${l.tip ? ` data-tip="${esc(l.tip)}"` : ''}>${esc(l.label)}</span>
           <span class="value${l.na?' muted':''}">${l.value}</span>
         </div>`).join('')}
       <hr class="divider">
-      <div class="cost-line total"><span class="label">Total Cost</span><span class="value">$${fmt(totalCost)}/mo</span></div>
-      <div class="cost-line" style="margin-top:.2rem">
-        <span class="label" style="color:var(--text-3);font-size:.7rem">HW CapEx (total, 3yr)</span>
-        <span class="value muted">$${fmt(CONFIG.total_hw_capex)}</span>
+      <div class="cost-line">
+        <span class="label">Total OpEx / mo</span>
+        <span class="value">${SYM}${fmt(totalOverhead)}/mo</span>
+      </div>
+      <div class="cost-line total">
+        <span class="label">Total Cost / mo</span>
+        <span class="value">${SYM}${fmt(totalCost)}/mo</span>
       </div>`;
   }
 
   // ── Copy quote ────────────────────────────────────────────────────────
   async function copyQuote() {
     if (!CONFIG) return;
-    const btn = document.getElementById('copy-btn');
+    const btn    = document.getElementById('copy-btn');
+    const termMo = CONFIG.term_months || TERM;
 
     let totalMrc = CONFIG.server_mrc;
     CONFIG.defaults.forEach(d => { totalMrc += d.component_mrc * d.quantity; });
@@ -816,7 +860,8 @@
     const adjMrc    = totalMrc + swapDelta;
     let totalOvh    = 0;
     for (const e of Object.values(CONFIG.overhead)) { if (e.amount > 0) totalOvh += e.amount; }
-    const hwMonthly = CONFIG.total_hw_capex / 36;
+    const hwCapex   = CONFIG.total_hw_capex;
+    const hwMonthly = hwCapex / termMo;
     const totalCost = totalOvh + hwMonthly;
     const margin    = adjMrc - totalCost;
     const marginPct = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
@@ -837,6 +882,7 @@ Server:       ${title}
 DC:           ${CONFIG.dc_code}
 Currency:     ${CONFIG.currency}
 Product Line: ${PL_LABEL}
+Term:         ${termMo} months
 
 CUSTOMER MRC
   Base:                 ${SYM}${fmt(CONFIG.server_mrc)}/mo
@@ -844,11 +890,12 @@ CUSTOMER MRC
   ─────────────────────────────────────
   Total MRC:            ${SYM}${fmt(adjMrc)}/mo
 
-INTERNAL COSTS / MO
-  HW CapEx (÷36mo):     $${fmt(hwMonthly)}/mo
-  Overhead:             $${fmt(totalOvh)}/mo
+INTERNAL COSTS
+  HW CapEx (one-time):  ${SYM}${fmt(hwCapex)}
+  HW CapEx (÷${termMo}mo):    ${SYM}${fmt(hwMonthly)}/mo
+  OpEx overhead:        ${SYM}${fmt(totalOvh)}/mo
   ─────────────────────────────────────
-  Total Cost:           $${fmt(totalCost)}/mo
+  Total Cost / mo:      ${SYM}${fmt(totalCost)}/mo
 
 MARGIN
   Monthly margin:       ${SYM}${fmt(margin)}/mo
