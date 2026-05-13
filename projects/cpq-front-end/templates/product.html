@@ -1,151 +1,332 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CPQ — Configurator · Aptum</title>
   <style>
-    @font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Light.ttf'); font-weight: 300; font-display: swap; }
-    @font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Regular.ttf'); font-weight: 400; font-display: swap; }
-    @font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Medium.ttf'); font-weight: 500; font-display: swap; }
-    @font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Bold.ttf'); font-weight: 700; font-display: swap; }
-    @font-face { font-family: 'Geist Mono'; src: url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf'); font-weight: 400; font-display: swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Light.ttf') format('truetype'); font-weight:300; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Medium.ttf') format('truetype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+    @font-face { font-family:'Geist Mono'; src:url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ── Tokens ──────────────────────────────────────────────────────── */
+    :root {
+      --bg:           #081820;
+      --bg-dot:       #142233;
+      --surface:      #0d1f2d;
+      --surface-2:    #060f15;
+      --border:       #142233;
+      --border-mid:   #1e3547;
+      --text-1:       #F8F7FA;
+      --text-2:       #88898D;
+      --text-3:       #515357;
+      --accent:       #7D7AE8;
+      --accent-dim:   #2A1F6E;
+      --accent-text:  #D4D3FF;
+      --green:        #BED6A8;
+      --green-dim:    #1a3d1f;
+      --green-text:   #BED6A8;
+      --orange:       #FFBE81;
+      --orange-dim:   #3d1a06;
+      --orange-text:  #FFBE81;
+      --red:          #ef4444;
+      --red-dim:      #3b1220;
+      --red-text:     #fca5a5;
+      --shadow:       rgba(0,0,0,.25);
+    }
+    [data-theme="light"] {
+      --bg:           #F8F7FA;
+      --bg-dot:       #D0D1DE;
+      --surface:      #FFFFFF;
+      --surface-2:    #F0EFF5;
+      --border:       #D0D1DE;
+      --border-mid:   #88898D;
+      --text-1:       #081820;
+      --text-2:       #515357;
+      --text-3:       #88898D;
+      --accent:       #655BD9;
+      --accent-dim:   #E7E6FF;
+      --accent-text:  #3A2699;
+      --green:        #2d6e1f;
+      --green-dim:    #E9FEDF;
+      --green-text:   #1a4a10;
+      --orange:       #a05000;
+      --orange-dim:   #FFEBD9;
+      --orange-text:  #7a3a00;
+      --red:          #c41c1c;
+      --red-dim:      #FEE8E8;
+      --red-text:     #9b1515;
+      --shadow:       rgba(0,0,0,.06);
+    }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
     body {
-      font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #081820;
-      color: #D0D1DE;
+      font-family:'Geist', system-ui, sans-serif;
+      background-color: var(--bg);
+      background-image: radial-gradient(var(--bg-dot) 1px, transparent 0);
+      background-size: 28px 28px;
+      color: var(--text-2);
       min-height: 100vh;
+      transition: background-color .25s, color .25s;
     }
 
-    /* Layout */
-    .layout { display: grid; grid-template-columns: 1fr 320px; min-height: 100vh; }
-    .main   { padding: 2rem; overflow-y: auto; }
+    /* ── Layout ──────────────────────────────────────────────────────── */
+    .layout { display:grid; grid-template-columns:1fr 340px; min-height:100vh; }
+    .main   { padding:2rem; overflow-y:auto; }
     .sidebar {
-      background: #060f15; border-left: 1px solid #142233;
-      padding: 1.5rem; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+      background: var(--surface-2); border-left:1px solid var(--border);
+      display:flex; flex-direction:column; gap:0;
+      position:sticky; top:0; height:100vh; overflow-y:auto;
+      transition: background .2s, border-color .2s;
     }
 
-    /* Back / header */
-    .back {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.78rem; color: #515357; text-decoration: none; margin-bottom: 1.5rem;
+    /* ── Top bar ─────────────────────────────────────────────────────── */
+    .top-bar {
+      display:flex; align-items:center; gap:1rem;
+      padding-bottom:1.25rem; margin-bottom:1.75rem;
+      border-bottom:1px solid var(--border);
     }
-    .back:hover { color: #88898D; }
+    .top-bar img.logo { height:26px; width:auto; display:block; }
+    .top-bar-divider { width:1px; height:20px; background:var(--border); }
+    .top-bar-label { font-size:.72rem; color:var(--text-3); }
+    .top-bar-right { margin-left:auto; }
 
-    /* Logo strip at top of main */
-    .top-bar { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
-    .top-bar img.logo { height: 26px; width: auto; }
-    .top-bar-divider { width: 1px; height: 22px; background: #142233; }
-    .top-bar-label { font-size: 0.75rem; color: #515357; }
+    .theme-btn {
+      background:var(--surface); border:1px solid var(--border);
+      color:var(--text-2); font-size:.9rem; line-height:1;
+      width:34px; height:34px; border-radius:8px;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:border-color .15s, background .2s;
+    }
+    .theme-btn:hover { border-color:var(--accent); color:var(--accent); }
 
-    .server-header { margin-bottom: 2rem; }
-    .server-header h1 { font-size: 1.4rem; font-weight: 700; color: #F8F7FA; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
-    .server-meta { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; font-size: 0.8rem; color: #88898D; }
-    .server-meta .sku { font-family: 'Geist Mono', monospace; font-size: 0.7rem; color: #7D7AE8; background: #0f1a30; padding: 2px 7px; border-radius: 4px; }
-    .server-mrc-display { font-size: 2rem; font-weight: 700; color: #7D7AE8; margin-top: 0.5rem; }
-    .server-mrc-display span { font-size: 0.85rem; font-weight: 400; color: #515357; margin-left: 3px; }
+    /* ── Back / header ───────────────────────────────────────────────── */
+    .back { display:inline-flex; align-items:center; gap:.35rem; font-size:.78rem; color:var(--text-3); text-decoration:none; margin-bottom:1.5rem; }
+    .back:hover { color:var(--text-2); }
 
-    /* Category sections */
-    .category { margin-bottom: 2rem; }
+    .server-header { margin-bottom:2rem; }
+    .server-header h1 { font-size:1.35rem; font-weight:700; color:var(--text-1); letter-spacing:-.02em; margin-bottom:.4rem; }
+    .server-meta { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; font-size:.78rem; color:var(--text-3); }
+    .server-meta .sku { font-family:'Geist Mono',monospace; font-size:.68rem; color:var(--accent); background:var(--accent-dim); padding:2px 6px; border-radius:4px; }
+    .server-mrc-display { font-size:1.9rem; font-weight:700; color:var(--accent); font-family:'Geist Mono',monospace; margin-top:.4rem; }
+    .server-mrc-display span { font-size:.8rem; font-weight:400; color:var(--text-3); margin-left:3px; font-family:'Geist',sans-serif; }
+
+    /* ── Category sections ───────────────────────────────────────────── */
+    .category { margin-bottom:2rem; }
     .category-title {
-      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.08em; color: #515357;
-      border-bottom: 1px solid #142233; padding-bottom: 0.5rem; margin-bottom: 0.75rem;
+      font-size:.63rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.09em; color:var(--text-3);
+      border-bottom:1px solid var(--border); padding-bottom:.45rem; margin-bottom:.65rem;
     }
 
-    /* Component rows */
+    /* ── Component rows ──────────────────────────────────────────────── */
     .component-row {
-      display: grid; grid-template-columns: 1fr auto auto;
-      align-items: center; gap: 0.75rem;
-      background: #0d1f2d; border: 1px solid #142233; border-radius: 8px;
-      padding: 0.75rem 1rem; margin-bottom: 0.5rem; transition: border-color 0.15s;
+      display:grid; grid-template-columns:1fr auto auto;
+      align-items:center; gap:.75rem;
+      background:var(--surface); border:1px solid var(--border); border-left:3px solid transparent;
+      border-radius:8px; padding:.7rem .9rem; margin-bottom:.4rem;
+      transition:border-color .15s, border-left-color .15s;
     }
-    .component-row.changed { border-left: 3px solid #FFBE81; }
-    .component-row.added   { border-left: 3px solid #BED6A8; }
-    .component-row.removed { opacity: 0.4; border-left: 3px solid #ef4444; }
+    .component-row.changed  { border-left-color:var(--orange); }
+    .component-row.added    { border-left-color:var(--green); }
+    .component-row.removed  { opacity:.4; border-left-color:var(--red); }
 
-    .comp-info .comp-name { font-size: 0.875rem; font-weight: 500; color: #F8F7FA; }
-    .comp-info .comp-type { font-size: 0.72rem; color: #515357; margin-top: 1px; }
+    .comp-name { font-size:.85rem; font-weight:500; color:var(--text-1); }
+    .comp-type { font-size:.7rem; color:var(--text-3); margin-top:1px; }
 
-    .comp-cost { text-align: right; }
-    .comp-cost .mrc { font-size: 0.875rem; font-weight: 600; color: #7D7AE8; }
-    .comp-cost .hw  { font-size: 0.68rem; color: #515357; font-family: 'Geist Mono', monospace; }
+    .comp-cost { text-align:right; }
+    .comp-cost .mrc { font-size:.85rem; font-weight:600; color:var(--accent); font-family:'Geist Mono',monospace; }
+    .comp-cost .hw  { font-size:.65rem; color:var(--text-3); font-family:'Geist Mono',monospace; }
 
-    .comp-actions { display: flex; gap: 0.4rem; }
+    .comp-actions { display:flex; gap:.35rem; }
 
-    /* Selects inline */
+    /* ── Buttons ─────────────────────────────────────────────────────── */
+    .btn { border:none; border-radius:6px; font-family:'Geist',sans-serif; font-size:.73rem; font-weight:600; cursor:pointer; padding:.32rem .7rem; transition:opacity .15s; }
+    .btn:hover { opacity:.8; }
+    .btn-remove { background:var(--red-dim); color:var(--red-text); font-size:.85rem; padding:.18rem .5rem; }
+
+    /* ── Swap select ─────────────────────────────────────────────────── */
     .comp-select {
-      background: #081820; border: 1px solid #1e3547; color: #D0D1DE;
-      font-family: 'Geist', sans-serif; font-size: 0.78rem;
-      padding: 0.35rem 0.6rem; border-radius: 6px;
-      max-width: 260px; cursor: pointer;
+      appearance:none; background:var(--bg); border:1px solid var(--border-mid);
+      color:var(--text-1); font-family:'Geist',sans-serif; font-size:.76rem;
+      padding:.32rem 1.8rem .32rem .6rem; border-radius:6px; max-width:260px; cursor:pointer;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='none' stroke='%2388898D' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right .5rem center;
     }
-    .comp-select:focus { outline: none; border-color: #7D7AE8; }
+    .comp-select:focus { outline:none; border-color:var(--accent); }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
-    /* Buttons */
-    .btn { border: none; border-radius: 6px; font-family: 'Geist', sans-serif; font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 0.35rem 0.75rem; transition: opacity 0.15s; }
-    .btn:hover { opacity: 0.8; }
-    .btn-swap   { background: #2A1F6E; color: #D4D3FF; }
-    .btn-add    { background: #1a3d1f; color: #BED6A8; }
-    .btn-remove { background: #3d1a06; color: #FFBE81; font-size: 0.9rem; padding: 0.2rem 0.55rem; }
-    .btn-reset  { background: #142233; color: #88898D; }
+    /* ── Add-component picker ────────────────────────────────────────── */
+    .picker-wrap { position:relative; width:100%; }
+    .picker-input {
+      width:100%; background:var(--bg); border:1px solid var(--accent);
+      color:var(--text-1); font-family:'Geist',sans-serif; font-size:.82rem;
+      padding:.4rem 2rem .4rem .7rem; border-radius:6px; outline:none;
+    }
+    .picker-input::placeholder { color:var(--text-3); }
+    .picker-clear {
+      position:absolute; right:.45rem; top:50%; transform:translateY(-50%);
+      background:none; border:none; color:var(--text-3); font-size:.9rem;
+      cursor:pointer; line-height:1; padding:0; display:none;
+    }
+    .picker-list {
+      position:absolute; top:calc(100% + 4px); left:0; right:0; z-index:50;
+      background:var(--surface); border:1px solid var(--border-mid); border-radius:8px;
+      list-style:none; max-height:220px; overflow-y:auto;
+      box-shadow:0 8px 24px var(--shadow);
+    }
+    .picker-list li {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:.45rem .75rem; font-size:.8rem; cursor:pointer;
+      transition:background .1s; gap:.5rem;
+    }
+    .picker-list li:hover, .picker-list li.hl { background:var(--accent-dim); }
+    .picker-list li .p-name { color:var(--text-1); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .picker-list li .p-price { color:var(--accent); font-family:'Geist Mono',monospace; font-size:.73rem; flex-shrink:0; }
+    .picker-list li .p-price.incl { color:var(--text-3); }
+    .picker-empty { padding:.75rem; font-size:.78rem; color:var(--text-3); text-align:center; }
 
-    /* Add row button */
+    /* ── Add row button ──────────────────────────────────────────────── */
     .add-row-btn {
-      width: 100%; background: transparent; border: 1px dashed #142233;
-      color: #515357; font-family: 'Geist', sans-serif; font-size: 0.78rem;
-      padding: 0.55rem; border-radius: 8px;
-      cursor: pointer; margin-top: 0.25rem; transition: border-color 0.15s, color 0.15s;
+      width:100%; background:transparent;
+      border:1.5px dashed var(--accent); opacity:.45;
+      color:var(--accent); font-family:'Geist',sans-serif; font-size:.76rem;
+      padding:.5rem; border-radius:8px; cursor:pointer; margin-top:.2rem;
+      transition:opacity .15s, background .15s;
     }
-    .add-row-btn:hover { border-color: #BED6A8; color: #BED6A8; }
+    .add-row-btn:hover { opacity:1; background:var(--accent-dim); }
 
-    /* Sidebar */
-    .sidebar-logo { margin-bottom: 1.25rem; }
-    .sidebar-logo img { height: 22px; width: auto; opacity: 0.7; }
-    .sidebar h2 {
-      font-size: 0.8rem; font-weight: 700; color: #F8F7FA;
-      margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.07em;
+    /* ── Tooltips ────────────────────────────────────────────────────── */
+    [data-tip] { cursor:help; border-bottom:1px dashed var(--text-3); text-decoration:none; position:relative; }
+    [data-tip]::after {
+      content:attr(data-tip);
+      position:absolute; bottom:calc(100% + 5px); left:0;
+      background:var(--text-1); color:var(--bg);
+      padding:4px 8px; border-radius:5px;
+      font-size:.65rem; font-family:'Geist',sans-serif; font-weight:400;
+      line-height:1.4; width:max-content; max-width:200px; white-space:normal;
+      opacity:0; pointer-events:none; transition:opacity .15s; z-index:100;
     }
+    [data-tip]:hover::after { opacity:1; }
 
-    .cost-section { margin-bottom: 1.5rem; }
-    .cost-section-title { font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.07em; color: #515357; margin-bottom: 0.6rem; font-weight: 600; }
+    /* ── Sidebar ─────────────────────────────────────────────────────── */
+    /* Margin hero */
+    .margin-hero {
+      padding:1.25rem 1.5rem 1rem;
+      border-bottom:1px solid var(--border);
+      transition:background .3s;
+    }
+    .margin-hero-label { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text-3); margin-bottom:.4rem; }
+    .margin-hero-pct {
+      font-family:'Geist Mono',monospace; font-size:2.6rem; font-weight:700;
+      line-height:1; margin-bottom:.3rem;
+      transition:color .3s;
+    }
+    .margin-status-badge {
+      display:inline-block; padding:2px 9px; border-radius:999px;
+      font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+    }
+    .margin-monthly { font-size:.75rem; font-family:'Geist Mono',monospace; margin-top:.35rem; }
 
-    .cost-line { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem; font-size: 0.78rem; }
-    .cost-line .label { color: #88898D; }
-    .cost-line .value { color: #D0D1DE; font-weight: 500; font-variant-numeric: tabular-nums; font-family: 'Geist Mono', monospace; }
-    .cost-line .value.muted { color: #515357; font-size: 0.72rem; }
-    .cost-line.total .label { color: #F8F7FA; font-weight: 700; }
-    .cost-line.total .value { color: #7D7AE8; font-weight: 700; font-size: 0.9rem; }
-    .cost-line.margin .value { font-size: 0.9rem; }
-    .cost-line.margin .value.positive { color: #BED6A8; font-weight: 700; }
-    .cost-line.margin .value.negative { color: #ef4444; font-weight: 700; }
+    .mh-good     { background:transparent; }
+    .mh-watch    { background:transparent; }
+    .mh-atrisk   { background:transparent; }
+    .mh-loss     { background:transparent; }
 
-    .divider { border: none; border-top: 1px solid #142233; margin: 0.9rem 0; }
+    .mh-good  .margin-hero-pct { color:var(--green); }
+    .mh-watch .margin-hero-pct { color:var(--orange); }
+    .mh-atrisk .margin-hero-pct { color:var(--orange); }
+    .mh-loss  .margin-hero-pct { color:var(--red); }
 
-    .pill { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
-    .pill.pl-dh { background: #2A1F6E; color: #D4D3FF; }
-    .pill.pl-mh { background: #3A2699; color: #E7E6FF; }
+    .mh-good  .margin-status-badge { background:var(--green-dim); color:var(--green-text); }
+    .mh-watch .margin-status-badge { background:var(--orange-dim); color:var(--orange-text); }
+    .mh-atrisk .margin-status-badge { background:var(--orange-dim); color:var(--orange-text); }
+    .mh-loss  .margin-status-badge { background:var(--red-dim); color:var(--red-text); }
 
-    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #142233; border-top-color: #7D7AE8; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
-    .empty { color: #515357; font-size: 0.85rem; padding: 1rem 0; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .mh-good  .margin-monthly { color:var(--green); }
+    .mh-watch .margin-monthly { color:var(--orange); }
+    .mh-atrisk .margin-monthly { color:var(--orange); }
+    .mh-loss  .margin-monthly { color:var(--red); }
 
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
-      .sidebar { position: static; height: auto; border-left: none; border-top: 1px solid #142233; }
+    @keyframes heroFlash { 0%,100% { transform:scale(1); } 50% { transform:scale(1.015); } }
+    .margin-hero.flash { animation:heroFlash .3s ease; }
+
+    /* Sidebar sections */
+    .sidebar-section { border-bottom:1px solid var(--border); }
+    .sidebar-section summary {
+      list-style:none; display:flex; align-items:center; justify-content:space-between;
+      padding:.75rem 1.5rem; font-size:.65rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.08em; color:var(--text-3); cursor:pointer;
+      user-select:none;
+    }
+    .sidebar-section summary::-webkit-details-marker { display:none; }
+    .sidebar-section summary::after { content:"▾"; font-size:.7rem; transition:transform .2s; }
+    .sidebar-section[open] summary::after { transform:rotate(-180deg); }
+    .sidebar-section-body { padding:0 1.5rem .85rem; }
+
+    .cost-line {
+      display:flex; justify-content:space-between; align-items:baseline;
+      margin-bottom:.3rem; font-size:.77rem;
+    }
+    .cost-line .label { color:var(--text-2); }
+    .cost-line .value { color:var(--text-1); font-weight:500; font-family:'Geist Mono',monospace; font-size:.75rem; }
+    .cost-line .value.muted { color:var(--text-3); font-size:.7rem; }
+    .cost-line.total .label { color:var(--text-1); font-weight:700; font-size:.8rem; }
+    .cost-line.total .value { color:var(--accent); font-weight:700; font-size:.85rem; }
+
+    .divider { border:none; border-top:1px solid var(--border); margin:.7rem 0; }
+
+    /* Copy button */
+    .copy-quote-wrap { padding:1rem 1.5rem; margin-top:auto; }
+    .btn-copy {
+      width:100%; background:var(--accent-dim); border:1px solid var(--accent);
+      color:var(--accent-text); font-family:'Geist',sans-serif;
+      font-size:.8rem; font-weight:600; padding:.6rem 1rem; border-radius:8px;
+      cursor:pointer; transition:background .15s, opacity .15s;
+    }
+    .btn-copy:hover { background:var(--accent); color:#fff; }
+    .btn-copy:disabled { opacity:.5; cursor:default; }
+
+    /* ── Pills ───────────────────────────────────────────────────────── */
+    .pill { display:inline-block; padding:2px 7px; border-radius:999px; font-size:.65rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
+    .pill.pl-dh { background:var(--accent-dim); color:var(--accent-text); }
+    .pill.pl-mh { background:#3A2699; color:#E7E6FF; }
+
+    /* ── States ──────────────────────────────────────────────────────── */
+    .empty { color:var(--text-3); font-size:.85rem; padding:1rem 0; }
+    .error-pane { padding:1rem 0; }
+    .error-pane p { color:var(--text-3); font-size:.82rem; margin-bottom:.75rem; }
+    .btn-retry {
+      background:var(--surface); border:1px solid var(--border);
+      color:var(--text-2); font-family:'Geist',sans-serif;
+      font-size:.78rem; padding:.4rem 1rem; border-radius:7px; cursor:pointer;
+      transition:border-color .15s;
+    }
+    .btn-retry:hover { border-color:var(--accent); color:var(--accent); }
+
+    .spinner { display:inline-block; width:16px; height:16px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    @media (max-width:900px) {
+      .layout { grid-template-columns:1fr; }
+      .sidebar { position:static; height:auto; border-left:none; border-top:1px solid var(--border); }
     }
   </style>
 </head>
 <body>
 <div class="layout">
-  <!-- Main configurator -->
+
+  <!-- ── Main ─────────────────────────────────────────────────────────── -->
   <div class="main">
     <div class="top-bar">
-      <img class="logo" src="https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png" alt="Aptum" />
+      <img id="main-logo" class="logo" src="https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png" alt="Aptum" />
       <div class="top-bar-divider"></div>
       <span class="top-bar-label">Server Configurator</span>
+      <div class="top-bar-right">
+        <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle colour scheme">☀</button>
+      </div>
     </div>
 
     <a class="back" href="javascript:history.back()">← Back to servers</a>
@@ -157,46 +338,127 @@
     <div id="config-body"></div>
   </div>
 
-  <!-- Sidebar -->
+  <!-- ── Sidebar ───────────────────────────────────────────────────────── -->
   <div class="sidebar">
-    <div class="sidebar-logo">
-      <img src="https://aptumlogos.pages.dev/Aptum-Symbol-White on Lavender 351x351.png" alt="" />
+
+    <!-- Margin hero — always visible -->
+    <div class="margin-hero mh-good" id="margin-hero">
+      <div class="margin-hero-label">Margin</div>
+      <div class="margin-hero-pct" id="margin-pct">—</div>
+      <div>
+        <span class="margin-status-badge" id="margin-badge">Loading…</span>
+      </div>
+      <div class="margin-monthly" id="margin-monthly"></div>
     </div>
-    <h2>Quote Summary</h2>
-    <div id="summary-body"><div class="empty">Loading…</div></div>
+
+    <!-- Customer MRC -->
+    <details class="sidebar-section" open>
+      <summary>Customer MRC</summary>
+      <div class="sidebar-section-body" id="mrc-body"></div>
+    </details>
+
+    <!-- Internal Costs -->
+    <details class="sidebar-section">
+      <summary>Internal Costs / mo</summary>
+      <div class="sidebar-section-body" id="cost-body"></div>
+    </details>
+
+    <!-- Copy CTA -->
+    <div class="copy-quote-wrap">
+      <button class="btn-copy" id="copy-btn" onclick="copyQuote()" disabled>Copy Quote Summary</button>
+    </div>
+
   </div>
 </div>
 
 <script>
-  // ── URL params ───────────────────────────────────────────────────────────
-  const params      = new URLSearchParams(location.search);
-  const productId   = location.pathname.split('/').pop();
-  const DC          = params.get('dc')           || 'ATL';
-  const CURRENCY    = params.get('currency')      || 'USD';
-  const PRODUCT_LINE= params.get('product_line')  || '4';
-  const SYM         = { USD:'$', CAD:'$', GBP:'£' }[CURRENCY] || '$';
-  const PL_LABEL    = PRODUCT_LINE === '3' ? 'Managed Hosting' : 'Dedicated Hosting';
+  // ── Theme ─────────────────────────────────────────────────────────────
+  const THEME_KEY = 'aptum-cpq-theme';
+  function initTheme() {
+    const saved     = localStorage.getItem(THEME_KEY);
+    const preferred = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    applyTheme(saved || preferred);
+  }
+  function toggleTheme() {
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  }
+  function applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+    localStorage.setItem(THEME_KEY, t);
+    const btn  = document.getElementById('theme-btn');
+    const logo = document.getElementById('main-logo');
+    if (btn)  btn.textContent = t === 'dark' ? '☀' : '☽';
+    if (logo) logo.src = t === 'dark'
+      ? 'https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png'
+      : 'https://aptumlogos.pages.dev/Horizontal-Lockup-Black.png';
+  }
+  initTheme();
 
-  // ── State ────────────────────────────────────────────────────────────────
+  // ── URL params ────────────────────────────────────────────────────────
+  const params       = new URLSearchParams(location.search);
+  const productId    = location.pathname.split('/').pop();
+  const DC           = params.get('dc')           || 'ATL';
+  const CURRENCY     = params.get('currency')      || 'USD';
+  const PRODUCT_LINE = params.get('product_line')  || '4';
+  const SYM          = { USD:'$', CAD:'$', GBP:'£' }[CURRENCY] || '$';
+  const PL_LABEL     = PRODUCT_LINE === '3' ? 'Managed Hosting' : 'Dedicated Hosting';
+
+  // Financial term tooltips
+  const TIPS = {
+    sga:                 'SG&A — Selling, General & Administrative: 8.2% of total MRC',
+    power_per_kw:        'Power cost per kilowatt per month — requires watt data per server to calculate',
+    dc_rm_supplies:      'Data center R&M and supplies cost per kW per month',
+    network:             'Network infrastructure cost per server per month',
+    dc_infra_operations: 'Data center infrastructure & operations overhead per server per month',
+    billing_collections: 'Billing & collections cost per server per month',
+    supply_chain:        'Supply chain overhead per server per month',
+    support_tech_rate:   'Support labor cost — $80/hr × 0.5 hrs assumed per server per month',
+    dc_people:           'DC headcount allocation per server per month',
+    network_people:      'Network team headcount allocation per server per month',
+    compute_team:        'Compute team headcount allocation per server per month',
+  };
+  const COST_LABELS = {
+    power_per_kw:        'Power (kW)',
+    dc_rm_supplies:      'DC R&M / Supplies',
+    network:             'Network',
+    dc_infra_operations: 'DC Infra / Ops',
+    billing_collections: 'Billing & Collections',
+    supply_chain:        'Supply Chain',
+    support_tech_rate:   'Support (Tech Time)',
+    dc_people:           'DC People',
+    network_people:      'Network People',
+    compute_team:        'Compute Team',
+    sga:                 'SG&A',
+  };
+
+  // ── State ─────────────────────────────────────────────────────────────
   let CONFIG  = null;
-  let CHANGES = {};  // component_id → { type, orig_mrc, curr_mrc, name, hw_cost }
+  let CHANGES = {};       // keyed by origId (swap) or `add-${slug}` (add)
+  let PICKERS = {};       // slug → { options, filtered, highlighted, selected, catName }
 
-  // ── Boot ─────────────────────────────────────────────────────────────────
+  // ── Boot ──────────────────────────────────────────────────────────────
   Promise.all([
-    fetch(`/api/product/${productId}`).then(r => r.json()),
-    fetch(`/api/product/${productId}/config?dc=${DC}&currency=${CURRENCY}&product_line=${PRODUCT_LINE}`).then(r => r.json()),
+    fetch(`/api/product/${productId}`).then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+    fetch(`/api/product/${productId}/config?dc=${DC}&currency=${CURRENCY}&product_line=${PRODUCT_LINE}`).then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
   ]).then(([product, config]) => {
+    if (product.error || config.error) throw new Error(product.error || config.error);
     CONFIG = config;
     renderHeader(product, config);
     renderConfig(config);
     renderSummary();
+    document.getElementById('copy-btn').disabled = false;
   }).catch(err => {
-    document.getElementById('server-header').innerHTML = `<div class="empty">Error: ${err}</div>`;
+    document.getElementById('server-header').innerHTML = `
+      <div class="error-pane">
+        <p>Couldn't load this server — ${err.message === 'Not found' ? 'server not found.' : 'check your connection.'}</p>
+        <button class="btn-retry" onclick="location.reload()">Reload</button>
+      </div>`;
   });
 
-  // ── Render header ────────────────────────────────────────────────────────
+  // ── Header ────────────────────────────────────────────────────────────
   function renderHeader(product, config) {
     const plClass = PRODUCT_LINE === '3' ? 'pl-mh' : 'pl-dh';
+    document.title = `${product.name} — CPQ · Aptum`;
     document.getElementById('server-header').innerHTML = `
       <h1>${esc(product.name)}</h1>
       <div class="server-meta">
@@ -205,62 +467,58 @@
         <span>${CURRENCY}</span>
         ${product.sku ? `<span class="sku">${esc(product.sku)}</span>` : ''}
       </div>
-      <div class="server-mrc-display">
-        ${SYM}${fmt(config.server_mrc)}<span>/mo base</span>
-      </div>
-    `;
-    document.title = `${product.name} — CPQ · Aptum`;
+      <div class="server-mrc-display">${SYM}${fmt(config.server_mrc)}<span>/mo base</span></div>`;
   }
 
-  // ── Render config ────────────────────────────────────────────────────────
+  // ── Config body ───────────────────────────────────────────────────────
   function renderConfig(config) {
     const body = document.getElementById('config-body');
-
     const cats = {};
     config.defaults.forEach(d => {
-      if (!cats[d.category]) cats[d.category] = { sort: d.cat_sort, defaults: [], allowed: [] };
+      if (!cats[d.category]) cats[d.category] = { sort:d.cat_sort, defaults:[], allowed:[] };
       cats[d.category].defaults.push(d);
     });
     config.allowed.forEach(a => {
-      if (!cats[a.category]) cats[a.category] = { sort: a.cat_sort, defaults: [], allowed: [] };
+      if (!cats[a.category]) cats[a.category] = { sort:a.cat_sort, defaults:[], allowed:[] };
       cats[a.category].allowed.push(a);
     });
-
     const sorted = Object.entries(cats).sort((a,b) => a[1].sort - b[1].sort || a[0].localeCompare(b[0]));
     const defaultIdSet = new Set(config.default_ids);
 
     body.innerHTML = sorted.map(([catName, cat]) => {
-      const defaultRows = cat.defaults.map(d => defaultComponentRow(d, cat.allowed, defaultIdSet)).join('');
-      const addBtn = cat.allowed.filter(a => !defaultIdSet.has(a.component_id)).length > 0
-        ? `<button class="add-row-btn" onclick="addRow(${JSON.stringify(catName)})">+ Add ${esc(catName)} component</button>`
-        : '';
+      const rows   = cat.defaults.map(d => componentRow(d, cat.allowed, defaultIdSet)).join('');
+      const hasAdd = cat.allowed.some(a => !defaultIdSet.has(a.component_id));
+      const addBtn = hasAdd
+        ? `<button class="add-row-btn" onclick="addRow(${JSON.stringify(catName)})">+ Add ${esc(catName)} component</button>` : '';
       return `
-        <div class="category" id="cat-${slugify(catName)}">
+        <div class="category" id="cat-${slug(catName)}">
           <div class="category-title">${esc(catName)}</div>
-          <div id="rows-${slugify(catName)}">${defaultRows}</div>
+          <div id="rows-${slug(catName)}">${rows}</div>
           ${addBtn}
         </div>`;
     }).join('');
   }
 
-  function defaultComponentRow(comp, allowed, defaultIdSet) {
+  function componentRow(comp, allowed, defaultIdSet) {
     const cid    = comp.component_id;
     const mrcStr = comp.component_mrc > 0
       ? `${SYM}${fmt(comp.component_mrc)}/mo`
-      : `<span style="color:#515357">included</span>`;
+      : `<span style="color:var(--text-3)">included</span>`;
     const hwStr  = comp.hw_cost_usd != null ? `CapEx: $${fmt(comp.hw_cost_usd)}` : '';
 
-    const swapOptions = allowed
+    const swapOpts = allowed
       .filter(a => a.component_type === comp.component_type)
       .map(a =>
-        `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_usd||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>${esc(a.name)}${a.component_mrc>0?' — '+SYM+fmt(a.component_mrc)+'/mo':' — included'}</option>`
+        `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_usd||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>` +
+        `${esc(a.name)}${a.component_mrc>0?' — '+SYM+fmt(a.component_mrc)+'/mo':' — included'}</option>`
       ).join('');
-
-    const hasSwap = swapOptions.length > 1;
+    const hasSwap = swapOpts.split('<option').length > 2;
 
     return `
-      <div class="component-row" id="row-${cid}" data-orig-id="${cid}" data-orig-mrc="${comp.component_mrc}" data-orig-name="${esc(comp.name)}" data-orig-hw="${comp.hw_cost_usd||0}">
-        <div class="comp-info">
+      <div class="component-row" id="row-${cid}"
+           data-orig-id="${cid}" data-orig-mrc="${comp.component_mrc}"
+           data-orig-name="${esc(comp.name)}" data-orig-hw="${comp.hw_cost_usd||0}">
+        <div>
           <div class="comp-name" id="name-${cid}">${esc(comp.name)}</div>
           <div class="comp-type">${esc(comp.component_type)}${comp.quantity > 1 ? ' × '+comp.quantity : ''}</div>
         </div>
@@ -269,12 +527,12 @@
           <div class="hw"  id="hw-${cid}">${hwStr}</div>
         </div>
         <div class="comp-actions">
-          ${hasSwap ? `<select class="comp-select" id="sel-${cid}" onchange="onSwap(${cid}, this)">${swapOptions}</select>` : ''}
+          ${hasSwap ? `<label class="sr-only" for="sel-${cid}">Swap ${esc(comp.component_type)}</label><select class="comp-select" id="sel-${cid}" onchange="onSwap(${cid},this)">${swapOpts}</select>` : ''}
         </div>
       </div>`;
   }
 
-  // ── Swap handler ──────────────────────────────────────────────────────────
+  // ── Swap handler ──────────────────────────────────────────────────────
   function onSwap(origId, sel) {
     const opt     = sel.options[sel.selectedIndex];
     const newId   = parseInt(opt.value);
@@ -286,7 +544,7 @@
 
     document.getElementById(`name-${origId}`).textContent = newName;
     document.getElementById(`mrc-${origId}`).innerHTML =
-      newMrc > 0 ? `${SYM}${fmt(newMrc)}/mo` : `<span style="color:#515357">included</span>`;
+      newMrc > 0 ? `${SYM}${fmt(newMrc)}/mo` : `<span style="color:var(--text-3)">included</span>`;
     document.getElementById(`hw-${origId}`).textContent =
       newHw > 0 ? `CapEx: $${fmt(newHw)}` : '';
 
@@ -295,86 +553,178 @@
       delete CHANGES[origId];
     } else {
       row.classList.add('changed');
-      CHANGES[origId] = { type: 'swap', orig_mrc: origMrc, curr_mrc: newMrc, name: newName, hw_cost: newHw };
+      CHANGES[origId] = { type:'swap', orig_mrc:origMrc, curr_mrc:newMrc, name:newName, hw_cost:newHw };
     }
     renderSummary();
   }
 
-  // ── Add row ───────────────────────────────────────────────────────────────
+  // ── Searchable add-row picker ─────────────────────────────────────────
   function addRow(catName) {
-    const cat = CONFIG.allowed.filter(a => a.category === catName && !document.getElementById(`added-${a.component_id}`));
+    const s = slug(catName);
+    if (document.getElementById(`picker-${s}`)) return;
+
     const defaultIdSet = new Set(CONFIG.default_ids);
-    const addable = cat.filter(a => !defaultIdSet.has(a.component_id));
+    const addable = CONFIG.allowed.filter(a =>
+      a.category === catName && !defaultIdSet.has(a.component_id)
+    );
     if (!addable.length) return;
 
-    const first  = addable[0];
-    const tempId = `added-${first.component_id}`;
-    const options = addable.map(a =>
-      `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_usd||0}" data-name="${esc(a.name)}">${esc(a.name)}${a.component_mrc>0?' — '+SYM+fmt(a.component_mrc)+'/mo':' — included'}</option>`
-    ).join('');
+    PICKERS[s] = { options: addable, filtered: addable, highlighted: -1, selected: null, catName };
 
     const rowHtml = `
-      <div class="component-row added" id="${tempId}">
-        <div class="comp-info">
-          <div class="comp-name">
-            <select class="comp-select" style="max-width:100%" onchange="onAddChange(this, '${esc(catName)}')">${options}</select>
-          </div>
-          <div class="comp-type" style="color:#BED6A8;font-size:0.7rem">Added</div>
+      <div class="component-row added" id="picker-${s}">
+        <div class="picker-wrap" id="picker-wrap-${s}">
+          <input type="text" class="picker-input" id="picker-input-${s}"
+                 placeholder="Search ${esc(catName)}…" autocomplete="off" spellcheck="false"
+                 aria-label="Search ${esc(catName)} components">
+          <button class="picker-clear" id="picker-clear-${s}" onclick="clearPicker('${s}')" tabindex="-1">✕</button>
+          <ul class="picker-list" id="picker-list-${s}" role="listbox" hidden></ul>
         </div>
         <div class="comp-cost">
-          <div class="mrc" id="addmrc-${first.component_id}">
-            ${first.component_mrc > 0 ? SYM+fmt(first.component_mrc)+'/mo' : '<span style="color:#515357">included</span>'}
-          </div>
-          <div class="hw">${first.hw_cost_usd ? `CapEx: $${fmt(first.hw_cost_usd)}` : ''}</div>
+          <div class="mrc" id="picker-mrc-${s}" style="color:var(--text-3)">—</div>
         </div>
         <div class="comp-actions">
-          <button class="btn btn-remove" onclick="removeAdded('${tempId}', ${first.component_id})">×</button>
+          <button class="btn btn-remove" onclick="removePicker('${s}')">×</button>
         </div>
       </div>`;
 
-    document.getElementById(`rows-${slugify(catName)}`).insertAdjacentHTML('beforeend', rowHtml);
+    document.getElementById(`rows-${s}`).insertAdjacentHTML('beforeend', rowHtml);
+    renderPickerList(s);
 
-    CHANGES[`add-${first.component_id}`] = {
-      type: 'add', curr_mrc: first.component_mrc, name: first.name, hw_cost: first.hw_cost_usd || 0,
-      elem_id: tempId, comp_id: first.component_id,
-    };
-    renderSummary();
+    const input = document.getElementById(`picker-input-${s}`);
+    const list  = document.getElementById(`picker-list-${s}`);
+    input.addEventListener('input',   () => { renderPickerList(s); list.hidden = false; updateClearBtn(s); });
+    input.addEventListener('focus',   () => { renderPickerList(s); list.hidden = false; });
+    input.addEventListener('blur',    () => setTimeout(() => { list.hidden = true; }, 200));
+    input.addEventListener('keydown', (e) => pickerKey(e, s));
+    input.focus();
   }
 
-  function onAddChange(sel, catName) {
-    const opt    = sel.options[sel.selectedIndex];
-    const compId = parseInt(opt.value);
-    const mrc    = parseFloat(opt.dataset.mrc) || 0;
-    const hw     = parseFloat(opt.dataset.hw)  || 0;
-    const name   = opt.dataset.name;
-    for (const key of Object.keys(CHANGES)) {
-      if (key.startsWith('add-') && CHANGES[key].elem_id === sel.closest('.component-row').id) {
-        CHANGES[key].curr_mrc = mrc;
-        CHANGES[key].name     = name;
-        CHANGES[key].hw_cost  = hw;
-        CHANGES[key].comp_id  = compId;
-      }
+  function renderPickerList(s) {
+    const state = PICKERS[s];
+    const input = document.getElementById(`picker-input-${s}`);
+    const list  = document.getElementById(`picker-list-${s}`);
+    if (!state || !input || !list) return;
+
+    const q = input.value.toLowerCase().trim();
+    state.filtered = q
+      ? state.options.filter(a => a.name.toLowerCase().includes(q))
+      : state.options;
+    state.highlighted = -1;
+
+    if (!state.filtered.length) {
+      list.innerHTML = `<li class="picker-empty">No matches for "${esc(input.value)}"</li>`;
+      list.hidden = false;
+      return;
     }
-    renderSummary();
+
+    list.innerHTML = state.filtered.slice(0, 40).map((a, i) => `
+      <li role="option" data-idx="${i}"
+          data-id="${a.component_id}" data-mrc="${a.component_mrc}"
+          data-hw="${a.hw_cost_usd||0}" data-name="${esc(a.name)}">
+        <span class="p-name">${esc(a.name)}</span>
+        <span class="p-price${a.component_mrc>0?'':' incl'}">${a.component_mrc>0?SYM+fmt(a.component_mrc)+'/mo':'included'}</span>
+      </li>`).join('');
+
+    list.hidden = false;
+    list.querySelectorAll('li[data-idx]').forEach(li => {
+      li.addEventListener('mousedown', e => { e.preventDefault(); pickerSelect(s, li); });
+      li.addEventListener('mouseover', () => {
+        state.highlighted = parseInt(li.dataset.idx);
+        highlightPicker(s);
+      });
+    });
   }
 
-  function removeAdded(elemId, compId) {
-    const el = document.getElementById(elemId);
-    if (el) el.remove();
-    for (const key of Object.keys(CHANGES)) {
-      if (key.startsWith('add-') && CHANGES[key].elem_id === elemId) delete CHANGES[key];
+  function pickerKey(e, s) {
+    const state = PICKERS[s];
+    const list  = document.getElementById(`picker-list-${s}`);
+    if (!state?.filtered?.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      state.highlighted = Math.min(state.highlighted + 1, state.filtered.length - 1);
+      highlightPicker(s);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      state.highlighted = Math.max(state.highlighted - 1, 0);
+      highlightPicker(s);
+    } else if (e.key === 'Enter' && state.highlighted >= 0) {
+      e.preventDefault();
+      const li = list?.querySelector(`li[data-idx="${state.highlighted}"]`);
+      if (li) pickerSelect(s, li);
+    } else if (e.key === 'Escape') {
+      if (list) list.hidden = true;
     }
+  }
+
+  function highlightPicker(s) {
+    const list = document.getElementById(`picker-list-${s}`);
+    list?.querySelectorAll('li').forEach(li => {
+      li.classList.toggle('hl', parseInt(li.dataset.idx) === PICKERS[s].highlighted);
+    });
+  }
+
+  function pickerSelect(s, li) {
+    const state  = PICKERS[s];
+    const compId = parseInt(li.dataset.id);
+    const mrc    = parseFloat(li.dataset.mrc) || 0;
+    const hw     = parseFloat(li.dataset.hw)  || 0;
+    const name   = li.dataset.name;
+    state.selected = { compId, mrc, hw, name };
+
+    const input  = document.getElementById(`picker-input-${s}`);
+    const list   = document.getElementById(`picker-list-${s}`);
+    const mrcEl  = document.getElementById(`picker-mrc-${s}`);
+    if (input)  { input.value = name; updateClearBtn(s); }
+    if (list)   list.hidden = true;
+    if (mrcEl)  mrcEl.innerHTML = mrc > 0
+      ? `${SYM}${fmt(mrc)}/mo`
+      : `<span style="color:var(--text-3)">included</span>`;
+    mrcEl.style.color = '';
+
+    CHANGES[`add-${s}`] = { type:'add', curr_mrc:mrc, name, hw_cost:hw, comp_id:compId, elem_id:`picker-${s}` };
     renderSummary();
   }
 
-  // ── Summary sidebar ───────────────────────────────────────────────────────
+  function clearPicker(s) {
+    const input = document.getElementById(`picker-input-${s}`);
+    const mrcEl = document.getElementById(`picker-mrc-${s}`);
+    if (input) { input.value = ''; input.focus(); }
+    if (mrcEl) { mrcEl.textContent = '—'; mrcEl.style.color = 'var(--text-3)'; }
+    if (PICKERS[s]) { PICKERS[s].selected = null; PICKERS[s].highlighted = -1; }
+    delete CHANGES[`add-${s}`];
+    updateClearBtn(s);
+    renderPickerList(s);
+    renderSummary();
+  }
+
+  function updateClearBtn(s) {
+    const input = document.getElementById(`picker-input-${s}`);
+    const btn   = document.getElementById(`picker-clear-${s}`);
+    if (btn) btn.style.display = input?.value ? 'block' : 'none';
+  }
+
+  function removePicker(s) {
+    document.getElementById(`picker-${s}`)?.remove();
+    delete CHANGES[`add-${s}`];
+    delete PICKERS[s];
+    renderSummary();
+  }
+
+  // ── Summary sidebar ───────────────────────────────────────────────────
+  function marginStatus(pct) {
+    if (pct < 0)  return { cls:'mh-loss',   badge:'Loss',      badgeTip:'Selling below cost' };
+    if (pct < 15) return { cls:'mh-atrisk', badge:'At Risk',   badgeTip:'Margin below 15%'  };
+    if (pct < 30) return { cls:'mh-watch',  badge:'Watch Out', badgeTip:'Margin below 30%'  };
+    return               { cls:'mh-good',   badge:'Good',      badgeTip:'Healthy margin'    };
+  }
+
   function renderSummary() {
     if (!CONFIG) return;
-    const body = document.getElementById('summary-body');
 
+    // ── MRC ──────────────────────────────────────────────────────────
     let totalMrc = CONFIG.server_mrc;
     CONFIG.defaults.forEach(d => { totalMrc += d.component_mrc * d.quantity; });
-
     let swapDelta = 0;
     for (const ch of Object.values(CHANGES)) {
       if (ch.type === 'swap') swapDelta += ch.curr_mrc - ch.orig_mrc;
@@ -382,85 +732,149 @@
     }
     const adjMrc = totalMrc + swapDelta;
 
+    // ── Overhead ─────────────────────────────────────────────────────
     const ovh = CONFIG.overhead;
     let totalOverhead = 0;
     const ovhLines = [];
-    const labels = {
-      power_per_kw:        'Power (kW)',
-      dc_rm_supplies:      'DC R&M / Supplies',
-      network:             'Network',
-      dc_infra_operations: 'DC Infra / Ops',
-      billing_collections: 'Billing & Collections',
-      supply_chain:        'Supply Chain',
-      support_tech_rate:   'Support (Tech Time)',
-      dc_people:           'DC People',
-      network_people:      'Network People',
-      compute_team:        'Compute Team',
-      sga:                 'SG&A',
-    };
     for (const [k, entry] of Object.entries(ovh)) {
       if (entry.amount === null) {
-        ovhLines.push({ label: labels[k]||k, value: 'N/A (no watt data)', na: true });
+        ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:'N/A — no watt data', na:true });
         continue;
       }
       if (entry.amount === 0) continue;
       totalOverhead += entry.amount;
-      ovhLines.push({ label: labels[k]||k, value: `${entry.currency} ${fmt(entry.amount)}` });
+      ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:`${entry.currency} ${fmt(entry.amount)}` });
     }
 
-    const hwCapex   = CONFIG.total_hw_capex;
-    const hwMonthly = hwCapex / 36;
+    // ── HW / Margin ──────────────────────────────────────────────────
+    const hwMonthly = CONFIG.total_hw_capex / 36;
     const totalCost = totalOverhead + hwMonthly;
     const margin    = adjMrc - totalCost;
     const marginPct = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
-    const marginClass = margin >= 0 ? 'positive' : 'negative';
+    const ms        = marginStatus(marginPct);
 
+    // ── Margin hero ──────────────────────────────────────────────────
+    const hero  = document.getElementById('margin-hero');
+    const pctEl = document.getElementById('margin-pct');
+    const badgeEl = document.getElementById('margin-badge');
+    const monthEl = document.getElementById('margin-monthly');
+
+    if (hero) {
+      hero.className = `margin-hero ${ms.cls}`;
+      hero.classList.add('flash');
+      hero.addEventListener('animationend', () => hero.classList.remove('flash'), { once:true });
+    }
+    if (pctEl)   pctEl.textContent   = marginPct.toFixed(1) + '%';
+    if (badgeEl) { badgeEl.textContent = ms.badge; badgeEl.title = ms.badgeTip; }
+    if (monthEl) monthEl.textContent  = `${SYM}${fmt(margin)}/mo`;
+
+    // ── Customer MRC section ─────────────────────────────────────────
     const changeLines = Object.values(CHANGES).map(ch => {
       const delta = ch.type === 'swap' ? ch.curr_mrc - ch.orig_mrc : ch.curr_mrc;
-      const sign  = delta >= 0 ? '+' : '';
-      return `<div class="cost-line"><span class="label">${esc(ch.name)}</span><span class="value">${sign}${SYM}${fmt(Math.abs(delta))}</span></div>`;
+      const sign  = delta >= 0 ? '+' : '−';
+      return `<div class="cost-line"><span class="label">${esc(ch.name)}</span><span class="value">${sign}${SYM}${fmt(Math.abs(delta))}/mo</span></div>`;
     }).join('');
 
-    body.innerHTML = `
-      <div class="cost-section">
-        <div class="cost-section-title">Customer MRC</div>
-        <div class="cost-line"><span class="label">Server base</span><span class="value">${SYM}${fmt(CONFIG.server_mrc)}</span></div>
-        <div class="cost-line"><span class="label">Default components</span><span class="value">${SYM}${fmt(totalMrc - CONFIG.server_mrc)}</span></div>
-        ${changeLines ? `<hr class="divider">${changeLines}` : ''}
-        <hr class="divider">
-        <div class="cost-line total"><span class="label">Total MRC</span><span class="value">${SYM}${fmt(adjMrc)}</span></div>
-      </div>
+    document.getElementById('mrc-body').innerHTML = `
+      <div class="cost-line"><span class="label">Server base</span><span class="value">${SYM}${fmt(CONFIG.server_mrc)}/mo</span></div>
+      <div class="cost-line"><span class="label">Default components</span><span class="value">${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo</span></div>
+      ${changeLines ? `<hr class="divider">${changeLines}<hr class="divider">` : '<hr class="divider">'}
+      <div class="cost-line total"><span class="label">Total MRC</span><span class="value">${SYM}${fmt(adjMrc)}/mo</span></div>`;
 
+    // ── Internal costs section ────────────────────────────────────────
+    document.getElementById('cost-body').innerHTML = `
+      <div class="cost-line">
+        <span class="label" data-tip="Hardware cost from MSSQL profitability data, amortized over 36 months">HW CapEx (÷36mo)</span>
+        <span class="value">$${fmt(hwMonthly)}/mo</span>
+      </div>
+      ${ovhLines.map(l => `
+        <div class="cost-line">
+          <span class="label"${TIPS[l.key]?` data-tip="${esc(TIPS[l.key])}"`:''}>${esc(l.label)}</span>
+          <span class="value${l.na?' muted':''}">${l.value}</span>
+        </div>`).join('')}
       <hr class="divider">
-
-      <div class="cost-section">
-        <div class="cost-section-title">Internal Costs / mo</div>
-        <div class="cost-line"><span class="label">HW CapEx (÷36mo)</span><span class="value">$${fmt(hwMonthly)}</span></div>
-        ${ovhLines.map(l => `<div class="cost-line"><span class="label">${esc(l.label)}</span><span class="value ${l.na?'muted':''}">${l.value}</span></div>`).join('')}
-        <hr class="divider">
-        <div class="cost-line total"><span class="label">Total Cost</span><span class="value">$${fmt(totalCost)}</span></div>
-      </div>
-
-      <hr class="divider">
-
-      <div class="cost-section">
-        <div class="cost-section-title">Margin</div>
-        <div class="cost-line margin"><span class="label">Monthly margin</span><span class="value ${marginClass}">${SYM}${fmt(margin)}</span></div>
-        <div class="cost-line margin"><span class="label">Margin %</span><span class="value ${marginClass}">${marginPct.toFixed(1)}%</span></div>
-        <div class="cost-line"><span class="label">HW CapEx (total)</span><span class="value muted">$${fmt(hwCapex)}</span></div>
-      </div>
-    `;
+      <div class="cost-line total"><span class="label">Total Cost</span><span class="value">$${fmt(totalCost)}/mo</span></div>
+      <div class="cost-line" style="margin-top:.2rem">
+        <span class="label" style="color:var(--text-3);font-size:.7rem">HW CapEx (total, 3yr)</span>
+        <span class="value muted">$${fmt(CONFIG.total_hw_capex)}</span>
+      </div>`;
   }
 
-  // ── Helpers ───────────────────────────────────────────────────────────────
+  // ── Copy quote ────────────────────────────────────────────────────────
+  async function copyQuote() {
+    if (!CONFIG) return;
+    const btn = document.getElementById('copy-btn');
+
+    let totalMrc = CONFIG.server_mrc;
+    CONFIG.defaults.forEach(d => { totalMrc += d.component_mrc * d.quantity; });
+    let swapDelta = 0;
+    for (const ch of Object.values(CHANGES)) {
+      if (ch.type === 'swap') swapDelta += ch.curr_mrc - ch.orig_mrc;
+      if (ch.type === 'add')  swapDelta += ch.curr_mrc;
+    }
+    const adjMrc    = totalMrc + swapDelta;
+    let totalOvh    = 0;
+    for (const e of Object.values(CONFIG.overhead)) { if (e.amount > 0) totalOvh += e.amount; }
+    const hwMonthly = CONFIG.total_hw_capex / 36;
+    const totalCost = totalOvh + hwMonthly;
+    const margin    = adjMrc - totalCost;
+    const marginPct = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
+    const ms        = marginStatus(marginPct);
+
+    const title = document.querySelector('#server-header h1')?.textContent || 'Server';
+    const changeBlock = Object.values(CHANGES).length
+      ? '\nChanges from default:\n' + Object.values(CHANGES).map(ch => {
+          const delta = ch.type === 'swap' ? ch.curr_mrc - ch.orig_mrc : ch.curr_mrc;
+          const sign  = delta >= 0 ? '+' : '−';
+          return `  ${ch.name}: ${sign}${SYM}${fmt(Math.abs(delta))}/mo`;
+        }).join('\n')
+      : '';
+
+    const text = `Aptum CPQ — Quote Summary
+${'─'.repeat(42)}
+Server:       ${title}
+DC:           ${CONFIG.dc_code}
+Currency:     ${CONFIG.currency}
+Product Line: ${PL_LABEL}
+
+CUSTOMER MRC
+  Base:                 ${SYM}${fmt(CONFIG.server_mrc)}/mo
+  Default components:   ${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo${changeBlock}
+  ─────────────────────────────────────
+  Total MRC:            ${SYM}${fmt(adjMrc)}/mo
+
+INTERNAL COSTS / MO
+  HW CapEx (÷36mo):     $${fmt(hwMonthly)}/mo
+  Overhead:             $${fmt(totalOvh)}/mo
+  ─────────────────────────────────────
+  Total Cost:           $${fmt(totalCost)}/mo
+
+MARGIN
+  Monthly margin:       ${SYM}${fmt(margin)}/mo
+  Margin %:             ${marginPct.toFixed(1)}%
+  Status:               ${ms.badge}
+
+Generated by Aptum CPQ · ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = '✓ Copied to clipboard';
+      setTimeout(() => { btn.textContent = 'Copy Quote Summary'; }, 2500);
+    } catch {
+      btn.textContent = 'Unable to copy — try again';
+      setTimeout(() => { btn.textContent = 'Copy Quote Summary'; }, 2500);
+    }
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────
   function fmt(n) {
     if (n === null || n === undefined) return '—';
-    return parseFloat(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return parseFloat(n).toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 });
   }
   function esc(s) {
     return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-  function slugify(s) { return s.replace(/[^a-z0-9]/gi, '-').toLowerCase(); }
+  function slug(s) { return s.replace(/[^a-z0-9]/gi,'-').toLowerCase(); }
 </script>
 </body>
 </html>
