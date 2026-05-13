@@ -110,6 +110,36 @@ def get_mssql_costs(component_ids: list[int]) -> dict[int, float]:
         return {}
 
 
+def get_fx_rate(from_currency: str, to_currency: str) -> float:
+    """Return exchange rate from_currency → to_currency from MSSQL DM_BusinessInsights.
+    Falls back to 1.0 if unavailable or same currency."""
+    if from_currency == to_currency:
+        return 1.0
+    if not all([MSSQL_SERVER, MSSQL_DB, MSSQL_USER, MSSQL_PASSWORD]):
+        return 1.0
+    try:
+        import pymssql
+        conn = pymssql.connect(
+            server=MSSQL_SERVER, user=MSSQL_USER,
+            password=MSSQL_PASSWORD, database=MSSQL_DB,
+        )
+        cur = conn.cursor(as_dict=True)
+        cur.execute(
+            "SELECT TOP 1 ExchangeRate FROM dbo.dimCurrencyExchangeRates "
+            "WHERE FromCurrencyCode = %s AND ToCurrencyCode = %s "
+            "ORDER BY EffectiveDate DESC",
+            (from_currency, to_currency),
+        )
+        row = cur.fetchone()
+        cur.close()
+        conn.close()
+        if row and row.get("ExchangeRate"):
+            return float(row["ExchangeRate"])
+    except Exception:
+        pass
+    return 1.0
+
+
 # ---------------------------------------------------------------------------
 # Cost calculation helpers
 # ---------------------------------------------------------------------------
@@ -204,6 +234,15 @@ def datacenters():
         }
         for code, dc in COST_DRIVERS["data_centers"].items()
     ])
+
+
+@app.route("/api/fx-rate")
+def fx_rate():
+    """Return exchange rate between two currencies."""
+    from_cur = request.args.get("from", "USD").upper()
+    to_cur   = request.args.get("to", "USD").upper()
+    rate = get_fx_rate(from_cur, to_cur)
+    return jsonify({"from": from_cur, "to": to_cur, "rate": rate})
 
 
 @app.route("/api/servers")
@@ -379,24 +418,32 @@ def product_config(product_id):
     )
     overhead = calc_overhead(dc_code, total_mrc, kw=None)
 
-    # Total hardware CapEx (sum of default component costs)
+    # Total hardware CapEx (sum of default component costs, stored in USD in MSSQL)
     total_hw_capex = sum(
         (hw_costs.get(d["component_id"]) or 0) * d["quantity"]
         for d in defaults
     )
 
+    # FX rate: hw_costs are USD; overhead costs are in DC native currency
+    native_currency = dc_info["native_currency"]
+    fx_to_selected  = get_fx_rate(native_currency, currency)   # overhead → display currency
+    fx_usd_to_selected = get_fx_rate("USD", currency)          # hw cost → display currency
+
     return jsonify({
-        "server_mrc":     server_mrc,
-        "server_nrc":     _dec(pb_row["nrc"]) if pb_row else 0,
-        "currency":       currency,
-        "dc_code":        dc_code,
-        "product_line":   int(product_line),
-        "defaults":       defaults,
-        "allowed":        allowed,
-        "default_ids":    list(default_ids),
-        "overhead":       overhead,
-        "total_hw_capex": total_hw_capex,
-        "total_mrc":      round(total_mrc, 2),
+        "server_mrc":          server_mrc,
+        "server_nrc":          _dec(pb_row["nrc"]) if pb_row else 0,
+        "currency":            currency,
+        "native_currency":     native_currency,
+        "dc_code":             dc_code,
+        "product_line":        int(product_line),
+        "defaults":            defaults,
+        "allowed":             allowed,
+        "default_ids":         list(default_ids),
+        "overhead":            overhead,
+        "total_hw_capex":      total_hw_capex,
+        "total_mrc":           round(total_mrc, 2),
+        "fx_native_to_display": fx_to_selected,
+        "fx_usd_to_display":    fx_usd_to_selected,
     })
 
 
