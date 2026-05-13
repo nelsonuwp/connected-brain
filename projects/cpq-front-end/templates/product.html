@@ -204,9 +204,9 @@
       content:attr(data-tip);
       position:absolute; bottom:calc(100% + 5px); left:0;
       background:var(--text-1); color:var(--bg);
-      padding:4px 8px; border-radius:5px;
-      font-size:.65rem; font-family:'Geist',sans-serif; font-weight:400;
-      line-height:1.4; width:max-content; max-width:200px; white-space:normal;
+      padding:5px 9px; border-radius:5px;
+      font-size:.63rem; font-family:'Geist Mono',monospace; font-weight:400;
+      line-height:1.5; width:max-content; max-width:280px; white-space:normal;
       opacity:0; pointer-events:none; transition:opacity .15s; z-index:100;
     }
     [data-tip]:hover::after { opacity:1; }
@@ -400,6 +400,7 @@
   const DC           = params.get('dc')           || 'ATL';
   const CURRENCY     = params.get('currency')      || 'USD';
   const PRODUCT_LINE = params.get('product_line')  || '4';
+  const TERM         = parseInt(params.get('term') || '36');
   const SYM          = { USD:'$', CAD:'$', GBP:'£' }[CURRENCY] || '$';
   const PL_LABEL     = PRODUCT_LINE === '3' ? 'Managed Hosting' : 'Dedicated Hosting';
 
@@ -439,7 +440,7 @@
   // ── Boot ──────────────────────────────────────────────────────────────
   Promise.all([
     fetch(`/api/product/${productId}`).then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
-    fetch(`/api/product/${productId}/config?dc=${DC}&currency=${CURRENCY}&product_line=${PRODUCT_LINE}`).then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+    fetch(`/api/product/${productId}/config?dc=${DC}&currency=${CURRENCY}&product_line=${PRODUCT_LINE}&term=${TERM}`).then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
   ]).then(([product, config]) => {
     if (product.error || config.error) throw new Error(product.error || config.error);
     CONFIG = config;

@@ -234,6 +234,18 @@
     </div>
     <div class="filter-hint" id="currency-hint"></div>
   </div>
+
+  <div class="filter-group">
+    <label for="term-select">Term</label>
+    <div class="select-wrap">
+      <select id="term-select">
+        <option value="12">12 months</option>
+        <option value="24">24 months</option>
+        <option value="36" selected>36 months</option>
+      </select>
+    </div>
+    <div class="filter-hint"></div>
+  </div>
 </div>
 
 <div id="status-bar" role="status" aria-live="polite"></div>
@@ -268,6 +280,7 @@
   const dcSelect       = document.getElementById('dc-select');
   const currencySelect = document.getElementById('currency-select');
   const plSelect       = document.getElementById('product-line');
+  const termSelect     = document.getElementById('term-select');
   const grid           = document.getElementById('server-grid');
   const statusBar      = document.getElementById('status-bar');
   const dcHint         = document.getElementById('dc-hint');
@@ -301,6 +314,7 @@
   });
   currencySelect.addEventListener('change', loadServers);
   plSelect.addEventListener('change', loadServers);
+  termSelect.addEventListener('change', loadServers);
 
   // ── Load servers ──────────────────────────────────────────────────────
   let loadToken = 0;
@@ -308,6 +322,7 @@
     const dc       = dcSelect.value;
     const currency = currencySelect.value;
     const pl       = plSelect.value;
+    const term     = termSelect.value;
     if (!dc) {
       grid.innerHTML = '<div class="empty">Select a data center to load available servers.</div>';
       statusBar.textContent = '';
@@ -319,7 +334,7 @@
 
     fetch(`/api/servers?dc=${dc}&currency=${currency}&product_line=${pl}`)
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-      .then(data => { if (token === loadToken) renderGrid(data, currency, dc, pl); })
+      .then(data => { if (token === loadToken) renderGrid(data, currency, dc, pl, term); })
       .catch(() => {
         if (token !== loadToken) return;
         grid.innerHTML = `<div class="error-pane"><p>Couldn't load servers — check your connection and try again.</p><button class="btn-retry" onclick="loadServers()">Try again</button></div>`;
@@ -327,7 +342,7 @@
   }
 
   // ── Render grid ───────────────────────────────────────────────────────
-  function renderGrid(servers, currency, dc, pl) {
+  function renderGrid(servers, currency, dc, pl, term) {
     if (!Array.isArray(servers) || !servers.length || servers.error) {
       grid.innerHTML = '<div class="empty">No servers available for this selection.</div>';
       statusBar.textContent = '0 results';
@@ -335,7 +350,16 @@
     }
     const dcLabel  = dcSelect.options[dcSelect.selectedIndex].text;
     const plLabel  = plSelect.options[plSelect.selectedIndex].text;
-    statusBar.textContent = `${servers.length} servers · ${dcLabel} · ${currency} · ${plLabel}`;
+    const termLabel = `${term}mo`;
+    let statusText = `${servers.length} servers · ${dcLabel} · ${currency} · ${plLabel} · ${termLabel}`;
+
+    // FX conversion note
+    const fx = servers[0]?.fx_rate;
+    const nc = servers[0]?.native_currency;
+    if (fx && nc && nc !== currency && fx !== 1.0) {
+      statusText += ` · Converted from ${nc} @ ${fx.toFixed(4)}`;
+    }
+    statusBar.textContent = statusText;
 
     const s = sym[currency] || '$';
     grid.innerHTML = servers.map(sv => {
@@ -348,7 +372,7 @@
       const desc = (sv.description || '').substring(0, 140);
 
       return `
-        <a class="server-card" href="/product/${sv.id}?dc=${dc}&currency=${currency}&product_line=${pl}">
+        <a class="server-card" href="/product/${sv.id}?dc=${dc}&currency=${currency}&product_line=${pl}&term=${term}">
           <div class="card-header">
             <div class="card-name">${esc(sv.name)}</div>
             ${sku}
