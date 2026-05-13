@@ -41,11 +41,6 @@ _COST_DRIVERS_PATH = Path(__file__).parent / "cost_drivers.json"
 with open(_COST_DRIVERS_PATH) as f:
     COST_DRIVERS = json.load(f)
 
-# Map fusion_dc_id → our DC code for fast lookup
-_FUSION_DC_ID_TO_CODE = {
-    v["fusion_dc_id"]: k for k, v in COST_DRIVERS["data_centers"].items()
-}
-
 app = Flask(__name__)
 
 # ---------------------------------------------------------------------------
@@ -83,11 +78,12 @@ def get_conn():
 
 
 # ---------------------------------------------------------------------------
-# MSSQL connection (per-request, lazy)
+# MSSQL: hardware costs
+# Returns {sku_id: {"cost": float, "currency": str, "name": str}}
+# sku_id = product_catalog.id (server-level) OR component.id (component-level)
 # ---------------------------------------------------------------------------
-def get_mssql_costs(component_ids: list[int]) -> dict[int, float]:
-    """Return {component_id: sku_cost_usd} for the given ids. Returns {} on failure."""
-    if not component_ids or not all([MSSQL_SERVER, MSSQL_DB, MSSQL_USER, MSSQL_PASSWORD]):
+def get_mssql_costs(sku_ids: list[int]) -> dict[int, dict]:
+    if not sku_ids or not all([MSSQL_SERVER, MSSQL_DB, MSSQL_USER, MSSQL_PASSWORD]):
         return {}
     try:
         import pymssql
@@ -96,13 +92,21 @@ def get_mssql_costs(component_ids: list[int]) -> dict[int, float]:
             password=MSSQL_PASSWORD, database=MSSQL_DB,
         )
         cur = conn.cursor(as_dict=True)
-        placeholders = ",".join(["%d"] * len(component_ids))
+        placeholders = ",".join(["%d"] * len(sku_ids))
         cur.execute(
-            f"SELECT sku_id, sku_cost, cost_currency FROM profitability.ocean_sku_cost "
+            f"SELECT sku_id, sku_name, sku_cost, cost_currency "
+            f"FROM profitability.ocean_sku_cost "
             f"WHERE sku_id IN ({placeholders})",
-            tuple(component_ids),
+            tuple(sku_ids),
         )
-        result = {r["sku_id"]: float(r["sku_cost"] or 0) for r in cur.fetchall()}
+        result = {
+            r["sku_id"]: {
+                "cost":     float(r["sku_cost"] or 0),
+                "currency": r["cost_currency"] or "USD",
+                "name":     r["sku_name"] or "",
+            }
+            for r in cur.fetchall()
+        }
         cur.close()
         conn.close()
         return result
@@ -110,9 +114,12 @@ def get_mssql_costs(component_ids: list[int]) -> dict[int, float]:
         return {}
 
 
+# ---------------------------------------------------------------------------
+# MSSQL: FX rates
+# Columns confirmed: from_currency, to_currency, exchange_rate, start_date
+# ---------------------------------------------------------------------------
 def get_fx_rate(from_currency: str, to_currency: str) -> float:
-    """Return exchange rate from_currency → to_currency from MSSQL DM_BusinessInsights.
-    Falls back to 1.0 if unavailable or same currency."""
+    """Return exchange rate from_currency → to_currency. Falls back to 1.0."""
     if from_currency == to_currency:
         return 1.0
     if not all([MSSQL_SERVER, MSSQL_DB, MSSQL_USER, MSSQL_PASSWORD]):
@@ -125,50 +132,101 @@ def get_fx_rate(from_currency: str, to_currency: str) -> float:
         )
         cur = conn.cursor(as_dict=True)
         cur.execute(
-            "SELECT TOP 1 ExchangeRate FROM dbo.dimCurrencyExchangeRates "
-            "WHERE FromCurrencyCode = %s AND ToCurrencyCode = %s "
-            "ORDER BY EffectiveDate DESC",
+            "SELECT TOP 1 exchange_rate FROM dbo.dimCurrencyExchangeRates "
+            "WHERE from_currency = %s AND to_currency = %s "
+            "ORDER BY start_date DESC",
             (from_currency, to_currency),
         )
         row = cur.fetchone()
         cur.close()
         conn.close()
-        if row and row.get("ExchangeRate"):
-            return float(row["ExchangeRate"])
+        if row and row.get("exchange_rate"):
+            return float(row["exchange_rate"])
     except Exception:
         pass
     return 1.0
 
 
 # ---------------------------------------------------------------------------
-# Cost calculation helpers
+# Overhead calculation
+# All amounts returned are already in display_currency (after fx_rate applied).
+# native_amount is preserved in provenance for tooltip display.
 # ---------------------------------------------------------------------------
-def calc_overhead(dc_code: str, mrc: float, kw: float | None = None) -> dict:
+def calc_overhead(dc_code: str, mrc_display: float, fx_rate: float = 1.0,
+                  kw: float | None = None) -> dict:
     dc = COST_DRIVERS["data_centers"].get(dc_code)
     if not dc:
         return {}
-    costs = dc["costs"]
-    const = COST_DRIVERS["overhead_constants"]
-    lines = {}
+    costs  = dc["costs"]
+    const  = COST_DRIVERS["overhead_constants"]
+    native = dc["native_currency"]
+    lines  = {}
 
     for key, entry in costs.items():
-        amt = entry["amount"]
+        amt     = entry["amount"]
         measure = entry["measure"]
         if amt == 0:
-            lines[key] = {"amount": 0, "currency": entry["currency"], "measure": measure}
+            lines[key] = {
+                "amount": 0, "currency": native, "measure": measure,
+                "provenance": {
+                    "source": "cost_drivers.json",
+                    "path": f"data_centers.{dc_code}.costs.{key}",
+                    "native_amount": 0, "native_currency": native,
+                    "formula": "0 — not configured",
+                },
+            }
             continue
-        if measure == "per_kw":
-            val = round(amt * kw, 2) if kw is not None else None
-        elif measure == "per_server":
-            val = round(amt, 2)
-        elif measure == "per_hour":
-            val = round(amt * const["support_hours_per_server"], 2)
-        else:
-            val = round(amt, 2)
-        lines[key] = {"amount": val, "currency": entry["currency"], "measure": measure}
 
-    sga = round(mrc * const["sga_pct"], 2) if mrc else 0
-    lines["sga"] = {"amount": sga, "currency": dc["native_currency"], "measure": "pct_of_mrc"}
+        if measure == "per_kw":
+            if kw is None:
+                native_val = None
+                formula    = f"{amt} {native}/kW × kW unknown = N/A"
+            else:
+                native_val = round(amt * kw, 2)
+                formula    = f"{amt} {native}/kW × {kw} kW = {native_val} {native}"
+        elif measure == "per_server":
+            native_val = round(amt, 2)
+            formula    = f"{amt} {native}/server"
+        elif measure == "per_hour":
+            hrs        = const["support_hours_per_server"]
+            native_val = round(amt * hrs, 2)
+            formula    = f"{amt} {native}/hr × {hrs} hrs/server = {native_val} {native}"
+        else:
+            native_val = round(amt, 2)
+            formula    = str(amt)
+
+        display_val = round(native_val * fx_rate, 2) if native_val is not None else None
+        if fx_rate != 1.0 and native_val is not None:
+            formula += f" × {fx_rate} FX = {display_val}"
+
+        lines[key] = {
+            "amount":   display_val,
+            "currency": native,       # kept for label reference
+            "measure":  measure,
+            "provenance": {
+                "source":          "cost_drivers.json",
+                "path":            f"data_centers.{dc_code}.costs.{key}",
+                "native_amount":   native_val,
+                "native_currency": native,
+                "measure":         measure,
+                "formula":         formula,
+                "fx_rate":         fx_rate,
+            },
+        }
+
+    sga_pct    = const["sga_pct"]
+    sga_val    = round(mrc_display * sga_pct, 2) if mrc_display else 0
+    lines["sga"] = {
+        "amount":   sga_val,
+        "currency": native,
+        "measure":  "pct_of_mrc",
+        "provenance": {
+            "source":  "cost_drivers.json",
+            "path":    "overhead_constants.sga_pct",
+            "formula": f"Total MRC {mrc_display} × {sga_pct} (SG&A %) = {sga_val}",
+            "fx_rate": fx_rate,
+        },
+    }
     return lines
 
 
@@ -185,7 +243,7 @@ def _dec(v) -> float:
 # ---------------------------------------------------------------------------
 @app.route("/")
 def index():
-    return render_template("index.html", cost_drivers=COST_DRIVERS)
+    return render_template("index.html")
 
 
 @app.route("/product/<int:product_id>")
@@ -196,52 +254,24 @@ def product_page(product_id):
 # ---------------------------------------------------------------------------
 # Routes — API
 # ---------------------------------------------------------------------------
-@app.route("/api/product-classes")
-def product_classes():
-    conn = get_conn()
-    with conn.cursor() as cur:
-        cur.execute("SELECT id, name FROM public.product_classes ORDER BY sort_order, name")
-        return jsonify([dict(r) for r in cur.fetchall()])
-
-
-@app.route("/api/products/<int:class_id>")
-def products_legacy(class_id):
-    show_inactive = request.args.get("show_inactive", "false").lower() == "true"
-    conn = get_conn()
-    with conn.cursor() as cur:
-        if show_inactive:
-            cur.execute(
-                "SELECT id, name, description, is_active, sku, available_in_shop, sold_out, "
-                "limited_availability, release_date FROM public.product_catalog "
-                "WHERE product_class = %s ORDER BY name", (class_id,))
-        else:
-            cur.execute(
-                "SELECT id, name, description, is_active, sku, available_in_shop, sold_out, "
-                "limited_availability, release_date FROM public.product_catalog "
-                "WHERE product_class = %s AND is_active = true ORDER BY name", (class_id,))
-        return jsonify([dict(r) for r in cur.fetchall()])
-
-
 @app.route("/api/datacenters")
 def datacenters():
-    """Return the 7 DCs from cost_drivers.json enriched with Fusion abbr."""
     return jsonify([
         {
-            "code": code,
-            "name": dc["name"],
+            "code":            code,
+            "name":            dc["name"],
             "native_currency": dc["native_currency"],
-            "fusion_dc_id": dc["fusion_dc_id"],
+            "fusion_dc_id":    dc["fusion_dc_id"],
         }
         for code, dc in COST_DRIVERS["data_centers"].items()
     ])
 
 
 @app.route("/api/fx-rate")
-def fx_rate():
-    """Return exchange rate between two currencies."""
+def fx_rate_endpoint():
     from_cur = request.args.get("from", "USD").upper()
-    to_cur   = request.args.get("to", "USD").upper()
-    rate = get_fx_rate(from_cur, to_cur)
+    to_cur   = request.args.get("to",   "USD").upper()
+    rate     = get_fx_rate(from_cur, to_cur)
     return jsonify({"from": from_cur, "to": to_cur, "rate": rate})
 
 
@@ -249,7 +279,8 @@ def fx_rate():
 def servers():
     """
     Active servers with pricebook pricing.
-    Query params: dc (our code e.g. ATL), currency (USD/CAD/GBP), product_line (3 or 4)
+    Query params: dc, currency (display), product_line
+    Always queries pricebook in native DC currency, converts to display currency.
     """
     dc_code      = request.args.get("dc", "")
     currency     = request.args.get("currency", "USD").upper()
@@ -259,7 +290,11 @@ def servers():
     if not dc_info:
         return jsonify({"error": f"Unknown DC: {dc_code}"}), 400
 
-    fusion_dc_id = dc_info["fusion_dc_id"]
+    fusion_dc_id    = dc_info["fusion_dc_id"]
+    native_currency = dc_info["native_currency"]
+
+    # Always query pricebook in native DC currency
+    fx = get_fx_rate(native_currency, currency)
 
     conn = get_conn()
     with conn.cursor() as cur:
@@ -279,11 +314,19 @@ def servers():
               AND pb.mrc > 0
               AND pb.is_available = true
             ORDER BY pb.mrc ASC
-        """, (currency, fusion_dc_id, product_line))
+        """, (native_currency, fusion_dc_id, product_line))
         rows = cur.fetchall()
 
     return jsonify([
-        {**dict(r), "mrc": _dec(r["mrc"]), "nrc": _dec(r["nrc"]), "setup": _dec(r["setup"])}
+        {
+            **dict(r),
+            "mrc":             round(_dec(r["mrc"]) * fx, 2),
+            "nrc":             round(_dec(r["nrc"]) * fx, 2),
+            "setup":           round(_dec(r["setup"]) * fx, 2),
+            "native_currency": native_currency,
+            "display_currency": currency,
+            "fx_rate":         fx,
+        }
         for r in rows
     ])
 
@@ -306,24 +349,30 @@ def product_detail(product_id):
 @app.route("/api/product/<int:product_id>/config")
 def product_config(product_id):
     """
-    Returns defaults, allowed components, pricebook MRCs, hardware costs, overhead.
-    Query params: dc, currency, product_line
+    Returns server config with all monetary values in display currency.
+    Query params: dc, currency (display), product_line, term (12/24/36, display only)
     """
     dc_code      = request.args.get("dc", "ATL")
     currency     = request.args.get("currency", "USD").upper()
     product_line = request.args.get("product_line", "4")
+    term_months  = int(request.args.get("term", "36"))
 
     dc_info = COST_DRIVERS["data_centers"].get(dc_code)
     if not dc_info:
         return jsonify({"error": f"Unknown DC: {dc_code}"}), 400
 
-    fusion_dc_id = dc_info["fusion_dc_id"]
+    fusion_dc_id    = dc_info["fusion_dc_id"]
+    native_currency = dc_info["native_currency"]
+
+    # FX rates (both needed for provenance)
+    fx_native = get_fx_rate(native_currency, currency)   # pricebook + overhead → display
+    fx_usd    = get_fx_rate("USD", currency)             # MSSQL hw costs (always USD) → display
     conn = get_conn()
 
-    # -- Server base price
+    # -- Server base price (queried in native DC currency)
     with conn.cursor() as cur:
         cur.execute("""
-            SELECT pb.mrc, pb.nrc, pb.setup
+            SELECT pb.id AS pricebook_id, pb.mrc, pb.nrc, pb.setup
             FROM public.pricebook pb
             WHERE pb.product_catalog_id = %s
               AND pb.component_id IS NULL
@@ -332,17 +381,40 @@ def product_config(product_id):
               AND pb.product_line_id = %s
               AND pb.is_available = true
             LIMIT 1
-        """, (product_id, currency, fusion_dc_id, product_line))
+        """, (product_id, native_currency, fusion_dc_id, product_line))
         pb_row = cur.fetchone()
-    server_mrc = _dec(pb_row["mrc"]) if pb_row else 0
 
-    # -- Default components (product_templates)
+    server_mrc_native = _dec(pb_row["mrc"])  if pb_row else 0
+    server_nrc_native = _dec(pb_row["nrc"])  if pb_row else 0
+    server_mrc        = round(server_mrc_native * fx_native, 2)
+    server_nrc        = round(server_nrc_native * fx_native, 2)
+    pricebook_id      = pb_row["pricebook_id"] if pb_row else None
+
+    pb_provenance = {
+        "source":  "Fusion: public.pricebook",
+        "filters": (
+            f"product_catalog_id={product_id}, currency={native_currency}, "
+            f"datacenter={fusion_dc_id} ({dc_code}), product_line_id={product_line}, "
+            f"component_id IS NULL, is_available=true"
+        ),
+        "pricebook_id":    pricebook_id,
+        "field":           "pricebook.mrc",
+        "native_value":    server_mrc_native,
+        "native_currency": native_currency,
+        "fx_rate":         fx_native,
+        "fx_source":       f"MSSQL: dbo.dimCurrencyExchangeRates WHERE from_currency='{native_currency}' AND to_currency='{currency}' ORDER BY start_date DESC",
+        "display_value":   server_mrc,
+        "display_currency": currency,
+    }
+
+    # -- Default components (queried in native DC currency)
     with conn.cursor() as cur:
         cur.execute("""
             SELECT pt.component_id, pt.quantity,
                    c.display_name AS name, c.description, c.is_active,
                    ct.name AS component_type,
                    cc.name AS category, cc.sort_order AS cat_sort,
+                   pb.id AS pricebook_id,
                    pb.mrc AS component_mrc, pb.nrc AS component_nrc
             FROM public.product_templates pt
             JOIN public.components c ON c.id = pt.component_id
@@ -356,16 +428,17 @@ def product_config(product_id):
                AND pb.is_available = true
             WHERE pt.product_id = %s
             ORDER BY cc.sort_order, cc.name, ct.name, c.display_name
-        """, (currency, fusion_dc_id, product_line, product_id))
+        """, (native_currency, fusion_dc_id, product_line, product_id))
         defaults_raw = cur.fetchall()
 
-    # -- Allowed components (product_allowed_components)
+    # -- Allowed components (queried in native DC currency)
     with conn.cursor() as cur:
         cur.execute("""
             SELECT pac.component_id, pac.available_in_shop,
                    c.display_name AS name, c.description, c.is_active,
                    ct.name AS component_type,
                    cc.name AS category, cc.sort_order AS cat_sort,
+                   pb.id AS pricebook_id,
                    pb.mrc AS component_mrc, pb.nrc AS component_nrc
             FROM public.product_allowed_components pac
             JOIN public.components c ON c.id = pac.component_id
@@ -380,16 +453,28 @@ def product_config(product_id):
             WHERE pac.product_id = %s
               AND c.is_active = true
             ORDER BY cc.sort_order, cc.name, ct.name, c.display_name
-        """, (currency, fusion_dc_id, product_line, product_id))
+        """, (native_currency, fusion_dc_id, product_line, product_id))
         allowed_raw = cur.fetchall()
 
     # -- Hardware costs from MSSQL
-    all_ids = list({r["component_id"] for r in defaults_raw} |
-                   {r["component_id"] for r in allowed_raw})
-    hw_costs = get_mssql_costs(all_ids)
+    # Include product_id itself — server-level sku_cost is the authoritative CapEx
+    component_ids = list(
+        {r["component_id"] for r in defaults_raw} |
+        {r["component_id"] for r in allowed_raw}
+    )
+    all_sku_ids = component_ids + [product_id]
+    hw_costs = get_mssql_costs(all_sku_ids)
 
     def _fmt_component(r, is_default=False, quantity=1):
-        cid = r["component_id"]
+        cid          = r["component_id"]
+        mrc_native   = _dec(r["component_mrc"])
+        nrc_native   = _dec(r["component_nrc"])
+        mrc_display  = round(mrc_native * fx_native, 2)
+        nrc_display  = round(nrc_native * fx_native, 2)
+        hw           = hw_costs.get(cid)
+        hw_cost_usd  = hw["cost"] if hw else None
+        hw_cost_disp = round(hw_cost_usd * fx_usd, 2) if hw_cost_usd is not None else None
+        pb_id        = r.get("pricebook_id")
         return {
             "component_id":    cid,
             "name":            r["name"],
@@ -399,51 +484,107 @@ def product_config(product_id):
             "category":        r["category"],
             "cat_sort":        r["cat_sort"],
             "quantity":        quantity,
-            "component_mrc":   _dec(r["component_mrc"]),
-            "component_nrc":   _dec(r["component_nrc"]),
-            "hw_cost_usd":     hw_costs.get(cid),
+            "component_mrc":   mrc_display,
+            "component_nrc":   nrc_display,
+            "hw_cost_usd":     hw_cost_usd,   # raw USD for reference
+            "hw_cost_display": hw_cost_disp,  # converted to display currency
             "is_default":      is_default,
+            "pricebook_provenance": {
+                "source":          "Fusion: public.pricebook",
+                "pricebook_id":    pb_id,
+                "field":           "pricebook.mrc",
+                "filters":         (
+                    f"component_id={cid}, currency={native_currency}, "
+                    f"datacenter={fusion_dc_id} ({dc_code}), "
+                    f"product_line_id={product_line}, is_available=true"
+                ),
+                "native_value":    mrc_native,
+                "native_currency": native_currency,
+                "fx_rate":         fx_native,
+                "display_value":   mrc_display,
+                "display_currency": currency,
+            } if pb_id else None,
+            "hw_provenance": {
+                "source":          "MSSQL: DM_BusinessInsights.profitability.ocean_sku_cost",
+                "field":           "sku_cost",
+                "sku_id":          cid,
+                "sku_name":        hw["name"] if hw else None,
+                "usd_value":       hw_cost_usd,
+                "fx_rate":         fx_usd,
+                "fx_source":       f"dbo.dimCurrencyExchangeRates WHERE from_currency='USD' AND to_currency='{currency}'",
+                "display_value":   hw_cost_disp,
+                "display_currency": currency,
+                "formula":         f"{hw_cost_usd} USD × {fx_usd} = {hw_cost_disp} {currency}" if hw_cost_usd else "Not in ocean_sku_cost",
+            } if hw else None,
         }
 
     defaults = [_fmt_component(r, is_default=True, quantity=r["quantity"]) for r in defaults_raw]
     allowed  = [_fmt_component(r, is_default=False) for r in allowed_raw]
-
-    # Default component_ids for quick lookup in frontend
     default_ids = {r["component_id"] for r in defaults_raw}
 
-    # -- Overhead calculation
-    # Total MRC = server base + sum of default component MRCs that have a price
+    # -- Total MRC (in display currency)
     total_mrc = server_mrc + sum(
         d["component_mrc"] * d["quantity"] for d in defaults if d["component_mrc"] > 0
     )
-    overhead = calc_overhead(dc_code, total_mrc, kw=None)
 
-    # Total hardware CapEx (sum of default component costs, stored in USD in MSSQL)
-    total_hw_capex = sum(
-        (hw_costs.get(d["component_id"]) or 0) * d["quantity"]
-        for d in defaults
-    )
+    # -- CapEx: use server-level sku_cost from ocean_sku_cost as authoritative total
+    server_hw = hw_costs.get(product_id)
+    if server_hw and server_hw["cost"] > 0:
+        total_hw_capex_usd = server_hw["cost"]
+        hw_capex_method    = "server-level"
+        hw_capex_sku_name  = server_hw["name"]
+    else:
+        # Fallback: sum component costs
+        total_hw_capex_usd = sum(
+            (hw_costs[d["component_id"]]["cost"] if d["component_id"] in hw_costs else 0)
+            * d["quantity"]
+            for d in defaults
+        )
+        hw_capex_method    = "component-sum"
+        hw_capex_sku_name  = None
 
-    # FX rate: hw_costs are USD; overhead costs are in DC native currency
-    native_currency = dc_info["native_currency"]
-    fx_to_selected  = get_fx_rate(native_currency, currency)   # overhead → display currency
-    fx_usd_to_selected = get_fx_rate("USD", currency)          # hw cost → display currency
+    total_hw_capex_display = round(total_hw_capex_usd * fx_usd, 2)
+
+    hw_capex_provenance = {
+        "source":          "MSSQL: DM_BusinessInsights.profitability.ocean_sku_cost",
+        "field":           "sku_cost",
+        "sku_id":          product_id if hw_capex_method == "server-level" else "multiple",
+        "sku_name":        hw_capex_sku_name,
+        "method":          hw_capex_method,
+        "usd_value":       total_hw_capex_usd,
+        "fx_rate":         fx_usd,
+        "fx_source":       f"dbo.dimCurrencyExchangeRates WHERE from_currency='USD' AND to_currency='{currency}' ORDER BY start_date DESC",
+        "display_value":   total_hw_capex_display,
+        "display_currency": currency,
+        "formula":         f"{total_hw_capex_usd} USD × {fx_usd} = {total_hw_capex_display} {currency}",
+    }
+
+    # -- Overhead (all amounts already converted to display currency inside calc_overhead)
+    overhead = calc_overhead(dc_code, total_mrc, fx_rate=fx_native, kw=None)
 
     return jsonify({
-        "server_mrc":          server_mrc,
-        "server_nrc":          _dec(pb_row["nrc"]) if pb_row else 0,
-        "currency":            currency,
-        "native_currency":     native_currency,
-        "dc_code":             dc_code,
-        "product_line":        int(product_line),
-        "defaults":            defaults,
-        "allowed":             allowed,
-        "default_ids":         list(default_ids),
-        "overhead":            overhead,
-        "total_hw_capex":      total_hw_capex,
-        "total_mrc":           round(total_mrc, 2),
-        "fx_native_to_display": fx_to_selected,
-        "fx_usd_to_display":    fx_usd_to_selected,
+        "product_id":        product_id,
+        "server_mrc":        server_mrc,
+        "server_nrc":        server_nrc,
+        "currency":          currency,
+        "native_currency":   native_currency,
+        "dc_code":           dc_code,
+        "fusion_dc_id":      fusion_dc_id,
+        "product_line":      int(product_line),
+        "term_months":       term_months,
+        "fx_native":         fx_native,
+        "fx_usd":            fx_usd,
+        "fx_source":         "MSSQL: DM_BusinessInsights.dbo.dimCurrencyExchangeRates",
+        "fx_query":          f"from_currency → to_currency, ORDER BY start_date DESC",
+        "defaults":          defaults,
+        "allowed":           allowed,
+        "default_ids":       list(default_ids),
+        "overhead":          overhead,
+        "total_hw_capex":    total_hw_capex_display,
+        "hw_capex_usd":      total_hw_capex_usd,
+        "hw_capex_provenance": hw_capex_provenance,
+        "total_mrc":         round(total_mrc, 2),
+        "server_mrc_provenance": pb_provenance,
     })
 
 
