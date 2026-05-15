@@ -25,79 +25,71 @@ it falls back to the native currency and converts via `dbo.dimCurrencyExchangeRa
 
 ### 1a. Data Center
 
-Source: `Fusion.public.sb_datacenter` (authoritative) + `datacenter_available_currencies` (native pricebook currencies).
+Source: `Fusion.public.sb_datacenter` WHERE active = true.
 
-| dc_abbr | Name | City | Native Pricebook Currencies | Overhead in cost_drivers.json |
-|---|---|---|---|---|
-| AMS | Amsterdam | Amsterdam | — | — |
-| ATL | Atlanta | Atlanta | USD | ✓ |
-| AWS-CA | AWS Canada | Canada | CAD | — |
-| AWS-EMEA | AWS EMEA | Europe | EUR | — |
-| AWS-UK | AWS United Kingdom | United Kingdom | GBP | — |
-| AWS-US | AWS United States | United States | USD | — |
-| AZURE-CAN | AZURE-CAN | Canada | CAD | — |
-| AZURE-FRN | AZURE-FRN | France | EUR | — |
-| AZURE-UK | AZURE-UK | United Kingdom | GBP | — |
-| AZURE-US | AZURE-US | United States | USD | — |
-| BAR-612W | Barrie | Barrie | CAD, USD | — |
-| CLOUD-CA | Cloud Canada | Canada | CAD, USD | — |
-| CLOUD-EU | Cloud Europe | Europe | EUR | — |
-| CLOUD-LA | Cloud Latin America | Latin America | USD | — |
-| CLOUD-UK | Cloud United Kingdom | United Kingdom | EUR, GBP, USD | — |
-| CLOUD-US | Cloud United States | United States | USD | — |
-| CRO | Croydon | London | EUR, GBP, USD | — |
-| FMT | Fremont | Fremont | USD | — |
-| FRK | Frankfurt | Frankfurt | EUR | — |
-| GOS | Goswell | London | EUR, GBP, USD | — |
-| IAD2 | South Pointe | Herndon | USD | — |
-| LAX1 | Malibu | Los Angeles | USD | — |
-| LDN1 | London | Fleet | EUR, GBP, USD | — |
-| MIA | Miami | Miami | USD | ✓ |
-| MTL-17500TC | Kirkland | Kirkland | CAD, USD | — |
-| MTL-BH | Montreal | Montreal | CAD, USD | — |
-| MUN | Munich | Munich | EUR | — |
-| NYC-BR | New York | New York | USD | — |
-| OFF-NCA | Off net CA | Canada | CAD | — |
-| OFF-NUK | Off net UK | United Kingdom | GBP | — |
-| OFF-NUS | Off net US | United States | USD | — |
-| POR | Portsmouth | Portsmouth | EUR, GBP, USD | ✓ |
-| SAT5 | Vicar | San Antonio | USD | — |
-| SEA-WES | Seattle | Seattle | USD | — |
-| SJ-MP | San Jose | San Jose | USD | — |
-| T3-AU1 | Sydney (MCC) | Sydney | USD | — |
-| T3-CA3 | Toronto (MCC) | Toronto | CAD, USD | — |
-| T3-GB3 | Slough (MCC) | Slough | GBP, USD | — |
-| T3-IL1 | Chicago (MCC) | Chicago | USD | — |
-| T3-NY1 | New York (MCC) | New York | USD | — |
-| T3-SG1 | Singapore | Singapore | USD | — |
-| T3-UC1 | Santa Clara (MCC) | Santa Clara | USD | — |
-| T3-UT1 | Salt Lake City (MCC) | Salt Lake City | USD | — |
-| T3-VA1 | Sterling (MCC) | Sterling | USD | — |
-| T3-VA2 | Sterling (MCC-VA2) | Sterling | USD | — |
-| T3-WA1 | Seattle (MCC) | Seattle | USD | — |
-| TOR | Toronto | Toronto | CAD, USD | ✓ |
-| TOR-145K | King St | King | CAD, USD | — |
-| TOR-1YG | 1 Yonge | Toronto | CAD | — |
-| TOR-431H | Horner | Horner | CAD, USD | — |
-| TOR-FR | 151 Front Street | Toronto | CAD, USD | — |
-| VAN | Vancouver | Vancouver | CAD, USD | — |
-| VAN-SP | Spencer Building | Vancouver | CAD | — |
+| dc_abbr | Name | City | Overhead in cost_drivers.json |
+|---|---|---|---|
+| AMS | Amsterdam | Amsterdam | — |
+| ATL | Atlanta | Atlanta | ✓ |
+| AWS-CA | AWS Canada | Canada | — |
+| AWS-EMEA | AWS EMEA | Europe | — |
+| AWS-UK | AWS United Kingdom | United Kingdom | — |
+| AWS-US | AWS United States | United States | — |
+| AZURE-CAN | AZURE-CAN | Canada | — |
+| AZURE-FRN | AZURE-FRN | France | — |
+| AZURE-UK | AZURE-UK | United Kingdom | — |
+| AZURE-US | AZURE-US | United States | — |
+| BAR-612W | Barrie | Barrie | — |
+| CLOUD-CA | Cloud Canada | Canada | — |
+| CLOUD-EU | Cloud Europe | Europe | — |
+| CLOUD-LA | Cloud Latin America | Latin America | — |
+| CLOUD-UK | Cloud United Kingdom | United Kingdom | — |
+| CLOUD-US | Cloud United States | United States | — |
+| CRO | Croydon | London | — |
+| FMT | Fremont | Fremont | — |
+| FRK | Frankfurt | Frankfurt | — |
+| GOS | Goswell | London | — |
+| IAD2 | South Pointe | Herndon | ✓ |
+| LAX1 | Malibu | Los Angeles | ✓ |
+| LDN1 | London | Fleet | — |
+| MIA | Miami | Miami | ✓ |
+| MTL-17500TC | Kirkland | Kirkland | — |
+| MTL-BH | Montreal | Montreal | ✓ |
+| MUN | Munich | Munich | — |
+| NYC-BR | New York | New York | — |
+| OFF-NCA | Off net CA | Canada | — |
+| OFF-NUK | Off net UK | United Kingdom | — |
+| OFF-NUS | Off net US | United States | — |
+| POR | Portsmouth | Portsmouth | ✓ |
+| SAT5 | Vicar | San Antonio | — |
+| SEA-WES | Seattle | Seattle | — |
+| SJ-MP | San Jose | San Jose | — |
+| T3-AU1 | Sydney (MCC) | Sydney | — |
+| T3-CA3 | Toronto (MCC) | Toronto | — |
+| T3-GB3 | Slough (MCC) | Slough | — |
+| T3-IL1 | Chicago (MCC) | Chicago | — |
+| T3-NY1 | New York (MCC) | New York | — |
+| T3-SG1 | Singapore | Singapore | — |
+| T3-UC1 | Santa Clara (MCC) | Santa Clara | — |
+| T3-UT1 | Salt Lake City (MCC) | Salt Lake City | — |
+| T3-VA1 | Sterling (MCC) | Sterling | — |
+| T3-VA2 | Sterling (MCC-VA2) | Sterling | — |
+| T3-WA1 | Seattle (MCC) | Seattle | — |
+| TOR | Toronto | Toronto | ✓ |
+| TOR-145K | King St | King | — |
+| TOR-1YG | 1 Yonge | Toronto | — |
+| TOR-431H | Horner | Horner | — |
+| TOR-FR | 151 Front Street | Toronto | — |
+| VAN | Vancouver | Vancouver | — |
+| VAN-SP | Spencer Building | Vancouver | — |
 
-> "Native pricebook currencies" = currencies with actual pricebook rows in Fusion.
-> Selecting a **different** target currency triggers FX conversion from the native currency.
-> DCs without a ✓ in cost_drivers.json show $0 overhead in the CPQ — no overhead data available.
+> DCs without a ✓ show $0 overhead in the CPQ — no cost_drivers.json entry exists for them yet.
 
 ### 1b. Currency (target)
 
-Options: **USD · CAD · GBP · EUR** — always available, regardless of DC selected.
+Options: **USD · CAD · GBP · EUR** — free choice, independent of DC.
 
-Pricing logic:
-- App queries `pricebook WHERE currency = target AND datacenter = fusion_dc_id`
-- If rows exist → use directly, no FX needed
-- If no rows → query native currency, apply `get_fx_rate(native, target)` from `dbo.dimCurrencyExchangeRates`
-
-**Example:** IAD only has USD pricebook rows. Selecting CAD at IAD → query USD, multiply by USD→CAD rate.
-**Example:** TOR has CAD and USD rows. Selecting CAD at TOR → use CAD rows directly, FX rate = 1.0.
+The app handles currency transparency: if the pricebook has rows in the target currency for that DC, they're used directly. If not, prices are fetched in the DC's native currency and converted via `dbo.dimCurrencyExchangeRates`. The user never needs to know which path was taken — everything is returned in the currency they selected.
 
 ### 1c. Term
 
