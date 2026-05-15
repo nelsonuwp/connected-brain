@@ -149,34 +149,35 @@ Filters: `product_class=1, is_active=true, product_line_id=4, component_id IS NU
 
 **Default components** (`product_templates`):
 
-| Component | Type | Category | Qty | MRC (USD) | HW Cost (USD) |
+| component_id | Component | Type | Category | Qty | MRC (USD) |
 |---|---|---|---|---|---|
-| 2 TB Bandwidth Included with Host Plan | Included | Bandwidth | 1 | included | not in ocean_sku_cost |
-| Dell R-660 Chassis | Chassis | Hardware | 1 | included | not in ocean_sku_cost |
-| 128 GB DDR5 RAM - Included | Included RAM | Hardware | 1 | included | $536.00 |
-| Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP) | Intel | Hardware | 1 | included | not in ocean_sku_cost |
-| Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP) | Intel | Hardware | 1 | included | not in ocean_sku_cost |
-| Dual Port 10/25GbE NIC | NICs | Hardware | 1 | included | not in ocean_sku_cost |
-| Dual Port 1 GbE NIC | NICs | Hardware | 1 | included | not in ocean_sku_cost |
-| 1100 Watt Power Supply | Power Supply | Hardware | 1 | included | not in ocean_sku_cost |
-| RAID 1 | RAID Configuration | Hardware | 1 | included | not in ocean_sku_cost |
-| 1100W  Redundant Power Supply | Redundant Power Supply | Hardware | 1 | $30.00 | $12,056.00 |
-| Hardware RAID Controller 8 GB Cache with BBU | SAS/SATA Controllers | Hardware | 1 | included | not in ocean_sku_cost |
-| IPMI Card | Security | Hardware | 1 | included | $-1.00 |
-| 480 GB SSD | SSD | Hardware | 1 | $20.00 | $149.00 |
-| 480 GB SSD | SSD | Hardware | 1 | $20.00 | $149.00 |
-| 1000 Mbit Connection - GigE | Network | Network | 1 | included | not in ocean_sku_cost |
-| Aptum Essential Monitoring | Zabbix | Software | 1 | included | not in ocean_sku_cost |
-| Managed OS Patching | Support | Support | 1 | included | not in ocean_sku_cost |
-| SmartKey Opt-in | Support | Support | 1 | included | not in ocean_sku_cost |
+| 6028 | 2 TB Bandwidth Included with Host Plan | Included | Bandwidth | 1 | included |
+| 6029 | Dell R-660 Chassis | Chassis | Hardware | 1 | included |
+| 6022 | 128 GB DDR5 RAM - Included | Included RAM | Hardware | 1 | included |
+| 6021 | Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP) | Intel | Hardware | 1 | included |
+| 6021 | Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP) | Intel | Hardware | 1 | included |
+| 6025 | Dual Port 10/25GbE NIC | NICs | Hardware | 1 | included |
+| 6024 | Dual Port 1 GbE NIC | NICs | Hardware | 1 | included |
+| 6026 | 1100 Watt Power Supply | Power Supply | Hardware | 1 | included |
+| 6027 | RAID 1 | RAID Configuration | Hardware | 1 | included |
+| 3697 | 1100W Redundant Power Supply | Redundant Power Supply | Hardware | 1 | $30.00 |
+| 6023 | Hardware RAID Controller 8 GB Cache with BBU | SAS/SATA Controllers | Hardware | 1 | included |
+| 3960 | IPMI Card | Security | Hardware | 1 | included |
+| 3704 | 480 GB SSD | SSD | Hardware | 1 | $20.00 |
+| 3704 | 480 GB SSD | SSD | Hardware | 1 | $20.00 |
+| 3698 | 1000 Mbit Connection - GigE | Network | Network | 1 | included |
+| 3721 | Aptum Essential Monitoring | Zabbix | Software | 1 | included |
+| 4167 | Managed OS Patching | Support | Support | 1 | included |
+| 5974 | SmartKey Opt-in | Support | Support | 1 | included |
 
 **Default component MRC total:** $70.00/mo
 **Total customer MRC (default config):** $1,699.00 + $70.00 = **$1,769.00/mo**
 
-**HW CapEx (one-time):**
-- Source: `MSSQL: profitability.ocean_sku_cost WHERE sku_id=1254`
-- Raw: $7,569.00 USD (server-level, authoritative total)
-- Convert via `dbo.dimCurrencyExchangeRates` for non-USD display
+**HW CapEx (one-time): $7,569.00 USD**
+- Source: `MSSQL: profitability.ocean_sku_cost WHERE sku_id=1254` (server-level entry)
+- This is the **all-in** hardware cost for the fully configured base server — CPUs, RAM, storage, PSU, chassis, all default components included
+- Per-component entries in `ocean_sku_cost` (e.g. RAM, PSU) exist but are partial and unreliable — the server-level entry is always used
+- Convert to display currency via `dbo.dimCurrencyExchangeRates` when needed
 
 ---
 
