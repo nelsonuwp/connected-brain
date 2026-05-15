@@ -460,8 +460,8 @@
   function renderHeader(product, config) {
     const plClass = PRODUCT_LINE === '3' ? 'pl-mh' : 'pl-dh';
     const term    = config.term_months || TERM;
-    const fxNote  = config.fx_native && config.native_currency !== CURRENCY
-      ? ` · ${config.native_currency}→${CURRENCY} @ ${config.fx_native.toFixed(4)}` : '';
+    const fxNote  = config.fx_pricing && config.fx_pricing !== 1.0
+      ? ` · ${config.pricing_currency}→${CURRENCY} @ ${config.fx_pricing.toFixed(4)}` : '';
     document.title = `${product.name} — CPQ · Aptum`;
     document.getElementById('server-header').innerHTML = `
       <h1>${esc(product.name)}</h1>
@@ -510,12 +510,12 @@
     const mrcStr = comp.component_mrc > 0
       ? `${SYM}${fmt(comp.component_mrc)}/mo`
       : `<span style="color:var(--text-3)">included</span>`;
-    const hwStr  = comp.hw_cost_usd != null ? `CapEx: $${fmt(comp.hw_cost_usd)}` : '';
+    const hwStr  = comp.hw_cost_display != null ? `CapEx: ${SYM}${fmt(comp.hw_cost_display)}` : '';
 
     const swapOpts = allowed
       .filter(a => a.component_type === comp.component_type)
       .map(a =>
-        `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_usd||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>` +
+        `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>` +
         `${esc(a.name)}${a.component_mrc>0?' — '+SYM+fmt(a.component_mrc)+'/mo':' — included'}</option>`
       ).join('');
     const hasSwap = swapOpts.split('<option').length > 2;
@@ -523,7 +523,7 @@
     return `
       <div class="component-row" id="row-${cid}"
            data-orig-id="${cid}" data-orig-mrc="${comp.component_mrc}"
-           data-orig-name="${esc(comp.name)}" data-orig-hw="${comp.hw_cost_usd||0}">
+           data-orig-name="${esc(comp.name)}" data-orig-hw="${comp.hw_cost_display||0}">
         <div>
           <div class="comp-name" id="name-${cid}">${esc(comp.name)}</div>
           <div class="comp-type">${esc(comp.component_type)}${comp.quantity > 1 ? ' × '+comp.quantity : ''}</div>
@@ -552,7 +552,7 @@
     document.getElementById(`mrc-${origId}`).innerHTML =
       newMrc > 0 ? `${SYM}${fmt(newMrc)}/mo` : `<span style="color:var(--text-3)">included</span>`;
     document.getElementById(`hw-${origId}`).textContent =
-      newHw > 0 ? `CapEx: $${fmt(newHw)}` : '';
+      newHw > 0 ? `CapEx: ${SYM}${fmt(newHw)}` : '';
 
     if (newId === origId) {
       row.classList.remove('changed');
@@ -627,7 +627,7 @@
     list.innerHTML = state.filtered.slice(0, 40).map((a, i) => `
       <li role="option" data-idx="${i}"
           data-id="${a.component_id}" data-mrc="${a.component_mrc}"
-          data-hw="${a.hw_cost_usd||0}" data-name="${esc(a.name)}">
+          data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}">
         <span class="p-name">${esc(a.name)}</span>
         <span class="p-price${a.component_mrc>0?'':' incl'}">${a.component_mrc>0?SYM+fmt(a.component_mrc)+'/mo':'included'}</span>
       </li>`).join('');
@@ -729,15 +729,19 @@
   function provenanceTip(p) {
     if (!p) return '';
     const lines = [];
-    if (p.source)          lines.push(`src: ${p.source}`);
-    if (p.filters)         lines.push(`filter: ${p.filters}`);
-    if (p.field)           lines.push(`field: ${p.field}`);
-    if (p.sku_name)        lines.push(`sku: ${p.sku_name}`);
-    if (p.native_value != null) lines.push(`native: ${p.native_currency} ${p.native_value}`);
-    if (p.usd_value != null)    lines.push(`USD: ${p.usd_value}`);
-    if (p.fx_rate != null && p.fx_rate !== 1)  lines.push(`FX: ${p.fx_rate}`);
-    if (p.formula)         lines.push(`calc: ${p.formula}`);
-    if (p.method)          lines.push(`method: ${p.method}`);
+    if (p.source)               lines.push(`src: ${p.source}`);
+    if (p.filters)              lines.push(`filter: ${p.filters}`);
+    if (p.field)                lines.push(`field: ${p.field}`);
+    if (p.sku_name)             lines.push(`sku: ${p.sku_name}`);
+    // pricebook provenance (new field names)
+    if (p.pb_value != null)     lines.push(`pb: ${p.pricing_currency} ${p.pb_value}`);
+    // hw cost provenance (new field names)
+    if (p.cost_value != null)   lines.push(`cost: ${p.cost_currency} ${p.cost_value}`);
+    // FX rate — check all variants
+    const fx = p.fx_pricing ?? p.fx_cost ?? p.fx_rate ?? null;
+    if (fx != null && fx !== 1) lines.push(`FX: ${fx}`);
+    if (p.formula)              lines.push(`calc: ${p.formula}`);
+    if (p.method)               lines.push(`method: ${p.method}`);
     return lines.join(' | ');
   }
 
