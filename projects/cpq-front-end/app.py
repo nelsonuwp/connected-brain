@@ -578,8 +578,12 @@ def product_config(product_id):
         cid        = r["component_id"]
         mrc_pb     = _dec(r["component_mrc"])  # in pricing_currency
         nrc_pb     = _dec(r["component_nrc"])  # in pricing_currency
-        mrc_display = round(mrc_pb * fx_pricing, 2)
-        nrc_display = round(nrc_pb * fx_pricing, 2)
+        # Default (included) components: pricebook MRC is the add-on price, not an
+        # additional charge — the component is already covered by the server base MRC.
+        addon_mrc_display = round(mrc_pb * fx_pricing, 2)
+        addon_nrc_display = round(nrc_pb * fx_pricing, 2)
+        mrc_display = 0.0        if is_default else addon_mrc_display
+        nrc_display = 0.0        if is_default else addon_nrc_display
         pb_id       = r.get("pricebook_id")
 
         hw = hw_costs.get(cid)
@@ -605,6 +609,7 @@ def product_config(product_id):
             "quantity":         quantity,
             "component_mrc":    mrc_display,
             "component_nrc":    nrc_display,
+            "addon_mrc":        addon_mrc_display,  # pricebook price if added as upgrade
             "hw_cost_raw":      hw_cost_raw,
             "hw_cost_currency": hw_cost_currency,
             "hw_cost_display":  hw_cost_display,
@@ -621,8 +626,9 @@ def product_config(product_id):
                 "pb_value":         mrc_pb,
                 "pricing_currency": pricing_currency,
                 "fx_pricing":       fx_pricing,
-                "display_value":    mrc_display,
+                "display_value":    addon_mrc_display,
                 "display_currency": currency,
+                "included_in_base": is_default,
             } if pb_id else None,
             "hw_provenance": {
                 "source":          "MSSQL: DM_BusinessInsights.profitability.ocean_sku_cost",
