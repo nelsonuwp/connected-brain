@@ -230,6 +230,7 @@
         <option value="USD">USD — US Dollar</option>
         <option value="CAD">CAD — Canadian Dollar</option>
         <option value="GBP">GBP — British Pound</option>
+        <option value="EUR">EUR — Euro</option>
       </select>
     </div>
     <div class="filter-hint" id="currency-hint"></div>
@@ -285,26 +286,7 @@
   const statusBar      = document.getElementById('status-bar');
   const dcHint         = document.getElementById('dc-hint');
   const currencyHint   = document.getElementById('currency-hint');
-  const sym            = { USD:'$', CAD:'$', GBP:'£', EUR:'€' };
-  const CURRENCY_LABELS = {
-    USD: 'USD — US Dollar',
-    CAD: 'CAD — Canadian Dollar',
-    GBP: 'GBP — British Pound',
-    EUR: 'EUR — Euro',
-  };
-
-  function populateCurrencies(currencies) {
-    const prev = currencySelect.value;
-    currencySelect.innerHTML = '';
-    (currencies || ['USD']).forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c;
-      opt.textContent = CURRENCY_LABELS[c] || c;
-      currencySelect.appendChild(opt);
-    });
-    // Keep previous selection if still valid; otherwise default to first
-    currencySelect.value = currencies?.includes(prev) ? prev : (currencies?.[0] || 'USD');
-  }
+  const sym = { USD:'$', CAD:'$', GBP:'£', EUR:'€' };
 
   // ── Load DCs ──────────────────────────────────────────────────────────
   fetch('/api/datacenters')
@@ -315,21 +297,15 @@
         const opt = document.createElement('option');
         opt.value = dc.code;
         opt.textContent = `${dc.code} — ${dc.name}`;
-        opt.dataset.currencies = (dc.currencies || [dc.native_currency]).join(',');
         dcSelect.appendChild(opt);
       });
     })
     .catch(() => { dcSelect.innerHTML = '<option value="">Failed to load — refresh</option>'; });
 
   dcSelect.addEventListener('change', () => {
-    const opt = dcSelect.options[dcSelect.selectedIndex];
-    if (opt?.dataset.currencies) {
-      const currencies = opt.dataset.currencies.split(',').filter(Boolean);
-      populateCurrencies(currencies);
-      currencyHint.textContent = `${currencies.length} currencies available`;
-    }
     dcHint.textContent = dcSelect.value ? '' : '← Start here';
     dcHint.style.color = dcSelect.value ? '' : 'var(--accent)';
+    currencyHint.textContent = '';
     loadServers();
   });
   currencySelect.addEventListener('change', loadServers);
