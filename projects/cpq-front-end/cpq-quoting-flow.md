@@ -186,6 +186,9 @@ Filters: `product_class=1, is_active=true, product_line_id=4, component_id IS NU
 
 Source: `product_allowed_components` WHERE product_id=1254, joined to `pricebook` at IAD in USD.
 
+- **MRC Upcharge:** pricebook price for that component at this DC/currency. "included" = pricebook MRC is $0 (Fusion has a row but it's priced at zero).
+- **HW Cost:** `ocean_sku_cost WHERE sku_id=component_id AND sku_level='Component'`. "—" = no Component-level entry exists in ocean_sku_cost.
+
 ### Backup & Storage
 
 | Component | MRC Upcharge (USD) | HW Cost (USD) |
@@ -276,7 +279,7 @@ Source: `product_allowed_components` WHERE product_id=1254, joined to `pricebook
 | RAID 10 | included | — |
 | RAID 5 | included | — |
 | RAID 6 | included | — |
-| 1100W  Redundant Power Supply | +$30.00/mo | $12,056.00 |
+| 1100W  Redundant Power Supply | +$30.00/mo | $0.00 |
 | Hardware RAID Controller 8 GB Cache with BBU | included | — |
 | 1 TB 7200 SATA | included | $16.00 |
 | IPMI Card | included | $-1.00 |
