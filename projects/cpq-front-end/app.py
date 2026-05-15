@@ -158,9 +158,10 @@ def get_dc_info(dc_abbr: str) -> dict | None:
 # ---------------------------------------------------------------------------
 # MSSQL: hardware costs
 # Returns {sku_id: {"cost": float, "currency": str, "name": str}}
-# sku_id = product_catalog.id (server-level) OR component.id (component-level)
+# sku_level must be 'TLS' (server-level) or 'Component' — same sku_id can
+# appear in both rows, so the level discriminator is mandatory.
 # ---------------------------------------------------------------------------
-def get_mssql_costs(sku_ids: list[int]) -> dict[int, dict]:
+def get_mssql_costs(sku_ids: list[int], sku_level: str) -> dict[int, dict]:
     if not sku_ids or not all([MSSQL_SERVER, MSSQL_DB, MSSQL_USER, MSSQL_PASSWORD]):
         return {}
     try:
@@ -174,8 +175,8 @@ def get_mssql_costs(sku_ids: list[int]) -> dict[int, dict]:
         cur.execute(
             f"SELECT sku_id, sku_name, sku_cost, cost_currency "
             f"FROM profitability.ocean_sku_cost "
-            f"WHERE sku_id IN ({placeholders})",
-            tuple(sku_ids),
+            f"WHERE sku_level = %s AND sku_id IN ({placeholders})",
+            (sku_level, *sku_ids),
         )
         result = {
             r["sku_id"]: {
@@ -559,12 +560,15 @@ def product_config(product_id):
     allowed_raw  = _query_components("public.product_allowed_components", "component_id", pricing_currency)
 
     # -- Hardware costs from MSSQL
-    component_ids = list(
+    # Same sku_id can appear as both 'TLS' (server) and 'Component' rows —
+    # must query each level separately to avoid mixing them.
+    component_ids  = list(
         {r["component_id"] for r in defaults_raw} |
         {r["component_id"] for r in allowed_raw}
     )
-    all_sku_ids = component_ids + [product_id]
-    hw_costs    = get_mssql_costs(all_sku_ids)
+    hw_costs_comp  = get_mssql_costs(component_ids, "Component") if component_ids else {}
+    hw_costs_tls   = get_mssql_costs([product_id],  "TLS")
+    hw_costs       = {**hw_costs_comp, **hw_costs_tls}  # TLS wins on any overlap
 
     # Build FX rate map for all unique cost currencies found in ocean_sku_cost
     cost_currencies = {v["currency"] for v in hw_costs.values() if v.get("currency")}
