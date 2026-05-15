@@ -151,27 +151,28 @@ Filters: `product_class=1, is_active=true, product_line_id=4, component_id IS NU
 
 | component_id | Component | Type | Category | Qty | MRC (USD) |
 |---|---|---|---|---|---|
-| 765 | 2 TB Bandwidth Included with Host Plan | Included | Bandwidth | 1 | included |
-| 5993 | Dell R-660 Chassis | Chassis | Hardware | 1 | included |
-| 6022 | 128 GB DDR5 RAM - Included | Included RAM | Hardware | 1 | included |
-| 6021 | Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP) | Intel | Hardware | 1 | included |
-| 6021 | Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP) | Intel | Hardware | 1 | included |
-| 6089 | Dual Port 10/25GbE NIC | NICs | Hardware | 1 | included |
-| 6088 | Dual Port 1 GbE NIC | NICs | Hardware | 1 | included |
-| 3049 | 1100 Watt Power Supply | Power Supply | Hardware | 1 | included |
-| 202 | RAID 1 | RAID Configuration | Hardware | 1 | included |
-| 1290 | 1100W Redundant Power Supply | Redundant Power Supply | Hardware | 1 | $30.00 |
-| 4027 | Hardware RAID Controller 8 GB Cache with BBU | SAS/SATA Controllers | Hardware | 1 | included |
-| 690 | IPMI Card | Security | Hardware | 1 | included |
-| 3704 | 480 GB SSD | SSD | Hardware | 1 | $20.00 |
-| 3704 | 480 GB SSD | SSD | Hardware | 1 | $20.00 |
-| 461 | 1000 Mbit Connection - GigE | Network | Network | 1 | included |
-| 6352 | Aptum Essential Monitoring | Zabbix | Software | 1 | included |
-| 541 | Managed OS Patching | Support | Support | 1 | included |
-| 521 | SmartKey Opt-in | Support | Support | 1 | included |
+| 765 | 2 TB Bandwidth Included with Host Plan | Included | Bandwidth | 1 | $0.00 |
+| 5993 | Dell R-660 Chassis | Chassis | Hardware | 1 | $0.00 |
+| 6022 | 128 GB DDR5 RAM - Included | Included RAM | Hardware | 1 | $0.00 |
+| 6021 | Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP) | Intel | Hardware | 1 | $0.00 |
+| 6021 | Default Intel Xeon Gold 6526Y 2.8 GHz 16 Cores/32T (195W TDP) | Intel | Hardware | 1 | $0.00 |
+| 6089 | Dual Port 10/25GbE NIC | NICs | Hardware | 1 | $0.00 |
+| 6088 | Dual Port 1 GbE NIC | NICs | Hardware | 1 | $0.00 |
+| 3049 | 1100 Watt Power Supply | Power Supply | Hardware | 1 | $0.00 |
+| 202 | RAID 1 | RAID Configuration | Hardware | 1 | $0.00 |
+| 1290 | 1100W Redundant Power Supply | Redundant Power Supply | Hardware | 1 | $0.00 |
+| 4027 | Hardware RAID Controller 8 GB Cache with BBU | SAS/SATA Controllers | Hardware | 1 | $0.00 |
+| 690 | IPMI Card | Security | Hardware | 1 | $0.00 |
+| 3704 | 480 GB SSD | SSD | Hardware | 1 | $0.00 |
+| 3704 | 480 GB SSD | SSD | Hardware | 1 | $0.00 |
+| 461 | 1000 Mbit Connection - GigE | Network | Network | 1 | $0.00 |
+| 6352 | Aptum Essential Monitoring | Zabbix | Software | 1 | $0.00 |
+| 541 | Managed OS Patching | Support | Support | 1 | $0.00 |
+| 521 | SmartKey Opt-in | Support | Support | 1 | $0.00 |
 
-**Default component MRC total:** $70.00/mo
-**Total customer MRC (default config):** $1,699.00 + $70.00 = **$1,769.00/mo**
+> All default components are **included in the server base MRC**. Their $0.00 MRC means they add nothing to the customer total. The pricebook does carry per-component prices (e.g. $30/mo for the redundant PSU, $20/mo for the 480 GB SSD) — those are the **add-on prices** that apply only if a customer orders an *additional* unit beyond what's already in the base config.
+
+**Total customer MRC (default config): $1,699.00/mo** (server base only — no component upcharges)
 
 **HW CapEx (one-time): $7,569.00 USD**
 - Source: `MSSQL: profitability.ocean_sku_cost WHERE sku_id=1254` (server-level entry)
@@ -604,24 +605,26 @@ Source: `product_allowed_components` WHERE product_id=1254, joined to `pricebook
 | Item | Value | Source |
 |---|---|---|
 | Server base MRC | $1,699.00/mo | pricebook |
-| Default component MRC | $70.00/mo | pricebook (component rows) |
-| **Total Customer MRC** | **$1,769.00/mo** | |
-| HW CapEx (one-time) | $7,569.00 | ocean_sku_cost sku_id=1254 |
+| Default component MRC | $0.00/mo | included in base — no upcharge |
+| **Total Customer MRC** | **$1,699.00/mo** | |
+| HW CapEx (one-time) | $7,569.00 | ocean_sku_cost sku_id=1254, sku_level=TLS |
 | HW CapEx ÷ 36mo | $210.25/mo | amortization |
 | Power (kW) | N/A — kW not in Fusion | cost_drivers.json |
 | DC R&M / Supplies | N/A — kW not in Fusion | cost_drivers.json |
 | Network | $59.00/mo | cost_drivers.json |
 | DC Infra / Ops | $19.00/mo | cost_drivers.json |
 | Support (Tech Time) | $40.00/mo | cost_drivers.json |
-| SG&A (8.2% of MRC) | $145.06/mo | cost_drivers.json |
-| **Total Internal Cost / mo** | **$473.31/mo** | HW amort + overhead |
-| **Gross Margin / mo** | **$1,295.69/mo** | MRC − cost |
-| **Gross Margin %** | **73.2%** | |
+| SG&A (8.2% of MRC) | $139.32/mo | cost_drivers.json |
+| **Total Internal Cost / mo** | **$467.57/mo** | HW amort + overhead |
+| **Gross Margin / mo** | **$1,231.43/mo** | MRC − cost |
+| **Gross Margin %** | **72.5%** | |
 
 ### Formula
 ```
-Customer MRC  = server_mrc + Σ(component_mrc × qty)                [pricebook, target currency]
-HW CapEx      = ocean_sku_cost[sku_id=product_id].sku_cost          [MSSQL, cost_currency]
+Customer MRC  = server_mrc + Σ(upgrade_component_mrc × qty)        [pricebook, target currency]
+              ← default/included components contribute $0 to this total
+              ← pricebook prices on default components = add-on price only (charged only if extras ordered)
+HW CapEx      = ocean_sku_cost WHERE sku_id=product_id AND sku_level='TLS'  [MSSQL, cost_currency]
               → converted to display via dimCurrencyExchangeRates
 HW CapEx/mo   = HW CapEx ÷ term_months
 Overhead      = Σ cost_driver_lines + (MRC × 0.082 SG&A)            [cost_drivers.json, FX-converted]
@@ -637,7 +640,8 @@ Margin %      = Margin ÷ Customer MRC × 100
 - **Currency is a free choice** — USD/CAD/GBP/EUR regardless of DC. App queries pricebook in target currency first; FX fallback if no rows.
 - **Term never changes MRC or NRC** — all `product_class_contract_length_discounts` are 0% for servers.
 - **Term only changes CapEx amortization** — any positive integer works (12/24/36/m2m=1/custom).
-- **HW CapEx source:** `ocean_sku_cost WHERE sku_id = product_catalog.id` (server-level) is authoritative. Component-level entries exist but are partial — used as fallback only.
+- **Default components = $0 MRC.** They are included in the server base MRC. The pricebook carries a price for them — that price is the **add-on cost** if a customer orders an extra unit beyond the base config. It is never added to the base quote total.
+- **HW CapEx source:** `ocean_sku_cost WHERE sku_id = product_catalog.id AND sku_level = 'TLS'` is authoritative. The same sku_id can appear as both `sku_level='TLS'` (server entry) and `sku_level='Component'` (component entry) — always filter by level. Component-level entries are used for component-specific cost breakdown only.
 - **Cost currency is not always USD** — `ocean_sku_cost.cost_currency` stores the actual currency; always FX-converted to display.
 - **Power cost is always N/A** — kW not stored in Fusion on `product_catalog`.
 - **Overhead coverage:** cost_drivers.json covers 7 DCs (ATL, IAD, LAX, MIA, MTL, POR, TOR). All other DCs show $0 overhead.
