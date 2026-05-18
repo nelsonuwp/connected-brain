@@ -110,29 +110,15 @@ The customer did not come to Aptum looking for any of this. They came because an
 
 ---
 
-### The Customer Journey
-
-```
-AWARENESS                      ASSESSMENT                     EXECUTE                         OPERATE
-(Pain signal)           -->    (Advisory engagement)   -->    (Implementation project)  -->   (Managed services)
-"Our servers are old"          Infrastructure Risk             Hardware refresh                24/7 Infrastructure Monitoring
-"Cloud bill is insane"         Cloud Repatriation              Repatriation project            Managed Backup + OS Patching
-"We failed our audit"          Security Posture                Security remediation            Managed Detection and Response
-"Team is drowning"             Operational Maturity            Managed services transition     Full managed stack
-"Hybrid by accident"           Hybrid Cloud                    Workload rationalization        Application Performance Monitoring
-"CI/CD is still manual"        App & Platform Modernization    Platform build                  DevOps Monitoring and Maintenance
-"Never reviewed our cloud"     Well-Architected Review         Architecture remediation        Application Performance Monitoring
-```
 
 ### What a Relationship Is Worth
 
-| Stage | Revenue Type | Typical Value | Margin |
+| Stage | Revenue Type | Typical Value |
 | --- | --- | --- | --- |
-| Assessment (Advisory) | One-time, fixed-fee | $5K to $40K | 50-65% (SA labor + specialist time) |
-| Implementation (Execute) | One-time, SOW-based | $5K to $300K | 25-35% (cross-functional labor, partner services) |
-| Managed Services (Operate) | Monthly recurring | $15K to $48K/mo | 50-60% blended |
+| Assessment (Advisory) | One-time, fixed-fee | $5K to $40K |
+| Implementation (Execute) | One-time, SOW-based | $5K to $300K |
+| Managed Services (Operate) | Monthly recurring | $15K to $48K/mo |
 
-A fully engaged ideal customer generates $15,000 to $48,000/mo in managed services MRC. The blended margin is 50 to 60%, compared to 70 to 80% for infrastructure only, but the absolute margin dollars are 2 to 3x higher and the customer is deeply embedded.
 
 ---
 
@@ -163,27 +149,7 @@ The dimServices extract (April 1, 2026) tells an honest story about the current 
 | Unique customers | 773 |
 | Datacenters | 26 across 21 cities |
 
-### Revenue Composition
 
-| Line of Business | USD MRC | Share |
-| --- | --- | --- |
-| Hosting | $2,171,402 | 75.16% |
-| Colocation | $642,193 | 22.23% |
-| Cloud Services | $74,168 | 2.57% |
-| Professional Services | $1,138 | 0.04% |
-
-Three quarters of revenue comes from hosting, which is predominantly commodity dedicated servers. Cloud services represent just 2.57% of the portfolio. This is the gap the product strategy needs to close.
-
-### Customer Concentration
-
-| Segment | Revenue | Share |
-| --- | --- | --- |
-| Top 10 customers | $1,229,170 | 42.55% |
-| Top 20 customers | $1,500,979 | 51.96% |
-| Top 50 customers | $1,913,545 | 66.24% |
-| Single largest customer (Basis Global Technologies) | $425,740 | 14.74% |
-
-This concentration is a structural risk. One customer walking would remove nearly 15% of total MRC.
 
 ### Managed Services Penetration
 
@@ -191,12 +157,12 @@ Only 6.5% of services have any managed service attached. This compares to an ind
 
 ### Customer Segmentation by Stickiness and Assessment Opportunity
 
-| Segment | Customers | Revenue | Share | Churn Risk | Primary Assessment Play |
+| Segment | Customers | Churn Risk | Primary Assessment Play |
 | --- | --- | --- | --- | --- | --- |
-| Multi-LOB (hosting + colo + cloud) | 135 | $1,810,044 | 62.66% | Low | Security Posture or Hybrid Cloud (deepen the relationship, add layers) |
-| Hosting-only | 429 | $659,075 | 22.81% | High | Infrastructure Risk or Operational Maturity (create stickiness through managed services) |
-| Colocation-only | 93 | $401,994 | 13.92% | Medium | Infrastructure Risk (assess what they're running in our racks, offer to manage it) |
-| Cloud-only | ~116 | $17,788 | 0.62% | Medium | Well-Architected Review (optimize their cloud, open managed services conversation) |
+| Multi-LOB (hosting + colo + cloud) | 135 | Low | Security Posture or Hybrid Cloud |
+| Hosting-only | 429 | High | Infrastructure Risk or Operational Maturity |
+| Colocation-only | 93 | Medium | Infrastructure Risk |
+| Cloud-only | ~116 | Medium | Well-Architected Review |
 
 The 135 multi-LOB customers are the closest to the ideal ICP. They buy across product lines, generate 62.66% of revenue, and have multiple integration points that make switching costly. The assessment play for this segment is about deepening: adding the security layer, adding the app platform layer, adding business continuity.
 
@@ -208,12 +174,7 @@ The portfolio includes a meaningful number of customers who do not fit the ideal
 
 Examples of customers who sit outside the ICP:
 
-| Customer | MRC | Profile | Why They Don't Fit |
-| --- | --- | --- | --- |
-| Basis Global Technologies | $425,740 | Single product (dedicated hosting), no managed services | Largest single customer by far, but zero stickiness. If they find dedicated hosting cheaper elsewhere, there is nothing binding them. |
-| ResearchGATE GmbH | $226,038 | Single product (dedicated hosting), no managed services | Same pattern. High revenue, low integration, high flight risk. |
-
-There are 320 legacy-only customers generating $1,279,974/mo (44.31% of the portfolio) with zero managed services attached. This revenue is structurally at risk.
+A significant portion of the portfolio carries legacy-only customers with no managed services attached. This revenue is structurally at risk.
 
 The response is not to abandon these customers. It is to:
 
@@ -225,90 +186,17 @@ This is what "it wasn't meant to be forever" looks like operationally.
 
 ---
 
-## Customer Origins and Assessment Entry Points
+## How Customers Enter the Relationship
 
-The ICP describes who the customer is. The assessment framework defines how they enter the relationship. Customers arrive from different origins, and each origin maps to a different assessment entry point.
+Customers arrive from five origins: on-premises with aging hardware, hyperscaler with rising costs, hybrid sprawl, compliance pressure, and platform modernization needs. Each origin maps to a specific assessment entry point and lands on a specific engagement tier. For the full path detail, see the [Managed Services Catalog](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257560095/Managed+Services+Catalog).
 
-### Origin 1: On-Premises (Non-Aptum Infrastructure)
-
-These are organizations running their own servers, either in their own facilities or in third-party colocation. They have aging hardware, overwhelmed IT teams, and deferred maintenance. They are not yet Aptum customers or they are Aptum colo customers whose equipment Aptum does not manage.
-
-**Entry assessments:** Infrastructure Risk & Readiness, Operational Maturity
-
-**What the assessment reveals:** EOL hardware inventory, unsupported OS versions, single points of failure, capacity constraints, the true cost of self-managed operations (staff time, downtime risk, opportunity cost).
-
-**Funnel path:** Assessment findings justify hardware refresh or migration to Aptum IaaS (VPC or Private Cloud). The migration project (Execute) moves the workloads. Managed services (Operate) take over day-2 operations. The customer moves from self-managed on-prem to Aptum-managed hybrid.
-
-**Expected journey revenue:** $5K-$20K assessment, $25K-$150K migration project, $5K-$15K/mo ongoing managed services.
-
-### Origin 2: Hyperscaler (Pulled Back to Aptum Services)
-
-These are organizations that moved to AWS, Azure, or GCP and are now experiencing cost pressure, complexity, or regret. Their cloud bills have grown faster than their usage. They have workloads with predictable resource consumption that don't benefit from hyperscaler elasticity. They may have data sovereignty concerns.
-
-**Entry assessments:** Cloud Repatriation, Well-Architected Review
-
-**What the assessment reveals:** Cloud spend breakdown by service/region/workload, workload portability scores (highly portable, moderately portable, low portability, not recommended for repatriation), TCO comparison across scenarios (status quo, selective repatriation, aggressive repatriation, hybrid optimized), break-even analysis.
-
-**Funnel path:** Assessment builds the financial business case. The repatriation project (Execute) moves selected workloads to Aptum Private Cloud. Managed services (Operate) provide the operational capability the customer would lose by leaving the hyperscaler. The customer retains hyperscaler for workloads that genuinely benefit from it (managed through Aptum Portal) and runs cost-predictable workloads on Aptum IaaS.
-
-**Expected journey revenue:** $10K-$35K assessment, $50K-$300K repatriation project, $10K-$50K/mo ongoing managed services. This is the highest-value customer journey in the portfolio ($200K-$1M+ TCV).
-
-### Origin 3: Hybrid-by-Accident (Rationalization)
-
-These are organizations that have sprawled across on-prem, colo, and one or more hyperscalers without a deliberate strategy. They have workloads in multiple places, multiple management planes, inconsistent security posture, and no single view of their estate. They are "hybrid by accident, not by design."
-
-**Entry assessments:** Hybrid Cloud, Security Posture & Compliance
-
-**What the assessment reveals:** Complete workload inventory with dependency mapping, suitability scoring for each workload (best fit: on-prem, private cloud, public cloud, SaaS), TCO modeling across placement scenarios, security and compliance gaps across environments.
-
-**Funnel path:** Assessment produces a rationalization roadmap. Architecture consulting (Execute) designs the target state. Migration projects move workloads to optimal placement. Managed services (Operate) provide consistent operational coverage across all environments through Aptum Portal.
-
-**Expected journey revenue:** $7.5K-$40K assessment, $30K-$200K architecture + migration, $8K-$25K/mo ongoing managed services.
-
-### Origin 4: Compliance-Driven
-
-These are organizations in regulated industries (healthcare, financial services, government, education) that have compliance obligations driving their infrastructure decisions. They may have received audit findings, experienced a security incident, or simply recognized that their security posture is inadequate.
-
-**Entry assessments:** Security Posture & Compliance
-
-**What the assessment reveals:** EOL/EOS device inventory with CVE mapping, firewall rule audit, compliance gap analysis against specific frameworks (SOC 2, HIPAA, PCI-DSS), penetration testing results (L/XL engagements), remediation priority matrix with cost/effort estimates.
-
-**Funnel path:** Assessment findings drive security remediation project (Execute): firewall replacement, OS upgrades, hardening, compliance alignment. Managed security services (Operate) provide ongoing protection: managed detection and response, managed firewall, compliance reporting, vulnerability scanning. The customer can't go back to self-managed security because the assessment demonstrated the gap.
-
-**Expected journey revenue:** $5K-$30K assessment, $20K-$100K remediation project, $5K-$17K/mo ongoing managed security services.
-
-### Origin 5: Platform Modernizers
-
-These are organizations with modern application ambitions on legacy infrastructure. They want containers, Kubernetes, CI/CD pipelines, and modern deployment patterns, but they are running on aging hardware with manual processes. Their development teams are productive, but their infrastructure and deployment tooling are holding them back.
-
-**Entry assessments:** App & Platform Modernization
-
-**What the assessment reveals:** Application architecture review, container/K8s readiness evaluation per application, CI/CD maturity assessment (with DORA metrics where possible), platform architecture review, technology stack recommendations.
-
-**Funnel path:** Assessment produces a modernization roadmap. Platform build project (Execute) implements Kubernetes, CI/CD pipeline, and container platform on Aptum infrastructure. Managed platform services (Operate) provide ongoing cluster management, monitoring, and DevOps support.
-
-**Expected journey revenue:** $5K-$35K assessment, $30K-$150K platform build, $8K-$25K/mo managed platform services.
 
 ---
 
 ## Geographic Focus
 
-### Where the Revenue Is Today
-
-| City | Services | USD MRC | Share |
-| --- | --- | --- | --- |
-| Toronto | 1,040 | $601,775 | 20.83% |
-| Herndon (IAD2) | 1,307 | $592,257 | 20.50% |
-| Portsmouth | 927 | $547,787 | 18.96% |
-| Miami | 547 | $300,870 | 10.41% |
-| Los Angeles | 529 | $300,823 | 10.41% |
-| Atlanta | 554 | $279,354 | 9.67% |
-| London | 109 | $69,572 | 2.41% |
-| Vancouver | 88 | $49,076 | 1.70% |
-
-The top three cities represent 60.29% of revenue. Toronto and Herndon/Virginia are the strongest bases. Portsmouth has capacity but the facility has a known end-of-life constraint (the building owner plans to redevelop). Miami has recently been extended and is the strongest candidate for regional growth, particularly for the Latitude.sh and Megaport partnership.
-
 ### Where to Hunt
+
 
 For new logo acquisition against the ICP:
 
@@ -327,20 +215,6 @@ For MSP/reseller channel (secondary):
 
 ---
 
-## Contract Risk Context
-
-The portfolio has a near-term contract renewal concentration that requires attention:
-
-| Contract Window | Services | Revenue | Share |
-| --- | --- | --- | --- |
-| Expiring within 6 months | 4,340 | $2,101,324 | 72.74% |
-| Expiring 6 to 12 months | 151 | $135,147 | 4.68% |
-| Expiring 12 to 24 months | 348 | $259,615 | 8.99% |
-| 24+ months remaining | 735 | $382,521 | 13.24% |
-
-72.74% of revenue by value is within 6 months of contract expiration. This is the window during which every renewal conversation should include an assessment offer. Each renewal is an opportunity to move a customer closer to (or further from) the ICP.
-
-The assessment framework makes this operationally concrete: every renewal in the pipeline should be tagged with a primary assessment recommendation. The assessment offer at renewal shifts the conversation from "here's your renewal pricing" to "before we renew, let us show you what we found in your environment and what we can do about it."
 
 ---
 
@@ -352,9 +226,6 @@ The Broadcom/VMware disruption is real and ongoing. Gartner estimates 35% of VMw
 
 Cloud repatriation is accelerating. Andreessen Horowitz's "Cost of Cloud" research and the 37signals case study ($7M savings over 5 years from their cloud exit) have given mid-market CFOs permission to question their hyperscaler bills. 21% of surveyed organizations have repatriated workloads. Aptum's ability to provide private cloud with a public-cloud-like portal experience (through Aptum Portal) positions it as the repatriation destination. The Cloud Repatriation Assessment is designed to capitalize on this trend with a structured business case methodology.
 
-The Canadian cloud market is growing at 17.3% CAGR, reaching an estimated $121.6B by 2030. Canadian data sovereignty requirements continue to tighten. Aptum's Toronto DC presence and Canadian identity are meaningful differentiators.
-
-The global managed services market is projected at $400B by 2025, growing at 10 to 15% CAGR. The specific segment Aptum operates in (hybrid cloud managed services for mid-market) is growing faster than the market average.
 
 ---
 

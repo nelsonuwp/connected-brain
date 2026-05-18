@@ -106,70 +106,19 @@ Professional services historically operated as an undifferentiated bucket. The S
 
 ### The Seven Assessments
 
-| # | Assessment | Price Range | Customer Trigger | Primary Funnel Destination |
+| Assessment | Customer Trigger | Primary Funnel Destination |
 | --- | --- | --- | --- | --- |
-| 1 | Infrastructure Risk & Readiness | $5K-$30K+ | EOL hardware, unsupported OS, deferred maintenance, "when did we last patch?" | Hardware refresh (Execute) then Managed OS L2 (Operate) |
-| 2 | Hybrid Cloud | $7.5K-$40K+ | Workload placement uncertainty, rising cloud costs, "hybrid by accident" | Architecture consulting (Execute) then Managed CloudStack + App Platform (Operate) |
-| 3 | Security Posture & Compliance | $5K-$30K+ | EOL firewalls, CVE exposure, audit findings, compliance gaps | Security remediation (Execute) then Security & Compliance L4 (Operate) |
-| 4 | Cloud Repatriation | $5K-$35K+ | Cloud overspend, flat usage with rising bills, "we moved 5 years ago and our bill doubled" | Repatriation project (Execute) then Private Cloud + Managed Services (Operate) |
-| 5 | Operational Maturity | $5K-$30K+ | IT team of 3-10 spending 80%+ time on lights-on, "we can't innovate because we're firefighting" | Managed services transition (Execute) then full Managed OS/App/Security stack (Operate) |
-| 6 | App & Platform Modernization | $5K-$35K+ | Legacy infrastructure under modern apps, immature CI/CD, container gaps | K8s/platform build (Execute) then Managed Platform (Operate) |
-| 7 | Well-Architected Review | $7.5K-$40K+ | Production AWS/Azure never formally reviewed, cost overruns, security concerns | Remediation project (Execute) then Public Cloud Management (Operate) |
+| Infrastructure Risk & Readiness | EOL hardware, unsupported OS, deferred maintenance | Hardware refresh (Execute) then Reactive/Proactive managed services (Operate) |
+| Hybrid Cloud | Workload placement uncertainty, rising cloud costs, hybrid sprawl | Architecture consulting (Execute) then Reactive or Proactive tier (Operate) |
+| Security Posture & Compliance | EOL firewalls, CVE exposure, audit findings, compliance gaps | Security remediation (Execute) then Proactive tier with MDR and Compliance Reporting (Operate) |
+| Cloud Repatriation | Cloud overspend, flat usage with rising bills | Repatriation project (Execute) then Proactive tier on Aptum IaaS (Operate) |
+| Operational Maturity | Small IT team spending 80%+ time on reactive work | Managed services transition (Execute) then Proactive tier full stack (Operate) |
+| App & Platform Modernization | Legacy infrastructure under modern apps, immature CI/CD | Platform build (Execute) then Proactive tier managed platform (Operate) |
+| Well-Architected Review | Unreviewed cloud estate, cost overruns, security concerns | Remediation (Execute) then Reactive or Proactive tier with FinOps (Operate) |
 
-### Assessment-to-Funnel Mapping
 
-Each assessment is explicitly designed to produce findings that point at specific Aptum services. This is not accidental. The assessments are scoped so that the deliverable (the report, the roadmap, the business case) becomes the sales tool for the next motion.
 
-| Assessment | Execute Follow-On | Operate Follow-On | Expected Follow-On TCV |
-| --- | --- | --- | --- |
-| Infrastructure Risk | Hardware refresh, OS upgrades ($25K-$150K) | Managed OS L2 ($2K-$10K/mo) | $50K-$300K |
-| Hybrid Cloud | Architecture design, migration ($30K-$200K) | Managed CloudStack + App Platform ($5K-$30K/mo) | $100K-$500K |
-| Security Posture | Firewall replacement, hardening, remediation ($20K-$100K) | Alert Logic MDR L4, Managed Firewall L2 ($3K-$12K/mo) | $75K-$250K |
-| Cloud Repatriation | Repatriation execution ($50K-$300K) | Dedicated Cloud or Private Cloud + full stack ($8K-$50K/mo) | **$200K-$1M+** |
-| Operational Maturity | Managed services transition ($15K-$50K) | L2 + L3 + L4 stack ($3K-$15K/mo) | $50K-$200K/yr recurring |
-| Platform Modernization | K8s implementation, CI/CD build ($30K-$150K) | Managed Platform ($5K-$25K/mo) | $100K-$400K |
-| Well-Architected Review | Remediation, architecture redesign ($20K-$100K) | Public Cloud Management ($3K-$15K/mo) | $75K-$250K |
 
-### Assessment Delivery Model
-
-Every assessment follows a standardized engagement workflow:
-
-1. **Identify** -- AE spots pain signals using StoryLeader methodology. Maps to one of three narrative questions: "What are you dealing with right now?" (Infrastructure Risk, Security Posture), "Where do you want to be?" (Hybrid Cloud, Repatriation, Platform Modernization, Well-Architected), "What's holding you back?" (Operational Maturity, Infrastructure Risk, Security Posture).
-1. **Qualify** -- AE uses sell sheet sizing questions to estimate t-shirt size (S/M/L/XL). Each size has a defined scope, team composition, timeline, and deliverable set.
-1. **Scope** -- SA joins scoping call, refines scope, confirms deliverables, prepares SOW language from deliverable scope templates.
-1. **Deliver** -- SA leads execution. For S engagements, SA works solo (20-40 hours). For M, SA + 1 specialist (50-90 hours). For L, SA + 2 specialists (100-170 hours). For XL, SA + 2-3 specialists + executive sponsor (200-300+ hours).
-1. **Present** -- SA presents findings to customer. AE is in the room to identify follow-on signals. The assessment report becomes the business case for the Execute and Operate motions.
-1. **Convert** -- AE proposes follow-on engagement using the assessment as the evidence base. The assessment-to-service mapping above defines the natural next step.
-
-### Assessment Revenue Projections (Year 1)
-
-Based on 36 priority accounts pre-mapped in the customer-to-assessment matrix:
-
-| Metric | Year 1 Target |
-| --- | --- |
-| Assessments pitched | 14-18 |
-| Assessments sold (40-50% close rate) | 11-14 |
-| Assessment revenue (weighted by t-shirt mix) | $140K-$207K |
-| Follow-on conversion (60-70%) | 8-9 opportunities |
-| Follow-on deals closed (50-60%) | 4-5 deals |
-| Follow-on revenue (PS + partial-year recurring) | $190K-$600K |
-| **Total Year 1 (assessment + follow-on)** | **$330K-$807K** |
-
-The assessment revenue itself ($140K-$207K) is not the point. The point is the $190K-$600K in follow-on revenue and the recurring managed services relationships that persist for years.
-
-### How Assessments Funnel Customers to Aptum
-
-The assessments serve as the structured entry point for customers coming from two primary origins:
-
-**From on-premises (non-Aptum infrastructure):** Infrastructure Risk Assessment and Operational Maturity Assessment are the primary entry points. These customers have aging hardware, overwhelmed IT teams, and deferred maintenance. The assessment documents the risk, the remediation roadmap points at Aptum infrastructure (VPC, Private Cloud) with managed services stacked on top. The customer moves from self-managed on-prem to Aptum-managed hybrid.
-
-**From hyperscalers (pulled back to Aptum services):** Cloud Repatriation Assessment and Well-Architected Review are the primary entry points. These customers have rising cloud bills, flat usage, and workloads that don't need to be in a hyperscaler. The assessment builds the financial business case for selective repatriation to Aptum Dedicated Cloud (KVM/CloudStack through Aptum Portal) or Private Cloud (VMware/Proxmox, for customers with existing VMware requirements), with managed services providing the operational capability they would lose by leaving the hyperscaler's managed offerings.
-
-**From hybrid-by-accident (rationalization):** Hybrid Cloud Assessment catches customers who have sprawled across on-prem, colo, and one or more hyperscalers without a deliberate strategy. The assessment maps workloads to optimal placement and builds a rationalization plan that typically consolidates through Aptum Portal.
-
-**Security-driven entry:** Security Posture Assessment catches customers with compliance obligations, audit findings, or simply aging security infrastructure. The assessment documents the gap, and the remediation path includes both infrastructure upgrades (Execute) and ongoing managed security services (Operate).
-
-**Platform-driven entry:** App & Platform Modernization Assessment catches customers whose application ambitions have outgrown their infrastructure. They want containers, CI/CD, and modern deployment patterns but are running on 7-year-old hardware with no platform strategy. The assessment defines the target platform and the path to get there, landing on Aptum-managed Kubernetes and CloudStack.
 
 ---
 
@@ -185,29 +134,15 @@ The technical depth that makes managed services defensible is broader than commo
 
 The managed services catalog defines five layers that stack on top of any infrastructure commodity:
 
-| Layer | What It Delivers | Assessment That Drives It | Revenue Uplift | Delivering Team |
+| Layer | What It Delivers | Assessment That Drives It | Delivering Team |
 | --- | --- | --- | --- | --- |
-| L1: Infrastructure Monitoring | 24/7 hardware monitoring, alert triage, hardware replacement SLA, network monitoring | Infrastructure Risk Assessment | Included (cost already incurred) | Service Desk (Jason), DC Ops (George), Network (Ben) |
-| L2: Managed OS | OS patching, Veeam backup, managed firewall, endpoint security | Infrastructure Risk, Operational Maturity, Security Posture | +$2K to $5K/mo | Managed Cloud (Andrei) + Service Desk (firewall L2 ops) |
-| L3: App Platform | Datadog APM, WAF, DDoS protection, L7 load balancing, DB tuning | Platform Modernization, Hybrid Cloud, Well-Architected Review | +$3K to $8K/mo | Managed Cloud (Andrei) |
-| L4: Security & Compliance | Alert Logic MDR, compliance reporting, vulnerability scanning | Security Posture Assessment | +$2K to $5K/mo | Managed Cloud (Andrei) + Alert Logic (partner) |
-| L5: Business Continuity | DRaaS, BCP planning, hybrid interconnects, M365, managed DNS | Hybrid Cloud, Cloud Repatriation | +$1.5K to $5K/mo | Managed Cloud (Andrei) + Network (Ben) |
+| L1: Infrastructure Monitoring | 24/7 hardware monitoring, alert triage, hardware replacement SLA, network monitoring | Infrastructure Risk Assessment | Service Desk, DC Ops, Networking |
+| L2: Managed OS | OS patching, Veeam backup, managed firewall, endpoint security | Infrastructure Risk, Operational Maturity, Security Posture | Managed Cloud + Service Desk |
+| L3: App Platform | Datadog APM, WAF, DDoS protection, L7 load balancing, DB tuning | Platform Modernization, Hybrid Cloud, Well-Architected Review | Managed Cloud |
+| L4: Security & Compliance | Alert Logic MDR, compliance reporting, vulnerability scanning | Security Posture Assessment | Managed Cloud + Alert Logic |
+| L5: Business Continuity | DRaaS, BCP planning, hybrid interconnects, M365, managed DNS | Hybrid Cloud, Cloud Repatriation | Managed Cloud + Networking |
 
-The stacking math is compelling. A mid-market customer with 20 VMs on VPC + Azure hybrid:
-
-| Component | Monthly Revenue |
-| --- | --- |
-| Infrastructure commodity (VPC + Azure) | $7,000 |
-| L2: Managed OS (patching + Veeam) | $3,500 |
-| L2: Managed Firewall | $500 |
-| L3: Datadog APM (20 hosts) | $2,500 |
-| L3: WAF (2 web apps) | $1,000 |
-| L4: Alert Logic MDR | $2,500 |
-| L5: DRaaS (8hr RTO, 1hr RPO) | $3,000 |
-| L5: ExpressRoute | $800 |
-| **Total MRR** | **$20,800** |
-
-Compare to the same customer buying unmanaged VPC only: $7,000/mo. Managed services nearly triple revenue per customer. The assessment is what produces the evidence that justifies each layer.
+The assessment is what produces the evidence that justifies each layer.
 
 ### Pillar 2: Aptum IaaS and the Cloud-Agnostic Stack (The Infrastructure Foundation)
 
@@ -231,7 +166,6 @@ Aptum IaaS, delivered through the Aptum Portal, is the new infrastructure produc
 
 The board demo on March 31 confirmed production readiness of VPC and Dedicated Cloud. Dave Pistacchio called it "true private cloud" and directed the team to determine a fast-follow GTM timeline.
 
-Pre-launch validation: 7 Ignite customers, $39,119/mo CAD MRC, 36-month contracts. Gross margins of 74 to 89%.
 
 Key differentiators vs. hyperscalers:
 
@@ -315,15 +249,8 @@ The managed services catalog (see separate document) defines the five layers in 
 
 ### Assessment-Driven Onboarding Paths
 
-| Customer Origin | Entry Assessment | Execute Step | Operate Destination | Expected MRC |
-| --- | --- | --- | --- | --- |
-| On-prem with aging hardware | Infrastructure Risk | Hardware refresh or migration to VPC/Private Cloud | L1 + L2 (Monitoring + Managed OS) | $5K-$15K/mo |
-| Hyperscaler with rising costs | Cloud Repatriation | Selective repatriation to Dedicated Cloud (KVM/Aptum Portal) or Private Cloud (VMware/Proxmox) | L1 + L2 + L5 (Monitoring + Managed OS + Hybrid Connectivity) | $10K-$50K/mo |
-| Hybrid-by-accident | Hybrid Cloud | Architecture rationalization, workload placement | L2 + L3 + L5 (Managed OS + App Platform + Hybrid Connectivity) | $8K-$25K/mo |
-| Compliance-driven | Security Posture | Security remediation, firewall upgrades | L2 + L4 (Managed Firewall + Security & Compliance) | $5K-$17K/mo |
-| Overwhelmed IT team | Operational Maturity | Managed services transition | L2 + L3 + L4 (full ops handoff) | $8K-$30K/mo |
-| Modern app on legacy infra | Platform Modernization | K8s/platform build | L2 + L3 (Managed OS + App Platform) | $8K-$25K/mo |
-| Unreviewed cloud estate | Well-Architected Review | Remediation project | L3 + Public Cloud Management | $6K-$15K/mo |
+Every assessment produces findings that map to a specific engagement tier and addon stack. For the full path detail, see the [Managed Services Catalog](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257560095/Managed+Services+Catalog).
+
 
 ---
 
@@ -331,29 +258,6 @@ The managed services catalog (see separate document) defines the five layers in 
 
 Each motion is delivered by specific operational teams. The organizational model does not require a reorg. The motion determines ticket routing and resource allocation, not the org chart.
 
-### Team Domain Map
-
-| Team | Leader | Domain | Advisory Role | Execute Role | Operate Role |
-| --- | --- | --- | --- | --- | --- |
-| Service Desk / NOC | Jason Auer | Infrastructure operations (24/7) | Data collection support for assessments | Contributing resource for infrastructure projects | Operates L1 monitoring, dispatches hardware, L2 firewall ops |
-| Managed Cloud | Andrei Ianouchkevitch | OS layer and above, all cloud platforms | Subject matter expertise for assessments | Contributing resource for migrations, remediations | Operates L2 through L5 managed services |
-| Compute Platforms | Martin Tessier | Server builds, configuration standards | Environment documentation for assessments | Builds compute environments for Execute projects | Hands off to Service Desk or Managed Cloud |
-| Data Center Ops | George Revie | Physical infrastructure across 8 locations | Physical asset inventory for Infrastructure Risk assessments | Hardware deployment for refresh projects | Racks, cabling, power, remote hands |
-| Networking | Ben Kennedy | MPLS, internet, cloud connects | Network topology documentation for assessments | Connectivity implementation for Execute projects | OSI Layer 1 to 3 operations |
-| HSA | Pat Wolthausen + 3 architects | Pre-sales design, SOW scoping | **Leads assessment delivery** (SA role) | Defines technical scope for Execute SOWs | Target: 50%+ billable utilization |
-| HSDM | Lacie Allen-Morley | Project delivery (non-recurring / Execute motion) | AE coordination during assessment delivery | **Owns Execute project delivery** and timeline | Hands to CSM at project close |
-| CSM | Lacie Allen-Morley | Recurring customer relationship, account ops | n/a | Supports customer continuity between Execute engagements | Inbound queues, orders, renewals, credits, cancellations; proactive retention |
-| Professional Services | (Open, no defined manager) | Project-based execution | Assessment framework ownership (to be assigned) | Cross-functional Execute delivery | Handoff to operational teams |
-| Operational Intelligence | Jorge Quintero | Data pipelines, unified customer view | Assessment data analysis support | Metrics and reporting for project outcomes | Unified monitoring and customer view |
-
-### The Routing Model
-
-The JSM project structure already implements the domain split:
-
-- APTUM project (56,381+ tickets): Infrastructure-layer tickets. Zabbix alerts, LogicMonitor, hardware health, Veeam reports, customer firewall/port requests. Jason's team triages and resolves.
-- CUST-\* projects (21 projects, active customers): Platform-layer tickets. Datadog incidents, Azure platform requests, app-level issues, TLS/SSL, SQL outages. Andrei's team owns.
-
-No reorg needed. The product tier determines whether a customer gets an APTUM ticket flow (L1 infrastructure ops) or a CUST-\* ticket flow (L2+ managed services). The model extends naturally to new commodities (CloudStack, Proxmox, BMaaS) because the skill split is the same: Jason's team has hypervisor and bare-metal expertise, Andrei's team has cloud-platform and application expertise.
 
 ---
 
@@ -367,19 +271,7 @@ What the Aptum Portal does not yet do is surface the managed services layers. A 
 
 This is the highest-priority product gap. Making managed services visible in the portal converts the Aptum Portal from a provisioning tool into a retention engine.
 
-### Portal Visibility Roadmap
-
-| Layer | What Should Be Visible | Priority | Dependencies |
-| --- | --- | --- | --- |
-| Commodity (L0) | VM status, cost estimator, usage reports | Live | Done |
-| L1: Infra Monitoring | Uptime dashboard, alert history, incident status | High | Zabbix/LogicMonitor API integration |
-| L2: Managed OS | Patch compliance, backup success/failure, firewall audit log | High | Veeam + patching tool API integration |
-| L3: App Platform | Datadog dashboards (embed/link), WAF events, LB health | Medium | Datadog API + Imperva API integration |
-| L4: Security | MDR threat dashboard, compliance status, scan results | Medium | Alert Logic API integration |
-| L5: BCP/Hybrid | DR plan status, last test result, interconnect up/down | Medium | Custom dashboard from runbook data |
-| Support | Ticket status, SLA compliance, contact info | High | JSM API integration |
-
-L1 + L2 portal visibility and support ticket integration are the highest-impact items. They affect every managed customer and should be the engineering priority.
+Making managed services visible in the portal is the highest-priority product gap. L1 and L2 visibility (monitoring dashboards, patch compliance, backup status) affect every managed customer and should be the engineering priority. See the [Managed Services Catalog](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257560095/Managed+Services+Catalog) for the full integration roadmap.
 
 ---
 
@@ -397,7 +289,7 @@ Recommended assessment plays for existing base:
 - Multi-LOB customers (135 accounts, $1.8M/mo): Security Posture Assessment or Hybrid Cloud Assessment. These customers already buy across product lines. The assessment identifies the next layer of managed services to stack.
 - Cloud-only customers (~116 accounts, $18K/mo): Well-Architected Review. These customers are on hyperscaler infrastructure managed through Aptum Portal. The review identifies optimization opportunities and opens the managed services conversation.
 
-Target: Move managed services penetration from 6.5% to 15% within 12 months. At current portfolio size, that represents approximately $100K to $250K in incremental MRC from upsell alone.
+The contract renewal concentration (72% of revenue expiring within 6 months) makes every renewal conversation an assessment opportunity.
 
 ### Engine 2: New Logo Acquisition on Aptum IaaS (Grow)
 
@@ -410,8 +302,6 @@ Recommended assessment plays for new logos:
 - VMware customers feeling Broadcom pressure: Hybrid Cloud Assessment or Cloud Repatriation Assessment. The assessment builds the business case for moving to Dedicated Cloud (KVM/CloudStack via Aptum Portal) or Private Cloud (Proxmox on dedicated hardware) on Aptum IaaS.
 - Cloud-fatigued mid-market: Cloud Repatriation Assessment. The assessment documents the overspend and models the savings from selective repatriation.
 - Compliance-driven organizations: Security Posture Assessment. The assessment documents the compliance gaps and positions Aptum's managed security stack as the remediation path.
-
-Target: Phase 1 (Q2 2026) focuses on revenue enablement and operational readiness. Phase 2 (Q3 to Q4 2026) expands the catalog (MAAS, Proxmox, Kubernetes) and recruits MSP resellers. Phase 3 (H1 2027) scales to multi-region and activates AWS/GCP through the portal.
 
 The Broadcom disruption is the market catalyst. 35% of VMware workloads migrating by 2028 per Gartner. Aptum's CloudStack and Proxmox alternatives, delivered through Aptum Portal with managed services stacking, are a direct answer.
 
@@ -427,15 +317,6 @@ The Latitude.sh and Megaport intersection in Miami, as discussed in the March 31
 
 This is the new engine, formalized by the STG Assessment Playbook. It is the mechanism that feeds Engines 1 through 3.
 
-The assessment framework maps to three marketing campaigns targeting specific customer pain points:
-
-| Campaign | Target | Primary Assessment CTA | Expected Yield |
-| --- | --- | --- | --- |
-| "The Cloud You Can't Escape" (Executive Dinners) | Whales with $5M-$20M+ cloud spend | Cloud Repatriation Assessment | 3-5 assessment opportunities per event, 1-3 high-margin repatriation projects |
-| "Time to Grow Up" (Content-Led Outbound) | Post-scale companies ($50M-$300M revenue, PE/VC-backed) | Hybrid Cloud Assessment | Awareness to assessment conversion over 60-90 day nurture |
-| "The Cloud Hangover" (Physical Mailer + White Paper) | Cloud-fatigued mid-market | Hybrid Cloud or Cloud Repatriation Assessment | Physical touchpoint drives digital engagement, assessment is the conversion point |
-
-Year 1 pipeline target: 14-18 assessments pitched, 11-14 sold, $330K-$807K total revenue (assessment + follow-on).
 
 ---
 
