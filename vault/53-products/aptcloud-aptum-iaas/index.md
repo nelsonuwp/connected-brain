@@ -1,6 +1,1 @@
-<<<<<<< HEAD
-=======
-Test
-
-#### Adding more content to see if that’s the issue.
->>>>>>> confluence
+> This page has moved. See **Aptum Portal** for current content.
