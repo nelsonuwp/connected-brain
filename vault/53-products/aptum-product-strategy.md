@@ -27,6 +27,10 @@ The company has two core assets that make this possible:
 
 These two assets, combined with operational teams that manage everything from the physical rack to the application layer, and with deep technical expertise in hyperscaler MSP delivery, Kubernetes, DevOps, and platform engineering, are what lets Aptum sell managed outcomes rather than just infrastructure components.
 
+### Product naming: outcomes, not tools
+
+Customer-facing product names are vendor-neutral. The customer buys "Managed Backup," not the underlying tool. The customer buys "App Performance Monitoring," not a specific platform. Vendor and tool names belong in delivery team documentation, not in customer-facing materials. This is a deliberate choice: it protects flexibility (Aptum can change implementations without changing product SKUs), keeps the brand promise of tech-agnostic guidance honest, and prevents the product catalog from becoming a list of vendor relationships.
+
 ### Brand promise and the forever-operate goal
 
 The Identity & Values brand promise commits that customer solutions are designed to be maintained "with or without us, so you can grow on your own terms." The strategy commits that every engagement should funnel toward an Operate outcome and that recurring management is where the margin lives. These are not in tension. The customer is always free to leave; the goal is to operate the customer's environment so much better than they could in-house that staying is the obvious choice. The freedom to leave is real and is part of the brand promise. The way Aptum earns forever is by being better than DIY, not by lock-in.
@@ -329,8 +333,6 @@ Strategic clarity requires saying no to some things:
 We stop positioning VPC as a lead product for new logos. Marc Pare was explicit: VPC is the "french fries, not the hamburger." It is a cost management and margin play for existing workloads, not a go-to-market product. New logo hunting leads with Dedicated Cloud, Private Cloud, and managed services.
 
 We stop reselling hyperscaler subscriptions at a loss. Ian Rae identified this directly for Azure: "We have to get out of the mindset of I'm going to resell Azure and support at a loss." The principle is the same for AWS and GCP. Hyperscaler subscription revenue is a vehicle for managed services revenue, not an end in itself. The margin is in the management layer, not the resell.
-
-We stop building service guides around vendor names. Service guides describe outcomes, not implementations. The customer buys "Managed Backup," not the underlying tool. They buy "App Performance Monitoring," not the specific platform. Vendors and tools are implementation details that the delivery teams care about; they are not the product the customer is buying. This also creates the freedom to swap implementation vendors without breaking the customer-facing product.
 
 We stop hiding the agnostic guidance behind a managed-services-first reflex. The brand promises tech-agnostic guidance: the customer should expect Aptum to recommend the right answer for their situation, even when that answer is "stay on AWS, here is how to optimize." The advisory motion is built to do this honestly. The downstream conversion to Aptum-stack services depends on the credibility of the upstream advice, not on steering it.
 

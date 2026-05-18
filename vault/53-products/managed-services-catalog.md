@@ -20,20 +20,11 @@ Every customer relationship has three layers.
 
 The tier determines the support floor the customer receives, which addons are available, and how much of the day-to-day Aptum holds.
 
-**Managed Service Addons** are purchasable services that stack on top of any commodity. Each addon is available in one of two delivery modes:
+**Managed Service Addons** are purchasable services that stack on top of any commodity. Each addon is one product with two modes of operation, determined by tier. On Reactive, Aptum runs the tooling and keeps the customer in the loop on results and decisions. On Proactive, Aptum owns the outcome and acts without pulling the customer into routine decisions. The addon is the same product either way. What changes is who holds responsibility for it.
 
-- **Machine Managed (MM)**: tooling runs automatically; customer reviews results and approves actions. Available at the Reactive tier.
-- **Expert Managed (EM)**: Aptum's team owns the outcome and acts proactively. Available at the Proactive tier.
-
-Dedicated customers have no addon access. Reactive customers get MM addons. Proactive customers get EM addons.
+Dedicated customers have no addon access. The addon detail tables in this catalog show what Aptum does at each tier for every service.
 
 The assessment framework (see [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.2) defines how customers enter this catalog and which tier they belong on.
-
----
-
-## Naming convention: products vs. implementation
-
-Customer-facing product names in this catalog are vendor-neutral. The customer buys "Managed Backup," not the underlying tool. The implementation detail (which platform delivers the service) is captured in the description column where it informs delivery teams. This is a deliberate choice: vendor neutrality in product names protects flexibility (Aptum can change implementations without changing product SKUs) and aligns with the brand promise of tech-agnostic guidance. Service guides for delivery teams may reference specific vendor tooling; customer-facing materials should not.
 
 ---
 
