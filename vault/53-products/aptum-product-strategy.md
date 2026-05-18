@@ -16,7 +16,7 @@ This strategy is the operating realization of that brand promise. The brand comm
 
 ## The Position
 
-Aptum is a hybrid cloud managed services provider built on the principle that the right workload runs on the right platform. Aptum is truly cloud agnostic. Customers can run on any of the major hyperscalers (Azure, AWS, GCP), on Aptum-delivered virtual or dedicated infrastructure (VPC, Dedicated Cloud), on dedicated VMware or Proxmox stacks, or on bare metal. Aptum's job is to help the customer figure out which of these is right for which workload, deliver it, manage it, and remove the complexity of running it across more than one place.
+Aptum is a hybrid cloud managed services provider built on the principle that the right workload runs on the right platform. Aptum is cloud agnostic. Customers can run on any of the major hyperscalers (Azure, AWS, GCP), on Aptum-delivered virtual or dedicated infrastructure (VPC, Dedicated Cloud), on dedicated VMware or Proxmox stacks, or on bare metal. Aptum's job is to help the customer figure out which of these is right for which workload, deliver it, manage it, and remove the complexity of running it across more than one place.
 
 The aspiration is to be the company that makes infrastructure disappear into the background for mid-market organizations, so they can focus on their business instead of managing servers, patching operating systems, and arguing about firewall rules.
 
@@ -82,25 +82,25 @@ The product discussion on March 31, 2026 (with Ian Rae, Marc Pare, Marc Alex For
 
 This strategy formalizes those mechanisms into three distinct motions that operate as a funnel:
 
-**Motion 1: Advisory (Assess)** -- Structured assessments that diagnose the customer's environment, quantify risk, and produce a roadmap. These are the tip of the spear. They build trust, create technical intimacy, and generate the evidence base that justifies the investment in Motions 2 and 3.
+**Motion 1: Advisory (Assess)**: Structured assessments that diagnose the customer's environment, quantify risk, and produce a roadmap. They are the entry point: they build trust, map the customer's environment, and produce the evidence that justifies the investment in Motions 2 and 3.
 
-**Motion 2: Execute (Implement)** -- Project-based professional services that act on the assessment findings. Migrations, hardware refreshes, architecture redesigns, security remediations, platform builds. These are scoped by HSA, delivered by cross-functional teams, and handed off to operational teams.
+**Motion 2: Execute (Implement)**: Project-based professional services that act on the assessment findings. Migrations, hardware refreshes, architecture redesigns, security remediations, platform builds. These are scoped by HSA, delivered by cross-functional teams, and handed off to operational teams.
 
-**Motion 3: Operate (Manage)** -- Recurring managed services stacked on infrastructure commodities. This is where the margin lives. This is what makes the customer sticky. Every advisory engagement and every execution project should have a clear line of sight to an operate outcome.
+**Motion 3: Operate (Manage)**: Recurring managed services stacked on infrastructure commodities. This is where the margin lives and where customers become sticky. Every advisory engagement and every execution project should have a clear line of sight to an operate outcome.
 
 The three motions are not independent business lines. They are a funnel:
 
 ```
-ADVISORY (Assess)           EXECUTE (Implement)           OPERATE (Manage)
-$5K-$40K one-time    -->    $5K-$300K project      -->    $15K-$48K/mo recurring
-                                                          (The Margin. The Retention.)
+ADVISORY (Assess) EXECUTE (Implement) OPERATE (Manage)
+$5K-$40K one-time --> $5K-$300K project --> $15K-$48K/mo recurring
+ (The Margin. The Retention.)
 ```
 
 Every $1 spent in assessment revenue generates $2-3 in follow-on revenue within 12 months. The highest-ROI assessments (Cloud Repatriation, Operational Maturity) generate 10-20x follow-on multipliers.
 
 ---
 
-## Motion 1: Advisory -- The Assessment Framework
+## Motion 1: Advisory: The Assessment Framework
 
 Professional services historically operated as an undifferentiated bucket. The STG Assessment Playbook formalizes the advisory motion into seven structured assessments, each designed to answer a specific customer pain point and funnel toward specific managed services and infrastructure outcomes.
 
@@ -115,10 +115,6 @@ Professional services historically operated as an undifferentiated bucket. The S
 | Operational Maturity | Small IT team spending 80%+ time on reactive work | Managed services transition (Execute) then Proactive tier full stack (Operate) |
 | App & Platform Modernization | Legacy infrastructure under modern apps, immature CI/CD | Platform build (Execute) then Proactive tier managed platform (Operate) |
 | Well-Architected Review | Unreviewed cloud estate, cost overruns, security concerns | Remediation (Execute) then Reactive or Proactive tier with FinOps (Operate) |
-
-
-
-
 
 ---
 
@@ -166,7 +162,6 @@ Aptum IaaS, delivered through the Aptum Portal, is the new infrastructure produc
 
 The board demo on March 31 confirmed production readiness of VPC and Dedicated Cloud. Dave Pistacchio called it "true private cloud" and directed the team to determine a fast-follow GTM timeline.
 
-
 Key differentiators vs. hyperscalers:
 
 - Predictable pricing (per vCPU/GB, no transaction costs, no surprise egress)
@@ -197,7 +192,7 @@ Post-Aptum: $18,000/month total ($10K Azure + $2K Aptum IaaS + $6K dedicated ser
 
 ---
 
-## Motion 2: Execute -- Professional Services Delivery
+## Motion 2: Execute: Professional Services Delivery
 
 The Execute motion sits between Advisory and Operate. It is the project-based work that acts on assessment findings and prepares the customer's environment for ongoing managed services.
 
@@ -241,7 +236,7 @@ The Execute motion needs two things to scale:
 
 ---
 
-## Motion 3: Operate -- The Managed Services Destination
+## Motion 3: Operate: The Managed Services Destination
 
 Every advisory engagement and every execution project should have a clear line of sight to an operate outcome. If the answer to "where does this lead in terms of recurring managed services?" is "nowhere," the engagement does not align with the strategy.
 
@@ -251,13 +246,11 @@ The managed services catalog (see separate document) defines the five layers in 
 
 Every assessment produces findings that map to a specific engagement tier and addon stack. For the full path detail, see the [Managed Services Catalog](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257560095/Managed+Services+Catalog).
 
-
 ---
 
 ## The Service Teams That Deliver This
 
 Each motion is delivered by specific operational teams. The organizational model does not require a reorg. The motion determines ticket routing and resource allocation, not the org chart.
-
 
 ---
 
@@ -317,12 +310,11 @@ The Latitude.sh and Megaport intersection in Miami, as discussed in the March 31
 
 This is the new engine, formalized by the STG Assessment Playbook. It is the mechanism that feeds Engines 1 through 3.
 
-
 ---
 
 ## The MAAS Differentiator
 
-The CloudStack 4.22 Extensions Framework enables integration with Canonical MAAS (Metal as a Service) without core Java development. When MAAS is implemented, Aptum will be able to offer bare-metal provisioning through the same Aptum Portal portal that handles VMs, public cloud, and managed services.
+The CloudStack 4.22 Extensions Framework lets integration with Canonical MAAS (Metal as a Service) without core Java development. When MAAS is implemented, Aptum will be able to offer bare-metal provisioning through the same Aptum Portal portal that handles VMs, public cloud, and managed services.
 
 This is a market differentiator because no other mid-market MSP offers self-service bare metal + VPC + private cloud + hyperscaler management through a single portal with managed services layered on top. The closest competitors (OVH, Hetzner) offer bare metal but not managed services. The managed services competitors (Rackspace, Navisite) offer managed services but not self-service bare metal.
 
@@ -367,7 +359,7 @@ We do not adopt Build-Operate-Transfer (BOT) as a strategic motion. BOT remains 
 1. Aptum Portal naming is resolved (the previous placeholder was the old name). The supporting Confluence pages ([AptCloud - Aptum IaaS Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257494536/AptCloud+-+Aptum+IaaS+Strategy), [AptCloud - Aptum IaaS PRD](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257560073/AptCloud+-+Aptum+IaaS+PRD)) still carry the old AptCloud prefix in their titles and should be renamed in a separate housekeeping pass.
 1. AI and GPU positioning is undecided. Aptum sits at the server level and does not buy GPUs. There is real customer demand and partner interest (5C.ai for AI private clouds, the broader market for AI infrastructure), and there are partner conversations in flight. The strategy does not currently take a position on whether AI infrastructure becomes a Phase 3 roadmap item, a partner-led offering, or a deliberate "stop doing." A decision is needed; until then, opportunistic engagement is acceptable but should not drive product commitments.
 1. Professional Services needs a service manager. The operating model has a gap. No single owner coordinates PS delivery (both advisory and execute), resource allocation, and margin accountability. With the advisory/execute formalization, this role becomes even more critical: the PS service manager needs to own assessment pipeline tracking, delivery quality, and follow-on conversion metrics.\
-   **Update (April 15, 2026):** The CEM/customer relationship gap previously noted has been resolved by splitting Lacie's org into two distinct functions: HSDM (project delivery / Execute motion, non-recurring) and a new Customer Success Management (CSM) function (recurring customer ops, queues, orders, renewals, proactive retention). Both report to Lacie Allen-Morley. HSDM hands to CSM at project close; CSM hands back to HSDM at new engagement start.
+ **Update (April 15, 2026):** The CEM/customer relationship gap previously noted has been resolved by splitting Lacie's org into two distinct functions: HSDM (project delivery / Execute motion, non-recurring) and a new Customer Success Management (CSM) function (recurring customer ops, queues, orders, renewals, proactive retention). Both report to Lacie Allen-Morley. HSDM hands to CSM at project close; CSM hands back to HSDM at new engagement start.
 1. Alert Logic MDR timeline and commercial model are undefined. Listed as "IN DEVELOPMENT" in service guides. Is it partner-delivered (Alert Logic SOC) or Aptum-operated with Alert Logic tooling? This directly affects the Security Posture Assessment follow-on path.
 1. Pricing for managed service layers is placeholder. The catalog uses ranges ($2K to $5K, $3K to $8K). These need validation with Sarah Blanchard (finance) and Fred's commercial team before the sales team can quote. Assessment follow-on conversion depends on having firm pricing to present alongside assessment findings.
 1. Portal integration engineering effort is unknown. 15+ integration points identified in the catalog (Zabbix, Veeam, Datadog, JSM, Alert Logic, etc.) with no LOE estimates from Will's team.

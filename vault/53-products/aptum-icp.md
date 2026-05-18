@@ -12,7 +12,7 @@ The earlier Product Strategy v1.3.1 ([Confluence page](https://aptum.atlassian.n
 
 This document defines one Ideal Customer Profile. It also defines what an ideal customer is not, using real portfolio data to show where the current customer base aligns and where it diverges. It integrates the assessment framework as the qualification and onboarding mechanism: the way Aptum determines whether a prospect fits the ICP, builds the relationship, and funnels the customer into the managed services and infrastructure stack.
 
-The ICP also reflects the brand promise that anchors product strategy. Aptum's brand commits to the right workload on the right platform, the right expertise at the right time, and your cloud, your way. The ideal customer is one who values that proposition: someone with workloads that genuinely belong on different platforms, the operational maturity to want a partner instead of a single vendor, and the willingness to pay for managed services that are demonstrably better than what they could do in-house.
+The ICP also reflects the brand promise that anchors product strategy. Aptum's brand commits to the right workload on the right platform, the right expertise at the right time, and your cloud, your way. The ideal customer is one who values that proposition: someone with workloads that belong on different platforms, the operational maturity to want a partner instead of a single vendor, and the willingness to pay for managed services that are demonstrably better than what they could do in-house.
 
 ---
 
@@ -88,19 +88,19 @@ A Salesforce opportunity is created. The proposal is an Infrastructure Risk and 
 
 **The Infrastructure Risk and Readiness Assessment (~$15,000)**
 
-The assessment covers the full environment: all 100 VMs catalogued and risk-scored, the ERP ecosystem dependency-mapped so the 15 machines that actually run the business are clearly identified, network architecture reviewed against the office move requirements, and a DR gap analysis tested against the two to three hour RTO. The documentation gap left by the departing engineer gets closed here too. Aptum produces the runbook that should have existed already.
+The assessment covers the full environment: all 100 VMs catalogued and risk-scored, the ERP environment dependency-mapped so the 15 machines that actually run the business are clearly identified, network architecture reviewed against the office move requirements, and a DR gap analysis tested against the two to three hour RTO. The documentation gap left by the departing engineer gets closed here too. Aptum produces the runbook that should have existed already.
 
 What it produces: a prioritized remediation roadmap, a clear picture of what moves to Aptum infrastructure and what stays, and the evidence base for every commercial conversation that follows. The customer does not need to be convinced they have a problem. The assessment already proved it.
 
 **Execute: Two Phases Driven by the Spring Deadline**
 
-Phase 1 (before March): Migrate the ERP ecosystem to Aptum Dedicated or Private Cloud, properly documented and redundant, with a managed handoff. Network design and hardware refresh across all three locations. DRaaS implemented and tested against the two to three hour RTO before the move happens. (~$75,000 to $150,000 SOW)
+Phase 1 (before March): Migrate the ERP environment to Aptum Dedicated or Private Cloud, properly documented and redundant, with a managed handoff. Network design and hardware refresh across all three locations. DRaaS implemented and tested against the two to three hour RTO before the move happens. (~$75,000 to $150,000 SOW)
 
 Phase 2 (post-move): The remaining VM estate gets rationalized. What moves to hosted infrastructure, what gets decommissioned, what gets backed up and left alone. (~$25,000 to $50,000 SOW)
 
 **Operate: What the Relationship Looks Like Ongoing**
 
-With the ERP ecosystem on Aptum infrastructure, Managed Cloud wraps around it: 24/7 monitoring, OS patching, Managed Backup, and Managed Firewall across the ERP environment. DRaaS provides ongoing tested recovery with a defined RTO. Network management covers all three locations.
+With the ERP environment on Aptum infrastructure, Managed Cloud wraps around it: 24/7 monitoring, OS patching, Managed Backup, and Managed Firewall across the ERP environment. DRaaS provides ongoing tested recovery with a defined RTO. Network management covers all three locations.
 
 The CIO stops being the person who gets called at 2am. The business stops depending on who happens to be sitting in the IT chair.
 
@@ -110,7 +110,6 @@ The customer did not come to Aptum looking for any of this. They came because an
 
 ---
 
-
 ### What a Relationship Is Worth
 
 | Stage | Revenue Type | Typical Value |
@@ -118,7 +117,6 @@ The customer did not come to Aptum looking for any of this. They came because an
 | Assessment (Advisory) | One-time, fixed-fee | $5K to $40K |
 | Implementation (Execute) | One-time, SOW-based | $5K to $300K |
 | Managed Services (Operate) | Monthly recurring | $15K to $48K/mo |
-
 
 ---
 
@@ -148,8 +146,6 @@ The dimServices extract (April 1, 2026) tells an honest story about the current 
 | Total services | 5,581 |
 | Unique customers | 773 |
 | Datacenters | 26 across 21 cities |
-
-
 
 ### Managed Services Penetration
 
@@ -190,13 +186,11 @@ This is what "it wasn't meant to be forever" looks like operationally.
 
 Customers arrive from five origins: on-premises with aging hardware, hyperscaler with rising costs, hybrid sprawl, compliance pressure, and platform modernization needs. Each origin maps to a specific assessment entry point and lands on a specific engagement tier. For the full path detail, see the [Managed Services Catalog](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257560095/Managed+Services+Catalog).
 
-
 ---
 
 ## Geographic Focus
 
 ### Where to Hunt
-
 
 For new logo acquisition against the ICP:
 
@@ -215,7 +209,6 @@ For MSP/reseller channel (secondary):
 
 ---
 
-
 ---
 
 ## Market Tailwinds Supporting This ICP
@@ -226,14 +219,13 @@ The Broadcom/VMware disruption is real and ongoing. Gartner estimates 35% of VMw
 
 Cloud repatriation is accelerating. Andreessen Horowitz's "Cost of Cloud" research and the 37signals case study ($7M savings over 5 years from their cloud exit) have given mid-market CFOs permission to question their hyperscaler bills. 21% of surveyed organizations have repatriated workloads. Aptum's ability to provide private cloud with a public-cloud-like portal experience (through Aptum Portal) positions it as the repatriation destination. The Cloud Repatriation Assessment is designed to capitalize on this trend with a structured business case methodology.
 
-
 ---
 
 ## Using This ICP
 
 ### For Sales (New Logo)
 
-The ideal first conversation is an assessment. This is the tip of the spear. It builds trust, maps the customer's environment, and creates the technical intimacy that leads to infrastructure and managed services revenue. It is the start of the relationship, not the end.
+The ideal first conversation is an assessment. It maps the customer's environment, builds the technical knowledge to have a credible follow-on conversation, and produces the evidence that justifies the investment in managed services. It starts the relationship.
 
 The StoryLeader methodology maps to three narrative questions that guide assessment selection:
 
