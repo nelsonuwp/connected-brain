@@ -292,7 +292,7 @@ Professional services are organized into two distinct motions with different del
 The advisory motion consists of seven structured assessments that diagnose the customer's environment, quantify risk, and produce a roadmap. Each assessment is a fixed-fee, t-shirt-sized engagement (S/M/L/XL) led by a Solution Architect. The assessment deliverable is the business case for the Execute and Operate motions that follow.
 
 | Assessment | What It Produces | Tier Destination |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | **Infrastructure Risk & Readiness** | EOL inventory, capacity baseline, remediation roadmap | Reactive (monitoring + OS patching) |
 | **Hybrid Cloud** | Workload inventory, TCO modeling, placement roadmap | Reactive to Proactive depending on IT maturity |
 | **Security Posture & Compliance** | Vulnerability assessment, compliance gap analysis, remediation matrix | Proactive (compliance reporting is Proactive tier-only) |
@@ -306,7 +306,7 @@ The advisory motion consists of seven structured assessments that diagnose the c
 The execute motion acts on assessment findings. These are SOW-scoped, milestone-based engagements delivered by cross-functional teams coordinated by HSDM and scoped by HSA.
 
 | Service | What It Is | Typical Assessment Origin | Delivering Team |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | **Cloud Migration** | Workload migration (P2V, V2V, on-prem to cloud) | Hybrid Cloud Assessment | HSA + contributing teams via HSDM |
 | **Repatriation Project** | Selective workload move from hyperscaler to Aptum IaaS | Cloud Repatriation Assessment | HSA + contributing teams via HSDM |
 | **Hardware Refresh** | EOL server replacement, spec, procure, build, migrate, decommission | Infrastructure Risk Assessment | Compute Platforms + HSA |
