@@ -1,0 +1,11 @@
+# Professional Services
+
+Aptum's professional services are organized into two distinct motions with different delivery models, commercial structures, and success metrics.
+
+The Advisory motion (see Advisory section below) consists of seven structured assessments that diagnose the customer's environment, quantify risk, and produce a roadmap. Assessments are the entry point into every customer relationship. They build trust, map the environment, and produce the evidence that justifies investment in the Execute and Operate motions that follow. Assessments are fixed-fee and t-shirt sized (Small through Extra Large), led by a Solution Architect, and typically run between 20 and 300 hours.
+
+The Execute motion acts on assessment findings. These are project-based engagements: migrations, hardware refreshes, platform builds, security remediations, architecture redesigns, managed services transitions, and DR design and implementation. Execute engagements are scoped by a Hybrid Solutions Architect (HSA) and delivered by HSDM coordinating cross-functional teams. Every Execute engagement should trace back to an assessment finding and have a clear line of sight to an Operate outcome.
+
+Aptum uses three commercial structures across all PS work. A Fixed SOW defines scope, milestones, and payment schedule upfront; it is the standard model for bounded Execute projects ($5K to $300K range). Time and Materials (T&M) is hourly billing used for smaller tasks, change requests, and work that cannot be fully scoped upfront. Evolve is a monthly recurring squad retainer with a Minimum Monthly Fee (MMF): a cross-functional squad of Cloud Architects, Specialists, and Operators works in two-week Scrum sprints on mutually agreed business objectives, with auto-renewal and hours billed at the greater of the MMF or actual consumption. Evolve is the right structure for ongoing platform engineering, DevOps, and advisory work that evolves over time.
+
+Advisory engagements use Fixed SOW pricing (t-shirt sized). Execute engagements use Fixed SOW, T&M, or Evolve depending on scope clarity and engagement duration. Evolve is typically used for multi-month platform or DevOps engagements where the backlog evolves sprint by sprint.
