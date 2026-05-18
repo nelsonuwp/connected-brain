@@ -6,7 +6,9 @@ Usage:
   python3 bridge.py push   # vault/53-products → product-strategy-gfl/docs
   python3 bridge.py pull   # product-strategy-gfl/docs → vault/53-products
 
-This file lives in vault/53-products but is excluded from gfl sync.
+Exclusion rules (nothing matching these ever touches gfl):
+  - Any file or folder whose name starts with _ (e.g. _supplemental-data/, _notes.md)
+  - Any file in EXCLUDE_FILES below
 """
 
 import sys
@@ -18,8 +20,16 @@ VAULT_DIR = Path.home() / "connected-brain/vault/53-products"
 GFL_DOCS  = Path.home() / "code/product-strategy-gfl/docs"
 GFL_REPO  = Path.home() / "code/product-strategy-gfl"
 
-# Files in vault that should never be pushed to gfl
-EXCLUDE = {'bridge.py', 'sync.py', '.DS_Store'}
+# Specific filenames to always exclude
+EXCLUDE_FILES = {'bridge.py', 'sync.py', '.DS_Store'}
+
+
+def is_excluded(path: Path) -> bool:
+    """Return True if any part of this path starts with _ or is in EXCLUDE_FILES."""
+    for part in path.parts:
+        if part.startswith('_') or part in EXCLUDE_FILES:
+            return True
+    return False
 
 
 def slugify(s):
@@ -68,9 +78,8 @@ def push():
     changed = False
 
     for vault_file in sorted(VAULT_DIR.rglob("*.md")):
-        if any(p.startswith('.') for p in vault_file.parts):
-            continue
-        if vault_file.name in EXCLUDE:
+        rel = vault_file.relative_to(VAULT_DIR)
+        if is_excluded(rel):
             continue
 
         gfl_file = vault_to_gfl_path(vault_file)
