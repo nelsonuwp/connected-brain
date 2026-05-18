@@ -27,7 +27,7 @@ The tier determines the support floor the customer receives, which addons are av
 
 Dedicated customers have no addon access. Reactive customers get MM addons. Proactive customers get EM addons.
 
-The assessment framework (see [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.1) defines how customers enter this catalog and which tier they belong on.
+The assessment framework (see [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.2) defines how customers enter this catalog and which tier they belong on.
 
 ---
 
@@ -349,4 +349,4 @@ The execute motion acts on assessment findings. These are SOW-scoped, milestone-
 
 ---
 
-*Sources: [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.1 (April 28, 2026), [Aptum ICP](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257363460/Aptum+ICP) v2.1 (April 28, 2026), Aptum Identity & Values (Confluence, Marketing space), STG Assessment & Commercial Playbook v1.0, dimServices extract (April 1, 2026), Service Team descriptions (all 9 teams), Reanchor session notes (April 1, 2026).*
+*Sources: [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.2 (May 18, 2026), [Aptum ICP](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257363460/Aptum+ICP) v2.2 (May 18, 2026), Aptum Identity & Values (Confluence, Marketing space), STG Assessment & Commercial Playbook v1.0, dimServices extract (April 1, 2026), Service Team descriptions (all 9 teams), Reanchor session notes (April 1, 2026).*

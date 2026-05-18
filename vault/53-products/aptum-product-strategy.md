@@ -2,7 +2,7 @@
 
 ## From Commodity Hosting to Hybrid Cloud Managed Services
 
-**Version 2.1 | April 28, 2026**
+**Version 2.2 | May 18, 2026**
 
 ---
 

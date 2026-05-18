@@ -2,7 +2,7 @@
 
 ## Single Unified ICP, Grounded in Portfolio Data
 
-**Version 2.1 | April 28, 2026**
+**Version 2.2 | May 18, 2026**
 
 ---
 
