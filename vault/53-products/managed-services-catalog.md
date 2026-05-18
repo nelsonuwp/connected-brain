@@ -6,17 +6,28 @@
 
 ---
 
-## The Reframe
+## How this catalog is organized
 
-The old tiering model mixed infrastructure products with managed services in a vertical stack. This model separates them into three distinct tiers:
+Every customer relationship has three layers.
 
-- **Infrastructure Commodities** are the base products — hardware, connectivity, compute, and cloud access that Aptum provisions. Included with every commodity is a **Fundamental** layer: the baseline guarantee that the product works as sold. This is non-negotiable and cannot be removed or purchased separately.
-- **Machine Managed** addons activate automated tooling on the customer's environment. The machine does the work — scheduling, executing, reporting, exposing data. The customer or Aptum's Service Desk is in the decision loop and reacts when something needs attention. The customer retains control over decisions.
-- **Expert Managed** addons put Aptum's expert team in the driver's seat proactively. The expert team prevents problems rather than reacting to them — installing the fire suppression system, not just responding to the fire. The customer does not need to be involved in routine decisions.
+**Infrastructure Commodities** are the base products: compute, storage, networking, and cloud access. Every commodity includes a Fundamental guarantee that the infrastructure works as sold. This cannot be removed or priced out separately.
 
-Every customer's environment sits on an infrastructure commodity with its Fundamental guarantee included. Machine Managed and Expert Managed addons are purchased on top. Some addons offer both tiers independently; a customer can buy Machine Managed without Expert Managed.
+**Engagement Tiers** sit on top of the commodity and determine the support relationship. Every customer is on one of three tiers:
 
-The assessment framework (see [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.1) defines how customers enter this catalog. Structured advisory assessments diagnose the customer's environment and produce findings that map directly to specific layers. The assessment report becomes the evidence base that justifies each layer's investment. The table below summarizes the assessment-to-layer mapping; detailed onboarding paths appear at the end of this document.
+- **Dedicated** -- infrastructure only, no managed services, break-fix via billable Professional Services.
+- **Reactive** -- Aptum operates the environment on a reactive basis; customer stays in the decision loop.
+- **Proactive** -- Aptum owns and operates the environment; customer is not in the routine operational loop.
+
+The tier determines the support floor the customer receives, which addons are available, and how much of the day-to-day Aptum holds.
+
+**Managed Service Addons** are purchasable services that stack on top of any commodity. Each addon is available in one of two delivery modes:
+
+- **Machine Managed (MM)** -- tooling runs automatically; customer reviews results and approves actions. Available at the Reactive tier.
+- **Expert Managed (EM)** -- Aptum's team owns the outcome and acts proactively. Available at the Proactive tier.
+
+Dedicated customers have no addon access. Reactive customers get MM addons. Proactive customers get EM addons.
+
+The assessment framework (see [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.1) defines how customers enter this catalog and which tier they belong on.
 
 ---
 
