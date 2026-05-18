@@ -470,25 +470,25 @@ const data = {
       desc: "What Aptum Portal is and isn't: the single control plane for all Aptum-delivered services — not the infrastructure itself. Covers what it delivers today (provisioning, RBAC, cost visibility, DNS, Azure management, billing) and the highest-priority product gap (managed services are not yet visible in the portal). Strategic pivot: from B2B2B standalone product to internal dogfood delivery mechanism.",
       children: [
         {
-          name: "Portal Strategy & Roadmap",
+          name: "Aptum Portal Strategy & Roadmap",
           icon: "📄",
-          file: "portal-strategy.md",
+          file: "aptum-portal-strategy.md",
           source: "exists",
           sourceFrom: "53-products/aptcloud-aptum-iaas/aptcloud-aptum-iaas-strategy.md · Confluence 5257494536 — rename from 'AptCloud - Aptum IaaS Strategy'",
           desc: "Strategic rationale: why CloudOps Software + CloudStack beats every commercial alternative (HPE Morpheus, CloudBolt, VMware Aria — all evaluated and rejected). The three-phase roadmap (Phase 1: revenue enablement; Phase 2: catalog expansion with MAAS, Proxmox, K8s; Phase 3: multi-region). Open build items: reseller billing, managed services L1/L2 visibility, MSP white-label branding."
         },
         {
-          name: "Portal PRD",
+          name: "Aptum Portal PRD",
           icon: "📄",
-          file: "portal-prd.md",
+          file: "aptum-portal-prd.md",
           source: "exists",
           sourceFrom: "53-products/aptcloud-aptum-iaas/aptcloud-aptum-iaas-prd.md · Confluence 5257560073 — rename from 'AptCloud - Aptum IaaS PRD'",
           desc: "Full product requirements: portal vs. IaaS boundary, CloudOps Software + CloudStack architecture, tenancy model (platform always multi-tenant; infra tenancy varies), technical specs (compute, storage, networking, firewall, LB, OS), self-service capabilities, user roles (Operator, Reseller, Admin, User, Guest), service plugins, core subsystems, infrastructure catalog roadmap via Extensions Framework."
         },
         {
-          name: "Portal Service Guide",
+          name: "Aptum Portal Service Guide",
           icon: "📄",
-          file: "portal-service-guide.md",
+          file: "aptum-portal-service-guide.md",
           source: "new",
           sourceFrom: "aptcloud-aptum-iaas-prd.md Sections 5–6 + internal CloudOps Software operator documentation",
           desc: "How Aptum Portal is operated: onboarding a new customer or reseller (org setup, RBAC config, environment creation), configuring service connections (CloudStack, Azure, DNS), setting up product catalogs and pricing in the monetization engine, managing white-label branding per reseller, using the quoting tool, API and Terraform provider access, support escalation path."
@@ -507,16 +507,11 @@ const data = {
       children: [
         {
           name: "Engagement Tiers",
-          icon: "📂",
-          file: "index.md",
+          icon: "📄",
+          file: "engagement-tiers.md",
           source: "synth",
-          sourceFrom: "managed-services-catalog.md (Engagement Tiers intro, working names table, tier compatibility section)",
-          desc: "Defines the three-tier ladder: Dedicated (infrastructure-only), Reactive (co-managed, customer stays in the decision loop), Proactive (fully managed, Aptum owns the outcome). Working names vs. customer-facing names, the rationale for each, and how the tier model connects to the Assess to Build to Operate funnel.",
-          children: [
-            { name: "Dedicated (Infrastructure)", icon: "📄", file: "dedicated.md", source: "synth", sourceFrom: "managed-services-catalog.md (Tier 1: Dedicated section)", desc: "No managed services, infrastructure Fundamentals only. Professional Services on pay-as-you-go basis for anything above the floor. Infrastructure compatibility (not available on Bare Metal or Private Cloud where SD layer is mandatory). What Aptum owns vs. what the customer owns." },
-            { name: "Reactive (Co-Managed)", icon: "📄", file: "reactive.md", source: "synth", sourceFrom: "managed-services-catalog.md (Tier 2: Reactive section)", desc: "24/7 Service Desk, standard monitoring with customer dashboard access, reactive OS/networking/storage support. Which addons are available at Reactive, which are Proactive-only. Two customer profiles this tier fits equally: IT team using Aptum as augmentation vs. no internal IT team staying in the approval loop." },
-            { name: "Proactive (Fully Managed)", icon: "📄", file: "proactive.md", source: "synth", sourceFrom: "managed-services-catalog.md (Tier 3: Proactive section)", desc: "Aptum owns and operates. Named MC resource, monthly/quarterly environment reviews, proactive event management. All catalog addons available including the three Proactive-only addons (BCP Planning, Compliance Reporting, Reviews & Touchpoints). Available on all infrastructure commodities." }
-          ]
+          sourceFrom: "managed-services-catalog.md (Engagement Tiers intro, working names table, all three tier sections, tier compatibility section)",
+          desc: "All three tiers on one page. Dedicated (Infrastructure): infrastructure Fundamentals only, no managed services, PS on pay-as-you-go. Reactive (Co-Managed): 24/7 Service Desk, monitoring, customer stays in the decision loop, addon access at Reactive posture. Proactive (Fully Managed): Aptum owns and operates, named MC resource, all addons available including the three Proactive-only services. Includes working names vs. customer-facing names, infrastructure compatibility per tier, and how tier recommendations map from assessment findings."
         },
         {
           name: "Addons",
@@ -675,10 +670,9 @@ const data = {
             {
               name: "Infrastructure Risk & Readiness",
               icon: "📂", file: "index.md", source: "cleanse",
-              sourceFrom: "STG/docs/assessments/01-infrastructure-risk/ — 3 files, remove STG references",
-              desc: "For companies with aging on-prem or colo infrastructure, deferred maintenance, EOL hardware. Leads to hardware refresh (Execute) then Reactive tier with monitoring + OS patching (Operate). Most broadly applicable assessment — virtually all 429 hosting-only customers qualify.",
+              sourceFrom: "STG/docs/assessments/01-infrastructure-risk/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies with aging on-prem or colo infrastructure, deferred maintenance, EOL hardware. Pain signals, the one-liner pitch, t-shirt sizing (S: $5K / M: $10K / L: $20K / XL: $30K+), sizing questions, deliverables by size, objection handling, and what happens after. Leads to hardware refresh (Execute) then Reactive tier with monitoring + OS patching (Operate).",
               children: [
-                { name: "Sell Sheet", icon: "📄", file: "sell-sheet.md", source: "cleanse", sourceFrom: "STG/docs/assessments/01-infrastructure-risk/sell-sheet.md", desc: "How to pitch, qualify, and size the assessment: the one-liner, who it's for, pain signals to listen for, t-shirt sizing (S: $5K / M: $10K / L: $20K / XL: $30K+), sizing questions, deliverables by size, objection handling, what happens after." },
                 { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/01-infrastructure-risk/deliverable-scope.md", desc: "What the customer receives: EOL hardware inventory, OS lifecycle status report, operational risk scoring, capacity and performance baseline, prioritized remediation roadmap, cost estimates, executive summary presentation — with which deliverables apply at each t-shirt size." },
                 { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/01-infrastructure-risk/delivery-guide.md", desc: "How the SA runs this assessment: preparation steps, data collection methodology, analysis framework, findings documentation, and how to present and hand off the final report." }
               ]
