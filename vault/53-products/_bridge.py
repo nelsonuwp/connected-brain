@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-bridge.py — Sync between connected-brain vault/53-products and product-strategy-gfl
+_bridge.py — Sync between connected-brain vault/53-products and product-strategy-gfl
 
 Usage:
-  python3 bridge.py push   # vault/53-products → product-strategy-gfl/docs
-  python3 bridge.py pull   # product-strategy-gfl/docs → vault/53-products
+  python3 _bridge.py push   # vault/53-products → product-strategy-gfl/docs
+  python3 _bridge.py pull   # product-strategy-gfl/docs → vault/53-products
 
 Exclusion rules (nothing matching these ever touches gfl):
   - Any file or folder whose name starts with _ (e.g. _supplemental-data/, _notes.md)
@@ -21,7 +21,7 @@ GFL_DOCS  = Path.home() / "code/product-strategy-gfl/docs"
 GFL_REPO  = Path.home() / "code/product-strategy-gfl"
 
 # Specific filenames to always exclude
-EXCLUDE_FILES = {'bridge.py', 'sync.py', '.DS_Store'}
+EXCLUDE_FILES = {'sync.py', '.DS_Store'}
 
 
 def is_excluded(path: Path) -> bool:
