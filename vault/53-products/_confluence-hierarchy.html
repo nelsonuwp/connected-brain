@@ -511,7 +511,7 @@ const data = {
           file: "index.md",
           source: "synth",
           sourceFrom: "managed-services-catalog.md (Compatibility Matrix, Addon behavior by tier table, Managed Service Addons intro)",
-          desc: "Overview of all 22 purchasable managed service addons. Compatibility matrix (which addons work on which infrastructure products, which require Proactive tier), addon pricing model (per endpoint/asset per month), and the addon behavior summary table (what Aptum does at Reactive vs. Proactive for each service).",
+          desc: "Overview of all managed service addons, organised into seven functional groups. Covers the compatibility matrix (which groups are available on which infrastructure products, which require Proactive tier) and the addon pricing model (per endpoint/asset per month). Each group below defines the specific named Aptum products within it and has a single service guide covering delivery across all products in that group.",
           children: [
             {
               name: "Monitoring & Observability",
@@ -519,8 +519,8 @@ const data = {
               file: "index.md",
               source: "synth",
               isCategory: true,
-              sourceFrom: "managed-services-catalog.md (Monitoring & Observability section)",
-              desc: "Introduces the two visibility addons and the critical distinction: baseline internal monitoring Aptum runs to keep infrastructure operational (always included in Fundamental, not an addon) vs. customer-facing visibility into that data. When each addon applies and how they relate.",
+              sourceFrom: "managed-services-catalog.md (Monitoring & Observability section, both addon rows)",
+              desc: "Defines three monitoring products. Aptum Essentials Monitoring (Zabbix) — infrastructure-layer monitoring built into the Service Desk floor; agent-side alerting, triage, and hardware event response. Not a customer-facing addon — this is what Aptum runs internally to keep the infrastructure operational. Aptum Advanced Monitoring (LogicMonitor) — customer-facing dashboards, alert history, uptime and bandwidth reports; the customer can view and interact with their own monitoring data. Aptum Application Monitoring (Datadog) — full-stack APM above the OS into the application layer; application performance, container health, custom dashboards, anomaly detection. Covers Reactive vs. Proactive behaviour for each, tooling, cost, and addon owner.",
               children: [
                 {
                   name: "Infrastructure Monitoring",
