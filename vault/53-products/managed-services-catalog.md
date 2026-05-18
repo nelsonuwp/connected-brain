@@ -16,7 +16,7 @@ The old tiering model mixed infrastructure products with managed services in a v
 
 Every customer's environment sits on an infrastructure commodity with its Fundamental guarantee included. Machine Managed and Expert Managed addons are purchased on top. Some addons offer both tiers independently; a customer can buy Machine Managed without Expert Managed.
 
-The assessment framework (see `/53-products/aptum-product-strategy.md` v2.1) defines how customers enter this catalog. Structured advisory assessments diagnose the customer's environment and produce findings that map directly to specific layers. The assessment report becomes the evidence base that justifies each layer's investment. The table below summarizes the assessment-to-layer mapping; detailed onboarding paths appear at the end of this document.
+The assessment framework (see [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.1) defines how customers enter this catalog. Structured advisory assessments diagnose the customer's environment and produce findings that map directly to specific layers. The assessment report becomes the evidence base that justifies each layer's investment. The table below summarizes the assessment-to-layer mapping; detailed onboarding paths appear at the end of this document.
 
 ---
 
@@ -465,4 +465,4 @@ This is the gap. The portal delivers Layer 0 (self-service provisioning) well to
 
 ---
 
-*Sources: `/53-products/aptum-product-strategy.md` v2.1 (April 28, 2026), `/53-products/aptum-icp.md` v2.1 (April 28, 2026), Aptum Identity & Values (Confluence, Marketing space), STG Assessment & Commercial Playbook v1.0, dimServices extract (April 1, 2026), Service Team descriptions (all 9 teams), Reanchor session notes (April 1, 2026).*
+*Sources: [Aptum Product Strategy](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257461765/Aptum+Product+Strategy) v2.1 (April 28, 2026), [Aptum ICP](https://aptum.atlassian.net/wiki/spaces/PRD/pages/5257363460/Aptum+ICP) v2.1 (April 28, 2026), Aptum Identity & Values (Confluence, Marketing space), STG Assessment & Commercial Playbook v1.0, dimServices extract (April 1, 2026), Service Team descriptions (all 9 teams), Reanchor session notes (April 1, 2026).*
