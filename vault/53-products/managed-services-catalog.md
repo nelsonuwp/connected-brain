@@ -2,7 +2,7 @@
 
 ## Value-Added Products Layered on Aptum Portal Commodities
 
-**Version 2.1 | April 28, 2026**
+**Version 2.2 | May 18, 2026**
 
 ---
 
@@ -42,9 +42,118 @@ These are the "base products." Customers can consume them self-service (where av
 
 ---
 
+## Engagement Tiers
+
+Every customer selects an engagement tier. The tier determines the support floor they receive, whether catalog addons are available, and how much operational ownership Aptum holds over their environment. Infrastructure commodities and their Fundamental guarantees are always included regardless of tier.
+
+The three tiers are a deliberate ladder. Customers who start at Dedicated can move to Reactive or Proactive as trust and reliance on Aptum grows. This is the Assess to Build to Operate funnel made operational. The tier model is not a segment wall; it is a sales motion.
+
+### Working names and customer-facing options
+
+| Working name | Recommended customer-facing name | Alternate options |
+| --- | --- | --- |
+| **Dedicated** | Infrastructure | Foundational, Baseline, Self-Managed |
+| **Reactive** | Co-Managed | Supported, Assisted, Responsive |
+| **Proactive** | Fully Managed | Operated, Managed, Outcome |
+
+*Rationale for recommendations: "Co-Managed" and "Fully Managed" are established market terms. Buyers researching MSPs use them. Co-Managed accurately describes the Reactive posture (customer stays in the decision loop; Aptum supplements). Fully Managed accurately describes the Proactive posture (Aptum owns operations). "Infrastructure" is honest about what Dedicated is: compute with no managed services engagement.*
+
+---
+
+### Tier 1: Dedicated
+
+**Who this is for:** Non-ICP customers and customers with no interest in managed services. They are buying infrastructure for internal teams to operate. Also used as the entry point for early-relationship prospects not yet ready to commit to a managed posture.
+
+**Support floor:** Infrastructure Fundamentals only (see Infrastructure Commodities table above). Customers receive Aptum Portal access and ticket submission capability. No SLA beyond the Fundamental guarantee for the infrastructure product.
+
+**Addon access:** None. The managed services catalog is not available to Dedicated customers.
+
+**Help beyond the floor:** Professional Services on a pay-as-you-go basis at standard rates. Customers submit requests via ticket; Aptum responds during business hours. No managed relationship.
+
+**Infrastructure compatibility:** Available on Colocation, Shared Cluster (VPC), Dedicated Cluster, and Public Cloud. **Not available on Bare Metal or Private Cloud**, where the Service Desk layer is mandatory and non-removable (priced into the product floor at approximately $40 CAD/asset/month).
+
+| Aptum's role | Customer's role |
+| --- | --- |
+| Keep the infrastructure running. Nothing more. | Everything above the infrastructure layer — OS, patching, security, backups, application management. |
+
+---
+
+### Tier 2: Reactive
+
+**Who this is for:** ICP customers who want Aptum to operate their environment reactively — responding to events, executing tooling on their behalf, maintaining the OS and platform layer — while the customer retains oversight and decision-making. This is Aptum's co-managed posture: the customer stays in the loop on all decisions, but Aptum does the operational work.
+
+This tier fits two customer profiles equally. Customers with an internal IT team (IT director or small ops team) use Reactive as augmentation — Aptum covers the tooling and after-hours load while their team focuses on institutional knowledge and strategic work. Customers without an internal IT team use Reactive as their IT function, staying in the approval loop. Same posture, different customer org.
+
+**Support floor:** 24/7 Service Desk coverage. Standard monitoring with customer dashboard access (LogicMonitor: CPU, memory, performance). Reactive support of the OS, networking, and storage layer. L2 triage included. Customer receives alerts, approves patch windows, reviews job status, and requests changes via ticket. Aptum responds; customer decides.
+
+**Addon access:** All **Machine Managed (MM)** addons in the catalog are available, purchased per endpoint per month. Aptum runs the tooling; the customer stays in the decision loop. See the Addon Detail section for per-addon MM behavior.
+
+**Addons not available at Reactive:** BCP Planning, Compliance Reporting, and Reviews & Touchpoints are Expert Managed only by nature. They require the Proactive tier.
+
+**Infrastructure compatibility:** Available on all infrastructure commodities.
+
+| Aptum's role | Customer's role |
+| --- | --- |
+| Monitor, respond, and execute. Run the tooling. Alert the customer. Act on direction. Do not make decisions without customer approval. | Oversight, approval, and decision-making. Internal IT team (if present) handles strategy and application layer. Customer remains accountable for outcomes. |
+
+---
+
+### Tier 3: Proactive
+
+**Who this is for:** ICP customers who want Aptum to own and operate their environment. The customer does not need to be in the routine operational loop. Aptum anticipates problems, designs policy, manages changes, and delivers outcomes. This is the Managed Cloud Platform (MCP) model applied to any infrastructure commodity.
+
+**Support floor:** All Reactive floor features plus dedicated account engineering (named resource), scheduled environment reviews (monthly or quarterly cadence), anticipatory tuning, capacity planning, and proactive event management. Aptum identifies and resolves issues before the customer is aware of them.
+
+**Addon access:** All catalog addons, operated in **Expert Managed (EM)** posture. Includes the three EM-only addons: BCP Planning, Compliance Reporting, and Reviews & Touchpoints. See the Addon Detail section for per-addon EM behavior.
+
+**Infrastructure compatibility:** Available on all infrastructure commodities.
+
+| Aptum's role | Customer's role |
+| --- | --- |
+| Own and operate the environment. Design policy, manage change, prevent problems, deliver outcomes. Customer is not in the routine operational loop. | Define business outcomes. Approve major architectural changes. Own applications and data. Attend scheduled reviews. |
+
+---
+
+### Addon behavior by tier
+
+The table below shows what Aptum does for the key addons at each tier. Full addon descriptions, costs, and owners appear in the Addon Detail section.
+
+| Addon | Dedicated | Reactive (MM) | Proactive (EM) |
+| --- | --- | --- | --- |
+| **Infrastructure Monitoring** | Not available | Customer dashboard access; alert history; uptime reports. SD reacts to alerts. | Threshold tuning; anomaly detection; proactive response before customer impact; monthly monitoring health reviews. |
+| **Advanced Monitoring / APM** | Not available | Datadog agent deployed; automated dashboards; customer portal access; SD responds to alerts. | MC configures custom dashboards; tunes alert rules; proactively investigates performance anomalies; monthly performance reviews. |
+| **OS Patching** | Billable PAYG per ticket | Automox deployed; patches scheduled per agreed policy; compliance reports generated. Customer approves patch windows. | MC reviews patch releases; tests compatibility; defines policy; coordinates maintenance windows; validates post-patch. Customer not in routine loop. |
+| **Managed Backup** | Not available | Veeam runs scheduled jobs; failure alerts; success/failure reporting. Customer reviews status and requests restores via ticket. | MC designs backup policy; investigates failures proactively; manages restore operations; tests recoverability before the customer needs to. |
+| **Antivirus / EDR** | Not available | Agent deployed; automated quarantine; customer reviews alerts. | MC triages alerts; investigates threats; coordinates response; configures exclusions and policies. |
+| **Managed Firewall** | Billable per rule change | Config backup; health monitoring; policy violation alerting. SD handles L2 ticket ops; customer requests rule changes via ticket. | MC owns security policy; handles complex rule changes; compliance auditing. SD handles L2 under MC direction. |
+| **MDR** | Not available | Alert Logic automated detection and alerting running continuously. Alerts surfaced to SD and customer. | SOC analysts actively investigate threats; manage escalations; produce compliance evidence; conduct proactive threat hunting. |
+| **Vulnerability Scanning** | Not available | Automated scan scheduling; execution; posture scoring; reporting. Customer receives scan reports. | MC reviews results; prioritizes remediation by risk; provides guidance; tracks remediation progress proactively. |
+| **FinOps / Cost Optimization** | Not available | Aptum Portal cost insights: automated spend reporting; budget alerts; anomaly detection; utilization tracking. Customer has dashboard access. | MC conducts rightsizing analysis; reserved instance strategy; governance framework design; monthly optimization reviews. |
+| **BCP Planning** | Not available | **Not available at Reactive** | MC develops BCP document; facilitates tabletop exercises; conducts annual review. |
+| **Compliance Reporting** | Not available | **Not available at Reactive** | MC curates evidence packages; identifies gaps; prepares customer-facing reports (SOC 2, PCI-DSS, HIPAA). |
+| **Reviews & Touchpoints** | Not available | **Not available at Reactive** | MC facilitates monthly/quarterly reviews; analyses ticket patterns; identifies proactive improvements; plans upcoming activities. |
+
+---
+
+### Tier compatibility with the Assess to Build to Operate funnel
+
+The tier model is the operational realization of the Operate motion. Assessment findings should map to a tier recommendation, not just to addon recommendations. A customer identified as overwhelmed, non-ICP, or infrastructure-only belongs at Dedicated. A customer with a small internal IT team and patching/monitoring gaps belongs at Reactive. A customer whose IT team is at capacity and who needs Aptum to own the outcome belongs at Proactive.
+
+| Assessment | Likely tier outcome |
+| --- | --- |
+| Infrastructure Risk & Readiness | Reactive (monitoring + OS patching as starting addons) |
+| Hybrid Cloud | Reactive to Proactive depending on internal IT maturity |
+| Security Posture & Compliance | Proactive (compliance reporting is EM-only) |
+| Cloud Repatriation | Proactive (full stack migration into MCP model) |
+| Operational Maturity | Proactive (the customer's IT team is the pain signal) |
+| App & Platform Modernization | Proactive (MC owns the platform) |
+| Well-Architected Review | Reactive to Proactive depending on FinOps and compliance needs |
+
+---
+
 ## Managed Service Addons
 
-These are the purchasable addons that stack on top of any infrastructure commodity. Each addon is independently sellable, priced per asset or endpoint per month, and has a defined owner from the Aptum service network. Each addon is available as **Machine Managed** (automated tooling, customer in decision loop), **Expert Managed** (proactive expert ownership), or both. *Note: "Machine Managed" and "Expert Managed" are working internal terms. Customer-facing naming to be finalised.*
+These are the purchasable addons that stack on top of any infrastructure commodity. Each addon is independently sellable, priced per asset or endpoint per month, and has a defined owner from the Aptum service network. Each addon is available as **Machine Managed** (automated tooling, customer in decision loop, available at Reactive tier and above), **Expert Managed** (proactive expert ownership, available at Proactive tier only), or both. *Note: "Machine Managed" and "Expert Managed" are working internal terms. Customer-facing naming to be finalised.*
 
 ---
 
