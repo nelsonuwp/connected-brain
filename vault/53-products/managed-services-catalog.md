@@ -88,9 +88,9 @@ This tier fits two customer profiles equally. Customers with an internal IT team
 
 **Support floor:** 24/7 Service Desk coverage. Standard monitoring with customer dashboard access (LogicMonitor: CPU, memory, performance). Reactive support of the OS, networking, and storage layer. L2 triage included. Customer receives alerts, approves patch windows, reviews job status, and requests changes via ticket. Aptum responds; customer decides.
 
-**Addon access:** All **Machine Managed (MM)** addons in the catalog are available, purchased per endpoint per month. Aptum runs the tooling; the customer stays in the decision loop. See the Addon Detail section for per-addon MM behavior.
+**Addon access:** All **Reactive tier (Reactive tier)** addons in the catalog are available, purchased per endpoint per month. Aptum runs the tooling; the customer stays in the decision loop. See the Addon Detail section for per-addon Reactive tier behavior.
 
-**Addons not available at Reactive:** BCP Planning, Compliance Reporting, and Reviews & Touchpoints are Expert Managed only by nature. They require the Proactive tier.
+**Addons not available at Reactive:** BCP Planning, Compliance Reporting, and Reviews & Touchpoints are Proactive tier only by nature. They require the Proactive tier.
 
 **Infrastructure compatibility:** Available on all infrastructure commodities.
 
@@ -106,7 +106,7 @@ This tier fits two customer profiles equally. Customers with an internal IT team
 
 **Support floor:** All Reactive floor features plus dedicated account engineering (named resource), scheduled environment reviews (monthly or quarterly cadence), anticipatory tuning, capacity planning, and proactive event management. Aptum identifies and resolves issues before the customer is aware of them.
 
-**Addon access:** All catalog addons, operated in **Expert Managed (EM)** posture. Includes the three EM-only addons: BCP Planning, Compliance Reporting, and Reviews & Touchpoints. See the Addon Detail section for per-addon EM behavior.
+**Addon access:** All catalog addons, operated in **Proactive tier (Proactive tier)** posture. Includes the three Proactive tier-only addons: BCP Planning, Compliance Reporting, and Reviews & Touchpoints. See the Addon Detail section for per-addon Proactive tier behavior.
 
 **Infrastructure compatibility:** Available on all infrastructure commodities.
 
@@ -120,7 +120,7 @@ This tier fits two customer profiles equally. Customers with an internal IT team
 
 The table below shows what Aptum does for the key addons at each tier. Full addon descriptions, costs, and owners appear in the Addon Detail section.
 
-| Addon | Dedicated | Reactive (MM) | Proactive (EM) |
+| Addon | Dedicated | Reactive (Reactive tier) | Proactive (Proactive tier) |
 | --- | --- | --- | --- |
 | **Infrastructure Monitoring** | Not available | Customer dashboard access; alert history; uptime reports. SD reacts to alerts. | Threshold tuning; anomaly detection; proactive response before customer impact; monthly monitoring health reviews. |
 | **Advanced Monitoring / APM** | Not available | Datadog agent deployed; automated dashboards; customer portal access; SD responds to alerts. | MC configures custom dashboards; tunes alert rules; proactively investigates performance anomalies; monthly performance reviews. |
@@ -145,7 +145,7 @@ The tier model is the operational realization of the Operate motion. Assessment 
 | --- | --- |
 | Infrastructure Risk & Readiness | Reactive (monitoring + OS patching as starting addons) |
 | Hybrid Cloud | Reactive to Proactive depending on internal IT maturity |
-| Security Posture & Compliance | Proactive (compliance reporting is EM-only) |
+| Security Posture & Compliance | Proactive (compliance reporting is Proactive tier-only) |
 | Cloud Repatriation | Proactive (full stack migration into MCP model) |
 | Operational Maturity | Proactive (the customer's IT team is the pain signal) |
 | App & Platform Modernization | Proactive (MC owns the platform) |
@@ -155,39 +155,41 @@ The tier model is the operational realization of the Operate motion. Assessment 
 
 ## Managed Service Addons
 
-These are the purchasable addons that stack on top of any infrastructure commodity. Each addon is independently sellable, priced per asset or endpoint per month, and has a defined owner from the Aptum service network. Each addon is available as **Machine Managed** (automated tooling, customer in decision loop, available at Reactive tier and above), **Expert Managed** (proactive expert ownership, available at Proactive tier only), or both. *Note: "Machine Managed" and "Expert Managed" are working internal terms. Customer-facing naming to be finalised.*
+These are the purchasable addons that stack on top of any infrastructure commodity. Each addon is independently sellable, priced per asset or endpoint per month, and has a defined owner from the Aptum service network. How Aptum operates each addon depends on the customer's tier: at Reactive, Aptum runs the tooling and the customer stays in the decision loop; at Proactive, Aptum owns the outcome. For delivery mechanics and tooling details, see the relevant service guides.
 
 ---
 
 ## Compatibility Matrix
 
-**MM** = Machine Managed available. **EM** = Expert Managed available. **MM+EM** = both available independently. **—** = not applicable to this product.
+Which addons are available on which infrastructure products. Bare Metal, Private Cloud, VPC, and Dedicated Cluster behave identically for every addon and are shown as one column.
 
-| Addon | Colo | Connectivity | Bare Metal | Private Cloud | IaaS (VPC / Dedicated) | Public Cloud |
-| --- | --- | --- | --- | --- | --- | --- |
-| Infrastructure Monitoring (visibility) | — | MM | MM | MM | MM | MM |
-| Advanced Monitoring / APM | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| OS Patching | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| Application Platform Patching | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| Managed Backup | EM | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| DRaaS | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| BCP Planning | — | — | EM | EM | EM | EM |
-| Managed Firewall | — | MM+EM | MM+EM | MM+EM | MM+EM | MM+EM |
-| Antivirus / EDR | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| WAF | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| DDoS Protection | — | MM | MM+EM | MM+EM | MM+EM | MM+EM |
-| Load Balancing (L7) | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| MDR | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| Vulnerability Scanning | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| Compliance Reporting | — | — | EM | EM | EM | EM |
-| Hybrid Interconnects | — | MM+EM | MM+EM | MM+EM | MM+EM | MM+EM |
-| FinOps / Cost Optimization | — | — | — | — | MM | MM+EM |
-| Operational Logging | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| Reviews & Touchpoints | EM | EM | EM | EM | EM | EM |
-| Managed DNS | — | — | MM | MM | MM | MM |
-| Managed Productivity (M365) | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| Database Tuning | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
-| DevOps Monitoring & Maintenance | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
+**Yes** = available at Reactive and Proactive tiers. **Proactive only** = requires Proactive tier. **Partial** = available on this product with restrictions noted. **—** = not applicable.
+
+| Addon | Colo | Connectivity | Core Infrastructure | Public Cloud |
+| --- | --- | --- | --- | --- |
+| Infrastructure Monitoring | — | Yes | Yes | Yes |
+| Advanced Monitoring / APM | — | — | Yes | Yes |
+| OS Patching | — | — | Yes | Yes |
+| Application Platform Patching | — | — | Yes | Yes |
+| Managed Backup | Proactive only | — | Yes | Yes |
+| DRaaS | — | — | Yes | Yes |
+| BCP Planning | — | — | Proactive only | Proactive only |
+| Managed Firewall | — | Yes | Yes | Yes |
+| Antivirus / EDR | — | — | Yes | Yes |
+| WAF | — | — | Yes | Yes |
+| DDoS Protection | — | Yes | Yes | Yes |
+| Load Balancing (L7) | — | — | Yes | Yes |
+| MDR | — | — | Yes | Yes |
+| Vulnerability Scanning | — | — | Yes | Yes |
+| Compliance Reporting | — | — | Proactive only | Proactive only |
+| Hybrid Interconnects | — | Yes | Yes | Yes |
+| FinOps / Cost Optimization | — | — | Partial (IaaS only, not Bare Metal/Private Cloud) | Yes |
+| Operational Logging | — | — | Yes | Yes |
+| Reviews & Touchpoints | Proactive only | Proactive only | Proactive only | Proactive only |
+| Managed DNS | — | — | Yes | Yes |
+| Managed Productivity (M365) | — | — | Yes | Yes |
+| Database Tuning | — | — | Yes | Yes |
+| DevOps Monitoring & Maintenance | — | — | Yes | Yes |
 
 ---
 
@@ -219,25 +221,25 @@ The Bare Metal product price reflects six components. **Only the margin componen
 
 ## Addon Detail
 
-Each addon below shows what it is, what it is not (where there is room for confusion), how Machine Managed and Expert Managed tiers differ, which service network team owns it, and real costs for both tiers. Costs in CAD unless noted. USD conversions approximate at current rates.
+Each addon below shows what it is, what it is not (where there is room for confusion), how Reactive tier and Proactive tier tiers differ, which service network team owns it, and real costs for both tiers. Costs in CAD unless noted. USD conversions approximate at current rates.
 
 ### Monitoring & Observability
 
-| Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
+| Addon | What It Is / What It Isn't | Reactive tier | Proactive tier | Addon Owner | Reactive cost (CAD/mo) | Proactive cost (CAD/mo) | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Infrastructure Monitoring (visibility)** | Customer-facing access to monitoring dashboards, alert history, and uptime reporting. **Not:** the baseline monitoring Aptum runs internally to keep the commodity working — that is Fundamental and always included. This addon gives the customer visibility into that data. | LogicMonitor dashboard access, alert history, uptime and bandwidth reports. Customer can view and react to their own monitoring data. | Threshold tuning, proactive pattern analysis, Aptum responds to anomalies before customer impact, monitoring health reviews. | Aptum infra: **Compute Platforms**; IaaS platform: **Compute Platforms**; Network devices: **Networking**; Cloud/virtual: **Managed Cloud** | Zabbix OSS: included in SD floor. LogicMonitor customer portal: ~$11–20/device (market rate; Aptum contracted rate TBD) | Included in MC endpoint fee ($160 USD/endpoint bundled) | Live (Zabbix SD-side); Customer portal TBD |
 | **Advanced Monitoring / APM** | Full-stack observability: application performance, container health, infrastructure metrics, custom dashboards. **Not:** the same as infrastructure monitoring. APM goes above the OS into the application — infrastructure can show "OK" while app performance degrades. | Datadog agent deployed, automated dashboards, anomaly detection, customer has access to their Datadog environment. | MC configures custom dashboards, tunes alert rules, proactively responds to performance anomalies, delivers monthly performance reviews. | **Managed Cloud** | Datadog Infrastructure: ~$35/host ($25 USD). Datadog APM: ~$45/host ($31 USD). | Datadog $25 USD included in MC endpoint. MC labor within $135 USD/endpoint/month. | Live (MC customers) |
 
 ### OS & Platform Management
 
-| Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
+| Addon | What It Is / What It Isn't | Reactive tier | Proactive tier | Addon Owner | Reactive cost (CAD/mo) | Proactive cost (CAD/mo) | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **OS Patching** | Scheduled deployment of OS and security patches. Supported: Windows Server, Linux (Debian, Ubuntu, RHEL, Alma, Rocky). Compliance reporting. **Not:** application patching, database updates, or platform component updates — those are separate addons. | Automox agent deployed, patches scheduled per agreed policy, compliance reports generated. Customer receives notifications and approves patch windows. | MC reviews patch releases, tests compatibility, defines policy, coordinates maintenance windows, validates post-patch environment. Customer not in routine decision loop. | Cloud/Virtual OS: **Managed Cloud**; Aptum Infra OS: **Compute Platforms** | ~$7/endpoint (Automox ~$5 USD) | Automox included + MC labor within $135 USD/endpoint/month | Live |
 | **Application Platform Patching** | Updates to application platform components: middleware, runtime environments (Node.js, Java,.NET, Python), platform services. **Not:** OS patching (separate addon). Not application code — that is always the customer's responsibility. | Platform tooling where automated patching is supported, compliance reports generated. | MC tests platform updates, coordinates staged rollout, validates application behaviour post-patch, handles major version changes with customer sign-off. | **Managed Cloud** | TBD (platform-dependent tooling) | Within MCP tier pricing (TBD) | Live (MCP customers) |
 
 ### Data Protection & Recovery
 
-| Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
+| Addon | What It Is / What It Isn't | Reactive tier | Proactive tier | Addon Owner | Reactive cost (CAD/mo) | Proactive cost (CAD/mo) | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Managed Backup** | Automated backup execution, monitoring, failure alerting, and restore capability with policy-based retention. **Not:** a DR solution. Backup protects data but does not guarantee a recovery time objective — DRaaS is the separate product for that. | Veeam automated job scheduling and execution, failure alerting, success/failure reporting. Customer can view job status and request restores via ticket. | MC designs backup policy, investigates failures proactively, manages restore operations, handles retention, tests recoverability before the customer needs to. | Policy & Management: **Managed Cloud**; Veeam Infrastructure & Runbooks: **Compute Platforms** | ~$14–20/workload (Veeam; Aptum block commitment — per-workload allocation TBD) | Veeam included + MC labor within $135 USD/endpoint/month | Live |
 | **DRaaS** | Defined RPO/RTO with maintained failover environment, tested recovery runbooks, quarterly DR tests. **Not:** just backup. DRaaS requires active failover infrastructure and regular testing. Backup alone does not guarantee recovery within an RTO. | Backup replication to secondary site automated, failover environment maintained and monitored, status reporting accessible. | MC designs DR plan, conducts quarterly DR tests, manages failover coordination, maintains and updates runbooks proactively. | Plan & Management: **Managed Cloud**; Secondary Infrastructure: **Compute Platforms** | Secondary site compute + storage, scoped per engagement (TBD) | MC team + PS for initial design (TBD per engagement) | Live (select customers) |
@@ -245,7 +247,7 @@ Each addon below shows what it is, what it is not (where there is room for confu
 
 ### Security Services
 
-| Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
+| Addon | What It Is / What It Isn't | Reactive tier | Proactive tier | Addon Owner | Reactive cost (CAD/mo) | Proactive cost (CAD/mo) | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Managed Firewall** | Security policy management, rule changes, and compliance auditing for Juniper SRX (physical) and virtual firewalls. **Not:** network infrastructure management — the physical device and connectivity is **Networking**'s responsibility. This addon is the security policy layer on top of the device. | Automated config backup, health monitoring, policy violation alerting, compliance reporting. | Managed Cloud manages security policy, complex rule changes, compliance auditing. Service Desk handles day-to-day L2 ticket operations. | Security Policy: **Managed Cloud**; Physical Device: **Networking** | Included in monitoring infrastructure | MC policy management (TBD/device) | Live |
 | **Antivirus / EDR** | Managed endpoint protection including AV and endpoint detection and response on customer servers. **Not:** MDR. AV/EDR is the automated endpoint agent layer. MDR is a full SOC service with human analysts actively hunting threats. | AV/EDR agent deployed, automated definition updates, automated threat detection and quarantine, agent status reporting. | MC triages alerts, investigates threats, coordinates response, configures exclusions and policies. | **Managed Cloud** | Options: MS Defender for Business ~$4/endpoint ($3 USD); CrowdStrike Falcon Go ~$7–10/endpoint ($5–7 USD); SentinelOne ~$6–9/endpoint ($4–6 USD) | Agent cost included + MC labor (TBD/endpoint) | Live |
@@ -257,23 +259,23 @@ Each addon below shows what it is, what it is not (where there is room for confu
 
 ### Cloud & Hybrid Connectivity
 
-| Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
+| Addon | What It Is / What It Isn't | Reactive tier | Proactive tier | Addon Owner | Reactive cost (CAD/mo) | Proactive cost (CAD/mo) | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Hybrid Interconnects** | Dedicated private connectivity between Aptum infrastructure and hyperscalers (ExpressRoute/Azure, Direct Connect/AWS, Partner Interconnect/GCP). **Not:** standard internet connectivity. Hybrid interconnects are dedicated private circuits bypassing the public internet for security, performance, and predictable latency. | Physical circuit provisioned and monitored automatically, circuit health and uptime reporting. | MC manages logical configuration, ongoing circuit monitoring, failover setup and testing, change management. | Physical Circuit: **Networking**; Logical Config & Management: **Managed Cloud** | Azure ExpressRoute 50Mbps: ~$75/mo ($55 USD); 200Mbps: ~$200/mo ($145 USD). AWS Direct Connect hosted connection: ~$30–120/mo port fee. Data transfer charges additional. | MC logical config and management (TBD/engagement) | Live |
 | **FinOps / Cost Optimization** | Cloud spend visibility, anomaly detection, budget governance, and cost optimization for public cloud and Aptum IaaS. **Not:** billing support — that is Fundamental for Public Cloud. FinOps is active optimization, not just receiving invoices. | Aptum Portal cost insights: automated spend reporting, budget alerts, anomaly detection, utilization tracking. Customer has dashboard access. | MC conducts rightsizing analysis, reserved instance strategy, governance framework design, monthly optimization reviews. | **Managed Cloud** + **Aptum Portal** | Included in Foundation / Aptum Portal | MC time (TBD — flat monthly fee or % of managed cloud spend) | Live (MC/Foundation customers) |
 
 ### Logging
 
-| Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
+| Addon | What It Is / What It Isn't | Reactive tier | Proactive tier | Addon Owner | Reactive cost (CAD/mo) | Proactive cost (CAD/mo) | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Operational Logging** | Centralized log collection, retention, and access for infrastructure and platform operational logs. 3-month default retention. **Not:** application logging. Custom application log pipelines require a PS engagement. This covers infrastructure and platform logs only. | Log collection agents deployed, automated ingestion, retention managed, customer has log access. | MC configures alert rules on log patterns, manages compliance retention, conducts log analysis for incident investigation. | Log Management: **Managed Cloud**; Infrastructure Log Standards: **Compute Platforms** | Datadog Logs: ~$0.15/GB ingested ($0.10 USD) + ~$3.75/million log events ($2.50 USD). Elastic Cloud: ~$0.14/GB/month storage. | Tooling included + MC labor (TBD). PS required for custom application logging. | Live (infrastructure); PS for application logging |
 
 ### Engagement & Governance
 
-| Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
+| Addon | What It Is / What It Isn't | Reactive tier | Proactive tier | Addon Owner | Reactive cost (CAD/mo) | Proactive cost (CAD/mo) | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Reviews & Touchpoints** | Scheduled cadence reviews (monthly or quarterly) to assess environment health, review ticket patterns, and plan proactively. **Not:** ad-hoc support tickets. Reviews are structured sessions scheduled in advance. | Automated reporting inputs generated: ticket summaries, patch compliance, backup status, system inventory. | MC supports the review, analyses patterns, identifies proactive improvements, advises on what works, plans upcoming activities. | **Managed Cloud** | Included (automated reporting) | Included in MC endpoint fee ($160 USD/endpoint/month bundled) | Live |
-| **Managed DNS** | DNS management with proxy mode and edge DDoS protection via Aptum Portal. **Not:** full network management. DNS records only — does not cover routing, BGP, or network architecture. | Cloudflare-backed self-service DNS management via Aptum Portal, automated propagation and monitoring. | MC assists with complex DNS configuration and troubleshooting on request. | MM: **Aptum Portal**; EM: **Managed Cloud** | Included (Cloudflare ~$35/zone underlying, absorbed in platform cost) | Included for standard requests | **Live in portal** |
+| **Managed DNS** | DNS management with proxy mode and edge DDoS protection via Aptum Portal. **Not:** full network management. DNS records only — does not cover routing, BGP, or network architecture. | Cloudflare-backed self-service DNS management via Aptum Portal, automated propagation and monitoring. | MC assists with complex DNS configuration and troubleshooting on request. | Reactive: **Aptum Portal**; Proactive tier: **Managed Cloud** | Included (Cloudflare ~$35/zone underlying, absorbed in platform cost) | Included for standard requests | **Live in portal** |
 | **Load Balancing (L7)** | Application-layer load balancing with SSL termination, health checks, and custom routing policies. (L4 TCP/UDP is self-service in portal.) **Not:** network-layer routing. L7 requires application-aware configuration and is not a set-and-forget device. | L7 load balancer running continuously once configured, automated health checks enforced. | MC configures L7 policies, SSL termination, health check rules, and routing logic. Makes changes on request. | **Managed Cloud** | Appliance/license TBD (scale-dependent) | MC configuration time (TBD) | L4 self-service live; L7 managed tier roadmap |
 | **Database Tuning** | Database performance optimization: query analysis, index recommendations, capacity planning. **Not:** database administration. Aptum does not manage schema changes, application code, or data. Backup is a separate addon. | Automated monitoring of DB availability and query response time, automated performance alerting. | DBA analysis, query optimization recommendations, capacity planning, periodic performance review sessions. | **Managed Cloud** | Included in infrastructure monitoring | PS engagement or MC time (TBD) | Available as PS |
 | **DevOps Monitoring & Maintenance** | CI/CD pipeline health monitoring, container monitoring, and IaC drift detection. **Not:** application development support. Aptum monitors and maintains DevOps infrastructure, not the code or pipelines the customer builds. | Automated pipeline health checks, container monitoring, IaC drift detection alerts. | MC configures monitoring, proactively responds to pipeline failures, manages IaC drift remediation. | **Managed Cloud** | Datadog CI Visibility or equivalent: TBD | MC time (TBD) | Roadmap |
@@ -293,7 +295,7 @@ The advisory motion consists of seven structured assessments that diagnose the c
 | --- | --- | --- | --- |
 | **Infrastructure Risk & Readiness** | EOL inventory, capacity baseline, remediation roadmap | Reactive (monitoring + OS patching) |
 | **Hybrid Cloud** | Workload inventory, TCO modeling, placement roadmap | Reactive to Proactive depending on IT maturity |
-| **Security Posture & Compliance** | Vulnerability assessment, compliance gap analysis, remediation matrix | Proactive (compliance reporting is EM-only) |
+| **Security Posture & Compliance** | Vulnerability assessment, compliance gap analysis, remediation matrix | Proactive (compliance reporting is Proactive tier-only) |
 | **Cloud Repatriation** | Cloud spend analysis, portability scoring, repatriation business case | Proactive (full migration to MCP model) |
 | **Operational Maturity** | OpEx analysis, maturity scoring, managed services transition plan | Proactive (customer IT team is the pain signal) |
 | **App & Platform Modernization** | Architecture review, container/K8s readiness, CI/CD maturity | Proactive (MC owns the platform) |
