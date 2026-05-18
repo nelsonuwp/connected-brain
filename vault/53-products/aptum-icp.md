@@ -26,15 +26,13 @@ They are most commonly found in these verticals: SaaS/digital platforms, eCommer
 
 ### Firmographic Anchors
 
-
-| Attribute            | Ideal Range                                 | Why                                                                                                                      |
-| -------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Employee count       | 50 to 2,000                                 | Large enough to have real infrastructure needs, small enough that their IT team (2 to 15 people) needs a partner         |
-| Annual revenue       | $10M to $500M                               | Budget exists for managed services, but they aren't large enough to build everything internally                          |
-| IT team size         | 2 to 15 people                              | This is the sweet spot. Overwhelmed, stretched thin, doing too many things. They need a safety net.                      |
-| Infrastructure spend | $10K to $100K/mo MRC                        | Below $10K the economics don't work for managed services stacking. Above $100K they typically have in-house capability.  |
-| Cloud maturity       | Hybrid (on-prem + at least one hyperscaler) | Pure cloud-native companies won't need Aptum's infrastructure. Pure on-prem companies aren't ready for the conversation. |
-
+| Attribute | Ideal Range | Why |
+| --- | --- | --- |
+| Employee count | 50 to 2,000 | Large enough to have real infrastructure needs, small enough that their IT team (2 to 15 people) needs a partner |
+| Annual revenue | $10M to $500M | Budget exists for managed services, but they aren't large enough to build everything internally |
+| IT team size | 2 to 15 people | This is the sweet spot. Overwhelmed, stretched thin, doing too many things. They need a safety net. |
+| Infrastructure spend | $10K to $100K/mo MRC | Below $10K the economics don't work for managed services stacking. Above $100K they typically have in-house capability. |
+| Cloud maturity | Hybrid (on-prem + at least one hyperscaler) | Pure cloud-native companies won't need Aptum's infrastructure. Pure on-prem companies aren't ready for the conversation. |
 
 ### Behavioral Indicators
 
@@ -128,13 +126,11 @@ AWARENESS                      ASSESSMENT                     EXECUTE           
 
 ### What a Relationship Is Worth
 
-
-| Stage                      | Revenue Type        | Typical Value   | Margin                                            |
-| -------------------------- | ------------------- | --------------- | ------------------------------------------------- |
-| Assessment (Advisory)      | One-time, fixed-fee | $5K to $40K     | 50-65% (SA labor + specialist time)               |
-| Implementation (Execute)   | One-time, SOW-based | $5K to $300K    | 25-35% (cross-functional labor, partner services) |
-| Managed Services (Operate) | Monthly recurring   | $15K to $48K/mo | 50-60% blended                                    |
-
+| Stage | Revenue Type | Typical Value | Margin |
+| --- | --- | --- | --- |
+| Assessment (Advisory) | One-time, fixed-fee | $5K to $40K | 50-65% (SA labor + specialist time) |
+| Implementation (Execute) | One-time, SOW-based | $5K to $300K | 25-35% (cross-functional labor, partner services) |
+| Managed Services (Operate) | Monthly recurring | $15K to $48K/mo | 50-60% blended |
 
 A fully engaged ideal customer generates $15,000 to $48,000/mo in managed services MRC. The blended margin is 50 to 60%, compared to 70 to 80% for infrastructure only, but the absolute margin dollars are 2 to 3x higher and the customer is deeply embedded.
 
@@ -142,17 +138,15 @@ A fully engaged ideal customer generates $15,000 to $48,000/mo in managed servic
 
 ### Quick Reference: What They Say, What to Offer, What They Might Buy
 
-
-| What You Hear                                                                         | Assessment to Offer             | Products and Services                                                                                                    |
-| ------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| "Our servers are 7 years old," "Haven't patched in months," "SAN at 85% capacity"     | Infrastructure Risk & Readiness | 24/7 Infrastructure Monitoring, OS Patching, Managed Backup, Hardware Replacement                                        |
-| "Our AWS bill doubled but usage is flat," "Paying for stuff we don't use"             | Cloud Repatriation              | Private Cloud or Shared Cluster via Aptum Portal, OS Patching, Managed Backup, Hybrid Cloud Interconnects                |
-| "We have stuff everywhere and no one knows what's where," "Hybrid by accident"        | Hybrid Cloud                    | Aptum Portal consolidation, OS Patching, Application Performance Monitoring, Hybrid Cloud Interconnects                  |
-| "Our auditor flagged us," "Firewalls are EOL," "Not sure we'd pass a SOC 2"           | Security Posture & Compliance   | Managed Firewall, Managed Detection and Response, Compliance Reporting, Vulnerability Scanning                           |
-| "My team spends 80% keeping the lights on," "Can't innovate, always firefighting"     | Operational Maturity            | OS Patching, Managed Backup, Managed Firewall, Application Performance Monitoring, Managed Detection and Response        |
-| "We want to do Kubernetes but running on old hardware," "Our CI/CD is manual"         | App & Platform Modernization    | Kubernetes platform build on Aptum infrastructure, DevOps Monitoring and Maintenance, Application Performance Monitoring |
-| "We built our cloud fast and never went back to check," "Performance is inconsistent" | Well-Architected Review         | Architecture remediation project, Application Performance Monitoring, Web Application Firewall, Managed Backup           |
-
+| What You Hear | Assessment to Offer | Products and Services |
+| --- | --- | --- |
+| "Our servers are 7 years old," "Haven't patched in months," "SAN at 85% capacity" | Infrastructure Risk & Readiness | 24/7 Infrastructure Monitoring, OS Patching, Managed Backup, Hardware Replacement |
+| "Our AWS bill doubled but usage is flat," "Paying for stuff we don't use" | Cloud Repatriation | Private Cloud or Shared Cluster via Aptum Portal, OS Patching, Managed Backup, Hybrid Cloud Interconnects |
+| "We have stuff everywhere and no one knows what's where," "Hybrid by accident" | Hybrid Cloud | Aptum Portal consolidation, OS Patching, Application Performance Monitoring, Hybrid Cloud Interconnects |
+| "Our auditor flagged us," "Firewalls are EOL," "Not sure we'd pass a SOC 2" | Security Posture & Compliance | Managed Firewall, Managed Detection and Response, Compliance Reporting, Vulnerability Scanning |
+| "My team spends 80% keeping the lights on," "Can't innovate, always firefighting" | Operational Maturity | OS Patching, Managed Backup, Managed Firewall, Application Performance Monitoring, Managed Detection and Response |
+| "We want to do Kubernetes but running on old hardware," "Our CI/CD is manual" | App & Platform Modernization | Kubernetes platform build on Aptum infrastructure, DevOps Monitoring and Maintenance, Application Performance Monitoring |
+| "We built our cloud fast and never went back to check," "Performance is inconsistent" | Well-Architected Review | Architecture remediation project, Application Performance Monitoring, Web Application Firewall, Managed Backup |
 
 ---
 
@@ -162,38 +156,32 @@ The dimServices extract (April 1, 2026) tells an honest story about the current 
 
 ### Portfolio Summary
 
-
-| Metric                          | Value               |
-| ------------------------------- | ------------------- |
-| Total monthly revenue (USD MRC) | $2,888,901          |
-| Total services                  | 5,581               |
-| Unique customers                | 773                 |
-| Datacenters                     | 26 across 21 cities |
-
+| Metric | Value |
+| --- | --- |
+| Total monthly revenue (USD MRC) | $2,888,901 |
+| Total services | 5,581 |
+| Unique customers | 773 |
+| Datacenters | 26 across 21 cities |
 
 ### Revenue Composition
 
-
-| Line of Business      | USD MRC    | Share  |
-| --------------------- | ---------- | ------ |
-| Hosting               | $2,171,402 | 75.16% |
-| Colocation            | $642,193   | 22.23% |
-| Cloud Services        | $74,168    | 2.57%  |
-| Professional Services | $1,138     | 0.04%  |
-
+| Line of Business | USD MRC | Share |
+| --- | --- | --- |
+| Hosting | $2,171,402 | 75.16% |
+| Colocation | $642,193 | 22.23% |
+| Cloud Services | $74,168 | 2.57% |
+| Professional Services | $1,138 | 0.04% |
 
 Three quarters of revenue comes from hosting, which is predominantly commodity dedicated servers. Cloud services represent just 2.57% of the portfolio. This is the gap the product strategy needs to close.
 
 ### Customer Concentration
 
-
-| Segment                                             | Revenue    | Share  |
-| --------------------------------------------------- | ---------- | ------ |
-| Top 10 customers                                    | $1,229,170 | 42.55% |
-| Top 20 customers                                    | $1,500,979 | 51.96% |
-| Top 50 customers                                    | $1,913,545 | 66.24% |
-| Single largest customer (Basis Global Technologies) | $425,740   | 14.74% |
-
+| Segment | Revenue | Share |
+| --- | --- | --- |
+| Top 10 customers | $1,229,170 | 42.55% |
+| Top 20 customers | $1,500,979 | 51.96% |
+| Top 50 customers | $1,913,545 | 66.24% |
+| Single largest customer (Basis Global Technologies) | $425,740 | 14.74% |
 
 This concentration is a structural risk. One customer walking would remove nearly 15% of total MRC.
 
@@ -203,14 +191,12 @@ Only 6.5% of services have any managed service attached. This compares to an ind
 
 ### Customer Segmentation by Stickiness and Assessment Opportunity
 
-
-| Segment                            | Customers | Revenue    | Share  | Churn Risk | Primary Assessment Play                                                                  |
-| ---------------------------------- | --------- | ---------- | ------ | ---------- | ---------------------------------------------------------------------------------------- |
-| Multi-LOB (hosting + colo + cloud) | 135       | $1,810,044 | 62.66% | Low        | Security Posture or Hybrid Cloud (deepen the relationship, add layers)                   |
-| Hosting-only                       | 429       | $659,075   | 22.81% | High       | Infrastructure Risk or Operational Maturity (create stickiness through managed services) |
-| Colocation-only                    | 93        | $401,994   | 13.92% | Medium     | Infrastructure Risk (assess what they're running in our racks, offer to manage it)       |
-| Cloud-only                         | ~116      | $17,788    | 0.62%  | Medium     | Well-Architected Review (optimize their cloud, open managed services conversation)       |
-
+| Segment | Customers | Revenue | Share | Churn Risk | Primary Assessment Play |
+| --- | --- | --- | --- | --- | --- |
+| Multi-LOB (hosting + colo + cloud) | 135 | $1,810,044 | 62.66% | Low | Security Posture or Hybrid Cloud (deepen the relationship, add layers) |
+| Hosting-only | 429 | $659,075 | 22.81% | High | Infrastructure Risk or Operational Maturity (create stickiness through managed services) |
+| Colocation-only | 93 | $401,994 | 13.92% | Medium | Infrastructure Risk (assess what they're running in our racks, offer to manage it) |
+| Cloud-only | ~116 | $17,788 | 0.62% | Medium | Well-Architected Review (optimize their cloud, open managed services conversation) |
 
 The 135 multi-LOB customers are the closest to the ideal ICP. They buy across product lines, generate 62.66% of revenue, and have multiple integration points that make switching costly. The assessment play for this segment is about deepening: adding the security layer, adding the app platform layer, adding business continuity.
 
@@ -222,20 +208,18 @@ The portfolio includes a meaningful number of customers who do not fit the ideal
 
 Examples of customers who sit outside the ICP:
 
-
-| Customer                  | MRC      | Profile                                                 | Why They Don't Fit                                                                                                                    |
-| ------------------------- | -------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Customer | MRC | Profile | Why They Don't Fit |
+| --- | --- | --- | --- |
 | Basis Global Technologies | $425,740 | Single product (dedicated hosting), no managed services | Largest single customer by far, but zero stickiness. If they find dedicated hosting cheaper elsewhere, there is nothing binding them. |
-| ResearchGATE GmbH         | $226,038 | Single product (dedicated hosting), no managed services | Same pattern. High revenue, low integration, high flight risk.                                                                        |
-
+| ResearchGATE GmbH | $226,038 | Single product (dedicated hosting), no managed services | Same pattern. High revenue, low integration, high flight risk. |
 
 There are 320 legacy-only customers generating $1,279,974/mo (44.31% of the portfolio) with zero managed services attached. This revenue is structurally at risk.
 
 The response is not to abandon these customers. It is to:
 
 1. Run Infrastructure Risk or Operational Maturity assessments on the accounts that have the profile to become ideal customers (overwhelmed IT teams, hybrid workloads, compliance needs). The assessment produces the evidence that justifies the managed services investment.
-2. Accept that some portion of this base will attrit over time as they find commodity infrastructure cheaper elsewhere.
-3. Build the new logo pipeline against the ICP using the assessment framework so that as legacy accounts attrit, they are backfilled with customers who fit the profile and buy across the stack.
+1. Accept that some portion of this base will attrit over time as they find commodity infrastructure cheaper elsewhere.
+1. Build the new logo pipeline against the ICP using the assessment framework so that as legacy accounts attrit, they are backfilled with customers who fit the profile and buy across the stack.
 
 This is what "it wasn't meant to be forever" looks like operationally.
 
@@ -311,18 +295,16 @@ These are organizations with modern application ambitions on legacy infrastructu
 
 ### Where the Revenue Is Today
 
-
-| City           | Services | USD MRC  | Share  |
-| -------------- | -------- | -------- | ------ |
-| Toronto        | 1,040    | $601,775 | 20.83% |
-| Herndon (IAD2) | 1,307    | $592,257 | 20.50% |
-| Portsmouth     | 927      | $547,787 | 18.96% |
-| Miami          | 547      | $300,870 | 10.41% |
-| Los Angeles    | 529      | $300,823 | 10.41% |
-| Atlanta        | 554      | $279,354 | 9.67%  |
-| London         | 109      | $69,572  | 2.41%  |
-| Vancouver      | 88       | $49,076  | 1.70%  |
-
+| City | Services | USD MRC | Share |
+| --- | --- | --- | --- |
+| Toronto | 1,040 | $601,775 | 20.83% |
+| Herndon (IAD2) | 1,307 | $592,257 | 20.50% |
+| Portsmouth | 927 | $547,787 | 18.96% |
+| Miami | 547 | $300,870 | 10.41% |
+| Los Angeles | 529 | $300,823 | 10.41% |
+| Atlanta | 554 | $279,354 | 9.67% |
+| London | 109 | $69,572 | 2.41% |
+| Vancouver | 88 | $49,076 | 1.70% |
 
 The top three cities represent 60.29% of revenue. Toronto and Herndon/Virginia are the strongest bases. Portsmouth has capacity but the facility has a known end-of-life constraint (the building owner plans to redevelop). Miami has recently been extended and is the strongest candidate for regional growth, particularly for the Latitude.sh and Megaport partnership.
 
@@ -330,22 +312,18 @@ The top three cities represent 60.29% of revenue. Toronto and Herndon/Virginia a
 
 For new logo acquisition against the ICP:
 
-
-| Region                                   | Rationale                                                                                                  | Assessment Entry Point                                                    |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| Greater Toronto / Southern Ontario       | Largest existing base, Canadian data sovereignty, proximity to Pullman DC (Aptum Portal/IaaS primary site) | Infrastructure Risk, Cloud Repatriation (Canadian data sovereignty angle) |
-| US East Coast (Virginia, Atlanta, Miami) | Existing DC presence, large mid-market population, Miami specifically for LatAm-adjacent demand            | Hybrid Cloud, Cloud Repatriation, Operational Maturity                    |
-| UK (Portsmouth + London)                 | Existing customer base, but constrained by facility situation. Selective.                                  | Infrastructure Risk (existing base renewal + upsell)                      |
-
+| Region | Rationale | Assessment Entry Point |
+| --- | --- | --- |
+| Greater Toronto / Southern Ontario | Largest existing base, Canadian data sovereignty, proximity to Pullman DC (Aptum Portal/IaaS primary site) | Infrastructure Risk, Cloud Repatriation (Canadian data sovereignty angle) |
+| US East Coast (Virginia, Atlanta, Miami) | Existing DC presence, large mid-market population, Miami specifically for LatAm-adjacent demand | Hybrid Cloud, Cloud Repatriation, Operational Maturity |
+| UK (Portsmouth + London) | Existing customer base, but constrained by facility situation. Selective. | Infrastructure Risk (existing base renewal + upsell) |
 
 For MSP/reseller channel (secondary):
 
-
-| Region                               | Rationale                                                                                              |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| Region | Rationale |
+| --- | --- |
 | Regional MSPs in DC footprint cities | MSPs squeezed by Broadcom who need a private cloud partner. ES Williams/Ignite pattern validates this. |
-| LatAm-adjacent via Miami             | Latitude.sh + Megaport intersection, as discussed in product discussion                                |
-
+| LatAm-adjacent via Miami | Latitude.sh + Megaport intersection, as discussed in product discussion |
 
 ---
 
@@ -353,14 +331,12 @@ For MSP/reseller channel (secondary):
 
 The portfolio has a near-term contract renewal concentration that requires attention:
 
-
-| Contract Window          | Services | Revenue    | Share  |
-| ------------------------ | -------- | ---------- | ------ |
-| Expiring within 6 months | 4,340    | $2,101,324 | 72.74% |
-| Expiring 6 to 12 months  | 151      | $135,147   | 4.68%  |
-| Expiring 12 to 24 months | 348      | $259,615   | 8.99%  |
-| 24+ months remaining     | 735      | $382,521   | 13.24% |
-
+| Contract Window | Services | Revenue | Share |
+| --- | --- | --- | --- |
+| Expiring within 6 months | 4,340 | $2,101,324 | 72.74% |
+| Expiring 6 to 12 months | 151 | $135,147 | 4.68% |
+| Expiring 12 to 24 months | 348 | $259,615 | 8.99% |
+| 24+ months remaining | 735 | $382,521 | 13.24% |
 
 72.74% of revenue by value is within 6 months of contract expiration. This is the window during which every renewal conversation should include an assessment offer. Each renewal is an opportunity to move a customer closer to (or further from) the ICP.
 
@@ -390,23 +366,21 @@ The ideal first conversation is an assessment. This is the tip of the spear. It 
 
 The StoryLeader methodology maps to three narrative questions that guide assessment selection:
 
-
-| StoryLeader Question                   | Customer Pain                                                     | Assessment to Offer                                                               |
-| -------------------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| "What are you dealing with right now?" | Aging infra, security gaps, operational burden                    | Infrastructure Risk, Security Posture                                             |
-| "Where do you want to be?"             | Cloud strategy, platform modernization, architecture optimization | Hybrid Cloud, Cloud Repatriation, Platform Modernization, Well-Architected Review |
-| "What's holding you back?"             | IT team capacity, operational immaturity, technical debt          | Operational Maturity, Infrastructure Risk, Security Posture                       |
-
+| StoryLeader Question | Customer Pain | Assessment to Offer |
+| --- | --- | --- |
+| "What are you dealing with right now?" | Aging infra, security gaps, operational burden | Infrastructure Risk, Security Posture |
+| "Where do you want to be?" | Cloud strategy, platform modernization, architecture optimization | Hybrid Cloud, Cloud Repatriation, Platform Modernization, Well-Architected Review |
+| "What's holding you back?" | IT team capacity, operational immaturity, technical debt | Operational Maturity, Infrastructure Risk, Security Posture |
 
 Qualification questions for new opportunities:
 
 1. How many people are on your IT team? (Target: 2 to 15)
-2. Where are your workloads running today? (Target: hybrid, on-prem + at least one hyperscaler)
-3. Are you running VMware? When is your next renewal? (Broadcom pressure = urgency)
-4. Who manages your backups, patching, and security monitoring today? (If "we do, barely," they fit the ICP)
-5. Do you have compliance requirements? (SOC 2, PCI, HIPAA = Security Posture Assessment opportunity)
-6. What is your monthly cloud spend? Is it growing faster than your usage? (Cloud Repatriation opportunity)
-7. What would it cost your business if your infrastructure went down for 4 hours? (Infrastructure Risk framing)
+1. Where are your workloads running today? (Target: hybrid, on-prem + at least one hyperscaler)
+1. Are you running VMware? When is your next renewal? (Broadcom pressure = urgency)
+1. Who manages your backups, patching, and security monitoring today? (If "we do, barely," they fit the ICP)
+1. Do you have compliance requirements? (SOC 2, PCI, HIPAA = Security Posture Assessment opportunity)
+1. What is your monthly cloud spend? Is it growing faster than your usage? (Cloud Repatriation opportunity)
+1. What would it cost your business if your infrastructure went down for 4 hours? (Infrastructure Risk framing)
 
 ### For Account Management (Existing Base)
 

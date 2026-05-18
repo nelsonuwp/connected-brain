@@ -1,5 +1,7 @@
 # Aptum Managed Services Catalog
+
 ## Value-Added Products Layered on Aptum Portal Commodities
+
 **Version 2.1 | April 28, 2026**
 
 ---
@@ -29,7 +31,7 @@ Customer-facing product names in this catalog are vendor-neutral. The customer b
 These are the "base products." Customers can consume them self-service (where available) or have Aptum provision them. The infrastructure itself is not the margin story; it is the entry point.
 
 | Core Product | Technology | Provisioning & Portal | Fundamental (Always Included) |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Colocation** | Physical data center space: rack units, power (kW), cooling, physical security | Manual (Data Center Ops); Portal: future — power and bandwidth visibility | Power on, temperature within range, physical security maintained, rack space available. Network connectivity is a separate purchase. |
 | **Connectivity** | MPLS, internet ports, BGP, transit, cross-connects, fiber | Manual (Networking); Portal: future — bandwidth utilization and uptime visibility | BGP and routing healthy, 99.999% uptime SLA maintained. SD receives monitoring alerts, escalates to Network team for resolution. |
 | **Bare Metal** | Aptum-owned single-tenant physical servers | Manual today (Compute Platforms + Data Center Ops); Portal: roadmap via BMaaS (self-service provisioning) | Server powered and network-connected, Zabbix monitoring active, failed hardware components (PSU, disk, CMOS) replaced within SLA, OS deployed per standard build, L2 triage included. SD Day 2 mandatory and non-removable. |
@@ -51,7 +53,7 @@ These are the purchasable addons that stack on top of any infrastructure commodi
 **MM** = Machine Managed available. **EM** = Expert Managed available. **MM+EM** = both available independently. **—** = not applicable to this product.
 
 | Addon | Colo | Connectivity | Bare Metal | Private Cloud | IaaS (VPC / Dedicated) | Public Cloud |
-|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- |
 | Infrastructure Monitoring (visibility) | — | MM | MM | MM | MM | MM |
 | Advanced Monitoring / APM | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
 | OS Patching | — | — | MM+EM | MM+EM | MM+EM | MM+EM |
@@ -83,7 +85,7 @@ These are the purchasable addons that stack on top of any infrastructure commodi
 The Bare Metal product price reflects six components. **Only the margin component is discountable.** The cost base is not negotiable below cost.
 
 | Component | Description |
-|---|---|
+| --- | --- |
 | Physical server | CapEx amortized over the contract term. Residual value at term end: 40% (12mo), 20% (24mo), 0% (36mo). |
 | Power | Per-kW cost varies by data center location (illustrative: Herndon $110/kW, Atlanta $337/kW, Miami $48/kW, Los Angeles $457/kW, Toronto/Montreal $253/kW, Portsmouth $46/kW). |
 | Data Center Ops | Data Center Ops labor allocated per server -- facilities, rack, physical ops. |
@@ -94,7 +96,7 @@ The Bare Metal product price reflects six components. **Only the margin componen
 **Contract term pricing -- illustrative example (Pro Series 6.0, Herndon DC):**
 
 | Term | Residual Value | List MRC | Effective MRC |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 12 months | 40% | $1,521.39 | $1,521.39 |
 | 24 months | 20% | $1,521.39 | $1,182.99 |
 | 36 months | 0% | $1,521.39 | $1,013.79 |
@@ -111,21 +113,21 @@ Each addon below shows what it is, what it is not (where there is room for confu
 ### Monitoring & Observability
 
 | Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | **Infrastructure Monitoring (visibility)** | Customer-facing access to monitoring dashboards, alert history, and uptime reporting. **Not:** the baseline monitoring Aptum runs internally to keep the commodity working — that is Fundamental and always included. This addon gives the customer visibility into that data. | LogicMonitor dashboard access, alert history, uptime and bandwidth reports. Customer can view and react to their own monitoring data. | Threshold tuning, proactive pattern analysis, Aptum responds to anomalies before customer impact, monitoring health reviews. | Aptum infra: **Compute Platforms**; IaaS platform: **Compute Platforms**; Network devices: **Networking**; Cloud/virtual: **Managed Cloud** | Zabbix OSS: included in SD floor. LogicMonitor customer portal: ~$11–20/device (market rate; Aptum contracted rate TBD) | Included in MC endpoint fee ($160 USD/endpoint bundled) | Live (Zabbix SD-side); Customer portal TBD |
 | **Advanced Monitoring / APM** | Full-stack observability: application performance, container health, infrastructure metrics, custom dashboards. **Not:** the same as infrastructure monitoring. APM goes above the OS into the application — infrastructure can show "OK" while app performance degrades. | Datadog agent deployed, automated dashboards, anomaly detection, customer has access to their Datadog environment. | MC configures custom dashboards, tunes alert rules, proactively responds to performance anomalies, delivers monthly performance reviews. | **Managed Cloud** | Datadog Infrastructure: ~$35/host ($25 USD). Datadog APM: ~$45/host ($31 USD). | Datadog $25 USD included in MC endpoint. MC labor within $135 USD/endpoint/month. | Live (MC customers) |
 
 ### OS & Platform Management
 
 | Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | **OS Patching** | Scheduled deployment of OS and security patches. Supported: Windows Server, Linux (Debian, Ubuntu, RHEL, Alma, Rocky). Compliance reporting. **Not:** application patching, database updates, or platform component updates — those are separate addons. | Automox agent deployed, patches scheduled per agreed policy, compliance reports generated. Customer receives notifications and approves patch windows. | MC reviews patch releases, tests compatibility, defines policy, coordinates maintenance windows, validates post-patch environment. Customer not in routine decision loop. | Cloud/Virtual OS: **Managed Cloud**; Aptum Infra OS: **Compute Platforms** | ~$7/endpoint (Automox ~$5 USD) | Automox included + MC labor within $135 USD/endpoint/month | Live |
 | **Application Platform Patching** | Updates to application platform components: middleware, runtime environments (Node.js, Java, .NET, Python), platform services. **Not:** OS patching (separate addon). Not application code — that is always the customer's responsibility. | Platform tooling where automated patching is supported, compliance reports generated. | MC tests platform updates, coordinates staged rollout, validates application behaviour post-patch, handles major version changes with customer sign-off. | **Managed Cloud** | TBD (platform-dependent tooling) | Within MCP tier pricing (TBD) | Live (MCP customers) |
 
 ### Data Protection & Recovery
 
 | Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | **Managed Backup** | Automated backup execution, monitoring, failure alerting, and restore capability with policy-based retention. **Not:** a DR solution. Backup protects data but does not guarantee a recovery time objective — DRaaS is the separate product for that. | Veeam automated job scheduling and execution, failure alerting, success/failure reporting. Customer can view job status and request restores via ticket. | MC designs backup policy, investigates failures proactively, manages restore operations, handles retention, tests recoverability before the customer needs to. | Policy & Management: **Managed Cloud**; Veeam Infrastructure & Runbooks: **Compute Platforms** | ~$14–20/workload (Veeam; Aptum block commitment — per-workload allocation TBD) | Veeam included + MC labor within $135 USD/endpoint/month | Live |
 | **DRaaS** | Defined RPO/RTO with maintained failover environment, tested recovery runbooks, quarterly DR tests. **Not:** just backup. DRaaS requires active failover infrastructure and regular testing. Backup alone does not guarantee recovery within an RTO. | Backup replication to secondary site automated, failover environment maintained and monitored, status reporting accessible. | MC designs DR plan, conducts quarterly DR tests, manages failover coordination, maintains and updates runbooks proactively. | Plan & Management: **Managed Cloud**; Secondary Infrastructure: **Compute Platforms** | Secondary site compute + storage, scoped per engagement (TBD) | MC team + PS for initial design (TBD per engagement) | Live (select customers) |
 | **BCP Planning** | Business Continuity Plan development, tabletop exercises, annual review. **Not:** DRaaS. BCP is the strategic plan; DRaaS is the technical execution. Effective together, but sold separately. | Automated plan status and test schedule reporting. | MC develops BCP document, facilitates tabletop exercises, conducts annual review. | **Managed Cloud** | N/A | Advisory/PS engagement (TBD) | Advisory/PS-led today |
@@ -133,7 +135,7 @@ Each addon below shows what it is, what it is not (where there is room for confu
 ### Security Services
 
 | Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | **Managed Firewall** | Security policy management, rule changes, and compliance auditing for Juniper SRX (physical) and virtual firewalls. **Not:** network infrastructure management — the physical device and connectivity is **Networking**'s responsibility. This addon is the security policy layer on top of the device. | Automated config backup, health monitoring, policy violation alerting, compliance reporting. | Managed Cloud manages security policy, complex rule changes, compliance auditing. Service Desk handles day-to-day L2 ticket operations. | Security Policy: **Managed Cloud**; Physical Device: **Networking** | Included in monitoring infrastructure | MC policy management (TBD/device) | Live |
 | **Antivirus / EDR** | Managed endpoint protection including AV and endpoint detection and response on customer servers. **Not:** MDR. AV/EDR is the automated endpoint agent layer. MDR is a full SOC service with human analysts actively hunting threats. | AV/EDR agent deployed, automated definition updates, automated threat detection and quarantine, agent status reporting. | MC triages alerts, investigates threats, coordinates response, configures exclusions and policies. | **Managed Cloud** | Options: MS Defender for Business ~$4/endpoint ($3 USD); CrowdStrike Falcon Go ~$7–10/endpoint ($5–7 USD); SentinelOne ~$6–9/endpoint ($4–6 USD) | Agent cost included + MC labor (TBD/endpoint) | Live |
 | **WAF** | HTTP/HTTPS traffic inspection with OWASP rule enforcement and custom security policies, managed as a service. **Not:** network-layer DDoS (separate addon). **Not:** a network firewall. WAF inspects application-layer (L7) traffic only. | WAF engine running, automated OWASP rule updates, automated blocking of known threats, event log accessible. | MC tunes policies, creates custom rules, manages false positives, conducts PCI/compliance reviews, proactively responds to attack patterns. | **Managed Cloud** | Imperva (Incapsula): ~$550/app ($400 USD) entry enterprise. Cloudflare WAF: ~$35–280/zone ($25–200 USD, plan-dependent). | WAF tooling included + MC labor (see WAF service guide) | Evolving (see WAF service guide) |
@@ -145,20 +147,20 @@ Each addon below shows what it is, what it is not (where there is room for confu
 ### Cloud & Hybrid Connectivity
 
 | Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | **Hybrid Interconnects** | Dedicated private connectivity between Aptum infrastructure and hyperscalers (ExpressRoute/Azure, Direct Connect/AWS, Partner Interconnect/GCP). **Not:** standard internet connectivity. Hybrid interconnects are dedicated private circuits bypassing the public internet for security, performance, and predictable latency. | Physical circuit provisioned and monitored automatically, circuit health and uptime reporting. | MC manages logical configuration, ongoing circuit monitoring, failover setup and testing, change management. | Physical Circuit: **Networking**; Logical Config & Management: **Managed Cloud** | Azure ExpressRoute 50Mbps: ~$75/mo ($55 USD); 200Mbps: ~$200/mo ($145 USD). AWS Direct Connect hosted connection: ~$30–120/mo port fee. Data transfer charges additional. | MC logical config and management (TBD/engagement) | Live |
 | **FinOps / Cost Optimization** | Cloud spend visibility, anomaly detection, budget governance, and cost optimization for public cloud and Aptum IaaS. **Not:** billing support — that is Fundamental for Public Cloud. FinOps is active optimization, not just receiving invoices. | Aptum Portal cost insights: automated spend reporting, budget alerts, anomaly detection, utilization tracking. Customer has dashboard access. | MC conducts rightsizing analysis, reserved instance strategy, governance framework design, monthly optimization reviews. | **Managed Cloud** + **Aptum Portal** | Included in Foundation / Aptum Portal | MC time (TBD — flat monthly fee or % of managed cloud spend) | Live (MC/Foundation customers) |
 
 ### Logging
 
 | Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | **Operational Logging** | Centralized log collection, retention, and access for infrastructure and platform operational logs. 3-month default retention. **Not:** application logging. Custom application log pipelines require a PS engagement. This covers infrastructure and platform logs only. | Log collection agents deployed, automated ingestion, retention managed, customer has log access. | MC configures alert rules on log patterns, manages compliance retention, conducts log analysis for incident investigation. | Log Management: **Managed Cloud**; Infrastructure Log Standards: **Compute Platforms** | Datadog Logs: ~$0.15/GB ingested ($0.10 USD) + ~$3.75/million log events ($2.50 USD). Elastic Cloud: ~$0.14/GB/month storage. | Tooling included + MC labor (TBD). PS required for custom application logging. | Live (infrastructure); PS for application logging |
 
 ### Engagement & Governance
 
 | Addon | What It Is / What It Isn't | Machine Managed | Expert Managed | Addon Owner | MM Cost (CAD/mo) | EM Cost (CAD/mo) | Status |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | **Reviews & Touchpoints** | Scheduled cadence reviews (monthly or quarterly) to assess environment health, review ticket patterns, and plan proactively. **Not:** ad-hoc support tickets. Reviews are structured sessions scheduled in advance. | Automated reporting inputs generated: ticket summaries, patch compliance, backup status, system inventory. | MC facilitates the review, analyses patterns, identifies proactive improvements, advises on best practices, plans upcoming activities. | **Managed Cloud** | Included (automated reporting) | Included in MC endpoint fee ($160 USD/endpoint/month bundled) | Live |
 | **Managed DNS** | DNS management with proxy mode and edge DDoS protection via Aptum Portal. **Not:** full network management. DNS records only — does not cover routing, BGP, or network architecture. | Cloudflare-backed self-service DNS management via Aptum Portal, automated propagation and monitoring. | MC assists with complex DNS configuration and troubleshooting on request. | MM: **Aptum Portal**; EM: **Managed Cloud** | Included (Cloudflare ~$35/zone underlying, absorbed in platform cost) | Included for standard requests | **Live in portal** |
 | **Load Balancing (L7)** | Application-layer load balancing with SSL termination, health checks, and custom routing policies. (L4 TCP/UDP is self-service in portal.) **Not:** network-layer routing. L7 requires application-aware configuration and is not a set-and-forget device. | L7 load balancer running continuously once configured, automated health checks enforced. | MC configures L7 policies, SSL termination, health check rules, and routing logic. Makes changes on request. | **Managed Cloud** | Appliance/license TBD (scale-dependent) | MC configuration time (TBD) | L4 self-service live; L7 managed tier roadmap |
@@ -177,7 +179,7 @@ Professional services are organized into two distinct motions with different del
 The advisory motion consists of seven structured assessments that diagnose the customer's environment, quantify risk, and produce a roadmap. Each assessment is a fixed-fee, t-shirt-sized engagement (S/M/L/XL) led by a Solution Architect. The assessment deliverable is the business case for the Execute and Operate motions that follow.
 
 | Assessment | Price Range | What It Produces | Primary Layer Destination |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Infrastructure Risk & Readiness** | $5K–$30K+ | EOL inventory, capacity baseline, remediation roadmap | L1 + L2 (Monitoring + Managed OS) |
 | **Hybrid Cloud** | $7.5K–$40K+ | Workload inventory, TCO modeling, placement roadmap | L2 + L3 + L5 (Managed OS + App Platform + Hybrid Connectivity) |
 | **Security Posture & Compliance** | $5K–$30K+ | Vulnerability assessment, compliance gap analysis, remediation matrix | L2 + L4 (Managed Firewall + Security & Compliance) |
@@ -191,7 +193,7 @@ The advisory motion consists of seven structured assessments that diagnose the c
 The execute motion acts on assessment findings. These are SOW-scoped, milestone-based engagements delivered by cross-functional teams coordinated by HSDM and scoped by HSA.
 
 | Service | What It Is | Typical Assessment Origin | Delivering Team | Typical Revenue |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | **Cloud Migration** | Workload migration (P2V, V2V, on-prem to cloud) | Hybrid Cloud Assessment | HSA + contributing teams via HSDM | $25K–$200K |
 | **Repatriation Project** | Selective workload move from hyperscaler to Aptum IaaS | Cloud Repatriation Assessment | HSA + contributing teams via HSDM | $50K–$300K |
 | **Hardware Refresh** | EOL server replacement, spec, procure, build, migrate, decommission | Infrastructure Risk Assessment | Compute Platforms + HSA | $5K–$50K |
@@ -231,7 +233,7 @@ Managed Service Layers:
   Blended margin: ~50-60%
 ```
 
-Compare to the same customer buying unmanaged Shared Cluster only: $7,000/mo at ~80% margin.
+Compare to the same customer buying unmanaged Shared Cluster only: $7,000/mo at ~80% margin.\
 The managed services layers nearly triple revenue and the customer is deeply embedded.
 
 ---
@@ -240,7 +242,7 @@ The managed services layers nearly triple revenue and the customer is deeply emb
 
 Each assessment produces findings that point at specific managed service layers. This is the mechanism that converts a generic upsell pitch into an evidence-based conversation. The customer does not hear "you should buy managed patching." The customer hears "your assessment found 14 servers running EOL operating systems with 47 unpatched CVEs. Here is what we do about that."
 
-### Path 1: Infrastructure Risk --> L1 + L2
+### Path 1: Infrastructure Risk --\> L1 + L2
 
 **Assessment finds:** EOL hardware, unsupported OS, deferred patching, single points of failure, capacity constraints.
 
@@ -250,7 +252,7 @@ Each assessment produces findings that point at specific managed service layers.
 
 **Expected MRC uplift:** $5K–$15K/mo
 
-### Path 2: Cloud Repatriation --> Private Cloud + L2 + L5
+### Path 2: Cloud Repatriation --\> Private Cloud + L2 + L5
 
 **Assessment finds:** Cloud overspend on predictable workloads, portable workloads suitable for repatriation, savings opportunity of 30-60% on repatriated workloads.
 
@@ -260,7 +262,7 @@ Each assessment produces findings that point at specific managed service layers.
 
 **Expected MRC uplift:** $10K–$50K/mo (highest value path)
 
-### Path 3: Hybrid Cloud --> L2 + L3 + L5
+### Path 3: Hybrid Cloud --\> L2 + L3 + L5
 
 **Assessment finds:** Workload sprawl across environments, inconsistent management, suboptimal placement, TCO improvement opportunity.
 
@@ -270,7 +272,7 @@ Each assessment produces findings that point at specific managed service layers.
 
 **Expected MRC uplift:** $8K–$25K/mo
 
-### Path 4: Security Posture --> L2 + L4
+### Path 4: Security Posture --\> L2 + L4
 
 **Assessment finds:** EOL firewalls, unpatched CVEs, compliance gaps (SOC 2, HIPAA, PCI-DSS), inadequate security monitoring.
 
@@ -280,7 +282,7 @@ Each assessment produces findings that point at specific managed service layers.
 
 **Expected MRC uplift:** $5K–$17K/mo
 
-### Path 5: Operational Maturity --> L2 + L3 + L4
+### Path 5: Operational Maturity --\> L2 + L3 + L4
 
 **Assessment finds:** IT team spending 80%+ on reactive operations, no structured monitoring/patching/incident management, operational model unsustainable at current scale.
 
@@ -290,7 +292,7 @@ Each assessment produces findings that point at specific managed service layers.
 
 **Expected MRC uplift:** $8K–$30K/mo
 
-### Path 6: Platform Modernization --> L2 + L3
+### Path 6: Platform Modernization --\> L2 + L3
 
 **Assessment finds:** Legacy infrastructure under modern applications, immature CI/CD, container gaps, no platform strategy.
 
@@ -300,7 +302,7 @@ Each assessment produces findings that point at specific managed service layers.
 
 **Expected MRC uplift:** $8K–$25K/mo
 
-### Path 7: Well-Architected Review --> L3 + Public Cloud Management
+### Path 7: Well-Architected Review --\> L3 + Public Cloud Management
 
 **Assessment finds:** Architecture gaps across 6 pillars (operational excellence, security, reliability, performance, cost, sustainability), cost optimization opportunities, governance gaps.
 
@@ -317,14 +319,14 @@ Each assessment produces findings that point at specific managed service layers.
 This is the gap. The portal delivers Layer 0 (self-service provisioning) well today. Layers 1-5 are operationally delivered but invisible in the portal. Making them visible is what turns Aptum Portal from a provisioning tool into a retention engine.
 
 | Layer | What the Portal Should Show | Priority | Complexity |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Commodity** | VM status, cost estimator, usage reports, quoting tool | **Live** | Done |
 | **L1: Infra Monitoring** | Uptime dashboard, alert history, incident status | High | Requires Zabbix/LM → portal integration |
 | **L2: Managed OS** | Patch compliance, backup success/failure, firewall audit | High | Requires Veeam + patching tool → portal integration |
 | **L3: App Platform** | Datadog dashboards (embed/link), WAF events, LB health | Medium | Datadog API + Imperva API integration |
 | **L4: Security** | MDR threat dashboard, compliance status, scan results | Medium | Alert Logic API integration |
 | **L5: BCP/Hybrid** | DR plan status, last test result, interconnect up/down | Medium | Custom dashboard from runbook data |
-| **Support** | Ticket status, SLA compliance, contact info | High | JSM → portal integration (link to CUST-* or APTUM project) |
+| **Support** | Ticket status, SLA compliance, contact info | High | JSM → portal integration (link to CUST-\* or APTUM project) |
 
 **The priority call:** L1 + L2 portal visibility + Support ticket integration are the highest-impact items. They affect every managed customer and make the "managed" visible. L3-L5 are valuable but serve a smaller subset of customers.
 
@@ -333,22 +335,22 @@ This is the gap. The portal delivers Layer 0 (self-service provisioning) well to
 ## Team Responsibility Summary: Who Delivers What
 
 | Managed Service | Service Desk | Managed Cloud | Compute Platforms | Data Center Ops | Network | HSA / HSDM |
-|---|---|---|---|---|---|---|
-| Infra Monitoring | **Operates** | | | | | |
-| Hardware Replacement | Dispatches | | | **Executes** | | |
-| Network Monitoring | Escalation | | | | **Operates** | |
-| OS Patching | | **Operates** | | | | |
-| Managed Backup | | **Operates** | | | | |
-| Managed Firewall | **L2 ops** | Policy escalation | | | | |
-| Endpoint Security | | **Operates** | | | | |
-| Application Performance Monitoring | | **Operates** | | | | |
-| Web Application Firewall | | **Operates** | | | | |
-| DDoS | | **Manages** | | | Edge protection | |
-| L7 Load Balancing | | **Operates** | | | | |
-| Managed Detection and Response (MDR) | | **Manages** (+ partner) | | | | |
-| DRaaS | | **Operates** | | | | PS designs |
-| Hybrid Interconnects | | **Manages** logical | | | **Operates** physical | |
-| Managed Productivity (M365) | | **Operates** | | | | |
+| --- | --- | --- | --- | --- | --- | --- |
+| Infra Monitoring | **Operates** |  |  |  |  |  |
+| Hardware Replacement | Dispatches |  |  | **Executes** |  |  |
+| Network Monitoring | Escalation |  |  |  | **Operates** |  |
+| OS Patching |  | **Operates** |  |  |  |  |
+| Managed Backup |  | **Operates** |  |  |  |  |
+| Managed Firewall | **L2 ops** | Policy escalation |  |  |  |  |
+| Endpoint Security |  | **Operates** |  |  |  |  |
+| Application Performance Monitoring |  | **Operates** |  |  |  |  |
+| Web Application Firewall |  | **Operates** |  |  |  |  |
+| DDoS |  | **Manages** |  |  | Edge protection |  |
+| L7 Load Balancing |  | **Operates** |  |  |  |  |
+| Managed Detection and Response (MDR) |  | **Manages** (+ partner) |  |  |  |  |
+| DRaaS |  | **Operates** |  |  |  | PS designs |
+| Hybrid Interconnects |  | **Manages** logical |  |  | **Operates** physical |  |
+| Managed Productivity (M365) |  | **Operates** |  |  |  |  |
 | Advisory (Assessments) | Data collection support | SME support | Environment docs | Asset inventory | Network topology | **SA leads delivery** |
 | Execute (Projects) | Contributes | Contributes | Contributes | Contributes | Contributes | **HSA scopes, HSDM delivers** |
 
