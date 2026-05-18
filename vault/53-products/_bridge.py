@@ -124,20 +124,31 @@ def pull():
     print("  git pull...")
     subprocess.run(['git', 'pull'], cwd=GFL_REPO, check=True)
 
-    # Step 2: pull from Confluence explicitly (gfl fetches page tree and merges)
+    # Step 2: pull from Confluence explicitly (gfl fetches page tree, merges, updates local docs)
     print("  gfl pull...")
     subprocess.run(['gfl', 'pull'], cwd=GFL_REPO, check=True)
 
-    # Step 2: copy gfl docs → vault, stripping front-matter
+    # Step 3: copy gfl docs → vault, stripping front-matter
+    expected_vault_files = set()
     for gfl_file in sorted(GFL_DOCS.rglob("*.md")):
         content = gfl_file.read_text(encoding='utf-8')
         _, body = split_frontmatter(content)
         vault_file = VAULT_DIR / gfl_file.relative_to(GFL_DOCS)
         vault_file.parent.mkdir(parents=True, exist_ok=True)
+        expected_vault_files.add(vault_file)
         existing = vault_file.read_text(encoding='utf-8') if vault_file.exists() else None
         if existing != body:
             vault_file.write_text(body, encoding='utf-8')
             print(f"  updated: {vault_file.relative_to(VAULT_DIR)}")
+
+    # Step 4: delete vault files that no longer exist in gfl (deleted from Confluence)
+    for vault_file in sorted(VAULT_DIR.rglob("*.md")):
+        rel = vault_file.relative_to(VAULT_DIR)
+        if is_excluded(rel):
+            continue
+        if vault_file not in expected_vault_files:
+            vault_file.unlink()
+            print(f"  deleted: {rel} (removed from Confluence)")
 
 
 if __name__ == '__main__':
