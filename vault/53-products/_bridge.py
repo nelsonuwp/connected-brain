@@ -3,8 +3,8 @@
 _bridge.py — Sync between connected-brain vault/53-products and product-strategy-gfl
 
 Usage:
-  python3 _bridge.py push   # vault/53-products → product-strategy-gfl/docs
-  python3 _bridge.py pull   # product-strategy-gfl/docs → vault/53-products
+  python3 _bridge.py push ["commit message"]   # vault/53-products → git → Confluence
+  python3 _bridge.py pull                      # Confluence → git → vault/53-products
 
 Exclusion rules (nothing matching these ever touches gfl):
   - Any file or folder whose name starts with _ (e.g. _supplemental-data/, _notes.md)
@@ -73,8 +73,8 @@ def vault_to_gfl_path(vault_file):
     return GFL_DOCS / Path(*slug_parts)
 
 
-def push():
-    """Push vault/53-products → product-strategy-gfl/docs, preserving gfl front-matter."""
+def push(message='sync: from connected-brain vault'):
+    """Push vault/53-products → product-strategy-gfl/docs → git → Confluence."""
     changed = False
 
     for vault_file in sorted(VAULT_DIR.rglob("*.md")):
@@ -109,7 +109,7 @@ def push():
         ).returncode != 0
         if has_staged:
             subprocess.run(
-                ['git', 'commit', '-m', 'sync: from connected-brain vault'],
+                ['git', 'commit', '-m', message],
                 cwd=GFL_REPO, check=True
             )
             subprocess.run(['git', 'push'], cwd=GFL_REPO, check=True)
@@ -119,7 +119,12 @@ def push():
 
 
 def pull():
-    """Pull product-strategy-gfl/docs → vault/53-products, stripping gfl front-matter."""
+    """Pull Confluence → git → vault/53-products, stripping gfl front-matter."""
+    # Step 1: pull latest from git (which triggers gfl's post-commit hook to sync Confluence)
+    print("  git pull...")
+    subprocess.run(['git', 'pull'], cwd=GFL_REPO, check=True)
+
+    # Step 2: copy gfl docs → vault, stripping front-matter
     for gfl_file in sorted(GFL_DOCS.rglob("*.md")):
         content = gfl_file.read_text(encoding='utf-8')
         _, body = split_frontmatter(content)
@@ -133,11 +138,12 @@ def pull():
 
 if __name__ == '__main__':
     if len(sys.argv) < 2 or sys.argv[1] not in ('push', 'pull'):
-        print("Usage: bridge.py push|pull")
+        print('Usage: _bridge.py push ["commit message"] | pull')
         sys.exit(1)
     if sys.argv[1] == 'push':
-        print("Pushing vault → product-strategy-gfl...")
-        push()
+        msg = sys.argv[2] if len(sys.argv) > 2 else 'sync: from connected-brain vault'
+        print("Pushing vault → product-strategy-gfl → Confluence...")
+        push(msg)
     else:
-        print("Pulling product-strategy-gfl → vault...")
+        print("Pulling Confluence → product-strategy-gfl → vault...")
         pull()

@@ -6,7 +6,7 @@
 
 ---
 
-## Why a Single ICP
+## TestWhy a Single ICP
 
 The earlier Product Strategy v1.3.1 ([Confluence page](https://aptum.atlassian.net/wiki/spaces/Product/pages/3376513043/Product+Strategy+v1.3.1)) defined two ICPs: one for infrastructure buyers and one for digital natives with 7+ developers. The board directed the team to consolidate to a single ICP. Ian Rae put it simply in the March 31, 2026 product discussion: "We're a mid-market company selling to mid-market."
 
@@ -143,16 +143,15 @@ A fully engaged ideal customer generates $15,000 to $48,000/mo in managed servic
 ### Quick Reference: What They Say, What to Offer, What They Might Buy
 
 
-| What You Hear                                                                                  | Assessment to Offer             | Products and Services                                                                                                          |
-| ---------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| "Our servers are 7 years old," "Haven't patched in months," "SAN at 85% capacity"             | Infrastructure Risk & Readiness | 24/7 Infrastructure Monitoring, OS Patching, Managed Backup, Hardware Replacement                                              |
-| "Our AWS bill doubled but usage is flat," "Paying for stuff we don't use"                     | Cloud Repatriation              | Private Cloud or Shared Cluster via Aptum Portal, OS Patching, Managed Backup, Hybrid Cloud Interconnects                     |
-| "We have stuff everywhere and no one knows what's where," "Hybrid by accident"                | Hybrid Cloud                    | Aptum Portal consolidation, OS Patching, Application Performance Monitoring, Hybrid Cloud Interconnects                        |
-| "Our auditor flagged us," "Firewalls are EOL," "Not sure we'd pass a SOC 2"                   | Security Posture & Compliance   | Managed Firewall, Managed Detection and Response, Compliance Reporting, Vulnerability Scanning                                 |
-| "My team spends 80% keeping the lights on," "Can't innovate, always firefighting"             | Operational Maturity            | OS Patching, Managed Backup, Managed Firewall, Application Performance Monitoring, Managed Detection and Response              |
-| "We want to do Kubernetes but running on old hardware," "Our CI/CD is manual"                 | App & Platform Modernization    | Kubernetes platform build on Aptum infrastructure, DevOps Monitoring and Maintenance, Application Performance Monitoring       |
-| "We built our cloud fast and never went back to check," "Performance is inconsistent"         | Well-Architected Review         | Architecture remediation project, Application Performance Monitoring, Web Application Firewall, Managed Backup                 |
-
+| What You Hear                                                                         | Assessment to Offer             | Products and Services                                                                                                    |
+| ------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| "Our servers are 7 years old," "Haven't patched in months," "SAN at 85% capacity"     | Infrastructure Risk & Readiness | 24/7 Infrastructure Monitoring, OS Patching, Managed Backup, Hardware Replacement                                        |
+| "Our AWS bill doubled but usage is flat," "Paying for stuff we don't use"             | Cloud Repatriation              | Private Cloud or Shared Cluster via Aptum Portal, OS Patching, Managed Backup, Hybrid Cloud Interconnects                |
+| "We have stuff everywhere and no one knows what's where," "Hybrid by accident"        | Hybrid Cloud                    | Aptum Portal consolidation, OS Patching, Application Performance Monitoring, Hybrid Cloud Interconnects                  |
+| "Our auditor flagged us," "Firewalls are EOL," "Not sure we'd pass a SOC 2"           | Security Posture & Compliance   | Managed Firewall, Managed Detection and Response, Compliance Reporting, Vulnerability Scanning                           |
+| "My team spends 80% keeping the lights on," "Can't innovate, always firefighting"     | Operational Maturity            | OS Patching, Managed Backup, Managed Firewall, Application Performance Monitoring, Managed Detection and Response        |
+| "We want to do Kubernetes but running on old hardware," "Our CI/CD is manual"         | App & Platform Modernization    | Kubernetes platform build on Aptum infrastructure, DevOps Monitoring and Maintenance, Application Performance Monitoring |
+| "We built our cloud fast and never went back to check," "Performance is inconsistent" | Well-Architected Review         | Architecture remediation project, Application Performance Monitoring, Web Application Firewall, Managed Backup           |
 
 
 ---
