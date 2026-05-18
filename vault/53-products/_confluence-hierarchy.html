@@ -502,17 +502,9 @@ const data = {
       icon: "📂",
       file: "index.md",
       source: "synth",
-      sourceFrom: "managed-services-catalog.md (intro, 'How this catalog is organized', Compatibility Matrix, Addon behavior by tier table)",
-      desc: "Commercial overview of Aptum's managed services catalog. How managed services stack on top of infrastructure commodities, the three engagement tiers, how assessment findings map to tier recommendations, the 22 purchasable addons by category, and the compatibility matrix (which addons work on which products). Primary commercial reference for pricing and positioning managed services.",
+      sourceFrom: "managed-services-catalog.md ('How this catalog is organized', Engagement Tiers sections, Addon behavior by tier table, Compatibility Matrix)",
+      desc: "This page covers the full managed services model. Opens with how managed services stack on top of infrastructure commodities and the Fundamental guarantee. Then walks through the three engagement tiers: Dedicated (Infrastructure — no managed services, PS on pay-as-you-go), Reactive (Co-Managed — 24/7 Service Desk, monitoring, customer stays in the decision loop), and Proactive (Fully Managed — Aptum owns and operates, named MC resource, all addons available). Includes working names vs. customer-facing names, infrastructure compatibility per tier, and how assessment findings map to tier recommendations. Closes with a high-level outline of the addon categories (Monitoring & Observability, OS & Platform Management, Data Protection & Recovery, Security Services, Cloud & Hybrid Connectivity, Logging, Engagement & Governance) — full detail on each addon lives in the Addons section below.",
       children: [
-        {
-          name: "Engagement Tiers",
-          icon: "📄",
-          file: "engagement-tiers.md",
-          source: "synth",
-          sourceFrom: "managed-services-catalog.md (Engagement Tiers intro, working names table, all three tier sections, tier compatibility section)",
-          desc: "All three tiers on one page. Dedicated (Infrastructure): infrastructure Fundamentals only, no managed services, PS on pay-as-you-go. Reactive (Co-Managed): 24/7 Service Desk, monitoring, customer stays in the decision loop, addon access at Reactive posture. Proactive (Fully Managed): Aptum owns and operates, named MC resource, all addons available including the three Proactive-only services. Includes working names vs. customer-facing names, infrastructure compatibility per tier, and how tier recommendations map from assessment findings."
-        },
         {
           name: "Addons",
           icon: "📂",
@@ -680,10 +672,9 @@ const data = {
             {
               name: "Hybrid Cloud",
               icon: "📂", file: "index.md", source: "cleanse",
-              sourceFrom: "STG/docs/assessments/02-hybrid-cloud/ — 3 files",
-              desc: "For companies with workloads across on-prem, colo, and hyperscaler that are 'hybrid by accident.' Produces workload inventory, TCO model, and placement roadmap. Leads to architecture consulting (Execute) then Reactive or Proactive depending on IT maturity.",
+              sourceFrom: "STG/docs/assessments/02-hybrid-cloud/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies with workloads across on-prem, colo, and hyperscaler that are 'hybrid by accident.' Pain signals: rising cloud costs, VMware licensing shock, infrastructure spread across too many places with no clear owner. Pitch, sizing, objection handling, and where this assessment leads (architecture consulting via Execute, then Reactive or Proactive depending on IT maturity).",
               children: [
-                { name: "Sell Sheet", icon: "📄", file: "sell-sheet.md", source: "cleanse", sourceFrom: "STG/docs/assessments/02-hybrid-cloud/sell-sheet.md", desc: "Pitch guide for customers with mixed infrastructure considering cloud migration or evaluation. Pain signals: 'hybrid by accident', rising cloud costs, VMware licensing shock." },
                 { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/02-hybrid-cloud/deliverable-scope.md", desc: "What the customer receives: workload inventory, TCO model (on-prem vs. cloud vs. Aptum IaaS), placement recommendation per workload, migration sequencing roadmap." },
                 { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/02-hybrid-cloud/delivery-guide.md", desc: "SA delivery methodology: data collection, workload classification framework, TCO modelling approach, findings presentation format." }
               ]
@@ -691,10 +682,9 @@ const data = {
             {
               name: "Security Posture & Compliance",
               icon: "📂", file: "index.md", source: "cleanse",
-              sourceFrom: "STG/docs/assessments/03-security-posture/ — 3 files",
-              desc: "For companies with EOL firewalls, CVE exposure, audit findings, or compliance gaps. Produces vulnerability assessment, compliance gap analysis, and remediation matrix. Leads to security remediation (Execute) then Proactive tier with MDR and Compliance Reporting.",
+              sourceFrom: "STG/docs/assessments/03-security-posture/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies with EOL firewalls, CVE exposure, audit findings, or compliance gaps. Pain signals: auditor flags, SOC 2 prep, cyber insurance requirements, 'we're not sure we'd pass a security review.' Pitch, sizing, objection handling, and where this leads (security remediation via Execute then Proactive tier with MDR and Compliance Reporting).",
               children: [
-                { name: "Sell Sheet", icon: "📄", file: "sell-sheet.md", source: "cleanse", sourceFrom: "STG/docs/assessments/03-security-posture/sell-sheet.md", desc: "Pitch guide for compliance-driven or security-gap customers. Pain signals: auditor flags, EOL firewalls, SOC 2 prep, cyber insurance requirements." },
                 { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/03-security-posture/deliverable-scope.md", desc: "What the customer receives: vulnerability assessment, compliance gap analysis, remediation matrix with prioritisation and effort estimates." },
                 { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/03-security-posture/delivery-guide.md", desc: "SA delivery methodology: scanning approach, compliance framework mapping, findings triage, remediation roadmap construction." }
               ]
@@ -702,10 +692,9 @@ const data = {
             {
               name: "Cloud Repatriation",
               icon: "📂", file: "index.md", source: "cleanse",
-              sourceFrom: "STG/docs/assessments/04-cloud-repatriation/ — 3 files",
-              desc: "For companies experiencing cloud overspend with flat or declining usage. Produces cloud spend analysis, workload portability scoring, and repatriation business case. Leads to repatriation project (Execute) then Proactive on Aptum IaaS. Highest follow-on revenue multiplier (10–20x).",
+              sourceFrom: "STG/docs/assessments/04-cloud-repatriation/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies experiencing cloud overspend with flat or declining usage. Pain signals: Azure/AWS bill growing faster than usage, egress surprises, reserved instances not being utilised, 'we moved to cloud and now it costs more.' Pitch, sizing, objection handling, and where this leads (repatriation project via Execute then Proactive on Aptum IaaS). Highest follow-on revenue multiplier (10–20x).",
               children: [
-                { name: "Sell Sheet", icon: "📄", file: "sell-sheet.md", source: "cleanse", sourceFrom: "STG/docs/assessments/04-cloud-repatriation/sell-sheet.md", desc: "Pitch guide for cloud-fatigued customers. Pain signals: Azure/AWS bill growing faster than usage, egress surprises, reserved instances not being utilised." },
                 { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/04-cloud-repatriation/deliverable-scope.md", desc: "What the customer receives: cloud spend analysis, workload portability scoring, TCO comparison (current cloud vs. Aptum IaaS), repatriation business case and phased migration plan." },
                 { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/04-cloud-repatriation/delivery-guide.md", desc: "SA delivery methodology: cloud cost data collection, workload classification, portability scoring framework, business case construction." }
               ]
@@ -713,10 +702,9 @@ const data = {
             {
               name: "Operational Maturity",
               icon: "📂", file: "index.md", source: "cleanse",
-              sourceFrom: "STG/docs/assessments/05-operational-maturity/ — 3 files",
-              desc: "For companies whose IT team spends 80%+ of time on reactive work. Produces OpEx analysis, operational maturity scoring, and managed services transition plan. Leads to managed services transition (Execute) then full Proactive tier stack.",
+              sourceFrom: "STG/docs/assessments/05-operational-maturity/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies whose IT team spends 80%+ of time on reactive work. Pain signals: 'we spend all our time keeping the lights on', team can't take on new projects, sysadmin departure leaving a knowledge gap, IT team size hasn't grown but the environment has. Pitch, sizing, objection handling, and where this leads (managed services transition via Execute then full Proactive tier stack).",
               children: [
-                { name: "Sell Sheet", icon: "📄", file: "sell-sheet.md", source: "cleanse", sourceFrom: "STG/docs/assessments/05-operational-maturity/sell-sheet.md", desc: "Pitch guide for overwhelmed IT teams. Pain signals: 'we spend all our time keeping the lights on', team can't take on new projects, sysadmin departure leaving a knowledge gap." },
                 { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/05-operational-maturity/deliverable-scope.md", desc: "What the customer receives: OpEx analysis (internal IT cost vs. managed services cost), maturity scoring across five operational dimensions, managed services transition plan with phased onboarding." },
                 { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/05-operational-maturity/delivery-guide.md", desc: "SA delivery methodology: IT team capacity interviews, operational load mapping, maturity scoring methodology, transition plan construction." }
               ]
@@ -724,10 +712,9 @@ const data = {
             {
               name: "App & Platform Modernization",
               icon: "📂", file: "index.md", source: "cleanse",
-              sourceFrom: "STG/docs/assessments/06-platform-modernization/ — 3 files",
-              desc: "For companies running modern apps on legacy infrastructure or with immature CI/CD. Produces architecture review, container/K8s readiness assessment, and CI/CD maturity roadmap. Leads to platform build (Execute) then Proactive tier managed platform.",
+              sourceFrom: "STG/docs/assessments/06-platform-modernization/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies running modern apps on legacy infrastructure or with immature CI/CD. Pain signals: manual deployment pipelines, no containerisation strategy, legacy hardware under modern workloads, 'we want to do Kubernetes but don't know where to start.' Pitch, sizing, objection handling, and where this leads (platform build via Execute then Proactive tier managed platform).",
               children: [
-                { name: "Sell Sheet", icon: "📄", file: "sell-sheet.md", source: "cleanse", sourceFrom: "STG/docs/assessments/06-platform-modernization/sell-sheet.md", desc: "Pitch guide for developers on outdated infra or organisations seeking Kubernetes adoption. Pain signals: manual CI/CD, immature container practices, legacy hardware under modern workloads." },
                 { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/06-platform-modernization/deliverable-scope.md", desc: "What the customer receives: architecture review, container/K8s readiness scoring, CI/CD maturity assessment, platform modernisation roadmap with phased recommendations." },
                 { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/06-platform-modernization/delivery-guide.md", desc: "SA delivery methodology: architecture discovery, container readiness evaluation framework, CI/CD pipeline audit, roadmap construction and prioritisation." }
               ]
@@ -735,10 +722,9 @@ const data = {
             {
               name: "Well-Architected Review",
               icon: "📂", file: "index.md", source: "cleanse",
-              sourceFrom: "STG/docs/assessments/07-well-architected-review/ — 3 files",
-              desc: "For companies with unreviewed cloud estates, cost overruns, or security concerns. Produces a six-pillar cloud review, cost optimisation findings, and governance gap analysis. Leads to architecture remediation (Execute) then Reactive or Proactive with FinOps.",
+              sourceFrom: "STG/docs/assessments/07-well-architected-review/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies with unreviewed cloud estates, cost overruns, or security concerns. Pain signals: 'we built our cloud fast and never went back to check', inconsistent performance, security gaps, cost overruns with no clear cause. Pitch, sizing, objection handling, and where this leads (architecture remediation via Execute then Reactive or Proactive with FinOps addon).",
               children: [
-                { name: "Sell Sheet", icon: "📄", file: "sell-sheet.md", source: "cleanse", sourceFrom: "STG/docs/assessments/07-well-architected-review/sell-sheet.md", desc: "Pitch guide for cloud-heavy customers who have never done a formal architecture review. Pain signals: 'we built our cloud fast and never went back to check', inconsistent performance, security concerns, cost overruns." },
                 { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/07-well-architected-review/deliverable-scope.md", desc: "What the customer receives: six-pillar review (operational excellence, security, reliability, performance, cost optimisation, sustainability), prioritised findings, governance gap analysis, remediation roadmap." },
                 { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/07-well-architected-review/delivery-guide.md", desc: "SA delivery methodology: pillar-by-pillar assessment framework, evidence gathering, findings scoring and prioritisation, remediation roadmap construction." }
               ]
