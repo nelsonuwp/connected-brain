@@ -120,9 +120,13 @@ def push(message='sync: from connected-brain vault'):
 
 def pull():
     """Pull Confluence → git → vault/53-products, stripping gfl front-matter."""
-    # Step 1: pull latest from git (which triggers gfl's post-commit hook to sync Confluence)
+    # Step 1: pull from git remote (other contributors' pushes)
     print("  git pull...")
     subprocess.run(['git', 'pull'], cwd=GFL_REPO, check=True)
+
+    # Step 2: pull from Confluence explicitly (gfl fetches page tree and merges)
+    print("  gfl pull...")
+    subprocess.run(['gfl', 'pull'], cwd=GFL_REPO, check=True)
 
     # Step 2: copy gfl docs → vault, stripping front-matter
     for gfl_file in sorted(GFL_DOCS.rglob("*.md")):

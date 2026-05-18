@@ -6,9 +6,9 @@
 
 ---
 
-## TestWhy a Single ICP
+## Why a Single ICP
 
-The earlier Product Strategy v1.3.1 ([Confluence page](https://aptum.atlassian.net/wiki/spaces/Product/pages/3376513043/Product+Strategy+v1.3.1)) defined two ICPs: one for infrastructure buyers and one for digital natives with 7+ developers. The board directed the team to consolidate to a single ICP. Ian Rae put it simply in the March 31, 2026 product discussion: "We're a mid-market company selling to mid-market."
+The earlier Product Strategy v1.3.1 ([Confluence page](https://aptum.atlassian.net/wiki/search?text=Product+Strategy+v1.3.1)) defined two ICPs: one for infrastructure buyers and one for digital natives with 7+ developers. The board directed the team to consolidate to a single ICP. Ian Rae put it simply in the March 31, 2026 product discussion: "We're a mid-market company selling to mid-market."
 
 This document defines one Ideal Customer Profile. It also defines what an ideal customer is not, using real portfolio data to show where the current customer base aligns and where it diverges. It integrates the assessment framework as the qualification and onboarding mechanism: the way Aptum determines whether a prospect fits the ICP, builds the relationship, and funnels the customer into the managed services and infrastructure stack.
 
@@ -410,4 +410,4 @@ Very small businesses below $5K/mo MRC potential. The economics of managed servi
 
 ---
 
-*Sources: dimServices extract (April 1, 2026), Aptum Identity & Values (Confluence, Marketing space), Aptum Messaging (Confluence, Marketing space), Product Strategy v1.3.1 (Confluence, treated as historical), Product Discussion transcript (March 31, 2026), `/53-products/aptum-product-strategy.md` v2.1, `/53-products/managed-services-catalog.md`, `/53-products/aptcloud-aptum-iaas/AptCloud_Aptum_IaaS_Strategy.md` (file path pending rename), Service Team descriptions, STG Assessment & Commercial Playbook v1.0 (7 assessments, engagement workflow, revenue model, success metrics, post-assessment pathways, customer-to-assessment matrix).*
+*Sources: dimServices extract (April 1, 2026), Aptum Identity & Values (Confluence, Marketing space), Aptum Messaging (Confluence, Marketing space), Product Strategy v1.3.1 (Confluence, treated as historical), Product Discussion transcript (March 31, 2026), *`/53-products/aptum-product-strategy.md`* v2.1, *`/53-products/managed-services-catalog.md`*, *`/53-products/aptcloud-aptum-iaas/AptCloud_Aptum_IaaS_Strategy.md`* (file path pending rename), Service Team descriptions, STG Assessment & Commercial Playbook v1.0 (7 assessments, engagement workflow, revenue model, success metrics, post-assessment pathways, customer-to-assessment matrix).*
