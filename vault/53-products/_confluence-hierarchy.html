@@ -296,6 +296,58 @@ main { padding: 20px 32px 48px; }
   <div class="legend-item"><span class="badge badge-new">🆕 net new</span> Does not exist yet — needs to be written</div>
 </div>
 
+<div style="margin: 20px 0; background:var(--white); border:0.5px solid var(--neutral1); border-radius:var(--border-radius-lg); overflow:hidden;">
+  <button onclick="var p=this.nextElementSibling; var a=this.querySelector('.tpl-arrow'); if(p.style.display==='none'||p.style.display===''){p.style.display='block';a.textContent='▼';}else{p.style.display='none';a.textContent='▶';}" style="width:100%; display:flex; align-items:center; gap:10px; padding:14px 20px; background:none; border:none; cursor:pointer; font-family:inherit; text-align:left;">
+    <span class="tpl-arrow" style="font-size:9px; color:var(--neutral2);">▶</span>
+    <span style="font-size:12px; font-weight:500; color:var(--neutral3); text-transform:uppercase; letter-spacing:0.06em;">📋 Infrastructure Page Template — reference for all product pages</span>
+  </button>
+  <div style="display:none; border-top:0.5px solid var(--neutral1); padding:20px 24px;">
+    <p style="font-size:12px; color:var(--neutral2); margin-bottom:16px;">Every infrastructure product page (Colo, Bare Metal, Connectivity, VPC, Dedicated Cloud, Private Cloud, Public Cloud variants) follows this outline. Sections may be short or N/A for simpler products but the order is fixed.</p>
+    <pre style="font-family:'GeistMono',monospace; font-size:12px; color:var(--soft-black); line-height:1.7; background:var(--off-white); border:0.5px solid var(--neutral1); border-radius:6px; padding:16px; overflow-x:auto; white-space:pre-wrap;"># [Product Name]
+[1-sentence plain-English definition — what this is and how it differs from its nearest neighbour]
+
+## What it is (and what it is not)
+Clear boundary statement. What this product is commonly confused with
+and why the distinction matters. Use explicit "not:" language.
+
+## What's always included (Fundamental guarantee)
+The non-negotiable floor Aptum delivers regardless of engagement tier
+or addon selection. If a customer buys nothing else, they still get this.
+
+## How it's delivered
+Portal self-service / manual provisioning / hybrid.
+Who touches it operationally (Data Center Ops, Compute Platforms, Networking).
+Current status: live / roadmap / available but not configured.
+
+## Technical specifications
+IaaS products: compute model (vCPU, RAM, overcommit ratio),
+storage tiers (Standard SSD, Performance SSD, NVMe — IOPS, use case),
+networking (isolation model, VLAN/VXLAN, throughput, DDoS included).
+Commodity products (Colo, Connectivity): power specs, carrier options,
+redundancy, SLA numbers.
+Public Cloud: what Aptum manages vs. what the hyperscaler owns.
+Keep factual. No marketing language.
+
+## Pricing model
+How it's billed (per vCPU/GB, per kW, per port, per server/mo).
+Contract term options where relevant.
+What is and isn't discountable.
+Cost structure components where known (e.g. Bare Metal 6-component model).
+
+## When this fits (and when it doesn't)
+ICP signals that point to this product.
+Assessment entry points that typically lead here.
+What customer profile this is the wrong answer for — be explicit.
+
+## Managed services available on top
+Which engagement tiers apply (Dedicated / Reactive / Proactive).
+Which addon categories are compatible with this product.
+Pointer to the Managed Services section for full detail.
+Do not list individual addons — just categories and compatibility notes.</pre>
+    <p style="font-size:11px; color:var(--neutral2); margin-top:12px; font-style:italic;">Public Cloud pages swap "Technical specifications" for "What Aptum manages vs. what the hyperscaler owns" and add a portal integration status section. IaaS pages (VPC, Dedicated Cloud, Private Cloud) carry the fullest technical spec sections. Commodity pages (Colo, Connectivity) are shorter on specs and heavier on pricing detail.</p>
+  </div>
+</div>
+
 <div style="margin-top:24px;">
 <div class="space-label">Confluence PRD Space — Option B: Product catalog first</div>
 <div class="tree-root" id="tree"></div>
