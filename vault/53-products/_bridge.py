@@ -54,6 +54,10 @@ def vault_to_gfl_path(vault_file):
     Find the corresponding gfl docs path for a vault file.
     Handles slugified filenames (AptCloud_Aptum_IaaS_PRD.md → aptcloud-aptum-iaas-prd.md).
     Returns the gfl path regardless of whether it exists yet (for new files).
+
+    Special case: if the vault file is folder/index.md and gfl has a post-pull
+    folder.md alongside folder/, prefer folder/index.md (reconcile_structure()
+    should have already restored this, but guard here too).
     """
     rel = vault_file.relative_to(VAULT_DIR)
 
@@ -61,6 +65,15 @@ def vault_to_gfl_path(vault_file):
     direct = GFL_DOCS / rel
     if direct.exists():
         return direct
+
+    # If this is an index.md, check for the pull-renamed folder.md form and
+    # prefer the index.md path so reconcile stays in effect.
+    if rel.name == 'index.md' and len(rel.parts) > 1:
+        folder_md = GFL_DOCS / rel.parent.with_suffix('.md')
+        if folder_md.exists() and (GFL_DOCS / rel.parent).is_dir():
+            # reconcile_structure() should have moved this already; return the
+            # canonical index.md path so the content lands in the right place.
+            return direct  # direct doesn't exist yet → bridge will create it
 
     # Try slugified match
     parts = rel.parts
@@ -73,8 +86,105 @@ def vault_to_gfl_path(vault_file):
     return GFL_DOCS / Path(*slug_parts)
 
 
+def reconcile_structure():
+    """
+    gfl pull renames folder/index.md → folder.md (inconsistent with gfl push's
+    ensurePushParents() which only looks for folder/index.md). Restore the correct
+    naming on both the working tree and the confluence tracking branch so that
+    parent page IDs are found correctly on the next push.
+    """
+    # Find folder.md + sibling folder/ pairs in working tree
+    pairs = []
+    for gfl_file in sorted(GFL_DOCS.rglob("*.md")):
+        if gfl_file.name == 'index.md':
+            continue
+        dir_path = gfl_file.with_suffix('')
+        if dir_path.is_dir():
+            pairs.append((gfl_file, dir_path / 'index.md'))
+
+    if not pairs:
+        return
+
+    # Step 1: Fix working tree — move folder.md → folder/index.md
+    for folder_md, index_md in pairs:
+        folder_content = folder_md.read_text(encoding='utf-8')
+        folder_fm, _ = split_frontmatter(folder_content)
+        if index_md.exists():
+            # Merge page ID from folder.md into existing index.md's frontmatter
+            _, existing_body = split_frontmatter(index_md.read_text(encoding='utf-8'))
+            new_content = (folder_fm + '\n\n' + existing_body) if folder_fm else existing_body
+            index_md.write_text(new_content, encoding='utf-8')
+        else:
+            index_md.write_text(folder_content, encoding='utf-8')
+        folder_md.unlink()
+
+    # Step 2: Fix confluence branch using git plumbing (no checkout required)
+    import os, tempfile
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.gfl-idx') as tmp:
+        tmp_index = tmp.name
+    try:
+        env = os.environ.copy()
+        env['GIT_INDEX_FILE'] = tmp_index
+
+        tree_hash = subprocess.run(
+            ['git', 'rev-parse', 'confluence^{tree}'],
+            cwd=GFL_REPO, capture_output=True, text=True, check=True
+        ).stdout.strip()
+
+        subprocess.run(['git', 'read-tree', tree_hash],
+                       cwd=GFL_REPO, env=env, check=True)
+
+        any_changed = False
+        for folder_md, index_md in pairs:
+            rel_old = str(folder_md.relative_to(GFL_REPO))
+            rel_new = str(index_md.relative_to(GFL_REPO))
+
+            lt = subprocess.run(
+                ['git', 'ls-tree', 'confluence', rel_old],
+                cwd=GFL_REPO, capture_output=True, text=True
+            )
+            if lt.returncode != 0 or not lt.stdout.strip():
+                continue
+            blob_hash = lt.stdout.strip().split()[2]
+
+            subprocess.run(['git', 'update-index', '--remove', rel_old],
+                           cwd=GFL_REPO, env=env, check=True)
+            subprocess.run(
+                ['git', 'update-index', '--add', '--cacheinfo',
+                 f'100644,{blob_hash},{rel_new}'],
+                cwd=GFL_REPO, env=env, check=True
+            )
+            any_changed = True
+
+        if any_changed:
+            new_tree = subprocess.run(
+                ['git', 'write-tree'], cwd=GFL_REPO, env=env,
+                capture_output=True, text=True, check=True
+            ).stdout.strip()
+
+            cur_commit = subprocess.run(
+                ['git', 'rev-parse', 'confluence'],
+                cwd=GFL_REPO, capture_output=True, text=True, check=True
+            ).stdout.strip()
+
+            new_commit = subprocess.run(
+                ['git', 'commit-tree', new_tree, '-p', cur_commit,
+                 '-m', 'chore: restore index.md structure for parent lookup'],
+                cwd=GFL_REPO, capture_output=True, text=True, check=True
+            ).stdout.strip()
+
+            subprocess.run(
+                ['git', 'update-ref', 'refs/heads/confluence', new_commit],
+                cwd=GFL_REPO, check=True
+            )
+            print(f"  reconciled: {len([p for p in pairs])} index file(s) restored on confluence branch")
+    finally:
+        os.unlink(tmp_index)
+
+
 def push(message='sync: from connected-brain vault'):
     """Push vault/53-products → product-strategy-gfl/docs → git → Confluence."""
+    reconcile_structure()
     changed = False
 
     for vault_file in sorted(VAULT_DIR.rglob("*.md")):
