@@ -23,6 +23,7 @@ To analyze the customer's current cloud environment, identify workloads that wou
 **Scope**: Cloud spend under $10K/month. High-level repatriation feasibility for the top 3-5 workloads.
 
 **Deliverables**:
+
 - Cloud spend summary and trend analysis (last 6-12 months)
 - Top 5 workload profiles with repatriation feasibility rating
 - Basic TCO comparison: current cloud cost vs. estimated repatriation cost
@@ -42,6 +43,7 @@ To analyze the customer's current cloud environment, identify workloads that wou
 **Scope**: 5-15 cloud workloads, single cloud provider, cloud spend $10K-$20K/month.
 
 **Deliverables**:
+
 - Detailed cloud spend analysis by service, region, and workload
 - Full workload inventory with portability analysis (portable vs. locked-in)
 - TCO modeling across 2-3 scenarios (stay, repatriate selective, repatriate aggressive)
@@ -63,6 +65,7 @@ To analyze the customer's current cloud environment, identify workloads that wou
 **Scope**: 15-50 cloud workloads, one or two cloud providers, cloud spend $20K-$100K/month. Includes detailed financial modeling and risk analysis.
 
 **Deliverables**:
+
 - Everything in Medium, plus:
 - Multi-provider cloud spend analysis with optimization recommendations
 - Detailed dependency mapping across workloads
@@ -87,6 +90,7 @@ To analyze the customer's current cloud environment, identify workloads that wou
 **Scope**: Enterprise-scale, 50+ workloads, multi-cloud, cloud spend over $100K/month. Full business case with executive presentation. Custom SOW required.
 
 **Deliverables**:
+
 - Everything in Large, plus:
 - Enterprise-wide cloud estate analysis across all providers and regions
 - Full financial model with business case and ROI for board/investor presentation
@@ -118,11 +122,11 @@ To analyze the customer's current cloud environment, identify workloads that wou
 ## Customer Responsibilities
 
 1. **Cloud billing access**: Provide read-only access to cloud billing console (AWS Cost Explorer, Azure Cost Management, GCP Billing)
-2. **Cloud console access**: Provide read-only access to cloud management consoles for resource inventory
-3. **Architecture context**: Share existing architecture diagrams and application documentation
-4. **Stakeholder availability**: Make engineering, operations, and finance stakeholders available for interviews
-5. **Business context**: Share relevant context about business growth plans, compliance requirements, and contract timelines
-6. **Point of contact**: Designate a technical POC and executive sponsor
+1. **Cloud console access**: Provide read-only access to cloud management consoles for resource inventory
+1. **Architecture context**: Share existing architecture diagrams and application documentation
+1. **Stakeholder availability**: Make engineering, operations, and finance stakeholders available for interviews
+1. **Business context**: Share relevant context about business growth plans, compliance requirements, and contract timelines
+1. **Point of contact**: Designate a technical POC and executive sponsor
 
 ---
 
@@ -139,10 +143,10 @@ To analyze the customer's current cloud environment, identify workloads that wou
 ## Acceptance Criteria
 
 1. All deliverables for the selected size have been provided
-2. Findings presentation delivered to designated stakeholders
-3. Final report delivered in PDF format
-4. TCO model delivered in editable spreadsheet format (for customer's continued use)
-5. Q&A session conducted following findings presentation
+1. Findings presentation delivered to designated stakeholders
+1. Final report delivered in PDF format
+1. TCO model delivered in editable spreadsheet format (for customer's continued use)
+1. Q&A session conducted following findings presentation
 
 ---
 

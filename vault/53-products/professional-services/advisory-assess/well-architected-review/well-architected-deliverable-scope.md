@@ -23,6 +23,7 @@ To assess the customer's cloud architecture against the six Well-Architected Fra
 **Scope**: Single workload or single pillar deep-dive. Single AWS account or Azure subscription.
 
 **Deliverables**:
+
 - Well-Architected Review focused on selected workload(s) or pillar(s)
 - Finding inventory with severity classification (High / Medium / Low)
 - Top-10 remediation recommendations with priority and effort estimates
@@ -41,6 +42,7 @@ To assess the customer's cloud architecture against the six Well-Architected Fra
 **Scope**: Multi-workload review across all 6 pillars. Single AWS account or Azure subscription (or small multi-account).
 
 **Deliverables**:
+
 - Full Well-Architected Review across all 6 pillars
 - Detailed finding inventory with severity, risk, and remediation for each
 - Cost optimization analysis with specific savings recommendations
@@ -61,6 +63,7 @@ To assess the customer's cloud architecture against the six Well-Architected Fra
 **Scope**: Enterprise-wide, all pillars, multi-account/subscription, remediation roadmap with phased execution plan.
 
 **Deliverables**:
+
 - Everything in Medium, plus:
 - Multi-account / multi-subscription architecture review
 - Landing zone and organizational structure assessment
@@ -82,6 +85,7 @@ To assess the customer's cloud architecture against the six Well-Architected Fra
 **Scope**: Multi-account, multi-region, full governance framework. Executive transformation roadmap. Custom SOW.
 
 **Deliverables**:
+
 - Everything in Large, plus:
 - Multi-region architecture assessment
 - Governance framework design (tagging, policies, guardrails, cost controls)
@@ -102,7 +106,7 @@ To assess the customer's cloud architecture against the six Well-Architected Fra
 ## Pillar Coverage by Size
 
 | Pillar | S (focused) | M (standard) | L (enterprise) | XL (transformation) |
-|--------|------------|-------------|---------------|-------------------|
+| --- | --- | --- | --- | --- |
 | Operational Excellence | If selected | Review | Detailed | Comprehensive + governance |
 | Security | If selected | Review | Detailed + compliance | Comprehensive + security baseline |
 | Reliability | If selected | Review | Detailed | Comprehensive + DR/BCP |
@@ -126,10 +130,10 @@ To assess the customer's cloud architecture against the six Well-Architected Fra
 ## Customer Responsibilities
 
 1. **Cloud access**: Provide read-only access to AWS Console / Azure Portal and relevant services
-2. **Billing access**: Provide read-only access to AWS Cost Explorer / Azure Cost Management
-3. **Architecture context**: Share existing architecture diagrams, runbooks, and operational documentation
-4. **Stakeholder availability**: Make cloud engineering, DevOps, security, and finance stakeholders available
-5. **Point of contact**: Designate a cloud engineering lead as primary POC
+1. **Billing access**: Provide read-only access to AWS Cost Explorer / Azure Cost Management
+1. **Architecture context**: Share existing architecture diagrams, runbooks, and operational documentation
+1. **Stakeholder availability**: Make cloud engineering, DevOps, security, and finance stakeholders available
+1. **Point of contact**: Designate a cloud engineering lead as primary POC
 
 ---
 
@@ -146,10 +150,10 @@ To assess the customer's cloud architecture against the six Well-Architected Fra
 ## Acceptance Criteria
 
 1. All deliverables for the selected size provided
-2. Well-Architected Report delivered per Aptum template format
-3. Findings presentation delivered to designated stakeholders
-4. Q&A session conducted
-5. Cost optimization analysis delivered with specific, actionable savings recommendations
+1. Well-Architected Report delivered per Aptum template format
+1. Findings presentation delivered to designated stakeholders
+1. Q&A session conducted
+1. Cost optimization analysis delivered with specific, actionable savings recommendations
 
 ---
 

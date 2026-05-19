@@ -23,6 +23,7 @@ To identify and quantify security risks across the customer's infrastructure, as
 **Scope**: 1-5 devices, no specific compliance mandate. Basic vulnerability and EOL assessment.
 
 **Deliverables**:
+
 - EOL hardware and software inventory with CVE exposure mapping
 - Automated vulnerability scan results with severity ratings
 - Top-10 prioritized risk findings with remediation recommendations
@@ -41,6 +42,7 @@ To identify and quantify security risks across the customer's infrastructure, as
 **Scope**: 5-15 devices, compliance gap analysis against ONE framework (e.g., HIPAA, SOC 2, PCI-DSS).
 
 **Deliverables**:
+
 - Full vulnerability assessment across all in-scope devices
 - EOL/EOS inventory with CVE mapping and severity scoring
 - Firewall rule review and policy audit
@@ -62,6 +64,7 @@ To identify and quantify security risks across the customer's infrastructure, as
 **Scope**: 15+ devices, multi-framework compliance, penetration testing, full remediation roadmap.
 
 **Deliverables**:
+
 - Everything in Medium, plus:
 - Compliance gap analysis against multiple frameworks
 - Manual penetration testing (external and/or internal, scope to be defined)
@@ -83,6 +86,7 @@ To identify and quantify security risks across the customer's infrastructure, as
 **Scope**: Enterprise-scale, multiple compliance frameworks, comprehensive pen testing, board-level reporting. Custom SOW required.
 
 **Deliverables**:
+
 - Everything in Large, plus:
 - Full internal and external penetration testing
 - Security governance and policy review
@@ -113,11 +117,11 @@ To identify and quantify security risks across the customer's infrastructure, as
 ## Customer Responsibilities
 
 1. **Access**: Provide access to all in-scope infrastructure, firewalls, and management interfaces
-2. **Authorization**: Provide written authorization for vulnerability scanning and penetration testing (L/XL)
-3. **Compliance context**: Identify which compliance frameworks apply and share any prior audit reports
-4. **Availability**: Make security, IT, and compliance stakeholders available for interviews
-5. **Point of contact**: Designate a security or IT POC for the duration of the assessment
-6. **Notification**: Notify internal teams of authorized scanning/testing activities
+1. **Authorization**: Provide written authorization for vulnerability scanning and penetration testing (L/XL)
+1. **Compliance context**: Identify which compliance frameworks apply and share any prior audit reports
+1. **Availability**: Make security, IT, and compliance stakeholders available for interviews
+1. **Point of contact**: Designate a security or IT POC for the duration of the assessment
+1. **Notification**: Notify internal teams of authorized scanning/testing activities
 
 ---
 
@@ -134,10 +138,10 @@ To identify and quantify security risks across the customer's infrastructure, as
 ## Acceptance Criteria
 
 1. All deliverables for the selected size have been provided
-2. Findings presentation has been delivered to designated stakeholders
-3. Final report delivered in PDF format
-4. Q&A session conducted following findings presentation
-5. For L/XL: Penetration testing report delivered separately with technical details
+1. Findings presentation has been delivered to designated stakeholders
+1. Final report delivered in PDF format
+1. Q&A session conducted following findings presentation
+1. For L/XL: Penetration testing report delivered separately with technical details
 
 ---
 

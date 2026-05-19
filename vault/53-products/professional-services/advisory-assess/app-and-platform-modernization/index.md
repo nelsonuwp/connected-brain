@@ -43,7 +43,7 @@ This assessment answers: **"Where do you want to be?"** -- for technology-forwar
 ## T-Shirt Sizing
 
 | Size | Price | Scope | Duration |
-|------|-------|-------|----------|
+| --- | --- | --- | --- |
 | **S** | $5K | Single app container readiness check, basic CI/CD maturity review | 1 week |
 | **M** | $10K | 1-3 core applications, container readiness, CI/CD maturity, platform architecture review | 2-3 weeks |
 | **L** | $20K | 3-10 applications, multiple dev teams, full platform strategy with migration path | 3-5 weeks |
@@ -54,25 +54,33 @@ This assessment answers: **"Where do you want to be?"** -- for technology-forwar
 ## How to Size It (Questions to Ask)
 
 ### 1. "How many applications or products does your dev team build and maintain?"
+
 Core sizing input. 1 = S. 1-3 = M. 3-10 = L. 10+ = XL.
 
 ### 2. "How do you deploy code today? Is it automated, or does someone have to manually push updates?"
+
 "Someone SSHs into the server" = early maturity, lots of room. "We have Jenkins/GitHub Actions" = more advanced starting point.
 
 ### 3. "Are you using containers -- like Docker or Kubernetes -- today, or is that something you're looking into?"
+
 Already using = we're optimizing (likely M). Looking into it = we're planning the journey (likely L). Never heard of it = probably not the right assessment for them.
 
 ### 4. "How many developers or dev teams do you have?"
+
 One team = simpler discovery. Multiple teams = more interviews, varied practices = bump up.
 
 ### 5. "What's your biggest frustration with how you ship software today?"
+
 "Takes too long" = CI/CD focus. "Things break" = reliability focus. "Can't scale" = platform architecture focus. Shapes the assessment, not necessarily sizes it.
 
 ### 6. "Do you have separate environments for development, testing, and production?"
+
 Single environment = less platform architecture. Multiple = more to assess.
 
 ### Quick Sizing Rule of Thumb
+
 Ask "how many apps?" and "how many dev teams?"
+
 - **1 app, 1 team** = Small
 - **1-3 apps, 1 team** = Medium
 - **3-10 apps or multiple teams** = Large
@@ -83,7 +91,7 @@ Ask "how many apps?" and "how many dev teams?"
 ## What the Assessment Delivers
 
 | Deliverable | S | M | L | XL |
-|------------|---|---|---|-----|
+| --- | --- | --- | --- | --- |
 | Application architecture review | Single app | 1-3 apps | 3-10 apps | Enterprise-wide |
 | Container/K8s readiness evaluation | Basic | Full | Full | Full + governance |
 | CI/CD maturity assessment | Basic | Full | Full | Full + best practices |
@@ -104,12 +112,15 @@ It pairs well with **Campaign 2 (Time to Grow Up)** for companies that need to m
 ## Objection Handling
 
 ### "Our developers handle all of this. We don't need outside help."
+
 *"Great developers don't always make great platform engineers. The assessment brings an outside perspective on architecture and best practices that even strong teams benefit from. We've worked with hundreds of engineering orgs and can share what the best ones do."*
 
 ### "We're not ready for Kubernetes yet."
+
 *"Maybe not. The assessment helps you figure out IF and WHEN you should adopt it, and what to do in the meantime. Sometimes the answer is 'not yet, but here's how to prepare.' That's valuable too."*
 
 ### "This feels like a technology decision, not a business decision."
+
 *"Platform maturity directly impacts business speed. If you can deploy 10x faster with 5x fewer failures, that's a competitive advantage. The assessment quantifies that."*
 
 ---
@@ -119,9 +130,9 @@ It pairs well with **Campaign 2 (Time to Grow Up)** for companies that need to m
 The Platform Modernization Assessment leads to:
 
 1. **App Platform / DevOps** -- Kubernetes implementation, CI/CD pipeline build, platform engineering: $30K-$150K
-2. **Aptum Managed CloudStack** -- managed Kubernetes / container hosting: $5K-$25K/month
-3. **Consulting** -- architecture redesign, microservices decomposition: $20K-$100K
-4. **Managed Cloud** -- ongoing platform management: $3K-$15K/month
+1. **Aptum Managed CloudStack** -- managed Kubernetes / container hosting: $5K-$25K/month
+1. **Consulting** -- architecture redesign, microservices decomposition: $20K-$100K
+1. **Managed Cloud** -- ongoing platform management: $3K-$15K/month
 
 See [Post-Assessment Pathways](../../post-assessment-pathways.md) for full details.
 
@@ -130,7 +141,6 @@ See [Post-Assessment Pathways](../../post-assessment-pathways.md) for full detai
 ## Target Customer Segments
 
 This assessment applies broadly to ICP-fit customers in the target account set. Review the ICP document and pain signals above to qualify specific opportunities.
-
 
 ---
 

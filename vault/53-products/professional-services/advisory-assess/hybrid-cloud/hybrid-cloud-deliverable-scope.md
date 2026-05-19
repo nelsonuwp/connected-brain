@@ -23,6 +23,7 @@ To evaluate the customer's current infrastructure environment, map workloads to 
 **Scope**: 1-5 applications, single environment. Quick "should we move this?" analysis for a specific workload or service.
 
 **Deliverables**:
+
 - Discovery session with key stakeholder (1-2 hours)
 - Workload profile for in-scope application(s)
 - Basic TCO comparison: current state vs. 1-2 alternative scenarios
@@ -41,6 +42,7 @@ To evaluate the customer's current infrastructure environment, map workloads to 
 **Scope**: 5-20 applications/workloads, 1-2 environments (e.g., on-prem + single cloud provider). May include basic compliance considerations.
 
 **Deliverables**:
+
 - Discovery workshop (half day)
 - Full infrastructure and workload inventory with dependency mapping
 - TCO and suitability modeling across 2-3 scenarios (stay, migrate, hybrid)
@@ -62,6 +64,7 @@ To evaluate the customer's current infrastructure environment, map workloads to 
 **Scope**: 20-50 applications/workloads, 2-3 environments, compliance requirements (HIPAA, SOC 2, PCI, data residency), multiple stakeholder teams.
 
 **Deliverables**:
+
 - Everything in Medium, plus:
 - Extended discovery workshops (1-2 days across multiple teams)
 - Detailed workload-by-workload suitability analysis
@@ -85,6 +88,7 @@ To evaluate the customer's current infrastructure environment, map workloads to 
 **Scope**: 50+ applications, global footprint, multi-cloud, heavy regulatory requirements. Custom SOW required.
 
 **Deliverables**:
+
 - Everything in Large, plus:
 - Multi-site, multi-region workload analysis
 - Full financial modeling with business case and ROI
@@ -116,10 +120,10 @@ To evaluate the customer's current infrastructure environment, map workloads to 
 ## Customer Responsibilities
 
 1. **Access**: Provide access to all in-scope infrastructure environments, cloud consoles, and billing portals
-2. **Data**: Share existing architecture diagrams, application inventories, and cloud billing data
-3. **Availability**: Make stakeholders (IT, engineering, finance, compliance) available for workshops and interviews
-4. **Cloud billing**: Provide read-only access to AWS Cost Explorer, Azure Cost Management, or equivalent
-5. **Point of contact**: Designate a single project sponsor and technical POC
+1. **Data**: Share existing architecture diagrams, application inventories, and cloud billing data
+1. **Availability**: Make stakeholders (IT, engineering, finance, compliance) available for workshops and interviews
+1. **Cloud billing**: Provide read-only access to AWS Cost Explorer, Azure Cost Management, or equivalent
+1. **Point of contact**: Designate a single project sponsor and technical POC
 
 ---
 
@@ -136,9 +140,9 @@ To evaluate the customer's current infrastructure environment, map workloads to 
 ## Acceptance Criteria
 
 1. All deliverables for the selected size have been provided
-2. A findings presentation has been delivered to designated customer stakeholders
-3. The customer has received the final assessment report in PDF format
-4. Q&A session has been conducted following the findings presentation
+1. A findings presentation has been delivered to designated customer stakeholders
+1. The customer has received the final assessment report in PDF format
+1. Q&A session has been conducted following the findings presentation
 
 ---
 

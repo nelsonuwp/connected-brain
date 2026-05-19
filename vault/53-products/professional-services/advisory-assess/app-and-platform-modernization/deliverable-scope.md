@@ -23,6 +23,7 @@ To assess the customer's current application delivery and platform engineering m
 **Scope**: 1 application, basic container readiness and CI/CD maturity evaluation.
 
 **Deliverables**:
+
 - Application architecture overview
 - Container readiness assessment (can this app be containerized? what's required?)
 - CI/CD maturity quick-scan (current state, key gaps)
@@ -41,6 +42,7 @@ To assess the customer's current application delivery and platform engineering m
 **Scope**: 1-3 core applications, single dev team. Full container readiness, CI/CD maturity, and platform architecture review.
 
 **Deliverables**:
+
 - Application architecture review (per application)
 - Container/Kubernetes readiness evaluation
 - CI/CD maturity assessment across the software delivery lifecycle
@@ -62,6 +64,7 @@ To assess the customer's current application delivery and platform engineering m
 **Scope**: 3-10 applications, multiple dev teams, mix of legacy and modern architecture.
 
 **Deliverables**:
+
 - Everything in Medium, plus:
 - Multi-application architecture assessment with dependency mapping
 - Cross-team practice analysis (where are teams aligned? where do they diverge?)
@@ -85,6 +88,7 @@ To assess the customer's current application delivery and platform engineering m
 **Scope**: 10+ applications, enterprise-scale platform design. Custom SOW.
 
 **Deliverables**:
+
 - Everything in Large, plus:
 - Enterprise platform blueprint (target architecture for all applications)
 - Governance framework for platform standards and best practices
@@ -116,10 +120,10 @@ To assess the customer's current application delivery and platform engineering m
 ## Customer Responsibilities
 
 1. **Access**: Provide access to application repositories, CI/CD tools, deployment configurations, and infrastructure
-2. **Architecture context**: Share existing architecture diagrams, tech stack documentation, and deployment procedures
-3. **Team availability**: Make development team leads and platform/DevOps engineers available for interviews
-4. **Demo access**: Provide access to development, staging, and production environments for review
-5. **Point of contact**: Designate a technical lead as primary POC
+1. **Architecture context**: Share existing architecture diagrams, tech stack documentation, and deployment procedures
+1. **Team availability**: Make development team leads and platform/DevOps engineers available for interviews
+1. **Demo access**: Provide access to development, staging, and production environments for review
+1. **Point of contact**: Designate a technical lead as primary POC
 
 ---
 
@@ -135,10 +139,10 @@ To assess the customer's current application delivery and platform engineering m
 ## Acceptance Criteria
 
 1. All deliverables for the selected size provided
-2. Findings presented to engineering leadership and relevant stakeholders
-3. Final report delivered in PDF format
-4. Modernization roadmap delivered with clear phases and priorities
-5. Q&A conducted
+1. Findings presented to engineering leadership and relevant stakeholders
+1. Final report delivered in PDF format
+1. Modernization roadmap delivered with clear phases and priorities
+1. Q&A conducted
 
 ---
 

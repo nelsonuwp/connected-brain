@@ -23,6 +23,7 @@ To assess the current state of the customer's infrastructure, identify critical 
 **Scope**: 1-3 services/devices, single data center or hosting environment.
 
 **Deliverables**:
+
 - Hardware inventory with age and EOL status for all in-scope devices
 - Operating system lifecycle report (supported, approaching EOL, unsupported)
 - Top-10 prioritized risk findings with severity ratings
@@ -41,6 +42,7 @@ To assess the current state of the customer's infrastructure, identify critical 
 **Scope**: 4-10 services/devices, single site, may include mixed managed and colo environments.
 
 **Deliverables**:
+
 - Full hardware age audit and EOL component inventory (CPUs, SSDs, NICs, firewalls)
 - Operating system lifecycle status report for all in-scope systems
 - Operational risk scoring based on ping loss patterns, ticket history, and incident frequency
@@ -61,6 +63,7 @@ To assess the current state of the customer's infrastructure, identify critical 
 **Scope**: 10+ services/devices, multi-site or complex mixed environments (on-prem, colo, managed hosting).
 
 **Deliverables**:
+
 - Everything in Medium, plus:
 - Multi-site infrastructure topology mapping
 - Cross-site dependency analysis
@@ -82,6 +85,7 @@ To assess the current state of the customer's infrastructure, identify critical 
 **Scope**: Enterprise-scale, multiple sites and environments, full organizational infrastructure assessment. Custom SOW required.
 
 **Deliverables**:
+
 - Everything in Large, plus:
 - Full infrastructure asset register with lifecycle forecasting
 - Business impact analysis for each critical risk
@@ -116,10 +120,10 @@ The following are explicitly excluded unless added via SOW amendment:
 The customer is responsible for:
 
 1. **Access**: Providing remote or on-site access to infrastructure environments as needed
-2. **Data**: Sharing existing asset inventories, network diagrams, and monitoring data (if available)
-3. **Availability**: Making key stakeholders available for interviews and workshops within the agreed timeline
-4. **Credentials**: Providing read-only access to management interfaces, monitoring tools, and ticketing systems
-5. **Point of contact**: Designating a single technical point of contact for the duration of the assessment
+1. **Data**: Sharing existing asset inventories, network diagrams, and monitoring data (if available)
+1. **Availability**: Making key stakeholders available for interviews and workshops within the agreed timeline
+1. **Credentials**: Providing read-only access to management interfaces, monitoring tools, and ticketing systems
+1. **Point of contact**: Designating a single technical point of contact for the duration of the assessment
 
 ---
 
@@ -138,9 +142,9 @@ The customer is responsible for:
 The assessment is considered complete when:
 
 1. All deliverables for the selected size have been provided to the customer
-2. A findings presentation has been delivered to the customer's designated stakeholders
-3. The customer has had the opportunity to ask questions and receive clarifications
-4. The final assessment report has been delivered in PDF format
+1. A findings presentation has been delivered to the customer's designated stakeholders
+1. The customer has had the opportunity to ask questions and receive clarifications
+1. The final assessment report has been delivered in PDF format
 
 ---
 

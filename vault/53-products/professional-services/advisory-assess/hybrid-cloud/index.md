@@ -44,7 +44,7 @@ It catches customers before they make a bad cloud move and positions Aptum as th
 ## T-Shirt Sizing
 
 | Size | Price | Scope | Duration |
-|------|-------|-------|----------|
+| --- | --- | --- | --- |
 | **S** | $7.5K | Single workload or single-service environment; "should we move this?" analysis | 1-2 weeks |
 | **M** | $15K | 5-20 workloads, 1-2 environments, standard hybrid assessment | 2-4 weeks |
 | **L** | $25K | 20-50 workloads, 2-3 environments, compliance requirements | 4-6 weeks |
@@ -55,25 +55,33 @@ It catches customers before they make a bad cloud move and positions Aptum as th
 ## How to Size It (Questions to Ask)
 
 ### 1. "If you had to list every application or system your business depends on -- email, website, databases, ERP, internal tools -- how long would that list be? Five things? Twenty? More?"
+
 This is the single most important sizing question. Under 5 = S. 5-20 = M. 20+ = L/XL.
 
 ### 2. "Where does all of that run today? Is it all in one place, or is some of it in the cloud and some of it on your own servers?"
+
 Single environment = simpler. "A little bit everywhere" = bump up.
 
 ### 3. "Are you already paying for any cloud services -- AWS, Azure, Google Cloud? Do you have a rough sense of what you're spending there per month?"
+
 If they have cloud bills, that's data we can work with (faster). If not, we're doing a "should we?" assessment.
 
 ### 4. "Are there any compliance or regulatory requirements -- HIPAA, SOC 2, PCI, data residency rules?"
+
 Compliance adds a review layer. Bumps S to M, or M to L.
 
 ### 5. "How many different teams or departments would we need to talk to? Is IT centralized, or does each team manage their own stuff?"
+
 One IT team = fewer discovery sessions. Multiple teams = more workshops = bump up.
 
 ### 6. "Is there a specific event driving this -- a contract renewal, a board mandate, budget planning?"
+
 Doesn't change size, but drives urgency and helps prioritize timing.
 
 ### Quick Sizing Rule of Thumb
+
 Ask "how many apps do you run?" and "how many places do they live?" Multiply mentally:
+
 - **Under 5 apps in 1 place** = Small
 - **5-20 apps across 2 places** = Medium
 - **Bigger than that** = Large or XL
@@ -83,7 +91,7 @@ Ask "how many apps do you run?" and "how many places do they live?" Multiply men
 ## What the Assessment Delivers
 
 | Deliverable | S | M | L | XL |
-|------------|---|---|---|-----|
+| --- | --- | --- | --- | --- |
 | Discovery workshop | Brief | Standard | Extended | Multiple sessions |
 | Infrastructure & workload analysis | Single workload | Full inventory | Full + dependencies | Enterprise-wide |
 | TCO & suitability modeling | Basic comparison | Multi-scenario | Multi-scenario + growth | Full financial model |
@@ -106,12 +114,15 @@ When following up on leads from these campaigns, reference the white paper they 
 ## Objection Handling
 
 ### "We already know we want to go to cloud. We don't need an assessment."
+
 *"That's exactly when an assessment is most valuable. Going to cloud without mapping your workloads first is how companies end up spending 2x what they expected. We help you go to cloud the smart way -- moving the right things, keeping the right things, and avoiding lock-in."*
 
 ### "We already have a cloud strategy."
+
 *"Great. Let's validate it with data. An assessment confirms your strategy is right, or surfaces things you might have missed. Either way, you get clarity and confidence."*
 
 ### "This feels like it's going to take too long."
+
 *"For a Small, it's 1-2 weeks. We can scope this to match your timeline. And the insights you get prevent months of costly mistakes down the road."*
 
 ---
@@ -121,10 +132,10 @@ When following up on leads from these campaigns, reference the white paper they 
 The Hybrid Cloud Assessment typically leads to:
 
 1. **Consulting** -- Architecture design and migration planning
-2. **Aptum Managed CloudStack / Private Cloud** -- target environment for right-placed workloads
-3. **App Platform / DevOps** -- cloud-native architecture, Kubernetes
-4. **Connectivity Services** -- cloud on-ramps between environments
-5. **Managed Cloud** -- ongoing management of the hybrid environment
+1. **Aptum Managed CloudStack / Private Cloud** -- target environment for right-placed workloads
+1. **App Platform / DevOps** -- cloud-native architecture, Kubernetes
+1. **Connectivity Services** -- cloud on-ramps between environments
+1. **Managed Cloud** -- ongoing management of the hybrid environment
 
 See [Post-Assessment Pathways](../../post-assessment-pathways.md) for full details.
 
@@ -133,7 +144,6 @@ See [Post-Assessment Pathways](../../post-assessment-pathways.md) for full detai
 ## Target Customer Segments
 
 This assessment applies broadly to ICP-fit customers in the target account set. Review the ICP document and pain signals above to qualify specific opportunities.
-
 
 ---
 

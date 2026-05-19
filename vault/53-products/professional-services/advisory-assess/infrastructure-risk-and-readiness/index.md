@@ -46,7 +46,7 @@ It also connects to **"What's holding you back?"** -- when the customer is afrai
 ## T-Shirt Sizing
 
 | Size | Price | Scope | Duration |
-|------|-------|-------|----------|
+| --- | --- | --- | --- |
 | **S** | $5K | 1-3 services, single site | 1 week |
 | **M** | $10K | 4-10 services, single site or mixed managed/colo | 2 weeks |
 | **L** | $20K | 10+ services or multi-site, complex mixed environments | 3-4 weeks |
@@ -59,25 +59,33 @@ It also connects to **"What's holding you back?"** -- when the customer is afrai
 These fit naturally into a discovery conversation conversation:
 
 ### 1. "How many servers or systems are you running today -- roughly? Are we talking a handful, or dozens?"
+
 This gets you the device count. "A handful" = S. "Maybe 10-15" = M. "We've got racks" = L/XL.
 
 ### 2. "Is everything in one data center, or do you have stuff spread across multiple locations?"
+
 Single site = simpler. Multiple sites = bump up a size.
 
 ### 3. "Do you own the hardware, or is it all managed by your hosting provider?"
+
 If they own hardware (colo model), the assessment covers their gear too, which takes more effort. Bump up.
 
 ### 4. "How old is the oldest piece of equipment you're running? Do you know when it was last refreshed?"
+
 "5+ years" or "I honestly don't know" = strong indicator they need this.
 
 ### 5. "Who manages the day-to-day -- patching, firmware updates, monitoring? Is that your team, or someone else?"
+
 Small shop doing it themselves = deferred maintenance is likely. More findings.
 
 ### 6. "Have you had any outages or performance issues in the last 6-12 months?"
+
 Validates urgency. Doesn't change size directly, but strengthens the pitch.
 
 ### Quick Sizing Rule of Thumb
+
 Count the number of "things" (servers + firewalls + network gear):
+
 - **Under 4** = Small
 - **4-10** = Medium
 - **Over 10 or multiple locations** = Large
@@ -88,7 +96,7 @@ Count the number of "things" (servers + firewalls + network gear):
 ## What the Assessment Delivers
 
 | Deliverable | S | M | L | XL |
-|------------|---|---|---|-----|
+| --- | --- | --- | --- | --- |
 | Hardware age audit & EOL inventory | Yes | Yes | Yes | Yes |
 | OS lifecycle status report | Yes | Yes | Yes | Yes |
 | Operational risk scoring | Basic | Full | Full | Full |
@@ -104,6 +112,7 @@ Count the number of "things" (servers + firewalls + network gear):
 This assessment is **not directly tied to a specific campaign** -- it's the universal entry point. Almost every customer in the target account set qualifies.
 
 However, it pairs well with:
+
 - **Campaign 3 (Cloud Hangover)** as a secondary motion: "Before you think about cloud, let's make sure your current foundation isn't crumbling."
 - **Campaign 2 (Time to Grow Up)** for post-scale companies: "You're ready to mature -- but your infrastructure is still running on 2018 hardware."
 
@@ -112,12 +121,15 @@ However, it pairs well with:
 ## Objection Handling
 
 ### "We already know our stuff is old. We don't need to pay someone to tell us that."
+
 *"Knowing it's old and knowing exactly what's at risk are two different things. The assessment gives you a prioritized, costed remediation plan you can take to your leadership. It's not a diagnosis -- it's a prescription."*
 
 ### "We don't have budget for this right now."
+
 *"Understood. But what's the cost of an unplanned outage? For most companies this size, it's $10K-$50K+ per hour. The assessment is a fraction of that and gives you the data to prevent it -- or justify the budget to fix it."*
 
 ### "We're planning to move to cloud anyway, so why assess on-prem?"
+
 *"Great. But knowing exactly what you have today -- what's portable, what's risky, what's end-of-life -- is step one of any cloud migration. This assessment gives you the baseline. Without it, you're migrating blind."*
 
 ---
@@ -127,8 +139,8 @@ However, it pairs well with:
 The Infrastructure Risk Assessment typically leads to:
 
 1. **Hardware refresh** (Aptum Dedicated Hosting / Infrastructure lease) -- replace EOL gear
-2. **Managed Services** (Managed Cloud / OS & Above) -- ongoing patching, monitoring, support
-3. **Migration consulting** (Aptum Consulting) -- if findings reveal the need for a bigger move
+1. **Managed Services** (Managed Cloud / OS & Above) -- ongoing patching, monitoring, support
+1. **Migration consulting** (Aptum Consulting) -- if findings reveal the need for a bigger move
 
 See [Post-Assessment Pathways](../../post-assessment-pathways.md) for full details.
 
@@ -137,7 +149,6 @@ See [Post-Assessment Pathways](../../post-assessment-pathways.md) for full detai
 ## Target Customer Segments
 
 This assessment applies broadly to ICP-fit customers in the target account set. Review the ICP document and pain signals above to qualify specific opportunities.
-
 
 ---
 

@@ -700,7 +700,7 @@ Aptum already operates VMware ESXi environments (Managed Cloud, Service Desk). A
 The Apt Cloud platform was originally built for resellers (CloudMC's heritage). The multi-tenant org hierarchy, white-label branding, per-reseller pricing, and monetization engine are architectural features, not afterthoughts. No budget IaaS provider offers this. Rackspace doesn't offer this. ThinkOn is channel-only but doesn't provide a white-label self-service portal to their partners.
 
 **Canadian data sovereignty.**\
-Toronto DCs, SOC 2 Type II, carrier-neutral (15+ carriers), \<2ms to TorIX. For regulated Canadian workloads, this is table stakes - but many competitors can't offer it. Hetzner has no Canadian DCs. OpenMetal is US-only. OVHcloud has Montreal but not Toronto. DigitalOcean and Vultr have Toronto but no managed services and limited compliance certifications.
+Toronto DCs, SOC 2 Type II, carrier-neutral (15+ carriers), \\\<2ms to TorIX. For regulated Canadian workloads, this is table stakes - but many competitors can't offer it. Hetzner has no Canadian DCs. OpenMetal is US-only. OVHcloud has Montreal but not Toronto. DigitalOcean and Vultr have Toronto but no managed services and limited compliance certifications.
 
 **Cost structure.**\
 Aptum's cost basis on CloudStack + owned hardware is structurally lower than any VMware-dependent competitor, which carries $995-$3,495/processor in licensing overhead before serving a single customer. This gives Aptum significant pricing headroom: the ability to be the lowest-cost managed provider while maintaining healthy margins, or to invest that margin into service quality and channel incentives.

@@ -44,11 +44,11 @@ This assessment answers: **"Where do you want to be?"** -- specifically for cust
 The Well-Architected Review is structured around the **6 pillars** of the AWS Well-Architected Framework (or the Azure equivalent):
 
 1. **Operational Excellence** -- operational practices, monitoring, incident response
-2. **Security** -- identity, access, data protection, incident detection
-3. **Reliability** -- fault tolerance, recovery, scaling
-4. **Performance Efficiency** -- right-sizing, architecture patterns, optimization
-5. **Cost Optimization** -- spend management, right-sizing, waste elimination
-6. **Sustainability** -- resource efficiency, environmental impact
+1. **Security** -- identity, access, data protection, incident detection
+1. **Reliability** -- fault tolerance, recovery, scaling
+1. **Performance Efficiency** -- right-sizing, architecture patterns, optimization
+1. **Cost Optimization** -- spend management, right-sizing, waste elimination
+1. **Sustainability** -- resource efficiency, environmental impact
 
 This framework provides a structured, repeatable review methodology.
 
@@ -57,7 +57,7 @@ This framework provides a structured, repeatable review methodology.
 ## T-Shirt Sizing
 
 | Size | Price | Scope | Duration |
-|------|-------|-------|----------|
+| --- | --- | --- | --- |
 | **S** | $7.5K | Single workload or single pillar deep-dive (e.g., "just review our security posture in AWS") | 1-2 weeks |
 | **M** | $15K | Multi-workload review across all 6 pillars, single cloud account/subscription | 2-4 weeks |
 | **L** | $25K | Enterprise-wide review, all pillars, remediation roadmap, multi-account/subscription | 4-6 weeks |
@@ -68,21 +68,27 @@ This framework provides a structured, repeatable review methodology.
 ## How to Size It (Questions to Ask)
 
 ### 1. "How many workloads or applications are you running in AWS/Azure?"
+
 Under 5 in a single account = S or M. 5-20 = M or L. 20+ or multi-account = L or XL.
 
 ### 2. "How many AWS accounts or Azure subscriptions do you have?"
+
 Single account = simpler. Multiple accounts/subscriptions = more to review = bump up.
 
 ### 3. "Have you ever done a formal architecture review or Well-Architected Review before?"
+
 First time = more foundational findings. Previous review = we're looking for drift and new gaps.
 
 ### 4. "Are there specific areas of concern -- security, cost, reliability -- or do you want a full review?"
+
 Single pillar = S. All pillars = M+. Specific concern + urgency = may start with S and expand.
 
 ### 5. "Are you using AWS/Azure native services heavily, or is it mostly VMs and basic services?"
+
 Heavy native service usage = more to review across pillars. Basic usage = simpler review.
 
 ### Quick Sizing Rule of Thumb
+
 - **Single workload, single pillar** = Small
 - **Multiple workloads, all pillars, single account** = Medium
 - **Enterprise, multi-account, remediation roadmap** = Large
@@ -93,7 +99,7 @@ Heavy native service usage = more to review across pillars. Basic usage = simple
 ## What the Assessment Delivers
 
 | Deliverable | S | M | L | XL |
-|------------|---|---|---|-----|
+| --- | --- | --- | --- | --- |
 | Pillar-by-pillar assessment | 1 pillar (deep) or all (high level) | All 6 pillars | All 6 pillars (detailed) | All 6 pillars (comprehensive) |
 | Finding severity classification | Yes | Yes | Yes | Yes |
 | Remediation recommendations | Top 10 | Full | Full + phased plan | Full + prioritized roadmap |
@@ -114,12 +120,15 @@ Not directly tied to a specific campaign. However, this assessment serves custom
 ## Objection Handling
 
 ### "AWS/Azure already offers a free Well-Architected Review tool."
+
 *"The AWS/Azure tools give you a self-assessment checklist. Our review brings experienced architects who actually evaluate your architecture, run the analysis, and deliver actionable recommendations. It's the difference between a symptom checker and a doctor."*
 
 ### "We have a cloud team that handles this."
+
 *"Great. An outside review validates what they're doing and catches blind spots. Even the best internal teams benefit from a fresh perspective. We do this across hundreds of environments and bring patterns they haven't seen."*
 
 ### "We just need cost optimization, not a full review."
+
 *"We can start there -- that's a Small engagement focused on the Cost Optimization pillar. But in our experience, cost issues are usually symptoms of architectural decisions. A broader review often reveals the root cause."*
 
 ---
@@ -129,9 +138,9 @@ Not directly tied to a specific campaign. However, this assessment serves custom
 The Well-Architected Review leads to:
 
 1. **App Platform / DevOps** -- remediation of architecture gaps, optimization: $25K-$100K
-2. **Consulting** -- remediation roadmap execution, architecture redesign: $20K-$80K
-3. **Public Cloud Management** -- ongoing optimization and governance: $3K-$15K/month
-4. **Managed Cloud** -- managed operations for the optimized environment: $3K-$12K/month
+1. **Consulting** -- remediation roadmap execution, architecture redesign: $20K-$80K
+1. **Public Cloud Management** -- ongoing optimization and governance: $3K-$15K/month
+1. **Managed Cloud** -- managed operations for the optimized environment: $3K-$12K/month
 
 See [Post-Assessment Pathways](../../post-assessment-pathways.md) for full details.
 
@@ -140,7 +149,6 @@ See [Post-Assessment Pathways](../../post-assessment-pathways.md) for full detai
 ## Target Customer Segments
 
 This assessment applies broadly to ICP-fit customers in the target account set. Review the ICP document and pain signals above to qualify specific opportunities.
-
 
 ---
 

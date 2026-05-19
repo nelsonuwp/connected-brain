@@ -23,6 +23,7 @@ To quantify the customer's current operational overhead, identify inefficiencies
 **Scope**: 1-5 services, small IT team (1-3 people). Focused on cost comparison.
 
 **Deliverables**:
+
 - Current operational model overview (who does what)
 - FTE cost allocation analysis (time on infrastructure ops vs. core business)
 - TCO comparison: current self-managed costs vs. managed service model
@@ -41,6 +42,7 @@ To quantify the customer's current operational overhead, identify inefficiencies
 **Scope**: 5-15 services, full operational review across key domains.
 
 **Deliverables**:
+
 - Operational model review across all key domains (monitoring, patching, backup, incident response, change management)
 - Incident pattern analysis (ticket volume, categories, MTTR, repeat incidents)
 - Staffing model analysis (FTE cost, skills gap, single-person dependencies)
@@ -62,6 +64,7 @@ To quantify the customer's current operational overhead, identify inefficiencies
 **Scope**: 15+ services, full process review across all operational domains, organizational analysis.
 
 **Deliverables**:
+
 - Everything in Medium, plus:
 - Full operational maturity scoring across all domains (1-5 scale)
 - Process documentation assessment (runbooks, procedures, escalation paths)
@@ -85,6 +88,7 @@ To quantify the customer's current operational overhead, identify inefficiencies
 **Scope**: Enterprise-scale operational transformation. Full redesign of operations model. Custom SOW.
 
 **Deliverables**:
+
 - Everything in Large, plus:
 - Future-state operational model design
 - Runbook creation for critical processes
@@ -116,10 +120,10 @@ To quantify the customer's current operational overhead, identify inefficiencies
 ## Customer Responsibilities
 
 1. **Access**: Provide access to monitoring tools, ticketing systems, and operational documentation
-2. **Data**: Share ticket/incident data for the last 6-12 months, staffing information, and operational budgets
-3. **Availability**: Make IT team members available for interviews (individually, not just management)
-4. **Transparency**: Be willing to share how things actually work (not just how they're supposed to work)
-5. **Point of contact**: Designate a management-level sponsor and IT team POC
+1. **Data**: Share ticket/incident data for the last 6-12 months, staffing information, and operational budgets
+1. **Availability**: Make IT team members available for interviews (individually, not just management)
+1. **Transparency**: Be willing to share how things actually work (not just how they're supposed to work)
+1. **Point of contact**: Designate a management-level sponsor and IT team POC
 
 ---
 
@@ -136,10 +140,10 @@ To quantify the customer's current operational overhead, identify inefficiencies
 ## Acceptance Criteria
 
 1. All deliverables for the selected size provided
-2. Findings presented to customer management and IT team
-3. Final report delivered in PDF format
-4. TCO comparison delivered in editable spreadsheet format
-5. Q&A conducted
+1. Findings presented to customer management and IT team
+1. Final report delivered in PDF format
+1. TCO comparison delivered in editable spreadsheet format
+1. Q&A conducted
 
 ---
 

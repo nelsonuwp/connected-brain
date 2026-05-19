@@ -14,8 +14,6 @@ This document defines who does what at every phase of the assessment lifecycle -
 
 ---
 
-
-
 ## Post-assessment pathways
 
 # Post-Assessment Pathways
@@ -31,7 +29,7 @@ Every assessment is an entry point. The real revenue comes from what follows. Th
 From the bottom up, Aptum's delivery stack:
 
 | Layer | What It Is | Revenue Type |
-|-------|-----------|-------------|
+| --- | --- | --- |
 | **Facility Services** | Colocation, power, physical data center space | Recurring (monthly) |
 | **Connectivity Services** | Cross-connects, bandwidth, cloud on-ramps | Recurring (monthly) |
 | **Dedicated Hosting** | Physical servers, infra monitoring, power/temp monitoring | Recurring (monthly) |
@@ -54,7 +52,7 @@ From the bottom up, Aptum's delivery stack:
 **Natural follow-on services**:
 
 | Priority | Service Layer | Why | Typical Deal Size |
-|----------|--------------|-----|------------------|
+| --- | --- | --- | --- |
 | Primary | **Consulting** | Migration planning from legacy to modern infrastructure | $25K-$150K (project) |
 | Primary | **Dedicated Hosting / Infrastructure** | Hardware refresh -- lease Dell R660s, SAN upgrades, replace EOL gear | $3K-$15K/month (recurring) |
 | Secondary | **Managed Cloud (OS & Above)** | Ongoing patching, monitoring, backup for the refreshed environment | $2K-$10K/month (recurring) |
@@ -68,12 +66,12 @@ From the bottom up, Aptum's delivery stack:
 
 **What the assessment typically finds**: Workloads running in the wrong environment (cloud workloads that should be on-prem, or vice versa), cost misalignment, compliance gaps, no clear architecture strategy.
 
-**Natural follow-on ser
+\*\*Natural follow-on ser
 
 ## The seven assessments
 
 | Assessment | Customer trigger | Assessment leads to |
-|---|---|---|
+| --- | --- | --- |
 | Infrastructure Risk and Readiness | EOL hardware, deferred maintenance, aging servers | Hardware refresh (Execute) then Reactive managed services |
 | Hybrid Cloud | Workload placement uncertainty, hybrid sprawl, VMware pressure | Architecture consulting (Execute) then Reactive or Proactive |
 | Security Posture and Compliance | EOL firewalls, CVE exposure, audit findings, compliance gaps | Security remediation (Execute) then Proactive with MDR |

@@ -2,7 +2,7 @@
 
 Aptum Portal is the single control plane through which customers consume all Aptum-delivered services. It is not infrastructure. It is the platform that makes infrastructure self-service, visible, and governable across private cloud, bare metal, and hyperscaler environments.
 
-The portal is a white-labeled instance of CloudOps Software (formerly CloudMC), running at portal.aptum.com. It delivers self-service VM provisioning, role-based access control, cost and usage visibility, lifecycle automation, DNS management, and a monetization engine capable of supporting a reseller and MSP channel with per-tenant pricing and white-label branding.
+The portal is a white-labeled instance of CloudOps Software (formerly CloudMC), running at [portal.aptum.com](http://portal.aptum.com). It delivers self-service VM provisioning, role-based access control, cost and usage visibility, lifecycle automation, DNS management, and a monetization engine capable of supporting a reseller and MSP channel with per-tenant pricing and white-label branding.
 
 The portal is Aptum's own dogfood. It is not sold as a standalone B2B2B SaaS product. Its job is to make Aptum's infrastructure and managed services easier for Aptum's customers to consume, not to be resold as a platform to other service providers. The standalone B2B2B sales motion has been retired as a primary GTM focus. Existing anchor tenants are honored.
 

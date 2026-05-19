@@ -185,7 +185,7 @@ A Private Cloud or Bare Metal customer still logs into the same shared Apt Cloud
 | **East-West (Internal)** | 10 Gbps redundant links per host (VM-to-VM) |
 | **North-South (External)** | Dedicated uplinks at 10 Gbps or 100 Gbps |
 | **Carrier Neutrality** | 15+ carriers via on-site Meet-Me-Room |
-| **Latency** | \<2ms to major Toronto internet exchanges (TorIX) and hyperscale on-ramps |
+| **Latency** | \\\<2ms to major Toronto internet exchanges (TorIX) and hyperscale on-ramps |
 | **DDoS Protection** | Always-on volumetric DDoS at network edge (included) |
 | **Private Networking** | VLANs for isolation (VXLAN support TBD) |
 | **Public IPs** | Manageable blocks via portal |
