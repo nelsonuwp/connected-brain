@@ -316,14 +316,13 @@
 <script>
 // ── Row definitions ───────────────────────────────────────────────────────
 const ROWS = [
-  { key: 'power_per_kw',        label: 'Power',              unit: '$/kW' },
-  { key: 'dc_rm_supplies',      label: 'DC Equipment',       unit: '$/kW' },
-  { key: 'network',             label: 'Network Equipment',  unit: '$/device' },
-  { key: 'dc_infra_operations', label: 'DC People Costs',    unit: '$/device' },
-  { key: 'support_cost',        label: 'Support',            unit: '$/device' },
-  { key: 'dc_people',           label: 'DC Operations',      unit: '$/device' },
-  { key: 'network_people',      label: 'Network Operations', unit: '$/device' },
-  { key: 'compute_team',        label: 'Compute Operations', unit: '$/device' },
+  { key: 'power_per_kw',       label: 'Power',              unit: '$/kW'    },
+  { key: 'dc_equipment',       label: 'DC Equipment',       unit: '$/device' },
+  { key: 'network_equipment',  label: 'Network Equipment',  unit: '$/device' },
+  { key: 'dc_ops',             label: 'DC Ops',             unit: '$/device' },
+  { key: 'support_ops',        label: 'Support Ops',        unit: '$/device' },
+  { key: 'network_ops',        label: 'Network Ops',        unit: '$/device' },
+  { key: 'compute_ops',        label: 'Compute Ops',        unit: '$/device' },
 ];
 
 const SVC_TYPES = ['server', 'firewall', 'switch'];
