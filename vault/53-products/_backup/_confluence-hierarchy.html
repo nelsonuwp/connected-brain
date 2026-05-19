@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aptum PRD Space — Confluence Hierarchy</title>
+<style>
+@font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Light.ttf'); font-weight: 300; }
+@font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Regular.ttf'); font-weight: 400; }
+@font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Medium.ttf'); font-weight: 500; }
+@font-face { font-family: 'Geist'; src: url('https://aptumlogos.pages.dev/Geist-Bold.ttf'); font-weight: 700; }
+@font-face { font-family: 'GeistMono'; src: url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf'); font-weight: 400; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --lavender:        #7D7AE8;
+  --lavender-tint1:  #E7E6FF;
+  --lavender-tint2:  #D4D3FF;
+  --lavender-shade1: #655BD9;
+  --lavender-shade2: #5041B9;
+  --lavender-shade3: #3A2699;
+  --white:           #FFFFFF;
+  --off-white:       #F8F7FA;
+  --neutral1:        #D0D1DE;
+  --neutral2:        #88898D;
+  --neutral3:        #515357;
+  --deep-navy:       #081820;
+  --soft-black:      #101010;
+  --accent-blue:     #B8CDFF;
+  --accent-orange:   #FFBE81;
+  --accent-green:    #BED6A8;
+}
+
+body {
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  background: var(--off-white);
+  color: var(--soft-black);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Header */
+header {
+  background: var(--deep-navy);
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+header img { height: 32px; }
+.header-title {
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0.8;
+  flex: 1;
+}
+.header-title strong { color: var(--white); font-weight: 500; opacity: 1; }
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.btn {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.btn:hover { background: rgba(255,255,255,0.15); }
+.btn-lavender { background: var(--lavender); border-color: var(--lavender-shade1); }
+.btn-lavender:hover { background: var(--lavender-shade1); }
+
+/* Stats bar */
+.stats-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--neutral1);
+  padding: 12px 32px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.stat { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--neutral3); }
+.stat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* Legend */
+.legend {
+  background: var(--white);
+  border: 1px solid var(--neutral1);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 32px 0;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.legend-title { font-size: 11px; font-weight: 500; color: var(--neutral2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; width: 100%; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--neutral3); }
+
+/* Main content */
+main { padding: 20px 32px 48px; }
+
+/* Tree */
+.tree-root { margin-top: 0; }
+
+.node { margin: 0; }
+
+.node-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+}
+
+.toggle {
+  width: 20px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 9px;
+  color: var(--neutral2);
+  transition: transform 0.15s;
+  margin-top: 1px;
+}
+.toggle.open { transform: rotate(90deg); }
+.toggle-spacer { width: 20px; flex-shrink: 0; }
+
+.node-row {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 8px 4px 0;
+  border-radius: 6px;
+  transition: background 0.1s;
+  flex-wrap: wrap;
+}
+.node-header:hover .node-row { background: var(--lavender-tint1); }
+
+.node-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+.node-name {
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--soft-black);
+  flex-shrink: 0;
+}
+
+.node-file {
+  font-family: 'GeistMono', monospace;
+  font-size: 10px;
+  color: var(--neutral2);
+  background: var(--off-white);
+  border: 1px solid var(--neutral1);
+  border-radius: 4px;
+  padding: 1px 6px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 1px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.badge-exists  { background: #E9FEDF; color: #3B6B1E; border: 1px solid #BED6A8; }
+.badge-synth   { background: #E0E9FF; color: #1C3A7A; border: 1px solid #B8CDFF; }
+.badge-cleanse { background: #FFEBD9; color: #7A3A10; border: 1px solid #FFBE81; }
+.badge-new     { background: var(--lavender-tint1); color: var(--lavender-shade2); border: 1px solid var(--lavender-tint2); }
+
+.node-body {
+  display: none;
+  padding-left: 20px;
+}
+.node-body.open { display: block; }
+
+.node-desc {
+  font-size: 12px;
+  color: var(--neutral3);
+  padding: 2px 0 6px 28px;
+  line-height: 1.55;
+  max-width: 760px;
+}
+.node-source {
+  font-size: 11px;
+  color: var(--neutral2);
+  padding: 0 0 8px 28px;
+  font-style: italic;
+}
+
+/* Tree indent lines */
+.node-children {
+  border-left: 1px solid var(--neutral1);
+  margin-left: 9px;
+  padding-left: 0;
+}
+
+/* Section headings (depth 1) */
+.depth-1 > .node-header > .node-row > .node-name {
+  font-size: 15px;
+  color: var(--deep-navy);
+  font-weight: 500;
+}
+.depth-1 > .node-header > .node-row {
+  padding: 6px 8px 6px 0;
+}
+
+/* Category headings (depth 3 addons) */
+.is-category > .node-header > .node-row > .node-name {
+  color: var(--lavender-shade2);
+}
+
+/* Root space label */
+.space-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--neutral2);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.space-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--neutral1);
+}
+
+/* Page count badge on sections */
+.count-badge {
+  font-family: 'GeistMono', monospace;
+  font-size: 10px;
+  background: var(--neutral1);
+  color: var(--neutral3);
+  border-radius: 10px;
+  padding: 0 6px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Top-level section separator */
+.depth-1 { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://aptumlogos.pages.dev/aptum_horizontal_white_logo.svg" alt="Aptum" onerror="this.style.display='none'">
+  <div class="header-title"><strong>PRD Space</strong> — Confluence Hierarchy v1.0</div>
+  <div class="controls">
+    <button class="btn" onclick="collapseAll()">Collapse all</button>
+    <button class="btn btn-lavender" onclick="expandAll()">Expand all</button>
+  </div>
+</header>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-dot" style="background:#BED6A8"></div>✅ Exists — 5 pages</div>
+  <div class="stat"><div class="stat-dot" style="background:#B8CDFF"></div>🔄 Synthesize — 38 pages</div>
+  <div class="stat"><div class="stat-dot" style="background:#FFBE81"></div>🧹 Cleanse (STG) — 22 pages</div>
+  <div class="stat"><div class="stat-dot" style="background:#D4D3FF"></div>🆕 Net new — 54 pages</div>
+  <div class="stat" style="margin-left:auto; font-weight:500; color:var(--soft-black)">~119 pages total</div>
+</div>
+
+<main>
+<div class="legend">
+  <div class="legend-title">Source key</div>
+  <div class="legend-item"><span class="badge badge-exists">✅ exists</span> Ready to migrate as-is or with light edits</div>
+  <div class="legend-item"><span class="badge badge-synth">🔄 synthesize</span> Content exists, needs extraction / restructuring from a larger doc</div>
+  <div class="legend-item"><span class="badge badge-cleanse">🧹 cleanse</span> Exists in STG folder — remove STG brand references before publishing</div>
+  <div class="legend-item"><span class="badge badge-new">🆕 net new</span> Does not exist yet — needs to be written</div>
+</div>
+
+<div style="margin: 20px 0; background:var(--white); border:0.5px solid var(--neutral1); border-radius:var(--border-radius-lg); overflow:hidden;">
+  <button onclick="var p=this.nextElementSibling; var a=this.querySelector('.tpl-arrow'); if(p.style.display==='none'||p.style.display===''){p.style.display='block';a.textContent='▼';}else{p.style.display='none';a.textContent='▶';}" style="width:100%; display:flex; align-items:center; gap:10px; padding:14px 20px; background:none; border:none; cursor:pointer; font-family:inherit; text-align:left;">
+    <span class="tpl-arrow" style="font-size:9px; color:var(--neutral2);">▶</span>
+    <span style="font-size:12px; font-weight:500; color:var(--neutral3); text-transform:uppercase; letter-spacing:0.06em;">📋 Infrastructure Page Template — reference for all product pages</span>
+  </button>
+  <div style="display:none; border-top:0.5px solid var(--neutral1); padding:20px 24px;">
+    <p style="font-size:12px; color:var(--neutral2); margin-bottom:16px;">Every infrastructure product page (Colo, Bare Metal, Connectivity, VPC, Dedicated Cloud, Private Cloud, Public Cloud variants) follows this outline. Sections may be short or N/A for simpler products but the order is fixed.</p>
+    <pre style="font-family:'GeistMono',monospace; font-size:12px; color:var(--soft-black); line-height:1.7; background:var(--off-white); border:0.5px solid var(--neutral1); border-radius:6px; padding:16px; overflow-x:auto; white-space:pre-wrap;"># [Product Name]
+[1-sentence plain-English definition — what this is and how it differs from its nearest neighbour]
+
+## What it is (and what it is not)
+Clear boundary statement. What this product is commonly confused with
+and why the distinction matters. Use explicit "not:" language.
+
+## What's always included (Fundamental guarantee)
+The non-negotiable floor Aptum delivers regardless of engagement tier
+or addon selection. If a customer buys nothing else, they still get this.
+
+## How it's delivered
+Portal self-service / manual provisioning / hybrid.
+Who touches it operationally (Data Center Ops, Compute Platforms, Networking).
+Current status: live / roadmap / available but not configured.
+
+## Technical specifications
+IaaS products: compute model (vCPU, RAM, overcommit ratio),
+storage tiers (Standard SSD, Performance SSD, NVMe — IOPS, use case),
+networking (isolation model, VLAN/VXLAN, throughput, DDoS included).
+Commodity products (Colo, Connectivity): power specs, carrier options,
+redundancy, SLA numbers.
+Public Cloud: what Aptum manages vs. what the hyperscaler owns.
+Keep factual. No marketing language.
+
+## Pricing model
+How it's billed (per vCPU/GB, per kW, per port, per server/mo).
+Contract term options where relevant.
+What is and isn't discountable.
+Cost structure components where known (e.g. Bare Metal 6-component model).
+
+## When this fits (and when it doesn't)
+ICP signals that point to this product.
+Assessment entry points that typically lead here.
+What customer profile this is the wrong answer for — be explicit.
+
+## Managed services available on top
+Which engagement tiers apply (Dedicated / Reactive / Proactive).
+Which addon categories are compatible with this product.
+Pointer to the Managed Services section for full detail.
+Do not list individual addons — just categories and compatibility notes.</pre>
+    <p style="font-size:11px; color:var(--neutral2); margin-top:12px; font-style:italic;">Public Cloud pages swap "Technical specifications" for "What Aptum manages vs. what the hyperscaler owns" and add a portal integration status section. IaaS pages (VPC, Dedicated Cloud, Private Cloud) carry the fullest technical spec sections. Commodity pages (Colo, Connectivity) are shorter on specs and heavier on pricing detail.</p>
+  </div>
+</div>
+
+<div style="margin-top:24px;">
+<div class="space-label">Confluence PRD Space — Option B: Product catalog first</div>
+<div class="tree-root" id="tree"></div>
+</div>
+</main>
+
+<script>
+const data = {
+  name: "PRD Space (root)",
+  icon: "🏠",
+  file: null,
+  desc: "The Confluence PRD space root. Top-level sections are depth-1 pages. Each section that has children uses index.md for its own content.",
+  source: null,
+  children: [
+
+    // ── STRATEGY & ICP ──────────────────────────────────────────────
+    {
+      name: "Strategy & ICP",
+      icon: "📂",
+      file: "index.md",
+      source: "synth",
+      sourceFrom: "aptum-product-strategy.md — Vision & Mission, The Position sections",
+      desc: "Anchor section for the entire space. Landing page orients all readers (commercial, product, engineering) before they navigate anywhere else. Explains the two documents below and the business logic that ties them together.",
+      children: [
+        {
+          name: "Aptum Product Strategy",
+          icon: "📄",
+          file: "aptum-product-strategy.md",
+          source: "exists",
+          sourceFrom: "53-products/aptum-product-strategy.md v2.2 · Confluence 5257461765",
+          desc: "Vision, mission, the three-motion model (Assess → Execute → Operate), two revenue pillars (managed services + IaaS), current revenue picture, roadmap phases (Q2 2026–H1 2027), and what Aptum stops doing. The 10,000-foot view for any reader."
+        },
+        {
+          name: "Aptum ICP",
+          icon: "📄",
+          file: "aptum-icp.md",
+          source: "exists",
+          sourceFrom: "53-products/aptum-icp.md v2.2 · Confluence 5257363460",
+          desc: "Single unified ideal customer profile: firmographics (50–2,000 employees, 2–15 person IT team), behavioral signals (VMware pressure, cloud fatigue, stretched IT), full customer journey story, what a relationship is worth end-to-end, portfolio reality, and geographic focus."
+        }
+      ]
+    },
+
+    // ── INFRASTRUCTURE PRODUCTS ──────────────────────────────────────
+    {
+      name: "Infrastructure Products",
+      icon: "📂",
+      file: "index.md",
+      source: "synth",
+      sourceFrom: "managed-services-catalog.md (Infrastructure Commodities table, intro) + aptcloud-aptum-iaas-strategy.md (Section 3.2)",
+      desc: "Overview of every infrastructure commodity Aptum delivers. Covers the Fundamental guarantee concept, the six commodity types, tenancy model, DC footprint, and the compatibility matrix linking products to engagement tiers. Commercial entry point for anyone evaluating what Aptum sells at the infrastructure layer.",
+      children: [
+        {
+          name: "Colocation",
+          icon: "📂",
+          file: "index.md",
+          source: "synth",
+          sourceFrom: "managed-services-catalog.md (Colocation row) + aptcloud-aptum-iaas-strategy.md Section 5.2",
+          desc: "What Aptum colo delivers: rack units, power (kW), cooling, physical security. Fundamental guarantee (power on, temp in range, security maintained), what's not included (network is a separate purchase), provisioning model (manual via Data Center Ops; portal visibility on roadmap).",
+          children: [
+            { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Migrate from DC Ops / Networking runbooks in Confluence ops space if available", desc: "Rack assignment management, power monitoring procedures, physical access and remote hands process, incident response for power/cooling events, handoff model between DC Ops and customer." }
+          ]
+        },
+        {
+          name: "Bare Metal / Servers",
+          icon: "📂",
+          file: "index.md",
+          source: "synth",
+          sourceFrom: "managed-services-catalog.md (Bare Metal row + Cost Structure section)",
+          desc: "Aptum-owned single-tenant physical servers (54.67% of MRC). Fundamental guarantee, six-component cost structure (CapEx, power, DC Ops, network, mandatory Service Desk layer, licensing), contract term pricing (12/24/36 month), why the Service Desk layer is non-removable.",
+          children: [
+            { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Migrate from Compute Platforms / Service Desk runbooks in Confluence ops space", desc: "Hardware provisioning and build process, OS deployment standards, Zabbix monitoring setup, L2 triage scope (what Service Desk owns), hardware replacement SLA procedures, firmware/driver update cadence." }
+          ]
+        },
+        {
+          name: "Connectivity",
+          icon: "📂",
+          file: "index.md",
+          source: "synth",
+          sourceFrom: "managed-services-catalog.md (Connectivity row)",
+          desc: "MPLS, internet ports, BGP, transit, cross-connects, fiber. Fundamental guarantee (BGP and routing healthy, 99.999% uptime SLA), how SD receives monitoring alerts and escalates to the Network team, provisioning model (manual via Networking; portal bandwidth visibility on roadmap).",
+          children: [
+            { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Migrate from Networking team runbooks in Confluence ops space", desc: "BGP configuration and routing management, MPLS circuit provisioning and monitoring, escalation path from Service Desk to Network team, circuit health checks, process for cross-connects and port capacity adjustments." }
+          ]
+        },
+        {
+          name: "Aptum IaaS — Shared Cluster (VPC)",
+          icon: "📂",
+          file: "index.md",
+          source: "synth",
+          sourceFrom: "aptcloud-aptum-iaas-prd.md (VPC section, tenancy table) + managed-services-catalog.md (Shared Cluster row) + aptum-product-strategy.md (Pillar 2 taxonomy)",
+          desc: "Multi-tenant shared compute on KVM/Apache CloudStack, self-service via Aptum Portal. Logical isolation on shared physical hosts via VLANs. Fundamental guarantee, pricing (per vCPU/GB, no transaction costs), use cases (dev/test, cost-optimized, general purpose). No dedicated hardware — shared cluster change management discipline required.",
+          children: [
+            { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "synth", sourceFrom: "aptcloud-aptum-iaas-prd.md Sections 4.1–4.8 + Compute Platforms runbooks in Confluence ops space", desc: "Cluster architecture and zone layout, VM provisioning workflow via Aptum Portal, VLAN isolation model, storage tier allocation, monitoring and alert routing, change management discipline for shared-cluster operations, escalation path portal → Service Desk → Compute Platforms." }
+          ]
+        },
+        {
+          name: "Aptum IaaS — Dedicated Cloud",
+          icon: "📂",
+          file: "index.md",
+          source: "synth",
+          sourceFrom: "aptcloud-aptum-iaas-prd.md + aptum-product-strategy.md (Pillar 2 taxonomy) + managed-services-catalog.md (Dedicated Cluster row)",
+          desc: "Single-tenant dedicated compute on KVM/Apache CloudStack, delivered via Aptum Portal. One customer's VMs only on dedicated physical hosts. Board-validated 'true private cloud' positioning. Use cases: production workloads requiring dedicated compute, compliance-sensitive, performance-critical, cost-predictable environments.",
+          children: [
+            { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "aptcloud-aptum-iaas-prd.md technical specs + Compute Platforms team descriptions + Confluence ops space", desc: "Host provisioning and cluster build process, CloudStack dedicated host configuration, network isolation setup, storage allocation, SA scoping model, handoff from Compute Platforms (builds) to Service Desk + Managed Cloud (operates)." }
+          ]
+        },
+        {
+          name: "Aptum IaaS — Private Cloud (VMware / Proxmox)",
+          icon: "📂",
+          file: "index.md",
+          source: "synth",
+          sourceFrom: "aptum-product-strategy.md (Pillar 2 taxonomy, Private Cloud definition) + aptcloud-aptum-iaas-strategy.md (Section 3.2 VMware/Proxmox rows)",
+          desc: "Single-tenant dedicated hardware running VMware or Proxmox — not necessarily via Aptum Portal. VMware for customers with existing estates or requiring vMotion/vSAN; Proxmox as the Broadcom-refugee alternative. Distinct from Dedicated Cloud: portal delivery is optional, hypervisor is the differentiator.",
+          children: [
+            { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "aptcloud-aptum-iaas-strategy.md Section 4.9 + Managed Cloud + Compute Platforms team descriptions", desc: "VMware environment build process (ESXi, vCenter, vSAN config), Proxmox cluster build via CloudStack Extensions Framework, Managed Cloud ongoing operations model, customer onboarding checklist, migration path for Broadcom displacement customers." }
+          ]
+        },
+        {
+          name: "Public Cloud",
+          icon: "📂",
+          file: "index.md",
+          source: "synth",
+          sourceFrom: "aptcloud-aptum-iaas-prd.md (Section 3.1 services in Apt Cloud, Azure/AWS/GCP plugin rows) + managed-services-catalog.md (Public Cloud row) + aptum-product-strategy.md",
+          desc: "Aptum as CSP/partner for Azure, AWS, and GCP. Covers how Aptum delivers hyperscaler services through Aptum Portal (single pane of glass), the Fundamental guarantee for each (subscription active, billing consolidated, Aptum communicates outages proactively), the passthrough + margin pricing model, and how managed services stack on top. Integration status: Azure live; AWS/GCP built and available to activate.",
+          children: [
+            {
+              name: "Azure",
+              icon: "📂",
+              file: "index.md",
+              source: "synth",
+              sourceFrom: "aptcloud-aptum-iaas-prd.md (Azure plugin section, Vergent example) + aptcloud-aptum-iaas-strategy.md",
+              desc: "Azure subscription management via Aptum Portal. What Aptum delivers: instances, disks, networks, AKS. Status: live in production (Vergent ~$100K/mo Azure spend demonstrated at board demo March 31). ExpressRoute via Hybrid Interconnects addon. Passthrough + margin pricing. The most mature hyperscaler integration.",
+              children: [
+                { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "aptcloud-aptum-iaas-prd.md Azure plugin section + Managed Cloud Azure MSP runbooks", desc: "Azure subscription setup and connection to Aptum Portal, customer org and environment configuration, cost visibility dashboard setup, CSP billing model, AKS provisioning and management, ExpressRoute provisioning (links to Hybrid Interconnects), managed services addon stack available on Azure workloads." }
+              ]
+            },
+            {
+              name: "AWS",
+              icon: "📂",
+              file: "index.md",
+              source: "synth",
+              sourceFrom: "aptcloud-aptum-iaas-prd.md (AWS plugin section) + aptcloud-aptum-iaas-strategy.md + aptum-product-strategy.md",
+              desc: "AWS subscription management via Aptum Portal. Functionality built, not yet configured. Direct Connect via Hybrid Interconnects addon. Passthrough + margin pricing. Managed services (OS Patching, Managed Backup, MDR, etc.) stackable on top of AWS workloads via Managed Cloud.",
+              children: [
+                { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "aptcloud-aptum-iaas-prd.md AWS plugin + Managed Cloud AWS MSP runbooks", desc: "AWS account setup and connection to Aptum Portal, customer org configuration, cost visibility setup, CSP billing model, Direct Connect provisioning (links to Hybrid Interconnects), managed services addon stack available on AWS workloads, activation steps from current 'available but not configured' state." }
+              ]
+            },
+            {
+              name: "GCP",
+              icon: "📂",
+              file: "index.md",
+              source: "synth",
+              sourceFrom: "aptcloud-aptum-iaas-prd.md (GCP plugin section) + aptcloud-aptum-iaas-strategy.md",
+              desc: "GCP subscription management via Aptum Portal. Functionality built, not yet configured. Partner Interconnect via Hybrid Interconnects addon. Passthrough + margin pricing. Same managed services stack available as Azure and AWS.",
+              children: [
+                { name: "Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "aptcloud-aptum-iaas-prd.md GCP plugin + Managed Cloud GCP runbooks", desc: "GCP project setup and connection to Aptum Portal, customer org configuration, cost visibility setup, CSP billing model, Partner Interconnect provisioning (links to Hybrid Interconnects), managed services addon stack, activation steps from current 'available but not configured' state." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    // ── APTUM PORTAL ────────────────────────────────────────────────
+    {
+      name: "Aptum Portal",
+      icon: "📂",
+      file: "index.md",
+      source: "synth",
+      sourceFrom: "aptum-product-strategy.md (Portal Strategy section) + aptcloud-aptum-iaas-prd.md (Sections 1, 3.1)",
+      desc: "What Aptum Portal is and isn't: the single control plane for all Aptum-delivered services — not the infrastructure itself. Covers what it delivers today (provisioning, RBAC, cost visibility, DNS, Azure management, billing) and the highest-priority product gap (managed services are not yet visible in the portal). Strategic pivot: from B2B2B standalone product to internal dogfood delivery mechanism.",
+      children: [
+        {
+          name: "Aptum Portal Strategy & Roadmap",
+          icon: "📄",
+          file: "aptum-portal-strategy.md",
+          source: "exists",
+          sourceFrom: "53-products/aptcloud-aptum-iaas/aptcloud-aptum-iaas-strategy.md · Confluence 5257494536 — rename from 'AptCloud - Aptum IaaS Strategy'",
+          desc: "Strategic rationale: why CloudOps Software + CloudStack beats every commercial alternative (HPE Morpheus, CloudBolt, VMware Aria — all evaluated and rejected). The three-phase roadmap (Phase 1: revenue enablement; Phase 2: catalog expansion with MAAS, Proxmox, K8s; Phase 3: multi-region). Open build items: reseller billing, managed services L1/L2 visibility, MSP white-label branding."
+        },
+        {
+          name: "Aptum Portal PRD",
+          icon: "📄",
+          file: "aptum-portal-prd.md",
+          source: "exists",
+          sourceFrom: "53-products/aptcloud-aptum-iaas/aptcloud-aptum-iaas-prd.md · Confluence 5257560073 — rename from 'AptCloud - Aptum IaaS PRD'",
+          desc: "Full product requirements: portal vs. IaaS boundary, CloudOps Software + CloudStack architecture, tenancy model (platform always multi-tenant; infra tenancy varies), technical specs (compute, storage, networking, firewall, LB, OS), self-service capabilities, user roles (Operator, Reseller, Admin, User, Guest), service plugins, core subsystems, infrastructure catalog roadmap via Extensions Framework."
+        },
+        {
+          name: "Aptum Portal Service Guide",
+          icon: "📄",
+          file: "aptum-portal-service-guide.md",
+          source: "new",
+          sourceFrom: "aptcloud-aptum-iaas-prd.md Sections 5–6 + internal CloudOps Software operator documentation",
+          desc: "How Aptum Portal is operated: onboarding a new customer or reseller (org setup, RBAC config, environment creation), configuring service connections (CloudStack, Azure, DNS), setting up product catalogs and pricing in the monetization engine, managing white-label branding per reseller, using the quoting tool, API and Terraform provider access, support escalation path."
+        }
+      ]
+    },
+
+    // ── MANAGED SERVICES ────────────────────────────────────────────
+    {
+      name: "Managed Services",
+      icon: "📂",
+      file: "index.md",
+      source: "synth",
+      sourceFrom: "managed-services-catalog.md ('How this catalog is organized', Engagement Tiers sections, Addon behavior by tier table, Compatibility Matrix)",
+      desc: "This page covers the full managed services model. Opens with how managed services stack on top of infrastructure commodities and the Fundamental guarantee. Then walks through the three engagement tiers: Dedicated (Infrastructure — no managed services, PS on pay-as-you-go), Reactive (Co-Managed — 24/7 Service Desk, monitoring, customer stays in the decision loop, addon access at Reactive posture), and Proactive (Fully Managed — Aptum owns and operates, named MC resource, scheduled monthly or quarterly environment reviews included at no additional cost, BCP Planning and Compliance Reporting available at this tier only). Reviews & Touchpoints — the structured cadence review Aptum runs with Proactive customers — is described here as part of what Proactive means in practice; it is not a separately purchasable addon. Includes working names vs. customer-facing names, infrastructure compatibility per tier, and how assessment findings map to tier recommendations. Closes with a high-level outline of the addon categories (Monitoring & Observability, OS & Platform Management, Data Protection & Recovery, Security Services, Cloud & Hybrid Connectivity, Logging, Network & Delivery, Application Services, Managed Productivity) — full detail on each addon lives in the Addons section below.",
+      children: [
+        {
+          name: "Addons",
+          icon: "📂",
+          file: "index.md",
+          source: "synth",
+          sourceFrom: "managed-services-catalog.md (Compatibility Matrix, Addon behavior by tier table, Managed Service Addons intro)",
+          desc: "Overview of all managed service addons, organised into seven functional groups. Covers the compatibility matrix (which groups are available on which infrastructure products, which require Proactive tier) and the addon pricing model (per endpoint/asset per month). Each group below defines the specific named Aptum products within it and has a single service guide covering delivery across all products in that group.",
+          children: [
+            {
+              name: "Monitoring & Observability",
+              icon: "📂",
+              file: "index.md",
+              source: "synth",
+              isCategory: true,
+              sourceFrom: "managed-services-catalog.md (Monitoring & Observability section, both addon rows)",
+              desc: "Defines three monitoring products. Aptum Essentials Monitoring (Zabbix) — infrastructure-layer monitoring built into the Service Desk floor; agent-side alerting, triage, and hardware event response. Not a customer-facing addon — this is what Aptum runs internally to keep the infrastructure operational. Aptum Advanced Monitoring (LogicMonitor) — customer-facing dashboards, alert history, uptime and bandwidth reports; the customer can view and interact with their own monitoring data. Aptum Application Monitoring (Datadog) — full-stack APM above the OS into the application layer; application performance, container health, custom dashboards, anomaly detection. Covers Reactive vs. Proactive behaviour for each, tooling, cost, and addon owner.",
+              children: [
+                { name: "Monitoring Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Service Desk / Compute Platforms / Managed Cloud monitoring runbooks in Confluence ops space", desc: "Single delivery guide covering all three monitoring products: Zabbix agent setup and SD-side alert routing, escalation thresholds and hardware event response (Essentials); LogicMonitor customer portal onboarding, dashboard templates, and uptime report configuration (Advanced); Datadog agent deployment, APM instrumentation, custom dashboard design, and anomaly detection tuning (Application). Includes Reactive vs. Proactive configuration differences and Proactive monthly review cadence for each tier." }
+              ]
+            },
+            {
+              name: "OS & Platform Management",
+              icon: "📂", file: "index.md", source: "synth", isCategory: true,
+              sourceFrom: "managed-services-catalog.md (OS & Platform Management section, both addon rows)",
+              desc: "Defines two patching products. Aptum OS Patching (Automox) — scheduled deployment of OS and security patches across Windows Server and Linux (Debian, Ubuntu, RHEL, Alma, Rocky); policy-based scheduling, compliance reporting included; customer approves patch windows at Reactive, MC owns policy at Proactive. Aptum Platform Patching — middleware and runtime environment updates (Node.js, Java, .NET, Python, platform services); above the OS, below the application code — Aptum never touches the customer's application code. Covers supported environments, Reactive vs. Proactive behaviour, and addon owners for each.",
+              children: [
+                { name: "OS & Platform Management Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Managed Cloud / Compute Platforms Automox and platform patching runbooks", desc: "Single delivery guide covering both products: Automox agent deployment, patch policy templates, compliance report generation, customer approval workflow and MC-led policy model (OS Patching); supported runtime environments and versions, staged rollout procedures, major version change handling with customer sign-off, rollback procedures (Platform Patching). Includes the OS patching vs. platform patching vs. application code boundary." }
+              ]
+            },
+            {
+              name: "Data Protection & Recovery",
+              icon: "📂", file: "index.md", source: "synth", isCategory: true,
+              sourceFrom: "managed-services-catalog.md (Data Protection & Recovery section, all three addon rows)",
+              desc: "Defines three data protection products in a hierarchy. Aptum Managed Backup (Veeam) — automated backup execution, monitoring, failure alerting, and restore capability with policy-based retention; protects data but does not guarantee a recovery time objective. Aptum DRaaS — defined RPO/RTO with maintained failover environment, tested recovery runbooks, and quarterly DR tests; requires active secondary infrastructure. Aptum BCP Planning — business continuity plan development, tabletop exercises, and annual review; Proactive tier only. Selling backup alone does not mean the customer can recover within an SLA — make the hierarchy clear.",
+              children: [
+                { name: "Data Protection Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Managed Cloud Veeam, DR, and BCP runbooks in Confluence ops space", desc: "Single delivery guide covering all three products: Veeam job configuration, retention policies, failure alerting, restore procedures, and recoverability testing cadence (Managed Backup); DR architecture design, failover runbook format, quarterly test process, RTO/RPO validation methodology, and failback procedure (DRaaS); BCP document structure, tabletop exercise facilitation, and annual review cadence (BCP Planning). Includes how all three interconnect." }
+              ]
+            },
+            {
+              name: "Security Services",
+              icon: "📂", file: "index.md", source: "synth", isCategory: true,
+              sourceFrom: "managed-services-catalog.md (Security Services section, all seven addon rows)",
+              desc: "Defines seven security products operating at different layers — all complementary, not redundant. Aptum Managed Firewall (Juniper SRX) — network security policy management on physical and virtual firewalls; policy layer only, not the physical device. Aptum Endpoint Protection (EDR) — AV and EDR agents on customer servers; automated quarantine and threat response; agent options are MS Defender for Business, CrowdStrike Falcon Go, or SentinelOne. Aptum WAF — HTTP/HTTPS application-layer traffic inspection with OWASP rule enforcement (L7 only, not DDoS). Aptum DDoS Protection — always-on volumetric scrubbing at the network edge (L3/L4). Aptum MDR (Alert Logic) — 24/7 SOC-as-a-service with human analysts actively hunting threats; IN DEVELOPMENT. Aptum Vulnerability Scanning — automated CVE scanning with remediation tracking and posture scoring; not penetration testing. Aptum Compliance Reporting — SOC 2, PCI-DSS, HIPAA evidence collection; Proactive tier only.",
+              children: [
+                { name: "Security Services Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Managed Cloud / Networking security runbooks in Confluence ops space", desc: "Single delivery guide covering all seven products: firewall change management, rule request workflow, and SD → MC escalation (Managed Firewall); EDR agent deployment, quarantine handling, and MDR escalation path (Endpoint Protection); OWASP rule configuration, false positive management, and attack response (WAF); BGP-level scrubbing configuration and active attack coordination between Networking and MC (DDoS); Alert Logic onboarding, detection correlation, and SOC escalation workflow (MDR); scanner scheduling, posture scoring, and risk-based remediation prioritisation (Vulnerability Scanning); evidence collection and framework-specific reporting for SOC 2, PCI-DSS, HIPAA (Compliance Reporting)." }
+              ]
+            },
+            {
+              name: "Cloud & Hybrid Connectivity",
+              icon: "📂", file: "index.md", source: "synth", isCategory: true,
+              sourceFrom: "managed-services-catalog.md (Cloud & Hybrid Connectivity section, both addon rows)",
+              desc: "Defines two products for hybrid and multi-cloud environments. Aptum Hybrid Interconnects — dedicated private circuits between Aptum infrastructure and hyperscalers (Azure ExpressRoute, AWS Direct Connect, GCP Partner Interconnect); bypasses the public internet for security, performance, and predictable latency; Networking owns the physical circuit, Managed Cloud owns logical config and management. Aptum FinOps — cloud spend visibility, anomaly detection, budget governance, and active optimisation for public cloud and Aptum IaaS; included in Foundation at Reactive, MC-led rightsizing and reserved instance strategy at Proactive.",
+              children: [
+                { name: "Cloud & Hybrid Connectivity Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Networking team interconnect runbooks + Managed Cloud FinOps runbooks", desc: "Single delivery guide covering both products: circuit provisioning process, logical configuration by hyperscaler (ExpressRoute peering, Direct Connect BGP setup, GCP Partner Interconnect), failover configuration, and BGP change management (Hybrid Interconnects); Aptum Portal cost dashboard setup, budget alert configuration, rightsizing analysis methodology, and monthly optimisation review format (FinOps)." }
+              ]
+            },
+            {
+              name: "Logging",
+              icon: "📂", file: "index.md", source: "synth", isCategory: true,
+              sourceFrom: "managed-services-catalog.md (Logging section, Operational Logging row)",
+              desc: "Defines one product: Aptum Operational Logging — centralized collection, retention (3-month default), and customer access for infrastructure and platform operational logs. Tooling: Datadog Logs or Elastic Cloud. Not application logging — custom application log pipelines are a PS engagement, not a managed addon. Reactive: automated ingestion and customer log access. Proactive: MC configures alert rules on log patterns and manages compliance retention. Owners: Managed Cloud (log management), Compute Platforms (infrastructure log standards).",
+              children: [
+                { name: "Logging Service Guide", icon: "📄", file: "service-guide.md", source: "new", sourceFrom: "Managed Cloud logging runbooks", desc: "Log collection agent deployment, ingestion pipeline configuration, retention policy setup, customer log access and query interface, alert rule configuration on log patterns (Proactive), compliance retention management, and the PS engagement model for customers needing custom application log pipelines." }
+              ]
+            },
+            {
+              name: "Network & Delivery",
+              icon: "📂", file: "index.md", source: "synth", isCategory: true,
+              sourceFrom: "managed-services-catalog.md (Managed DNS, Load Balancing L7 rows) + aptcloud-aptum-iaas-prd.md (Cloudflare DNS plugin, Section 4.7)",
+              desc: "Defines two products at the network delivery and traffic management layer. Aptum Managed DNS (Cloudflare) — self-service DNS management with proxy mode and edge DDoS protection via Aptum Portal; DNS records only (not routing, BGP, or network architecture); Reactive is self-service via portal, Proactive MC assists with complex config; live in portal. Aptum Load Balancing (L7) — application-layer load balancing with SSL termination, health checks, and custom routing policies; the self-service L4 (TCP) load balancer in the portal is a separate lower-tier capability; L7 managed tier is roadmap. Covers Reactive vs. Proactive behaviour, tooling, cost, and addon owner for each.",
+              children: [
+                { name: "Managed DNS Service Guide", icon: "📄", file: "managed-dns-service-guide.md", source: "new", sourceFrom: "Aptum Portal DNS documentation + Managed Cloud DNS runbooks", desc: "Aptum Portal DNS management workflow (adding domains, configuring records, enabling proxy mode), Cloudflare integration architecture, proxy mode and edge DDoS configuration, complex DNS scenario handling, propagation troubleshooting, and handoff between portal self-service and MC for complex requests." },
+                { name: "Load Balancing (L7) Service Guide", icon: "📄", file: "load-balancing-service-guide.md", source: "new", sourceFrom: "Managed Cloud L7 LB runbooks — contingent on managed tier build", desc: "L7 load balancer configuration (SSL termination setup, health check rules, routing policies), distinction between customer-managed L4 self-service in the portal and MC-managed L7, change request workflow, and integration with the WAF addon for application-layer security." }
+              ]
+            },
+            {
+              name: "Application Services",
+              icon: "📂", file: "index.md", source: "synth", isCategory: true,
+              sourceFrom: "managed-services-catalog.md (Database Tuning, DevOps Monitoring & Maintenance rows)",
+              desc: "Defines two products at the application operations layer — above the OS and platform, below the customer's application code. Aptum Database Tuning — query analysis, index recommendations, and capacity planning; not database administration (Aptum never manages schema changes, application code, or customer data; Managed Backup is a separate addon); available as PS today, evolving toward a managed addon posture. Aptum DevOps Monitoring — CI/CD pipeline health monitoring, container monitoring, and IaC drift detection; Aptum monitors and maintains DevOps infrastructure only, never the customer's application code or pipeline logic; roadmap. Covers Reactive vs. Proactive behaviour, tooling, scope boundaries, and addon owner for each.",
+              children: [
+                { name: "Database Tuning Service Guide", icon: "📄", file: "database-tuning-service-guide.md", source: "new", sourceFrom: "Managed Cloud DBA runbooks", desc: "Database monitoring configuration, query performance baselining methodology, index analysis approach, capacity planning framework, how and where Aptum delivers recommendations vs. what the customer implements, scope boundary (what Aptum touches vs. what the customer owns), and the PS engagement model used for initial optimisation work today." },
+                { name: "DevOps Monitoring Service Guide", icon: "📄", file: "devops-monitoring-service-guide.md", source: "new", sourceFrom: "Managed Cloud DevOps runbooks — roadmap item", desc: "CI/CD pipeline monitoring configuration, container health check setup, IaC drift detection methodology, pipeline failure response playbook at Proactive, and the explicit boundary between what Aptum monitors (DevOps infrastructure) vs. what the customer builds and owns (application code, pipeline logic, dependencies)." }
+              ]
+            },
+            {
+              name: "Managed Productivity",
+              icon: "📂", file: "index.md", source: "synth", isCategory: true,
+              sourceFrom: "managed-services-catalog.md (Managed Productivity M365 row)",
+              desc: "Defines one product: Aptum Managed M365 — Exchange Online, SharePoint, and Teams administration including user provisioning, security configuration, and license management. M365 SaaS layer only — not Azure infrastructure management (Azure is a separate product in Infrastructure Products). M365 licensing is customer-supplied; Aptum charges for the management layer. Reactive: MC manages provisioning, security policies, license optimisation, and governance. Owner: Managed Cloud. Status: live.",
+              children: [
+                { name: "Managed M365 Service Guide", icon: "📄", file: "managed-m365-service-guide.md", source: "new", sourceFrom: "Managed Cloud M365 runbooks", desc: "M365 admin centre setup and Aptum access model, user provisioning workflows, security policy configuration (MFA, Conditional Access, DLP), license optimisation process, governance framework (who can do what in the tenant), and the explicit boundary between M365 admin work (Aptum) and Azure subscription management (a separate product)." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    // ── PROFESSIONAL SERVICES ────────────────────────────────────────
+    {
+      name: "Professional Services",
+      icon: "📂",
+      file: "index.md",
+      source: "synth",
+      sourceFrom: "aptum-product-strategy.md (Motion 1 and Motion 2 sections, Advisory/Execute Distinction table) + Evolve Services SOW Template (SharePoint)",
+      desc: "Covers the two PS motions and the three commercial engagement types Aptum uses across all PS work. The two motions: Advisory (structured assessments that diagnose, quantify risk, and produce a roadmap — see the Advisory section below) and Execute (project-based work that acts on assessment findings — migrations, builds, remediations, transitions). The three commercial engagement types: Fixed SOW (defined scope, milestone-based delivery, used for bounded projects like hardware refreshes, migrations, and security remediations), T&M (time and materials, hourly billing for smaller tasks, change requests, and break-fix work), and Evolve (monthly recurring squad retainer with a Minimum Monthly Fee; a cross-functional squad of Architects, Specialists, and Operators works in 2-week Scrum sprints on mutually agreed business objectives — used for ongoing platform engineering, DevOps, and advisory work that evolves over time). Who scopes: SA for Advisory, HSA for Execute. Who delivers: HSDM coordinating cross-functional teams for Execute. Every PS engagement should have a clear line of sight to an Operate outcome.",
+      children: [
+        {
+          name: "Advisory (Assess)",
+          icon: "📂",
+          file: "index.md",
+          source: "cleanse",
+          sourceFrom: "STG/docs/engagement-workflow.md + STG/docs/post-assessment-pathways.md + STG/docs/README.md — remove STG brand, StoryLeader, named customer lists",
+          desc: "Overview of the seven-assessment portfolio: fixed-fee t-shirt sized (S/M/L/XL), SA-led, 20–300 hours per engagement. Engagement workflow (pain signal → assessment → findings → follow-on), post-assessment pathways (what each assessment leads to in Execute and Operate), revenue model (every $1 in assessment revenue generates $2–3 follow-on within 12 months).",
+          children: [
+            {
+              name: "Infrastructure Risk & Readiness",
+              icon: "📂", file: "index.md", source: "cleanse",
+              sourceFrom: "STG/docs/assessments/01-infrastructure-risk/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies with aging on-prem or colo infrastructure, deferred maintenance, EOL hardware. Pain signals, the one-liner pitch, t-shirt sizing (S: $5K / M: $10K / L: $20K / XL: $30K+), sizing questions, deliverables by size, objection handling, and what happens after. Leads to hardware refresh (Execute) then Reactive tier with monitoring + OS patching (Operate).",
+              children: [
+                { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/01-infrastructure-risk/deliverable-scope.md", desc: "What the customer receives: EOL hardware inventory, OS lifecycle status report, operational risk scoring, capacity and performance baseline, prioritized remediation roadmap, cost estimates, executive summary presentation — with which deliverables apply at each t-shirt size." },
+                { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/01-infrastructure-risk/delivery-guide.md", desc: "How the SA runs this assessment: preparation steps, data collection methodology, analysis framework, findings documentation, and how to present and hand off the final report." }
+              ]
+            },
+            {
+              name: "Hybrid Cloud",
+              icon: "📂", file: "index.md", source: "cleanse",
+              sourceFrom: "STG/docs/assessments/02-hybrid-cloud/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies with workloads across on-prem, colo, and hyperscaler that are 'hybrid by accident.' Pain signals: rising cloud costs, VMware licensing shock, infrastructure spread across too many places with no clear owner. Pitch, sizing, objection handling, and where this assessment leads (architecture consulting via Execute, then Reactive or Proactive depending on IT maturity).",
+              children: [
+                { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/02-hybrid-cloud/deliverable-scope.md", desc: "What the customer receives: workload inventory, TCO model (on-prem vs. cloud vs. Aptum IaaS), placement recommendation per workload, migration sequencing roadmap." },
+                { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/02-hybrid-cloud/delivery-guide.md", desc: "SA delivery methodology: data collection, workload classification framework, TCO modelling approach, findings presentation format." }
+              ]
+            },
+            {
+              name: "Security Posture & Compliance",
+              icon: "📂", file: "index.md", source: "cleanse",
+              sourceFrom: "STG/docs/assessments/03-security-posture/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies with EOL firewalls, CVE exposure, audit findings, or compliance gaps. Pain signals: auditor flags, SOC 2 prep, cyber insurance requirements, 'we're not sure we'd pass a security review.' Pitch, sizing, objection handling, and where this leads (security remediation via Execute then Proactive tier with MDR and Compliance Reporting).",
+              children: [
+                { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/03-security-posture/deliverable-scope.md", desc: "What the customer receives: vulnerability assessment, compliance gap analysis, remediation matrix with prioritisation and effort estimates." },
+                { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/03-security-posture/delivery-guide.md", desc: "SA delivery methodology: scanning approach, compliance framework mapping, findings triage, remediation roadmap construction." }
+              ]
+            },
+            {
+              name: "Cloud Repatriation",
+              icon: "📂", file: "index.md", source: "cleanse",
+              sourceFrom: "STG/docs/assessments/04-cloud-repatriation/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies experiencing cloud overspend with flat or declining usage. Pain signals: Azure/AWS bill growing faster than usage, egress surprises, reserved instances not being utilised, 'we moved to cloud and now it costs more.' Pitch, sizing, objection handling, and where this leads (repatriation project via Execute then Proactive on Aptum IaaS). Highest follow-on revenue multiplier (10–20x).",
+              children: [
+                { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/04-cloud-repatriation/deliverable-scope.md", desc: "What the customer receives: cloud spend analysis, workload portability scoring, TCO comparison (current cloud vs. Aptum IaaS), repatriation business case and phased migration plan." },
+                { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/04-cloud-repatriation/delivery-guide.md", desc: "SA delivery methodology: cloud cost data collection, workload classification, portability scoring framework, business case construction." }
+              ]
+            },
+            {
+              name: "Operational Maturity",
+              icon: "📂", file: "index.md", source: "cleanse",
+              sourceFrom: "STG/docs/assessments/05-operational-maturity/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies whose IT team spends 80%+ of time on reactive work. Pain signals: 'we spend all our time keeping the lights on', team can't take on new projects, sysadmin departure leaving a knowledge gap, IT team size hasn't grown but the environment has. Pitch, sizing, objection handling, and where this leads (managed services transition via Execute then full Proactive tier stack).",
+              children: [
+                { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/05-operational-maturity/deliverable-scope.md", desc: "What the customer receives: OpEx analysis (internal IT cost vs. managed services cost), maturity scoring across five operational dimensions, managed services transition plan with phased onboarding." },
+                { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/05-operational-maturity/delivery-guide.md", desc: "SA delivery methodology: IT team capacity interviews, operational load mapping, maturity scoring methodology, transition plan construction." }
+              ]
+            },
+            {
+              name: "App & Platform Modernization",
+              icon: "📂", file: "index.md", source: "cleanse",
+              sourceFrom: "STG/docs/assessments/06-platform-modernization/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies running modern apps on legacy infrastructure or with immature CI/CD. Pain signals: manual deployment pipelines, no containerisation strategy, legacy hardware under modern workloads, 'we want to do Kubernetes but don't know where to start.' Pitch, sizing, objection handling, and where this leads (platform build via Execute then Proactive tier managed platform).",
+              children: [
+                { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/06-platform-modernization/deliverable-scope.md", desc: "What the customer receives: architecture review, container/K8s readiness scoring, CI/CD maturity assessment, platform modernisation roadmap with phased recommendations." },
+                { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/06-platform-modernization/delivery-guide.md", desc: "SA delivery methodology: architecture discovery, container readiness evaluation framework, CI/CD pipeline audit, roadmap construction and prioritisation." }
+              ]
+            },
+            {
+              name: "Well-Architected Review",
+              icon: "📂", file: "index.md", source: "cleanse",
+              sourceFrom: "STG/docs/assessments/07-well-architected-review/sell-sheet.md — index.md IS the sell sheet, cleanse STG references",
+              desc: "The sell sheet is this page. Who it's for: companies with unreviewed cloud estates, cost overruns, or security concerns. Pain signals: 'we built our cloud fast and never went back to check', inconsistent performance, security gaps, cost overruns with no clear cause. Pitch, sizing, objection handling, and where this leads (architecture remediation via Execute then Reactive or Proactive with FinOps addon).",
+              children: [
+                { name: "Deliverable Scope", icon: "📄", file: "deliverable-scope.md", source: "cleanse", sourceFrom: "STG/docs/assessments/07-well-architected-review/deliverable-scope.md", desc: "What the customer receives: six-pillar review (operational excellence, security, reliability, performance, cost optimisation, sustainability), prioritised findings, governance gap analysis, remediation roadmap." },
+                { name: "Delivery Guide", icon: "📄", file: "delivery-guide.md", source: "cleanse", sourceFrom: "STG/docs/assessments/07-well-architected-review/delivery-guide.md", desc: "SA delivery methodology: pillar-by-pillar assessment framework, evidence gathering, findings scoring and prioritisation, remediation roadmap construction." }
+              ]
+            }
+          ]
+        },
+        {
+          name: "Execute (Implement)",
+          icon: "📄",
+          file: "execute.md",
+          source: "synth",
+          sourceFrom: "aptum-product-strategy.md (Motion 2: Execute section, Execute Engagement Types table) + Evolve Services SOW Template (SharePoint)",
+          desc: "Light reference page covering how Execute engagements work commercially and operationally. Three engagement types: Fixed SOW (bounded scope with defined milestones — used for migrations, hardware refreshes, platform builds, security remediations, DR design; scoped by HSA, delivered by HSDM with cross-functional teams; $5K–$300K range), T&M (hourly billing for smaller tasks, change requests, and work that can't be fully scoped upfront), and Evolve (monthly recurring squad retainer with a Minimum Monthly Fee; cross-functional squad of Cloud Architects, Specialists, and Operators working in 2-week Scrum sprints on mutually agreed objectives; auto-renews; used for ongoing platform engineering, DevOps, and advisory work). Types of work Aptum delivers under Execute: cloud migrations, cloud-to-Aptum repatriation projects, hardware refreshes, security remediations, platform and Kubernetes builds, architecture redesigns, managed services transitions, DR design and implementation. Every Execute engagement should trace back to an assessment finding and have a clear line of sight to an Operate outcome."
+        }
+      ]
+    }
+  ]
+};
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function badgeHTML(source) {
+  const map = {
+    exists:  ['badge-exists',  '✅ exists'],
+    synth:   ['badge-synth',   '🔄 synthesize'],
+    cleanse: ['badge-cleanse', '🧹 cleanse (STG)'],
+    new:     ['badge-new',     '🆕 net new']
+  };
+  if (!source || !map[source]) return '';
+  const [cls, label] = map[source];
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+function fileHTML(file) {
+  if (!file) return '';
+  return `<span class="node-file">${file}</span>`;
+}
+
+let nodeCount = 0;
+
+function renderNode(node, depth) {
+  nodeCount++;
+  const id = 'n' + nodeCount;
+  const hasChildren = node.children && node.children.length > 0;
+  const isRoot = depth === 0;
+  const isCategory = node.isCategory;
+
+  let cls = `node depth-${depth}`;
+  if (isCategory) cls += ' is-category';
+
+  const toggleEl = hasChildren
+    ? `<span class="toggle" id="toggle-${id}">▶</span>`
+    : `<span class="toggle-spacer"></span>`;
+
+  const childrenHTML = hasChildren
+    ? node.children.map(c => renderNode(c, depth + 1)).join('')
+    : '';
+
+  const sourceNote = node.sourceFrom
+    ? `<div class="node-source">Source: ${node.sourceFrom}</div>`
+    : '';
+
+  return `
+<div class="${cls}" id="${id}">
+  <div class="node-header" onclick="toggle('${id}')" ${!hasChildren ? 'style="cursor:default"' : ''}>
+    ${toggleEl}
+    <div class="node-row">
+      <span class="node-icon">${node.icon || '📄'}</span>
+      <span class="node-name">${node.name}</span>
+      ${fileHTML(node.file)}
+      ${badgeHTML(node.source)}
+    </div>
+  </div>
+  <div class="node-body" id="body-${id}">
+    ${node.desc ? `<div class="node-desc">${node.desc}</div>` : ''}
+    ${sourceNote}
+    ${hasChildren ? `<div class="node-children">${childrenHTML}</div>` : ''}
+  </div>
+</div>`;
+}
+
+document.getElementById('tree').innerHTML = renderNode(data, 0);
+
+// Open top-level nodes by default
+document.querySelectorAll('.depth-1 > .node-header').forEach(h => {
+  const id = h.closest('.node').id;
+  // don't auto-open, let user expand
+});
+
+function toggle(id) {
+  const body = document.getElementById('body-' + id);
+  const tog = document.getElementById('toggle-' + id);
+  if (!body) return;
+  const isOpen = body.classList.toggle('open');
+  if (tog) tog.classList.toggle('open', isOpen);
+}
+
+function expandAll() {
+  document.querySelectorAll('.node-body').forEach(b => b.classList.add('open'));
+  document.querySelectorAll('.toggle').forEach(t => t.classList.add('open'));
+}
+
+function collapseAll() {
+  document.querySelectorAll('.node-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.toggle').forEach(t => t.classList.remove('open'));
+}
+
+// Auto-open depth-1 nodes on load
+document.querySelectorAll('.depth-1').forEach(n => {
+  const body = document.getElementById('body-' + n.id);
+  const tog = document.getElementById('toggle-' + n.id);
+  if (body) body.classList.add('open');
+  if (tog) tog.classList.add('open');
+});
+</script>
+</body>
+</html>
