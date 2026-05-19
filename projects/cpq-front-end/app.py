@@ -161,6 +161,8 @@ def get_dc_info(dc_abbr: str) -> dict | None:
 # sku_level must be 'TLS' (server-level) or 'Component' — same sku_id can
 # appear in both rows, so the level discriminator is mandatory.
 # ---------------------------------------------------------------------------
+_HW_SKU_TYPES = {"HW", "Hardware", "hw", "hardware"}
+
 def get_mssql_costs(sku_ids: list[int], sku_level: str) -> dict[int, dict]:
     if not sku_ids or not all([MSSQL_SERVER, MSSQL_DB, MSSQL_USER, MSSQL_PASSWORD]):
         return {}
@@ -169,23 +171,28 @@ def get_mssql_costs(sku_ids: list[int], sku_level: str) -> dict[int, dict]:
         conn = pymssql.connect(
             server=MSSQL_SERVER, user=MSSQL_USER,
             password=MSSQL_PASSWORD, database=MSSQL_DB,
+            tds_version="7.0",
         )
         cur = conn.cursor(as_dict=True)
         placeholders = ",".join(["%d"] * len(sku_ids))
         cur.execute(
-            f"SELECT sku_id, sku_name, sku_cost, cost_currency "
+            f"SELECT sku_id, sku_name, sku_cost, cost_currency, sku_type, sku_category "
             f"FROM profitability.ocean_sku_cost "
             f"WHERE sku_level = %s AND sku_id IN ({placeholders})",
             (sku_level, *sku_ids),
         )
-        result = {
-            r["sku_id"]: {
-                "cost":     float(r["sku_cost"] or 0),
-                "currency": r["cost_currency"] or "USD",
-                "name":     r["sku_name"] or "",
+        result = {}
+        for r in cur.fetchall():
+            raw_type = (r.get("sku_type") or "").strip()
+            is_hw    = raw_type in _HW_SKU_TYPES or raw_type.upper().startswith("HW")
+            result[r["sku_id"]] = {
+                "cost":         float(r["sku_cost"] or 0),
+                "currency":     r["cost_currency"] or "USD",
+                "name":         r["sku_name"] or "",
+                "sku_type":     raw_type,
+                "sku_category": (r.get("sku_category") or "").strip(),
+                "cost_kind":    "hw" if is_hw else "sw",
             }
-            for r in cur.fetchall()
-        }
         cur.close()
         conn.close()
         return result
