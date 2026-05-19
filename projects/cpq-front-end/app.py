@@ -770,6 +770,61 @@ def product_config(product_id):
     })
 
 
+# ---------------------------------------------------------------------------
+# Routes — Settings
+# ---------------------------------------------------------------------------
+@app.route("/settings")
+def settings_page():
+    return render_template("settings.html")
+
+
+@app.route("/api/settings/overhead", methods=["GET"])
+def settings_overhead_get():
+    return jsonify(COST_DRIVERS)
+
+
+@app.route("/api/settings/overhead", methods=["POST"])
+def settings_overhead_post():
+    global COST_DRIVERS
+    data = request.get_json(force=True)
+
+    # Validate sga_pct
+    try:
+        sga = float(data.get("overhead_constants", {}).get("sga_pct", -1))
+        if not (0 <= sga <= 1):
+            return jsonify({"error": "sga_pct must be between 0 and 1"}), 400
+    except (TypeError, ValueError):
+        return jsonify({"error": "sga_pct must be a number"}), 400
+
+    # Validate all cost amounts are non-negative numbers
+    service_types = ["server", "firewall", "switch"]
+    for dc_abbr, dc in data.get("data_centers", {}).items():
+        for svc in service_types:
+            for key, entry in dc.get("costs", {}).get(svc, {}).items():
+                try:
+                    if float(entry.get("amount", -1)) < 0:
+                        return jsonify({"error": f"{dc_abbr}.{svc}.{key}: amount must be >= 0"}), 400
+                except (TypeError, ValueError):
+                    return jsonify({"error": f"{dc_abbr}.{svc}.{key}: amount must be a number"}), 400
+
+    # Atomic write
+    path = _COST_DRIVERS_PATH
+    tmp  = path.with_suffix(".json.tmp")
+    try:
+        with open(tmp, "w") as f:
+            json.dump(data, f, indent=2)
+            f.write("\n")
+        os.replace(tmp, path)
+    except Exception as e:
+        return jsonify({"error": f"Write failed: {e}"}), 500
+
+    # Reload in-memory cache
+    with open(path) as f:
+        COST_DRIVERS = json.load(f)
+
+    return jsonify({"ok": True})
+
+
 if __name__ == "__main__":
     if not SSH_USER or not DB_PASSWORD:
         print("ERROR: SSH_USER or FUSION_DB_PASS not set", file=sys.stderr)
