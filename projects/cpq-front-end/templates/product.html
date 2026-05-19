@@ -670,22 +670,6 @@
         <span>${term}mo term</span>
         ${product.sku ? `<span class="sku">${esc(product.sku)}</span>` : ''}
         ${fxNote ? `<span style="color:var(--text-3);font-style:italic">${fxNote}</span>` : ''}
-      </div>
-      <div class="server-pricing-row">
-        <div class="pricing-field">
-          <span class="pf-label">Monthly Recurring</span>
-          <span class="pf-value">${SYM}${fmt(config.server_mrc)}<span>/mo base</span></span>
-        </div>
-        ${setupFee > 0 ? `
-        <div class="pricing-field setup">
-          <span class="pf-label">Setup Fee</span>
-          <span class="pf-value">${SYM}${fmt(setupFee)}<span>one-time</span></span>
-        </div>` : ''}
-        ${config.server_nrc > 0 ? `
-        <div class="pricing-field setup">
-          <span class="pf-label">NRC</span>
-          <span class="pf-value">${SYM}${fmt(config.server_nrc)}<span>one-time</span></span>
-        </div>` : ''}
       </div>`;
   }
 

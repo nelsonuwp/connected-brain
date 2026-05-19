@@ -477,26 +477,24 @@ function showToast(msg, type) {
 }
 
 // ── Theme ─────────────────────────────────────────────────────────────────
-function toggleTheme() {
-  const html = document.documentElement;
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('cpq-theme', next);
-  document.getElementById('main-logo').src = next === 'light'
-    ? 'https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-Dark.png'
-    : 'https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png';
+const THEME_KEY = 'aptum-cpq-theme';
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem(THEME_KEY, t);
+  const btn  = document.getElementById('theme-btn');
+  const logo = document.getElementById('main-logo');
+  if (btn)  btn.textContent = t === 'dark' ? '☀' : '☽';
+  if (logo) logo.src = t === 'dark'
+    ? 'https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png'
+    : 'https://aptumlogos.pages.dev/Horizontal-Lockup-Black.png';
 }
-
-// Apply saved theme
+function toggleTheme() {
+  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+}
 (function () {
-  const saved = localStorage.getItem('cpq-theme');
-  if (saved) {
-    document.documentElement.setAttribute('data-theme', saved);
-    if (saved === 'light') {
-      document.getElementById('main-logo').src =
-        'https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-Dark.png';
-    }
-  }
+  const saved     = localStorage.getItem(THEME_KEY);
+  const preferred = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  applyTheme(saved || preferred);
 })();
 
 loadData();
