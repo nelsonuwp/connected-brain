@@ -194,6 +194,35 @@ def get_mssql_costs(sku_ids: list[int], sku_level: str) -> dict[int, dict]:
 
 
 # ---------------------------------------------------------------------------
+# MSSQL: hardware wattage
+# Returns watts (int) for a given fusion_id, or None if not found.
+# ---------------------------------------------------------------------------
+def get_mssql_watts(fusion_id: int) -> int | None:
+    if not all([MSSQL_SERVER, MSSQL_DB, MSSQL_USER, MSSQL_PASSWORD]):
+        return None
+    try:
+        import pymssql
+        conn = pymssql.connect(
+            server=MSSQL_SERVER, user=MSSQL_USER,
+            password=MSSQL_PASSWORD, database=MSSQL_DB,
+            tds_version="7.0",
+        )
+        cur = conn.cursor(as_dict=True)
+        cur.execute(
+            "SELECT watts FROM profitability.hardware_watts WHERE fusion_id = %d",
+            (fusion_id,),
+        )
+        row = cur.fetchone()
+        cur.close()
+        conn.close()
+        if row and row.get("watts") is not None:
+            return int(row["watts"])
+    except Exception:
+        pass
+    return None
+
+
+# ---------------------------------------------------------------------------
 # MSSQL: FX rates
 # Columns: from_currency, to_currency, exchange_rate, start_date
 # ---------------------------------------------------------------------------
@@ -703,8 +732,12 @@ def product_config(product_id):
         "formula":          f"{hw_capex_raw} {hw_capex_currency} × {fx_cost_server} = {total_hw_capex} {currency}",
     }
 
+    # -- Wattage (hardware_watts keyed by fusion product_id)
+    server_watts = get_mssql_watts(product_id)
+    server_kw    = round(server_watts / 1000, 4) if server_watts is not None else None
+
     # -- Overhead (amounts in native_currency, converted via fx_overhead)
-    overhead = calc_overhead(dc_abbr, total_mrc, fx_rate=fx_overhead, kw=None)
+    overhead = calc_overhead(dc_abbr, total_mrc, fx_rate=fx_overhead, kw=server_kw)
 
     return jsonify({
         "product_id":          product_id,
@@ -723,6 +756,8 @@ def product_config(product_id):
         "defaults":            defaults,
         "allowed":             allowed,
         "default_ids":         list(default_ids),
+        "server_watts":        server_watts,
+        "server_kw":           server_kw,
         "overhead":            overhead,
         "total_hw_capex":      total_hw_capex,
         "hw_capex_cost":       hw_capex_raw,

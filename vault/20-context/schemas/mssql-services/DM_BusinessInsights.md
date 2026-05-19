@@ -62,6 +62,7 @@
 - [dbo.utility_billing_tracker](#dbo-utility-billing-tracker) — 246 rows  `0.1 MB`
 - [profitability.alertlogic_invoice_details](#profitability-alertlogic-invoice-details) — 242 rows  `0.1 MB`
 - [profitability.imperva_invoice_details](#profitability-imperva-invoice-details) — 552 rows  `0.1 MB`
+- [profitability.hardware_watts](#profitability-hardware-watts) — 20 rows  `0.0 MB`
 - [profitability.ocean_sku_cost](#profitability-ocean-sku-cost) — 680 rows  `0.2 MB`
 - [renewals.ocean_services_renewal_date](#renewals-ocean-services-renewal-date) — 5,735 rows  `0.8 MB`
 - [renewals.ocean_services_renewal_date_new](#renewals-ocean-services-renewal-date-new) — 5,735 rows  `0.8 MB`
@@ -2772,6 +2773,47 @@
 | amount         | money        | YES        |            |           |               | 0%      |        134 | 220.7300            | 121564.7256         |
 | service_period | datetime     | YES        |            |           |               | 0%      |         21 | 2024-01-01 00:00:00 | 2025-09-01 00:00:00 |
 | currency       | varchar(255) | YES        |            |           |               | 0%      |          1 | —                   | —                   |
+
+---
+
+### profitability.hardware_watts {#profitability-hardware-watts}
+
+| Property | Value |
+|---|---|
+| Full name | `[profitability].[hardware_watts]` |
+| Row count | 20 |
+| Total size | 0.0 MB |
+| Created | 2026-05-19 |
+| Schema modified | 2026-05-19 |
+
+Wattage lookup keyed by Fusion `product_catalog.id` / component `id`. Used in CPQ overhead calculations for power-cost line items (`per_kw` measures in `cost_drivers.json`). Convert to kW: `watts / 1000`.
+
+#### Columns
+
+| Column       | Type         | Nullable | Notes |
+|--------------|--------------|----------|-------|
+| fusion_id    | int          | YES      | FK → Fusion `product_catalog.id` or `components.id` |
+| sku_name     | varchar(255) | YES      | Human-readable label matching Fusion product name |
+| sku_category | varchar(255) | YES      | `Server` or `Firewall` |
+| watts        | int          | YES      | Peak power draw in watts |
+
+#### Notes
+
+- No PK or FK constraints defined — it is a plain lookup table.
+- `fusion_id` maps to the same ID space used by `ocean_sku_cost.sku_id`.
+- Servers range from 85 W (Essential 5.0) to 400 W (Pro 6.0 / Pro 7.0). Firewalls: 75–122 W.
+- 20 rows as of 2026-05-19; covers Series 5, 6, 7 servers and Juniper SRX firewalls.
+
+#### Sample rows (as of 2026-05-19)
+
+| fusion_id | sku_name | sku_category | watts |
+|-----------|----------|--------------|-------|
+| 930 | Juniper SRX 300 | Firewall | 75 |
+| 943 | Pro Series 5.0 | Server | 224 |
+| 975 | Essential Series 5.0 | Server | 85 |
+| 1254 | Pro Series 6.0 | Server | 400 |
+| 1299 | R470 - Advanced Series 7.0 | Server | 280 |
+| 1300 | R670 - Pro Series 7.0 | Server | 400 |
 
 ---
 
