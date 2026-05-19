@@ -638,11 +638,13 @@ def product_config(product_id):
             hw_cost_currency = hw["currency"]
             fx_cost          = fx_cost_map.get(hw_cost_currency, 1.0)
             hw_cost_display  = round(hw_cost_raw * fx_cost, 2)
+            cost_kind        = hw.get("cost_kind", "hw")   # "hw" = one-time CapEx, "sw" = monthly
         else:
             hw_cost_raw      = None
             hw_cost_currency = None
             fx_cost          = None
             hw_cost_display  = None
+            cost_kind        = None
 
         return {
             "component_id":     cid,
@@ -662,6 +664,7 @@ def product_config(product_id):
             "hw_cost_raw":      hw_cost_raw,
             "hw_cost_currency": hw_cost_currency,
             "hw_cost_display":  hw_cost_display,
+            "cost_kind":        cost_kind,           # "hw"=CapEx, "sw"=monthly, None=unknown
             "is_default":       is_default,
             "pricebook_provenance": {
                 "source":           "Fusion: public.pricebook",

@@ -289,6 +289,16 @@
       color:var(--green-text); background:var(--green-dim);
       padding:2px 7px; border-radius:4px;
     }
+    .badge-cost-hw {
+      font-size:.68rem; font-weight:600; font-family:'Geist Mono',monospace;
+      color:var(--text-2); background:var(--surface-2);
+      padding:2px 7px; border-radius:4px;
+    }
+    .badge-cost-sw {
+      font-size:.68rem; font-weight:600; font-family:'Geist Mono',monospace;
+      color:var(--text-2); background:var(--surface-2);
+      padding:2px 7px; border-radius:4px;
+    }
     .bi-actions { flex-shrink:0; }
     .btn-add {
       background:var(--accent-dim); border:1px solid var(--accent);
@@ -816,23 +826,34 @@
   }
 
   function browseItemRow(comp) {
-    const cid   = comp.component_id;
-    const mrc   = comp.addon_mrc   || 0;
-    const setup = comp.addon_setup || 0;
+    const cid      = comp.component_id;
+    const mrc      = comp.addon_mrc   || 0;
+    const setup    = comp.addon_setup || 0;
+    const costKind = comp.cost_kind || null;          // "hw", "sw", or null
+    const costVal  = comp.hw_cost_display || 0;
+
     const mrcBadge   = mrc   > 0 ? `<span class="badge-mrc">${SYM}${fmt(mrc)}/mo</span>`   : `<span class="badge-included">included</span>`;
     const setupBadge = setup > 0 ? `<span class="badge-setup">Setup ${SYM}${fmt(setup)}</span>` : '';
+    const costBadge  = costVal > 0
+      ? (costKind === 'sw'
+          ? `<span class="badge-cost-sw">Cost ${SYM}${fmt(costVal)}/mo</span>`
+          : `<span class="badge-cost-hw">Cost ${SYM}${fmt(costVal)}</span>`)
+      : '';
+
     return `
       <div class="browse-item" id="bi-${cid}" data-comp-id="${cid}">
         <div>
-          <div class="bi-name">${esc(comp.name)}</div>
+          <div class="bi-name" title="Fusion ID: ${cid}">${esc(comp.name)}</div>
           <div class="bi-type">${esc(comp.component_type)}</div>
         </div>
-        <div class="bi-badges">${mrcBadge}${setupBadge}</div>
+        <div class="bi-badges">${mrcBadge}${setupBadge}${costBadge}</div>
         <div class="bi-actions">
           <button class="btn-add" id="addbtn-${cid}"
                   data-comp-id="${cid}" data-name="${esc(comp.name)}"
                   data-mrc="${mrc}" data-nrc="${comp.addon_nrc||comp.component_nrc||0}"
-                  data-setup="${setup}" data-hw="${comp.hw_cost_display||0}"
+                  data-setup="${setup}" data-hw="${costKind === 'hw' ? costVal : 0}"
+                  data-sw-cost="${costKind === 'sw' ? costVal : 0}"
+                  data-cost-kind="${costKind || ''}"
                   onclick="toggleAddComponent(this)">+ Add</button>
         </div>
       </div>`;
@@ -866,10 +887,12 @@
       ADDED.push({
         component_id:    cid,
         name:            btn.dataset.name,
-        mrc:             parseFloat(btn.dataset.mrc)   || 0,
-        nrc:             parseFloat(btn.dataset.nrc)   || 0,
-        setup:           parseFloat(btn.dataset.setup) || 0,
-        hw_cost_display: parseFloat(btn.dataset.hw)    || 0,
+        mrc:             parseFloat(btn.dataset.mrc)    || 0,
+        nrc:             parseFloat(btn.dataset.nrc)    || 0,
+        setup:           parseFloat(btn.dataset.setup)  || 0,
+        hw_cost_display: parseFloat(btn.dataset.hw)     || 0,
+        sw_cost:         parseFloat(btn.dataset.swCost) || 0,
+        cost_kind:       btn.dataset.costKind           || '',
       });
       btn.textContent = '✓ Added';
       btn.classList.add('added');
@@ -1004,7 +1027,9 @@
     }
 
     // ── HW / Margin ──────────────────────────────────────────────────
-    const hwCapex    = CONFIG.total_hw_capex + ADDED.reduce((s,a) => s + (a.hw_cost_display||0), 0);
+    const addedHwCapex = ADDED.filter(a => a.cost_kind === 'hw').reduce((s,a) => s + (a.hw_cost_display||0), 0);
+    const addedSwMrc   = ADDED.filter(a => a.cost_kind === 'sw').reduce((s,a) => s + (a.sw_cost||0), 0);
+    const hwCapex    = CONFIG.total_hw_capex + addedHwCapex;
     const hwMonthly  = hwCapex / termMo;                 // amortized over term
     const totalCost  = totalOverhead + hwMonthly;
     const margin     = adjMrc - totalCost;
@@ -1086,14 +1111,20 @@
           <span class="label"${l.tip ? ` data-tip="${esc(l.tip)}"` : ''}>${esc(l.label)}</span>
           <span class="value${l.na||l.zero?' muted':''}">${l.value}</span>
         </div>`).join('')}
+      ${addedSwMrc > 0 ? `
+      <hr class="divider">
+      ${ADDED.filter(a => a.cost_kind === 'sw' && a.sw_cost > 0).map(a =>
+        `<div class="cost-line"><span class="label">${esc(a.name)}</span><span class="value">${SYM}${fmt(a.sw_cost)}/mo</span></div>`
+      ).join('')}
+      <div class="cost-line"><span class="label">SW Monthly Total</span><span class="value">${SYM}${fmt(addedSwMrc)}/mo</span></div>` : ''}
       <hr class="divider">
       <div class="cost-line">
         <span class="label">Total OpEx / mo</span>
-        <span class="value">${SYM}${fmt(totalOverhead)}/mo</span>
+        <span class="value">${SYM}${fmt(totalOverhead + addedSwMrc)}/mo</span>
       </div>
       <div class="cost-line total">
         <span class="label">Total Cost / mo</span>
-        <span class="value">${SYM}${fmt(totalCost)}/mo</span>
+        <span class="value">${SYM}${fmt(totalCost + addedSwMrc)}/mo</span>
       </div>`;
   }
 
@@ -1113,9 +1144,11 @@
     const adjMrc    = totalMrc + swapDelta + addedMrc;
     let totalOvh    = 0;
     for (const e of Object.values(CONFIG.overhead)) { if (e.amount > 0) totalOvh += e.amount; }
-    const hwCapex   = CONFIG.total_hw_capex + ADDED.reduce((s,a) => s + (a.hw_cost_display||0), 0);
+    const addedHwCap = ADDED.filter(a => a.cost_kind === 'hw').reduce((s,a) => s + (a.hw_cost_display||0), 0);
+    const addedSwMo  = ADDED.filter(a => a.cost_kind === 'sw').reduce((s,a) => s + (a.sw_cost||0), 0);
+    const hwCapex   = CONFIG.total_hw_capex + addedHwCap;
     const hwMonthly = hwCapex / termMo;
-    const totalCost = totalOvh + hwMonthly;
+    const totalCost = totalOvh + hwMonthly + addedSwMo;
     const margin    = adjMrc - totalCost;
     const marginPct = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
     const ms        = marginStatus(marginPct);
