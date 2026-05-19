@@ -1004,7 +1004,7 @@
     }
 
     // ── HW / Margin ──────────────────────────────────────────────────
-    const hwCapex    = CONFIG.total_hw_capex;            // display currency, one-time
+    const hwCapex    = CONFIG.total_hw_capex + ADDED.reduce((s,a) => s + (a.hw_cost_display||0), 0);
     const hwMonthly  = hwCapex / termMo;                 // amortized over term
     const totalCost  = totalOverhead + hwMonthly;
     const margin     = adjMrc - totalCost;
@@ -1113,7 +1113,7 @@
     const adjMrc    = totalMrc + swapDelta + addedMrc;
     let totalOvh    = 0;
     for (const e of Object.values(CONFIG.overhead)) { if (e.amount > 0) totalOvh += e.amount; }
-    const hwCapex   = CONFIG.total_hw_capex;
+    const hwCapex   = CONFIG.total_hw_capex + ADDED.reduce((s,a) => s + (a.hw_cost_display||0), 0);
     const hwMonthly = hwCapex / termMo;
     const totalCost = totalOvh + hwMonthly;
     const margin    = adjMrc - totalCost;
