@@ -569,12 +569,14 @@ def product_config(product_id):
                        {'t.quantity,' if table == 'public.product_templates' else '1 AS quantity,'}
                        c.display_name AS name, c.description, c.is_active,
                        ct.name AS component_type,
+                       pct.name AS parent_type,
                        cc.name AS category, cc.sort_order AS cat_sort,
                        pb.id AS pricebook_id,
                        pb.mrc AS component_mrc, pb.nrc AS component_nrc, pb.setup AS component_setup
                 FROM {table} t
                 JOIN public.components c ON c.id = t.{id_col}
                 JOIN public.component_types ct ON ct.id = c.component_type_id
+                LEFT JOIN public.component_types pct ON pct.id = ct.parent_component_id
                 JOIN public.component_categories cc ON cc.id = ct.category_id
                 LEFT JOIN public.pricebook pb
                     ON pb.component_id = t.{id_col}
@@ -641,6 +643,7 @@ def product_config(product_id):
             "description":      r["description"] or "",
             "is_active":        r["is_active"],
             "component_type":   r["component_type"],
+            "parent_type":      r.get("parent_type"),
             "category":         r["category"],
             "cat_sort":         r["cat_sort"],
             "quantity":         quantity,
