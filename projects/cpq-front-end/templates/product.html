@@ -607,6 +607,7 @@
     renderHeader(product, config);
     renderConfig(config);
     renderSummary();
+    renderSummaryPanel();
     document.getElementById('copy-btn').disabled = false;
   }).catch(err => {
     document.getElementById('server-header').innerHTML = `
@@ -652,7 +653,7 @@
       </div>`;
   }
 
-  // ── Config body ───────────────────────────────────────────────────────
+  // ── Config body — two-panel layout ───────────────────────────────────
   function renderConfig(config) {
     const body = document.getElementById('config-body');
     const cats = {};
@@ -667,21 +668,94 @@
     const sorted = Object.entries(cats).sort((a,b) => a[1].sort - b[1].sort || a[0].localeCompare(b[0]));
     const defaultIdSet = new Set(config.default_ids);
 
-    body.innerHTML = sorted.map(([catName, cat]) => {
-      const rows   = cat.defaults.map(d => componentRow(d, cat.allowed, defaultIdSet)).join('');
-      const hasAdd = cat.allowed.some(a => !defaultIdSet.has(a.component_id));
-      const addBtn = hasAdd
-        ? `<button class="add-row-btn" onclick="addRow(${JSON.stringify(catName)})">+ Add ${esc(catName)} component</button>` : '';
-      return `
-        <div class="category" id="cat-${slug(catName)}">
-          <div class="category-title">${esc(catName)}</div>
-          <div id="rows-${slug(catName)}">${rows}</div>
-          ${addBtn}
+    // Build tab bar
+    const tabs = sorted.map(([catName], idx) =>
+      `<button class="cat-tab${idx===0?' active':''}" onclick="switchTab('${esc(slug(catName))}')" id="tab-${slug(catName)}">${esc(catName)}</button>`
+    ).join('');
+
+    // Build each category panel
+    const panels = sorted.map(([catName, cat], idx) => {
+      const s = slug(catName);
+
+      // --- Defaults section (swap dropdowns) grouped by component_type
+      const defsByType = {};
+      cat.defaults.forEach(d => {
+        if (!defsByType[d.component_type]) defsByType[d.component_type] = [];
+        defsByType[d.component_type].push(d);
+      });
+
+      const defaultSection = Object.entries(defsByType).map(([typeName, comps]) => {
+        const rows = comps.map(d => defaultItemRow(d, cat.allowed)).join('');
+        return `<div class="type-group" id="tg-def-${s}-${slug(typeName)}">
+          <button class="type-group-header" onclick="toggleGroup(this)">${esc(typeName)}</button>
+          <div class="type-group-body">${rows}</div>
         </div>`;
+      }).join('');
+
+      // --- Addable section grouped by component_type (items not already defaults)
+      const addable = cat.allowed.filter(a => !defaultIdSet.has(a.component_id));
+      const addableByType = {};
+      addable.forEach(a => {
+        if (!addableByType[a.component_type]) addableByType[a.component_type] = [];
+        addableByType[a.component_type].push(a);
+      });
+
+      const addSection = Object.entries(addableByType).map(([typeName, comps]) => {
+        const rows = comps.map(a => browseItemRow(a)).join('');
+        return `<div class="type-group" id="tg-add-${s}-${slug(typeName)}">
+          <button class="type-group-header" onclick="toggleGroup(this)">${esc(typeName)}</button>
+          <div class="type-group-body">${rows}</div>
+        </div>`;
+      }).join('');
+
+      const hasDefaults  = defaultSection.length > 0;
+      const hasAddable   = addSection.length > 0;
+
+      return `<div class="cat-panel${idx===0?' active':''}" id="panel-${s}">
+        ${hasDefaults ? `<div style="margin-bottom:1rem">
+          <div class="summary-section-label" style="margin-bottom:.5rem">Included</div>
+          ${defaultSection}
+        </div>` : ''}
+        ${hasAddable ? `<div>
+          <div class="summary-section-label" style="margin-bottom:.5rem">Add-ons</div>
+          ${addSection}
+        </div>` : ''}
+        ${!hasDefaults && !hasAddable ? '<p class="empty">No components in this category.</p>' : ''}
+      </div>`;
     }).join('');
+
+    // Build right summary panel
+    const summaryHtml = `
+      <div class="summary-panel" id="comp-summary-panel">
+        <div class="summary-title">Configuration Summary</div>
+        <div class="summary-section" id="summary-included-section">
+          <div class="summary-section-label">Included</div>
+          <ul class="summary-included-list" id="summary-included-list">
+            ${config.defaults.map(d => `<li>${esc(d.name)}${d.quantity>1?' ×'+d.quantity:''}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="summary-section" id="summary-added-section">
+          <div class="summary-section-label">Added</div>
+          <ul class="summary-added-list" id="summary-added-list">
+            <li class="summary-empty" id="summary-added-empty">None added yet</li>
+          </ul>
+        </div>
+        <div class="summary-totals" id="summary-totals"></div>
+      </div>`;
+
+    body.innerHTML = `
+      <div class="config-panels">
+        <div class="browse-panel">
+          <div class="cat-tabs">${tabs}</div>
+          <div id="cat-panels">${panels}</div>
+        </div>
+        <div>${summaryHtml}</div>
+      </div>`;
+
+    renderSummaryPanel();
   }
 
-  function componentRow(comp, allowed, defaultIdSet) {
+  function defaultItemRow(comp, allowed) {
     const cid    = comp.component_id;
     const mrcStr = comp.component_mrc > 0
       ? `${SYM}${fmt(comp.component_mrc)}/mo`
@@ -691,13 +765,13 @@
     const swapOpts = allowed
       .filter(a => a.component_type === comp.component_type)
       .map(a =>
-        `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>` +
-        `${esc(a.name)}${a.component_mrc>0?' — '+SYM+fmt(a.component_mrc)+'/mo':' — included'}</option>`
+        `<option value="${a.component_id}" data-mrc="${a.addon_mrc}" data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>` +
+        `${esc(a.name)}${a.addon_mrc>0?' — '+SYM+fmt(a.addon_mrc)+'/mo':' — included'}</option>`
       ).join('');
     const hasSwap = swapOpts.split('<option').length > 2;
 
     return `
-      <div class="component-row" id="row-${cid}"
+      <div class="default-item" id="row-${cid}"
            data-orig-id="${cid}" data-orig-mrc="${comp.component_mrc}"
            data-orig-name="${esc(comp.name)}" data-orig-hw="${comp.hw_cost_display||0}">
         <div>
@@ -712,6 +786,119 @@
           ${hasSwap ? `<label class="sr-only" for="sel-${cid}">Swap ${esc(comp.component_type)}</label><select class="comp-select" id="sel-${cid}" onchange="onSwap(${cid},this)">${swapOpts}</select>` : ''}
         </div>
       </div>`;
+  }
+
+  function browseItemRow(comp) {
+    const cid   = comp.component_id;
+    const mrc   = comp.addon_mrc   || 0;
+    const setup = comp.addon_setup || 0;
+    const mrcBadge   = mrc   > 0 ? `<span class="badge-mrc">${SYM}${fmt(mrc)}/mo</span>`   : `<span class="badge-included">included</span>`;
+    const setupBadge = setup > 0 ? `<span class="badge-setup">Setup ${SYM}${fmt(setup)}</span>` : '';
+    return `
+      <div class="browse-item" id="bi-${cid}" data-comp-id="${cid}">
+        <div>
+          <div class="bi-name">${esc(comp.name)}</div>
+          <div class="bi-type">${esc(comp.component_type)}</div>
+        </div>
+        <div class="bi-badges">${mrcBadge}${setupBadge}</div>
+        <div class="bi-actions">
+          <button class="btn-add" id="addbtn-${cid}"
+                  data-comp-id="${cid}" data-name="${esc(comp.name)}"
+                  data-mrc="${mrc}" data-nrc="${comp.addon_nrc||comp.component_nrc||0}"
+                  data-setup="${setup}" data-hw="${comp.hw_cost_display||0}"
+                  onclick="toggleAddComponent(this)">+ Add</button>
+        </div>
+      </div>`;
+  }
+
+  // ── Tab switching ─────────────────────────────────────────────────────
+  function switchTab(s) {
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`tab-${s}`)?.classList.add('active');
+    document.getElementById(`panel-${s}`)?.classList.add('active');
+  }
+
+  // ── Type group collapse ───────────────────────────────────────────────
+  function toggleGroup(btn) {
+    btn.closest('.type-group')?.classList.toggle('collapsed');
+  }
+
+  // ── Add / Remove component ────────────────────────────────────────────
+  function toggleAddComponent(btn) {
+    const cid   = parseInt(btn.dataset.compId);
+    const idx   = ADDED.findIndex(a => a.component_id === cid);
+    if (idx >= 0) {
+      // Remove
+      ADDED.splice(idx, 1);
+      btn.textContent = '+ Add';
+      btn.classList.remove('added');
+      document.getElementById(`bi-${cid}`)?.classList.remove('is-added');
+    } else {
+      // Add
+      ADDED.push({
+        component_id:    cid,
+        name:            btn.dataset.name,
+        mrc:             parseFloat(btn.dataset.mrc)   || 0,
+        nrc:             parseFloat(btn.dataset.nrc)   || 0,
+        setup:           parseFloat(btn.dataset.setup) || 0,
+        hw_cost_display: parseFloat(btn.dataset.hw)    || 0,
+      });
+      btn.textContent = '✓ Added';
+      btn.classList.add('added');
+      document.getElementById(`bi-${cid}`)?.classList.add('is-added');
+    }
+    renderSummaryPanel();
+    renderSummary();
+  }
+
+  function removeAddedComponent(cid) {
+    ADDED = ADDED.filter(a => a.component_id !== cid);
+    // Reset [+] button if visible
+    const btn = document.getElementById(`addbtn-${cid}`);
+    if (btn) { btn.textContent = '+ Add'; btn.classList.remove('added'); }
+    document.getElementById(`bi-${cid}`)?.classList.remove('is-added');
+    renderSummaryPanel();
+    renderSummary();
+  }
+
+  // ── Right summary panel ───────────────────────────────────────────────
+  function renderSummaryPanel() {
+    const listEl  = document.getElementById('summary-added-list');
+    const emptyEl = document.getElementById('summary-added-empty');
+    const totalsEl = document.getElementById('summary-totals');
+    if (!listEl) return;
+
+    if (ADDED.length === 0) {
+      listEl.innerHTML = '<li class="summary-empty" id="summary-added-empty">None added yet</li>';
+    } else {
+      listEl.innerHTML = ADDED.map(a => `
+        <li class="summary-added-row">
+          <span class="sar-name" title="${esc(a.name)}">${esc(a.name)}</span>
+          <span class="sar-val${a.setup>0?'':' zero'}">${a.setup>0?SYM+fmt(a.setup):'—'}</span>
+          <span class="sar-val${a.nrc>0?'':' zero'}">${a.nrc>0?SYM+fmt(a.nrc):'—'}</span>
+          <span class="sar-val">${SYM}${fmt(a.mrc)}/mo</span>
+          <button class="sar-remove" onclick="removeAddedComponent(${a.component_id})" title="Remove">×</button>
+        </li>`).join('');
+    }
+
+    // Totals
+    const addedSetup = ADDED.reduce((s,a) => s+a.setup, 0);
+    const addedNrc   = ADDED.reduce((s,a) => s+a.nrc,   0);
+    const addedMrc   = ADDED.reduce((s,a) => s+a.mrc,   0);
+    const swapDelta  = Object.values(CHANGES).reduce((s,ch) => ch.type==='swap' ? s+ch.curr_mrc-ch.orig_mrc : s, 0);
+    let baseMrc = CONFIG ? CONFIG.server_mrc : 0;
+    if (CONFIG) CONFIG.defaults.forEach(d => { baseMrc += d.component_mrc * d.quantity; });
+    const totalMrc = baseMrc + addedMrc + swapDelta;
+    const serverSetup = (CONFIG?.server_setup || 0) + addedSetup;
+    const totalNrc    = (CONFIG?.server_nrc   || 0) + addedNrc;
+
+    if (totalsEl) {
+      totalsEl.innerHTML = `
+        ${serverSetup > 0 ? `<div class="summary-total-row"><span class="st-label">Setup Total</span><span class="st-val">${SYM}${fmt(serverSetup)}</span></div>` : ''}
+        ${totalNrc    > 0 ? `<div class="summary-total-row"><span class="st-label">NRC Total</span><span class="st-val">${SYM}${fmt(totalNrc)}</span></div>` : ''}
+        <div class="summary-total-row total-mrc"><span class="st-label">Total MRC</span><span class="st-val">${SYM}${fmt(totalMrc)}/mo</span></div>`;
+    }
   }
 
   // ── Swap handler ──────────────────────────────────────────────────────
@@ -737,159 +924,7 @@
       row.classList.add('changed');
       CHANGES[origId] = { type:'swap', orig_mrc:origMrc, curr_mrc:newMrc, name:newName, hw_cost:newHw };
     }
-    renderSummary();
-  }
-
-  // ── Searchable add-row picker ─────────────────────────────────────────
-  function addRow(catName) {
-    const s = slug(catName);
-    if (document.getElementById(`picker-${s}`)) return;
-
-    const defaultIdSet = new Set(CONFIG.default_ids);
-    const addable = CONFIG.allowed.filter(a =>
-      a.category === catName && !defaultIdSet.has(a.component_id)
-    );
-    if (!addable.length) return;
-
-    PICKERS[s] = { options: addable, filtered: addable, highlighted: -1, selected: null, catName };
-
-    const rowHtml = `
-      <div class="component-row added" id="picker-${s}">
-        <div class="picker-wrap" id="picker-wrap-${s}">
-          <input type="text" class="picker-input" id="picker-input-${s}"
-                 placeholder="Search ${esc(catName)}…" autocomplete="off" spellcheck="false"
-                 aria-label="Search ${esc(catName)} components">
-          <button class="picker-clear" id="picker-clear-${s}" onclick="clearPicker('${s}')" tabindex="-1">✕</button>
-          <ul class="picker-list" id="picker-list-${s}" role="listbox" hidden></ul>
-        </div>
-        <div class="comp-cost">
-          <div class="mrc" id="picker-mrc-${s}" style="color:var(--text-3)">—</div>
-        </div>
-        <div class="comp-actions">
-          <button class="btn btn-remove" onclick="removePicker('${s}')">×</button>
-        </div>
-      </div>`;
-
-    document.getElementById(`rows-${s}`).insertAdjacentHTML('beforeend', rowHtml);
-    renderPickerList(s);
-
-    const input = document.getElementById(`picker-input-${s}`);
-    const list  = document.getElementById(`picker-list-${s}`);
-    input.addEventListener('input',   () => { renderPickerList(s); list.hidden = false; updateClearBtn(s); });
-    input.addEventListener('focus',   () => { renderPickerList(s); list.hidden = false; });
-    input.addEventListener('blur',    () => setTimeout(() => { list.hidden = true; }, 200));
-    input.addEventListener('keydown', (e) => pickerKey(e, s));
-    input.focus();
-  }
-
-  function renderPickerList(s) {
-    const state = PICKERS[s];
-    const input = document.getElementById(`picker-input-${s}`);
-    const list  = document.getElementById(`picker-list-${s}`);
-    if (!state || !input || !list) return;
-
-    const q = input.value.toLowerCase().trim();
-    state.filtered = q
-      ? state.options.filter(a => a.name.toLowerCase().includes(q))
-      : state.options;
-    state.highlighted = -1;
-
-    if (!state.filtered.length) {
-      list.innerHTML = `<li class="picker-empty">No matches for "${esc(input.value)}"</li>`;
-      list.hidden = false;
-      return;
-    }
-
-    list.innerHTML = state.filtered.slice(0, 40).map((a, i) => `
-      <li role="option" data-idx="${i}"
-          data-id="${a.component_id}" data-mrc="${a.component_mrc}"
-          data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}">
-        <span class="p-name">${esc(a.name)}</span>
-        <span class="p-price${a.component_mrc>0?'':' incl'}">${a.component_mrc>0?SYM+fmt(a.component_mrc)+'/mo':'included'}</span>
-      </li>`).join('');
-
-    list.hidden = false;
-    list.querySelectorAll('li[data-idx]').forEach(li => {
-      li.addEventListener('mousedown', e => { e.preventDefault(); pickerSelect(s, li); });
-      li.addEventListener('mouseover', () => {
-        state.highlighted = parseInt(li.dataset.idx);
-        highlightPicker(s);
-      });
-    });
-  }
-
-  function pickerKey(e, s) {
-    const state = PICKERS[s];
-    const list  = document.getElementById(`picker-list-${s}`);
-    if (!state?.filtered?.length) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      state.highlighted = Math.min(state.highlighted + 1, state.filtered.length - 1);
-      highlightPicker(s);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      state.highlighted = Math.max(state.highlighted - 1, 0);
-      highlightPicker(s);
-    } else if (e.key === 'Enter' && state.highlighted >= 0) {
-      e.preventDefault();
-      const li = list?.querySelector(`li[data-idx="${state.highlighted}"]`);
-      if (li) pickerSelect(s, li);
-    } else if (e.key === 'Escape') {
-      if (list) list.hidden = true;
-    }
-  }
-
-  function highlightPicker(s) {
-    const list = document.getElementById(`picker-list-${s}`);
-    list?.querySelectorAll('li').forEach(li => {
-      li.classList.toggle('hl', parseInt(li.dataset.idx) === PICKERS[s].highlighted);
-    });
-  }
-
-  function pickerSelect(s, li) {
-    const state  = PICKERS[s];
-    const compId = parseInt(li.dataset.id);
-    const mrc    = parseFloat(li.dataset.mrc) || 0;
-    const hw     = parseFloat(li.dataset.hw)  || 0;
-    const name   = li.dataset.name;
-    state.selected = { compId, mrc, hw, name };
-
-    const input  = document.getElementById(`picker-input-${s}`);
-    const list   = document.getElementById(`picker-list-${s}`);
-    const mrcEl  = document.getElementById(`picker-mrc-${s}`);
-    if (input)  { input.value = name; updateClearBtn(s); }
-    if (list)   list.hidden = true;
-    if (mrcEl)  mrcEl.innerHTML = mrc > 0
-      ? `${SYM}${fmt(mrc)}/mo`
-      : `<span style="color:var(--text-3)">included</span>`;
-    mrcEl.style.color = '';
-
-    CHANGES[`add-${s}`] = { type:'add', curr_mrc:mrc, name, hw_cost:hw, comp_id:compId, elem_id:`picker-${s}` };
-    renderSummary();
-  }
-
-  function clearPicker(s) {
-    const input = document.getElementById(`picker-input-${s}`);
-    const mrcEl = document.getElementById(`picker-mrc-${s}`);
-    if (input) { input.value = ''; input.focus(); }
-    if (mrcEl) { mrcEl.textContent = '—'; mrcEl.style.color = 'var(--text-3)'; }
-    if (PICKERS[s]) { PICKERS[s].selected = null; PICKERS[s].highlighted = -1; }
-    delete CHANGES[`add-${s}`];
-    updateClearBtn(s);
-    renderPickerList(s);
-    renderSummary();
-  }
-
-  function updateClearBtn(s) {
-    const input = document.getElementById(`picker-input-${s}`);
-    const btn   = document.getElementById(`picker-clear-${s}`);
-    if (btn) btn.style.display = input?.value ? 'block' : 'none';
-  }
-
-  function removePicker(s) {
-    document.getElementById(`picker-${s}`)?.remove();
-    delete CHANGES[`add-${s}`];
-    delete PICKERS[s];
+    renderSummaryPanel();
     renderSummary();
   }
 
@@ -931,9 +966,9 @@
     let swapDelta = 0;
     for (const ch of Object.values(CHANGES)) {
       if (ch.type === 'swap') swapDelta += ch.curr_mrc - ch.orig_mrc;
-      if (ch.type === 'add')  swapDelta += ch.curr_mrc;
     }
-    const adjMrc = totalMrc + swapDelta;
+    const addedMrc = ADDED.reduce((s,a) => s+a.mrc, 0);
+    const adjMrc = totalMrc + swapDelta + addedMrc;
 
     // ── Overhead ─────────────────────────────────────────────────────
     const ovh = CONFIG.overhead;
@@ -976,13 +1011,23 @@
 
     // ── Customer MRC section ─────────────────────────────────────────
     const mrcProvTip = provenanceTip(CONFIG.server_mrc_provenance);
-    const changeLines = Object.values(CHANGES).map(ch => {
-      const delta = ch.type === 'swap' ? ch.curr_mrc - ch.orig_mrc : ch.curr_mrc;
+    const swapLines = Object.values(CHANGES).filter(ch => ch.type==='swap').map(ch => {
+      const delta = ch.curr_mrc - ch.orig_mrc;
       const sign  = delta >= 0 ? '+' : '−';
       return `<div class="cost-line"><span class="label">${esc(ch.name)}</span><span class="value">${sign}${SYM}${fmt(Math.abs(delta))}/mo</span></div>`;
     }).join('');
+    const addedLines = ADDED.map(a =>
+      `<div class="cost-line"><span class="label">${esc(a.name)}</span><span class="value">+${SYM}${fmt(a.mrc)}/mo</span></div>`
+    ).join('');
+    const changeLines = swapLines + addedLines;
+
+    const setupTotal = (CONFIG.server_setup || 0) + ADDED.reduce((s,a) => s+a.setup, 0);
+    const nrcTotal   = (CONFIG.server_nrc   || 0) + ADDED.reduce((s,a) => s+a.nrc,   0);
 
     document.getElementById('mrc-body').innerHTML = `
+      ${setupTotal > 0 ? `<div class="cost-line"><span class="label">Setup Fee (one-time)</span><span class="value">${SYM}${fmt(setupTotal)}</span></div>` : ''}
+      ${nrcTotal   > 0 ? `<div class="cost-line"><span class="label">NRC (one-time)</span><span class="value">${SYM}${fmt(nrcTotal)}</span></div>` : ''}
+      ${setupTotal > 0 || nrcTotal > 0 ? '<hr class="divider">' : ''}
       <div class="cost-line">
         <span class="label"${mrcProvTip ? ` data-tip="${esc(mrcProvTip)}"` : ''}>Server base</span>
         <span class="value">${SYM}${fmt(CONFIG.server_mrc)}/mo</span>
@@ -1035,9 +1080,9 @@
     let swapDelta = 0;
     for (const ch of Object.values(CHANGES)) {
       if (ch.type === 'swap') swapDelta += ch.curr_mrc - ch.orig_mrc;
-      if (ch.type === 'add')  swapDelta += ch.curr_mrc;
     }
-    const adjMrc    = totalMrc + swapDelta;
+    const addedMrc  = ADDED.reduce((s,a) => s+a.mrc, 0);
+    const adjMrc    = totalMrc + swapDelta + addedMrc;
     let totalOvh    = 0;
     for (const e of Object.values(CONFIG.overhead)) { if (e.amount > 0) totalOvh += e.amount; }
     const hwCapex   = CONFIG.total_hw_capex;
@@ -1047,13 +1092,21 @@
     const marginPct = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
     const ms        = marginStatus(marginPct);
 
+    const setupTotal = (CONFIG.server_setup || 0) + ADDED.reduce((s,a) => s+a.setup, 0);
+    const nrcTotal   = (CONFIG.server_nrc   || 0) + ADDED.reduce((s,a) => s+a.nrc,   0);
+
     const title = document.querySelector('#server-header h1')?.textContent || 'Server';
-    const changeBlock = Object.values(CHANGES).length
-      ? '\nChanges from default:\n' + Object.values(CHANGES).map(ch => {
-          const delta = ch.type === 'swap' ? ch.curr_mrc - ch.orig_mrc : ch.curr_mrc;
+    const swapBlock = Object.values(CHANGES).filter(ch=>ch.type==='swap').length
+      ? '\nSwaps from default:\n' + Object.values(CHANGES).filter(ch=>ch.type==='swap').map(ch => {
+          const delta = ch.curr_mrc - ch.orig_mrc;
           const sign  = delta >= 0 ? '+' : '−';
           return `  ${ch.name}: ${sign}${SYM}${fmt(Math.abs(delta))}/mo`;
         }).join('\n')
+      : '';
+    const addedBlock = ADDED.length
+      ? '\nAdded components:\n' + ADDED.map(a =>
+          `  ${a.name}: +${SYM}${fmt(a.mrc)}/mo${a.setup>0?' (Setup: '+SYM+fmt(a.setup)+')':''}${a.nrc>0?' (NRC: '+SYM+fmt(a.nrc)+')':''}`
+        ).join('\n')
       : '';
 
     const text = `Aptum CPQ — Quote Summary
@@ -1064,9 +1117,13 @@ Currency:     ${CONFIG.currency}
 Product Line: ${PL_LABEL}
 Term:         ${termMo} months
 
+ONE-TIME FEES
+  Setup Fee:            ${SYM}${fmt(setupTotal)}
+  NRC:                  ${SYM}${fmt(nrcTotal)}
+
 CUSTOMER MRC
   Base:                 ${SYM}${fmt(CONFIG.server_mrc)}/mo
-  Default components:   ${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo${changeBlock}
+  Default components:   ${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo${swapBlock}${addedBlock}
   ─────────────────────────────────────
   Total MRC:            ${SYM}${fmt(adjMrc)}/mo
 
