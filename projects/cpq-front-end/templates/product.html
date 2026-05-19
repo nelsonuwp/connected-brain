@@ -635,7 +635,6 @@
     renderHeader(product, config);
     renderConfig(config);
     renderSummary();
-    renderSummaryPanel();
     document.getElementById('copy-btn').disabled = false;
   }).catch(err => {
     document.getElementById('server-header').innerHTML = `
@@ -752,35 +751,13 @@
       </div>`;
     }).join('');
 
-    // Build right summary panel
-    const summaryHtml = `
-      <div class="summary-panel" id="comp-summary-panel">
-        <div class="summary-title">Configuration Summary</div>
-        <div class="summary-section" id="summary-included-section">
-          <div class="summary-section-label">Included</div>
-          <ul class="summary-included-list" id="summary-included-list">
-            ${config.defaults.map(d => `<li>${esc(d.name)}${d.quantity>1?' ×'+d.quantity:''}</li>`).join('')}
-          </ul>
-        </div>
-        <div class="summary-section" id="summary-added-section">
-          <div class="summary-section-label">Added</div>
-          <ul class="summary-added-list" id="summary-added-list">
-            <li class="summary-empty" id="summary-added-empty">None added yet</li>
-          </ul>
-        </div>
-        <div class="summary-totals" id="summary-totals"></div>
-      </div>`;
-
     body.innerHTML = `
-      <div class="config-panels">
-        <div class="browse-panel">
-          <div class="cat-tabs">${tabs}</div>
-          <div id="cat-panels">${panels}</div>
-        </div>
-        <div>${summaryHtml}</div>
+      <div class="browse-panel">
+        <div class="cat-tabs">${tabs}</div>
+        <div id="cat-panels">${panels}</div>
       </div>`;
 
-    renderSummaryPanel();
+    renderConfigSummary();
   }
 
   function defaultItemRow(comp, allowed) {
@@ -876,7 +853,7 @@
       btn.classList.add('added');
       document.getElementById(`bi-${cid}`)?.classList.add('is-added');
     }
-    renderSummaryPanel();
+    renderConfigSummary();
     renderSummary();
   }
 
@@ -886,47 +863,34 @@
     const btn = document.getElementById(`addbtn-${cid}`);
     if (btn) { btn.textContent = '+ Add'; btn.classList.remove('added'); }
     document.getElementById(`bi-${cid}`)?.classList.remove('is-added');
-    renderSummaryPanel();
+    renderConfigSummary();
     renderSummary();
   }
 
-  // ── Right summary panel ───────────────────────────────────────────────
-  function renderSummaryPanel() {
-    const listEl  = document.getElementById('summary-added-list');
-    const emptyEl = document.getElementById('summary-added-empty');
-    const totalsEl = document.getElementById('summary-totals');
-    if (!listEl) return;
+  // ── Config summary sidebar section ────────────────────────────────────
+  function renderConfigSummary() {
+    const body = document.getElementById('config-summary-body');
+    if (!body || !CONFIG) return;
 
-    if (ADDED.length === 0) {
-      listEl.innerHTML = '<li class="summary-empty" id="summary-added-empty">None added yet</li>';
-    } else {
-      listEl.innerHTML = ADDED.map(a => `
-        <li class="summary-added-row">
-          <span class="sar-name" title="${esc(a.name)}">${esc(a.name)}</span>
-          <span class="sar-val${a.setup>0?'':' zero'}">${a.setup>0?SYM+fmt(a.setup):'—'}</span>
-          <span class="sar-val${a.nrc>0?'':' zero'}">${a.nrc>0?SYM+fmt(a.nrc):'—'}</span>
-          <span class="sar-val">${SYM}${fmt(a.mrc)}/mo</span>
-          <button class="sar-remove" onclick="removeAddedComponent(${a.component_id})" title="Remove">×</button>
-        </li>`).join('');
-    }
+    const includedHtml = CONFIG.defaults.map(d =>
+      `<div class="cs-item">${esc(d.name)}${d.quantity>1?' ×'+d.quantity:''}</div>`
+    ).join('');
 
-    // Totals
-    const addedSetup = ADDED.reduce((s,a) => s+a.setup, 0);
-    const addedNrc   = ADDED.reduce((s,a) => s+a.nrc,   0);
-    const addedMrc   = ADDED.reduce((s,a) => s+a.mrc,   0);
-    const swapDelta  = Object.values(CHANGES).reduce((s,ch) => ch.type==='swap' ? s+ch.curr_mrc-ch.orig_mrc : s, 0);
-    let baseMrc = CONFIG ? CONFIG.server_mrc : 0;
-    if (CONFIG) CONFIG.defaults.forEach(d => { baseMrc += d.component_mrc * d.quantity; });
-    const totalMrc = baseMrc + addedMrc + swapDelta;
-    const serverSetup = (CONFIG?.server_setup || 0) + addedSetup;
-    const totalNrc    = (CONFIG?.server_nrc   || 0) + addedNrc;
+    const addedHtml = ADDED.length === 0
+      ? '<div class="cs-empty">None added yet</div>'
+      : ADDED.map(a => `
+          <div class="cs-added-item">
+            <span class="cs-addon-name" title="${esc(a.name)}">${esc(a.name)}</span>
+            <span class="cs-addon-price">${a.mrc > 0 ? '+'+SYM+fmt(a.mrc)+'/mo' : 'incl.'}</span>
+            <button class="sar-remove" onclick="removeAddedComponent(${a.component_id})" title="Remove">×</button>
+          </div>`
+        ).join('');
 
-    if (totalsEl) {
-      totalsEl.innerHTML = `
-        ${serverSetup > 0 ? `<div class="summary-total-row"><span class="st-label">Setup Total</span><span class="st-val">${SYM}${fmt(serverSetup)}</span></div>` : ''}
-        ${totalNrc    > 0 ? `<div class="summary-total-row"><span class="st-label">NRC Total</span><span class="st-val">${SYM}${fmt(totalNrc)}</span></div>` : ''}
-        <div class="summary-total-row total-mrc"><span class="st-label">Total MRC</span><span class="st-val">${SYM}${fmt(totalMrc)}/mo</span></div>`;
-    }
+    body.innerHTML = `
+      <div class="sidebar-subsection-label">Included</div>
+      ${includedHtml}
+      <div class="sidebar-subsection-label" style="margin-top:.65rem">Added</div>
+      ${addedHtml}`;
   }
 
   // ── Swap handler ──────────────────────────────────────────────────────
@@ -952,7 +916,7 @@
       row.classList.add('changed');
       CHANGES[origId] = { type:'swap', orig_mrc:origMrc, curr_mrc:newMrc, name:newName, hw_cost:newHw };
     }
-    renderSummaryPanel();
+    renderConfigSummary();
     renderSummary();
   }
 
@@ -1037,32 +1001,43 @@
     if (badgeEl) { badgeEl.textContent = ms.badge; badgeEl.title = ms.badgeTip; }
     if (monthEl) monthEl.textContent  = `${SYM}${fmt(margin)}/mo`;
 
-    // ── Customer MRC section ─────────────────────────────────────────
+    // ── Pricing section ──────────────────────────────────────────────
     const mrcProvTip = provenanceTip(CONFIG.server_mrc_provenance);
     const swapLines = Object.values(CHANGES).filter(ch => ch.type==='swap').map(ch => {
       const delta = ch.curr_mrc - ch.orig_mrc;
       const sign  = delta >= 0 ? '+' : '−';
       return `<div class="cost-line"><span class="label">${esc(ch.name)}</span><span class="value">${sign}${SYM}${fmt(Math.abs(delta))}/mo</span></div>`;
     }).join('');
-    const addedLines = ADDED.map(a =>
+    const addedLines = ADDED.filter(a => a.mrc > 0).map(a =>
       `<div class="cost-line"><span class="label">${esc(a.name)}</span><span class="value">+${SYM}${fmt(a.mrc)}/mo</span></div>`
     ).join('');
     const changeLines = swapLines + addedLines;
 
-    const setupTotal = (CONFIG.server_setup || 0) + ADDED.reduce((s,a) => s+a.setup, 0);
-    const nrcTotal   = (CONFIG.server_nrc   || 0) + ADDED.reduce((s,a) => s+a.nrc,   0);
+    const serverSetup  = CONFIG.server_setup || 0;
+    const addonSetups  = ADDED.filter(a => a.setup > 0);
+    const setupTotal   = serverSetup + ADDED.reduce((s,a) => s+a.setup, 0);
+    const nrcTotal     = (CONFIG.server_nrc || 0) + ADDED.reduce((s,a) => s+a.nrc, 0);
+    const grandSetup   = setupTotal + nrcTotal;
+    const hasOneTime   = grandSetup > 0;
+
+    const oneTimeHtml = hasOneTime ? `
+      <div class="sidebar-subsection-label">One-Time Fees</div>
+      ${serverSetup > 0 ? `<div class="cost-line"><span class="label">Setup Fee</span><span class="value">${SYM}${fmt(serverSetup)}</span></div>` : ''}
+      ${addonSetups.map(a => `<div class="cost-line"><span class="label">${esc(a.name)}</span><span class="value">${SYM}${fmt(a.setup)}</span></div>`).join('')}
+      ${nrcTotal > 0 ? `<div class="cost-line"><span class="label">NRC</span><span class="value">${SYM}${fmt(nrcTotal)}</span></div>` : ''}
+      <hr class="divider">
+      <div class="sidebar-subsection-label">Monthly</div>` : '';
 
     document.getElementById('mrc-body').innerHTML = `
-      ${setupTotal > 0 ? `<div class="cost-line"><span class="label">Setup Fee (one-time)</span><span class="value">${SYM}${fmt(setupTotal)}</span></div>` : ''}
-      ${nrcTotal   > 0 ? `<div class="cost-line"><span class="label">NRC (one-time)</span><span class="value">${SYM}${fmt(nrcTotal)}</span></div>` : ''}
-      ${setupTotal > 0 || nrcTotal > 0 ? '<hr class="divider">' : ''}
+      ${oneTimeHtml}
       <div class="cost-line">
-        <span class="label"${mrcProvTip ? ` data-tip="${esc(mrcProvTip)}"` : ''}>Server base</span>
+        <span class="label"${mrcProvTip ? ` data-tip="${esc(mrcProvTip)}"` : ''}>Base</span>
         <span class="value">${SYM}${fmt(CONFIG.server_mrc)}/mo</span>
       </div>
-      <div class="cost-line"><span class="label">Default components</span><span class="value">${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo</span></div>
+      <div class="cost-line"><span class="label">Components MRC</span><span class="value">${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo</span></div>
       ${changeLines ? `<hr class="divider">${changeLines}<hr class="divider">` : '<hr class="divider">'}
-      <div class="cost-line total"><span class="label">Total MRC</span><span class="value">${SYM}${fmt(adjMrc)}/mo</span></div>`;
+      <div class="cost-line total"><span class="label">Total MRC</span><span class="value">${SYM}${fmt(adjMrc)}/mo</span></div>
+      ${hasOneTime ? `<div class="cost-line total-setup"><span class="label">Total Setup Fee</span><span class="value">${SYM}${fmt(grandSetup)}</span></div>` : ''}`;
 
     // ── Internal costs section ────────────────────────────────────────
     const hwProv    = CONFIG.hw_capex_provenance;
