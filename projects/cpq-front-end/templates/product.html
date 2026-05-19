@@ -253,6 +253,8 @@
     .type-group.collapsed .type-group-header::after { transform:rotate(-90deg); }
     .type-group-body { padding-top:.3rem; }
     .type-group.collapsed .type-group-body { display:none; }
+    .type-group-nested { margin-left:.75rem; }
+    .type-group-header-nested { padding-left:.4rem; }
 
     /* Browse item rows */
     .browse-item {
@@ -704,34 +706,58 @@
     const panels = sorted.map(([catName, cat], idx) => {
       const s = slug(catName);
 
-      // --- Defaults section (swap dropdowns) grouped by component_type
+      // --- Defaults section grouped by fullType (parent_type + component_type)
       const defsByType = {};
       cat.defaults.forEach(d => {
-        if (!defsByType[d.component_type]) defsByType[d.component_type] = [];
-        defsByType[d.component_type].push(d);
+        const ft = fullType(d);
+        if (!defsByType[ft]) defsByType[ft] = [];
+        defsByType[ft].push(d);
       });
 
       const defaultSection = Object.entries(defsByType).map(([typeName, comps]) => {
-        const rows = comps.map(d => defaultItemRow(d, cat.allowed)).join('');
+        const rows = comps.map(d => defaultItemRow(d, cat.allowed, defaultIdSet)).join('');
         return `<div class="type-group" id="tg-def-${s}-${slug(typeName)}">
           <button class="type-group-header" onclick="toggleGroup(this)">${esc(typeName)}</button>
           <div class="type-group-body">${rows}</div>
         </div>`;
       }).join('');
 
-      // --- Addable section grouped by component_type (items not already defaults)
+      // --- Addable section: nest by parent_type when multiple children share a parent
       const addable = cat.allowed.filter(a => !defaultIdSet.has(a.component_id));
-      const addableByType = {};
+      // group: { parentKey: { childType: [items] } }
+      const addableNested = {};
       addable.forEach(a => {
-        if (!addableByType[a.component_type]) addableByType[a.component_type] = [];
-        addableByType[a.component_type].push(a);
+        const pk = a.parent_type || '';
+        const ck = a.component_type;
+        if (!addableNested[pk]) addableNested[pk] = {};
+        if (!addableNested[pk][ck]) addableNested[pk][ck] = [];
+        addableNested[pk][ck].push(a);
       });
 
-      const addSection = Object.entries(addableByType).map(([typeName, comps]) => {
-        const rows = comps.map(a => browseItemRow(a)).join('');
-        return `<div class="type-group" id="tg-add-${s}-${slug(typeName)}">
-          <button class="type-group-header" onclick="toggleGroup(this)">${esc(typeName)}</button>
-          <div class="type-group-body">${rows}</div>
+      const addSection = Object.entries(addableNested).map(([parentKey, children]) => {
+        const childEntries = Object.entries(children);
+        // If no parent or only one child type: render flat
+        if (!parentKey || childEntries.length === 1) {
+          return childEntries.map(([childType, comps]) => {
+            const label = parentKey ? `${parentKey}, ${childType}` : childType;
+            const rows = comps.map(a => browseItemRow(a)).join('');
+            return `<div class="type-group" id="tg-add-${s}-${slug(label)}">
+              <button class="type-group-header" onclick="toggleGroup(this)">${esc(label)}</button>
+              <div class="type-group-body">${rows}</div>
+            </div>`;
+          }).join('');
+        }
+        // Multiple children under same parent: nest them
+        const nestedChildren = childEntries.map(([childType, comps]) => {
+          const rows = comps.map(a => browseItemRow(a)).join('');
+          return `<div class="type-group type-group-nested" id="tg-add-${s}-${slug(parentKey+'-'+childType)}">
+            <button class="type-group-header type-group-header-nested" onclick="toggleGroup(this)">${esc(childType)}</button>
+            <div class="type-group-body">${rows}</div>
+          </div>`;
+        }).join('');
+        return `<div class="type-group" id="tg-add-${s}-${slug(parentKey)}">
+          <button class="type-group-header" onclick="toggleGroup(this)">${esc(parentKey)}</button>
+          <div class="type-group-body">${nestedChildren}</div>
         </div>`;
       }).join('');
 
@@ -760,7 +786,11 @@
     renderConfigSummary();
   }
 
-  function defaultItemRow(comp, allowed) {
+  function fullType(comp) {
+    return comp.parent_type ? `${comp.parent_type}, ${comp.component_type}` : comp.component_type;
+  }
+
+  function defaultItemRow(comp, allowed, defaultIds) {
     const cid    = comp.component_id;
     const mrcStr = comp.component_mrc > 0
       ? `${SYM}${fmt(comp.component_mrc)}/mo`
@@ -768,7 +798,8 @@
     const hwStr  = comp.hw_cost_display != null ? `CapEx: ${SYM}${fmt(comp.hw_cost_display)}` : '';
 
     const swapOpts = allowed
-      .filter(a => a.component_type === comp.component_type)
+      .filter(a => fullType(a) === fullType(comp) &&
+                   (a.component_id === cid || !defaultIds.has(a.component_id)))
       .map(a =>
         `<option value="${a.component_id}" data-mrc="${a.addon_mrc}" data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>` +
         `${esc(a.name)}${a.addon_mrc>0?' — '+SYM+fmt(a.addon_mrc)+'/mo':' — included'}</option>`
