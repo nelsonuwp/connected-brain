@@ -51,17 +51,39 @@
   .fix strong { color: var(--ok); }
   .num { font-variant-numeric: tabular-nums; font-weight: 600; }
   .footer { color: var(--muted); font-size: 12px; margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); }
+  code { background: var(--soft); padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+  .toc { background: var(--soft); padding: 12px 18px; border-radius: 6px; margin: 16px 0 28px; font-size: 13px; }
+  .toc ol { padding-left: 20px; margin: 6px 0; }
+  .toc li { margin: 3px 0; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .scope { font-size: 12px; color: var(--muted); font-style: italic; margin: 2px 0 4px; }
 </style>
 </head>
 <body>
 
 <h1>Aptum Product Strategy — External Review</h1>
-<p class="subtitle">Prepared as outside-in consulting feedback · 2026-05-18 · Reviewing 74 pages under <code>53-products/</code></p>
+<p class="subtitle">External consulting review · 2026-05-18 · Full audit of 74 pages under <code>vault/53-products</code></p>
 
 <div class="summary">
-  <p><strong>Bottom line.</strong> The strategy is intellectually sound and the ICP is sharper than most mid-market MSPs we see. But the catalog cannot currently be sold or delivered at the quality the strategy promises. <strong>The two valuation drags are operational, not strategic:</strong> (1) 19 of ~30 service guides are placeholder stubs, and (2) the path from 6.5% managed-services penetration to the 15–20% industry norm is implied but not published as a measurable plan. Fix those two and the same business presents to an acquirer at a materially different multiple.</p>
-  <p><strong>The biggest hidden risk</strong> is naming and brand coherence: the PRD still uses "Apt Cloud", the strategy uses "Aptum Portal", and customer-facing materials will inherit the confusion. This is a one-week fix that disproportionately affects perceived maturity.</p>
-  <p><strong>The biggest hidden opportunity</strong> is the channel/reseller motion you've explicitly deprioritized. ES Williams is a working proof point; deprioritizing it removes the multiplier that justifies the Aptum Portal investment.</p>
+  <p><strong>Bottom line.</strong> The strategy is intellectually sound and the ICP is sharper than most mid-market MSPs we see. The deeper read reinforces this: the seven advisory assessments are well-structured, the infrastructure product pages carry real Fundamentals guarantees, and the addon catalog defines specific named products. <strong>Where Aptum loses is operationalization.</strong> Strategy says many things that the catalog cannot yet deliver, and there are concrete consistency defects that an acquirer's diligence team will find in their first pass.</p>
+  <p><strong>The four most material gaps:</strong> (1) 19 service guides are placeholder stubs with no SLAs, pricing, or delivery procedures; (2) the path from 6.5% to 15% managed-services penetration is asserted as a roadmap line, not a published quarterly plan; (3) the MSP/reseller channel motion is positioned as Phase 2 future work despite a working ES Williams proof point — this is the highest-leverage strategy rewrite available; (4) the Aptum IaaS GTM that the board explicitly directed as a "fast follow" in March has no published commercial playbook, target list, or quoting motion.</p>
+  <p><strong>Consistency defects you should know about:</strong> (a) tier-availability contradiction between <code>managed-services/index.md</code> and <code>infrastructure-products/aptum-iaas-private-cloud/index.md</code> on whether Dedicated tier exists on Private Cloud; (b) multiple addon products listed as available but status "IN DEVELOPMENT" or "not yet built" (MDR, Vulnerability Scanning, Compliance Reporting, Database Tuning, DevOps Monitoring); (c) the App and Platform Modernization delivery guide names specific vendor tools (GitHub Actions, GitLab CI, ArgoCD) in customer-facing language, violating the strategy's vendor-neutral commitment; (d) public-cloud product pages use the internal name "CloudOps Software" rather than the customer-facing "Aptum Portal"; (e) the PRD still uses "Apt Cloud" throughout while the strategy uses "Aptum Portal".</p>
+  <p><strong>What an acquirer pays for that you already have:</strong> 74–89% gross margins on the core IaaS product (top decile for the category), a disciplined single ICP that excludes the right buyers, a market-aligned position on the Broadcom and repatriation trends, SOC 2 Type II Canadian sovereignty, and a working channel proof point in ES Williams. None of these are advertised at the volume they deserve.</p>
+</div>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#sec-1">Catalog completeness — service guides, SLAs, and pricing discipline</a></li>
+    <li><a href="#sec-2">Catalog consistency — naming, tier rules, and product status</a></li>
+    <li><a href="#sec-3">Strategy: thesis strengths and thesis wobbles</a></li>
+    <li><a href="#sec-4">Market alignment — outside-in view</a></li>
+    <li><a href="#sec-5">Valuation levers — what an acquirer actually pays for</a></li>
+    <li><a href="#sec-6">Open questions and recommended answers</a></li>
+    <li><a href="#sec-7">60-day action plan</a></li>
+    <li><a href="#sec-8">What to tell the board</a></li>
+  </ol>
 </div>
 
 <p class="legend">
@@ -71,241 +93,329 @@
   <span class="pill pill-ok">Strength</span> Worth protecting
 </p>
 
-<h2>1 · Catalog completeness — what's broken</h2>
+<h2 id="sec-1">1 · Catalog completeness</h2>
 
 <table>
 <thead><tr><th style="width:60px;">Sev</th><th>Finding</th><th>Why it matters</th><th>Fix</th></tr></thead>
 <tbody>
 <tr>
   <td class="sev"><span class="pill pill-p0">P0</span></td>
-  <td><strong>19 service guides are stubs</strong> (all infrastructure service guides, all managed-services addon guides). Identical "Sections to be completed" boilerplate. Zero SLAs, zero pricing, zero delivery procedures published.</td>
-  <td>Delivery teams have no operating manual. Sales cannot quote with confidence. An acquirer's diligence will treat this as a process gap and discount EBITDA quality. <strong>Sales and delivery are operating on tribal knowledge.</strong></td>
-  <td>Pick the 6 highest-revenue addons (OS Patching, Managed Backup, 24/7 Monitoring, Managed Firewall, MDR, DRaaS). Run a 2-week sprint with one delivery lead per guide, using the structure already drafted in deliverable-scopes as the template. Ship those six by end of Q2. Backfill the rest by Q3.</td>
+  <td><strong>19 service guides are placeholder stubs.</strong> All infrastructure service guides (colocation, connectivity, bare metal, VPC, Dedicated Cloud, Private Cloud, AWS, Azure, GCP, Aptum Portal) and all 11 managed-services addon guides carry identical "Status: Stub" boilerplate. Zero SLAs, zero published pricing, zero delivery procedures.</td>
+  <td>Delivery teams have no operating manual. Sales cannot quote with confidence. Acquirer diligence treats this as a process gap and discounts EBITDA quality. <strong>Today, sales and delivery operate on tribal knowledge.</strong></td>
+  <td>Pick the 6 highest-revenue addons (OS Patching, Managed Backup, 24/7 Monitoring, Managed Firewall, MDR, DRaaS). Two-week sprint with one delivery lead per guide, using the structure already drafted in the assessment deliverable-scopes as a template. Ship six by end of Q2 2026. Backfill the rest in Q3.</td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p0">P0</span></td>
-  <td><strong>No published SLA framework</strong> across infrastructure or managed services. Reactive vs. Proactive tier responsibilities described narratively, not as response/resolution targets.</td>
-  <td>SLAs are the single most-asked-for item in mid-market RFPs. Without them, every commercial conversation becomes a custom one. Mid-market MSPs that publish SLAs convert 30–40% better at the same price point.</td>
-  <td>Publish a single SLA appendix: P1/P2/P3/P4 response times, resolution targets, after-hours coverage definition, credit schedule. Two tables, one page. Apply uniformly across products. Tony's Service Desk team has the data; this is a packaging exercise, not new work.</td>
+  <td><strong>No published SLA framework</strong> anywhere in the catalog. Reactive vs. Proactive tier responsibilities are described narratively, never as response/resolution targets.</td>
+  <td>SLAs are the single most-requested item in mid-market RFPs. Without them, every commercial conversation becomes a custom one. MSPs that publish SLAs convert measurably better at the same price point — buyers use them as a proxy for operational maturity.</td>
+  <td>Publish a single SLA appendix: P1/P2/P3/P4 response times, resolution targets, after-hours coverage definition, credit schedule. Two tables, one page. Apply uniformly across products. Service Desk has the data — this is packaging, not new work.</td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p0">P0</span></td>
-  <td><strong>Naming incoherence: "Apt Cloud" vs "Aptum Portal"</strong>. The PRD (aptum-portal-prd.md) still uses "Apt Cloud" throughout. The strategy uses "Aptum Portal". The PRD also still references "AptCloud" in source citations.</td>
-  <td>This is the kind of inconsistency a board, a buyer, or a journalist notices in 30 seconds. It signals that the product team's own house isn't ordered.</td>
-  <td>Single global find-and-replace in the PRD: "Apt Cloud" → "Aptum Portal", "AptCloud" → legacy reference only. Add a one-line note in the glossary acknowledging the historical name. Update the AptCloud-prefixed Confluence pages flagged in the open items list. <strong>4 hours of work, one editor.</strong></td>
+  <td><strong>Aptum IaaS GTM is undelivered despite board "fast follow" mandate (March 31, 2026).</strong> The board explicitly directed commercialization as the critical path. Two months later, there is no published commercial playbook, no target customer list, no quoting motion documented in the catalog, no enablement materials for AEs. The $39K MRR from Ignite remains the only Aptum IaaS revenue.</td>
+  <td>The board's direction was unambiguous. Inaction on a board-validated growth path is the kind of execution gap that gets disclosed in diligence and weighs against trust in management.</td>
+  <td>Stand up an Aptum IaaS GTM Plan as a single page in the strategy folder: target segments (Broadcom refugees, hyperscaler repatriators, Ignite-pattern MSPs), assessment-to-IaaS funnel, pricing positioning vs. AWS/Azure, AE enablement schedule, named owner, 30/60/90-day milestones. <strong>This is the most overdue item in the entire catalog.</strong></td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p1">P1</span></td>
-  <td><strong>Addon pricing is ranges, not numbers.</strong> The managed services catalog uses "$2K–$5K" style ranges. Open items explicitly flag this for finance validation, but it hasn't shipped.</td>
-  <td>Sales cannot quote without a deal desk loop. Every quote is custom; every quote is slow. This is a published symptom of an unpublished bottleneck.</td>
-  <td>Sarah Blanchard (finance) + Fred's commercial team: lock floor pricing per addon, per endpoint, per tier in a single rate card. Discount discretion table for AEs. Publish version 1 in 30 days even if imperfect; revise quarterly.</td>
+  <td><strong>Addon pricing is ranges, not numbers.</strong> The managed services catalog uses "$2K–$5K" style ranges. Open items explicitly flag this for finance validation; it hasn't shipped.</td>
+  <td>Sales cannot quote without a deal-desk loop. Every quote is custom. Every quote is slow. The customer experiences this as a maturity signal.</td>
+  <td>Sarah Blanchard (finance) + Fred's commercial team lock floor pricing per addon, per endpoint, per tier in a single rate card with AE discount discretion. Publish v1 in 30 days; revise quarterly.</td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p1">P1</span></td>
-  <td><strong>Execute motion is under-packaged vs. Advisory.</strong> Advisory has 7 named, t-shirt-sized assessments with deliverable scopes. Execute has a list of work types and three commercial structures, but no named, scope-templated engagements.</td>
-  <td>Advisory converts. Execute is where the revenue actually lives ($5K–$300K projects). If a $5K assessment generates $2–3 in follow-on, but follow-on isn't packaged, you leak conversion at exactly the moment trust is highest.</td>
-  <td>Define 6–8 named Execute "play" packages with a starting template SOW: VMware Exit (Broadcom), Cloud Repatriation Land-and-Migrate, ERP Lift-and-Shift, Hardware Refresh, DR Implementation, Security Remediation Sprint, Kubernetes Platform Build, Operational Handoff. Each gets a one-pager. HSA (Pat) owns the templates.</td>
+  <td><strong>Five named addons carry ambiguous status.</strong> Alert Logic MDR ("IN DEVELOPMENT"), Vulnerability Scanning ("not yet built"), Compliance Reporting ("PS-led today, not yet a managed addon"), Database Tuning ("evolving from PS to managed addon"), DevOps Monitoring ("roadmap"). All five appear in the public addon catalog as if they are buyable services.</td>
+  <td>If sales positions these as available and delivery cannot ship them, customer trust degrades on the first invoice. If they are positioned as roadmap, sales loses competitive deals where the competitor has the capability today.</td>
+  <td>For each of the five: (a) decide buyable now / buyable Q3 / not buyable — make the call; (b) update each addon page with explicit status; (c) for "buyable now" items, finish the service guide; for roadmap items, add a target-availability quarter. <strong>Two-hour decision meeting, one-day documentation pass.</strong></td>
 </tr>
 <tr>
-  <td class="sev"><span class="pill pill-p2">P2</span></td>
-  <td>One "Aptum Portal (duplicate - to delete)" Confluence page (ID 5303533696) still exists.</td>
-  <td>Cosmetic, but appears in any space-wide search.</td>
-  <td>Delete from Confluence UI (no API available).</td>
+  <td class="sev"><span class="pill pill-p1">P1</span></td>
+  <td><strong>Execute motion is under-packaged vs. Advisory.</strong> Advisory has 7 named, t-shirt-sized assessments with deliverable scopes. Execute has a list of work types and three commercial structures (Fixed SOW, T&M, Evolve), but no named, scope-templated engagements.</td>
+  <td>Advisory converts. Execute is where the revenue lives ($5K–$300K projects). If every $5K assessment generates $2–3 in follow-on but follow-on isn't packaged, conversion leaks at the exact moment trust is highest.</td>
+  <td>Define 6–8 named Execute "play" packages with starting template SOWs: VMware Exit, Cloud Repatriation Land-and-Migrate, ERP Lift-and-Shift, Hardware Refresh, DR Implementation, Security Remediation Sprint, Kubernetes Platform Build, Operational Handoff. Each gets a one-pager. HSA (Pat) owns the templates.</td>
 </tr>
 <tr>
-  <td class="sev"><span class="pill pill-p2">P2</span></td>
-  <td>The legacy "Index" generic page name appears in the deliverable-scope and delivery-guide titles for App and Platform Modernization (titles are literally "Deliverable Scope" and "Delivery Guide" with no qualifier).</td>
-  <td>Other assessments use prefixed titles ("Cloud Repatriation Deliverable Scope"); this one is unique. Search and citation will be ambiguous.</td>
-  <td>Rename to "App and Platform Modernization Deliverable Scope" / "Delivery Guide" for parallelism.</td>
+  <td class="sev"><span class="pill pill-p1">P1</span></td>
+  <td><strong>MAAS roadmap claim has no owner, no timeline, no deployment criteria.</strong> MAAS / Bare Metal as a Service is described as a "market differentiator" in the strategy and as Phase 2 in the roadmap, but no document specifies who owns the integration, what the deployment criteria are, or when the first customer can buy it.</td>
+  <td>The MAAS bet is a meaningful piece of the "we offer what nobody else offers" narrative. If it can't be dated and owned, it shouldn't be in the differentiator list yet.</td>
+  <td>One paragraph in the Aptum Portal Strategy: named owner (CloudOps engineering lead), beta-ready milestone (Q3 2026), GA milestone (Q4 2026), first-customer criteria. If those dates can't be hit, demote MAAS from "differentiator" to "near-term roadmap" until they can.</td>
 </tr>
 </tbody>
 </table>
 
-<h2>2 · Strategy — where the thesis is right and where it's wobbling</h2>
+<h2 id="sec-2">2 · Catalog consistency</h2>
 
-<h3>Where the thesis is right (protect these)</h3>
+<table>
+<thead><tr><th style="width:60px;">Sev</th><th>Finding</th><th>Why it matters</th><th>Fix</th></tr></thead>
+<tbody>
+<tr>
+  <td class="sev"><span class="pill pill-p0">P0</span></td>
+  <td><strong>Tier availability contradiction on Private Cloud.</strong> <code>managed-services/index.md</code> says Dedicated tier is "not available on Bare Metal or Private Cloud, where the Service Desk layer is mandatory and non-removable." But <code>infrastructure-products/aptum-iaas-private-cloud/index.md</code> states both Reactive and Proactive are available without explicitly excluding Dedicated.</td>
+  <td>Customers buying Private Cloud receive contradictory commercial information depending on which page they read. AEs will quote inconsistently. This is exactly the inconsistency a competitor screenshots in a side-by-side comparison.</td>
+  <td>Decide the rule once and apply it everywhere: <em>Dedicated tier is not available on Bare Metal or Private Cloud — Service Desk is mandatory and non-removable on those products.</em> Add that exclusion sentence verbatim to the Private Cloud and Bare Metal product pages.</td>
+</tr>
+<tr>
+  <td class="sev"><span class="pill pill-p0">P0</span></td>
+  <td><strong>"Apt Cloud" vs "Aptum Portal" naming.</strong> The PRD (<code>aptum-portal/aptum-portal-prd.md</code>) uses "Apt Cloud" throughout. The strategy doc and the customer-facing index pages use "Aptum Portal". The Aptum Portal Strategy and Roadmap also still uses "Apt Cloud" in many sections. Source citations reference "AptCloud" pages on Confluence that should be renamed.</td>
+  <td>This is the kind of inconsistency a board, a buyer, or a journalist notices in 30 seconds. It signals that the product team's own house isn't ordered.</td>
+  <td>Global find-and-replace in the PRD and the strategy-and-roadmap doc: "Apt Cloud" → "Aptum Portal", "AptCloud" → historical reference only in glossary. One-day editor pass.</td>
+</tr>
+<tr>
+  <td class="sev"><span class="pill pill-p1">P1</span></td>
+  <td><strong>Public cloud product pages name "CloudOps Software" (internal tool) in customer-facing copy.</strong> The AWS and GCP product pages reference "CloudOps Software" as the platform layer. CloudOps Software is the underlying product Aptum licenses; the customer-facing brand is Aptum Portal.</td>
+  <td>Customers don't buy "CloudOps Software". They buy "Aptum Portal". Surfacing the internal vendor name to customers undermines brand coherence and creates a Google search problem (CloudOps Inc. is a separate company customers can find).</td>
+  <td>Replace "CloudOps Software" with "Aptum Portal" in all customer-facing pages. CloudOps Software is acceptable in the PRD, the strategy doc (with context), and internal documentation only.</td>
+</tr>
+<tr>
+  <td class="sev"><span class="pill pill-p1">P1</span></td>
+  <td><strong>Vendor tool names in customer-facing delivery guide.</strong> <code>professional-services/advisory-assess/app-and-platform-modernization/delivery-guide.md</code> names specific tools (GitHub Actions, GitLab CI, ArgoCD) in customer-facing recommendation language. This violates the strategy's explicit vendor-neutral product naming rule.</td>
+  <td>The strategy commits Aptum to vendor-neutral customer-facing language so that implementations can change without changing SKUs and so the tech-agnostic brand promise is honest. Violating it in a delivery guide signals that the principle isn't yet operationalized.</td>
+  <td>Edit the App and Platform Modernization delivery guide to replace tool names with capability names ("CI/CD pipeline", "GitOps deployment", "container orchestration"). Push tool selection into a separate internal-only "delivery tooling reference" that delivery teams use but customers don't see.</td>
+</tr>
+<tr>
+  <td class="sev"><span class="pill pill-p1">P1</span></td>
+  <td><strong>Customer-facing tier names ("Infrastructure" / "Co-Managed" / "Fully Managed") not used consistently.</strong> <code>managed-services/index.md</code> establishes the mapping ("Dedicated → Infrastructure", "Reactive → Co-Managed", "Proactive → Fully Managed") but the working names ("Dedicated", "Reactive", "Proactive") then appear throughout infrastructure product pages, addon pages, and assessment delivery guides as if they are the customer-facing names.</td>
+  <td>Two different naming conventions in the same catalog forces sales to translate every conversation. Customers don't get a consistent vocabulary, and the marketing narrative cannot be reinforced.</td>
+  <td>Pick one. Recommend: keep "Reactive" and "Proactive" as customer-facing names (they're short and they describe the operational posture). Drop "Co-Managed" and "Fully Managed" as marketing synonyms. Update <code>managed-services/index.md</code> to remove the mapping table. <strong>If you keep both:</strong> the mapping must appear in every product page that mentions a tier.</td>
+</tr>
+<tr>
+  <td class="sev"><span class="pill pill-p2">P2</span></td>
+  <td><strong>App and Platform Modernization deliverable-scope and delivery-guide</strong> titles are generic ("Deliverable Scope" and "Delivery Guide") with no assessment-name prefix, unlike the other six assessments.</td>
+  <td>Search and citation are ambiguous. Confluence's flat search returns "Deliverable Scope" with no context.</td>
+  <td>Rename to "App and Platform Modernization Deliverable Scope" and "App and Platform Modernization Delivery Guide" for parallelism with the other assessments.</td>
+</tr>
+<tr>
+  <td class="sev"><span class="pill pill-p2">P2</span></td>
+  <td>One "Aptum Portal (duplicate - to delete)" Confluence page (ID <code>5303533696</code>) still exists.</td>
+  <td>Cosmetic but appears in any space-wide search.</td>
+  <td>Delete via Confluence UI (no delete API available).</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="sec-3">3 · Strategy: thesis strengths and thesis wobbles</h2>
+
+<h3>Strengths worth protecting</h3>
 <table>
 <thead><tr><th style="width:60px;">Sev</th><th>Strength</th><th>Why it works</th></tr></thead>
 <tbody>
-<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>Single unified ICP.</strong> The mid-market, 50–2,000 employee, 2–15-person IT team framing is unusually disciplined.</td><td>It excludes commodity buyers and enterprise consulting. That clarity is rare and is itself a valuation signal.</td></tr>
-<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>Assess → Execute → Operate funnel.</strong> The funnel is intellectually honest and mirrors how MSPs that trade at 10x+ EBITDA actually operate.</td><td>The 2–3x follow-on multiplier on assessment dollars is the closest thing to a published growth engine you have. Defend it with metrics.</td></tr>
-<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>Broadcom/VMware positioning + CloudStack/Proxmox alternative.</strong> Timing is right; Gartner data is on your side.</td><td>This is your single most defensible commercial story. Lead with it in every pitch through Q4 2026.</td></tr>
-<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>74–89% gross margins on Aptum IaaS</strong> validated in the PRD's margin calculator.</td><td>Top-decile for the category. Make sure this is in every board deck and every investor narrative.</td></tr>
-<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>Canadian data sovereignty + SOC 2 Type II.</strong> Underplayed in current copy.</td><td>Real differentiator for Canadian mid-market and US-East regulated buyers. Should be a banner item, not a footnote.</td></tr>
+<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>Single unified ICP.</strong> The 50–2,000 employee, 2–15-person IT team framing is unusually disciplined.</td><td>It excludes both commodity buyers and enterprise consulting in clear language. Most mid-market MSPs cannot say what they don't sell. Aptum can.</td></tr>
+<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>Assess → Execute → Operate funnel.</strong> The three-motion model mirrors how top-decile MSPs operate.</td><td>The 2–3x follow-on multiplier on assessment dollars is the closest thing to a published growth engine you have. Defend it with metrics.</td></tr>
+<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>Broadcom/VMware positioning + CloudStack/Proxmox alternative.</strong> Timing is right; Gartner data is on your side. The PRD includes a make-vs-buy analysis (HPE Morpheus, CloudBolt, VMware Aria, OpenStack) that is genuinely strong.</td><td>This is your single most defensible commercial story. Lead with it in every pitch through Q4 2026.</td></tr>
+<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>74–89% gross margins on Aptum IaaS</strong> validated in the PRD margin calculator.</td><td>Top decile for the category. Surface this in every board deck and investor narrative.</td></tr>
+<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>Canadian data sovereignty + SOC 2 Type II Toronto presence.</strong></td><td>Real differentiator for Canadian mid-market and US East regulated buyers. Currently underplayed in customer-facing copy.</td></tr>
+<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>The infrastructure product Fundamentals model.</strong> Each product carries a non-removable baseline guarantee.</td><td>This is a buyer-friendly framing that mid-market RFPs reward. Make sure marketing copy uses this language verbatim — it's better than the generic "always-on" claims competitors lead with.</td></tr>
+<tr><td class="sev"><span class="pill pill-ok">Keep</span></td><td><strong>The 7-assessment Advisory motion.</strong> Substantive deliverable scopes, t-shirt sizing, consistent structure across all seven, real customer triggers.</td><td>This is the most operationally mature part of the catalog. Use it as the template for everything else.</td></tr>
 </tbody>
 </table>
 
-<h3>Where the thesis is wobbling</h3>
+<h3>Thesis wobbles</h3>
 <table>
 <thead><tr><th style="width:60px;">Sev</th><th>Finding</th><th>Why it matters</th><th>Fix</th></tr></thead>
 <tbody>
 <tr>
   <td class="sev"><span class="pill pill-p0">P0</span></td>
-  <td><strong>6.5% managed-services penetration → 15% target is asserted, not planned.</strong> The strategy says "go from 6.5% to 15%" by end of Phase 2 but doesn't define the campaign, the responsible owner, the per-quarter funnel target, or the dollar value of crossing each percent.</td>
-  <td>This is the single biggest valuation lever you have. A 6.5% → 12% move on the current base is roughly $250K/mo new MRR at current avg ARPU. At a 6x ARR EBITDA multiple, that's ~$18M of valuation just from existing-base stacking — before any new logos.</td>
-  <td>Convert the "from 6.5% to 15%" line into a quarterly funnel: number of assessments offered, completed, converted; MRR-added target per quarter; named AE/CSM owners. <strong>Publish a 4-quarter pacing table in the strategy doc.</strong> Tie commercial comp to it.</td>
+  <td><strong>6.5% → 15% managed-services penetration is asserted, not planned.</strong> The strategy doc and Phase 2 roadmap state the target. No document defines the campaign, the owner, the quarterly funnel, or the dollar value of crossing each percent.</td>
+  <td>This is your single largest valuation lever. A 6.5% → 12% move on the current base is ~$250K/mo new MRR at current avg ARPU. At 6x ARR EBITDA, that's ~$18M of valuation from existing-base stacking alone — before any new logos.</td>
+  <td>Convert the line into a quarterly funnel: assessments offered, completed, converted; MRR-added target per quarter; named AE/CSM owners; tied to commercial comp. <strong>Publish a 4-quarter pacing table in the strategy doc.</strong></td>
+</tr>
+<tr>
+  <td class="sev"><span class="pill pill-p0">P0</span></td>
+  <td><strong>MSP/reseller channel is positioned as Phase 2 work despite a working proof point.</strong> ES Williams is live, has 5 sub-customers, the white-label portal capability is operational, the monetization engine supports per-reseller pricing — and the strategy still describes channel as future-state.</td>
+  <td>The Aptum Portal monetization engine, white-label branding, and per-tenant pricing were built for this motion. Deprioritizing it under-utilizes a sunk asset. Channel revenue is typically what bumps an MSP from 6x to 10x EBITDA at exit. The portal also needs the channel motion to justify the engineering investment in the standalone B2B2B option you correctly killed.</td>
+  <td>Reverse the framing. Promote MSP channel from "Phase 2 recruitment" to a named third revenue pillar alongside Managed Services and Aptum IaaS. Recruit 3 named MSPs in 2026 with ES Williams as anchor reference. <strong>This is the single highest-leverage rewrite in the strategy.</strong></td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p1">P1</span></td>
-  <td><strong>Channel/reseller motion has been deprioritized.</strong> ES Williams is a working proof point with 5 sub-customers and is described as "explored as early beta". MAAS will further differentiate this.</td>
-  <td>The Aptum Portal monetization engine, white-label branding, and per-tenant pricing were built for this motion. Deprioritizing it means under-utilizing a sunk asset. Channel revenue is typically what bumps an MSP from 6x to 10x EBITDA at exit.</td>
-  <td>Reverse the framing in the strategy. The portal's standalone B2B2B SaaS sale should remain off (correct), but Aptum-as-platform-for-MSPs should be promoted from "Phase 2 recruitment" to a named third revenue pillar alongside managed services and IaaS. Recruit 3 named MSPs in 2026 with ES Williams as anchor reference.</td>
-</tr>
-<tr>
-  <td class="sev"><span class="pill pill-p1">P1</span></td>
-  <td><strong>AI/GPU positioning is explicitly undecided.</strong> Strategy doc lists this as an open item; nothing else in the catalog touches it.</td>
+  <td><strong>AI/GPU positioning is explicitly undecided.</strong> The strategy lists this as an open item; nothing else in the catalog touches it.</td>
   <td>"We don't have an AI story" is the second-most common question in 2026 mid-market diligence. The honest answer ("Aptum doesn't buy GPUs") is fine if it's accompanied by a partner-led posture; absence of either is the problem.</td>
-  <td>Pick one of three answers and commit (see Open Questions below). Land a one-page position. This is a decision, not a research project.</td>
+  <td>Pick one of three answers and commit (see §6 Q1 for the recommendation). This is a decision, not a research project.</td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p1">P1</span></td>
-  <td><strong>Enterprise (10K+) explicitly excluded as managed-services customers</strong> — correct — but also implicitly excluded from Advisory.</td>
-  <td>Telesat, CN, and Bell-class accounts are exactly the buyers for Cloud Repatriation and Well-Architected assessments at the $30–40K size. Excluding them entirely caps the Advisory P&L unnecessarily.</td>
+  <td><strong>Enterprise (10K+) is excluded from managed services (correct) but also excluded from Advisory by omission.</strong></td>
+  <td>Telesat, CN, and Bell are exactly the buyers for Cloud Repatriation and Well-Architected at the $30–40K size. Excluding them entirely caps the Advisory P&L unnecessarily.</td>
   <td>Add an explicit "enterprise Advisory" lane in the ICP doc. Same 7 assessments, same pricing, executive-dinner GTM. Do not commit to operate them. This is a 5-line clarification, not a strategy shift.</td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p1">P1</span></td>
-  <td><strong>No published NRR/NDR/LTV/CAC.</strong> The strategy quotes 6.5% penetration, 74% margin, 94.46% revenue concentration in multi-product, but not the net retention or unit-economics metrics buyers and boards anchor on.</td>
+  <td><strong>No published NRR/NDR/LTV/CAC.</strong> The strategy quotes 6.5% penetration, 74% margins, 94.46% revenue concentration in multi-product — but not the net retention or unit-economics metrics buyers and boards anchor on.</td>
   <td>An MSP that doesn't measure NRR cannot tell an acquirer the story that justifies a 10x+ multiple. The data exists in dimServices; the framing doesn't.</td>
-  <td>Add a "Unit Economics" section to the Product Strategy doc with: gross NRR, net NRR, logo retention, customer LTV by segment, CAC by channel (direct/MSP/partner), payback period. Q on Q tracking. Even directional v1 numbers beat absence.</td>
+  <td>Add a "Unit Economics" section to the Product Strategy doc with: gross NRR, net NRR, logo retention, customer LTV by segment, CAC by channel, payback period. Q-on-Q tracking. Directional v1 numbers beat absence.</td>
+</tr>
+<tr>
+  <td class="sev"><span class="pill pill-p1">P1</span></td>
+  <td><strong>Cloud-agnostic positioning is correct but under-monetized.</strong> The strategy makes the case that Aptum places workloads across hyperscaler, dedicated cloud, private cloud, and bare metal. The catalog reflects this. But the customer-facing copy doesn't yet have a one-sentence moat statement.</td>
+  <td>Buyers and investors need a 12-word version. Without it, the agnostic story sounds like "we sell everything" — which is the opposite of the disciplined ICP.</td>
+  <td>Land a single sentence and use it everywhere: <em>"We are the only mid-market provider that places workloads across hyperscaler, dedicated cloud, private cloud, and bare metal — and manages them through one portal with one bill."</em></td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p2">P2</span></td>
   <td><strong>BOT (Build-Operate-Transfer) is explicitly rejected as a motion.</strong></td>
-  <td>The reasoning is correct ("forever Operate is the goal"), but for the enterprise Advisory lane above, BOT is the natural commercial wrapper. Rejecting it as a motion vs. rejecting it as a goal are different things.</td>
-  <td>Soften the language: BOT is a commercial structure offered when the customer asks for it, not a goal Aptum sells. One-paragraph edit in the "What We Stop Doing" section.</td>
+  <td>The reasoning ("forever Operate is the goal") is correct, but BOT is a commercial wrapper, not a motion. For enterprise Advisory accounts, BOT is the natural commercial structure.</td>
+  <td>Soften the language: BOT is a commercial structure offered when the customer asks for it, not a goal Aptum sells. One-paragraph edit in "What We Stop Doing".</td>
 </tr>
 <tr>
   <td class="sev"><span class="pill pill-p2">P2</span></td>
-  <td><strong>Geographic over-extension.</strong> 26 data centers across 21 cities is described as a feature, but only 6 sites are meaningfully populated (Herndon, Toronto, Portsmouth, Atlanta, Miami, LA).</td>
+  <td><strong>Geographic over-extension.</strong> 26 sites across 21 cities is positioned as a feature; only 6 sites carry meaningful revenue.</td>
   <td>20 small sites is a cost line, not a moat. Acquirers will model this as deadweight.</td>
-  <td>Designate 6 "Tier 1" sites in the ICP and infrastructure docs. Acknowledge the long tail as legacy with no new investment. This is positioning, not closure.</td>
+  <td>Designate 6 Tier 1 sites (Herndon, Toronto, Portsmouth, Atlanta, Miami, LA) as the active footprint. Acknowledge the long tail as legacy with no new product investment. Positioning shift, not closure.</td>
 </tr>
 </tbody>
 </table>
 
-<h2>3 · Market alignment — outside-in view</h2>
+<h2 id="sec-4">4 · Market alignment</h2>
 
 <div class="grid">
   <div class="card">
     <h3>Tailwinds Aptum is correctly leaning into</h3>
     <ul>
-      <li><strong>Broadcom/VMware refugee market</strong> — Gartner says 35% migration by 2028. Aptum's CloudStack + Proxmox + Dedicated Cloud answer is on-message and uncommon.</li>
-      <li><strong>Cloud repatriation</strong> — 21% of orgs have repatriated workloads (validated trend). Aptum's "right workload on the right platform" matches the buyer's worldview.</li>
-      <li><strong>Mid-market squeeze</strong> — Between hyperscaler complexity and small MSP capacity, mid-market buyers are looking for a partner that's bigger than their MSP but smaller than Accenture. Aptum sits there.</li>
-      <li><strong>Canadian sovereignty</strong> — Canadian buyers and US East regulated buyers will pay 10–20% premium for the SOC 2 Type II Toronto presence.</li>
+      <li><strong>Broadcom/VMware refugee market</strong> — Gartner: 35% migration by 2028. Aptum's CloudStack + Proxmox + Dedicated Cloud answer is on-message and uncommon. The PRD's make-vs-buy analysis lands the case cleanly.</li>
+      <li><strong>Cloud repatriation</strong> — 21% of orgs have repatriated. Aptum's "right workload on the right platform" matches the buyer's worldview.</li>
+      <li><strong>Mid-market squeeze</strong> — between hyperscaler complexity and small MSP capacity. Aptum sits there.</li>
+      <li><strong>Canadian sovereignty</strong> — Canadian and US East regulated buyers will pay 10–20% premium for SOC 2 Type II Toronto presence.</li>
+      <li><strong>"Single portal, single bill, single governance"</strong> proposition — this is the most resonant customer-facing line in the catalog. Use it more.</li>
     </ul>
   </div>
   <div class="card">
     <h3>Tailwinds Aptum is missing</h3>
     <ul>
-      <li><strong>AI infrastructure</strong> — not playing. See open question below.</li>
-      <li><strong>FinOps / cloud cost optimization as a standalone service</strong> — buyers ask for this by name. Well-Architected Review is adjacent but not packaged this way.</li>
-      <li><strong>Zero Trust / SASE</strong> — adjacent to Managed Firewall + Managed Detection and Response. Not in the catalog as a named offering. Buyers in regulated industries lead with this.</li>
-      <li><strong>Compliance-as-an-outcome</strong> (SOC 2, HIPAA, PCI prep & evidence) — Aptum has the substrate (SOC 2 Type II DC), but doesn't sell a "we'll get you SOC 2 ready" project.</li>
+      <li><strong>AI infrastructure</strong> — not playing. See §6 Q1.</li>
+      <li><strong>FinOps as a standalone offering</strong> — buyers ask for this by name. Well-Architected Review is adjacent but not packaged as FinOps.</li>
+      <li><strong>Zero Trust / SASE</strong> — adjacent to Managed Firewall + MDR. Not a named offering. Regulated industries lead with this.</li>
+      <li><strong>Compliance-as-an-outcome</strong> (SOC 2, HIPAA, PCI prep & evidence) — Aptum has the substrate (SOC 2 Type II DC) but no packaged "we'll get you ready" project.</li>
+      <li><strong>Managed Kubernetes as a product</strong> — Kubernetes is roadmap on the platform but not yet a named managed-services offering. Modern mid-market increasingly asks for it.</li>
     </ul>
   </div>
   <div class="card">
     <h3>Headwinds Aptum is correctly avoiding</h3>
     <ul>
-      <li>Hyperscaler resale at a loss (Ian Rae's explicit call) — correct.</li>
+      <li>Hyperscaler resale at a loss — correct.</li>
       <li>Standalone B2B2B portal SaaS sale — correct.</li>
       <li>Large-enterprise managed services pursuit — correct.</li>
       <li>Pure commodity hosting backfill — correct (let it attrit).</li>
+      <li>Switching off CloudStack onto OpenStack — correct (the PRD's analysis is sound).</li>
     </ul>
   </div>
   <div class="card">
     <h3>Headwinds Aptum should re-think</h3>
     <ul>
-      <li><strong>Treating MSP channel as Phase 2 work.</strong> ES Williams is already live. The motion is here, not later.</li>
-      <li><strong>Treating Advisory enterprise pursuit as out-of-scope.</strong> Big-company assessment is a different P&L from managed services and shouldn't be conflated.</li>
-      <li><strong>De-emphasizing Apt Cloud / Aptum Portal as a sellable product.</strong> Correct that it's not B2B2B SaaS, but the portal experience itself is a buying reason — sell the experience even if you don't sell the SKU.</li>
+      <li><strong>Treating MSP channel as Phase 2.</strong> ES Williams is live. The motion is here.</li>
+      <li><strong>Excluding enterprise from Advisory.</strong> Big-company assessments are a different P&L from managed services and shouldn't be conflated.</li>
+      <li><strong>De-emphasizing the Aptum Portal as a sellable product.</strong> Correct that it's not B2B2B SaaS — but the portal experience itself is a buying reason. Sell the experience even if you don't sell the SKU.</li>
+      <li><strong>Inertia on the legacy "Aptum Cloud" customer migration.</strong> The 38 customers / $27K MRC on VMware are still on the cost line and described as Stream 3 / Planned. With Broadcom prices climbing, every quarter of delay is a margin tax.</li>
     </ul>
   </div>
 </div>
 
-<h2>4 · Valuation levers — what an acquirer pays for</h2>
+<h2 id="sec-5">5 · Valuation levers</h2>
 
 <table>
 <thead><tr><th>Lever</th><th>Current state</th><th>What to do to compound it</th><th>Multiple effect</th></tr></thead>
 <tbody>
 <tr><td><strong>Managed-services penetration</strong></td><td>6.5% (industry norm 15–20%)</td><td>Publish quarterly funnel plan; tie commercial comp; ship 6 named addon guides with SLAs</td><td>+2–3x</td></tr>
 <tr><td><strong>Recurring revenue mix</strong></td><td>~97% of $2.89M MRC is recurring, but 75% is hosting commodity</td><td>Shift mix toward Aptum IaaS + addons; sunset declining legacy hosting deliberately, don't backfill</td><td>+1–2x</td></tr>
-<tr><td><strong>Gross margin</strong></td><td>74–89% on IaaS (excellent), low single digits on hyperscaler resale</td><td>Stop reselling hyperscaler subscriptions at a loss (explicit in strategy — execute); push more managed services on top of resale margin</td><td>+1x</td></tr>
-<tr><td><strong>Net retention (NRR)</strong></td><td>Not measured publicly. Stacking implies NRR &gt; 100% for multi-LOB; need data.</td><td>Compute NRR by segment; publish in board materials; target 115%+ for multi-LOB cohort</td><td>+2x</td></tr>
-<tr><td><strong>Channel revenue</strong></td><td>~0% formal channel revenue; ES Williams informal proof point</td><td>Promote MSP channel to a named pillar; recruit 3 MSPs in 2026; publish channel target as a % of new ARR</td><td>+1–2x</td></tr>
-<tr><td><strong>Predictability of pipeline</strong></td><td>Assessment-led pipeline is the thesis; not yet measurable</td><td>Publish "assessments sold this quarter → MRR added next quarter" rolling number; this is the leading indicator everyone wants</td><td>+1x</td></tr>
-<tr><td><strong>Differentiation moat</strong></td><td>Cloud-agnostic + sovereignty + portal + managed services stacking; correct, but not yet packaged as one moat statement</td><td>Land a single sentence: "We are the only mid-market provider that places workloads across hyperscaler, dedicated cloud, private cloud, and bare metal — and manages them through one portal with one bill." Use it everywhere.</td><td>+0.5x</td></tr>
+<tr><td><strong>Gross margin</strong></td><td>74–89% on IaaS (excellent), low single digits on hyperscaler resale</td><td>Stop reselling hyperscaler subscriptions at a loss; push managed services on top of resale margin</td><td>+1x</td></tr>
+<tr><td><strong>Net retention (NRR)</strong></td><td>Not measured publicly. Stacking implies NRR &gt; 100% for multi-LOB; need the data.</td><td>Compute NRR by segment; publish in board materials; target 115%+ for multi-LOB cohort</td><td>+2x</td></tr>
+<tr><td><strong>Channel revenue</strong></td><td>~0% formal channel revenue; ES Williams as informal proof point</td><td>Promote MSP channel to a named pillar; recruit 3 MSPs in 2026; publish channel target as % of new ARR</td><td>+1–2x</td></tr>
+<tr><td><strong>Predictability of pipeline</strong></td><td>Assessment-led pipeline is the thesis; not yet measured</td><td>Publish "assessments sold this quarter → MRR added next quarter" rolling number; the leading indicator buyers want</td><td>+1x</td></tr>
+<tr><td><strong>Differentiation moat statement</strong></td><td>Implicit in catalog; not yet one sentence</td><td>"Only mid-market provider that places workloads across hyperscaler, dedicated cloud, private cloud, and bare metal — and manages them through one portal with one bill." Use everywhere.</td><td>+0.5x</td></tr>
+<tr><td><strong>Aptum IaaS GTM execution</strong></td><td>Board mandated "fast follow"; $39K MRR closed before formal GTM. No commercial playbook published.</td><td>Ship the GTM plan, target list, AE enablement, and quoting motion. Without this, the Broadcom tailwind blows past Aptum.</td><td>+1–2x</td></tr>
 </tbody>
 </table>
 
-<h2>5 · Open questions and recommended answers</h2>
+<h2 id="sec-6">6 · Open questions and recommended answers</h2>
 
 <p class="q">Q1 · What is Aptum's AI infrastructure position?</p>
-<p class="a">Three viable answers; pick one within 30 days, commit publicly.</p>
-<div class="fix"><strong>Recommended:</strong> <em>"Partner-led AI infrastructure, Aptum-managed."</em> Aptum doesn't buy GPUs. Aptum partners with one or two GPU-cloud providers (5C.ai is the obvious candidate; Latitude.sh adjacent) and bundles them into Aptum-managed offerings: customer buys GPU capacity through Aptum, gets Aptum managed services (monitoring, patching, security) wrapped around it. Same playbook as the hyperscaler resale motion. Aptum becomes the AI-adjacent managed provider, not the AI infrastructure provider. <strong>Lowest capex, fits the brand, defensible.</strong></div>
-<div class="fix"><strong>Alternative A:</strong> "Explicit out-of-scope, refer out." Cleanest. Aptum tells customers it doesn't do AI infrastructure and refers them. Loses the conversation but loses no money.</div>
-<div class="fix"><strong>Alternative B:</strong> "Build it." Capex-heavy. Not consistent with the rest of the strategy. Don't.</div>
+<p class="a">Three viable answers; pick one in 30 days and commit publicly.</p>
+<div class="fix"><strong>Recommended:</strong> <em>"Partner-led AI infrastructure, Aptum-managed."</em> Aptum doesn't buy GPUs. Aptum partners with one or two GPU-cloud providers (5C.ai is the obvious candidate; Latitude.sh adjacent) and bundles them into Aptum-managed offerings. Same playbook as hyperscaler resale. Aptum becomes the AI-adjacent managed provider, not the AI infrastructure provider. <strong>Lowest capex, fits the brand, defensible.</strong></div>
+<div class="fix"><strong>Alternative A:</strong> "Explicit out-of-scope, refer out." Cleanest. Loses the conversation but loses no money.</div>
+<div class="fix"><strong>Alternative B:</strong> "Build it." Capex-heavy. Inconsistent with the rest of the strategy. Don't.</div>
 
 <p class="q">Q2 · What is the path from 6.5% to 15% managed-services penetration?</p>
 <p class="a">The strategy asserts the target but doesn't publish the plan.</p>
 <div class="fix"><strong>Recommended:</strong> Four-quarter program with three workstreams.
-<br>(1) <strong>Renewal-tied assessments</strong>: every renewal in the 72% expiring-within-6-months wave gets an assessment offer as conversation opener. Target: 80 assessments offered, 30 sold per quarter.
-<br>(2) <strong>Top-50 hosting-only campaign</strong>: AE-led outbound on the top 50 hosting-only accounts ($659K/mo total). Target: 20 Infrastructure Risk assessments per quarter, 50% conversion to L2 managed OS.
+<br>(1) <strong>Renewal-tied assessments</strong>: every renewal in the 72%-expiring-within-6-months wave gets an assessment offer as conversation opener. Target: 80 assessments offered, 30 sold per quarter.
+<br>(2) <strong>Top-50 hosting-only campaign</strong>: AE-led outbound on the top 50 hosting-only accounts ($659K/mo total). Target: 20 Infrastructure Risk assessments per quarter, 50% conversion to L2 Managed OS.
 <br>(3) <strong>Multi-LOB deepening</strong>: 135 multi-LOB customers get a quarterly portfolio review with named CSM. Target: 1 new addon per multi-LOB customer per year.
 <br>End-of-2026 outcome at 50% conversion: ~$200K/mo new MRR, takes penetration to ~12%.</div>
 
 <p class="q">Q3 · Should the MSP channel be a named third pillar?</p>
 <p class="a">Yes. The portal infrastructure exists, the motion has a proof point (ES Williams), and the alternative use of the portal asset is suboptimal.</p>
-<div class="fix"><strong>Recommended:</strong> Rename the two-pillar story to three pillars in the strategy doc: Managed Services, Aptum IaaS, MSP Channel. Channel pillar gets a named owner (BD lead), a recruit target (3 MSPs in 2026), and a revenue target (channel MRR as a % of new ARR). Use ES Williams as the testimonial. <strong>This is the highest-leverage rewrite in the strategy.</strong></div>
+<div class="fix"><strong>Recommended:</strong> Rename the two-pillar story to three pillars in the strategy doc: Managed Services, Aptum IaaS, MSP Channel. Channel pillar gets a named owner (BD lead), a recruit target (3 MSPs in 2026), and a revenue target (channel MRR as % of new ARR). Use ES Williams as testimonial. <strong>This is the highest-leverage rewrite in the strategy.</strong></div>
 
-<p class="q">Q4 · How should "Apt Cloud" vs "Aptum Portal" be resolved?</p>
-<p class="a">The strategy doc has resolved this ("Aptum Portal" is the customer-facing name). The PRD has not.</p>
-<div class="fix"><strong>Recommended:</strong> One-pass edit of the PRD. Aptum Portal everywhere customer-facing. Glossary entry preserves "Apt Cloud" as historical. Done in a day.</div>
+<p class="q">Q4 · How is "Apt Cloud" vs "Aptum Portal" resolved?</p>
+<p class="a">The strategy doc has resolved this; the PRD and Aptum Portal Strategy and Roadmap have not.</p>
+<div class="fix"><strong>Recommended:</strong> One-pass edit of the PRD and the strategy-and-roadmap doc. Aptum Portal everywhere customer-facing. Glossary entry preserves "Apt Cloud" as historical. CloudOps Software referenced only when discussing the underlying platform supplier, never in customer-facing pages.</div>
 
 <p class="q">Q5 · When does Alert Logic MDR commercial model get resolved?</p>
 <p class="a">Listed as "IN DEVELOPMENT". Until resolved, the entire Security Posture follow-on path has a soft spot.</p>
-<div class="fix"><strong>Recommended:</strong> Lock the partnership shape with Alert Logic by end of Q2 2026. Two clean options: (a) Aptum operates the SOC with Alert Logic tooling — higher margin, requires Tier 2/3 security ops capacity; (b) Alert Logic operates the SOC, Aptum bundles and markets — lower margin, faster to ship. <strong>(b) is the right answer for 2026</strong> with (a) as a 2027 maturity path.</div>
+<div class="fix"><strong>Recommended:</strong> Lock the partnership shape by end of Q2 2026. Two options: (a) Aptum operates the SOC with Alert Logic tooling — higher margin, requires Tier 2/3 security ops capacity; (b) Alert Logic operates the SOC, Aptum bundles and markets — lower margin, faster to ship. <strong>(b) is the right answer for 2026</strong> with (a) as a 2027 maturity path.</div>
 
-<p class="q">Q6 · Should Build-Operate-Transfer remain explicitly rejected?</p>
-<p class="a">The reasoning (forever Operate is the goal) is right. But BOT is a commercial wrapper, not a motion.</p>
-<div class="fix"><strong>Recommended:</strong> Soften the language. BOT is offered when the customer asks; it's not a goal Aptum sells. Reframe in one paragraph in "What We Stop Doing".</div>
+<p class="q">Q6 · What is the status of MDR, Vulnerability Scanning, Compliance Reporting, Database Tuning, DevOps Monitoring?</p>
+<p class="a">All five appear in the public addon catalog with ambiguous status ("IN DEVELOPMENT", "not yet built", "PS-led today", "evolving"). Sales positioning is unclear.</p>
+<div class="fix"><strong>Recommended:</strong> Decision meeting this week. For each addon: classify as Buyable Now / Buyable Q3 / Not Buyable / Custom PS Only. Update each addon page with explicit status pill and (where applicable) target-availability quarter. <strong>Two-hour meeting, one-day documentation pass.</strong></div>
 
-<p class="q">Q7 · What is the long-tail data center footprint strategy?</p>
-<p class="a">26 sites is positioned as a feature; only 6 carry meaningful revenue.</p>
-<div class="fix"><strong>Recommended:</strong> Name 6 Tier 1 sites (Herndon, Toronto, Portsmouth, Atlanta, Miami, LA). All new product investment goes there. Long-tail sites get a quiet 3-year sunset/consolidation plan, not announced externally. Use the savings to fund SOC 2 expansion at the Tier 1 sites.</div>
+<p class="q">Q7 · What is the Aptum IaaS GTM plan that the board directed?</p>
+<p class="a">The board mandate from March 31 is a "fast follow" — no published commercial plan yet.</p>
+<div class="fix"><strong>Recommended:</strong> Single-page Aptum IaaS GTM plan as a new document in the strategy folder: target segments, assessment-to-IaaS funnel, pricing vs. AWS/Azure positioning, AE enablement schedule, named GTM owner, 30/60/90-day milestones. Ship in 14 days. The competition is doing this; Aptum's window on the Broadcom wave is finite.</div>
 
-<p class="q">Q8 · What's the FinOps offering?</p>
-<p class="a">Cloud cost optimization is asked for by name in mid-market RFPs. Well-Architected Review is adjacent but not packaged as FinOps.</p>
-<div class="fix"><strong>Recommended:</strong> Carve a new advisory deliverable from Well-Architected: "FinOps Assessment". S/M sizing ($5K/$10K). Reuse the methodology, change the framing and the deliverable templates. <strong>Two weeks of packaging work; new doors open immediately.</strong> If carving out feels too much, position Well-Architected as "Well-Architected + FinOps" in marketing copy.</div>
+<p class="q">Q8 · Should Build-Operate-Transfer remain explicitly rejected?</p>
+<p class="a">Reasoning (forever Operate is the goal) is right. But BOT is a commercial wrapper, not a motion.</p>
+<div class="fix"><strong>Recommended:</strong> Soften the language. BOT is offered when the customer asks; it's not a goal Aptum sells. One-paragraph edit in "What We Stop Doing".</div>
 
-<h2>6 · The 60-day action plan</h2>
+<p class="q">Q9 · What is the long-tail data center footprint strategy?</p>
+<p class="a">26 sites positioned as a feature; only 6 carry meaningful revenue.</p>
+<div class="fix"><strong>Recommended:</strong> Name 6 Tier 1 sites (Herndon, Toronto, Portsmouth, Atlanta, Miami, LA). All new product investment goes there. Long-tail sites get a quiet 3-year sunset/consolidation plan, not announced externally. Fund SOC 2 expansion at Tier 1 sites with the savings.</div>
+
+<p class="q">Q10 · What's the FinOps offering?</p>
+<p class="a">Cloud cost optimization is asked by name in mid-market RFPs. Well-Architected Review is adjacent but not packaged this way.</p>
+<div class="fix"><strong>Recommended:</strong> Carve a "FinOps Assessment" deliverable from Well-Architected. S/M sizing ($5K/$10K). Reuse the methodology, change the framing. Two weeks of packaging work; new doors open immediately. Alternative: position Well-Architected as "Well-Architected + FinOps" in marketing copy without a new SKU.</div>
+
+<p class="q">Q11 · Customer-facing tier names — keep both or pick one?</p>
+<p class="a">"Dedicated/Reactive/Proactive" (working) and "Infrastructure/Co-Managed/Fully Managed" (customer-facing) are both used in different parts of the catalog.</p>
+<div class="fix"><strong>Recommended:</strong> Use "Reactive" and "Proactive" as customer-facing names — they describe the operational posture clearly and are already used throughout delivery docs. Drop "Co-Managed" and "Fully Managed" as marketing synonyms. Update the managed-services index to remove the mapping table. <strong>Two-paragraph rewrite.</strong></div>
+
+<p class="q">Q12 · What happens with the 38 legacy Aptum Cloud / $27K MRC customers on VMware?</p>
+<p class="a">Documented as Stream 3 / Planned. With Broadcom pricing climbing, the timing matters.</p>
+<div class="fix"><strong>Recommended:</strong> Publish a transition plan with named owner and quarterly cohort targets. These customers are the easiest Aptum IaaS sales in the entire portfolio — they're already on Aptum, they're already paying, and Broadcom is making the case for them. Move them faster.</div>
+
+<h2 id="sec-7">7 · The 60-day action plan</h2>
 
 <table>
 <thead><tr><th>Week</th><th>Action</th><th>Owner</th><th>Outcome</th></tr></thead>
 <tbody>
-<tr><td>1</td><td>Apt Cloud → Aptum Portal rename pass across PRD</td><td>Product owner (you)</td><td>Single-name catalog</td></tr>
-<tr><td>1–2</td><td>SLA framework: P1–P4 response/resolution, credit schedule, one-pager</td><td>Service Desk lead + Product</td><td>Published SLA appendix</td></tr>
+<tr><td>1</td><td>Apt Cloud → Aptum Portal global rename pass across PRD and strategy-and-roadmap doc</td><td>Product</td><td>Single-name catalog</td></tr>
+<tr><td>1</td><td>Decision meeting on addon status (MDR, Vuln Scan, Compliance Reporting, Database Tuning, DevOps Monitoring)</td><td>Product + Operations</td><td>Explicit status on each addon page</td></tr>
+<tr><td>1</td><td>Tier-availability contradiction fix — add Dedicated-tier exclusion sentence to Private Cloud and Bare Metal pages</td><td>Product</td><td>Catalog internally consistent</td></tr>
+<tr><td>1–2</td><td>SLA framework v1: P1–P4 response/resolution, credit schedule, one-pager</td><td>Service Desk + Product</td><td>Published SLA appendix</td></tr>
+<tr><td>2</td><td>Aptum IaaS GTM plan v1 (segments, funnel, pricing, AE enablement, 30/60/90 milestones)</td><td>CRO + Product</td><td>Board-mandated work caught up</td></tr>
 <tr><td>2–4</td><td>Six highest-revenue service guides: OS Patching, Managed Backup, 24/7 Monitoring, Managed Firewall, MDR, DRaaS</td><td>HSDM + delivery leads</td><td>6 of 19 stubs converted</td></tr>
-<tr><td>3</td><td>Addon rate card v1 with discount discretion table</td><td>Finance (Sarah) + Commercial (Fred)</td><td>Sales can quote without deal desk on first call</td></tr>
-<tr><td>3–4</td><td>Channel pillar reframe in strategy doc; ES Williams testimonial; 3-MSP recruit plan</td><td>Strategy / BD lead</td><td>Channel becomes named pillar</td></tr>
+<tr><td>3</td><td>Addon rate card v1 with discount discretion table</td><td>Finance + Commercial</td><td>Sales can quote on first call</td></tr>
+<tr><td>3–4</td><td>Channel pillar reframe: rewrite strategy doc to name MSP channel as third pillar; ES Williams testimonial; 3-MSP recruit plan</td><td>Strategy + BD</td><td>Channel becomes named pillar</td></tr>
 <tr><td>4</td><td>AI position decision and one-pager</td><td>CEO + Product</td><td>Closes the most common 2026 buyer question</td></tr>
-<tr><td>5</td><td>4-quarter penetration funnel plan (6.5% → 12%)</td><td>Product + Commercial</td><td>Measurable growth narrative</td></tr>
+<tr><td>4</td><td>Vendor-neutral cleanup: edit App and Platform Modernization delivery guide to remove tool names; move tools to internal-only reference</td><td>Advisory lead</td><td>Vendor-neutral commitment honored</td></tr>
+<tr><td>5</td><td>4-quarter penetration funnel plan (6.5% → 12% by EOY)</td><td>Product + Commercial</td><td>Measurable growth narrative</td></tr>
+<tr><td>5</td><td>Public-cloud product page rewrite: "CloudOps Software" → "Aptum Portal"; add Aptum SLAs vs. hyperscaler SLAs section</td><td>Product</td><td>Brand coherence</td></tr>
 <tr><td>5–6</td><td>NRR / LTV / CAC v1 baselining</td><td>Finance + Product</td><td>Investor-ready unit economics</td></tr>
-<tr><td>6</td><td>Execute "play package" templates (6–8 named SOWs)</td><td>HSA (Pat)</td><td>Conversion at the moment of trust</td></tr>
-<tr><td>7</td><td>FinOps assessment carve-out</td><td>Advisory lead</td><td>New door</td></tr>
+<tr><td>6</td><td>Execute "play package" templates (6–8 named SOWs)</td><td>HSA (Pat)</td><td>Conversion at moment of trust</td></tr>
+<tr><td>6</td><td>Tier-name decision: drop "Co-Managed"/"Fully Managed" synonyms; standardize on Reactive/Proactive</td><td>Marketing + Product</td><td>One vocabulary across catalog</td></tr>
+<tr><td>7</td><td>FinOps assessment carve-out (or Well-Architected rebrand)</td><td>Advisory lead</td><td>New door</td></tr>
+<tr><td>7</td><td>Legacy Aptum Cloud (38 customers / $27K MRC) transition plan — named owner, quarterly cohort schedule</td><td>CSM + Product</td><td>Fastest Aptum IaaS conversions teed up</td></tr>
 <tr><td>8</td><td>Alert Logic MDR commercial close</td><td>Security partnership lead</td><td>Security Posture follow-on path firm</td></tr>
+<tr><td>8</td><td>MAAS roadmap commitment: named owner, beta-ready milestone, GA milestone, first-customer criteria</td><td>CloudOps engineering</td><td>Differentiator backed by dates</td></tr>
 </tbody>
 </table>
 
-<h2>7 · What I would tell a board</h2>
+<h2 id="sec-8">8 · What I would tell the board</h2>
 <div class="summary">
-  <p>Aptum has the right thesis, an unusually disciplined ICP, and a top-decile gross margin profile on its core infrastructure product. The Broadcom and repatriation tailwinds are real and Aptum is on-message.</p>
-  <p>What's holding the valuation back today is operational packaging, not strategic clarity: 19 service guides are stubs, no SLA framework is published, the channel motion is treated as future when it's already proven, and the 6.5%-to-15% penetration target is asserted without a published plan. None of these are hard to fix. Most can be done in 60 days with the existing team.</p>
-  <p>The single highest-ROI 60-day investment is publishing six service guides with SLAs and a rate card. The single highest-ROI strategic edit is promoting the MSP channel from Phase 2 work to a named third revenue pillar. Both are paperwork-grade tasks with multi-million-dollar valuation consequences.</p>
+  <p>Aptum has the right thesis, an unusually disciplined ICP, and a top-decile gross-margin profile on its core infrastructure product. The Broadcom and repatriation tailwinds are real and Aptum is on-message.</p>
+  <p>What's holding the valuation back today is not strategy — it's operational packaging. Nineteen service guides are stubs. The board's "fast follow" GTM mandate from March 31 hasn't shipped. The biggest single growth lever (managed-services stacking) is a roadmap line, not a quarterly plan. The MSP channel is treated as future work despite a working ES Williams proof point. And the catalog has internal inconsistencies — tier availability, naming conventions, addon status — that a buyer's diligence team will surface on a Tuesday afternoon.</p>
+  <p>None of this is hard to fix. The catalog's intellectual content is already in place; what's missing is the operationalization sprint to turn strategy into shippable pages. Sixty days of focused product-team work, with clear named owners on each item, materially changes how this business presents to an acquirer.</p>
+  <p>The single highest-ROI 60-day investment is publishing six service guides with SLAs and a rate card. The single highest-ROI strategic edit is promoting the MSP channel from Phase 2 to a named third pillar. The single most overdue item is the Aptum IaaS GTM the board explicitly asked for. All three are paperwork-grade tasks with multi-million-dollar valuation consequences.</p>
 </div>
 
-<p class="footer">External review prepared for the Aptum product team. Findings are based on the current state of the <code>53-products</code> Confluence space and supporting strategy documentation. This file is excluded from sync (<code>_</code> prefix) and lives at <code>53-products/_strategy-review.html</code>.</p>
+<p class="footer">External review prepared for the Aptum product team. Findings based on a full read of the <code>53-products</code> catalog (74 pages) and supporting strategy documentation as of 2026-05-18. This file is excluded from sync via the <code>_</code> prefix and lives at <code>53-products/_strategy-review.html</code>.</p>
 
 </body>
 </html>
