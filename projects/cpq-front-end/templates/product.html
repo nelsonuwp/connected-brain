@@ -436,6 +436,28 @@
 
     .divider { border:none; border-top:1px solid var(--border); margin:.7rem 0; }
 
+    /* Sidebar sub-section labels */
+    .sidebar-subsection-label {
+      font-size:.58rem; font-weight:700; text-transform:uppercase; letter-spacing:.09em;
+      color:var(--text-3); margin:.6rem 0 .3rem;
+    }
+    .sidebar-subsection-label:first-child { margin-top:0; }
+
+    /* Config summary items */
+    .cs-item { font-size:.75rem; color:var(--text-2); padding:.18rem 0; display:flex; gap:.3rem; align-items:baseline; }
+    .cs-item::before { content:"·"; color:var(--text-3); flex-shrink:0; }
+    .cs-added-item {
+      display:flex; align-items:center; gap:.4rem;
+      padding:.3rem 0; border-bottom:1px solid var(--border); font-size:.75rem;
+    }
+    .cs-added-item:last-child { border-bottom:none; }
+    .cs-addon-name { flex:1; font-weight:600; color:var(--accent); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .cs-addon-price { font-family:'Geist Mono',monospace; font-size:.7rem; color:var(--green); flex-shrink:0; }
+    .cs-empty { font-size:.73rem; color:var(--text-3); font-style:italic; padding:.2rem 0; }
+
+    .cost-line.total-setup .label { color:var(--text-1); font-weight:700; font-size:.8rem; }
+    .cost-line.total-setup .value { color:var(--orange); font-weight:700; font-size:.85rem; }
+
     /* Copy button */
     .copy-quote-wrap { padding:1rem 1.5rem; margin-top:auto; }
     .btn-copy {
@@ -510,10 +532,16 @@
       <div class="margin-monthly" id="margin-monthly"></div>
     </div>
 
-    <!-- Customer MRC -->
+    <!-- Pricing -->
     <details class="sidebar-section" open>
-      <summary>Customer MRC</summary>
+      <summary>Pricing</summary>
       <div class="sidebar-section-body" id="mrc-body"></div>
+    </details>
+
+    <!-- Configuration Summary -->
+    <details class="sidebar-section">
+      <summary>Configuration Summary</summary>
+      <div class="sidebar-section-body" id="config-summary-body"></div>
     </details>
 
     <!-- Internal Costs -->
