@@ -3,104 +3,92 @@
     "ATL": {
       "costs": {
         "firewall": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 337,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "server": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 337,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "switch": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 337,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         }
@@ -112,104 +100,92 @@
     "IAD": {
       "costs": {
         "firewall": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 19,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 110,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "server": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 19,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 110,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "switch": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 19,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 110,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         }
@@ -222,104 +198,92 @@
     "LAX": {
       "costs": {
         "firewall": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 457,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "server": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 457,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "switch": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 457,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         }
@@ -332,104 +296,92 @@
     "MIA": {
       "costs": {
         "firewall": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 28,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 48,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "server": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 28,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 48,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "switch": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 28,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 48,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         }
@@ -441,104 +393,92 @@
     "MTL": {
       "costs": {
         "firewall": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 253,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "server": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 253,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "switch": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 253,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         }
@@ -551,104 +491,92 @@
     "POR": {
       "costs": {
         "firewall": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 27,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 46,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "server": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 27,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 46,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "switch": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 27,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 46,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         }
@@ -661,104 +589,92 @@
     "TOR": {
       "costs": {
         "firewall": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 253,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "server": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 253,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         },
         "switch": {
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
           "power_per_kw": {
             "amount": 253,
             "measure": "per_kw"
           },
-          "support_cost": {
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
             "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
             "measure": "per_device"
           }
         }

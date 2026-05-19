@@ -532,11 +532,13 @@ def product_config(product_id):
         pricing_currency = native_currency
         fx_pricing       = get_fx_rate(native_currency, currency)
 
-    server_mrc_pb = _dec(pb_row["mrc"])  if pb_row else 0
-    server_nrc_pb = _dec(pb_row["nrc"])  if pb_row else 0
-    server_mrc    = round(server_mrc_pb * fx_pricing, 2)
-    server_nrc    = round(server_nrc_pb * fx_pricing, 2)
-    pricebook_id  = pb_row["pricebook_id"] if pb_row else None
+    server_mrc_pb   = _dec(pb_row["mrc"])   if pb_row else 0
+    server_nrc_pb   = _dec(pb_row["nrc"])   if pb_row else 0
+    server_setup_pb = _dec(pb_row["setup"]) if pb_row else 0
+    server_mrc      = round(server_mrc_pb   * fx_pricing, 2)
+    server_nrc      = round(server_nrc_pb   * fx_pricing, 2)
+    server_setup    = round(server_setup_pb * fx_pricing, 2)
+    pricebook_id    = pb_row["pricebook_id"] if pb_row else None
 
     pb_provenance = {
         "source":           "Fusion: public.pricebook",
