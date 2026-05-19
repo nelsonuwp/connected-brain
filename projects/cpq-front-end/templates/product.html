@@ -609,6 +609,14 @@
   };
   const COST_LABELS = {
     power_per_kw:        'Power (kW)',
+    dc_equipment:        'DC Equipment',
+    network_equipment:   'Network Equipment',
+    dc_ops:              'DC Ops',
+    support_ops:         'Support Ops',
+    network_ops:         'Network Ops',
+    compute_ops:         'Compute Ops',
+    sga:                 'SG&A',
+    // legacy keys (pre-rename)
     dc_rm_supplies:      'DC R&M / Supplies',
     network:             'Network',
     dc_infra_operations: 'DC Infra / Ops',
@@ -618,7 +626,6 @@
     dc_people:           'DC People',
     network_people:      'Network People',
     compute_team:        'Compute Team',
-    sga:                 'SG&A',
   };
 
   // ── State ─────────────────────────────────────────────────────────────
@@ -998,15 +1005,18 @@
     let totalOverhead = 0;
     const ovhLines = [];
     for (const [k, entry] of Object.entries(ovh)) {
+      const tip = provenanceTip(entry.provenance) || TIPS[k] || '';
       if (entry.amount === null) {
-        const tip = provenanceTip(entry.provenance) || TIPS[k] || '';
-        ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:'N/A — no watt data', na:true, tip });
+        ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:'N/A', na:true, tip });
         continue;
       }
-      if (entry.amount === 0) continue;
-      totalOverhead += entry.amount;
-      const tip = provenanceTip(entry.provenance) || TIPS[k] || '';
-      ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:`${SYM}${fmt(entry.amount)}`, tip });
+      if (entry.amount !== 0) totalOverhead += entry.amount;
+      ovhLines.push({
+        key: k, label: COST_LABELS[k]||k, tip,
+        value: entry.amount === 0 ? '—' : `${SYM}${fmt(entry.amount)}`,
+        zero: entry.amount === 0,
+        na: false,
+      });
     }
 
     // ── HW / Margin ──────────────────────────────────────────────────
@@ -1090,7 +1100,7 @@
       ${ovhLines.map(l => `
         <div class="cost-line">
           <span class="label"${l.tip ? ` data-tip="${esc(l.tip)}"` : ''}>${esc(l.label)}</span>
-          <span class="value${l.na?' muted':''}">${l.value}</span>
+          <span class="value${l.na||l.zero?' muted':''}">${l.value}</span>
         </div>`).join('')}
       <hr class="divider">
       <div class="cost-line">
