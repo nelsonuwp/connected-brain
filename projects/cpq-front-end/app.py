@@ -259,13 +259,19 @@ def get_fx_rate(from_currency: str, to_currency: str) -> float:
 # Overhead calculation
 # Amounts in cost_drivers.json are in DC native_currency.
 # Pass fx_rate = get_fx_rate(native_currency, display_currency) to convert.
+# service_type: "server" | "firewall" | "switch" — selects cost tier.
 # ---------------------------------------------------------------------------
 def calc_overhead(dc_code: str, mrc_display: float, fx_rate: float = 1.0,
-                  kw: float | None = None) -> dict:
+                  kw: float | None = None, service_type: str = "server") -> dict:
     dc = COST_DRIVERS["data_centers"].get(dc_code)
     if not dc:
         return {}
-    costs  = dc["costs"]
+    dc_costs = dc["costs"]
+    # Support both old flat schema and new service-type-nested schema
+    if isinstance(next(iter(dc_costs.values())), dict) and "amount" not in next(iter(dc_costs.values())):
+        costs = dc_costs.get(service_type) or dc_costs.get("server") or {}
+    else:
+        costs = dc_costs
     const  = COST_DRIVERS["overhead_constants"]
     native = dc["native_currency"]
     lines  = {}
@@ -278,7 +284,7 @@ def calc_overhead(dc_code: str, mrc_display: float, fx_rate: float = 1.0,
                 "amount": 0, "currency": native, "measure": measure,
                 "provenance": {
                     "source": "cost_drivers.json",
-                    "path": f"data_centers.{dc_code}.costs.{key}",
+                    "path": f"data_centers.{dc_code}.costs.{service_type}.{key}",
                     "native_amount": 0, "native_currency": native,
                     "formula": "0 — not configured",
                 },
@@ -292,13 +298,9 @@ def calc_overhead(dc_code: str, mrc_display: float, fx_rate: float = 1.0,
             else:
                 native_val = round(amt * kw, 2)
                 formula    = f"{amt} {native}/kW × {kw} kW = {native_val} {native}"
-        elif measure == "per_server":
+        elif measure in ("per_device", "per_server"):
             native_val = round(amt, 2)
-            formula    = f"{amt} {native}/server"
-        elif measure == "per_hour":
-            hrs        = const["support_hours_per_server"]
-            native_val = round(amt * hrs, 2)
-            formula    = f"{amt} {native}/hr × {hrs} hrs/server = {native_val} {native}"
+            formula    = f"{amt} {native}/device"
         else:
             native_val = round(amt, 2)
             formula    = str(amt)
@@ -313,7 +315,7 @@ def calc_overhead(dc_code: str, mrc_display: float, fx_rate: float = 1.0,
             "measure":  measure,
             "provenance": {
                 "source":          "cost_drivers.json",
-                "path":            f"data_centers.{dc_code}.costs.{key}",
+                "path":            f"data_centers.{dc_code}.costs.{service_type}.{key}",
                 "native_amount":   native_val,
                 "native_currency": native,
                 "measure":         measure,
