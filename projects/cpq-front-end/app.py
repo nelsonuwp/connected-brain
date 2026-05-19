@@ -571,7 +571,7 @@ def product_config(product_id):
                        ct.name AS component_type,
                        cc.name AS category, cc.sort_order AS cat_sort,
                        pb.id AS pricebook_id,
-                       pb.mrc AS component_mrc, pb.nrc AS component_nrc
+                       pb.mrc AS component_mrc, pb.nrc AS component_nrc, pb.setup AS component_setup
                 FROM {table} t
                 JOIN public.components c ON c.id = t.{id_col}
                 JOIN public.component_types ct ON ct.id = c.component_type_id
@@ -613,10 +613,14 @@ def product_config(product_id):
         nrc_pb     = _dec(r["component_nrc"])  # in pricing_currency
         # Default (included) components: pricebook MRC is the add-on price, not an
         # additional charge — the component is already covered by the server base MRC.
-        addon_mrc_display = round(mrc_pb * fx_pricing, 2)
-        addon_nrc_display = round(nrc_pb * fx_pricing, 2)
-        mrc_display = 0.0        if is_default else addon_mrc_display
-        nrc_display = 0.0        if is_default else addon_nrc_display
+        addon_mrc_display   = round(mrc_pb * fx_pricing, 2)
+        addon_nrc_display   = round(nrc_pb * fx_pricing, 2)
+        # Setup fee for this component (pricebook.setup column)
+        setup_pb            = _dec(r.get("component_setup") or 0)
+        addon_setup_display = round(setup_pb * fx_pricing, 2)
+        mrc_display   = 0.0 if is_default else addon_mrc_display
+        nrc_display   = 0.0 if is_default else addon_nrc_display
+        setup_display = 0.0 if is_default else addon_setup_display
         pb_id       = r.get("pricebook_id")
 
         hw = hw_costs.get(cid)
@@ -642,7 +646,9 @@ def product_config(product_id):
             "quantity":         quantity,
             "component_mrc":    mrc_display,
             "component_nrc":    nrc_display,
-            "addon_mrc":        addon_mrc_display,  # pricebook price if added as upgrade
+            "component_setup":  setup_display,
+            "addon_mrc":        addon_mrc_display,   # pricebook price if added as upgrade
+            "addon_setup":      addon_setup_display, # pricebook setup if added as upgrade
             "hw_cost_raw":      hw_cost_raw,
             "hw_cost_currency": hw_cost_currency,
             "hw_cost_display":  hw_cost_display,
@@ -747,6 +753,7 @@ def product_config(product_id):
         "product_id":          product_id,
         "server_mrc":          server_mrc,
         "server_nrc":          server_nrc,
+        "server_setup":        server_setup,
         "currency":            currency,
         "native_currency":     native_currency,
         "pricing_currency":    pricing_currency,
