@@ -10,7 +10,8 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from sshtunnel import SSHTunnelForwarder
 
-load_dotenv(dotenv_path=Path(__file__).parent.parent.parent / ".env")
+load_dotenv(".env")
+load_dotenv(".env.local", override=True)
 
 # ---------------------------------------------------------------------------
 # Fusion DB (SSH tunnel)
@@ -50,6 +51,14 @@ _tunnel = None
 _conn   = None
 
 
+_USE_TUNNEL = bool(SSH_USER and SSH_PASSWORD)
+
+if _USE_TUNNEL:
+    print(f"[fusion] SSH tunnel via {SSH_HOST}")
+else:
+    print("[fusion] direct connection mode")
+
+
 def get_conn():
     global _tunnel, _conn
     if _conn:
@@ -58,18 +67,24 @@ def get_conn():
             return _conn
         except Exception:
             _conn = None
-    if _tunnel and not _tunnel.is_active:
-        _tunnel = None
-    if not _tunnel:
-        _tunnel = SSHTunnelForwarder(
-            (SSH_HOST, SSH_PORT),
-            ssh_username=SSH_USER,
-            ssh_password=SSH_PASSWORD,
-            remote_bind_address=(DB_REMOTE_HOST, DB_REMOTE_PORT),
-        )
-        _tunnel.start()
+    if _USE_TUNNEL:
+        if _tunnel and not _tunnel.is_active:
+            _tunnel = None
+        if not _tunnel:
+            _tunnel = SSHTunnelForwarder(
+                (SSH_HOST, SSH_PORT),
+                ssh_username=SSH_USER,
+                ssh_password=SSH_PASSWORD,
+                remote_bind_address=(DB_REMOTE_HOST, DB_REMOTE_PORT),
+            )
+            _tunnel.start()
+        db_host = "127.0.0.1"
+        db_port = _tunnel.local_bind_port
+    else:
+        db_host = DB_REMOTE_HOST
+        db_port = DB_REMOTE_PORT
     _conn = psycopg2.connect(
-        host="127.0.0.1", port=_tunnel.local_bind_port,
+        host=db_host, port=db_port,
         dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD,
         gssencmode="disable", cursor_factory=RealDictCursor,
     )
@@ -161,8 +176,6 @@ def get_dc_info(dc_abbr: str) -> dict | None:
 # sku_level must be 'TLS' (server-level) or 'Component' — same sku_id can
 # appear in both rows, so the level discriminator is mandatory.
 # ---------------------------------------------------------------------------
-_HW_SKU_TYPES = {"HW", "Hardware", "hw", "hardware"}
-
 def get_mssql_costs(sku_ids: list[int], sku_level: str) -> dict[int, dict]:
     if not sku_ids or not all([MSSQL_SERVER, MSSQL_DB, MSSQL_USER, MSSQL_PASSWORD]):
         return {}
@@ -171,28 +184,23 @@ def get_mssql_costs(sku_ids: list[int], sku_level: str) -> dict[int, dict]:
         conn = pymssql.connect(
             server=MSSQL_SERVER, user=MSSQL_USER,
             password=MSSQL_PASSWORD, database=MSSQL_DB,
-            tds_version="7.0",
         )
         cur = conn.cursor(as_dict=True)
         placeholders = ",".join(["%d"] * len(sku_ids))
         cur.execute(
-            f"SELECT sku_id, sku_name, sku_cost, cost_currency, sku_type, sku_category "
+            f"SELECT sku_id, sku_name, sku_cost, cost_currency "
             f"FROM profitability.ocean_sku_cost "
             f"WHERE sku_level = %s AND sku_id IN ({placeholders})",
             (sku_level, *sku_ids),
         )
-        result = {}
-        for r in cur.fetchall():
-            raw_type = (r.get("sku_type") or "").strip()
-            is_hw    = raw_type in _HW_SKU_TYPES or raw_type.upper().startswith("HW")
-            result[r["sku_id"]] = {
-                "cost":         float(r["sku_cost"] or 0),
-                "currency":     r["cost_currency"] or "USD",
-                "name":         r["sku_name"] or "",
-                "sku_type":     raw_type,
-                "sku_category": (r.get("sku_category") or "").strip(),
-                "cost_kind":    "hw" if is_hw else "sw",
+        result = {
+            r["sku_id"]: {
+                "cost":     float(r["sku_cost"] or 0),
+                "currency": r["cost_currency"] or "USD",
+                "name":     r["sku_name"] or "",
             }
+            for r in cur.fetchall()
+        }
         cur.close()
         conn.close()
         return result
@@ -539,13 +547,11 @@ def product_config(product_id):
         pricing_currency = native_currency
         fx_pricing       = get_fx_rate(native_currency, currency)
 
-    server_mrc_pb   = _dec(pb_row["mrc"])   if pb_row else 0
-    server_nrc_pb   = _dec(pb_row["nrc"])   if pb_row else 0
-    server_setup_pb = _dec(pb_row["setup"]) if pb_row else 0
-    server_mrc      = round(server_mrc_pb   * fx_pricing, 2)
-    server_nrc      = round(server_nrc_pb   * fx_pricing, 2)
-    server_setup    = round(server_setup_pb * fx_pricing, 2)
-    pricebook_id    = pb_row["pricebook_id"] if pb_row else None
+    server_mrc_pb = _dec(pb_row["mrc"])  if pb_row else 0
+    server_nrc_pb = _dec(pb_row["nrc"])  if pb_row else 0
+    server_mrc    = round(server_mrc_pb * fx_pricing, 2)
+    server_nrc    = round(server_nrc_pb * fx_pricing, 2)
+    pricebook_id  = pb_row["pricebook_id"] if pb_row else None
 
     pb_provenance = {
         "source":           "Fusion: public.pricebook",
@@ -576,14 +582,12 @@ def product_config(product_id):
                        {'t.quantity,' if table == 'public.product_templates' else '1 AS quantity,'}
                        c.display_name AS name, c.description, c.is_active,
                        ct.name AS component_type,
-                       pct.name AS parent_type,
                        cc.name AS category, cc.sort_order AS cat_sort,
                        pb.id AS pricebook_id,
-                       pb.mrc AS component_mrc, pb.nrc AS component_nrc, pb.setup AS component_setup
+                       pb.mrc AS component_mrc, pb.nrc AS component_nrc
                 FROM {table} t
                 JOIN public.components c ON c.id = t.{id_col}
                 JOIN public.component_types ct ON ct.id = c.component_type_id
-                LEFT JOIN public.component_types pct ON pct.id = ct.parent_component_id
                 JOIN public.component_categories cc ON cc.id = ct.category_id
                 LEFT JOIN public.pricebook pb
                     ON pb.component_id = t.{id_col}
@@ -622,14 +626,10 @@ def product_config(product_id):
         nrc_pb     = _dec(r["component_nrc"])  # in pricing_currency
         # Default (included) components: pricebook MRC is the add-on price, not an
         # additional charge — the component is already covered by the server base MRC.
-        addon_mrc_display   = round(mrc_pb * fx_pricing, 2)
-        addon_nrc_display   = round(nrc_pb * fx_pricing, 2)
-        # Setup fee for this component (pricebook.setup column)
-        setup_pb            = _dec(r.get("component_setup") or 0)
-        addon_setup_display = round(setup_pb * fx_pricing, 2)
-        mrc_display   = 0.0 if is_default else addon_mrc_display
-        nrc_display   = 0.0 if is_default else addon_nrc_display
-        setup_display = 0.0 if is_default else addon_setup_display
+        addon_mrc_display = round(mrc_pb * fx_pricing, 2)
+        addon_nrc_display = round(nrc_pb * fx_pricing, 2)
+        mrc_display = 0.0        if is_default else addon_mrc_display
+        nrc_display = 0.0        if is_default else addon_nrc_display
         pb_id       = r.get("pricebook_id")
 
         hw = hw_costs.get(cid)
@@ -638,13 +638,11 @@ def product_config(product_id):
             hw_cost_currency = hw["currency"]
             fx_cost          = fx_cost_map.get(hw_cost_currency, 1.0)
             hw_cost_display  = round(hw_cost_raw * fx_cost, 2)
-            cost_kind        = hw.get("cost_kind", "hw")   # "hw" = one-time CapEx, "sw" = monthly
         else:
             hw_cost_raw      = None
             hw_cost_currency = None
             fx_cost          = None
             hw_cost_display  = None
-            cost_kind        = None
 
         return {
             "component_id":     cid,
@@ -652,19 +650,15 @@ def product_config(product_id):
             "description":      r["description"] or "",
             "is_active":        r["is_active"],
             "component_type":   r["component_type"],
-            "parent_type":      r.get("parent_type"),
             "category":         r["category"],
             "cat_sort":         r["cat_sort"],
             "quantity":         quantity,
             "component_mrc":    mrc_display,
             "component_nrc":    nrc_display,
-            "component_setup":  setup_display,
-            "addon_mrc":        addon_mrc_display,   # pricebook price if added as upgrade
-            "addon_setup":      addon_setup_display, # pricebook setup if added as upgrade
+            "addon_mrc":        addon_mrc_display,  # pricebook price if added as upgrade
             "hw_cost_raw":      hw_cost_raw,
             "hw_cost_currency": hw_cost_currency,
             "hw_cost_display":  hw_cost_display,
-            "cost_kind":        cost_kind,           # "hw"=CapEx, "sw"=monthly, None=unknown
             "is_default":       is_default,
             "pricebook_provenance": {
                 "source":           "Fusion: public.pricebook",
@@ -766,7 +760,6 @@ def product_config(product_id):
         "product_id":          product_id,
         "server_mrc":          server_mrc,
         "server_nrc":          server_nrc,
-        "server_setup":        server_setup,
         "currency":            currency,
         "native_currency":     native_currency,
         "pricing_currency":    pricing_currency,
@@ -829,14 +822,13 @@ def settings_overhead_post():
                 except (TypeError, ValueError):
                     return jsonify({"error": f"{dc_abbr}.{svc}.{key}: amount must be a number"}), 400
 
-    # Atomic write
+    # In-place write. atomic-rename (os.replace) fails with EBUSY when this
+    # file is bind-mounted from the host as a single file, so we write through.
     path = _COST_DRIVERS_PATH
-    tmp  = path.with_suffix(".json.tmp")
     try:
-        with open(tmp, "w") as f:
+        with open(path, "w") as f:
             json.dump(data, f, indent=2)
             f.write("\n")
-        os.replace(tmp, path)
     except Exception as e:
         return jsonify({"error": f"Write failed: {e}"}), 500
 
@@ -848,7 +840,4 @@ def settings_overhead_post():
 
 
 if __name__ == "__main__":
-    if not SSH_USER or not DB_PASSWORD:
-        print("ERROR: SSH_USER or FUSION_DB_PASS not set", file=sys.stderr)
-        sys.exit(1)
     app.run(debug=True, port=5050)

@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.zip
+.env
+.env.*
+!.env.sample
+.git/
+.gitignore
+README.md
+cpq-data-flow.md
+cpq-quoting-flow.md
+Dockerfile
+Makefile
+.dockerignore
