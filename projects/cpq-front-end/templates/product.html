@@ -198,6 +198,176 @@
     }
     .add-row-btn:hover { opacity:1; background:var(--accent-dim); }
 
+    /* ── Two-panel config layout ─────────────────────────────────────── */
+    .config-panels {
+      display:grid; grid-template-columns:3fr 2fr;
+      gap:1.5rem; align-items:start; margin-top:.5rem;
+    }
+    @media (max-width:1100px) {
+      .config-panels { grid-template-columns:1fr; }
+    }
+
+    /* ── Setup Fee display ───────────────────────────────────────────── */
+    .server-pricing-row {
+      display:flex; gap:2rem; align-items:baseline; margin-top:.5rem; flex-wrap:wrap;
+    }
+    .pricing-field { display:flex; flex-direction:column; gap:.15rem; }
+    .pricing-field .pf-label { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text-3); }
+    .pricing-field .pf-value { font-size:1.6rem; font-weight:700; color:var(--accent); font-family:'Geist Mono',monospace; }
+    .pricing-field .pf-value span { font-size:.75rem; font-weight:400; color:var(--text-3); margin-left:3px; font-family:'Geist',sans-serif; }
+    .pricing-field.setup .pf-value { font-size:1.2rem; color:var(--text-2); }
+
+    /* ── Browse panel (left) ─────────────────────────────────────────── */
+    .browse-panel {}
+
+    /* Category tabs */
+    .cat-tabs {
+      display:flex; gap:.35rem; flex-wrap:wrap;
+      margin-bottom:1.25rem; border-bottom:1px solid var(--border); padding-bottom:.75rem;
+    }
+    .cat-tab {
+      background:var(--surface); border:1px solid var(--border);
+      color:var(--text-2); font-family:'Geist',sans-serif; font-size:.73rem; font-weight:600;
+      padding:.3rem .8rem; border-radius:999px; cursor:pointer;
+      transition:background .15s, border-color .15s, color .15s;
+    }
+    .cat-tab:hover { border-color:var(--accent); color:var(--accent); }
+    .cat-tab.active { background:var(--accent-dim); border-color:var(--accent); color:var(--accent-text); }
+
+    /* Category panel */
+    .cat-panel { display:none; }
+    .cat-panel.active { display:block; }
+
+    /* Type group (collapsible) */
+    .type-group { margin-bottom:.75rem; }
+    .type-group-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.45rem .6rem; cursor:pointer; border-radius:6px;
+      font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3);
+      background:transparent; border:none; width:100%; text-align:left;
+      transition:background .15s;
+      user-select:none;
+    }
+    .type-group-header:hover { background:var(--surface); }
+    .type-group-header::after { content:"▾"; font-size:.7rem; transition:transform .2s; }
+    .type-group.collapsed .type-group-header::after { transform:rotate(-90deg); }
+    .type-group-body { padding-top:.3rem; }
+    .type-group.collapsed .type-group-body { display:none; }
+    .type-group-nested { margin-left:.75rem; }
+    .type-group-header-nested { padding-left:.4rem; }
+
+    /* Browse item rows */
+    .browse-item {
+      display:grid; grid-template-columns:1fr auto auto;
+      align-items:center; gap:.6rem;
+      padding:.6rem .8rem; border-radius:8px; margin-bottom:.3rem;
+      background:var(--surface); border:1px solid var(--border);
+      transition:border-color .15s;
+    }
+    .browse-item.is-default { opacity:.7; }
+    .browse-item.is-added { border-color:var(--green); }
+    .bi-name { font-size:.83rem; font-weight:500; color:var(--text-1); }
+    .bi-type { font-size:.68rem; color:var(--text-3); margin-top:1px; }
+    .bi-badges { display:flex; gap:.35rem; align-items:center; flex-shrink:0; }
+    .badge-mrc {
+      font-size:.7rem; font-weight:600; font-family:'Geist Mono',monospace;
+      color:var(--accent); background:var(--accent-dim);
+      padding:2px 7px; border-radius:4px;
+    }
+    .badge-setup {
+      font-size:.68rem; font-weight:600; font-family:'Geist Mono',monospace;
+      color:var(--orange-text); background:var(--orange-dim);
+      padding:2px 7px; border-radius:4px;
+    }
+    .badge-included {
+      font-size:.68rem; font-weight:600;
+      color:var(--text-3); background:var(--surface-2);
+      padding:2px 7px; border-radius:4px;
+    }
+    .badge-default {
+      font-size:.68rem; font-weight:600;
+      color:var(--green-text); background:var(--green-dim);
+      padding:2px 7px; border-radius:4px;
+    }
+    .badge-cost-hw {
+      font-size:.68rem; font-weight:600; font-family:'Geist Mono',monospace;
+      color:var(--text-2); background:var(--surface-2);
+      padding:2px 7px; border-radius:4px;
+    }
+    .badge-cost-sw {
+      font-size:.68rem; font-weight:600; font-family:'Geist Mono',monospace;
+      color:var(--text-2); background:var(--surface-2);
+      padding:2px 7px; border-radius:4px;
+    }
+    .bi-actions { flex-shrink:0; }
+    .btn-add {
+      background:var(--accent-dim); border:1px solid var(--accent);
+      color:var(--accent-text); font-family:'Geist',sans-serif; font-size:.72rem; font-weight:700;
+      padding:.25rem .65rem; border-radius:6px; cursor:pointer;
+      transition:background .15s, opacity .15s;
+    }
+    .btn-add:hover { background:var(--accent); color:#fff; }
+    .btn-add.added { background:var(--green-dim); border-color:var(--green); color:var(--green-text); }
+    .btn-add.added:hover { background:var(--red-dim); border-color:var(--red); color:var(--red-text); }
+
+    /* Default component row with swap (inside browse panel) */
+    .default-item {
+      display:grid; grid-template-columns:1fr auto auto;
+      align-items:center; gap:.6rem;
+      padding:.6rem .8rem; border-radius:8px; margin-bottom:.3rem;
+      background:var(--surface); border:1px solid var(--border); border-left:3px solid transparent;
+      transition:border-color .15s, border-left-color .15s;
+    }
+    .default-item.changed { border-left-color:var(--orange); }
+
+    /* ── Summary panel (right) ───────────────────────────────────────── */
+    .summary-panel {
+      background:var(--surface-2); border:1px solid var(--border);
+      border-radius:12px; padding:1.1rem 1.25rem;
+      position:sticky; top:1rem;
+    }
+    .summary-title {
+      font-size:.63rem; font-weight:700; text-transform:uppercase; letter-spacing:.09em;
+      color:var(--text-3); margin-bottom:.85rem;
+    }
+    .summary-section { margin-bottom:1rem; }
+    .summary-section-label {
+      font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+      color:var(--text-3); margin-bottom:.45rem;
+    }
+    .summary-included-list { list-style:none; }
+    .summary-included-list li {
+      font-size:.76rem; color:var(--text-2); padding:.18rem 0;
+      display:flex; gap:.35rem; align-items:baseline;
+    }
+    .summary-included-list li::before { content:"·"; color:var(--text-3); flex-shrink:0; }
+    .summary-added-list { list-style:none; }
+    .summary-added-row {
+      display:grid; grid-template-columns:1fr auto auto auto auto;
+      align-items:center; gap:.4rem;
+      padding:.35rem 0; border-bottom:1px solid var(--border); font-size:.73rem;
+    }
+    .summary-added-row:last-child { border-bottom:none; }
+    .sar-name { color:var(--text-1); font-weight:500; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .sar-val  { font-family:'Geist Mono',monospace; font-size:.68rem; color:var(--text-2); white-space:nowrap; }
+    .sar-val.zero { color:var(--text-3); }
+    .sar-remove {
+      background:none; border:none; color:var(--text-3); font-size:.9rem; cursor:pointer;
+      padding:0 .2rem; line-height:1; transition:color .15s;
+    }
+    .sar-remove:hover { color:var(--red-text); }
+    .summary-totals {
+      margin-top:.75rem; padding-top:.65rem; border-top:1px solid var(--border);
+    }
+    .summary-total-row {
+      display:flex; justify-content:space-between; align-items:baseline;
+      font-size:.75rem; margin-bottom:.25rem;
+    }
+    .summary-total-row .st-label { color:var(--text-2); }
+    .summary-total-row .st-val { font-family:'Geist Mono',monospace; font-size:.75rem; font-weight:600; color:var(--text-1); }
+    .summary-total-row.total-mrc .st-val { color:var(--accent); font-size:.88rem; }
+    .summary-empty { font-size:.76rem; color:var(--text-3); font-style:italic; padding:.3rem 0; }
+
     /* ── Tooltips ────────────────────────────────────────────────────── */
     [data-tip] { cursor:help; border-bottom:1px dashed var(--text-3); text-decoration:none; position:relative; }
     [data-tip]::after {
@@ -278,6 +448,28 @@
 
     .divider { border:none; border-top:1px solid var(--border); margin:.7rem 0; }
 
+    /* Sidebar sub-section labels */
+    .sidebar-subsection-label {
+      font-size:.58rem; font-weight:700; text-transform:uppercase; letter-spacing:.09em;
+      color:var(--text-3); margin:.6rem 0 .3rem;
+    }
+    .sidebar-subsection-label:first-child { margin-top:0; }
+
+    /* Config summary items */
+    .cs-item { font-size:.75rem; color:var(--text-2); padding:.18rem 0; display:flex; gap:.3rem; align-items:baseline; }
+    .cs-item::before { content:"·"; color:var(--text-3); flex-shrink:0; }
+    .cs-added-item {
+      display:flex; align-items:center; gap:.4rem;
+      padding:.3rem 0; border-bottom:1px solid var(--border); font-size:.75rem;
+    }
+    .cs-added-item:last-child { border-bottom:none; }
+    .cs-addon-name { flex:1; font-weight:600; color:var(--accent); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .cs-addon-price { font-family:'Geist Mono',monospace; font-size:.7rem; color:var(--green); flex-shrink:0; }
+    .cs-empty { font-size:.73rem; color:var(--text-3); font-style:italic; padding:.2rem 0; }
+
+    .cost-line.total-setup .label { color:var(--text-1); font-weight:700; font-size:.8rem; }
+    .cost-line.total-setup .value { color:var(--orange); font-weight:700; font-size:.85rem; }
+
     /* Copy button */
     .copy-quote-wrap { padding:1rem 1.5rem; margin-top:auto; }
     .btn-copy {
@@ -352,10 +544,16 @@
       <div class="margin-monthly" id="margin-monthly"></div>
     </div>
 
-    <!-- Customer MRC -->
+    <!-- Pricing -->
     <details class="sidebar-section" open>
-      <summary>Customer MRC</summary>
+      <summary>Pricing</summary>
       <div class="sidebar-section-body" id="mrc-body"></div>
+    </details>
+
+    <!-- Configuration Summary -->
+    <details class="sidebar-section">
+      <summary>Configuration Summary</summary>
+      <div class="sidebar-section-body" id="config-summary-body"></div>
     </details>
 
     <!-- Internal Costs -->
@@ -421,6 +619,14 @@
   };
   const COST_LABELS = {
     power_per_kw:        'Power (kW)',
+    dc_equipment:        'DC Equipment',
+    network_equipment:   'Network Equipment',
+    dc_ops:              'DC Ops',
+    support_ops:         'Support Ops',
+    network_ops:         'Network Ops',
+    compute_ops:         'Compute Ops',
+    sga:                 'SG&A',
+    // legacy keys (pre-rename)
     dc_rm_supplies:      'DC R&M / Supplies',
     network:             'Network',
     dc_infra_operations: 'DC Infra / Ops',
@@ -430,13 +636,13 @@
     dc_people:           'DC People',
     network_people:      'Network People',
     compute_team:        'Compute Team',
-    sga:                 'SG&A',
   };
 
   // ── State ─────────────────────────────────────────────────────────────
   let CONFIG  = null;
-  let CHANGES = {};       // keyed by origId (swap) or `add-${slug}` (add)
-  let PICKERS = {};       // slug → { options, filtered, highlighted, selected, catName }
+  let CHANGES = {};    // keyed by origId → { type:'swap', orig_mrc, curr_mrc, name, hw_cost }
+  let ADDED   = [];    // [{ component_id, name, mrc, nrc, setup, hw_cost_display }]
+  let PICKERS = {};    // legacy — kept for any residual refs (unused in new UI)
 
   // ── Boot ──────────────────────────────────────────────────────────────
   Promise.all([
@@ -459,10 +665,11 @@
 
   // ── Header ────────────────────────────────────────────────────────────
   function renderHeader(product, config) {
-    const plClass = PRODUCT_LINE === '3' ? 'pl-mh' : 'pl-dh';
-    const term    = config.term_months || TERM;
-    const fxNote  = config.fx_pricing && config.fx_pricing !== 1.0
+    const plClass  = PRODUCT_LINE === '3' ? 'pl-mh' : 'pl-dh';
+    const term     = config.term_months || TERM;
+    const fxNote   = config.fx_pricing && config.fx_pricing !== 1.0
       ? ` · ${config.pricing_currency}→${CURRENCY} @ ${config.fx_pricing.toFixed(4)}` : '';
+    const setupFee = config.server_setup || 0;
     document.title = `${product.name} — CPQ · Aptum`;
     document.getElementById('server-header').innerHTML = `
       <h1>${esc(product.name)}</h1>
@@ -473,11 +680,10 @@
         <span>${term}mo term</span>
         ${product.sku ? `<span class="sku">${esc(product.sku)}</span>` : ''}
         ${fxNote ? `<span style="color:var(--text-3);font-style:italic">${fxNote}</span>` : ''}
-      </div>
-      <div class="server-mrc-display">${SYM}${fmt(config.server_mrc)}<span>/mo base</span></div>`;
+      </div>`;
   }
 
-  // ── Config body ───────────────────────────────────────────────────────
+  // ── Config body — two-panel layout ───────────────────────────────────
   function renderConfig(config) {
     const body = document.getElementById('config-body');
     const cats = {};
@@ -492,21 +698,100 @@
     const sorted = Object.entries(cats).sort((a,b) => a[1].sort - b[1].sort || a[0].localeCompare(b[0]));
     const defaultIdSet = new Set(config.default_ids);
 
-    body.innerHTML = sorted.map(([catName, cat]) => {
-      const rows   = cat.defaults.map(d => componentRow(d, cat.allowed, defaultIdSet)).join('');
-      const hasAdd = cat.allowed.some(a => !defaultIdSet.has(a.component_id));
-      const addBtn = hasAdd
-        ? `<button class="add-row-btn" onclick="addRow(${JSON.stringify(catName)})">+ Add ${esc(catName)} component</button>` : '';
-      return `
-        <div class="category" id="cat-${slug(catName)}">
-          <div class="category-title">${esc(catName)}</div>
-          <div id="rows-${slug(catName)}">${rows}</div>
-          ${addBtn}
+    // Build tab bar
+    const tabs = sorted.map(([catName], idx) =>
+      `<button class="cat-tab${idx===0?' active':''}" onclick="switchTab('${esc(slug(catName))}')" id="tab-${slug(catName)}">${esc(catName)}</button>`
+    ).join('');
+
+    // Build each category panel
+    const panels = sorted.map(([catName, cat], idx) => {
+      const s = slug(catName);
+
+      // --- Defaults section grouped by fullType (parent_type + component_type)
+      const defsByType = {};
+      cat.defaults.forEach(d => {
+        const ft = fullType(d);
+        if (!defsByType[ft]) defsByType[ft] = [];
+        defsByType[ft].push(d);
+      });
+
+      const defaultSection = Object.entries(defsByType).map(([typeName, comps]) => {
+        const rows = comps.map(d => defaultItemRow(d, cat.allowed, defaultIdSet)).join('');
+        return `<div class="type-group" id="tg-def-${s}-${slug(typeName)}">
+          <button class="type-group-header" onclick="toggleGroup(this)">${esc(typeName)}</button>
+          <div class="type-group-body">${rows}</div>
         </div>`;
+      }).join('');
+
+      // --- Addable section: nest by parent_type when multiple children share a parent
+      const addable = cat.allowed.filter(a => !defaultIdSet.has(a.component_id));
+      // group: { parentKey: { childType: [items] } }
+      const addableNested = {};
+      addable.forEach(a => {
+        const pk = a.parent_type || '';
+        const ck = a.component_type;
+        if (!addableNested[pk]) addableNested[pk] = {};
+        if (!addableNested[pk][ck]) addableNested[pk][ck] = [];
+        addableNested[pk][ck].push(a);
+      });
+
+      const addSection = Object.entries(addableNested).map(([parentKey, children]) => {
+        const childEntries = Object.entries(children);
+        // If no parent or only one child type: render flat
+        if (!parentKey || childEntries.length === 1) {
+          return childEntries.map(([childType, comps]) => {
+            const label = parentKey ? `${parentKey}, ${childType}` : childType;
+            const rows = comps.map(a => browseItemRow(a)).join('');
+            return `<div class="type-group" id="tg-add-${s}-${slug(label)}">
+              <button class="type-group-header" onclick="toggleGroup(this)">${esc(label)}</button>
+              <div class="type-group-body">${rows}</div>
+            </div>`;
+          }).join('');
+        }
+        // Multiple children under same parent: nest them
+        const nestedChildren = childEntries.map(([childType, comps]) => {
+          const rows = comps.map(a => browseItemRow(a)).join('');
+          return `<div class="type-group type-group-nested" id="tg-add-${s}-${slug(parentKey+'-'+childType)}">
+            <button class="type-group-header type-group-header-nested" onclick="toggleGroup(this)">${esc(childType)}</button>
+            <div class="type-group-body">${rows}</div>
+          </div>`;
+        }).join('');
+        return `<div class="type-group" id="tg-add-${s}-${slug(parentKey)}">
+          <button class="type-group-header" onclick="toggleGroup(this)">${esc(parentKey)}</button>
+          <div class="type-group-body">${nestedChildren}</div>
+        </div>`;
+      }).join('');
+
+      const hasDefaults  = defaultSection.length > 0;
+      const hasAddable   = addSection.length > 0;
+
+      return `<div class="cat-panel${idx===0?' active':''}" id="panel-${s}">
+        ${hasDefaults ? `<div style="margin-bottom:1rem">
+          <div class="summary-section-label" style="margin-bottom:.5rem">Included</div>
+          ${defaultSection}
+        </div>` : ''}
+        ${hasAddable ? `<div>
+          <div class="summary-section-label" style="margin-bottom:.5rem">Add-ons</div>
+          ${addSection}
+        </div>` : ''}
+        ${!hasDefaults && !hasAddable ? '<p class="empty">No components in this category.</p>' : ''}
+      </div>`;
     }).join('');
+
+    body.innerHTML = `
+      <div class="browse-panel">
+        <div class="cat-tabs">${tabs}</div>
+        <div id="cat-panels">${panels}</div>
+      </div>`;
+
+    renderConfigSummary();
   }
 
-  function componentRow(comp, allowed, defaultIdSet) {
+  function fullType(comp) {
+    return comp.parent_type ? `${comp.parent_type}, ${comp.component_type}` : comp.component_type;
+  }
+
+  function defaultItemRow(comp, allowed, defaultIds) {
     const cid    = comp.component_id;
     const mrcStr = comp.component_mrc > 0
       ? `${SYM}${fmt(comp.component_mrc)}/mo`
@@ -514,15 +799,16 @@
     const hwStr  = comp.hw_cost_display != null ? `CapEx: ${SYM}${fmt(comp.hw_cost_display)}` : '';
 
     const swapOpts = allowed
-      .filter(a => a.component_type === comp.component_type)
+      .filter(a => fullType(a) === fullType(comp) &&
+                   (a.component_id === cid || !defaultIds.has(a.component_id)))
       .map(a =>
-        `<option value="${a.component_id}" data-mrc="${a.component_mrc}" data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>` +
-        `${esc(a.name)}${a.component_mrc>0?' — '+SYM+fmt(a.component_mrc)+'/mo':' — included'}</option>`
+        `<option value="${a.component_id}" data-mrc="${a.addon_mrc}" data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}"${a.component_id===cid?' selected':''}>` +
+        `${esc(a.name)}${a.addon_mrc>0?' — '+SYM+fmt(a.addon_mrc)+'/mo':' — included'}</option>`
       ).join('');
     const hasSwap = swapOpts.split('<option').length > 2;
 
     return `
-      <div class="component-row" id="row-${cid}"
+      <div class="default-item" id="row-${cid}"
            data-orig-id="${cid}" data-orig-mrc="${comp.component_mrc}"
            data-orig-name="${esc(comp.name)}" data-orig-hw="${comp.hw_cost_display||0}">
         <div>
@@ -537,6 +823,119 @@
           ${hasSwap ? `<label class="sr-only" for="sel-${cid}">Swap ${esc(comp.component_type)}</label><select class="comp-select" id="sel-${cid}" onchange="onSwap(${cid},this)">${swapOpts}</select>` : ''}
         </div>
       </div>`;
+  }
+
+  function browseItemRow(comp) {
+    const cid      = comp.component_id;
+    const mrc      = comp.addon_mrc   || 0;
+    const setup    = comp.addon_setup || 0;
+    const costKind = comp.cost_kind || null;          // "hw", "sw", or null
+    const costVal  = comp.hw_cost_display || 0;
+
+    const mrcBadge   = mrc   > 0 ? `<span class="badge-mrc">${SYM}${fmt(mrc)}/mo</span>`   : `<span class="badge-included">included</span>`;
+    const setupBadge = setup > 0 ? `<span class="badge-setup">Setup ${SYM}${fmt(setup)}</span>` : '';
+    const costBadge  = costVal > 0
+      ? (costKind === 'sw'
+          ? `<span class="badge-cost-sw">Cost ${SYM}${fmt(costVal)}/mo</span>`
+          : `<span class="badge-cost-hw">Cost ${SYM}${fmt(costVal)}</span>`)
+      : '';
+
+    return `
+      <div class="browse-item" id="bi-${cid}" data-comp-id="${cid}">
+        <div>
+          <div class="bi-name" title="Fusion ID: ${cid}">${esc(comp.name)}</div>
+          <div class="bi-type">${esc(comp.component_type)}</div>
+        </div>
+        <div class="bi-badges">${mrcBadge}${setupBadge}${costBadge}</div>
+        <div class="bi-actions">
+          <button class="btn-add" id="addbtn-${cid}"
+                  data-comp-id="${cid}" data-name="${esc(comp.name)}"
+                  data-mrc="${mrc}" data-nrc="${comp.addon_nrc||comp.component_nrc||0}"
+                  data-setup="${setup}" data-hw="${costKind === 'hw' ? costVal : 0}"
+                  data-sw-cost="${costKind === 'sw' ? costVal : 0}"
+                  data-cost-kind="${costKind || ''}"
+                  onclick="toggleAddComponent(this)">+ Add</button>
+        </div>
+      </div>`;
+  }
+
+  // ── Tab switching ─────────────────────────────────────────────────────
+  function switchTab(s) {
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`tab-${s}`)?.classList.add('active');
+    document.getElementById(`panel-${s}`)?.classList.add('active');
+  }
+
+  // ── Type group collapse ───────────────────────────────────────────────
+  function toggleGroup(btn) {
+    btn.closest('.type-group')?.classList.toggle('collapsed');
+  }
+
+  // ── Add / Remove component ────────────────────────────────────────────
+  function toggleAddComponent(btn) {
+    const cid   = parseInt(btn.dataset.compId);
+    const idx   = ADDED.findIndex(a => a.component_id === cid);
+    if (idx >= 0) {
+      // Remove
+      ADDED.splice(idx, 1);
+      btn.textContent = '+ Add';
+      btn.classList.remove('added');
+      document.getElementById(`bi-${cid}`)?.classList.remove('is-added');
+    } else {
+      // Add
+      ADDED.push({
+        component_id:    cid,
+        name:            btn.dataset.name,
+        mrc:             parseFloat(btn.dataset.mrc)    || 0,
+        nrc:             parseFloat(btn.dataset.nrc)    || 0,
+        setup:           parseFloat(btn.dataset.setup)  || 0,
+        hw_cost_display: parseFloat(btn.dataset.hw)     || 0,
+        sw_cost:         parseFloat(btn.dataset.swCost) || 0,
+        cost_kind:       btn.dataset.costKind           || '',
+      });
+      btn.textContent = '✓ Added';
+      btn.classList.add('added');
+      document.getElementById(`bi-${cid}`)?.classList.add('is-added');
+    }
+    renderConfigSummary();
+    renderSummary();
+  }
+
+  function removeAddedComponent(cid) {
+    ADDED = ADDED.filter(a => a.component_id !== cid);
+    // Reset [+] button if visible
+    const btn = document.getElementById(`addbtn-${cid}`);
+    if (btn) { btn.textContent = '+ Add'; btn.classList.remove('added'); }
+    document.getElementById(`bi-${cid}`)?.classList.remove('is-added');
+    renderConfigSummary();
+    renderSummary();
+  }
+
+  // ── Config summary sidebar section ────────────────────────────────────
+  function renderConfigSummary() {
+    const body = document.getElementById('config-summary-body');
+    if (!body || !CONFIG) return;
+
+    const includedHtml = CONFIG.defaults.map(d =>
+      `<div class="cs-item">${esc(d.name)}${d.quantity>1?' ×'+d.quantity:''}</div>`
+    ).join('');
+
+    const addedHtml = ADDED.length === 0
+      ? '<div class="cs-empty">None added yet</div>'
+      : ADDED.map(a => `
+          <div class="cs-added-item">
+            <span class="cs-addon-name" title="${esc(a.name)}">${esc(a.name)}</span>
+            <span class="cs-addon-price">${a.mrc > 0 ? '+'+SYM+fmt(a.mrc)+'/mo' : 'incl.'}</span>
+            <button class="sar-remove" onclick="removeAddedComponent(${a.component_id})" title="Remove">×</button>
+          </div>`
+        ).join('');
+
+    body.innerHTML = `
+      <div class="sidebar-subsection-label">Included</div>
+      ${includedHtml}
+      <div class="sidebar-subsection-label" style="margin-top:.65rem">Added</div>
+      ${addedHtml}`;
   }
 
   // ── Swap handler ──────────────────────────────────────────────────────
@@ -562,159 +961,7 @@
       row.classList.add('changed');
       CHANGES[origId] = { type:'swap', orig_mrc:origMrc, curr_mrc:newMrc, name:newName, hw_cost:newHw };
     }
-    renderSummary();
-  }
-
-  // ── Searchable add-row picker ─────────────────────────────────────────
-  function addRow(catName) {
-    const s = slug(catName);
-    if (document.getElementById(`picker-${s}`)) return;
-
-    const defaultIdSet = new Set(CONFIG.default_ids);
-    const addable = CONFIG.allowed.filter(a =>
-      a.category === catName && !defaultIdSet.has(a.component_id)
-    );
-    if (!addable.length) return;
-
-    PICKERS[s] = { options: addable, filtered: addable, highlighted: -1, selected: null, catName };
-
-    const rowHtml = `
-      <div class="component-row added" id="picker-${s}">
-        <div class="picker-wrap" id="picker-wrap-${s}">
-          <input type="text" class="picker-input" id="picker-input-${s}"
-                 placeholder="Search ${esc(catName)}…" autocomplete="off" spellcheck="false"
-                 aria-label="Search ${esc(catName)} components">
-          <button class="picker-clear" id="picker-clear-${s}" onclick="clearPicker('${s}')" tabindex="-1">✕</button>
-          <ul class="picker-list" id="picker-list-${s}" role="listbox" hidden></ul>
-        </div>
-        <div class="comp-cost">
-          <div class="mrc" id="picker-mrc-${s}" style="color:var(--text-3)">—</div>
-        </div>
-        <div class="comp-actions">
-          <button class="btn btn-remove" onclick="removePicker('${s}')">×</button>
-        </div>
-      </div>`;
-
-    document.getElementById(`rows-${s}`).insertAdjacentHTML('beforeend', rowHtml);
-    renderPickerList(s);
-
-    const input = document.getElementById(`picker-input-${s}`);
-    const list  = document.getElementById(`picker-list-${s}`);
-    input.addEventListener('input',   () => { renderPickerList(s); list.hidden = false; updateClearBtn(s); });
-    input.addEventListener('focus',   () => { renderPickerList(s); list.hidden = false; });
-    input.addEventListener('blur',    () => setTimeout(() => { list.hidden = true; }, 200));
-    input.addEventListener('keydown', (e) => pickerKey(e, s));
-    input.focus();
-  }
-
-  function renderPickerList(s) {
-    const state = PICKERS[s];
-    const input = document.getElementById(`picker-input-${s}`);
-    const list  = document.getElementById(`picker-list-${s}`);
-    if (!state || !input || !list) return;
-
-    const q = input.value.toLowerCase().trim();
-    state.filtered = q
-      ? state.options.filter(a => a.name.toLowerCase().includes(q))
-      : state.options;
-    state.highlighted = -1;
-
-    if (!state.filtered.length) {
-      list.innerHTML = `<li class="picker-empty">No matches for "${esc(input.value)}"</li>`;
-      list.hidden = false;
-      return;
-    }
-
-    list.innerHTML = state.filtered.slice(0, 40).map((a, i) => `
-      <li role="option" data-idx="${i}"
-          data-id="${a.component_id}" data-mrc="${a.component_mrc}"
-          data-hw="${a.hw_cost_display||0}" data-name="${esc(a.name)}">
-        <span class="p-name">${esc(a.name)}</span>
-        <span class="p-price${a.component_mrc>0?'':' incl'}">${a.component_mrc>0?SYM+fmt(a.component_mrc)+'/mo':'included'}</span>
-      </li>`).join('');
-
-    list.hidden = false;
-    list.querySelectorAll('li[data-idx]').forEach(li => {
-      li.addEventListener('mousedown', e => { e.preventDefault(); pickerSelect(s, li); });
-      li.addEventListener('mouseover', () => {
-        state.highlighted = parseInt(li.dataset.idx);
-        highlightPicker(s);
-      });
-    });
-  }
-
-  function pickerKey(e, s) {
-    const state = PICKERS[s];
-    const list  = document.getElementById(`picker-list-${s}`);
-    if (!state?.filtered?.length) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      state.highlighted = Math.min(state.highlighted + 1, state.filtered.length - 1);
-      highlightPicker(s);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      state.highlighted = Math.max(state.highlighted - 1, 0);
-      highlightPicker(s);
-    } else if (e.key === 'Enter' && state.highlighted >= 0) {
-      e.preventDefault();
-      const li = list?.querySelector(`li[data-idx="${state.highlighted}"]`);
-      if (li) pickerSelect(s, li);
-    } else if (e.key === 'Escape') {
-      if (list) list.hidden = true;
-    }
-  }
-
-  function highlightPicker(s) {
-    const list = document.getElementById(`picker-list-${s}`);
-    list?.querySelectorAll('li').forEach(li => {
-      li.classList.toggle('hl', parseInt(li.dataset.idx) === PICKERS[s].highlighted);
-    });
-  }
-
-  function pickerSelect(s, li) {
-    const state  = PICKERS[s];
-    const compId = parseInt(li.dataset.id);
-    const mrc    = parseFloat(li.dataset.mrc) || 0;
-    const hw     = parseFloat(li.dataset.hw)  || 0;
-    const name   = li.dataset.name;
-    state.selected = { compId, mrc, hw, name };
-
-    const input  = document.getElementById(`picker-input-${s}`);
-    const list   = document.getElementById(`picker-list-${s}`);
-    const mrcEl  = document.getElementById(`picker-mrc-${s}`);
-    if (input)  { input.value = name; updateClearBtn(s); }
-    if (list)   list.hidden = true;
-    if (mrcEl)  mrcEl.innerHTML = mrc > 0
-      ? `${SYM}${fmt(mrc)}/mo`
-      : `<span style="color:var(--text-3)">included</span>`;
-    mrcEl.style.color = '';
-
-    CHANGES[`add-${s}`] = { type:'add', curr_mrc:mrc, name, hw_cost:hw, comp_id:compId, elem_id:`picker-${s}` };
-    renderSummary();
-  }
-
-  function clearPicker(s) {
-    const input = document.getElementById(`picker-input-${s}`);
-    const mrcEl = document.getElementById(`picker-mrc-${s}`);
-    if (input) { input.value = ''; input.focus(); }
-    if (mrcEl) { mrcEl.textContent = '—'; mrcEl.style.color = 'var(--text-3)'; }
-    if (PICKERS[s]) { PICKERS[s].selected = null; PICKERS[s].highlighted = -1; }
-    delete CHANGES[`add-${s}`];
-    updateClearBtn(s);
-    renderPickerList(s);
-    renderSummary();
-  }
-
-  function updateClearBtn(s) {
-    const input = document.getElementById(`picker-input-${s}`);
-    const btn   = document.getElementById(`picker-clear-${s}`);
-    if (btn) btn.style.display = input?.value ? 'block' : 'none';
-  }
-
-  function removePicker(s) {
-    document.getElementById(`picker-${s}`)?.remove();
-    delete CHANGES[`add-${s}`];
-    delete PICKERS[s];
+    renderConfigSummary();
     renderSummary();
   }
 
@@ -756,28 +1003,33 @@
     let swapDelta = 0;
     for (const ch of Object.values(CHANGES)) {
       if (ch.type === 'swap') swapDelta += ch.curr_mrc - ch.orig_mrc;
-      if (ch.type === 'add')  swapDelta += ch.curr_mrc;
     }
-    const adjMrc = totalMrc + swapDelta;
+    const addedMrc = ADDED.reduce((s,a) => s+a.mrc, 0);
+    const adjMrc = totalMrc + swapDelta + addedMrc;
 
     // ── Overhead ─────────────────────────────────────────────────────
     const ovh = CONFIG.overhead;
     let totalOverhead = 0;
     const ovhLines = [];
     for (const [k, entry] of Object.entries(ovh)) {
+      const tip = provenanceTip(entry.provenance) || TIPS[k] || '';
       if (entry.amount === null) {
-        const tip = provenanceTip(entry.provenance) || TIPS[k] || '';
-        ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:'N/A — no watt data', na:true, tip });
+        ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:'N/A', na:true, tip });
         continue;
       }
-      if (entry.amount === 0) continue;
-      totalOverhead += entry.amount;
-      const tip = provenanceTip(entry.provenance) || TIPS[k] || '';
-      ovhLines.push({ key:k, label:COST_LABELS[k]||k, value:`${SYM}${fmt(entry.amount)}`, tip });
+      if (entry.amount !== 0) totalOverhead += entry.amount;
+      ovhLines.push({
+        key: k, label: COST_LABELS[k]||k, tip,
+        value: entry.amount === 0 ? '—' : `${SYM}${fmt(entry.amount)}`,
+        zero: entry.amount === 0,
+        na: false,
+      });
     }
 
     // ── HW / Margin ──────────────────────────────────────────────────
-    const hwCapex    = CONFIG.total_hw_capex;            // display currency, one-time
+    const addedHwCapex = ADDED.filter(a => a.cost_kind === 'hw').reduce((s,a) => s + (a.hw_cost_display||0), 0);
+    const addedSwMrc   = ADDED.filter(a => a.cost_kind === 'sw').reduce((s,a) => s + (a.sw_cost||0), 0);
+    const hwCapex    = CONFIG.total_hw_capex + addedHwCapex;
     const hwMonthly  = hwCapex / termMo;                 // amortized over term
     const totalCost  = totalOverhead + hwMonthly;
     const margin     = adjMrc - totalCost;
@@ -799,22 +1051,43 @@
     if (badgeEl) { badgeEl.textContent = ms.badge; badgeEl.title = ms.badgeTip; }
     if (monthEl) monthEl.textContent  = `${SYM}${fmt(margin)}/mo`;
 
-    // ── Customer MRC section ─────────────────────────────────────────
+    // ── Pricing section ──────────────────────────────────────────────
     const mrcProvTip = provenanceTip(CONFIG.server_mrc_provenance);
-    const changeLines = Object.values(CHANGES).map(ch => {
-      const delta = ch.type === 'swap' ? ch.curr_mrc - ch.orig_mrc : ch.curr_mrc;
+    const swapLines = Object.values(CHANGES).filter(ch => ch.type==='swap').map(ch => {
+      const delta = ch.curr_mrc - ch.orig_mrc;
       const sign  = delta >= 0 ? '+' : '−';
       return `<div class="cost-line"><span class="label">${esc(ch.name)}</span><span class="value">${sign}${SYM}${fmt(Math.abs(delta))}/mo</span></div>`;
     }).join('');
+    const addedLines = ADDED.filter(a => a.mrc > 0).map(a =>
+      `<div class="cost-line"><span class="label">${esc(a.name)}</span><span class="value">+${SYM}${fmt(a.mrc)}/mo</span></div>`
+    ).join('');
+    const changeLines = swapLines + addedLines;
+
+    const serverSetup  = CONFIG.server_setup || 0;
+    const addonSetups  = ADDED.filter(a => a.setup > 0);
+    const setupTotal   = serverSetup + ADDED.reduce((s,a) => s+a.setup, 0);
+    const nrcTotal     = (CONFIG.server_nrc || 0) + ADDED.reduce((s,a) => s+a.nrc, 0);
+    const grandSetup   = setupTotal + nrcTotal;
+    const hasOneTime   = grandSetup > 0;
+
+    const oneTimeHtml = hasOneTime ? `
+      <div class="sidebar-subsection-label">One-Time Fees</div>
+      ${serverSetup > 0 ? `<div class="cost-line"><span class="label">Setup Fee</span><span class="value">${SYM}${fmt(serverSetup)}</span></div>` : ''}
+      ${addonSetups.map(a => `<div class="cost-line"><span class="label">${esc(a.name)}</span><span class="value">${SYM}${fmt(a.setup)}</span></div>`).join('')}
+      ${nrcTotal > 0 ? `<div class="cost-line"><span class="label">NRC</span><span class="value">${SYM}${fmt(nrcTotal)}</span></div>` : ''}
+      <hr class="divider">
+      <div class="sidebar-subsection-label">Monthly</div>` : '';
 
     document.getElementById('mrc-body').innerHTML = `
+      ${oneTimeHtml}
       <div class="cost-line">
-        <span class="label"${mrcProvTip ? ` data-tip="${esc(mrcProvTip)}"` : ''}>Server base</span>
+        <span class="label"${mrcProvTip ? ` data-tip="${esc(mrcProvTip)}"` : ''}>Base</span>
         <span class="value">${SYM}${fmt(CONFIG.server_mrc)}/mo</span>
       </div>
-      <div class="cost-line"><span class="label">Default components</span><span class="value">${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo</span></div>
+      <div class="cost-line"><span class="label">Components MRC</span><span class="value">${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo</span></div>
       ${changeLines ? `<hr class="divider">${changeLines}<hr class="divider">` : '<hr class="divider">'}
-      <div class="cost-line total"><span class="label">Total MRC</span><span class="value">${SYM}${fmt(adjMrc)}/mo</span></div>`;
+      <div class="cost-line total"><span class="label">Total MRC</span><span class="value">${SYM}${fmt(adjMrc)}/mo</span></div>
+      ${hasOneTime ? `<div class="cost-line total-setup"><span class="label">Total Setup Fee</span><span class="value">${SYM}${fmt(grandSetup)}</span></div>` : ''}`;
 
     // ── Internal costs section ────────────────────────────────────────
     const hwProv    = CONFIG.hw_capex_provenance;
@@ -836,16 +1109,22 @@
       ${ovhLines.map(l => `
         <div class="cost-line">
           <span class="label"${l.tip ? ` data-tip="${esc(l.tip)}"` : ''}>${esc(l.label)}</span>
-          <span class="value${l.na?' muted':''}">${l.value}</span>
+          <span class="value${l.na||l.zero?' muted':''}">${l.value}</span>
         </div>`).join('')}
+      ${addedSwMrc > 0 ? `
+      <hr class="divider">
+      ${ADDED.filter(a => a.cost_kind === 'sw' && a.sw_cost > 0).map(a =>
+        `<div class="cost-line"><span class="label">${esc(a.name)}</span><span class="value">${SYM}${fmt(a.sw_cost)}/mo</span></div>`
+      ).join('')}
+      <div class="cost-line"><span class="label">SW Monthly Total</span><span class="value">${SYM}${fmt(addedSwMrc)}/mo</span></div>` : ''}
       <hr class="divider">
       <div class="cost-line">
         <span class="label">Total OpEx / mo</span>
-        <span class="value">${SYM}${fmt(totalOverhead)}/mo</span>
+        <span class="value">${SYM}${fmt(totalOverhead + addedSwMrc)}/mo</span>
       </div>
       <div class="cost-line total">
         <span class="label">Total Cost / mo</span>
-        <span class="value">${SYM}${fmt(totalCost)}/mo</span>
+        <span class="value">${SYM}${fmt(totalCost + addedSwMrc)}/mo</span>
       </div>`;
   }
 
@@ -860,25 +1139,35 @@
     let swapDelta = 0;
     for (const ch of Object.values(CHANGES)) {
       if (ch.type === 'swap') swapDelta += ch.curr_mrc - ch.orig_mrc;
-      if (ch.type === 'add')  swapDelta += ch.curr_mrc;
     }
-    const adjMrc    = totalMrc + swapDelta;
+    const addedMrc  = ADDED.reduce((s,a) => s+a.mrc, 0);
+    const adjMrc    = totalMrc + swapDelta + addedMrc;
     let totalOvh    = 0;
     for (const e of Object.values(CONFIG.overhead)) { if (e.amount > 0) totalOvh += e.amount; }
-    const hwCapex   = CONFIG.total_hw_capex;
+    const addedHwCap = ADDED.filter(a => a.cost_kind === 'hw').reduce((s,a) => s + (a.hw_cost_display||0), 0);
+    const addedSwMo  = ADDED.filter(a => a.cost_kind === 'sw').reduce((s,a) => s + (a.sw_cost||0), 0);
+    const hwCapex   = CONFIG.total_hw_capex + addedHwCap;
     const hwMonthly = hwCapex / termMo;
-    const totalCost = totalOvh + hwMonthly;
+    const totalCost = totalOvh + hwMonthly + addedSwMo;
     const margin    = adjMrc - totalCost;
     const marginPct = adjMrc > 0 ? (margin / adjMrc * 100) : 0;
     const ms        = marginStatus(marginPct);
 
+    const setupTotal = (CONFIG.server_setup || 0) + ADDED.reduce((s,a) => s+a.setup, 0);
+    const nrcTotal   = (CONFIG.server_nrc   || 0) + ADDED.reduce((s,a) => s+a.nrc,   0);
+
     const title = document.querySelector('#server-header h1')?.textContent || 'Server';
-    const changeBlock = Object.values(CHANGES).length
-      ? '\nChanges from default:\n' + Object.values(CHANGES).map(ch => {
-          const delta = ch.type === 'swap' ? ch.curr_mrc - ch.orig_mrc : ch.curr_mrc;
+    const swapBlock = Object.values(CHANGES).filter(ch=>ch.type==='swap').length
+      ? '\nSwaps from default:\n' + Object.values(CHANGES).filter(ch=>ch.type==='swap').map(ch => {
+          const delta = ch.curr_mrc - ch.orig_mrc;
           const sign  = delta >= 0 ? '+' : '−';
           return `  ${ch.name}: ${sign}${SYM}${fmt(Math.abs(delta))}/mo`;
         }).join('\n')
+      : '';
+    const addedBlock = ADDED.length
+      ? '\nAdded components:\n' + ADDED.map(a =>
+          `  ${a.name}: +${SYM}${fmt(a.mrc)}/mo${a.setup>0?' (Setup: '+SYM+fmt(a.setup)+')':''}${a.nrc>0?' (NRC: '+SYM+fmt(a.nrc)+')':''}`
+        ).join('\n')
       : '';
 
     const text = `Aptum CPQ — Quote Summary
@@ -889,9 +1178,13 @@ Currency:     ${CONFIG.currency}
 Product Line: ${PL_LABEL}
 Term:         ${termMo} months
 
+ONE-TIME FEES
+  Setup Fee:            ${SYM}${fmt(setupTotal)}
+  NRC:                  ${SYM}${fmt(nrcTotal)}
+
 CUSTOMER MRC
   Base:                 ${SYM}${fmt(CONFIG.server_mrc)}/mo
-  Default components:   ${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo${changeBlock}
+  Default components:   ${SYM}${fmt(totalMrc - CONFIG.server_mrc)}/mo${swapBlock}${addedBlock}
   ─────────────────────────────────────
   Total MRC:            ${SYM}${fmt(adjMrc)}/mo
 

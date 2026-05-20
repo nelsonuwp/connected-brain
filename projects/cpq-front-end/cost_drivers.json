@@ -1,777 +1,693 @@
 {
-  "version": "2026-05-13",
+  "data_centers": {
+    "ATL": {
+      "costs": {
+        "firewall": {
+          "power_per_kw": {
+            "amount": 337,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server": {
+          "power_per_kw": {
+            "amount": 337,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "switch": {
+          "power_per_kw": {
+            "amount": 337,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        }
+      },
+      "fusion_dc_id": 1,
+      "name": "Atlanta",
+      "native_currency": "USD"
+    },
+    "IAD": {
+      "costs": {
+        "firewall": {
+          "power_per_kw": {
+            "amount": 110,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server": {
+          "power_per_kw": {
+            "amount": 110,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "switch": {
+          "power_per_kw": {
+            "amount": 110,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        }
+      },
+      "fusion_dc_abbr": "IAD2",
+      "fusion_dc_id": 8,
+      "name": "Herndon (Washington DC)",
+      "native_currency": "USD"
+    },
+    "LAX": {
+      "costs": {
+        "firewall": {
+          "power_per_kw": {
+            "amount": 457,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server": {
+          "power_per_kw": {
+            "amount": 457,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "switch": {
+          "power_per_kw": {
+            "amount": 457,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        }
+      },
+      "fusion_dc_abbr": "LAX1",
+      "fusion_dc_id": 7,
+      "name": "Los Angeles",
+      "native_currency": "USD"
+    },
+    "MIA": {
+      "costs": {
+        "firewall": {
+          "power_per_kw": {
+            "amount": 48,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server": {
+          "power_per_kw": {
+            "amount": 48,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "switch": {
+          "power_per_kw": {
+            "amount": 48,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        }
+      },
+      "fusion_dc_id": 2,
+      "name": "Miami",
+      "native_currency": "USD"
+    },
+    "MTL": {
+      "costs": {
+        "firewall": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "switch": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        }
+      },
+      "fusion_dc_abbr": "MTL-BH",
+      "fusion_dc_id": 42,
+      "name": "Montreal",
+      "native_currency": "CAD"
+    },
+    "POR": {
+      "costs": {
+        "firewall": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "switch": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        }
+      },
+      "fusion_dc_abbr": "POR",
+      "fusion_dc_id": 13,
+      "name": "Portsmouth",
+      "native_currency": "GBP"
+    },
+    "TOR": {
+      "costs": {
+        "firewall": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "switch": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 40,
+            "measure": "per_device"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        }
+      },
+      "fusion_dc_abbr": "TOR",
+      "fusion_dc_id": 12,
+      "name": "Toronto",
+      "native_currency": "CAD"
+    }
+  },
   "notes": "DC cost overheads from CPQ finance spreadsheet. People cost lines are 0 pending data. Support = $80/hr rate, 0.5hr assumed per server per month = $40/server/month. Fusion sb_datacenter IDs included for pricebook joins.",
   "overhead_constants": {
     "sga_pct": 0.082
   },
-  "data_centers": {
-    "ATL": {
-      "name": "Atlanta",
-      "fusion_dc_id": 1,
-      "native_currency": "USD",
-      "costs": {
-        "server": {
-          "power_per_kw": {
-            "amount": 337,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "firewall": {
-          "power_per_kw": {
-            "amount": 337,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "switch": {
-          "power_per_kw": {
-            "amount": 337,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        }
-      }
-    },
-    "MIA": {
-      "name": "Miami",
-      "fusion_dc_id": 2,
-      "native_currency": "USD",
-      "costs": {
-        "server": {
-          "power_per_kw": {
-            "amount": 48,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 28,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "firewall": {
-          "power_per_kw": {
-            "amount": 48,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 28,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "switch": {
-          "power_per_kw": {
-            "amount": 48,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 28,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        }
-      }
-    },
-    "LAX": {
-      "name": "Los Angeles",
-      "fusion_dc_id": 7,
-      "fusion_dc_abbr": "LAX1",
-      "native_currency": "USD",
-      "costs": {
-        "server": {
-          "power_per_kw": {
-            "amount": 457,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "firewall": {
-          "power_per_kw": {
-            "amount": 457,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "switch": {
-          "power_per_kw": {
-            "amount": 457,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 21,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        }
-      }
-    },
-    "IAD": {
-      "name": "Herndon (Washington DC)",
-      "fusion_dc_id": 8,
-      "fusion_dc_abbr": "IAD2",
-      "native_currency": "USD",
-      "costs": {
-        "server": {
-          "power_per_kw": {
-            "amount": 110,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 19,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "firewall": {
-          "power_per_kw": {
-            "amount": 110,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 19,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "switch": {
-          "power_per_kw": {
-            "amount": 110,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 19,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        }
-      }
-    },
-    "TOR": {
-      "name": "Toronto",
-      "fusion_dc_id": 12,
-      "fusion_dc_abbr": "TOR",
-      "native_currency": "CAD",
-      "costs": {
-        "server": {
-          "power_per_kw": {
-            "amount": 253,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "firewall": {
-          "power_per_kw": {
-            "amount": 253,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "switch": {
-          "power_per_kw": {
-            "amount": 253,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        }
-      }
-    },
-    "MTL": {
-      "name": "Montreal",
-      "fusion_dc_id": 42,
-      "fusion_dc_abbr": "MTL-BH",
-      "native_currency": "CAD",
-      "costs": {
-        "server": {
-          "power_per_kw": {
-            "amount": 253,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "firewall": {
-          "power_per_kw": {
-            "amount": 253,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "switch": {
-          "power_per_kw": {
-            "amount": 253,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        }
-      }
-    },
-    "POR": {
-      "name": "Portsmouth",
-      "fusion_dc_id": 13,
-      "fusion_dc_abbr": "POR",
-      "native_currency": "GBP",
-      "costs": {
-        "server": {
-          "power_per_kw": {
-            "amount": 46,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 27,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "firewall": {
-          "power_per_kw": {
-            "amount": 46,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 27,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        },
-        "switch": {
-          "power_per_kw": {
-            "amount": 46,
-            "measure": "per_kw"
-          },
-          "dc_rm_supplies": {
-            "amount": 0,
-            "measure": "per_kw"
-          },
-          "network": {
-            "amount": 59,
-            "measure": "per_device"
-          },
-          "dc_infra_operations": {
-            "amount": 27,
-            "measure": "per_device"
-          },
-          "support_cost": {
-            "amount": 40.0,
-            "measure": "per_device"
-          },
-          "dc_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "network_people": {
-            "amount": 0,
-            "measure": "per_device"
-          },
-          "compute_team": {
-            "amount": 0,
-            "measure": "per_device"
-          }
-        }
-      }
-    }
-  }
+  "version": "2026-05-13"
 }
