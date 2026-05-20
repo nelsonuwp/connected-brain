@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """
-_sync.py — bidirectional sync between dev workspace and git repo
+_sync.py — sync between dev workspace, git repo, and prod VM
 
 Workspace : ~/connected-brain/projects/cpq-front-end  (here, dev in Claude)
 Git repo  : ~/Code/cpq-front-end                       (git remote on sgit)
+VM        : anelson@10.121.20.129:~/cpq-front-end      (prod, no git access)
 
-Any file/dir prefixed with _ stays in the workspace only (never synced to /Code or git).
+Any file/dir prefixed with _ stays in the workspace only (never synced anywhere).
 
 Usage:
   python _sync.py push "commit message"   # workspace → git repo → remote
   python _sync.py pull                    # remote → git repo → workspace
+  python _sync.py deploy                  # workspace → VM (then run make there)
   python _sync.py status                  # diff workspace vs git repo (dry-run)
 """
 
@@ -17,8 +19,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-WORKSPACE = Path(__file__).parent.resolve()
-REPO      = Path.home() / "Code" / "cpq-front-end"
+WORKSPACE  = Path(__file__).parent.resolve()
+REPO       = Path.home() / "Code" / "cpq-front-end"
+VM_TARGET  = "anelson@10.121.20.129:~/cpq-front-end"
 
 # Files/dirs excluded from rsync in both directions.
 # Anything prefixed with _ stays in the workspace only (never synced to /Code or git).
@@ -93,6 +96,18 @@ def cmd_pull() -> None:
     print("\n[pull] done.")
 
 
+def cmd_deploy() -> None:
+    """Workspace → VM (rsync over SSH). Run make commands on VM after."""
+    print(f"\n[deploy] workspace → {VM_TARGET}")
+    print("\n── rsync to VM ──")
+    # rsync function expects a Path for dst, but VM is a remote string — call directly.
+    flags = ["-av", "--delete"]
+    cmd = ["rsync", *flags, *_EXCLUDE_ARGS, f"{WORKSPACE}/", VM_TARGET + "/"]
+    run(cmd)
+    print("\n[deploy] done. On the VM run:")
+    print("  make build && make run-prod")
+
+
 def cmd_status() -> None:
     """Show what push would change (rsync dry-run) and current git status."""
     print(f"\n[status] workspace vs {REPO}")
@@ -130,11 +145,14 @@ def main() -> None:
     elif command == "pull":
         cmd_pull()
 
+    elif command == "deploy":
+        cmd_deploy()
+
     elif command == "status":
         cmd_status()
 
     else:
-        print(f"Unknown command: {command}\nUse push, pull, or status.", file=sys.stderr)
+        print(f"Unknown command: {command}\nUse push, pull, deploy, or status.", file=sys.stderr)
         sys.exit(1)
 
 
