@@ -593,18 +593,23 @@ def product_config(product_id):
                        pct.name AS parent_type,
                        cc.name AS category, cc.sort_order AS cat_sort,
                        pb.id AS pricebook_id,
-                       pb.mrc AS component_mrc, pb.nrc AS component_nrc, pb.setup AS component_setup
+                       pb.mrc AS component_mrc, pb.nrc AS component_nrc, pb.setup AS component_setup,
+                       pb.product_line_id AS pb_product_line_id
                 FROM {table} t
                 JOIN public.components c ON c.id = t.{id_col}
                 JOIN public.component_types ct ON ct.id = c.component_type_id
                 LEFT JOIN public.component_types pct ON pct.id = ct.parent_component_id
                 JOIN public.component_categories cc ON cc.id = ct.category_id
-                LEFT JOIN public.pricebook pb
-                    ON pb.component_id = t.{id_col}
-                   AND pb.currency = %s
-                   AND pb.datacenter = %s
-                   AND pb.product_line_id = %s
-                   AND pb.is_available = true
+                LEFT JOIN LATERAL (
+                    SELECT id, mrc, nrc, setup, product_line_id
+                    FROM public.pricebook
+                    WHERE component_id = t.{id_col}
+                      AND currency = %s
+                      AND datacenter = %s
+                      AND is_available = true
+                    ORDER BY (product_line_id = %s) DESC, product_line_id
+                    LIMIT 1
+                ) pb ON true
                 WHERE t.{'product_id' if table == 'public.product_templates' else 'product_id'} = %s
                 {'AND c.is_active = true' if table == 'public.product_allowed_components' else ''}
                 ORDER BY cc.sort_order, cc.name, ct.name, c.display_name
