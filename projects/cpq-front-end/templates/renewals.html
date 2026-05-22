@@ -48,6 +48,9 @@
     .badge.m2m   { background:var(--orange-dim); color:var(--orange); }
     .badge.soon  { background:var(--red-dim); color:var(--red-text); }
     .badge.mixed { background:var(--surface); color:var(--text-3); border:1px solid var(--border); }
+    .m2m-toggle { display:flex; align-items:center; gap:.4rem; padding:.35rem .75rem; border-radius:8px; border:1px solid var(--border); background:var(--bg); cursor:pointer; font-size:.8rem; font-weight:500; color:var(--text-2); transition:border-color .15s, background .15s, color .15s; user-select:none; align-self:flex-end; margin-bottom:.1rem; }
+    .m2m-toggle input { display:none; }
+    .m2m-toggle.active { border-color:var(--orange); background:var(--orange-dim); color:var(--orange-text); }
     .mono { font-family:'Geist Mono',monospace; }
     .empty { text-align:center; padding:4rem 1rem; color:var(--text-3); font-size:.875rem; }
     .spinner { display:inline-block; width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-right:6px; }
@@ -69,6 +72,10 @@
       <label for="f-service">Service ID</label>
       <input id="f-service" type="text" placeholder="e.g. 7981507" autocomplete="off" />
     </div>
+    <label class="m2m-toggle" id="m2m-toggle" onclick="toggleM2m()">
+      <input type="checkbox" id="f-m2m" />
+      M2M only
+    </label>
   </div>
   <div id="status-bar" role="status" aria-live="polite"></div>
   <div id="table-wrap">
@@ -115,14 +122,23 @@
   document.getElementById('f-client').addEventListener('input', onFilter);
   document.getElementById('f-service').addEventListener('input', onFilter);
 
+  function toggleM2m() {
+    const cb = document.getElementById('f-m2m');
+    cb.checked = !cb.checked;
+    document.getElementById('m2m-toggle').classList.toggle('active', cb.checked);
+    load();
+  }
+
   function load() {
     const company   = document.getElementById('f-company').value.trim();
     const clientId  = document.getElementById('f-client').value.trim();
     const serviceId = document.getElementById('f-service').value.trim();
+    const m2mOnly   = document.getElementById('f-m2m').checked;
     const params = new URLSearchParams();
     if (company)   params.set('company',    company);
     if (clientId)  params.set('client_id',  clientId);
     if (serviceId) params.set('service_id', serviceId);
+    if (m2mOnly)   params.set('m2m_only',   '1');
 
     document.getElementById('table-wrap').innerHTML =
       '<div class="empty"><span class="spinner"></span>Loading…</div>';
