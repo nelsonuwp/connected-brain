@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block title %}Renewal · Aptum{% endblock %}
+
+{% block extra_styles %}
+    .layout { display:grid; grid-template-columns:1fr 340px; min-height:calc(100vh - 70px); }
+    .main   { padding:2rem; overflow-y:auto; border-right:1px solid var(--border); }
+    .sidebar { padding:1.5rem; display:flex; flex-direction:column; gap:1.25rem; position:sticky; top:0; max-height:calc(100vh - 70px); overflow-y:auto; }
+
+    .service-meta { margin-bottom:1.5rem; }
+    .service-meta h2 { font-size:1.1rem; font-weight:700; color:var(--text-1); margin-bottom:.25rem; }
+    .service-meta .sub { font-size:.78rem; color:var(--text-2); }
+    .current-mrc { font-size:1.4rem; font-weight:700; color:var(--accent); font-family:'Geist Mono',monospace; margin-top:.5rem; }
+    .current-mrc span { font-size:.7rem; color:var(--text-3); font-family:'Geist',sans-serif; }
+
+    .section-title { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); margin:1.25rem 0 .5rem; }
+
+    .comp-table { width:100%; border-collapse:collapse; margin-bottom:1rem; }
+    .comp-table th { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); padding:.35rem .5rem; text-align:left; border-bottom:1px solid var(--border); }
+    .comp-table td { padding:.45rem .5rem; font-size:.78rem; color:var(--text-2); border-bottom:1px solid var(--border-mid); }
+    .comp-table td.name { color:var(--text-1); max-width:260px; }
+    .comp-table td.mono { font-family:'Geist Mono',monospace; }
+    .comp-table td.pos  { color:var(--orange); }
+    .comp-table td.neg  { color:var(--green); }
+    .warn-badge { display:inline-block; padding:1px 6px; border-radius:4px; font-size:.6rem; font-weight:700; background:var(--orange-dim); color:var(--orange); margin-left:.4rem; }
+
+    .term-selector { display:flex; gap:.4rem; }
+    .term-btn {
+      flex:1; padding:.45rem; border-radius:8px; border:1px solid var(--border);
+      background:var(--bg); color:var(--text-2); font-family:'Geist',sans-serif;
+      font-size:.8rem; font-weight:500; cursor:pointer; text-align:center;
+      transition:border-color .15s, background .15s, color .15s;
+    }
+    .term-btn:hover  { border-color:var(--accent); color:var(--accent); }
+    .term-btn.active { border-color:var(--accent); background:var(--accent-dim); color:var(--accent-text); }
+
+    .summary-table { width:100%; border-collapse:collapse; }
+    .summary-table td { padding:.4rem .25rem; font-size:.82rem; }
+    .summary-table td:last-child { text-align:right; font-family:'Geist Mono',monospace; color:var(--text-1); }
+    .summary-table tr.sep td { border-top:1px solid var(--border); padding-top:.6rem; }
+    .summary-table tr.highlight td { color:var(--accent); font-weight:700; font-size:.95rem; }
+    .summary-table tr.highlight td:last-child { color:var(--accent); }
+    .summary-table tr.dim td { color:var(--text-3); font-size:.75rem; }
+
+    .copy-btn {
+      width:100%; padding:.6rem; border-radius:8px;
+      border:1px solid var(--accent); background:var(--accent-dim);
+      color:var(--accent-text); font-family:'Geist',sans-serif;
+      font-size:.85rem; font-weight:600; cursor:pointer;
+      transition:background .15s;
+    }
+    .copy-btn:hover { background:var(--accent); color:#fff; }
+
+    .empty { text-align:center; padding:4rem 1rem; color:var(--text-3); font-size:.875rem; }
+    .spinner { display:inline-block; width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-right:6px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+{% endblock %}
+
+{% block body %}
+<div class="layout">
+  <div class="main" id="main-content">
+    <div class="empty"><span class="spinner"></span>Loading…</div>
+  </div>
+  <div class="sidebar" id="sidebar-content">
+    <div class="empty" style="padding:2rem 0"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  const SERVICE_ID = {{ service_id }};
+  const sym = { USD:'$', CAD:'$', GBP:'£', EUR:'€' };
+  let DATA = null;
+  let activeTerm = '36';
+
+  function fmt(n, cur) {
+    if (n === null || n === undefined) return '—';
+    const s = sym[cur] || '$';
+    return s + Number(n).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+  function esc(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  fetch(`/api/renewals/${SERVICE_ID}`)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data => { DATA = data; render(); })
+    .catch(() => {
+      document.getElementById('main-content').innerHTML =
+        '<div class="empty">Failed to load service data.</div>';
+    });
+
+  function render() {
+    renderMain();
+    renderSidebar();
+  }
+
+  function renderMain() {
+    const d = DATA;
+    const svc = d.service;
+    const cur = (svc.currency || 'USD').toUpperCase();
+
+    // Group components by category
+    const cats = {};
+    d.components.forEach(c => {
+      const cat = c.component_category || 'Other';
+      if (!cats[cat]) cats[cat] = [];
+      cats[cat].push(c);
+    });
+
+    let html = `
+      <div class="service-meta">
+        <h2>${esc(svc.company_name)} &mdash; ${svc.service_id}</h2>
+        <div class="sub">
+          ${esc(svc.product || '—')} &middot; ${esc(svc.datacenter_code || '—')} &middot; ${cur}
+          &middot; Provisioned ${svc.provision_date ? svc.provision_date.slice(0,10) : '—'}
+          ${d.hw_paid_off ? ' &middot; <span style="color:var(--green)">HW paid off</span>' : ''}
+        </div>
+        <div class="current-mrc">${fmt(svc.mrc, cur)}<span>/mo current</span></div>
+      </div>`;
+
+    // Base server MRC row
+    html += `
+      <div class="section-title">Base Server MRC</div>
+      <table class="comp-table">
+        <tr>
+          <td class="name">${esc(svc.product || 'Server')}</td>
+          <td class="mono">${fmt(d.product_mrc, cur)}/mo</td>
+          <td class="mono">—</td><td></td>
+        </tr>
+      </table>`;
+
+    Object.entries(cats).forEach(([cat, comps]) => {
+      html += `<div class="section-title">${esc(cat)}</div>
+        <table class="comp-table">
+          <thead><tr>
+            <th style="width:50%">Component</th>
+            <th>Current MRC</th><th>New MRC</th><th>Δ</th>
+          </tr></thead><tbody>`;
+
+      comps.forEach(c => {
+        const deltaClass = c.delta > 0 ? 'pos' : (c.delta < 0 ? 'neg' : '');
+        const deltaStr   = c.delta !== null
+          ? (c.delta > 0 ? `+${fmt(c.delta, cur)}` : fmt(c.delta, cur))
+          : '—';
+        const warnHtml   = c.warning
+          ? `<span class="warn-badge" title="${esc(c.warning)}">⚠</span>` : '';
+        html += `<tr>
+          <td class="name">${esc(c.component)}${warnHtml}</td>
+          <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
+          <td class="mono">${c.new_mrc !== null ? fmt(c.new_mrc, cur) + '/mo' : '—'}</td>
+          <td class="mono ${deltaClass}">${deltaStr}</td>
+        </tr>`;
+      });
+
+      html += '</tbody></table>';
+    });
+
+    document.getElementById('main-content').innerHTML = html;
+  }
+
+  function renderSidebar() {
+    const d = DATA;
+    const svc = d.service;
+    const cur = (svc.currency || 'USD').toUpperCase();
+    const p = d.pricing[activeTerm];
+
+    const termLabels = { m2m:'m2m', '12':'12 mo', '24':'24 mo', '36':'36 mo' };
+    const termBtns = Object.keys(termLabels).map(t => `
+      <button class="term-btn ${t === activeTerm ? 'active' : ''}"
+              onclick="setTerm('${t}')">${termLabels[t]}</button>
+    `).join('');
+
+    const upliftRow = activeTerm === 'm2m' ? `
+      <tr class="dim"><td>M2M uplift</td><td>×1.25</td></tr>` : '';
+
+    document.getElementById('sidebar-content').innerHTML = `
+      <div>
+        <div class="section-title" style="margin-top:0">Renewal Term</div>
+        <div class="term-selector">${termBtns}</div>
+      </div>
+      <table class="summary-table">
+        <tr><td>Current MRC</td><td>${fmt(svc.mrc, cur)}</td></tr>
+        <tr><td>SW / Support Δ</td><td style="color:${p.sw_support_delta > 0 ? 'var(--orange)' : 'var(--text-1)'}">
+          ${p.sw_support_delta > 0 ? '+' : ''}${fmt(p.sw_support_delta, cur)}
+        </td></tr>
+        ${upliftRow}
+        <tr class="highlight sep"><td>Suggested MRC</td><td>${fmt(p.suggested_mrc, cur)}</td></tr>
+        <tr class="sep dim"><td>HW cost/mo</td><td>${d.hw_paid_off ? '$0.00 (paid off)' : fmt(p.hw_cost_mo, cur)}</td></tr>
+        <tr class="dim"><td>Overhead</td><td>${fmt(p.overhead_total, cur)}</td></tr>
+        <tr class="dim"><td>Total cost</td><td>${fmt(p.total_cost, cur)}</td></tr>
+        <tr class="sep"><td>Margin</td><td>${fmt(p.margin, cur)}</td></tr>
+        <tr><td>Margin %</td><td>${p.margin_pct}%</td></tr>
+      </table>
+      <button class="copy-btn" onclick="copyQuote()">Copy Quote Summary</button>`;
+  }
+
+  function setTerm(t) {
+    activeTerm = t;
+    renderSidebar();
+  }
+
+  function copyQuote() {
+    if (!DATA) return;
+    const svc = DATA.service;
+    const cur = (svc.currency || 'USD').toUpperCase();
+    const p = DATA.pricing[activeTerm];
+    const termLabel = { m2m:'Month-to-Month', '12':'12 months', '24':'24 months', '36':'36 months' }[activeTerm];
+    const text = [
+      `Renewal Quote — ${svc.company_name} (${svc.service_id})`,
+      `Product: ${svc.product || '—'} · DC: ${svc.datacenter_code || '—'} · ${cur}`,
+      `Term: ${termLabel}`,
+      ``,
+      `Current MRC:   ${fmt(svc.mrc, cur)}/mo`,
+      `Suggested MRC: ${fmt(p.suggested_mrc, cur)}/mo`,
+      `Margin:        ${fmt(p.margin, cur)}/mo (${p.margin_pct}%)`,
+    ].join('\n');
+    navigator.clipboard.writeText(text).catch(() => {});
+  }
+</script>
+{% endblock %}
