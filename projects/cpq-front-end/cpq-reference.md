@@ -27,22 +27,22 @@
 
 | Data Item | Database | Server | Table / File | Key Columns | Notes |
 |---|---|---|---|---|---|
-| **DC list** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel) | `public.sb_datacenter` | `id, dc_abbr, name, city, state, active` | Queried live; falls back to `cost_drivers.json` if Fusion unreachable |
-| **DC currencies** | Fusion PostgreSQL | same | `public.datacenter_available_currencies` | `datacenter_id, currency_code` | Joined with sb_datacenter at startup to build DC registry |
-| **DC native currency** | Local file | — | `cost_drivers.json` | `data_centers[dc].native_currency` | Overrides first currency from `datacenter_available_currencies`; only covers 7 DCs |
+| **DC list** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.sb_datacenter` | `id, dc_abbr, name, city, state, active` | Queried live; falls back to `cost_drivers.json` if Fusion unreachable |
+| **DC currencies** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.datacenter_available_currencies` | `datacenter_id, currency_code` | Joined with `sb_datacenter` at startup; all available currencies per DC |
+| **DC native currency** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.datacenter_available_currencies` | `datacenter_id, currency_code` | Should be the sole or first entry per DC. **Code bug:** app currently prefers `cost_drivers.json` over the DB — this should be reversed; see [Known Gaps #7](#5-known-gaps) |
 | **FX rates** | MSSQL | `DM_BusinessInsights` | `dbo.dimCurrencyExchangeRates` | `from_currency, to_currency, exchange_rate, start_date` | `SELECT TOP 1 … ORDER BY start_date DESC` |
-| **Server list (pricing)** | Fusion PostgreSQL | same | `public.product_catalog` JOIN `public.pricebook` | `pc.id, pc.name, pb.mrc, pb.nrc, pb.setup, pb.is_available` | `component_id IS NULL` identifies server-level rows |
-| **Default components** | Fusion PostgreSQL | same | `public.product_templates` | `product_id, component_id, quantity` | Joined to `components`, `component_types`, `component_categories`, `pricebook` |
-| **Available components** | Fusion PostgreSQL | same | `public.product_allowed_components` | `product_id, component_id` | Same joins as defaults |
-| **Component metadata** | Fusion PostgreSQL | same | `public.components` | `id, display_name, description, is_active, component_type_id` | No slot/bay/socket count field |
-| **Component types / categories** | Fusion PostgreSQL | same | `public.component_types`, `public.component_categories` | `name, parent_component_id, category_id, sort_order` | Used for grouping in UI |
-| **Pricebook (MRC)** | Fusion PostgreSQL | same | `public.pricebook` | `mrc, nrc, setup, currency, datacenter, product_line_id, component_id, is_available` | Always queried in DC native currency; FX applied if display ≠ native |
+| **Server list (pricing)** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.product_catalog` JOIN `public.pricebook` | `pc.id, pc.name, pb.mrc, pb.nrc, pb.setup, pb.is_available` | `component_id IS NULL` identifies server-level rows |
+| **Default components** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.product_templates` | `product_id, component_id, quantity` | Joined to `components`, `component_types`, `component_categories`, `pricebook` |
+| **Available components** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.product_allowed_components` | `product_id, component_id` | Same joins as default components |
+| **Component metadata** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.components` | `id, display_name, description, is_active, component_type_id` | No slot/bay/socket count field |
+| **Component types / categories** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.component_types`, `public.component_categories` | `name, parent_component_id, category_id, sort_order` | Used for grouping in UI |
+| **Pricebook (MRC)** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.pricebook` | `mrc, nrc, setup, currency, datacenter, product_line_id, component_id, is_available` | Always queried in DC native currency; FX applied if display ≠ native |
+| **Contract terms** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.contract_lengths` | `contract_length` | **Not currently queried** — UI uses hardcoded 12/24/36 |
+| **Term discounts** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.product_class_contract_length_discounts` | `product_class, product_line, contract_length, *_discount` | **Not currently queried** — all discounts are 0% for servers |
 | **HW CapEx — server level** | MSSQL | `DM_BusinessInsights` | `profitability.ocean_sku_cost` | `sku_id, sku_name, sku_cost, cost_currency, sku_type, sku_level` | Queried with `sku_level='TLS'`; `sku_id = product_catalog.id` |
-| **HW CapEx — component level** | MSSQL | `DM_BusinessInsights` | `profitability.ocean_sku_cost` | same | Queried with `sku_level='Component'`; used when server-level row is missing or $0 |
-| **Power wattage** *(new — not in old docs)* | MSSQL | `DM_BusinessInsights` | `profitability.hardware_watts` | `fusion_id, watts` | `fusion_id = product_catalog.id`; if present, power cost becomes calculable |
+| **HW CapEx — component level** | MSSQL | `DM_BusinessInsights` | `profitability.ocean_sku_cost` | `sku_id, sku_name, sku_cost, cost_currency, sku_type, sku_level` | Queried with `sku_level='Component'`; used when server-level row is missing or $0 |
+| **Power wattage** | MSSQL | `DM_BusinessInsights` | `profitability.hardware_watts` | `fusion_id, watts` | `fusion_id = product_catalog.id`; if present, power cost becomes calculable |
 | **Overhead rates** | Local file | — | `cost_drivers.json` | `data_centers[dc].costs[service_type][key]` | Amounts in DC native currency; 7 DCs covered; SG&A = 8.2% of total MRC |
-| **Contract terms** | Fusion PostgreSQL | same | `public.contract_lengths` | `contract_length` | **Not currently queried** — UI uses hardcoded 12/24/36 |
-| **Term discounts** | Fusion PostgreSQL | same | `public.product_class_contract_length_discounts` | `product_class, product_line, contract_length, *_discount` | **Not currently queried** — all discounts are 0% for servers |
 
 ### What Jorge is missing
 
@@ -249,15 +249,16 @@ Gross Margin %            = Gross Margin ÷ Total Customer MRC × 100
 
 | # | Gap | Current behavior | Correct behavior |
 |---|---|---|---|
-| 1 | Currency dropdown source | Hardcoded USD/CAD/GBP/EUR in `index.html` | Should be driven by `datacenter_available_currencies` for the selected DC |
-| 2 | Term dropdown source | Hardcoded 12/24/36 in `index.html` | Should come from `contract_lengths` (values: 1, 3, 6, 12, 24, 36) — though all discounts are 0% for servers today |
-| 3 | Default component `is_active` filter | Missing — inactive components in `product_templates` still appear | Decide: filter them out, or intentionally show (template = "what shipped") and flag visually |
-| 4 | `cost_drivers.json` DC coverage | 7 DCs have overhead rates | All active DCs with pricebook rows need overhead data; DCs outside the 7 return $0 overhead |
-| 5 | Power cost coverage | Depends on `profitability.hardware_watts` having a row per server | Incomplete — many servers may show power as N/A; `hardware_watts` needs to be populated for all active servers |
-| 6 | Physical slot/bay/socket counts | Not in any DB | Dell R-660: 2 CPU sockets, 32 DIMM slots, 10× 2.5" bays — not modelled in Fusion; would need a spec table or external lookup to surface in the CPQ |
-| 7 | `ocean_sku_cost` component coverage | Some components show `hw_cost_display: null` | All components returned by `product_allowed_components` (active, with pricebook rows) need a `Component`-level row in `ocean_sku_cost` to show accurate margin |
-| 8 | SKU restrictions not enforced | Users can add any combination of components | Ocean enforces per-category min/max limits and dependency rules (see [Section 6](#6-future-work--to-do)) |
-| 9 | Multiple base configs not supported | One default config per product | Ocean supports multiple named base configs per SKU; CPQ always loads the single `product_templates` set |
+| 1 | DC native currency source | Code prefers `cost_drivers.json` native_currency over the DB; only 7 DCs have an entry | Should read from `datacenter_available_currencies` — for single-currency DCs the sole entry is the native currency. For multi-currency DCs (e.g., TOR: CAD + USD) confirm whether the table has an `is_default` or ordering column; if not, add one |
+| 2 | Currency dropdown source | Hardcoded USD/CAD/GBP/EUR in `index.html` | Should be driven by `datacenter_available_currencies` for the selected DC |
+| 3 | Term dropdown source | Hardcoded 12/24/36 in `index.html` | Should come from `contract_lengths` (values: 1, 3, 6, 12, 24, 36) — though all discounts are 0% for servers today |
+| 4 | Default component `is_active` filter | Missing — inactive components in `product_templates` still appear | Decide: filter them out, or intentionally show (template = "what shipped") and flag visually |
+| 5 | `cost_drivers.json` DC coverage | 7 DCs have overhead rates | All active DCs with pricebook rows need overhead data; DCs outside the 7 return $0 overhead |
+| 6 | Power cost coverage | Depends on `profitability.hardware_watts` having a row per server | Incomplete — many servers may show power as N/A; `hardware_watts` needs to be populated for all active servers |
+| 7 | Physical slot/bay/socket counts | Not in any DB | Dell R-660: 2 CPU sockets, 32 DIMM slots, 10× 2.5" bays — not modelled in Fusion; would need a spec table or external lookup to surface in the CPQ |
+| 8 | `ocean_sku_cost` component coverage | Some components show `hw_cost_display: null` | All components returned by `product_allowed_components` (active, with pricebook rows) need a `Component`-level row in `ocean_sku_cost` to show accurate margin |
+| 9 | SKU restrictions not enforced | Users can add any combination of components | Ocean enforces per-category min/max limits and dependency rules (see [Section 6](#6-future-work--to-do)) |
+| 10 | Multiple base configs not supported | One default config per product | Ocean supports multiple named base configs per SKU; CPQ always loads the single `product_templates` set |
 
 ---
 

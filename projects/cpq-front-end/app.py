@@ -146,9 +146,14 @@ def get_dc_registry() -> dict:
         for r in rows:
             abbr      = r["dc_abbr"]
             currencies = r["currencies"] or []
-            # Prefer native_currency from cost_drivers.json; fall back to first pricebook currency
+            # Native currency: DB is authoritative for single-currency DCs.
+            # For multi-currency DCs, cost_drivers.json provides the explicit override;
+            # fall back to first DB entry if neither covers the DC.
             cd_entry  = COST_DRIVERS["data_centers"].get(abbr, {})
-            native    = cd_entry.get("native_currency") or (currencies[0] if currencies else "USD")
+            if len(currencies) == 1:
+                native = currencies[0]
+            else:
+                native = cd_entry.get("native_currency") or (currencies[0] if currencies else "USD")
             registry[abbr] = {
                 "id":              r["id"],
                 "dc_abbr":         abbr,
