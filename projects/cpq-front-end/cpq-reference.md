@@ -8,7 +8,7 @@
 
 ## Table of Contents
 
-1. [Data Sources (for Jorge)](#1-data-sources)
+1. [Data Sources](#1-data-sources)
 2. [Active / Available Filtering](#2-active--available-filtering)
 3. [Current State — Quoting Flow](#3-current-state--quoting-flow)
 4. [Cost Calculation Formula](#4-cost-calculation-formula)
@@ -21,15 +21,13 @@
 
 ## 1. Data Sources
 
-> **Jorge asked:** "Pricing from pricebook table in Ocean. Default components from product_templates. Available components from product_allowed_components. Cost from ocean_sku_cost in BISQLTOR. Is this correct? Am I missing something?"
-
 **Largely correct. Two additions: there is a second MSSQL table (`hardware_watts`) used for power cost, and the DC list now comes from Fusion, not a static file.**
 
 | Data Item | Database | Server | Table / File | Key Columns | Notes |
 |---|---|---|---|---|---|
 | **DC list** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.sb_datacenter` | `id, dc_abbr, name, city, state, active` | Queried live; falls back to `cost_drivers.json` if Fusion unreachable |
 | **DC currencies** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.datacenter_available_currencies` | `datacenter_id, currency_code` | Joined with `sb_datacenter` at startup; all available currencies per DC |
-| **DC native currency** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.datacenter_available_currencies` | `datacenter_id, currency_code` | Should be the sole or first entry per DC. **Code bug:** app currently prefers `cost_drivers.json` over the DB — this should be reversed; see [Known Gaps #7](#5-known-gaps) |
+| **DC native currency** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.datacenter_available_currencies` | `datacenter_id, currency_code` | Single-currency DCs: sole DB entry is native. Multi-currency DCs (e.g., TOR: CAD + USD): `cost_drivers.json` provides the explicit override; falls back to first DB entry |
 | **FX rates** | MSSQL | `DM_BusinessInsights` | `dbo.dimCurrencyExchangeRates` | `from_currency, to_currency, exchange_rate, start_date` | `SELECT TOP 1 … ORDER BY start_date DESC` |
 | **Server list (pricing)** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.product_catalog` JOIN `public.pricebook` | `pc.id, pc.name, pb.mrc, pb.nrc, pb.setup, pb.is_available` | `component_id IS NULL` identifies server-level rows |
 | **Default components** | Fusion PostgreSQL | `db1.peer1.com` (via SSH tunnel through `10.121.21.20`) | `public.product_templates` | `product_id, component_id, quantity` | Joined to `components`, `component_types`, `component_categories`, `pricebook` |
@@ -44,7 +42,7 @@
 | **Power wattage** | MSSQL | `DM_BusinessInsights` | `profitability.hardware_watts` | `fusion_id, watts` | `fusion_id = product_catalog.id`; if present, power cost becomes calculable |
 | **Overhead rates** | Local file | — | `cost_drivers.json` | `data_centers[dc].costs[service_type][key]` | Amounts in DC native currency; 7 DCs covered; SG&A = 8.2% of total MRC |
 
-### What Jorge is missing
+### What's missing from the simple summary above
 
 - **`profitability.hardware_watts`** — a second MSSQL table the app queries per server. If a row exists for the server's `fusion_id`, the app calculates a live power cost (kW × $/kW from `cost_drivers.json`). If the row is missing, power cost shows as N/A.
 - **`sku_level` discriminator in `ocean_sku_cost`** — the same `sku_id` can appear as both a `TLS` (server-level total) row and a `Component` row. The app queries them separately using `WHERE sku_level = 'TLS'` for servers and `WHERE sku_level = 'Component'` for components, then merges results with the server-level entry taking priority. When auditing cost coverage, check both levels.
@@ -53,8 +51,6 @@
 ---
 
 ## 2. Active / Available Filtering
-
-> **Jorge asked:** "Please share the details on how you are filtering for active products/components. I need to make sure all those are in the cost table."
 
 ### Server list (`/api/servers`)
 
@@ -73,7 +69,7 @@ WHERE pc.product_class = 1          -- servers only (class 1)
 ORDER BY pb.mrc ASC
 ```
 
-**For Jorge's audit:** Any server returned by this query has `pc.is_active = true` and `pb.is_available = true`. To check cost coverage, run:
+**For cost coverage auditing:** Any server returned by this query has `pc.is_active = true` and `pb.is_available = true`. To check cost coverage, run:
 
 ```sql
 -- Servers visible in the CPQ that have NO ocean_sku_cost TLS row
@@ -249,7 +245,7 @@ Gross Margin %            = Gross Margin ÷ Total Customer MRC × 100
 
 | # | Gap | Current behavior | Correct behavior |
 |---|---|---|---|
-| 1 | DC native currency source | Code prefers `cost_drivers.json` native_currency over the DB; only 7 DCs have an entry | Should read from `datacenter_available_currencies` — for single-currency DCs the sole entry is the native currency. For multi-currency DCs (e.g., TOR: CAD + USD) confirm whether the table has an `is_default` or ordering column; if not, add one |
+| 1 | Multi-currency DC native currency | For DCs with multiple currencies in `datacenter_available_currencies` (e.g., TOR: CAD + USD), native is resolved via `cost_drivers.json` override, then first DB entry | Confirm whether `datacenter_available_currencies` has an `is_default` or ordering column that could replace the `cost_drivers.json` dependency for multi-currency DCs |
 | 2 | Currency dropdown source | Hardcoded USD/CAD/GBP/EUR in `index.html` | Should be driven by `datacenter_available_currencies` for the selected DC |
 | 3 | Term dropdown source | Hardcoded 12/24/36 in `index.html` | Should come from `contract_lengths` (values: 1, 3, 6, 12, 24, 36) — though all discounts are 0% for servers today |
 | 4 | Default component `is_active` filter | Missing — inactive components in `product_templates` still appear | Decide: filter them out, or intentionally show (template = "what shipped") and flag visually |
@@ -362,7 +358,6 @@ The goal is to standardize on a single default server product across both Dedica
 
 ## 8. Production Readiness Assessment
 
-> **Jorge asked:** "Is this ready for production use? I'm asking so I can update the process to keep the data aligned since it won't need the Excel-CPQ."
 
 ### What works accurately today
 
