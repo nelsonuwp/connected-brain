@@ -1,97 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CPQ — Settings · Aptum</title>
-  <style>
-    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Light.ttf') format('truetype'); font-weight:300; font-display:swap; }
-    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Medium.ttf') format('truetype'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
-    @font-face { font-family:'Geist Mono'; src:url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+{% extends "base.html" %}
+{% block title %}CPQ — Settings · Aptum{% endblock %}
 
-    :root {
-      --bg:           #081820;
-      --bg-dot:       #142233;
-      --surface:      #0d1f2d;
-      --surface-2:    #060f15;
-      --border:       #142233;
-      --border-mid:   #1e3547;
-      --text-1:       #F8F7FA;
-      --text-2:       #88898D;
-      --text-3:       #515357;
-      --accent:       #7D7AE8;
-      --accent-dim:   #2A1F6E;
-      --accent-text:  #D4D3FF;
-      --green:        #BED6A8;
-      --green-dim:    #1a3d1f;
-      --orange:       #FFBE81;
-      --orange-dim:   #3d1a06;
-      --red:          #ef4444;
-      --shadow:       rgba(0,0,0,.25);
-    }
-    [data-theme="light"] {
-      --bg:           #F8F7FA;
-      --bg-dot:       #D0D1DE;
-      --surface:      #FFFFFF;
-      --surface-2:    #F0EFF5;
-      --border:       #D0D1DE;
-      --border-mid:   #88898D;
-      --text-1:       #081820;
-      --text-2:       #515357;
-      --text-3:       #88898D;
-      --accent:       #655BD9;
-      --accent-dim:   #E7E6FF;
-      --accent-text:  #3A2699;
-      --green:        #2d6e1f;
-      --green-dim:    #E9FEDF;
-      --orange:       #a05000;
-      --orange-dim:   #FFEBD9;
-      --red:          #c41c1c;
-      --shadow:       rgba(0,0,0,.06);
-    }
-
-    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-
-    body {
-      font-family:'Geist', system-ui, sans-serif;
-      background-color: var(--bg);
-      background-image: radial-gradient(var(--bg-dot) 1px, transparent 0);
-      background-size: 28px 28px;
-      color: var(--text-2);
-      min-height: 100vh;
-      padding: 2rem;
-      transition: background-color .25s, color .25s;
-    }
-
-    /* ── Header ── */
-    header {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 2rem; padding-bottom: 1.25rem;
-      border-bottom: 1px solid var(--border);
-    }
-    header img.logo { height: 28px; width: auto; display: block; }
-    .hdr-divider { width: 1px; height: 22px; background: var(--border); }
-    .hdr-label { font-size: .75rem; color: var(--text-3); letter-spacing: .01em; }
-    .hdr-right { margin-left: auto; display: flex; align-items: center; gap: .75rem; }
-
-    .nav-link {
-      font-size: .8rem; color: var(--text-2); text-decoration: none;
-      padding: .35rem .75rem; border-radius: 7px; border: 1px solid var(--border);
-      transition: border-color .15s, color .15s;
-    }
-    .nav-link:hover { border-color: var(--accent); color: var(--accent); }
-
-    .theme-btn {
-      background: var(--surface); border: 1px solid var(--border);
-      color: var(--text-2); font-size: .9rem; line-height: 1;
-      width: 34px; height: 34px; border-radius: 8px;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: border-color .15s, background .2s;
-    }
-    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
-
+{% block extra_styles %}
     /* ── Page layout ── */
     .page-title {
       font-size: 1.1rem; font-weight: 600; color: var(--text-1);
@@ -250,69 +160,62 @@
       vertical-align:middle; margin-right:5px;
     }
     @keyframes spin { to { transform:rotate(360deg); } }
-  </style>
-</head>
-<body>
-<header>
-  <img id="main-logo" class="logo"
-       src="https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png" alt="Aptum" />
-  <div class="hdr-divider"></div>
-  <span class="hdr-label">Settings</span>
-  <div class="hdr-right">
-    <a class="nav-link" href="/">← Server Pricing</a>
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle colour scheme">☀</button>
-  </div>
-</header>
+{% endblock %}
 
-<div class="page-title">Settings</div>
+{% block body %}
+<div class="page-body">
+  <div class="page-title">Settings</div>
 
-<!-- Internal Costs -->
-<div class="settings-card">
-  <div class="card-header-row">
-    <div>
-      <div class="card-title">Internal Costs</div>
-      <div class="card-subtitle">Overhead rates per data center, in each DC's native currency</div>
+  <!-- Internal Costs -->
+  <div class="settings-card">
+    <div class="card-header-row">
+      <div>
+        <div class="card-title">Internal Costs</div>
+        <div class="card-subtitle">Overhead rates per data center, in each DC's native currency</div>
+      </div>
+      <div class="svc-tabs" id="svc-tabs">
+        <button class="svc-tab active" data-svc="server"   onclick="switchTab(this)">Server</button>
+        <button class="svc-tab"        data-svc="firewall" onclick="switchTab(this)">Firewall</button>
+        <button class="svc-tab"        data-svc="switch"   onclick="switchTab(this)">Switch</button>
+      </div>
     </div>
-    <div class="svc-tabs" id="svc-tabs">
-      <button class="svc-tab active" data-svc="server"   onclick="switchTab(this)">Server</button>
-      <button class="svc-tab"        data-svc="firewall" onclick="switchTab(this)">Firewall</button>
-      <button class="svc-tab"        data-svc="switch"   onclick="switchTab(this)">Switch</button>
+
+    <div class="matrix-wrap">
+      <table id="cost-table">
+        <thead>
+          <tr id="dc-header-row">
+            <th>Cost Category</th>
+            <!-- DC columns injected by JS -->
+          </tr>
+          <tr class="currency-row" id="currency-row">
+            <th></th>
+            <!-- currency sub-headers injected by JS -->
+          </tr>
+        </thead>
+        <tbody id="cost-tbody">
+          <!-- rows injected by JS -->
+        </tbody>
+      </table>
     </div>
-  </div>
 
-  <div class="matrix-wrap">
-    <table id="cost-table">
-      <thead>
-        <tr id="dc-header-row">
-          <th>Cost Category</th>
-          <!-- DC columns injected by JS -->
-        </tr>
-        <tr class="currency-row" id="currency-row">
-          <th></th>
-          <!-- currency sub-headers injected by JS -->
-        </tr>
-      </thead>
-      <tbody id="cost-tbody">
-        <!-- rows injected by JS -->
-      </tbody>
-    </table>
-  </div>
-
-  <div class="globals-row">
-    <div class="global-field">
-      <label for="sga-pct">G&amp;A %</label>
-      <input type="number" id="sga-pct" step="0.01" min="0" max="100" placeholder="8.2" />
-      <div class="field-hint">% of total MRC — applies to all DCs &amp; types</div>
+    <div class="globals-row">
+      <div class="global-field">
+        <label for="sga-pct">G&amp;A %</label>
+        <input type="number" id="sga-pct" step="0.01" min="0" max="100" placeholder="8.2" />
+        <div class="field-hint">% of total MRC — applies to all DCs &amp; types</div>
+      </div>
     </div>
-  </div>
 
-  <div class="action-bar">
-    <button class="btn btn-primary" id="save-btn" onclick="saveSettings()">Save</button>
-    <button class="btn btn-ghost"   onclick="resetForm()">Reset</button>
-    <div class="toast" id="toast"></div>
+    <div class="action-bar">
+      <button class="btn btn-primary" id="save-btn" onclick="saveSettings()">Save</button>
+      <button class="btn btn-ghost"   onclick="resetForm()">Reset</button>
+      <div class="toast" id="toast"></div>
+    </div>
   </div>
 </div>
+{% endblock %}
 
+{% block extra_scripts %}
 <script>
 // ── Row definitions ───────────────────────────────────────────────────────
 const ROWS = [
@@ -476,28 +379,6 @@ function showToast(msg, type) {
   _toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ── Theme ─────────────────────────────────────────────────────────────────
-const THEME_KEY = 'aptum-cpq-theme';
-function applyTheme(t) {
-  document.documentElement.dataset.theme = t;
-  localStorage.setItem(THEME_KEY, t);
-  const btn  = document.getElementById('theme-btn');
-  const logo = document.getElementById('main-logo');
-  if (btn)  btn.textContent = t === 'dark' ? '☀' : '☽';
-  if (logo) logo.src = t === 'dark'
-    ? 'https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png'
-    : 'https://aptumlogos.pages.dev/Horizontal-Lockup-Black.png';
-}
-function toggleTheme() {
-  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
-}
-(function () {
-  const saved     = localStorage.getItem(THEME_KEY);
-  const preferred = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  applyTheme(saved || preferred);
-})();
-
 loadData();
 </script>
-</body>
-</html>
+{% endblock %}
