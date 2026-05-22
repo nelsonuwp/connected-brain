@@ -22,6 +22,9 @@ run:
 		-p $(PORT):$(PORT) \
 		-v $(PWD)/app.py:/app/app.py \
 		-v $(PWD)/templates:/app/templates \
+		-v $(PWD)/routes:/app/routes \
+		-v $(PWD)/db:/app/db \
+		-v $(PWD)/lib:/app/lib \
 		-v $(PWD)/cost_drivers.json:/app/cost_drivers.json \
 		$(IMAGE) \
 		flask --app app --debug run --host 0.0.0.0 --port $(PORT)

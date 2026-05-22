@@ -8,6 +8,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app.py cost_drivers.json ./
 COPY templates ./templates
+COPY routes ./routes
+COPY db ./db
+COPY lib ./lib
 
 EXPOSE 5050
 
