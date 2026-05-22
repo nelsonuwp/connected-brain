@@ -2,7 +2,7 @@
 {% block title %}Renewal · Aptum{% endblock %}
 
 {% block extra_styles %}
-    .layout { display:grid; grid-template-columns:1fr 340px; min-height:calc(100vh - 70px); }
+    .layout { display:grid; grid-template-columns:1fr 360px; min-height:calc(100vh - 70px); }
     .main   { padding:2rem; overflow-y:auto; border-right:1px solid var(--border); }
     .sidebar { padding:1.5rem; display:flex; flex-direction:column; gap:1.25rem; position:sticky; top:0; max-height:calc(100vh - 70px); overflow-y:auto; }
 
@@ -14,16 +14,41 @@
 
     .section-title { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); margin:1.25rem 0 .5rem; }
 
+    /* Component table */
     .comp-table { width:100%; border-collapse:collapse; margin-bottom:1rem; }
-    .comp-table th { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); padding:.35rem .5rem; text-align:left; border-bottom:1px solid var(--border); }
-    .comp-table td { padding:.45rem .5rem; font-size:.78rem; color:var(--text-2); border-bottom:1px solid var(--border-mid); }
-    .comp-table td.name { color:var(--text-1); max-width:260px; }
-    .comp-table td.mono { font-family:'Geist Mono',monospace; }
-    .comp-table td.pos  { color:var(--orange); }
-    .comp-table td.neg  { color:var(--green); }
-    .warn-badge { display:inline-block; padding:1px 6px; border-radius:4px; font-size:.6rem; font-weight:700; background:var(--orange-dim); color:var(--orange); margin-left:.4rem; }
+    .comp-table th {
+      font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+      color:var(--text-3); padding:.35rem .5rem; text-align:left; border-bottom:1px solid var(--border);
+    }
+    .comp-table th.r { text-align:right; }
+    .comp-table td { padding:.4rem .5rem; font-size:.78rem; color:var(--text-2); border-bottom:1px solid var(--border-mid); vertical-align:middle; }
+    .comp-table td.name { color:var(--text-1); max-width:220px; }
+    .comp-table td.mono { font-family:'Geist Mono',monospace; text-align:right; }
+    .comp-table td.pos  { color:var(--orange); font-family:'Geist Mono',monospace; text-align:right; }
+    .comp-table td.neg  { color:var(--green); font-family:'Geist Mono',monospace; text-align:right; }
+    .comp-table td.zero { color:var(--text-3); font-family:'Geist Mono',monospace; text-align:right; }
+    .comp-table td.check-cell { width:28px; padding:.4rem .25rem; text-align:center; }
+    .comp-table td.adj-cell { width:110px; padding:.3rem .25rem; }
+    .comp-table tr.unchecked td { opacity:.5; }
+    .comp-table tr.unchecked td.check-cell { opacity:1; }
+
+    /* Adjust input */
+    .adj-input {
+      width:100%; text-align:right; background:var(--bg);
+      border:1px solid var(--border); border-radius:5px;
+      color:var(--text-1); font-family:'Geist Mono',monospace; font-size:.78rem;
+      padding:.25rem .4rem; outline:none;
+      transition:border-color .15s, background .15s;
+    }
+    .adj-input:focus { border-color:var(--accent); background:var(--accent-dim); }
+    .adj-input:disabled { background:transparent; border-color:transparent; color:var(--text-3); cursor:default; }
+
+    /* Row checkbox */
+    .row-cb { width:14px; height:14px; accent-color:var(--accent); cursor:pointer; }
+
     .warn-cell { color:var(--red-text); font-size:.72rem; font-style:italic; }
 
+    /* Sidebar */
     .term-selector { display:flex; gap:.4rem; }
     .term-btn {
       flex:1; padding:.45rem; border-radius:8px; border:1px solid var(--border);
@@ -35,12 +60,17 @@
     .term-btn.active { border-color:var(--accent); background:var(--accent-dim); color:var(--accent-text); }
 
     .summary-table { width:100%; border-collapse:collapse; }
-    .summary-table td { padding:.4rem .25rem; font-size:.82rem; }
-    .summary-table td:last-child { text-align:right; font-family:'Geist Mono',monospace; color:var(--text-1); }
-    .summary-table tr.sep td { border-top:1px solid var(--border); padding-top:.6rem; }
+    .summary-table td { padding:.35rem .2rem; font-size:.82rem; }
+    .summary-table td:last-child { text-align:right; font-family:'Geist Mono',monospace; color:var(--text-1); white-space:nowrap; }
+    .summary-table tr.sep td { border-top:1px solid var(--border); padding-top:.55rem; }
     .summary-table tr.highlight td { color:var(--accent); font-weight:700; font-size:.95rem; }
     .summary-table tr.highlight td:last-child { color:var(--accent); }
     .summary-table tr.dim td { color:var(--text-3); font-size:.75rem; }
+    .summary-table tr.dim td:last-child { color:var(--text-3); }
+    .summary-table tr.indent td:first-child { padding-left:.9rem; }
+
+    .margin-positive td { color:var(--green) !important; }
+    .margin-negative td { color:var(--red-text) !important; }
 
     .copy-btn {
       width:100%; padding:.6rem; border-radius:8px;
@@ -72,41 +102,59 @@
   const SERVICE_ID = {{ service_id }};
   const sym = { USD:'$', CAD:'$', GBP:'£', EUR:'€' };
   let DATA = null;
-  let activeTerm = '36';
+  let activeTerm = '12';
+  // Map: component index → { checked: bool, suggested: float|null }
+  let compState = {};
 
+  /* ── Formatters ── */
   function fmt(n, cur) {
     if (n === null || n === undefined) return '—';
     const s = sym[cur] || '$';
     return s + Number(n).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
   }
+  function fmtDelta(n, cur) {
+    if (n === null || n === undefined || n === 0) return `<span class="zero">${fmt(0, cur)}</span>`;
+    const cls = n > 0 ? 'pos' : 'neg';
+    return `<span class="${cls}">${n > 0 ? '+' : ''}${fmt(n, cur)}</span>`;
+  }
   function esc(s) {
     return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
+  function r2(n) { return Math.round(n * 100) / 100; }
 
+  /* ── SW/Support categories that default to checked ── */
+  const REPRICE_CATS = new Set(['Software', 'Support']);
+
+  /* ── Load data ── */
   fetch(`/api/renewals/${SERVICE_ID}`)
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(data => { DATA = data; render(); })
+    .then(data => {
+      DATA = data;
+      // Initialise per-component state
+      data.components.forEach((c, i) => {
+        compState[i] = {
+          checked:   REPRICE_CATS.has(c.component_category),
+          suggested: c.new_mrc !== null ? c.new_mrc : c.component_mrc,
+        };
+      });
+      render();
+    })
     .catch(() => {
       document.getElementById('main-content').innerHTML =
         '<div class="empty">Failed to load service data.</div>';
     });
 
-  function render() {
-    renderMain();
-    renderSidebar();
-  }
-
+  /* ── Render main area ── */
   function renderMain() {
     const d = DATA;
     const svc = d.service;
     const cur = (svc.currency || 'USD').toUpperCase();
 
-    // Group components by category
     const cats = {};
-    d.components.forEach(c => {
+    d.components.forEach((c, i) => {
       const cat = c.component_category || 'Other';
       if (!cats[cat]) cats[cat] = [];
-      cats[cat].push(c);
+      cats[cat].push({ ...c, _idx: i });
     });
 
     let html = `
@@ -120,47 +168,79 @@
         <div class="current-mrc">${fmt(svc.mrc, cur)}<span>/mo current</span></div>
       </div>`;
 
-    // Base server MRC row
+    // Base server row
     html += `
       <div class="section-title">Base Server MRC</div>
       <table class="comp-table">
+        <thead><tr>
+          <th class="check-cell"></th>
+          <th style="width:42%">Component</th>
+          <th class="r">Current</th>
+          <th class="r">Cost (list)</th>
+          <th class="r" style="width:110px">Suggested</th>
+          <th class="r">Δ</th>
+        </tr></thead>
+        <tbody>
         <tr>
+          <td class="check-cell"></td>
           <td class="name">${esc(svc.product || 'Server')}</td>
           <td class="mono">${fmt(d.product_mrc, cur)}/mo</td>
-          <td class="mono">—</td><td></td>
+          <td class="mono">—</td>
+          <td class="adj-cell"></td>
+          <td class="zero">—</td>
         </tr>
+        </tbody>
       </table>`;
 
     Object.entries(cats).forEach(([cat, comps]) => {
       html += `<div class="section-title">${esc(cat)}</div>
         <table class="comp-table">
           <thead><tr>
-            <th style="width:50%">Component</th>
-            <th>Current MRC</th><th>New MRC</th><th>Δ</th>
+            <th class="check-cell" title="Include in repricing"></th>
+            <th style="width:42%">Component</th>
+            <th class="r">Current</th>
+            <th class="r">Cost (list)</th>
+            <th class="r" style="width:110px">Suggested</th>
+            <th class="r">Δ</th>
           </tr></thead><tbody>`;
 
       comps.forEach(c => {
-        const deltaClass = c.delta > 0 ? 'pos' : (c.delta < 0 ? 'neg' : '');
-        const deltaStr   = c.delta !== null
-          ? (c.delta > 0 ? `+${fmt(c.delta, cur)}` : fmt(c.delta, cur))
-          : '—';
+        const i   = c._idx;
+        const st  = compState[i];
+        const checked = st.checked;
+        const sugg    = st.suggested;
+        const delta   = checked ? r2(sugg - c.component_mrc) : null;
 
-        let newMrcHtml;
+        let costCell;
         if (c.new_mrc !== null) {
-          newMrcHtml = `<span class="mono">${fmt(c.new_mrc, cur)}/mo</span>`;
+          costCell = `<td class="mono">${fmt(c.new_mrc, cur)}/mo</td>`;
         } else if (c.warning === 'not_in_pricebook') {
-          newMrcHtml = `<span class="warn-cell" title="Not found in Fusion pricebook">Not priced ⚠</span>`;
+          costCell = `<td><span class="warn-cell" title="Not found in Fusion pricebook">Not priced ⚠</span></td>`;
         } else if (c.warning === 'dc_not_in_fusion') {
-          newMrcHtml = `<span class="warn-cell" title="Datacenter not mapped in Fusion">DC unknown ⚠</span>`;
+          costCell = `<td><span class="warn-cell" title="DC not mapped in Fusion">DC unknown ⚠</span></td>`;
         } else {
-          newMrcHtml = '—';
+          costCell = `<td class="zero">—</td>`;
         }
 
-        html += `<tr>
+        const suggestedVal = sugg !== null ? sugg : (c.new_mrc !== null ? c.new_mrc : c.component_mrc);
+        const rowClass = checked ? '' : 'unchecked';
+
+        html += `<tr class="${rowClass}" id="row-${i}">
+          <td class="check-cell">
+            <input type="checkbox" class="row-cb" ${checked ? 'checked' : ''}
+                   onchange="toggleRow(${i}, this.checked)" />
+          </td>
           <td class="name">${esc(c.component)}</td>
           <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
-          <td>${newMrcHtml}</td>
-          <td class="mono ${deltaClass}">${deltaStr}</td>
+          ${costCell}
+          <td class="adj-cell">
+            <input type="number" class="adj-input" id="adj-${i}"
+                   value="${suggestedVal.toFixed(2)}"
+                   step="0.01" min="0"
+                   ${checked ? '' : 'disabled'}
+                   oninput="adjustSuggested(${i}, this.value)" />
+          </td>
+          <td id="delta-${i}">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
         </tr>`;
       });
 
@@ -170,11 +250,24 @@
     document.getElementById('main-content').innerHTML = html;
   }
 
+  /* ── Render sidebar ── */
   function renderSidebar() {
-    const d = DATA;
+    const d   = DATA;
     const svc = d.service;
     const cur = (svc.currency || 'USD').toUpperCase();
-    const p = d.pricing[activeTerm];
+    const p   = d.pricing[activeTerm];
+
+    // Client-side suggested MRC based on checkbox states
+    const { suggested, adjTotal } = computeSuggested();
+
+    // Recalculate overhead: fixed lines stay, SGA recalculates on new suggested
+    const sgaPct = d.sga_pct || 0;
+    const fixedOverhead = r2(p.overhead_total - r2(p.suggested_mrc * sgaPct));
+    const newSga = r2(suggested * sgaPct);
+    const newOverheadTotal = r2(fixedOverhead + newSga);
+    const totalCost = r2(p.hw_cost_mo + newOverheadTotal);
+    const margin    = r2(suggested - totalCost);
+    const marginPct = suggested > 0 ? Math.round(margin / suggested * 1000) / 10 : 0;
 
     const termLabels = { m2m:'m2m', '12':'12 mo', '24':'24 mo', '36':'36 mo' };
     const termBtns = Object.keys(termLabels).map(t => `
@@ -182,8 +275,30 @@
               onclick="setTerm('${t}')">${termLabels[t]}</button>
     `).join('');
 
-    const upliftRow = activeTerm === 'm2m' ? `
-      <tr class="dim"><td>M2M uplift</td><td>×1.25</td></tr>` : '';
+    // Overhead line labels
+    const lineLabels = {
+      power_per_kw:       'Power',
+      dc_equipment:       'DC Equipment',
+      network_equipment:  'Network Equipment',
+      dc_ops:             'DC Ops',
+      support_ops:        'Support Ops',
+      network_ops:        'Network Ops',
+      compute_ops:        'Compute Ops',
+      sga:                'G&A',
+    };
+
+    let overheadRows = '';
+    for (const [key, amt] of Object.entries(p.overhead_lines || {})) {
+      if (!amt && amt !== 0) continue;
+      const label = lineLabels[key] || key;
+      overheadRows += `<tr class="dim indent">
+        <td>${label}</td><td>${fmt(amt, cur)}</td>
+      </tr>`;
+    }
+
+    const marginClass = margin >= 0 ? 'margin-positive' : 'margin-negative';
+    const m2mRow = activeTerm === 'm2m'
+      ? `<tr class="dim"><td>M2M uplift (×1.25)</td><td></td></tr>` : '';
 
     document.getElementById('sidebar-content').innerHTML = `
       <div>
@@ -192,30 +307,95 @@
       </div>
       <table class="summary-table">
         <tr><td>Current MRC</td><td>${fmt(svc.mrc, cur)}</td></tr>
-        <tr><td>SW / Support Δ</td><td style="color:${p.sw_support_delta > 0 ? 'var(--orange)' : 'var(--text-1)'}">
-          ${p.sw_support_delta > 0 ? '+' : ''}${fmt(p.sw_support_delta, cur)}
-        </td></tr>
-        ${upliftRow}
-        <tr class="highlight sep"><td>Suggested MRC</td><td>${fmt(p.suggested_mrc, cur)}</td></tr>
-        <tr class="sep dim"><td>HW cost/mo</td><td>${d.hw_paid_off ? '$0.00 (paid off)' : fmt(p.hw_cost_mo, cur)}</td></tr>
-        <tr class="dim"><td>Overhead</td><td>${fmt(p.overhead_total, cur)}</td></tr>
-        <tr class="dim"><td>Total cost</td><td>${fmt(p.total_cost, cur)}</td></tr>
-        <tr class="sep"><td>Margin</td><td>${fmt(p.margin, cur)}</td></tr>
-        <tr><td>Margin %</td><td>${p.margin_pct}%</td></tr>
+        <tr><td style="color:var(--text-3);font-size:.75rem">Price adjustments</td>
+            <td style="color:${adjTotal >= 0 ? 'var(--orange)' : 'var(--green)'};font-size:.75rem">
+              ${adjTotal >= 0 ? '+' : ''}${fmt(adjTotal, cur)}
+            </td></tr>
+        ${m2mRow}
+        <tr class="highlight sep"><td>Suggested MRC</td><td>${fmt(suggested, cur)}</td></tr>
+        <tr class="sep dim"><td>HW cost/mo</td>
+            <td>${d.hw_paid_off ? '$0.00 (paid off)' : fmt(p.hw_cost_mo, cur)}</td></tr>
+        ${overheadRows}
+        <tr class="dim sep"><td>Overhead total</td><td>${fmt(newOverheadTotal, cur)}</td></tr>
+        <tr class="dim"><td>Total cost</td><td>${fmt(totalCost, cur)}</td></tr>
+        <tr class="sep ${marginClass}"><td>Margin</td><td>${fmt(margin, cur)}</td></tr>
+        <tr class="${marginClass}"><td>Margin %</td><td>${marginPct}%</td></tr>
       </table>
       <button class="copy-btn" onclick="copyQuote()">Copy Quote Summary</button>`;
   }
 
-  function setTerm(t) {
-    activeTerm = t;
+  /* ── Compute client-side suggested MRC ── */
+  function computeSuggested() {
+    const d    = DATA;
+    const term = activeTerm;
+    let total  = d.product_mrc;
+
+    d.components.forEach((c, i) => {
+      const st = compState[i];
+      total += st.checked ? st.suggested : c.component_mrc;
+    });
+
+    const multiplier = term === 'm2m' ? 1.25 : 1.0;
+    const suggested  = r2(total * multiplier);
+
+    // adjTotal = delta vs backend's original suggested (for display)
+    const adjTotal = r2(suggested - (d.pricing[term]?.suggested_mrc ?? suggested));
+    return { suggested, adjTotal };
+  }
+
+  /* ── Checkbox toggle ── */
+  function toggleRow(i, checked) {
+    compState[i].checked = checked;
+    const row = document.getElementById(`row-${i}`);
+    row.classList.toggle('unchecked', !checked);
+    document.getElementById(`adj-${i}`).disabled = !checked;
+
+    const c = DATA.components[i];
+    const cur = (DATA.service.currency || 'USD').toUpperCase();
+    const delta = checked ? r2(compState[i].suggested - c.component_mrc) : null;
+    document.getElementById(`delta-${i}`).innerHTML =
+      delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>';
+
     renderSidebar();
   }
 
+  /* ── Adjust suggested price input ── */
+  function adjustSuggested(i, val) {
+    const n = parseFloat(val);
+    if (!isNaN(n) && n >= 0) {
+      compState[i].suggested = n;
+      const c   = DATA.components[i];
+      const cur = (DATA.service.currency || 'USD').toUpperCase();
+      const delta = r2(n - c.component_mrc);
+      document.getElementById(`delta-${i}`).innerHTML = fmtDelta(delta, cur);
+      renderSidebar();
+    }
+  }
+
+  /* ── Term select ── */
+  function setTerm(t) {
+    activeTerm = t;
+    renderSidebar();
+    // Re-render main to reflect any m2m state change
+    document.querySelectorAll('.term-btn').forEach(b =>
+      b.classList.toggle('active', b.textContent.trim() === { m2m:'m2m', '12':'12 mo', '24':'24 mo', '36':'36 mo' }[t])
+    );
+  }
+
+  function render() { renderMain(); renderSidebar(); }
+
+  /* ── Copy quote ── */
   function copyQuote() {
     if (!DATA) return;
     const svc = DATA.service;
     const cur = (svc.currency || 'USD').toUpperCase();
+    const { suggested } = computeSuggested();
     const p = DATA.pricing[activeTerm];
+    const fixedOH = r2(p.overhead_total - r2(p.suggested_mrc * (DATA.sga_pct || 0)));
+    const overhead = r2(fixedOH + r2(suggested * (DATA.sga_pct || 0)));
+    const totalCost = r2(p.hw_cost_mo + overhead);
+    const margin = r2(suggested - totalCost);
+    const marginPct = suggested > 0 ? Math.round(margin / suggested * 1000) / 10 : 0;
     const termLabel = { m2m:'Month-to-Month', '12':'12 months', '24':'24 months', '36':'36 months' }[activeTerm];
     const text = [
       `Renewal Quote — ${svc.company_name} (${svc.service_id})`,
@@ -223,8 +403,8 @@
       `Term: ${termLabel}`,
       ``,
       `Current MRC:   ${fmt(svc.mrc, cur)}/mo`,
-      `Suggested MRC: ${fmt(p.suggested_mrc, cur)}/mo`,
-      `Margin:        ${fmt(p.margin, cur)}/mo (${p.margin_pct}%)`,
+      `Suggested MRC: ${fmt(suggested, cur)}/mo`,
+      `Margin:        ${fmt(margin, cur)}/mo (${marginPct}%)`,
     ].join('\n');
     navigator.clipboard.writeText(text).catch(() => {});
   }

@@ -161,15 +161,25 @@ def api_renewal_detail(service_id):
     # product_mrc = base server MRC (same across all component rows)
     product_mrc = float(components[0]["product_mrc"]) if components else 0.0
 
-    # Overhead FX
+    # Normalize dc_code to match cost_drivers.json keys.
+    # MSSQL uses "IAD2"; cost_drivers.json uses "IAD". Resolve via fusion_dc_id.
+    overhead_dc = dc_code
+    if dc_code not in COST_DRIVERS["data_centers"] and dc_info:
+        fid = dc_info.get("id")
+        for code, entry in COST_DRIVERS["data_centers"].items():
+            if entry.get("fusion_dc_id") == fid:
+                overhead_dc = code
+                break
+
+    # Watts for power-cost line (convert to kW)
+    watts = get_mssql_watts(fusion_pid) if fusion_pid else None
+    kw    = round(watts / 1000, 3) if watts else None
+
+    # Overhead FX: native DC currency → service billing currency
     fx_overhead = get_fx_rate(native_currency, currency) if native_currency != currency else 1.0
 
-    # Calculate SW/Support delta once (not dependent on term)
-    sw_delta = round(sum(
-        (c["delta"] or 0)
-        for c in enriched
-        if c["component_category"] in {"Software", "Support"} and c["delta"] is not None
-    ), 2)
+    # SGA % for client-side overhead recalculation when user adjusts prices
+    sga_pct = COST_DRIVERS["overhead_constants"].get("sga_pct", 0.0)
 
     # Pre-calculate all four term scenarios
     pricing = {}
@@ -177,10 +187,9 @@ def api_renewal_detail(service_id):
         term_months_val = {"m2m": 1, "12": 12, "24": 24, "36": 36}[term]
         suggested       = calc_suggested_mrc(product_mrc, enriched, term)
         hw_cost_mo      = 0.0 if paid_off else round(hw_capex_display / term_months_val, 2)
-        overhead_lines  = calc_overhead(dc_code, suggested, fx_rate=fx_overhead)
-        overhead_total  = round(sum(
-            v["amount"] for v in overhead_lines.values() if v.get("amount")
-        ), 2)
+        overhead_lines  = calc_overhead(overhead_dc, suggested, fx_rate=fx_overhead, kw=kw)
+        overhead_amounts = {k: (v["amount"] or 0) for k, v in overhead_lines.items()}
+        overhead_total  = round(sum(overhead_amounts.values()), 2)
         total_cost = round(hw_cost_mo + overhead_total, 2)
         margin     = round(suggested - total_cost, 2)
         margin_pct = round(margin / suggested * 100, 1) if suggested > 0 else 0.0
@@ -188,20 +197,22 @@ def api_renewal_detail(service_id):
         pricing[term] = {
             "suggested_mrc":  suggested,
             "hw_cost_mo":     hw_cost_mo,
+            "overhead_lines": overhead_amounts,
             "overhead_total": overhead_total,
             "total_cost":     total_cost,
             "margin":         margin,
             "margin_pct":     margin_pct,
-            "sw_support_delta": sw_delta,
         }
 
     return jsonify({
-        "service":            service,
-        "components":         enriched,
-        "product_mrc":        product_mrc,
-        "hw_capex":           hw_capex_display,
-        "hw_capex_currency":  hw_capex_currency,
-        "hw_paid_off":        paid_off,
+        "service":              service,
+        "components":           enriched,
+        "product_mrc":          product_mrc,
+        "hw_capex":             hw_capex_display,
+        "hw_capex_currency":    hw_capex_currency,
+        "hw_paid_off":          paid_off,
         "provision_age_months": age_months,
-        "pricing":            pricing,
+        "pricing":              pricing,
+        "sga_pct":              sga_pct,
+        "kw":                   kw,
     })
