@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}CPQ · Aptum{% endblock %}</title>
+  <style>
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Light.ttf') format('truetype'); font-weight:300; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Medium.ttf') format('truetype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+    @font-face { font-family:'Geist Mono'; src:url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+
+    :root {
+      --bg:#081820; --bg-dot:#142233; --surface:#0d1f2d; --surface-2:#060f15;
+      --border:#142233; --border-mid:#1e3547; --text-1:#F8F7FA; --text-2:#88898D;
+      --text-3:#515357; --accent:#7D7AE8; --accent-dim:#2A1F6E; --accent-text:#D4D3FF;
+      --green:#BED6A8; --green-dim:#1a3d1f; --green-text:#BED6A8;
+      --orange:#FFBE81; --orange-dim:#3d1a06; --orange-text:#FFBE81;
+      --red:#ef4444; --red-dim:#3b1220; --red-text:#fca5a5;
+      --shadow:rgba(0,0,0,.25);
+    }
+    [data-theme="light"] {
+      --bg:#F8F7FA; --bg-dot:#D0D1DE; --surface:#FFFFFF; --surface-2:#F0EFF5;
+      --border:#D0D1DE; --border-mid:#88898D; --text-1:#081820; --text-2:#515357;
+      --text-3:#88898D; --accent:#655BD9; --accent-dim:#E7E6FF; --accent-text:#3A2699;
+      --green:#2d6e1f; --green-dim:#E9FEDF; --green-text:#1a4a10;
+      --orange:#a05000; --orange-dim:#FFEBD9; --orange-text:#7a3a00;
+      --red:#c41c1c; --red-dim:#FEE8E8; --red-text:#9b1515;
+      --shadow:rgba(0,0,0,.06);
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:'Geist', system-ui, sans-serif;
+      background-color:var(--bg);
+      background-image:radial-gradient(var(--bg-dot) 1px, transparent 0);
+      background-size:28px 28px;
+      color:var(--text-2); min-height:100vh;
+      transition:background-color .25s, color .25s;
+    }
+    header {
+      display:flex; align-items:center; gap:1rem;
+      padding:1.25rem 2rem; border-bottom:1px solid var(--border);
+    }
+    header img.logo { height:28px; width:auto; display:block; }
+    .hdr-divider { width:1px; height:22px; background:var(--border); }
+    nav.top-nav { display:flex; align-items:center; gap:.25rem; }
+    nav.top-nav a {
+      font-size:.8rem; font-weight:500; color:var(--text-2);
+      text-decoration:none; padding:.35rem .75rem; border-radius:7px;
+      border:1px solid transparent;
+      transition:color .15s, border-color .15s;
+    }
+    nav.top-nav a:hover { color:var(--text-1); border-color:var(--border); }
+    nav.top-nav a.active {
+      color:var(--accent); border-color:var(--accent);
+      background:var(--accent-dim);
+    }
+    .hdr-right { margin-left:auto; display:flex; align-items:center; gap:.75rem; }
+    .theme-btn {
+      background:var(--surface); border:1px solid var(--border);
+      color:var(--text-2); font-size:.9rem; line-height:1;
+      width:34px; height:34px; border-radius:8px;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:border-color .15s, background .2s;
+    }
+    .theme-btn:hover { border-color:var(--accent); color:var(--accent); }
+    .page-body { padding:2rem; }
+    {% block extra_styles %}{% endblock %}
+  </style>
+</head>
+<body>
+<header>
+  <img id="main-logo" class="logo"
+       src="https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png" alt="Aptum" />
+  <div class="hdr-divider"></div>
+  <nav class="top-nav">
+    <a href="/" class="{{ 'active' if active_page == 'quotes' else '' }}">New Quotes</a>
+    <a href="/renewals" class="{{ 'active' if active_page == 'renewals' else '' }}">Renewals</a>
+    <a href="/settings" class="{{ 'active' if active_page == 'settings' else '' }}">Settings</a>
+  </nav>
+  <div class="hdr-right">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle colour scheme">☀</button>
+  </div>
+</header>
+{% block body %}{% endblock %}
+<script>
+  const THEME_KEY = 'aptum-cpq-theme';
+  function initTheme() {
+    const saved = localStorage.getItem(THEME_KEY);
+    const preferred = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    applyTheme(saved || preferred);
+  }
+  function toggleTheme() {
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  }
+  function applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+    localStorage.setItem(THEME_KEY, t);
+    const btn  = document.getElementById('theme-btn');
+    const logo = document.getElementById('main-logo');
+    if (btn)  btn.textContent = t === 'dark' ? '☀' : '☽';
+    if (logo) logo.src = t === 'dark'
+      ? 'https://aptumlogos.pages.dev/Aptum-Logo-Horizontal-Lockup-White.png'
+      : 'https://aptumlogos.pages.dev/Horizontal-Lockup-Black.png';
+  }
+  initTheme();
+</script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>
