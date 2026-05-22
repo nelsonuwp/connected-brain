@@ -22,6 +22,7 @@
     .comp-table td.pos  { color:var(--orange); }
     .comp-table td.neg  { color:var(--green); }
     .warn-badge { display:inline-block; padding:1px 6px; border-radius:4px; font-size:.6rem; font-weight:700; background:var(--orange-dim); color:var(--orange); margin-left:.4rem; }
+    .warn-cell { color:var(--red-text); font-size:.72rem; font-style:italic; }
 
     .term-selector { display:flex; gap:.4rem; }
     .term-btn {
@@ -143,12 +144,22 @@
         const deltaStr   = c.delta !== null
           ? (c.delta > 0 ? `+${fmt(c.delta, cur)}` : fmt(c.delta, cur))
           : '—';
-        const warnHtml   = c.warning
-          ? `<span class="warn-badge" title="${esc(c.warning)}">⚠</span>` : '';
+
+        let newMrcHtml;
+        if (c.new_mrc !== null) {
+          newMrcHtml = `<span class="mono">${fmt(c.new_mrc, cur)}/mo</span>`;
+        } else if (c.warning === 'not_in_pricebook') {
+          newMrcHtml = `<span class="warn-cell" title="Not found in Fusion pricebook">Not priced ⚠</span>`;
+        } else if (c.warning === 'dc_not_in_fusion') {
+          newMrcHtml = `<span class="warn-cell" title="Datacenter not mapped in Fusion">DC unknown ⚠</span>`;
+        } else {
+          newMrcHtml = '—';
+        }
+
         html += `<tr>
-          <td class="name">${esc(c.component)}${warnHtml}</td>
+          <td class="name">${esc(c.component)}</td>
           <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
-          <td class="mono">${c.new_mrc !== null ? fmt(c.new_mrc, cur) + '/mo' : '—'}</td>
+          <td>${newMrcHtml}</td>
           <td class="mono ${deltaClass}">${deltaStr}</td>
         </tr>`;
       });

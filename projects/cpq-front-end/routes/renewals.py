@@ -96,9 +96,10 @@ def api_renewal_detail(service_id):
     native_currency = dc_info["native_currency"] if dc_info else currency
     fx_pricing      = get_fx_rate(native_currency, currency) if native_currency != currency else 1.0
 
-    # Enrich each component with current pricebook price from Fusion
+    # Enrich each component with current pricebook price from Fusion.
+    # Only requires fusion_dc_id — fusion_pid is only needed for HW capex below.
     enriched = []
-    if fusion_dc_id and fusion_pid:
+    if fusion_dc_id:
         conn = get_conn()
         for comp in components:
             cid     = comp.get("component_id")
@@ -107,44 +108,32 @@ def api_renewal_detail(service_id):
             warning = None
 
             if cid:
-                # Check allowed components
+                # Try display currency first
                 with conn.cursor() as cur:
-                    cur.execute(
-                        "SELECT 1 FROM public.product_allowed_components "
-                        "WHERE product_id = %s AND component_id = %s",
-                        (fusion_pid, cid),
-                    )
-                    allowed = cur.fetchone() is not None
+                    cur.execute("""
+                        SELECT mrc FROM public.pricebook
+                        WHERE component_id = %s AND currency = %s
+                          AND datacenter = %s AND is_available = true
+                        LIMIT 1
+                    """, (cid, currency, fusion_dc_id))
+                    pb = cur.fetchone()
 
-                if allowed:
-                    # Try display currency first
+                if pb:
+                    new_mrc = round(float(pb["mrc"] or 0), 2)
+                    in_pb   = True
+                elif native_currency != currency:
+                    # Fallback: native currency + FX
                     with conn.cursor() as cur:
                         cur.execute("""
                             SELECT mrc FROM public.pricebook
                             WHERE component_id = %s AND currency = %s
                               AND datacenter = %s AND is_available = true
                             LIMIT 1
-                        """, (cid, currency, fusion_dc_id))
+                        """, (cid, native_currency, fusion_dc_id))
                         pb = cur.fetchone()
-
                     if pb:
-                        new_mrc = round(float(pb["mrc"] or 0), 2)
+                        new_mrc = round(float(pb["mrc"] or 0) * fx_pricing, 2)
                         in_pb   = True
-                    elif native_currency != currency:
-                        # Fallback: native currency + FX
-                        with conn.cursor() as cur:
-                            cur.execute("""
-                                SELECT mrc FROM public.pricebook
-                                WHERE component_id = %s AND currency = %s
-                                  AND datacenter = %s AND is_available = true
-                                LIMIT 1
-                            """, (cid, native_currency, fusion_dc_id))
-                            pb = cur.fetchone()
-                        if pb:
-                            new_mrc = round(float(pb["mrc"] or 0) * fx_pricing, 2)
-                            in_pb   = True
-                        else:
-                            warning = "not_in_pricebook"
                     else:
                         warning = "not_in_pricebook"
                 else:
