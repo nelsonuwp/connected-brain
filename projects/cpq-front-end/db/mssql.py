@@ -95,3 +95,141 @@ def get_fx_rate(from_currency: str, to_currency: str) -> float:
     except Exception:
         pass
     return 1.0
+
+
+def get_renewal_services(
+    company: str | None = None,
+    client_id: int | None = None,
+    service_id: int | None = None,
+) -> list[dict]:
+    """
+    Returns services from ocean_services_renewal_date JOIN dimServices.
+    Sorted: real future dates first (ascending), then m2m/sentinel dates.
+    Expiration dates of 1899-12-31 are normalized to None.
+    """
+    if not _configured():
+        return []
+    try:
+        conn = _connect()
+        cur = conn.cursor(as_dict=True)
+
+        conditions = []
+        params = []
+        if company:
+            conditions.append("osrd.company_name LIKE %s")
+            params.append(f"%{company}%")
+        if client_id is not None:
+            conditions.append("osrd.client_id = %d")
+            params.append(int(client_id))
+        if service_id is not None:
+            conditions.append("osrd.service_id = %d")
+            params.append(int(service_id))
+
+        where = ("WHERE " + " AND ".join(conditions)) if conditions else ""
+        sql = f"""
+            SELECT
+                osrd.client_id, osrd.company_name, osrd.service_id,
+                osrd.expiration_date, osrd.m2m,
+                ds.product, ds.datacenter_code, ds.currency,
+                ds.mrc, ds.provision_date, ds.contract_months_remaining,
+                ds.service_type, ds.fusion_id, ds.nickname,
+                ds.service_status
+            FROM DM_BusinessInsights.renewals.ocean_services_renewal_date osrd
+            JOIN DM_BusinessInsights.dbo.dimServices ds
+              ON ds.service_id = osrd.service_id
+            {where}
+            ORDER BY
+                CASE
+                    WHEN osrd.expiration_date > '1900-01-01'
+                         AND (osrd.m2m IS NULL OR osrd.m2m != 'yes')
+                    THEN 0 ELSE 1
+                END,
+                osrd.expiration_date ASC
+        """
+        if params:
+            cur.execute(sql, params)
+        else:
+            cur.execute(sql)
+
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        result = []
+        for r in rows:
+            row = dict(r)
+            exp = row.get("expiration_date")
+            row["expiration_date"] = (
+                exp.date().isoformat()
+                if exp and hasattr(exp, "date") and exp.year > 1900
+                else None
+            )
+            prov = row.get("provision_date")
+            row["provision_date"] = (
+                prov.date().isoformat() if prov and hasattr(prov, "date") else None
+            )
+            row["m2m"] = row.get("m2m") == "yes"
+            row["mrc"] = float(row.get("mrc") or 0)
+            result.append(row)
+        return result
+    except Exception:
+        return []
+
+
+def get_service(service_id: int) -> dict | None:
+    """Returns one dimServices row for service_id, or None."""
+    if not _configured():
+        return None
+    try:
+        conn = _connect()
+        cur = conn.cursor(as_dict=True)
+        cur.execute(
+            "SELECT * FROM DM_BusinessInsights.dbo.dimServices WHERE service_id = %d",
+            (service_id,),
+        )
+        row = cur.fetchone()
+        cur.close()
+        conn.close()
+        if not row:
+            return None
+        row = dict(row)
+        for k in ("provision_date", "last_updated"):
+            v = row.get(k)
+            row[k] = v.date().isoformat() if v and hasattr(v, "date") else None
+        row["mrc"] = float(row.get("mrc") or 0)
+        row["usd_mrc"] = float(row.get("usd_mrc") or 0)
+        row["cad_mrc"] = float(row.get("cad_mrc") or 0)
+        return row
+    except Exception:
+        return None
+
+
+def get_service_components(service_id: int) -> list[dict]:
+    """Returns all dimComponents rows for service_id, ordered by category/type."""
+    if not _configured():
+        return []
+    try:
+        conn = _connect()
+        cur = conn.cursor(as_dict=True)
+        cur.execute("""
+            SELECT
+                integer_key, client_id, component_category, service_option_type,
+                component_type, component, add_on, currency,
+                component_mrc, product_mrc, component_id,
+                is_online, service_id, datacenter_code, line_of_business
+            FROM DM_BusinessInsights.dbo.dimComponents
+            WHERE service_id = %d
+            ORDER BY component_category, component_type, component
+        """, (service_id,))
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        result = []
+        for r in rows:
+            row = dict(r)
+            row["component_mrc"] = float(row.get("component_mrc") or 0)
+            row["product_mrc"] = float(row.get("product_mrc") or 0)
+            result.append(row)
+        return result
+    except Exception:
+        return []
