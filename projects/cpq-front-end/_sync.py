@@ -96,16 +96,40 @@ def cmd_pull() -> None:
     print("\n[pull] done.")
 
 
+VM_HOST = "anelson@10.121.20.129"
+VM_DIR  = "~/cpq-front-end"
+LOG     = "/tmp/cpq.log"
+
 def cmd_deploy() -> None:
-    """Workspace → VM (rsync over SSH). Run make commands on VM after."""
+    """Workspace → VM (rsync over SSH). Prints full next-steps after sync."""
     print(f"\n[deploy] workspace → {VM_TARGET}")
     print("\n── rsync to VM ──")
-    # rsync function expects a Path for dst, but VM is a remote string — call directly.
     flags = ["-av", "--delete"]
     cmd = ["rsync", *flags, *_EXCLUDE_ARGS, f"{WORKSPACE}/", VM_TARGET + "/"]
     run(cmd)
-    print("\n[deploy] done. On the VM run:")
-    print("  make build && make run-prod")
+    print(f"""
+[deploy] files synced. Next steps on the VM ({VM_HOST}):
+
+  ── rebuild image ──────────────────────────────────────────
+  cd {VM_DIR} && make build
+
+  ── stop any running container ─────────────────────────────
+  podman ps                        # find container ID
+  podman stop <id>                 # stop it
+
+  ── run headless (survives disconnect, logs to {LOG}) ──
+  make run-headless                # nohup + log in one command
+
+  ── OR run in foreground (Ctrl+C to stop) ──────────────────
+  make run-prod
+
+  ── watch the log ──────────────────────────────────────────
+  tail -f {LOG}
+
+  ── verify it's up ─────────────────────────────────────────
+  curl -s http://localhost:5050/api/datacenters | head -c 120
+""")
+
 
 
 def cmd_status() -> None:

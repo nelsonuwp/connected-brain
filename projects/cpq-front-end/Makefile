@@ -1,4 +1,4 @@
-.PHONY: all build run run-prod shell clean
+.PHONY: all build run run-prod run-headless shell clean
 
 .ONESHELL:
 .SHELLFLAGS = -ec
