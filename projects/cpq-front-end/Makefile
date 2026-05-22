@@ -35,6 +35,19 @@ run-prod:
 		-v $(PWD)/cost_drivers.json:/app/cost_drivers.json \
 		$(IMAGE)
 
+# Headless: stop any existing container, start detached, tail the log.
+# Safe to re-run on redeploy — old container is stopped first.
+run-headless:
+	-docker stop $$(docker ps -q --filter ancestor=$(IMAGE)) 2>/dev/null || true
+	nohup docker run --rm \
+		--env-file .env \
+		-p $(PORT):$(PORT) \
+		-v $(PWD)/cost_drivers.json:/app/cost_drivers.json \
+		$(IMAGE) \
+		> /tmp/cpq.log 2>&1 &
+	@echo "Container started. Tailing /tmp/cpq.log (Ctrl+C to stop watching — container keeps running)..."
+	@sleep 1 && tail -f /tmp/cpq.log
+
 shell:
 	docker run --rm -it --env-file .env --entrypoint bash $(IMAGE)
 
