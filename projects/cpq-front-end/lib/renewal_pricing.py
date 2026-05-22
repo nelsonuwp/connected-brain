@@ -39,7 +39,7 @@ def calc_suggested_mrc(product_mrc: float, components: list, term: str) -> float
     total = float(product_mrc)
     for c in components:
         if c["component_category"] in _SW_SUPPORT_CATS:
-            total += c["new_mrc"] if c["new_mrc"] is not None else c["component_mrc"]
+            total += float(c["new_mrc"]) if c["new_mrc"] is not None else float(c["component_mrc"])
         else:
             total += float(c["component_mrc"])
     multiplier = 1.25 if term == "m2m" else 1.0
