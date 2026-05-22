@@ -84,8 +84,9 @@ def get_dc_registry() -> dict:
         with conn.cursor() as cur:
             cur.execute("""
                 SELECT sd.id, sd.dc_abbr, sd.name, sd.city, sd.state,
-                       array_agg(dac.currency_code ORDER BY dac.currency_code)
-                         FILTER (WHERE dac.currency_code IS NOT NULL) AS currencies
+                       array_agg(CASE WHEN dac.currency_code IS NOT NULL
+                                      THEN dac.currency_code END
+                                 ORDER BY dac.currency_code) AS currencies
                 FROM public.sb_datacenter sd
                 LEFT JOIN public.datacenter_available_currencies dac ON dac.datacenter_id = sd.id
                 WHERE sd.active = true
