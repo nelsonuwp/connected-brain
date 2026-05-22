@@ -90,62 +90,51 @@ def api_renewal_detail(service_id):
     dc_code      = (service.get("datacenter_code") or "").upper()
     fusion_pid   = service.get("fusion_id")  # maps to product_catalog.id in Fusion
 
-    # Fusion DC lookup for pricebook queries
+    # DC info is used only for overhead FX; pricebook lookups no longer need fusion_dc_id
+    # because prices are uniform across all DCs within the same currency.
     dc_info         = get_dc_info(dc_code) if dc_code else None
-    fusion_dc_id    = dc_info["id"] if dc_info else None
     native_currency = dc_info["native_currency"] if dc_info else currency
-    fx_pricing      = get_fx_rate(native_currency, currency) if native_currency != currency else 1.0
+
+    # Pre-fetch FX rates for pricebook currency fallbacks (avoids per-component MSSQL calls).
+    # Priority order when service currency not found: CAD → USD → GBP → EUR.
+    _CURRENCY_PRIORITY = ["CAD", "USD", "GBP", "EUR"]
+    _fx_from: dict[str, float] = {
+        fc: get_fx_rate(fc, currency)
+        for fc in _CURRENCY_PRIORITY
+        if fc != currency
+    }
 
     # Enrich each component with current pricebook price from Fusion.
-    # Only requires fusion_dc_id — fusion_pid is only needed for HW capex below.
+    # No datacenter filter — prices are identical across DCs for the same currency.
+    conn = get_conn()
     enriched = []
-    if fusion_dc_id:
-        conn = get_conn()
-        for comp in components:
-            cid     = comp.get("component_id")
-            new_mrc = None
-            in_pb   = False
-            warning = None
+    for comp in components:
+        cid     = comp.get("component_id")
+        new_mrc = None
+        in_pb   = False
+        warning = None
 
-            if cid:
-                # Try display currency first
+        if cid:
+            # Try service currency first, then fallback order
+            for fc in [currency] + [c for c in _CURRENCY_PRIORITY if c != currency]:
                 with conn.cursor() as cur:
                     cur.execute("""
                         SELECT mrc FROM public.pricebook
-                        WHERE component_id = %s AND currency = %s
-                          AND datacenter = %s AND is_available = true
+                        WHERE component_id = %s AND currency = %s AND is_available = true
                         LIMIT 1
-                    """, (cid, currency, fusion_dc_id))
+                    """, (cid, fc))
                     pb = cur.fetchone()
-
                 if pb:
-                    new_mrc = round(float(pb["mrc"] or 0), 2)
+                    raw = float(pb["mrc"] or 0)
+                    new_mrc = round(raw * _fx_from.get(fc, 1.0), 2)
                     in_pb   = True
-                elif native_currency != currency:
-                    # Fallback: native currency + FX
-                    with conn.cursor() as cur:
-                        cur.execute("""
-                            SELECT mrc FROM public.pricebook
-                            WHERE component_id = %s AND currency = %s
-                              AND datacenter = %s AND is_available = true
-                            LIMIT 1
-                        """, (cid, native_currency, fusion_dc_id))
-                        pb = cur.fetchone()
-                    if pb:
-                        new_mrc = round(float(pb["mrc"] or 0) * fx_pricing, 2)
-                        in_pb   = True
-                    else:
-                        warning = "not_in_pricebook"
-                else:
-                    warning = "not_in_pricebook"
+                    break
+            if not in_pb:
+                warning = "not_in_pricebook"
 
-            delta = round((new_mrc - comp["component_mrc"]), 2) if new_mrc is not None else None
-            enriched.append({**comp, "new_mrc": new_mrc, "delta": delta,
-                              "in_pricebook": in_pb, "warning": warning})
-    else:
-        enriched = [{**c, "new_mrc": None, "delta": None,
-                     "in_pricebook": False, "warning": "dc_not_in_fusion"}
-                    for c in components]
+        delta = round((new_mrc - comp["component_mrc"]), 2) if new_mrc is not None else None
+        enriched.append({**comp, "new_mrc": new_mrc, "delta": delta,
+                          "in_pricebook": in_pb, "warning": warning})
 
     # HW CapEx from MSSQL
     hw_capex_display = 0.0
