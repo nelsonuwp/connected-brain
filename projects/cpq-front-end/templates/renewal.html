@@ -338,8 +338,8 @@
     const multiplier = term === 'm2m' ? 1.25 : 1.0;
     const suggested  = r2(total * multiplier);
 
-    // adjTotal = delta vs backend's original suggested (for display)
-    const adjTotal = r2(suggested - (d.pricing[term]?.suggested_mrc ?? suggested));
+    // adjTotal = how much the suggested MRC changes vs what the customer currently pays
+    const adjTotal = r2(suggested - d.service.mrc);
     return { suggested, adjTotal };
   }
 
