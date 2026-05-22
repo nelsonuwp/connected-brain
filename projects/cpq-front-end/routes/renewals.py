@@ -67,13 +67,14 @@ def api_renewals():
     company    = request.args.get("company", "").strip() or None
     client_id  = request.args.get("client_id", "").strip() or None
     service_id = request.args.get("service_id", "").strip() or None
+    m2m_only   = request.args.get("m2m_only") == "1"
     try:
         client_id  = int(client_id)  if client_id  else None
         service_id = int(service_id) if service_id else None
     except ValueError:
         return jsonify({"error": "client_id and service_id must be integers"}), 400
 
-    rows   = get_renewal_services(company=company, client_id=client_id, service_id=service_id)
+    rows   = get_renewal_services(company=company, client_id=client_id, service_id=service_id, m2m_only=m2m_only)
     groups = _group_renewals(rows)
     return jsonify({"groups": groups, "total_services": len(rows)})
 

@@ -97,10 +97,28 @@ def get_fx_rate(from_currency: str, to_currency: str) -> float:
     return 1.0
 
 
+def _parse_date(value) -> str | None:
+    """Normalize a date/datetime from pymssql to 'YYYY-MM-DD' string or None.
+
+    pymssql returns datetime2 columns as strings like '2025-01-08 23:00:00.0000000'
+    rather than datetime objects, so we handle both forms.
+    Sentinel dates <= 1900-01-01 are normalized to None.
+    """
+    if value is None:
+        return None
+    if isinstance(value, str):
+        date_str = value[:10]
+        return date_str if date_str > "1900-01-01" else None
+    if hasattr(value, "date"):
+        return value.date().isoformat() if value.year > 1900 else None
+    return None
+
+
 def get_renewal_services(
     company: str | None = None,
     client_id: int | None = None,
     service_id: int | None = None,
+    m2m_only: bool = False,
 ) -> list[dict]:
     """
     Returns services from ocean_services_renewal_date JOIN dimServices.
@@ -124,6 +142,8 @@ def get_renewal_services(
         if service_id is not None:
             conditions.append("osrd.service_id = %d")
             params.append(int(service_id))
+        if m2m_only:
+            conditions.append("osrd.m2m = 'yes'")
 
         where = ("WHERE " + " AND ".join(conditions)) if conditions else ""
         sql = f"""
@@ -158,16 +178,8 @@ def get_renewal_services(
         result = []
         for r in rows:
             row = dict(r)
-            exp = row.get("expiration_date")
-            row["expiration_date"] = (
-                exp.date().isoformat()
-                if exp and hasattr(exp, "date") and exp.year > 1900
-                else None
-            )
-            prov = row.get("provision_date")
-            row["provision_date"] = (
-                prov.date().isoformat() if prov and hasattr(prov, "date") else None
-            )
+            row["expiration_date"] = _parse_date(row.get("expiration_date"))
+            row["provision_date"] = _parse_date(row.get("provision_date"))
             row["m2m"] = row.get("m2m") == "yes"
             row["mrc"] = float(row.get("mrc") or 0)
             result.append(row)
@@ -194,8 +206,7 @@ def get_service(service_id: int) -> dict | None:
             return None
         row = dict(row)
         for k in ("provision_date", "last_updated"):
-            v = row.get(k)
-            row[k] = v.date().isoformat() if v and hasattr(v, "date") else None
+            row[k] = _parse_date(row.get(k))
         row["mrc"] = float(row.get("mrc") or 0)
         row["usd_mrc"] = float(row.get("usd_mrc") or 0)
         row["cad_mrc"] = float(row.get("cad_mrc") or 0)
