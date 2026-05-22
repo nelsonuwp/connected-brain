@@ -185,6 +185,13 @@ def api_renewal_detail(service_id):
     # Overhead FX
     fx_overhead = get_fx_rate(native_currency, currency) if native_currency != currency else 1.0
 
+    # Calculate SW/Support delta once (not dependent on term)
+    sw_delta = round(sum(
+        (c["delta"] or 0)
+        for c in enriched
+        if c["component_category"] in {"Software", "Support"} and c["delta"] is not None
+    ), 2)
+
     # Pre-calculate all four term scenarios
     pricing = {}
     for term in ("m2m", "12", "24", "36"):
@@ -198,12 +205,6 @@ def api_renewal_detail(service_id):
         total_cost = round(hw_cost_mo + overhead_total, 2)
         margin     = round(suggested - total_cost, 2)
         margin_pct = round(margin / suggested * 100, 1) if suggested > 0 else 0.0
-
-        sw_delta = round(sum(
-            (c["delta"] or 0)
-            for c in enriched
-            if c["component_category"] in {"Software", "Support"} and c["delta"] is not None
-        ), 2)
 
         pricing[term] = {
             "suggested_mrc":  suggested,

@@ -184,7 +184,7 @@
       if (multi) {
         g.services.forEach(svc => {
           html += `
-            <tr class="child-row" id="child-${gi}" onclick="nav(${svc.service_id})">
+            <tr class="child-row" data-group="${gi}" onclick="nav(${svc.service_id})">
               <td>${esc(svc.nickname || String(svc.service_id))}</td>
               <td class="mono">${svc.service_id}</td>
               <td>${esc(svc.service_type || '—')}</td>
@@ -203,7 +203,7 @@
   }
 
   function toggleGroup(gi) {
-    const rows    = document.querySelectorAll(`#child-${gi}`);
+    const rows    = document.querySelectorAll(`[data-group="${gi}"]`);
     const chevron = document.getElementById(`chv-${gi}`);
     const open    = chevron.classList.contains('open');
     rows.forEach(r => r.classList.toggle('visible', !open));

@@ -7,8 +7,6 @@ from lib.overhead import COST_DRIVERS, reload as reload_cost_drivers
 
 settings_bp = Blueprint("settings", __name__)
 
-_COST_DRIVERS_PATH = None  # set at import time below
-
 
 def _get_path():
     from pathlib import Path
