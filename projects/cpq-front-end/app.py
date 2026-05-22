@@ -420,12 +420,20 @@ def fx_rate_endpoint():
 @app.route("/api/servers")
 def servers():
     """
-    Active servers with pricebook pricing in display currency.
-    Query params: dc (dc_abbr), currency (display), product_line
+    All active servers that have any pricebook row for the DC, regardless of
+    currency, mrc value, or is_available flag. Pricing problems surface as
+    warnings in the response rather than silently hiding servers.
 
-    Pricing strategy:
-      1. Try pricebook WHERE currency = display_currency → fx_pricing = 1.0
-      2. Fall back to native_currency → fx_pricing = get_fx_rate(native, display)
+    Pricing strategy per server:
+      1. Use pricebook row in display_currency (fx = 1.0)
+      2. Fall back to native_currency row + FX conversion
+      3. If no row in either currency: mrc=null, warning="no_pricebook_row"
+
+    warnings array values:
+      "no_pricebook_row"               — no pricebook entry for this DC at all
+      "no_pricebook_in_display_currency" — priced in native currency via FX
+      "mrc_is_zero"                    — pricebook row exists but mrc = 0
+      "not_available_in_pricebook"     — pricebook row has is_available = false
     """
     dc_abbr      = request.args.get("dc", "").upper()
     currency     = request.args.get("currency", "USD").upper()
@@ -439,51 +447,116 @@ def servers():
     native_currency = dc_info["native_currency"]
 
     conn = get_conn()
+    with conn.cursor() as cur:
+        cur.execute("""
+            SELECT pc.id, pc.name, pc.description, pc.sku,
+                   pc.available_in_shop, pc.sold_out, pc.limited_availability,
+                   pb_disp.id   AS pb_disp_id,
+                   pb_disp.mrc  AS disp_mrc,  pb_disp.nrc  AS disp_nrc,
+                   pb_disp.setup AS disp_setup, pb_disp.is_available AS disp_available,
+                   pb_nat.id    AS pb_nat_id,
+                   pb_nat.mrc   AS nat_mrc,   pb_nat.nrc   AS nat_nrc,
+                   pb_nat.setup  AS nat_setup,  pb_nat.is_available  AS nat_available
+            FROM public.product_catalog pc
+            LEFT JOIN LATERAL (
+                SELECT id, mrc, nrc, setup, is_available
+                FROM public.pricebook
+                WHERE product_catalog_id = pc.id
+                  AND currency = %s
+                  AND datacenter = %s
+                  AND product_line_id = %s
+                  AND component_id IS NULL
+                LIMIT 1
+            ) pb_disp ON true
+            LEFT JOIN LATERAL (
+                SELECT id, mrc, nrc, setup, is_available
+                FROM public.pricebook
+                WHERE product_catalog_id = pc.id
+                  AND currency = %s
+                  AND datacenter = %s
+                  AND product_line_id = %s
+                  AND component_id IS NULL
+                LIMIT 1
+            ) pb_nat ON true
+            WHERE pc.product_class = 1
+              AND pc.is_active = true
+              AND EXISTS (
+                  SELECT 1 FROM public.pricebook
+                  WHERE product_catalog_id = pc.id
+                    AND datacenter = %s
+                    AND product_line_id = %s
+                    AND component_id IS NULL
+              )
+            ORDER BY COALESCE(pb_disp.mrc, pb_nat.mrc) ASC NULLS LAST
+        """, (
+            currency,        fusion_dc_id, product_line,
+            native_currency, fusion_dc_id, product_line,
+            fusion_dc_id, product_line,
+        ))
+        rows = cur.fetchall()
 
-    def _query_servers(pb_currency: str):
-        with conn.cursor() as cur:
-            cur.execute("""
-                SELECT pc.id, pc.name, pc.description, pc.sku,
-                       pc.available_in_shop, pc.sold_out, pc.limited_availability,
-                       pb.mrc, pb.nrc, pb.setup, pb.is_available,
-                       pb.id AS pricebook_id
-                FROM public.product_catalog pc
-                JOIN public.pricebook pb ON pb.product_catalog_id = pc.id
-                WHERE pc.product_class = 1
-                  AND pc.is_active = true
-                  AND pb.currency = %s
-                  AND pb.datacenter = %s
-                  AND pb.product_line_id = %s
-                  AND pb.component_id IS NULL
-                  AND pb.mrc > 0
-                  AND pb.is_available = true
-                ORDER BY pb.mrc ASC
-            """, (pb_currency, fusion_dc_id, product_line))
-            return cur.fetchall()
+    fx_native_to_display = (
+        get_fx_rate(native_currency, currency)
+        if native_currency != currency else 1.0
+    )
 
-    # Step 1: try target currency directly
-    rows = _query_servers(currency)
-    if rows:
-        pricing_currency = currency
-        fx_pricing       = 1.0
-    else:
-        # Step 2: fall back to native currency + FX
-        rows             = _query_servers(native_currency)
-        pricing_currency = native_currency
-        fx_pricing       = get_fx_rate(native_currency, currency)
+    result = []
+    for r in rows:
+        warnings = []
 
-    return jsonify([
-        {
-            **dict(r),
-            "mrc":              round(_dec(r["mrc"]) * fx_pricing, 2),
-            "nrc":              round(_dec(r["nrc"]) * fx_pricing, 2),
-            "setup":            round(_dec(r["setup"]) * fx_pricing, 2),
-            "pricing_currency": pricing_currency,
-            "display_currency": currency,
-            "fx_pricing":       fx_pricing,
-        }
-        for r in rows
-    ])
+        if r["pb_disp_id"] is not None:
+            mrc_pb      = _dec(r["disp_mrc"])
+            nrc_pb      = _dec(r["disp_nrc"])
+            setup_pb    = _dec(r["disp_setup"])
+            fx          = 1.0
+            pb_id       = r["pb_disp_id"]
+            is_avail    = r["disp_available"]
+            pricing_cur = currency
+        elif r["pb_nat_id"] is not None:
+            mrc_pb      = _dec(r["nat_mrc"])
+            nrc_pb      = _dec(r["nat_nrc"])
+            setup_pb    = _dec(r["nat_setup"])
+            fx          = fx_native_to_display
+            pb_id       = r["pb_nat_id"]
+            is_avail    = r["nat_available"]
+            pricing_cur = native_currency
+            if native_currency != currency:
+                warnings.append("no_pricebook_in_display_currency")
+        else:
+            mrc_pb      = 0.0
+            nrc_pb      = 0.0
+            setup_pb    = 0.0
+            fx          = 1.0
+            pb_id       = None
+            is_avail    = None
+            pricing_cur = None
+            warnings.append("no_pricebook_row")
+
+        if pb_id is not None and mrc_pb == 0:
+            warnings.append("mrc_is_zero")
+        if is_avail is False:
+            warnings.append("not_available_in_pricebook")
+
+        result.append({
+            "id":                   r["id"],
+            "name":                 r["name"],
+            "description":          r["description"],
+            "sku":                  r["sku"],
+            "available_in_shop":    r["available_in_shop"],
+            "sold_out":             r["sold_out"],
+            "limited_availability": r["limited_availability"],
+            "pricebook_id":         pb_id,
+            "mrc":                  round(mrc_pb * fx, 2) if pb_id is not None else None,
+            "nrc":                  round(nrc_pb * fx, 2),
+            "setup":                round(setup_pb * fx, 2),
+            "is_available":         is_avail,
+            "pricing_currency":     pricing_cur,
+            "display_currency":     currency,
+            "fx_pricing":           fx,
+            "warnings":             warnings,
+        })
+
+    return jsonify(result)
 
 
 @app.route("/api/product/<int:product_id>")

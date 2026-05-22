@@ -52,32 +52,55 @@
 ### Server list (`/api/servers`)
 
 ```sql
+-- All active servers that have ANY pricebook row for this DC
+-- Pricing problems surface as warnings, not silent exclusions
 SELECT pc.id, pc.name, ...
 FROM public.product_catalog pc
-JOIN public.pricebook pb ON pb.product_catalog_id = pc.id
-WHERE pc.product_class = 1          -- servers only (class 1)
-  AND pc.is_active = true           -- product must be active in Fusion
-  AND pb.currency = %s              -- native DC currency (or display if pricebook has it)
-  AND pb.datacenter = %s            -- sb_datacenter.id for selected DC
-  AND pb.product_line_id = %s       -- 4 = Dedicated Hosting, 3 = Managed Hosting
-  AND pb.component_id IS NULL       -- server-level pricebook row (not a component row)
-  AND pb.mrc > 0                    -- must have a positive monthly price
-  AND pb.is_available = true        -- must be available in pricebook
-ORDER BY pb.mrc ASC
+LEFT JOIN LATERAL (
+    SELECT id, mrc, nrc, setup, is_available FROM public.pricebook
+    WHERE product_catalog_id = pc.id AND currency = [display_currency]
+      AND datacenter = %s AND product_line_id = %s AND component_id IS NULL
+    LIMIT 1
+) pb_disp ON true
+LEFT JOIN LATERAL (
+    SELECT id, mrc, nrc, setup, is_available FROM public.pricebook
+    WHERE product_catalog_id = pc.id AND currency = [native_currency]
+      AND datacenter = %s AND product_line_id = %s AND component_id IS NULL
+    LIMIT 1
+) pb_nat ON true
+WHERE pc.product_class = 1
+  AND pc.is_active = true
+  AND EXISTS (
+      SELECT 1 FROM public.pricebook
+      WHERE product_catalog_id = pc.id
+        AND datacenter = %s AND product_line_id = %s AND component_id IS NULL
+  )
+ORDER BY COALESCE(pb_disp.mrc, pb_nat.mrc) ASC NULLS LAST
 ```
 
-**For cost coverage auditing:** Any server returned by this query has `pc.is_active = true` and `pb.is_available = true`. To check cost coverage, run:
+**Pricing resolution per server (in order):**
+1. Pricebook row in display currency → `fx = 1.0`, no warning
+2. Pricebook row in native currency only → FX conversion applied, `warnings: ["no_pricebook_in_display_currency"]`
+3. No pricebook row in any currency → `mrc: null`, `warnings: ["no_pricebook_row"]`
+
+**Additional warnings added when applicable:**
+- `"mrc_is_zero"` — pricebook row exists but `mrc = 0`
+- `"not_available_in_pricebook"` — pricebook row has `is_available = false`
+
+Servers with data problems are returned in the list with warnings rather than silently hidden. Fix the data in Ocean/Fusion to resolve the warnings.
+
+**For cost coverage auditing** — active servers with no `ocean_sku_cost` TLS row:
 
 ```sql
 -- Servers visible in the CPQ that have NO ocean_sku_cost TLS row
 SELECT pc.id, pc.name
 FROM public.product_catalog pc
-JOIN public.pricebook pb ON pb.product_catalog_id = pc.id
 WHERE pc.product_class = 1
   AND pc.is_active = true
-  AND pb.is_available = true
-  AND pb.mrc > 0
-  AND pb.component_id IS NULL
+  AND EXISTS (
+      SELECT 1 FROM public.pricebook
+      WHERE product_catalog_id = pc.id AND component_id IS NULL
+  )
   AND pc.id NOT IN (
       SELECT sku_id FROM profitability.ocean_sku_cost WHERE sku_level = 'TLS'
   )
