@@ -119,6 +119,7 @@ def get_renewal_services(
     client_id: int | None = None,
     service_id: int | None = None,
     m2m_only: bool = False,
+    termed_only: bool = False,
 ) -> list[dict]:
     """
     Returns services from ocean_services_renewal_date JOIN dimServices.
@@ -144,6 +145,8 @@ def get_renewal_services(
             params.append(int(service_id))
         if m2m_only:
             conditions.append("osrd.m2m = 'yes'")
+        if termed_only:
+            conditions.append("(osrd.m2m IS NULL OR osrd.m2m != 'yes')")
 
         where = ("WHERE " + " AND ".join(conditions)) if conditions else ""
         sql = f"""

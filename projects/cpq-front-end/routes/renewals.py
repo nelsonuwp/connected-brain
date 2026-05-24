@@ -64,19 +64,45 @@ def renewal_page(service_id):
 
 @renewals_bp.route("/api/renewals")
 def api_renewals():
-    company    = request.args.get("company", "").strip() or None
-    client_id  = request.args.get("client_id", "").strip() or None
-    service_id = request.args.get("service_id", "").strip() or None
-    m2m_only   = request.args.get("m2m_only") == "1"
+    from datetime import date as _date
+
+    company        = request.args.get("company", "").strip() or None
+    client_id      = request.args.get("client_id", "").strip() or None
+    service_id     = request.args.get("service_id", "").strip() or None
+    contract_type  = request.args.get("contract_type", "all")   # all | termed | m2m
+    expires_before = request.args.get("expires_before", "").strip() or None
+
+    m2m_only    = contract_type == "m2m"
+    termed_only = contract_type == "termed"
+
     try:
         client_id  = int(client_id)  if client_id  else None
         service_id = int(service_id) if service_id else None
     except ValueError:
         return jsonify({"error": "client_id and service_id must be integers"}), 400
 
-    rows   = get_renewal_services(company=company, client_id=client_id, service_id=service_id, m2m_only=m2m_only)
+    rows   = get_renewal_services(
+        company=company, client_id=client_id, service_id=service_id,
+        m2m_only=m2m_only, termed_only=termed_only,
+    )
     groups = _group_renewals(rows)
-    return jsonify({"groups": groups, "total_services": len(rows)})
+
+    # Apply expires_before to non-m2m groups (m2m has no expiration date)
+    if expires_before and contract_type != "m2m":
+        try:
+            filter_date = _date.fromisoformat(expires_before)
+            groups = [
+                g for g in groups
+                if g["m2m"] or (
+                    g.get("expiration_date")
+                    and _date.fromisoformat(g["expiration_date"]) <= filter_date
+                )
+            ]
+        except ValueError:
+            pass
+
+    total = sum(len(g["services"]) for g in groups)
+    return jsonify({"groups": groups, "total_services": total})
 
 
 @renewals_bp.route("/api/renewals/<int:service_id>")

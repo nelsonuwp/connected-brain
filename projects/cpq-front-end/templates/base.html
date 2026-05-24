@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -88,8 +88,7 @@
   const THEME_KEY = 'aptum-cpq-theme';
   function initTheme() {
     const saved = localStorage.getItem(THEME_KEY);
-    const preferred = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    applyTheme(saved || preferred);
+    applyTheme(saved || 'light');
   }
   function toggleTheme() {
     applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');

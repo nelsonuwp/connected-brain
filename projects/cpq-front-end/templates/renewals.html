@@ -2,59 +2,94 @@
 {% block title %}CPQ — Renewals · Aptum{% endblock %}
 
 {% block extra_styles %}
-    .page-body { padding: 2rem; }
-    .filter-bar {
-      display:flex; align-items:flex-end; gap:1rem; flex-wrap:wrap;
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
-      padding:1.25rem 1.5rem; margin-bottom:1.5rem;
-      box-shadow:0 2px 8px var(--shadow);
-    }
-    .filter-group { display:flex; flex-direction:column; gap:.3rem; min-width:180px; }
-    .filter-group label { font-size:.63rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); }
-    .filter-group input {
-      appearance:none; background:var(--bg); border:1px solid var(--border);
-      color:var(--text-1); font-family:'Geist',sans-serif; font-size:.875rem;
-      padding:.5rem .85rem; border-radius:8px; outline:none;
-      transition:border-color .15s;
-    }
-    .filter-group input:focus { border-color:var(--accent); }
-    #status-bar { font-size:.78rem; color:var(--text-2); margin-bottom:1rem; min-height:1.1rem; }
-    .renewals-table { width:100%; border-collapse:collapse; }
-    .renewals-table th {
-      font-size:.63rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
-      color:var(--text-3); padding:.5rem .75rem; text-align:left;
-      border-bottom:1px solid var(--border);
-    }
-    .group-row {
-      background:var(--surface); cursor:pointer;
-      transition:background .15s;
-    }
-    .group-row:hover { background:var(--surface-2); }
-    .group-row td {
-      padding:.75rem; font-size:.82rem; color:var(--text-1);
-      border-bottom:1px solid var(--border);
-    }
-    .group-row td.muted { color:var(--text-2); }
-    .chevron { display:inline-block; transition:transform .2s; margin-right:.5rem; color:var(--text-3); font-size:.7rem; }
-    .chevron.open { transform:rotate(90deg); }
-    .child-row { display:none; background:var(--surface-2); }
-    .child-row.visible { display:table-row; }
-    .child-row td { padding:.5rem .75rem .5rem 2.5rem; font-size:.78rem; color:var(--text-2); border-bottom:1px solid var(--border); cursor:pointer; }
-    .child-row:hover td { color:var(--text-1); background:var(--border); }
-    .badge {
-      display:inline-block; padding:1px 7px; border-radius:999px;
-      font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
-    }
-    .badge.m2m   { background:var(--orange-dim); color:var(--orange); }
-    .badge.soon  { background:var(--red-dim); color:var(--red-text); }
-    .badge.mixed { background:var(--surface); color:var(--text-3); border:1px solid var(--border); }
-    .m2m-toggle { display:flex; align-items:center; gap:.4rem; padding:.35rem .75rem; border-radius:8px; border:1px solid var(--border); background:var(--bg); cursor:pointer; font-size:.8rem; font-weight:500; color:var(--text-2); transition:border-color .15s, background .15s, color .15s; user-select:none; align-self:flex-end; margin-bottom:.1rem; }
-    .m2m-toggle input { display:none; }
-    .m2m-toggle.active { border-color:var(--orange); background:var(--orange-dim); color:var(--orange-text); }
-    .mono { font-family:'Geist Mono',monospace; }
-    .empty { text-align:center; padding:4rem 1rem; color:var(--text-3); font-size:.875rem; }
-    .spinner { display:inline-block; width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-right:6px; }
-    @keyframes spin { to { transform:rotate(360deg); } }
+  :root      { --exp-yellow:#b07800; }
+  [data-theme="dark"] { --exp-yellow:#d4a800; }
+
+  .page-body { padding: 2rem; }
+
+  /* ── Filter bar ─────────────────────────────────────────────── */
+  .filter-bar {
+    display:flex; align-items:flex-end; gap:1rem; flex-wrap:wrap;
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:1.25rem 1.5rem; margin-bottom:1.5rem;
+    box-shadow:0 2px 8px var(--shadow);
+  }
+  .filter-group { display:flex; flex-direction:column; gap:.3rem; min-width:160px; }
+  .filter-group label {
+    font-size:.63rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.08em; color:var(--text-3);
+  }
+  .filter-group input[type="text"],
+  .filter-group input[type="date"] {
+    appearance:none; background:var(--bg); border:1px solid var(--border);
+    color:var(--text-1); font-family:'Geist',sans-serif; font-size:.875rem;
+    padding:.5rem .85rem; border-radius:8px; outline:none;
+    transition:border-color .15s;
+  }
+  .filter-group input:focus { border-color:var(--accent); }
+
+  /* ── Segmented toggle (All / Termed / M2M) ───────────────────── */
+  .seg-toggle {
+    display:flex; border:1px solid var(--border); border-radius:8px;
+    overflow:hidden; background:var(--bg);
+  }
+  .seg-btn {
+    flex:1; padding:.45rem .85rem;
+    background:none; border:none; border-right:1px solid var(--border);
+    color:var(--text-2); font-family:'Geist',sans-serif;
+    font-size:.8rem; font-weight:500;
+    cursor:pointer; transition:background .15s, color .15s;
+    white-space:nowrap;
+  }
+  .seg-btn:last-child { border-right:none; }
+  .seg-btn:hover { background:var(--surface); color:var(--text-1); }
+  .seg-btn.active[data-val="all"]   { background:var(--accent-dim); color:var(--accent-text); }
+  .seg-btn.active[data-val="termed"]{ background:var(--accent-dim); color:var(--accent-text); }
+  .seg-btn.active[data-val="m2m"]   { background:var(--orange-dim); color:var(--orange-text); }
+
+  /* ── Status bar ──────────────────────────────────────────────── */
+  #status-bar { font-size:.78rem; color:var(--text-2); margin-bottom:1rem; min-height:1.1rem; }
+
+  /* ── Table ───────────────────────────────────────────────────── */
+  .renewals-table { width:100%; border-collapse:collapse; }
+  .renewals-table th {
+    font-size:.63rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--text-3); padding:.5rem .75rem; text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  .group-row { background:var(--surface); cursor:pointer; transition:background .15s; }
+  .group-row:hover { background:var(--surface-2); }
+  .group-row td {
+    padding:.75rem; font-size:.82rem; color:var(--text-1);
+    border-bottom:1px solid var(--border);
+  }
+  .group-row td.muted { color:var(--text-2); }
+  .chevron { display:inline-block; transition:transform .2s; margin-right:.5rem; color:var(--text-3); font-size:.7rem; }
+  .chevron.open { transform:rotate(90deg); }
+  .child-row { display:none; background:var(--surface-2); }
+  .child-row.visible { display:table-row; }
+  .child-row td { padding:.5rem .75rem .5rem 2.5rem; font-size:.78rem; color:var(--text-2); border-bottom:1px solid var(--border); cursor:pointer; }
+  .child-row:hover td { color:var(--text-1); background:var(--border); }
+
+  /* ── Badges (categorical labels only) ───────────────────────── */
+  .badge {
+    display:inline-block; padding:1px 7px; border-radius:999px;
+    font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+  }
+  .badge.m2m   { background:var(--orange-dim); color:var(--orange-text); }
+  .badge.mixed { background:var(--surface); color:var(--text-3); border:1px solid var(--border); }
+
+  /* ── Expiration date color states ────────────────────────────── */
+  .exp { font-family:'Geist Mono',monospace; font-size:.82rem; }
+  .exp-ok      { color:var(--text-1); }
+  .exp-warn    { color:var(--exp-yellow); font-weight:500; }
+  .exp-soon    { color:var(--orange);     font-weight:500; }
+  .exp-expired { color:var(--red);        font-weight:600; }
+
+  .mono  { font-family:'Geist Mono',monospace; }
+  .empty { text-align:center; padding:4rem 1rem; color:var(--text-3); font-size:.875rem; }
+  .spinner { display:inline-block; width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-right:6px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
 {% endblock %}
 
 {% block body %}
@@ -72,10 +107,18 @@
       <label for="f-service">Service ID</label>
       <input id="f-service" type="text" placeholder="e.g. 7981507" autocomplete="off" />
     </div>
-    <label class="m2m-toggle" id="m2m-toggle" onclick="toggleM2m()">
-      <input type="checkbox" id="f-m2m" />
-      M2M only
-    </label>
+    <div class="filter-group">
+      <label for="f-expires">Expires Before</label>
+      <input id="f-expires" type="date" />
+    </div>
+    <div class="filter-group">
+      <label>Contract Type</label>
+      <div class="seg-toggle" id="contract-toggle">
+        <button class="seg-btn active" data-val="all">All</button>
+        <button class="seg-btn" data-val="termed">Termed</button>
+        <button class="seg-btn" data-val="m2m">M2M</button>
+      </div>
+    </div>
   </div>
   <div id="status-bar" role="status" aria-live="polite"></div>
   <div id="table-wrap">
@@ -104,14 +147,35 @@
   }
 
   function expDisplay(group) {
-    if (group.m2m)             return '<span class="badge m2m">m2m</span>';
-    if (!group.expiration_date) return '—';
-    const days = Math.ceil((new Date(group.expiration_date) - Date.now()) / 86400000);
+    if (group.m2m) return '<span class="badge m2m">M2M</span>';
+    if (!group.expiration_date) return '<span class="muted">—</span>';
+
+    const days = Math.ceil((new Date(group.expiration_date + 'T00:00:00') - Date.now()) / 86400000);
     const label = fmtDate(group.expiration_date);
-    if (days < 90) return `<span class="badge soon">${label}</span>`;
-    return label;
+
+    if (days < 0)  return `<span class="exp exp-expired">${label}</span>`;
+    if (days < 60) return `<span class="exp exp-soon">${label}</span>`;
+    if (days < 90) return `<span class="exp exp-warn">${label}</span>`;
+    return `<span class="exp exp-ok">${label}</span>`;
   }
 
+  // ── Segmented toggle ─────────────────────────────────────────────
+  let contractType = 'all';
+
+  document.querySelectorAll('.seg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      contractType = btn.dataset.val;
+      load();
+    });
+  });
+
+  // ── Date default: today + 90 days ────────────────────────────────
+  const d90 = new Date(Date.now() + 90 * 86400000);
+  document.getElementById('f-expires').value = d90.toISOString().slice(0, 10);
+
+  // ── Debounced filter ─────────────────────────────────────────────
   let debounceTimer;
   function onFilter() {
     clearTimeout(debounceTimer);
@@ -121,24 +185,21 @@
   document.getElementById('f-company').addEventListener('input', onFilter);
   document.getElementById('f-client').addEventListener('input', onFilter);
   document.getElementById('f-service').addEventListener('input', onFilter);
+  document.getElementById('f-expires').addEventListener('input', onFilter);
 
-  function toggleM2m() {
-    const cb = document.getElementById('f-m2m');
-    cb.checked = !cb.checked;
-    document.getElementById('m2m-toggle').classList.toggle('active', cb.checked);
-    load();
-  }
-
+  // ── Load ─────────────────────────────────────────────────────────
   function load() {
+    const params = new URLSearchParams();
     const company   = document.getElementById('f-company').value.trim();
     const clientId  = document.getElementById('f-client').value.trim();
     const serviceId = document.getElementById('f-service').value.trim();
-    const m2mOnly   = document.getElementById('f-m2m').checked;
-    const params = new URLSearchParams();
-    if (company)   params.set('company',    company);
-    if (clientId)  params.set('client_id',  clientId);
-    if (serviceId) params.set('service_id', serviceId);
-    if (m2mOnly)   params.set('m2m_only',   '1');
+    const expires   = document.getElementById('f-expires').value;
+
+    if (company)   params.set('company',       company);
+    if (clientId)  params.set('client_id',     clientId);
+    if (serviceId) params.set('service_id',    serviceId);
+    if (expires)   params.set('expires_before', expires);
+    params.set('contract_type', contractType);
 
     document.getElementById('table-wrap').innerHTML =
       '<div class="empty"><span class="spinner"></span>Loading…</div>';
@@ -152,9 +213,10 @@
       });
   }
 
+  // ── Render ───────────────────────────────────────────────────────
   function render(data) {
     const groups = data.groups || [];
-    const wrap = document.getElementById('table-wrap');
+    const wrap   = document.getElementById('table-wrap');
     document.getElementById('status-bar').textContent =
       `${data.total_services} services in ${groups.length} groups`;
 
@@ -172,18 +234,18 @@
         <tbody>`;
 
     groups.forEach((g, gi) => {
-      const multi   = g.service_count > 1;
-      const chevron = multi
+      const multi    = g.service_count > 1;
+      const chevron  = multi
         ? `<span class="chevron" id="chv-${gi}">▶</span>`
         : '<span style="margin-right:1.25rem"></span>';
-      const dcBadge = g.dc === 'Mixed'
+      const dcBadge  = g.dc === 'Mixed'
         ? '<span class="badge mixed">Mixed</span>'
         : esc(g.dc || '—');
       const prodBadge = g.product === 'Mixed'
         ? '<span class="badge mixed">Mixed</span>'
         : esc(g.product || '—');
       const firstSvc = g.services[0];
-      const cur = firstSvc?.currency || 'USD';
+      const cur      = firstSvc?.currency || 'USD';
 
       html += `
         <tr class="group-row" onclick="${multi ? `toggleGroup(${gi})` : `nav(${g.services[0].service_id})`}">
