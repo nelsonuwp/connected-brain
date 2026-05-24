@@ -17,7 +17,7 @@ build:
 # Dev: Flask debug + auto-reload. Source bind-mounted so edits are live.
 # Single worker because the sshtunnel/psycopg connection is module-level state.
 run:
-	docker run --rm -it \
+	podman run --rm -it \
 		--env-file .env \
 		-p $(PORT):$(PORT) \
 		-v $(PWD)/app.py:/app/app.py \
