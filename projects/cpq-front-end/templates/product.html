@@ -625,7 +625,15 @@
       }).join('');
 
       // --- Addable section: nest by parent_type when multiple children share a parent
-      const addable = cat.allowed.filter(a => !defaultIdSet.has(a.component_id));
+      // Exclude components that are already reachable as swap alternatives for a default
+      // (same fullType as a default → they appear in the swap dropdown, not as independent add-ons)
+      const swapAltIds = new Set();
+      cat.defaults.forEach(d => {
+        cat.allowed
+          .filter(a => fullType(a) === fullType(d) && !defaultIdSet.has(a.component_id))
+          .forEach(a => swapAltIds.add(a.component_id));
+      });
+      const addable = cat.allowed.filter(a => !defaultIdSet.has(a.component_id) && !swapAltIds.has(a.component_id));
       // group: { parentKey: { childType: [items] } }
       const addableNested = {};
       addable.forEach(a => {
