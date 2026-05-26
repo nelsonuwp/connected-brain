@@ -476,7 +476,7 @@
       const amCell     = _seg === 'customer' ? `<td>${esc(am)}</td>` : '';
 
       return `<tr onclick="window.location='${link}'">
-        <td class="name" style="display:flex;align-items:center;gap:.35rem">${esc(name)}${warn}</td>
+        <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${esc(name)}${warn}</span></td>
         ${amCell}
         <td class="mono">${r.service_count}</td>
         <td class="mono">${mrcCell}</td>

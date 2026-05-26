@@ -151,14 +151,16 @@
       _services = data.services || [];
       const s   = data.summary  || {};
 
-      document.getElementById('cust-name').textContent = s.company_name || `Client ${CLIENT_ID}`;
+      const autoC = s.auto_currency;
+      const cadBadge = autoC ? ' <span style="display:inline-flex;align-items:center;gap:.25rem;font-size:.65rem;color:#f59e0b;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:4px;padding:1px 6px;vertical-align:middle">CAD*</span>' : '';
+      document.getElementById('cust-name').innerHTML = esc(s.company_name || `Client ${CLIENT_ID}`) + cadBadge;
       document.getElementById('cust-sub').textContent  =
         `client_id ${CLIENT_ID}` +
         (s.account_manager ? ` · Account Manager: ${s.account_manager}` : '') +
-        ` · ${_services.length} active services`;
+        ` · ${_services.length} active services` +
+        (autoC ? ' · amounts converted to CAD' : '');
 
-      const cur = _services.length && !s.currency_mixed
-        ? (_services[0].currency || 'USD') : '';
+      const cur = _services.length ? (_services[0].currency || 'USD') : 'USD';
       document.getElementById('kpi-mrc').textContent    = s.mrc    != null ? fmtMoney(s.mrc, cur) : '—';
       document.getElementById('kpi-cost').textContent   = s.total_cost != null ? fmtMoney(s.total_cost, cur) : '—';
       document.getElementById('kpi-margin').textContent = s.margin  != null ? fmtMoney(s.margin, cur) : '—';
@@ -180,16 +182,17 @@
       return;
     }
     tbody.innerHTML = _services.map((s, i) => {
-      const name = s.nickname ? `${s.service_id} · ${s.nickname}` : String(s.service_id);
+      const name = s.nickname ? `${s.service_id} · ${esc(s.nickname)}` : String(s.service_id);
       const cur  = s.currency || '';
       const pctClass = s.margin_pct == null ? '' : s.margin_pct >= 20 ? 'pct-pos' : s.margin_pct >= 10 ? 'pct-warn' : 'pct-neg';
+      const warn = warnIcon(s.missing_data);
       return `<tr onclick="selectRow(${i})">
-        <td class="name">${name}</td>
-        <td><span class="dc-badge">${s.datacenter_code || '—'}</span></td>
-        <td>${s.service_type || '—'}</td>
-        <td class="mono">${fmtMoney(s.mrc, cur)}</td>
-        <td class="mono">${fmtMoney(s.total_cost, cur)}</td>
-        <td class="mono" style="${s.margin < 0 ? 'color:var(--red)' : ''}">${fmtMoney(s.margin, cur)}</td>
+        <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${name}${warn}</span></td>
+        <td><span class="dc-badge">${esc(s.datacenter_code || '—')}</span></td>
+        <td>${esc(s.service_type || '—')}</td>
+        <td class="mono">${esc(fmtMoney(s.mrc, cur))}</td>
+        <td class="mono">${esc(fmtMoney(s.total_cost, cur))}</td>
+        <td class="mono" style="${s.margin < 0 ? 'color:var(--red)' : ''}">${esc(fmtMoney(s.margin, cur))}</td>
         <td class="mono ${pctClass}">${s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—'}</td>
       </tr>`;
     }).join('');
@@ -205,11 +208,16 @@
 
   function renderSidebar(s) {
     const cur = s.currency || 'USD';
-    const name = s.nickname ? `${s.service_id} · ${s.nickname}` : String(s.service_id);
+    const name = s.nickname ? `${s.service_id} · ${esc(s.nickname)}` : String(s.service_id);
+    const missingList = (s.missing_data || []);
+    const warnHtml = missingList.length
+      ? missingList.map(m => `<div style="display:flex;align-items:center;gap:.3rem;font-size:.72rem;color:#f59e0b;margin-top:.35rem">${window.ICONS.warn}<span>${esc(m)}</span></div>`).join('')
+      : '';
 
     document.getElementById('sb-header').innerHTML = `
       <h3>${name}</h3>
-      <div class="sub">${s.service_type || ''} · ${s.datacenter_code || ''}</div>`;
+      <div class="sub">${esc(s.service_type || '')} · ${esc(s.datacenter_code || '')}</div>
+      ${warnHtml}`;
 
     // Revenue
     document.getElementById('sb-revenue-table').innerHTML = `
@@ -267,12 +275,12 @@
     link.style.display = '';
   }
 
+  const _SYM = { USD: '$', CAD: '$', GBP: '£', EUR: '€' };
   function fmtMoney(val, cur) {
     if (val == null) return '—';
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency', currency: cur || 'USD',
-      minimumFractionDigits: 2, maximumFractionDigits: 2,
-    }).format(val);
+    const sym = _SYM[cur] || '$';
+    const abs = Math.abs(val).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return (val < 0 ? '-' : '') + sym + abs;
   }
 
   function showError(msg) {
