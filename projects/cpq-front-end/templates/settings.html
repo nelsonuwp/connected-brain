@@ -239,37 +239,76 @@
 <script>
 // ── Row definitions ───────────────────────────────────────────────────────
 const ROWS = [
-  { key: 'power_per_kw',       label: 'Power',              unit: '$/kW'    },
-  { key: 'dc_equipment',       label: 'DC Equipment',       unit: '$/device' },
-  { key: 'network_equipment',  label: 'Network Equipment',  unit: '$/device' },
-  { key: 'dc_ops',             label: 'DC Ops',             unit: '$/device' },
-  { key: 'support_ops',        label: 'Support Ops',        unit: '$/device' },
-  { key: 'network_ops',        label: 'Network Ops',        unit: '$/device' },
-  { key: 'compute_ops',        label: 'Compute Ops',        unit: '$/device' },
+  { key: 'power_per_kw',      label: 'Power',             unit: '$/kW'     },
+  { key: 'dc_equipment',      label: 'DC Equipment',      unit: '$/device' },
+  { key: 'network_equipment', label: 'Network Equipment', unit: '$/device' },
+  { key: 'dc_ops',            label: 'DC Ops',            unit: '$/device' },
+  { key: 'support_ops',       label: 'Support Ops',       unit: '$/device' },
+  { key: 'network_ops',       label: 'Network Ops',       unit: '$/device' },
+  { key: 'compute_ops',       label: 'Compute Ops',       unit: '$/device' },
 ];
 
-const SVC_TYPES = ['server', 'firewall', 'switch'];
-
-let _data = null;       // raw cost_drivers.json
-let _curSvc = 'server'; // active service type tab
+let _data     = null;       // raw cost_drivers.json
+let _svcTypes = [];         // all known service types
+let _curSvc   = null;       // active service type tab
 
 // ── Load ──────────────────────────────────────────────────────────────────
 async function loadData() {
-  const res = await fetch('/api/settings/overhead');
-  _data = await res.json();
+  const [overheadRes, typesRes] = await Promise.all([
+    fetch('/api/settings/overhead'),
+    fetch('/api/settings/service-types'),
+  ]);
+  _data     = await overheadRes.json();
+  _svcTypes = await typesRes.json();
+
+  // Ensure at least the JSON keys are present
+  if (!_svcTypes.length) _svcTypes = ['server'];
+
+  _curSvc = _svcTypes[0];
+  renderTabs();
   renderTable();
   document.getElementById('sga-pct').value =
     ((_data.overhead_constants.sga_pct || 0) * 100).toFixed(4).replace(/\.?0+$/, '');
 }
 
-// ── Render ────────────────────────────────────────────────────────────────
+// ── Tabs ──────────────────────────────────────────────────────────────────
+function _isConfigured(svc) {
+  // A service type is "configured" if ANY dc has costs entries for it
+  return Object.values(_data.data_centers).some(dc => dc.costs && dc.costs[svc]);
+}
+
+function renderTabs() {
+  const container = document.getElementById('svc-tabs');
+  container.innerHTML = '';
+  for (const svc of _svcTypes) {
+    const configured = _isConfigured(svc);
+    const btn = document.createElement('button');
+    btn.className = 'svc-tab' + (svc === _curSvc ? ' active' : '') + (configured ? '' : ' no-data');
+    btn.dataset.svc = svc;
+    btn.onclick = () => switchTab(btn);
+
+    // Capitalize label
+    const label = document.createTextNode(svc.charAt(0).toUpperCase() + svc.slice(1));
+    btn.appendChild(label);
+
+    if (!configured) {
+      const dot = document.createElement('span');
+      dot.className = 'tab-qdot';
+      dot.textContent = '?';
+      dot.title = 'No overhead rates configured for this service type';
+      btn.appendChild(dot);
+    }
+    container.appendChild(btn);
+  }
+}
+
+// ── Render table ─────────────────────────────────────────────────────────
 function renderTable() {
   const dcs = Object.keys(_data.data_centers);
 
   // Header row
   const hdrRow = document.getElementById('dc-header-row');
   const curRow = document.getElementById('currency-row');
-  // Keep first <th> (label column), replace the rest
   while (hdrRow.children.length > 1) hdrRow.removeChild(hdrRow.lastChild);
   while (curRow.children.length > 1) curRow.removeChild(curRow.lastChild);
 
@@ -277,7 +316,6 @@ function renderTable() {
     const th = document.createElement('th');
     th.textContent = dc;
     hdrRow.appendChild(th);
-
     const tc = document.createElement('th');
     tc.textContent = _data.data_centers[dc].native_currency;
     curRow.appendChild(tc);
@@ -297,19 +335,33 @@ function renderTable() {
 
     for (const dc of dcs) {
       const td = document.createElement('td');
-      td.className = 'cell';
-      const input = document.createElement('input');
-      input.type = 'number';
-      input.step = '0.01';
-      input.min = '0';
-      input.dataset.dc  = dc;
-      input.dataset.key = row.key;
-      input.addEventListener('input', () => input.classList.add('modified'));
+      const dcCosts = _data.data_centers[dc]?.costs;
+      const hasSvc = dcCosts && dcCosts[_curSvc];
 
-      const val = _data.data_centers[dc]?.costs?.[_curSvc]?.[row.key]?.amount ?? 0;
-      input.value = val;
-
-      td.appendChild(input);
+      if (!hasSvc) {
+        // No data configured for this dc + service type — show ? button
+        td.className = 'cell no-data';
+        const btn = document.createElement('button');
+        btn.className = 'no-data-btn has-tooltip';
+        btn.textContent = '?';
+        btn.dataset.tooltip = `No overhead rates configured for ${dc} · ${_curSvc}\nClick to initialize with zeros`;
+        btn.dataset.dc = dc;
+        btn.addEventListener('click', () => initDcSvcType(dc));
+        td.appendChild(btn);
+      } else {
+        td.className = 'cell';
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.step = '0.01';
+        input.min = '0';
+        input.dataset.dc  = dc;
+        input.dataset.key = row.key;
+        input.addEventListener('input', () => input.classList.add('modified'));
+        const amt = dcCosts[_curSvc][row.key]?.amount;
+        input.value = amt ?? '';
+        input.placeholder = amt == null ? '?' : '';
+        td.appendChild(input);
+      }
       tr.appendChild(td);
     }
 
@@ -317,11 +369,26 @@ function renderTable() {
   }
 }
 
+function initDcSvcType(dc) {
+  // Initialize this dc's costs for _curSvc with zeros (lets user enter values)
+  if (!_data.data_centers[dc].costs) _data.data_centers[dc].costs = {};
+  if (!_data.data_centers[dc].costs[_curSvc]) {
+    _data.data_centers[dc].costs[_curSvc] = {};
+    for (const row of ROWS) {
+      const measure = row.key === 'power_per_kw' ? 'per_kw' : 'per_device';
+      _data.data_centers[dc].costs[_curSvc][row.key] = { amount: 0, measure };
+    }
+  }
+  renderTable();
+  renderTabs();
+}
+
 function fillValues() {
   const inputs = document.querySelectorAll('#cost-tbody input');
   for (const input of inputs) {
-    const val = _data.data_centers[input.dataset.dc]?.costs?.[_curSvc]?.[input.dataset.key]?.amount ?? 0;
-    input.value = val;
+    const amt = _data.data_centers[input.dataset.dc]?.costs?.[_curSvc]?.[input.dataset.key]?.amount;
+    input.value = amt ?? '';
+    input.placeholder = amt == null ? '?' : '';
     input.classList.remove('modified');
   }
 }
@@ -331,7 +398,7 @@ function switchTab(btn) {
   document.querySelectorAll('.svc-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   _curSvc = btn.dataset.svc;
-  fillValues();
+  renderTable();
 }
 
 // ── Save ──────────────────────────────────────────────────────────────────
@@ -340,17 +407,15 @@ async function saveSettings() {
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>Saving…';
 
-  // Build payload — collect all three service types from DOM for current state
-  // Start from _data so untouched types carry their existing values
   const payload = JSON.parse(JSON.stringify(_data));
 
-  // Apply current tab's edits into _data first
+  // Apply inputs from current tab into payload
   const inputs = document.querySelectorAll('#cost-tbody input');
   for (const input of inputs) {
-    const val = parseFloat(input.value) || 0;
-    if (payload.data_centers[input.dataset.dc]?.costs?.[_curSvc]?.[input.dataset.key]) {
-      payload.data_centers[input.dataset.dc].costs[_curSvc][input.dataset.key].amount = val;
-    }
+    const dcCosts = payload.data_centers[input.dataset.dc]?.costs;
+    if (!dcCosts || !dcCosts[_curSvc]) continue;
+    const raw = input.value.trim();
+    dcCosts[_curSvc][input.dataset.key].amount = raw === '' ? null : (parseFloat(raw) || 0);
   }
 
   const sgaRaw = parseFloat(document.getElementById('sga-pct').value) || 0;
@@ -366,6 +431,7 @@ async function saveSettings() {
     if (json.ok) {
       _data = payload;
       document.querySelectorAll('#cost-tbody input').forEach(i => i.classList.remove('modified'));
+      renderTabs();
       showToast('Saved ✓', 'ok');
     } else {
       showToast(json.error || 'Save failed', 'err');
@@ -380,12 +446,17 @@ async function saveSettings() {
 
 // ── Reset ─────────────────────────────────────────────────────────────────
 async function resetForm() {
-  const res = await fetch('/api/settings/overhead');
-  _data = await res.json();
+  const [overheadRes, typesRes] = await Promise.all([
+    fetch('/api/settings/overhead'),
+    fetch('/api/settings/service-types'),
+  ]);
+  _data     = await overheadRes.json();
+  _svcTypes = await typesRes.json();
   fillValues();
   document.getElementById('sga-pct').value =
     ((_data.overhead_constants.sga_pct || 0) * 100).toFixed(4).replace(/\.?0+$/, '');
   document.querySelectorAll('#cost-tbody input').forEach(i => i.classList.remove('modified'));
+  renderTabs();
   showToast('Reset to saved values', 'ok');
 }
 
