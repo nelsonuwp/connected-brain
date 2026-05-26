@@ -188,7 +188,8 @@
         '<div class="empty">Failed to load service data.</div>';
     });
 
-  function tableHeader() {
+  function tableHeader(cur) {
+    const csym = sym[cur] || '$';
     return `<table class="comp-table">
       <colgroup>
         <col class="col-check"><col class="col-name">
@@ -200,7 +201,7 @@
         <th>Component</th>
         <th class="r">Current Price</th>
         <th class="r">Cost</th>
-        <th class="r">New Price (List)</th>
+        <th class="r">New Price (${csym})</th>
         <th class="r">Δ</th>
       </tr></thead><tbody>`;
   }
@@ -245,13 +246,10 @@
       <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
       ${costCell}
       <td class="adj-cell">
-        <div class="adj-wrap">
-          <span class="curr-sym">${csym}</span>
-          <input type="number" class="adj-input" id="adj-${i}"
-                 value="${suggestedVal.toFixed(2)}" step="0.01" min="0"
-                 ${adjDisabled}
-                 ${repriceable && checked ? `oninput="adjustSuggested(${i}, this.value)"` : ''} />
-        </div>
+        <input type="number" class="adj-input" id="adj-${i}"
+               value="${suggestedVal.toFixed(2)}" step="0.01" min="0"
+               ${adjDisabled}
+               ${repriceable && checked ? `oninput="adjustSuggested(${i}, this.value)"` : ''} />
       </td>
       <td id="delta-${i}" class="delta">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
     </tr>`;
@@ -283,7 +281,7 @@
         <td class="name"><span class="label">${esc(svc.product || 'Server')}</span></td>
         <td class="mono">${fmt(d.product_mrc, cur)}/mo</td>
         <td class="zero">—</td>
-        <td class="adj-cell"><div class="adj-wrap"><span class="curr-sym">${csym}</span><span style="font-family:'Geist Mono',monospace;font-size:.78rem;color:var(--text-3)">—</span></div></td>
+        <td class="adj-cell"><span class="zero">—</span></td>
         <td class="zero">—</td>
       </tr>
       </tbody></table>`;
