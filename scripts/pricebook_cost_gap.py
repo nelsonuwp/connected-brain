@@ -154,11 +154,12 @@ def fetch_ocean_sku_cost() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def fetch_active_component_counts() -> pd.DataFrame:
+def fetch_server_stats() -> pd.DataFrame:
     """
-    Returns a count of online deployments per component_id from dimComponents,
-    filtered to active services only.
-    Columns: fusion_id, active_deployments
+    Returns per-fusion_id stats from dimServices for server/TLS-level rows.
+      - active_deployments: count of Online services with that fusion_id
+      - last_provisioned: most recent provision_date across all services ever
+    Columns: fusion_id, active_deployments, last_provisioned
     """
     conn = pymssql.connect(
         server=MSSQL_SERVER, user=MSSQL_USER,
@@ -167,20 +168,56 @@ def fetch_active_component_counts() -> pd.DataFrame:
     )
     cur = conn.cursor(as_dict=True)
     cur.execute("""
-        SELECT dc.component_id, COUNT(*) AS active_deployments
+        SELECT
+            fusion_id,
+            SUM(CASE WHEN service_status = 'Online' THEN 1 ELSE 0 END) AS active_deployments,
+            MAX(CAST(provision_date AS DATE))                           AS last_provisioned
+        FROM DM_BusinessInsights.dbo.dimServices
+        WHERE fusion_id IS NOT NULL
+        GROUP BY fusion_id
+    """)
+    rows = [dict(r) for r in cur.fetchall()]
+    cur.close()
+    conn.close()
+    print(f"  → {len(rows)} server stat rows fetched", flush=True)
+    df = pd.DataFrame(rows) if rows else pd.DataFrame(columns=["fusion_id", "active_deployments", "last_provisioned"])
+    df["fusion_id"] = df["fusion_id"].astype(int)
+    df["last_provisioned"] = pd.to_datetime(df["last_provisioned"]).dt.date.astype(str).replace("NaT", "")
+    return df
+
+
+def fetch_component_stats() -> pd.DataFrame:
+    """
+    Returns per-component_id stats from dimComponents (all rows, not filtered by is_online):
+      - active_deployments: count of is_online='Yes' rows on Online services
+      - last_provisioned: most recent component_date across all rows (ever sold)
+    Columns: fusion_id, active_deployments, last_provisioned
+    """
+    conn = pymssql.connect(
+        server=MSSQL_SERVER, user=MSSQL_USER,
+        password=MSSQL_PASS, database=MSSQL_DB,
+        tds_version="7.0",
+    )
+    cur = conn.cursor(as_dict=True)
+    cur.execute("""
+        SELECT
+            dc.component_id,
+            SUM(CASE WHEN dc.is_online = 'Yes' AND ds.service_status = 'Online'
+                     THEN 1 ELSE 0 END)          AS active_deployments,
+            MAX(CAST(dc.component_date AS DATE))  AS last_provisioned
         FROM DM_BusinessInsights.dbo.dimComponents dc
         JOIN DM_BusinessInsights.dbo.dimServices ds
           ON ds.service_id = dc.service_id
-        WHERE dc.is_online = 'Yes'
-          AND ds.service_status = 'Online'
         GROUP BY dc.component_id
     """)
     rows = [dict(r) for r in cur.fetchall()]
     cur.close()
     conn.close()
-    print(f"  → {len(rows)} component deployment counts fetched", flush=True)
-    df = pd.DataFrame(rows) if rows else pd.DataFrame(columns=["component_id", "active_deployments"])
-    return df.rename(columns={"component_id": "fusion_id"})
+    print(f"  → {len(rows)} component stat rows fetched", flush=True)
+    df = pd.DataFrame(rows) if rows else pd.DataFrame(columns=["component_id", "active_deployments", "last_provisioned"])
+    df = df.rename(columns={"component_id": "fusion_id"})
+    df["last_provisioned"] = pd.to_datetime(df["last_provisioned"]).dt.date.astype(str).replace("NaT", "")
+    return df
 
 
 # ── Report building ───────────────────────────────────────────────────────────
@@ -240,8 +277,11 @@ def build_report(output_path: str):
     print("\n[2/3] Fetching MSSQL ocean_sku_cost...")
     costs = fetch_ocean_sku_cost()
 
-    print("\n[3/3] Fetching active deployment counts from dimComponents...")
-    deploy_counts = fetch_active_component_counts()
+    print("\n[3/4] Fetching server stats (deployments + last provisioned) from dimServices...")
+    server_stats = fetch_server_stats()
+
+    print("\n[4/4] Fetching component stats (deployments + last provisioned) from dimComponents...")
+    deploy_counts = fetch_component_stats()
 
     print("\nBuilding report...")
 
@@ -264,14 +304,22 @@ def build_report(output_path: str):
 
     merged["has_cost"] = merged["sku_cost"].notna()
 
-    # Join active deployment counts (component rows only; TLS rows won't match, get 0)
+    # Component rows: stats from dimComponents
     deploy_counts["fusion_id"] = deploy_counts["fusion_id"].astype(int)
-    merged = merged.merge(deploy_counts, on="fusion_id", how="left")
+    merged = merged.merge(deploy_counts, on="fusion_id", how="left", suffixes=("", "_comp"))
+
+    # TLS/server rows: stats from dimServices (different source, same numeric ID space)
+    # Apply server stats directly onto TLS rows, overwriting any component stat bleed
+    tls_mask = merged["sku_level_pb"] == "TLS"
+    server_stats = server_stats.set_index("fusion_id")
+    for col in ("active_deployments", "last_provisioned"):
+        merged.loc[tls_mask, col] = merged.loc[tls_mask, "fusion_id"].map(server_stats[col])
+
     merged["active_deployments"] = merged["active_deployments"].fillna(0).astype(int)
 
     # Final column order
     id_cols    = ["fusion_id", "sku_name_pb", "sku_level_pb", "is_available",
-                  "fusion_category", "fusion_type", "active_deployments"]
+                  "fusion_category", "fusion_type", "active_deployments", "last_provisioned"]
     cost_cols  = ["sku_name", "sku_level_osc", "sku_category", "sku_type",
                   "sku_cost", "cost_currency", "vendor"]
     price_cols = [c for c in merged.columns if c.endswith("_MRC") or c.endswith("_NRC")]
