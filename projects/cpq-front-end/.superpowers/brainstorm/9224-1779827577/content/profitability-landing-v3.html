@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<style>
+  @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Light.ttf') format('truetype'); font-weight:300; }
+  @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Regular.ttf') format('truetype'); font-weight:400; }
+  @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Medium.ttf') format('truetype'); font-weight:500; }
+  @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Bold.ttf') format('truetype'); font-weight:700; }
+  @font-face { font-family:'Geist Mono'; src:url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf') format('truetype'); font-weight:400; }
+
+  :root {
+    --bg:#F8F7FA; --bg-dot:#D0D1DE; --surface:#FFFFFF; --surface-2:#F0EFF5;
+    --border:#D0D1DE; --border-mid:#88898D; --text-1:#081820; --text-2:#515357;
+    --text-3:#88898D; --accent:#655BD9; --accent-dim:#E7E6FF; --accent-text:#3A2699;
+    --green:#2d6e1f; --green-dim:#E9FEDF; --green-text:#1a4a10;
+    --orange:#a05000; --orange-dim:#FFEBD9; --orange-text:#7a3a00;
+    --red:#c41c1c; --red-dim:#FEE8E8; --red-text:#9b1515;
+    --shadow:rgba(0,0,0,.06);
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family:'Geist', system-ui, sans-serif;
+    background-color:var(--bg);
+    background-image:radial-gradient(var(--bg-dot) 1px, transparent 0);
+    background-size:28px 28px;
+    color:var(--text-2);
+  }
+
+  header {
+    display:flex; align-items:center; gap:1rem;
+    padding:1.25rem 2rem; border-bottom:1px solid var(--border); background:var(--bg);
+  }
+  .logo { height:28px; }
+  .hdr-divider { width:1px; height:22px; background:var(--border); }
+  nav.top-nav { display:flex; align-items:center; gap:.25rem; }
+  nav.top-nav a {
+    font-size:.8rem; font-weight:500; color:var(--text-2);
+    text-decoration:none; padding:.35rem .75rem; border-radius:7px;
+    border:1px solid transparent;
+  }
+  nav.top-nav a.active { color:var(--accent); border-color:var(--accent); background:var(--accent-dim); }
+  .hdr-right { margin-left:auto; }
+  .theme-btn {
+    background:var(--surface); border:1px solid var(--border); color:var(--text-2);
+    font-size:.9rem; width:34px; height:34px; border-radius:8px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+
+  .page-body { padding:2rem; }
+
+  /* ── KPI ── */
+  .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; margin-bottom:1.5rem; }
+  .kpi-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:.9rem 1.1rem; box-shadow:0 2px 6px var(--shadow);
+  }
+  .kpi-label { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--text-3); margin-bottom:.35rem; }
+  .kpi-value { font-size:1.4rem; font-weight:700; color:var(--text-1); font-family:'Geist Mono',monospace; }
+  .kpi-value.green { color:var(--green); }
+  .kpi-value.red { color:var(--red); }
+  .kpi-sub { font-size:.68rem; color:var(--text-3); margin-top:.2rem; }
+
+  /* ── Filter bar — same pattern as renewals.html ── */
+  .filter-bar {
+    display:flex; align-items:flex-end; gap:1rem; flex-wrap:wrap;
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:1.25rem 1.5rem; margin-bottom:1.25rem;
+    box-shadow:0 2px 8px var(--shadow);
+  }
+  .filter-group { display:flex; flex-direction:column; gap:.3rem; min-width:160px; }
+  .filter-group label {
+    font-size:.63rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.08em; color:var(--text-3);
+  }
+  .combo-trigger {
+    display:flex; align-items:center; justify-content:space-between; gap:4px;
+    background:var(--bg); border:1px solid var(--border); border-radius:8px;
+    padding:4px 10px 4px 8px; min-height:36px; cursor:pointer; user-select:none;
+  }
+  .combo-chips { display:flex; flex-wrap:wrap; gap:4px; flex:1; align-items:center; min-height:24px; }
+  .combo-placeholder { color:var(--text-3); font-size:.875rem; }
+  .combo-chevron { color:var(--text-3); font-size:.6rem; }
+  .combo-chip {
+    display:inline-flex; align-items:center; gap:3px;
+    background:var(--accent-dim); color:var(--accent-text);
+    border-radius:4px; padding:2px 6px;
+    font-size:.72rem; font-weight:600; white-space:nowrap;
+  }
+  .combo-chip-rm {
+    background:none; border:none; color:inherit; cursor:pointer;
+    font-size:.85rem; line-height:1; padding:0; opacity:.65;
+  }
+  .filter-group input[type="text"] {
+    appearance:none; background:var(--bg); border:1px solid var(--border);
+    color:var(--text-1); font-family:'Geist',sans-serif; font-size:.875rem;
+    padding:.5rem .85rem; border-radius:8px; outline:none;
+  }
+  .filter-group input:focus { border-color:var(--accent); }
+  .filter-clear {
+    font-size:.75rem; color:var(--text-3); background:none; border:none;
+    cursor:pointer; padding:.35rem .5rem; border-radius:6px; font-family:'Geist',sans-serif;
+    align-self:flex-end; margin-bottom:1px;
+  }
+  .filter-clear:hover { color:var(--text-1); }
+
+  /* ── Segment + table ── */
+  .controls { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+  .seg-toggle { display:flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .seg-btn {
+    padding:.38rem 1rem; font-size:.78rem; font-weight:500; font-family:'Geist',sans-serif;
+    background:var(--surface); color:var(--text-2); border:none; cursor:pointer;
+    border-right:1px solid var(--border);
+  }
+  .seg-btn:last-child { border-right:none; }
+  .seg-btn.active { background:var(--accent); color:#fff; }
+  .sort-hint { font-size:.7rem; color:var(--text-3); }
+
+  .table-wrap {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; overflow:hidden; box-shadow:0 2px 8px var(--shadow);
+  }
+  .prof-table { width:100%; border-collapse:collapse; }
+  .prof-table th {
+    font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--text-3); padding:.45rem .75rem; text-align:left;
+    border-bottom:2px solid var(--border); white-space:nowrap; cursor:pointer;
+  }
+  .prof-table th:hover { color:var(--text-1); }
+  .prof-table th.r { text-align:right; }
+  .prof-table th.sorted { color:var(--accent); }
+  .prof-table td {
+    padding:.6rem .75rem; font-size:.8rem; color:var(--text-2);
+    border-bottom:1px solid var(--border); vertical-align:middle;
+  }
+  .prof-table td.name { color:var(--text-1); font-weight:500; }
+  .prof-table td.mono { font-family:'Geist Mono',monospace; text-align:right; }
+  .prof-table td.pct  { font-family:'Geist Mono',monospace; text-align:right; font-weight:600; }
+  .prof-table td.pct.pos  { color:var(--green); }
+  .prof-table td.pct.warn { color:var(--orange); }
+  .prof-table td.pct.neg  { color:var(--red); }
+  .prof-table tr:last-child td { border-bottom:none; }
+  .prof-table tr:hover { background:var(--surface-2); cursor:pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <img class="logo" src="https://aptumlogos.pages.dev/Horizontal-Lockup-Black.png" alt="Aptum"/>
+  <div class="hdr-divider"></div>
+  <nav class="top-nav">
+    <a href="#">New Quotes</a>
+    <a href="#" class="active">Profitability</a>
+    <a href="#">Renewals</a>
+    <a href="#">Settings</a>
+  </nav>
+  <div class="hdr-right">
+    <button class="theme-btn">☽</button>
+  </div>
+</header>
+
+<div class="page-body">
+
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Total MRC</div>
+      <div class="kpi-value">$4.21M</div>
+      <div class="kpi-sub">61 active services · 24 customers</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Total Cost</div>
+      <div class="kpi-value">$3.08M</div>
+      <div class="kpi-sub">HW amort + overhead + SG&amp;A</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Net Margin</div>
+      <div class="kpi-value green">$1.13M</div>
+      <div class="kpi-sub">26.8% blended avg</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">At Risk</div>
+      <div class="kpi-value red">8 services</div>
+      <div class="kpi-sub">margin &lt; 10% · 3 customers</div>
+    </div>
+  </div>
+
+  <!-- Filter bar — same card/layout as renewals -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>Account Manager</label>
+      <div class="combo-trigger">
+        <div class="combo-chips">
+          <span class="combo-chip">Sarah Chen <button class="combo-chip-rm">×</button></span>
+        </div>
+        <span class="combo-chevron">▼</span>
+      </div>
+    </div>
+    <div class="filter-group">
+      <label>Data Center</label>
+      <div class="combo-trigger">
+        <div class="combo-chips"><span class="combo-placeholder">All</span></div>
+        <span class="combo-chevron">▼</span>
+      </div>
+    </div>
+    <div class="filter-group">
+      <label>Service Type</label>
+      <div class="combo-trigger">
+        <div class="combo-chips"><span class="combo-placeholder">All</span></div>
+        <span class="combo-chevron">▼</span>
+      </div>
+    </div>
+    <div class="filter-group" style="min-width:140px">
+      <label>Customer</label>
+      <input type="text" placeholder="Search…" value=""/>
+    </div>
+    <button class="filter-clear">Clear filters</button>
+  </div>
+
+  <div class="controls">
+    <div class="seg-toggle">
+      <button class="seg-btn active" onclick="activate(this,'customer')">By Customer</button>
+      <button class="seg-btn" onclick="activate(this,'dc')">By Data Center</button>
+      <button class="seg-btn" onclick="activate(this,'type')">By Service Type</button>
+    </div>
+    <span class="sort-hint">↕ Click column headers to sort · Click row to drill in</span>
+  </div>
+
+  <div class="table-wrap">
+    <table class="prof-table">
+      <thead>
+        <tr>
+          <th id="col-name">Customer</th>
+          <th id="col-am">Account Manager</th>
+          <th class="r">Services</th>
+          <th class="r">MRC</th>
+          <th class="r">Total Cost</th>
+          <th class="r">Margin $</th>
+          <th class="r sorted">Margin %</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <!-- filtered to Sarah Chen -->
+        <tr><td class="name">Acme Corporation</td><td>Sarah Chen</td><td class="mono">4</td><td class="mono">$42,300</td><td class="mono">$28,100</td><td class="mono">$14,200</td><td class="pct pos">33.6%</td></tr>
+        <tr><td class="name">GlobalBank Financial</td><td>Sarah Chen</td><td class="mono">7</td><td class="mono">$31,800</td><td class="mono">$24,500</td><td class="mono">$7,300</td><td class="pct pos">23.0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  const allData = {
+    customer: {
+      rows: [
+        ['Acme Corporation','Sarah Chen','4','$42,300','$28,100','$14,200','33.6%','pos'],
+        ['GlobalBank Financial','Sarah Chen','7','$31,800','$24,500','$7,300','23.0%','pos'],
+        ['Pacific Logistics','Tom Rivera','3','$27,400','$21,800','$5,600','20.4%','pos'],
+        ['Northern Logistics','Tom Rivera','3','$18,600','$16,800','$1,800','9.7%','warn'],
+        ['Meridian Health','James Park','5','$22,100','$20,500','$1,600','7.2%','warn'],
+        ['RetailCo Inc.','James Park','2','$9,100','$10,200','-$1,100','-12.1%','neg'],
+      ]
+    },
+    dc: {
+      rows: [
+        ['Atlanta (ATL)','—','18','$128,400','$92,100','$36,300','28.3%','pos'],
+        ['Toronto (TOR)','—','22','$156,200','$118,400','$37,800','24.2%','pos'],
+        ['Chicago (CHI)','—','11','$84,600','$68,900','$15,700','18.6%','pos'],
+        ['Vancouver (VAN)','—','10','$71,300','$64,500','$6,800','9.5%','warn'],
+      ]
+    },
+    type: {
+      rows: [
+        ['Network / Connectivity','—','8','$44,200','$18,100','$26,100','59.0%','pos'],
+        ['Dedicated Server','—','38','$284,100','$201,600','$82,500','29.0%','pos'],
+        ['Colocation','—','12','$98,400','$74,200','$24,200','24.6%','pos'],
+        ['Managed Services','—','3','$13,800','$13,100','$700','5.1%','warn'],
+      ]
+    }
+  };
+
+  function activate(btn, key) {
+    btn.closest('.seg-toggle').querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('col-name').textContent = {customer:'Customer',dc:'Data Center',type:'Service Type'}[key];
+    document.getElementById('col-am').textContent = key === 'customer' ? 'Account Manager' : '';
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = allData[key].rows.map(r => `
+      <tr>
+        <td class="name">${r[0]}</td><td>${r[1]}</td>
+        <td class="mono">${r[2]}</td><td class="mono">${r[3]}</td>
+        <td class="mono">${r[4]}</td>
+        <td class="mono" ${r[7]==='neg'?'style="color:var(--red)"':''}>${r[5]}</td>
+        <td class="pct ${r[7]}">${r[6]}</td>
+      </tr>`).join('');
+  }
+</script>
+
+</body>
+</html>
