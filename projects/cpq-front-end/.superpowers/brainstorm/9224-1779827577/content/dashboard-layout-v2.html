@@ -1,0 +1,118 @@
+<h2>Combined Layout — Scorecard + Segment Toggle + Table</h2>
+<p class="subtitle">KPI summary at top, segment tabs switch the breakdown view. Click a row to drill in.</p>
+
+<div class="mockup">
+  <div class="mockup-header">Profitability — http://localhost:5050/profitability</div>
+  <div class="mockup-body" style="font-family:var(--font, system-ui);font-size:12px;padding:16px;background:var(--bg)">
+
+    <!-- Top KPI Bar -->
+    <div style="display:flex;gap:10px;margin-bottom:16px">
+      <div style="flex:1;background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px">
+        <div style="font-size:10px;opacity:.5;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">Total Revenue (MRC)</div>
+        <div style="font-size:20px;font-weight:600">$4.21M</div>
+        <div style="font-size:10px;opacity:.4;margin-top:2px">61 active services</div>
+      </div>
+      <div style="flex:1;background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px">
+        <div style="font-size:10px;opacity:.5;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">Total Cost</div>
+        <div style="font-size:20px;font-weight:600">$3.08M</div>
+        <div style="font-size:10px;opacity:.4;margin-top:2px">HW + overhead + SG&amp;A</div>
+      </div>
+      <div style="flex:1;background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px">
+        <div style="font-size:10px;opacity:.5;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">Net Margin</div>
+        <div style="font-size:20px;font-weight:600;color:#22c55e">$1.13M</div>
+        <div style="font-size:10px;opacity:.4;margin-top:2px">26.8% avg margin</div>
+      </div>
+      <div style="flex:1;background:var(--card-bg);border:1px solid#ef444444;border:1px solid var(--border);border-radius:8px;padding:12px 14px">
+        <div style="font-size:10px;opacity:.5;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">⚠ At Risk</div>
+        <div style="font-size:20px;font-weight:600;color:#ef4444">8</div>
+        <div style="font-size:10px;opacity:.4;margin-top:2px">services below 10% margin</div>
+      </div>
+    </div>
+
+    <!-- Segment Toggle -->
+    <div style="display:flex;align-items:center;gap:0;margin-bottom:12px;border:1px solid var(--border);border-radius:6px;overflow:hidden;width:fit-content">
+      <div style="background:var(--accent);color:#fff;padding:5px 14px;font-size:11px;font-weight:500;cursor:pointer">By Customer</div>
+      <div style="background:var(--card-bg);padding:5px 14px;font-size:11px;opacity:.6;cursor:pointer;border-left:1px solid var(--border)">By Data Center</div>
+      <div style="background:var(--card-bg);padding:5px 14px;font-size:11px;opacity:.6;cursor:pointer;border-left:1px solid var(--border)">By Service Type</div>
+    </div>
+
+    <!-- Customer Table (active tab) -->
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+      <!-- Table Header -->
+      <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr 90px;gap:0;padding:8px 14px;font-size:10px;opacity:.5;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)">
+        <span>Customer</span>
+        <span style="text-align:right">MRC</span>
+        <span style="text-align:right">Cost</span>
+        <span style="text-align:right">Margin $</span>
+        <span style="text-align:right">Margin %</span>
+        <span style="text-align:right">Services</span>
+      </div>
+      <!-- Rows -->
+      <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr 90px;gap:0;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background=''">
+        <span style="font-weight:500">Acme Corporation</span>
+        <span style="text-align:right">$42,300</span>
+        <span style="text-align:right">$28,100</span>
+        <span style="text-align:right;color:#22c55e">$14,200</span>
+        <span style="text-align:right"><span style="background:#22c55e22;color:#22c55e;padding:2px 7px;border-radius:12px;font-size:11px">33.6%</span></span>
+        <span style="text-align:right;opacity:.6">4</span>
+      </div>
+      <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr 90px;gap:0;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background=''">
+        <span style="font-weight:500">GlobalBank Financial</span>
+        <span style="text-align:right">$31,800</span>
+        <span style="text-align:right">$24,500</span>
+        <span style="text-align:right;color:#22c55e">$7,300</span>
+        <span style="text-align:right"><span style="background:#22c55e22;color:#22c55e;padding:2px 7px;border-radius:12px;font-size:11px">23.0%</span></span>
+        <span style="text-align:right;opacity:.6">7</span>
+      </div>
+      <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr 90px;gap:0;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background=''">
+        <span style="font-weight:500">Northern Logistics</span>
+        <span style="text-align:right">$18,600</span>
+        <span style="text-align:right">$16,800</span>
+        <span style="text-align:right;color:#f59e0b">$1,800</span>
+        <span style="text-align:right"><span style="background:#f59e0b22;color:#f59e0b;padding:2px 7px;border-radius:12px;font-size:11px">9.7%</span></span>
+        <span style="text-align:right;opacity:.6">3</span>
+      </div>
+      <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr 90px;gap:0;padding:10px 14px;cursor:pointer" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background=''">
+        <span style="font-weight:500">RetailCo Inc.</span>
+        <span style="text-align:right">$9,100</span>
+        <span style="text-align:right">$10,200</span>
+        <span style="text-align:right;color:#ef4444">-$1,100</span>
+        <span style="text-align:right"><span style="background:#ef444422;color:#ef4444;padding:2px 7px;border-radius:12px;font-size:11px">-12.1%</span></span>
+        <span style="text-align:right;opacity:.6">2</span>
+      </div>
+    </div>
+
+    <!-- Footer note -->
+    <div style="margin-top:10px;font-size:10px;opacity:.4">Clicking a row opens that customer's profitability breakdown — services, DCs, service types, cost drivers.</div>
+
+  </div>
+</div>
+
+<div class="section" style="margin-top:20px">
+  <h3>Next question: What drives the "cost" number?</h3>
+  <p class="subtitle">We have two sources for cost data — which should this page use?</p>
+
+  <div class="options">
+    <div class="option" data-choice="financial" onclick="toggleSelect(this)">
+      <div class="letter">A</div>
+      <div class="content">
+        <h3>Actual financial data</h3>
+        <p>Pull from <code>FinancialReporting.Profit_Analysis</code> and <code>Profit_Cost</code> tables — real billed costs as recorded by finance. Most accurate, reflects what actually happened.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="cpq-model" onclick="toggleSelect(this)">
+      <div class="letter">B</div>
+      <div class="content">
+        <h3>CPQ-calculated model</h3>
+        <p>Same formula used in Renewals: MRC minus overhead (power, DC ops, SG&A) minus HW amortization. Forward-looking and consistent with quotes. Good for "what should margin be".</p>
+      </div>
+    </div>
+    <div class="option" data-choice="both" onclick="toggleSelect(this)">
+      <div class="letter">C</div>
+      <div class="content">
+        <h3>Both — actual vs. modeled</h3>
+        <p>Show the CPQ model as the baseline, flag where actual financial data diverges. Powerful for finding where reality doesn't match expectations — but more complex to build.</p>
+      </div>
+    </div>
+  </div>
+</div>
