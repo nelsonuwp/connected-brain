@@ -149,15 +149,19 @@
   const REPRICE_CATS = new Set(['Software', 'Support']);
 
   /* ── Formatters ── */
+  function fmtNum(n) {
+    if (n === null || n === undefined) return '—';
+    return Number(n).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
   function fmt(n, cur) {
     if (n === null || n === undefined) return '—';
     const s = sym[cur] || '$';
-    return s + Number(n).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+    return s + fmtNum(n);
   }
-  function fmtDelta(n, cur) {
-    if (n === null || n === undefined || n === 0) return `<span class="zero">${fmt(0, cur)}</span>`;
+  function fmtDelta(n) {
+    if (n === null || n === undefined || n === 0) return `<span class="zero">0.00</span>`;
     const cls = n > 0 ? 'pos' : 'neg';
-    return `<span class="${cls}">${n > 0 ? '+' : ''}${fmt(n, cur)}</span>`;
+    return `<span class="${cls}">${n > 0 ? '+' : ''}${fmtNum(n)}</span>`;
   }
   function esc(s) {
     return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -195,10 +199,10 @@
       <thead><tr>
         <th></th>
         <th>Component</th>
-        <th class="r">Current Price</th>
-        <th class="r">Cost</th>
-        <th class="r">New Price (${csym})</th>
-        <th class="r">Δ</th>
+        <th class="r">Current Price/mo (${csym})</th>
+        <th class="r">Cost/mo (${csym})</th>
+        <th class="r">New Price/mo (${csym})</th>
+        <th class="r">Δ/mo (${csym})</th>
       </tr></thead><tbody>`;
   }
 
@@ -213,7 +217,7 @@
 
     let costCell;
     if (c.new_mrc !== null) {
-      costCell = `<td class="mono">${fmt(c.new_mrc, cur)}/mo</td>`;
+      costCell = `<td class="mono">${fmtNum(c.new_mrc)}</td>`;
     } else if (c.warning === 'not_in_pricebook') {
       costCell = `<td><span class="warn-cell" title="Not found in Fusion pricebook">Not priced ⚠</span></td>`;
     } else if (c.warning === 'dc_not_in_fusion') {
@@ -239,7 +243,7 @@
       <td class="name">
         <span class="label" title="${esc(c.component)}">${esc(c.component)}</span>
       </td>
-      <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
+      <td class="mono">${c.component_mrc > 0 ? fmtNum(c.component_mrc) : 'incl.'}</td>
       ${costCell}
       <td class="adj-cell">
         <input type="number" class="adj-input" id="adj-${i}"
@@ -247,7 +251,7 @@
                ${adjDisabled}
                ${repriceable && checked ? `oninput="adjustSuggested(${i}, this.value)"` : ''} />
       </td>
-      <td id="delta-${i}" class="delta">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
+      <td id="delta-${i}" class="delta">${delta !== null ? fmtDelta(delta) : '<span class="zero">—</span>'}</td>
     </tr>`;
   }
 
@@ -275,7 +279,7 @@
       <tr class="included">
         <td class="check-cell"><input type="checkbox" class="row-cb" checked disabled title="Base server — always included" /></td>
         <td class="name"><span class="label">${esc(svc.product || 'Server')}</span></td>
-        <td class="mono">${fmt(d.product_mrc, cur)}/mo</td>
+        <td class="mono">${fmtNum(d.product_mrc)}</td>
         <td class="zero">—</td>
         <td class="adj-cell"><span class="zero">—</span></td>
         <td class="zero">—</td>
@@ -359,7 +363,7 @@
         ${m2mRow}
         <tr class="highlight sep"><td>Suggested MRC</td><td>${fmt(suggested, cur)}</td></tr>
         <tr class="sep dim"><td>HW cost/mo</td>
-            <td>${d.hw_paid_off ? '$0.00 (paid off)' : fmt(p.hw_cost_mo, cur)}</td></tr>
+            <td>${d.hw_paid_off ? fmt(0, cur) + ' (paid off)' : fmt(p.hw_cost_mo, cur)}</td></tr>
         ${overheadRows}
         <tr class="dim sep"><td>Overhead total</td><td>${fmt(newOverheadTotal, cur)}</td></tr>
         <tr class="dim"><td>Total cost</td><td>${fmt(totalCost, cur)}</td></tr>
@@ -394,7 +398,7 @@
     const cur = (DATA.service.currency || 'USD').toUpperCase();
     const delta = checked ? r2(compState[i].suggested - c.component_mrc) : null;
     document.getElementById(`delta-${i}`).innerHTML =
-      delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>';
+      delta !== null ? fmtDelta(delta) : '<span class="zero">—</span>';
 
     renderSidebar();
   }
@@ -406,7 +410,7 @@
       compState[i].suggested = n;
       const c   = DATA.components[i];
       const cur = (DATA.service.currency || 'USD').toUpperCase();
-      document.getElementById(`delta-${i}`).innerHTML = fmtDelta(r2(n - c.component_mrc), cur);
+      document.getElementById(`delta-${i}`).innerHTML = fmtDelta(r2(n - c.component_mrc));
       renderSidebar();
     }
   }
