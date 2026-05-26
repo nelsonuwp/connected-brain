@@ -1,7 +1,285 @@
 {% extends "base.html" %}
 {% block title %}CPQ — Profitability · Aptum{% endblock %}
+
+{% block extra_styles %}
+  .layout { display:grid; grid-template-columns:1fr 360px; min-height:calc(100vh - 70px); }
+  .main   { padding:2rem; overflow-y:auto; border-right:1px solid var(--border); }
+  .sidebar { padding:1.5rem; display:flex; flex-direction:column; gap:1.25rem; position:sticky; top:0; max-height:calc(100vh - 70px); overflow-y:auto; }
+
+  .back-link { font-size:.75rem; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; gap:.3rem; margin-bottom:1.25rem; }
+  .page-header { margin-bottom:1.5rem; }
+  .page-header h2 { font-size:1.1rem; font-weight:700; color:var(--text-1); margin-bottom:.2rem; }
+  .page-header .sub { font-size:.78rem; color:var(--text-2); }
+
+  .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; margin-bottom:1.75rem; }
+  .kpi-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:.9rem 1rem; box-shadow:0 2px 6px var(--shadow); }
+  .kpi-label { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--text-3); margin-bottom:.35rem; }
+  .kpi-value { font-size:1.3rem; font-weight:700; color:var(--text-1); font-family:'Geist Mono',monospace; }
+  .kpi-sub { font-size:.68rem; color:var(--text-3); margin-top:.2rem; }
+
+  .section-title { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); margin:0 0 .5rem; }
+
+  /* Service table */
+  .svc-table { width:100%; border-collapse:collapse; }
+  .svc-table th { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); padding:.4rem .6rem; text-align:left; border-bottom:2px solid var(--border); white-space:nowrap; }
+  .svc-table th.r { text-align:right; }
+  .svc-table td { padding:.55rem .6rem; font-size:.8rem; color:var(--text-2); border-bottom:1px solid var(--border); vertical-align:middle; }
+  .svc-table td.name { color:var(--text-1); font-weight:500; }
+  .svc-table td.mono { font-family:'Geist Mono',monospace; text-align:right; }
+  .svc-table tr.active-row { background:var(--accent-dim); }
+  .svc-table tr.active-row td { color:var(--text-1); }
+  .svc-table tr:hover:not(.active-row) { background:var(--surface-2); cursor:pointer; }
+  .svc-table tr:last-child td { border-bottom:none; }
+
+  .dc-badge { display:inline-block; font-size:.58rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:1px 6px; border-radius:3px; background:var(--surface-2); color:var(--text-3); border:1px solid var(--border); }
+  .pct-pos  { color:var(--green); }
+  .pct-warn { color:var(--orange); }
+  .pct-neg  { color:var(--red); }
+
+  /* Sidebar */
+  .surface-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem 1.1rem; box-shadow:0 2px 6px var(--shadow); }
+  .svc-detail-header h3 { font-size:.9rem; font-weight:700; color:var(--text-1); margin-bottom:.15rem; }
+  .svc-detail-header .sub { font-size:.72rem; color:var(--text-2); }
+
+  .cost-table { width:100%; border-collapse:collapse; }
+  .cost-table td { padding:.35rem .2rem; font-size:.82rem; }
+  .cost-table td:last-child { text-align:right; font-family:'Geist Mono',monospace; color:var(--text-1); white-space:nowrap; }
+  .cost-table tr.sep td { border-top:1px solid var(--border); padding-top:.55rem; }
+  .cost-table tr.highlight td { color:var(--accent); font-weight:700; font-size:.95rem; }
+  .cost-table tr.highlight td:last-child { color:var(--accent); }
+  .cost-table tr.dim td { color:var(--text-3); font-size:.75rem; }
+  .cost-table tr.indent td:first-child { padding-left:.9rem; }
+  .cost-table tr.margin-pos td { color:var(--green) !important; }
+  .cost-table tr.margin-neg td { color:var(--red) !important; }
+
+  .open-renewal-btn { width:100%; padding:.6rem; border-radius:8px; border:1px solid var(--accent); background:var(--accent-dim); color:var(--accent-text); font-family:'Geist',sans-serif; font-size:.85rem; font-weight:600; cursor:pointer; text-align:center; text-decoration:none; display:block; }
+  .empty-state { padding:3rem; text-align:center; color:var(--text-3); font-size:.85rem; }
+{% endblock %}
+
 {% block body %}
-<div class="page-body">
-  <p style="color:var(--text-2)">Customer detail — coming soon (id: {{ client_id }})</p>
+<div class="layout">
+
+  <!-- MAIN -->
+  <div class="main">
+    <a class="back-link" href="/profitability">← All Customers</a>
+
+    <div class="page-header">
+      <h2 id="cust-name">Loading…</h2>
+      <div class="sub" id="cust-sub"></div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">Total MRC</div>
+        <div class="kpi-value" id="kpi-mrc">—</div>
+        <div class="kpi-sub">across all services</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Cost</div>
+        <div class="kpi-value" id="kpi-cost">—</div>
+        <div class="kpi-sub">HW + overhead + SG&amp;A</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Net Margin</div>
+        <div class="kpi-value" id="kpi-margin">—</div>
+        <div class="kpi-sub" id="kpi-margin-sub">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">At Risk</div>
+        <div class="kpi-value" id="kpi-risk" style="color:var(--red)">—</div>
+        <div class="kpi-sub">services below 10%</div>
+      </div>
+    </div>
+
+    <div class="section-title">Services — click a row for cost breakdown</div>
+    <table class="svc-table">
+      <thead>
+        <tr>
+          <th>Service / Nickname</th>
+          <th>DC</th>
+          <th>Type</th>
+          <th class="r">MRC</th>
+          <th class="r">Cost</th>
+          <th class="r">Margin $</th>
+          <th class="r">Margin %</th>
+        </tr>
+      </thead>
+      <tbody id="svc-tbody">
+        <tr><td colspan="7" class="empty-state">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div>
+      <div class="section-title">Cost Breakdown</div>
+      <div class="svc-detail-header" id="sb-header">
+        <h3>—</h3>
+        <div class="sub">Select a service</div>
+      </div>
+    </div>
+    <div class="surface-card" id="sb-revenue" style="display:none">
+      <div class="section-title" style="margin-bottom:.75rem">Revenue</div>
+      <table class="cost-table" id="sb-revenue-table"></table>
+    </div>
+    <div class="surface-card" id="sb-costs" style="display:none">
+      <div class="section-title" style="margin-bottom:.75rem">Costs</div>
+      <table class="cost-table" id="sb-costs-table"></table>
+    </div>
+    <div class="surface-card" id="sb-margin-card" style="display:none">
+      <div class="section-title" style="margin-bottom:.75rem">Margin</div>
+      <table class="cost-table" id="sb-margin-table"></table>
+    </div>
+    <a class="open-renewal-btn" id="sb-renewal-link" href="#" style="display:none">Open Renewal →</a>
+  </div>
+
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  const CLIENT_ID = {{ client_id }};
+  let _services   = [];
+
+  async function load() {
+    try {
+      const res = await fetch(`/api/profitability/${CLIENT_ID}`);
+      const data = await res.json();
+      if (data.error) { showError(data.error); return; }
+
+      _services = data.services || [];
+      const s   = data.summary  || {};
+
+      document.getElementById('cust-name').textContent = s.company_name || `Client ${CLIENT_ID}`;
+      document.getElementById('cust-sub').textContent  =
+        `client_id ${CLIENT_ID}` +
+        (s.account_manager ? ` · Account Manager: ${s.account_manager}` : '') +
+        ` · ${_services.length} active services`;
+
+      const cur = _services.length && !s.currency_mixed
+        ? (_services[0].currency || 'USD') : '';
+      document.getElementById('kpi-mrc').textContent    = s.mrc    != null ? fmtMoney(s.mrc, cur) : '—';
+      document.getElementById('kpi-cost').textContent   = s.total_cost != null ? fmtMoney(s.total_cost, cur) : '—';
+      document.getElementById('kpi-margin').textContent = s.margin  != null ? fmtMoney(s.margin, cur) : '—';
+      if (s.margin != null) document.getElementById('kpi-margin').style.color = s.margin < 0 ? 'var(--red)' : 'var(--green)';
+      document.getElementById('kpi-margin-sub').textContent = s.margin_pct != null ? s.margin_pct.toFixed(1) + '% avg' : '';
+      document.getElementById('kpi-risk').textContent = (s.at_risk_count ?? 0) + ' services';
+
+      renderTable();
+      if (_services.length) selectRow(0);
+    } catch (e) {
+      showError('Failed to load profitability data.');
+    }
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById('svc-tbody');
+    if (!_services.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No active services found.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = _services.map((s, i) => {
+      const name = s.nickname ? `${s.service_id} · ${s.nickname}` : String(s.service_id);
+      const cur  = s.currency || '';
+      const pctClass = s.margin_pct == null ? '' : s.margin_pct >= 20 ? 'pct-pos' : s.margin_pct >= 10 ? 'pct-warn' : 'pct-neg';
+      return `<tr onclick="selectRow(${i})">
+        <td class="name">${name}</td>
+        <td><span class="dc-badge">${s.datacenter_code || '—'}</span></td>
+        <td>${s.service_type || '—'}</td>
+        <td class="mono">${fmtMoney(s.mrc, cur)}</td>
+        <td class="mono">${fmtMoney(s.total_cost, cur)}</td>
+        <td class="mono" style="${s.margin < 0 ? 'color:var(--red)' : ''}">${fmtMoney(s.margin, cur)}</td>
+        <td class="mono ${pctClass}">${s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function selectRow(idx) {
+    const rows = document.getElementById('svc-tbody').querySelectorAll('tr');
+    rows.forEach((r, i) => r.classList.toggle('active-row', i === idx));
+    const s = _services[idx];
+    if (!s) return;
+    renderSidebar(s);
+  }
+
+  function renderSidebar(s) {
+    const cur = s.currency || 'USD';
+    const name = s.nickname ? `${s.service_id} · ${s.nickname}` : String(s.service_id);
+
+    document.getElementById('sb-header').innerHTML = `
+      <h3>${name}</h3>
+      <div class="sub">${s.service_type || ''} · ${s.datacenter_code || ''}</div>`;
+
+    // Revenue
+    document.getElementById('sb-revenue-table').innerHTML = `
+      <tr class="highlight"><td>MRC</td><td>${fmtMoney(s.mrc, cur)}</td></tr>`;
+    document.getElementById('sb-revenue').style.display = '';
+
+    // Costs
+    const oh = s.overhead || {};
+    const kw  = s.watts ? (s.watts / 1000).toFixed(3) : null;
+    let costRows = '';
+
+    costRows += `<tr><td>HW amortization</td><td>${fmtMoney(s.hw_amortized, cur)}</td></tr>`;
+    if (s.hw_paid_off) {
+      costRows += `<tr class="dim indent"><td>Fully amortized</td><td></td></tr>`;
+    } else if (s.hw_months_remaining != null) {
+      costRows += `<tr class="dim indent"><td>Paid off in ${s.hw_months_remaining} months</td><td></td></tr>`;
+    }
+
+    if (oh.power_per_kw != null) {
+      costRows += `<tr><td>Power</td><td>${fmtMoney(oh.power_per_kw, cur)}</td></tr>`;
+      if (kw) costRows += `<tr class="dim indent"><td>${kw} kW</td><td></td></tr>`;
+    }
+    if (oh.dc_equipment != null) costRows += `<tr><td>DC Equipment</td><td>${fmtMoney(oh.dc_equipment, cur)}</td></tr>`;
+    if (oh.network_equipment != null) costRows += `<tr><td>Network Equipment</td><td>${fmtMoney(oh.network_equipment, cur)}</td></tr>`;
+    if (oh.dc_ops != null) costRows += `<tr><td>DC Operations</td><td>${fmtMoney(oh.dc_ops, cur)}</td></tr>`;
+    if (oh.support_ops != null) costRows += `<tr><td>Support Ops</td><td>${fmtMoney(oh.support_ops, cur)}</td></tr>`;
+    if (oh.network_ops != null) costRows += `<tr><td>Network Ops</td><td>${fmtMoney(oh.network_ops, cur)}</td></tr>`;
+    if (oh.compute_ops != null) costRows += `<tr><td>Compute Ops</td><td>${fmtMoney(oh.compute_ops, cur)}</td></tr>`;
+
+    const directTotal = Object.values(oh).reduce((a, v) => a + (v || 0), 0);
+    costRows += `<tr class="sep"><td>Subtotal Direct</td><td>${fmtMoney(directTotal, cur)}</td></tr>`;
+    costRows += `<tr><td>SG&amp;A</td><td>${fmtMoney(s.sga, cur)}</td></tr>`;
+    costRows += `<tr class="sep"><td><strong>Total Cost</strong></td><td><strong>${fmtMoney(s.total_cost, cur)}</strong></td></tr>`;
+
+    document.getElementById('sb-costs-table').innerHTML = costRows;
+    document.getElementById('sb-costs').style.display = '';
+
+    // Margin
+    const pctClass = s.margin_pct == null ? '' : s.margin_pct >= 10 ? 'margin-pos' : 'margin-neg';
+    const biggestLabel = {
+      hw_amortized: 'HW Amortization', power_per_kw: 'Power', dc_equipment: 'DC Equipment',
+      network_equipment: 'Network Equipment', dc_ops: 'DC Ops', support_ops: 'Support Ops',
+      network_ops: 'Network Ops', compute_ops: 'Compute Ops', sga: 'SG&A',
+    }[s.biggest_cost_driver] || s.biggest_cost_driver || '—';
+
+    document.getElementById('sb-margin-table').innerHTML = `
+      <tr class="${pctClass}"><td>Margin $</td><td>${fmtMoney(s.margin, cur)}</td></tr>
+      <tr class="${pctClass}"><td>Margin %</td><td>${s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—'}</td></tr>
+      <tr class="dim sep"><td>Biggest cost driver</td><td>${biggestLabel}</td></tr>`;
+    document.getElementById('sb-margin-card').style.display = '';
+
+    // Renewal link
+    const link = document.getElementById('sb-renewal-link');
+    link.href = `/renewal/${s.service_id}`;
+    link.style.display = '';
+  }
+
+  function fmtMoney(val, cur) {
+    if (val == null) return '—';
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency', currency: cur || 'USD',
+      minimumFractionDigits: 2, maximumFractionDigits: 2,
+    }).format(val);
+  }
+
+  function showError(msg) {
+    document.getElementById('cust-name').textContent = 'Error';
+    document.getElementById('svc-tbody').innerHTML = `<tr><td colspan="7" class="empty-state">${msg}</td></tr>`;
+  }
+
+  load();
+</script>
 {% endblock %}

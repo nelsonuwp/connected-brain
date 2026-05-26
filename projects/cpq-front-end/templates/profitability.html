@@ -1,7 +1,514 @@
 {% extends "base.html" %}
 {% block title %}CPQ — Profitability · Aptum{% endblock %}
+
+{% block extra_styles %}
+  /* ── Filter bar ─────────────────────────────────────────────── */
+  .filter-bar {
+    display:flex; align-items:flex-end; gap:1rem; flex-wrap:wrap;
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:1.25rem 1.5rem; margin-bottom:1.5rem;
+    box-shadow:0 2px 8px var(--shadow);
+  }
+  .filter-group { display:flex; flex-direction:column; gap:.3rem; min-width:160px; position:relative; }
+  .filter-group label { font-size:.63rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); }
+  .filter-group input[type="text"] {
+    appearance:none; background:var(--bg); border:1px solid var(--border);
+    color:var(--text-1); font-family:'Geist',sans-serif; font-size:.875rem;
+    padding:.5rem .85rem; border-radius:8px; outline:none; transition:border-color .15s;
+  }
+  .filter-group input:focus { border-color:var(--accent); }
+  .combo-trigger {
+    display:flex; align-items:center; justify-content:space-between; gap:4px;
+    background:var(--bg); border:1px solid var(--border); border-radius:8px;
+    padding:4px 10px 4px 8px; min-height:36px; cursor:pointer; transition:border-color .15s; user-select:none;
+  }
+  .combo-trigger:focus { outline:none; }
+  .combo-trigger.open, .combo-trigger:focus-visible { border-color:var(--accent); }
+  .combo-chips { display:flex; flex-wrap:wrap; gap:4px; flex:1; align-items:center; min-height:24px; }
+  .combo-placeholder { color:var(--text-3); font-size:.875rem; line-height:1.4; }
+  .combo-chevron { color:var(--text-3); font-size:.6rem; flex-shrink:0; transition:transform .15s; }
+  .combo-trigger.open .combo-chevron { transform:rotate(180deg); }
+  .combo-chip {
+    display:inline-flex; align-items:center; gap:3px;
+    background:var(--accent-dim); color:var(--accent-text);
+    border-radius:4px; padding:2px 6px; font-size:.72rem; font-weight:600; white-space:nowrap;
+  }
+  .combo-chip-rm { background:none; border:none; color:inherit; cursor:pointer; font-size:.85rem; line-height:1; padding:0; opacity:.65; }
+  .combo-chip-rm:hover { opacity:1; }
+  .combo-dropdown {
+    position:absolute; top:calc(100% + 4px); left:0; right:0; z-index:300;
+    background:var(--surface); border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 6px 16px var(--shadow);
+  }
+  .combo-search-wrap { padding:.5rem .65rem; border-bottom:1px solid var(--border); }
+  .combo-search { width:100%; background:transparent; border:none; outline:none; color:var(--text-1); font-family:'Geist',sans-serif; font-size:.82rem; }
+  .combo-search::placeholder { color:var(--text-3); }
+  .combo-list { max-height:210px; overflow-y:auto; padding:.25rem 0; }
+  .combo-item { display:flex; align-items:center; gap:.5rem; padding:.42rem .75rem; font-size:.82rem; color:var(--text-1); cursor:pointer; transition:background .1s; }
+  .combo-item:hover { background:var(--surface-2); }
+  .combo-check { width:14px; height:14px; border:1.5px solid var(--border); border-radius:3px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.6rem; color:var(--accent); }
+  .combo-item.selected .combo-check { background:var(--accent-dim); border-color:var(--accent); }
+  .combo-empty { padding:.5rem .75rem; font-size:.82rem; color:var(--text-3); }
+  .filter-clear { font-size:.75rem; color:var(--text-3); background:none; border:none; cursor:pointer; padding:.35rem .5rem; border-radius:6px; font-family:'Geist',sans-serif; align-self:flex-end; margin-bottom:1px; }
+  .filter-clear:hover { color:var(--text-1); }
+
+  /* ── KPI cards ──────────────────────────────────────────────── */
+  .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; margin-bottom:1.5rem; }
+  .kpi-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:.9rem 1.1rem; box-shadow:0 2px 6px var(--shadow); }
+  .kpi-label { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--text-3); margin-bottom:.35rem; }
+  .kpi-value { font-size:1.4rem; font-weight:700; color:var(--text-1); font-family:'Geist Mono',monospace; }
+  .kpi-sub { font-size:.68rem; color:var(--text-3); margin-top:.2rem; }
+
+  /* ── Controls + table ───────────────────────────────────────── */
+  .controls { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+  .seg-toggle { display:flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .seg-btn { padding:.38rem 1rem; font-size:.78rem; font-weight:500; font-family:'Geist',sans-serif; background:var(--surface); color:var(--text-2); border:none; cursor:pointer; border-right:1px solid var(--border); transition:background .12s, color .12s; }
+  .seg-btn:last-child { border-right:none; }
+  .seg-btn.active { background:var(--accent); color:#fff; }
+  .sort-hint { font-size:.7rem; color:var(--text-3); }
+
+  .currency-select { appearance:none; background:var(--bg); border:1px solid var(--border); color:var(--text-1); font-family:'Geist',sans-serif; font-size:.78rem; padding:.35rem .75rem; border-radius:8px; cursor:pointer; outline:none; }
+  .currency-select:focus { border-color:var(--accent); }
+
+  .table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 2px 8px var(--shadow); }
+  .prof-table { width:100%; border-collapse:collapse; }
+  .prof-table th { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); padding:.45rem .75rem; text-align:left; border-bottom:2px solid var(--border); white-space:nowrap; cursor:pointer; user-select:none; }
+  .prof-table th:hover { color:var(--text-1); }
+  .prof-table th.r { text-align:right; }
+  .prof-table th.sorted { color:var(--accent); }
+  .prof-table td { padding:.6rem .75rem; font-size:.8rem; color:var(--text-2); border-bottom:1px solid var(--border); vertical-align:middle; }
+  .prof-table td.name { color:var(--text-1); font-weight:500; }
+  .prof-table td.mono { font-family:'Geist Mono',monospace; text-align:right; }
+  .prof-table td.pct  { font-family:'Geist Mono',monospace; text-align:right; font-weight:600; }
+  .prof-table td.pct.pos  { color:var(--green); }
+  .prof-table td.pct.warn { color:var(--orange); }
+  .prof-table td.pct.neg  { color:var(--red); }
+  .prof-table tr:last-child td { border-bottom:none; }
+  .prof-table tr:hover { background:var(--surface-2); cursor:pointer; }
+  .empty-state { padding:3rem; text-align:center; color:var(--text-3); font-size:.85rem; }
+{% endblock %}
+
 {% block body %}
 <div class="page-body">
-  <p style="color:var(--text-2)">Profitability — coming soon</p>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>Account Manager</label>
+      <div id="f-am"></div>
+    </div>
+    <div class="filter-group">
+      <label>Data Center</label>
+      <div id="f-dc"></div>
+    </div>
+    <div class="filter-group">
+      <label>Service Type</label>
+      <div id="f-svctype"></div>
+    </div>
+    <div class="filter-group" style="min-width:140px">
+      <label>Customer</label>
+      <input type="text" id="f-company" placeholder="Search…" autocomplete="off"/>
+    </div>
+    <div class="filter-group" style="min-width:120px">
+      <label>Display Currency</label>
+      <select class="currency-select" id="f-currency">
+        <option value="">Native</option>
+      </select>
+    </div>
+    <button class="filter-clear" onclick="clearFilters()">Clear filters</button>
+  </div>
+
+  <!-- KPI cards -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Total MRC</div>
+      <div class="kpi-value" id="kpi-mrc">—</div>
+      <div class="kpi-sub" id="kpi-mrc-sub">loading…</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Total Cost</div>
+      <div class="kpi-value" id="kpi-cost">—</div>
+      <div class="kpi-sub">HW amort + overhead + SG&amp;A</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Net Margin</div>
+      <div class="kpi-value" id="kpi-margin">—</div>
+      <div class="kpi-sub" id="kpi-margin-sub">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">At Risk</div>
+      <div class="kpi-value" id="kpi-risk">—</div>
+      <div class="kpi-sub">services below 10% margin</div>
+    </div>
+  </div>
+
+  <!-- Segment toggle + sort hint -->
+  <div class="controls">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <div class="seg-toggle">
+        <button class="seg-btn active" data-seg="customer" onclick="setSeg(this)">By Customer</button>
+        <button class="seg-btn" data-seg="dc" onclick="setSeg(this)">By Data Center</button>
+        <button class="seg-btn" data-seg="type" onclick="setSeg(this)">By Service Type</button>
+      </div>
+    </div>
+    <span class="sort-hint">↕ Click column headers to sort · Click row to drill in</span>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <table class="prof-table">
+      <thead id="thead">
+        <tr>
+          <th id="th-name" data-col="name" onclick="sortBy('name')">Customer</th>
+          <th id="th-am" data-col="am" onclick="sortBy('am')">Account Manager</th>
+          <th class="r" data-col="count" onclick="sortBy('count')">Services</th>
+          <th class="r" data-col="mrc" onclick="sortBy('mrc')">MRC</th>
+          <th class="r" data-col="cost" onclick="sortBy('cost')">Total Cost</th>
+          <th class="r" data-col="margin" onclick="sortBy('margin')">Margin $</th>
+          <th class="r sorted" id="th-pct" data-col="pct" onclick="sortBy('pct')">Margin %</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="7" class="empty-state">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  let _data       = null;  // full API response
+  let _seg        = 'customer';
+  let _sortCol    = 'pct';
+  let _sortAsc    = true;
+  let _debounce   = null;
+  let _currencies = [];
+
+  // ── ComboSelect (same implementation as renewals.html) ─────────────────────
+  class ComboSelect {
+    constructor(mountId, placeholder, loadAll, options = []) {
+      this.placeholder = placeholder;
+      this.selected    = [];
+      this.allOptions  = options;
+      this._open       = false;
+
+      const mount = document.getElementById(mountId);
+      const group = mount.closest('.filter-group');
+
+      this.trigger = document.createElement('div');
+      this.trigger.className = 'combo-trigger';
+      this.trigger.setAttribute('tabindex', '0');
+
+      this.chipsArea = document.createElement('div');
+      this.chipsArea.className = 'combo-chips';
+      this.chevron = document.createElement('span');
+      this.chevron.className = 'combo-chevron';
+      this.chevron.textContent = '▾';
+      this.trigger.appendChild(this.chipsArea);
+      this.trigger.appendChild(this.chevron);
+
+      this.dropdown = document.createElement('div');
+      this.dropdown.className = 'combo-dropdown';
+      this.dropdown.style.display = 'none';
+
+      const sw = document.createElement('div');
+      sw.className = 'combo-search-wrap';
+      this.searchInput = document.createElement('input');
+      this.searchInput.className = 'combo-search';
+      this.searchInput.placeholder = 'Filter…';
+      this.searchInput.autocomplete = 'off';
+      sw.appendChild(this.searchInput);
+
+      this.list = document.createElement('div');
+      this.list.className = 'combo-list';
+
+      this.dropdown.appendChild(sw);
+      this.dropdown.appendChild(this.list);
+
+      mount.replaceWith(this.trigger);
+      group.appendChild(this.dropdown);
+
+      this._renderTrigger();
+      this._bind();
+    }
+
+    values() { return [...this.selected]; }
+
+    setOptions(opts) {
+      this.allOptions = opts;
+    }
+
+    _bind() {
+      this.trigger.addEventListener('click', () => this._toggle());
+      this.trigger.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._toggle(); }
+        if (e.key === 'Escape') this._close();
+      });
+      this.searchInput.addEventListener('input', () => {
+        const q = this.searchInput.value.toLowerCase();
+        this._renderList(q ? this.allOptions.filter(v => v.toLowerCase().includes(q)) : this.allOptions);
+      });
+      this.searchInput.addEventListener('keydown', e => { if (e.key === 'Escape') this._close(); });
+      document.addEventListener('click', e => {
+        if (!this.trigger.contains(e.target) && !this.dropdown.contains(e.target)) this._close();
+      });
+    }
+
+    _toggle() { this._open ? this._close() : this._open_(); }
+
+    _open_() {
+      this._open = true;
+      this.trigger.classList.add('open');
+      this.dropdown.style.display = 'block';
+      this.searchInput.value = '';
+      this._renderList(this.allOptions);
+      requestAnimationFrame(() => this.searchInput.focus());
+    }
+
+    _close() {
+      this._open = false;
+      this.trigger.classList.remove('open');
+      this.dropdown.style.display = 'none';
+    }
+
+    _renderList(items) {
+      this.list.innerHTML = '';
+      if (!items.length) {
+        const el = document.createElement('div');
+        el.className = 'combo-empty';
+        el.textContent = 'No options';
+        this.list.appendChild(el);
+        return;
+      }
+      const frag = document.createDocumentFragment();
+      items.forEach(v => {
+        const isSelected = this.selected.includes(v);
+        const item = document.createElement('div');
+        item.className = 'combo-item' + (isSelected ? ' selected' : '');
+        const check = document.createElement('div');
+        check.className = 'combo-check';
+        if (isSelected) check.textContent = '✓';
+        const label = document.createElement('span');
+        label.textContent = v;
+        item.appendChild(check);
+        item.appendChild(label);
+        item.addEventListener('click', () => {
+          if (this.selected.includes(v)) {
+            this.selected = this.selected.filter(x => x !== v);
+          } else {
+            this.selected.push(v);
+          }
+          this._renderTrigger();
+          this._renderList(items);
+          load();
+        });
+        frag.appendChild(item);
+      });
+      this.list.appendChild(frag);
+    }
+
+    _renderTrigger() {
+      this.chipsArea.innerHTML = '';
+      if (!this.selected.length) {
+        const ph = document.createElement('span');
+        ph.className = 'combo-placeholder';
+        ph.textContent = this.placeholder;
+        this.chipsArea.appendChild(ph);
+      } else {
+        this.selected.forEach(v => {
+          const chip = document.createElement('span');
+          chip.className = 'combo-chip';
+          chip.textContent = v + ' ';
+          const rm = document.createElement('button');
+          rm.className = 'combo-chip-rm';
+          rm.textContent = '×';
+          rm.addEventListener('click', e => {
+            e.stopPropagation();
+            this.selected = this.selected.filter(x => x !== v);
+            this._renderTrigger();
+            load();
+          });
+          chip.appendChild(rm);
+          this.chipsArea.appendChild(chip);
+        });
+      }
+    }
+
+    clear() { this.selected = []; this._renderTrigger(); }
+  }
+
+  // ── Init combos ───────────────────────────────────────────────────────────
+  const amSelect   = new ComboSelect('f-am',      'All managers', true);
+  const dcSelect   = new ComboSelect('f-dc',      'All DCs',      true);
+  const typeSelect = new ComboSelect('f-svctype', 'All types',    true);
+
+  // Load filter options
+  fetch('/api/profitability/filter-options')
+    .then(r => r.json())
+    .then(d => {
+      amSelect.setOptions(d.account_managers || []);
+      dcSelect.setOptions(d.dc_codes || []);
+      typeSelect.setOptions(d.service_types || []);
+      _currencies = ['USD', 'CAD', 'GBP', 'EUR'];
+      const sel = document.getElementById('f-currency');
+      _currencies.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        sel.appendChild(opt);
+      });
+    });
+
+  // Company search input
+  document.getElementById('f-company').addEventListener('input', () => {
+    clearTimeout(_debounce);
+    _debounce = setTimeout(load, 350);
+  });
+
+  document.getElementById('f-currency').addEventListener('change', load);
+
+  // ── Data loading ──────────────────────────────────────────────────────────
+  function buildParams() {
+    const p = new URLSearchParams();
+    amSelect.values().forEach(v => p.append('am', v));
+    dcSelect.values().forEach(v => p.append('dc', v));
+    typeSelect.values().forEach(v => p.append('service_type', v));
+    const co = document.getElementById('f-company').value.trim();
+    if (co) p.set('company', co);
+    const dc = document.getElementById('f-currency').value;
+    if (dc) p.set('display_currency', dc);
+    return p;
+  }
+
+  async function load() {
+    document.getElementById('tbody').innerHTML = '<tr><td colspan="7" class="empty-state">Loading…</td></tr>';
+    try {
+      const res = await fetch('/api/profitability?' + buildParams());
+      _data = await res.json();
+      renderKpis(_data.totals);
+      renderTable();
+    } catch (e) {
+      document.getElementById('tbody').innerHTML = '<tr><td colspan="7" class="empty-state">Error loading data</td></tr>';
+    }
+  }
+
+  // ── KPI rendering ─────────────────────────────────────────────────────────
+  function renderKpis(t) {
+    const cur = t.currency && t.currency !== 'mixed' ? t.currency : '';
+    document.getElementById('kpi-mrc').textContent    = t.mrc    != null ? fmt(t.mrc, cur) : '—';
+    document.getElementById('kpi-cost').textContent   = t.total_cost != null ? fmt(t.total_cost, cur) : '—';
+    document.getElementById('kpi-margin').textContent = t.margin  != null ? fmt(t.margin, cur) : '—';
+    document.getElementById('kpi-risk').textContent   = t.at_risk_count != null ? t.at_risk_count + ' services' : '—';
+    document.getElementById('kpi-mrc-sub').textContent =
+      `${t.service_count || 0} services · ${t.customer_count || 0} customers`;
+    const mpct = t.margin_pct != null ? t.margin_pct + '% blended avg' : 'select a currency to see totals';
+    document.getElementById('kpi-margin-sub').textContent = mpct;
+    document.getElementById('kpi-margin').style.color = t.margin == null ? '' :
+      (t.margin < 0 ? 'var(--red)' : t.margin_pct >= 20 ? 'var(--green)' : '');
+  }
+
+  // ── Table rendering ───────────────────────────────────────────────────────
+  function setSeg(btn) {
+    document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    _seg = btn.dataset.seg;
+    const thName = document.getElementById('th-name');
+    const thAm   = document.getElementById('th-am');
+    if (_seg === 'customer') {
+      thName.textContent = 'Customer';
+      thAm.textContent = 'Account Manager';
+      thAm.style.display = '';
+    } else if (_seg === 'dc') {
+      thName.textContent = 'Data Center';
+      thAm.style.display = 'none';
+    } else {
+      thName.textContent = 'Service Type';
+      thAm.style.display = 'none';
+    }
+    renderTable();
+  }
+
+  function sortBy(col) {
+    if (_sortCol === col) { _sortAsc = !_sortAsc; }
+    else { _sortCol = col; _sortAsc = col === 'pct'; }
+    document.querySelectorAll('.prof-table th').forEach(th => th.classList.remove('sorted'));
+    document.getElementById('th-' + col)?.classList.add('sorted');
+    renderTable();
+  }
+
+  function renderTable() {
+    if (!_data) return;
+    const rows = _seg === 'customer' ? _data.by_customer
+               : _seg === 'dc'       ? _data.by_dc
+               : _data.by_service_type;
+
+    const sorted = [...rows].sort((a, b) => {
+      let av, bv;
+      if (_sortCol === 'name')   { av = (a.company_name || a.label || '').toLowerCase(); bv = (b.company_name || b.label || '').toLowerCase(); }
+      else if (_sortCol === 'am')    { av = (a.account_manager || '').toLowerCase(); bv = (b.account_manager || '').toLowerCase(); }
+      else if (_sortCol === 'count') { av = a.service_count; bv = b.service_count; }
+      else if (_sortCol === 'mrc')   { av = a.mrc ?? -Infinity; bv = b.mrc ?? -Infinity; }
+      else if (_sortCol === 'cost')  { av = a.total_cost ?? -Infinity; bv = b.total_cost ?? -Infinity; }
+      else if (_sortCol === 'margin'){ av = a.margin ?? -Infinity; bv = b.margin ?? -Infinity; }
+      else /* pct */                 { av = a.margin_pct ?? -Infinity; bv = b.margin_pct ?? -Infinity; }
+      if (av === bv) return 0;
+      const cmp = av < bv ? -1 : 1;
+      return _sortAsc ? cmp : -cmp;
+    });
+
+    const cur = document.getElementById('f-currency').value;
+    const tbody = document.getElementById('tbody');
+    if (!sorted.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No services match the current filters.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = sorted.map(r => {
+      const name  = r.company_name || r.label || '';
+      const am    = r.account_manager || '';
+      const link  = r.client_id ? `/profitability/${r.client_id}` : '#';
+      const rowCur = r.currency && r.currency !== 'mixed' ? r.currency : (cur || '');
+      const mixed  = r.currency_mixed;
+
+      const mrcCell    = mixed ? '—' : (r.mrc    != null ? fmt(r.mrc, rowCur)    : '—');
+      const costCell   = mixed ? '—' : (r.total_cost != null ? fmt(r.total_cost, rowCur) : '—');
+      const marginCell = mixed ? '—' : (r.margin != null ? `<span style="${r.margin < 0 ? 'color:var(--red)' : ''}">${fmt(r.margin, rowCur)}</span>` : '—');
+      const pctClass   = r.margin_pct == null ? '' : r.margin_pct >= 20 ? 'pos' : r.margin_pct >= 10 ? 'warn' : 'neg';
+      const pctCell    = r.margin_pct != null ? r.margin_pct.toFixed(1) + '%' : '—';
+      const amCell     = _seg === 'customer' ? `<td>${am}</td>` : '';
+
+      return `<tr onclick="window.location='${link}'">
+        <td class="name">${name}</td>
+        ${amCell}
+        <td class="mono">${r.service_count}</td>
+        <td class="mono">${mrcCell}</td>
+        <td class="mono">${costCell}</td>
+        <td class="mono">${marginCell}</td>
+        <td class="pct ${pctClass}">${pctCell}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function fmt(val, cur) {
+    if (val == null) return '—';
+    const n = new Intl.NumberFormat('en-US', {
+      style: 'currency', currency: cur || 'USD',
+      minimumFractionDigits: 0, maximumFractionDigits: 0,
+    }).format(val);
+    return cur && cur !== 'USD' ? n + ' ' + cur : n;
+  }
+
+  function clearFilters() {
+    amSelect.clear(); dcSelect.clear(); typeSelect.clear();
+    document.getElementById('f-company').value = '';
+    document.getElementById('f-currency').value = '';
+    load();
+  }
+
+  // Initial load
+  load();
+</script>
 {% endblock %}
