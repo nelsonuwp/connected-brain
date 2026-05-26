@@ -488,6 +488,42 @@
       "name": "Montreal",
       "native_currency": "CAD"
     },
+    "CRO": {
+      "costs": {
+        "firewall": {
+          "power_per_kw":       { "amount": 46,  "measure": "per_kw"     },
+          "dc_equipment":       { "amount": 0,   "measure": "per_device" },
+          "network_equipment":  { "amount": 59,  "measure": "per_device" },
+          "dc_ops":             { "amount": 27,  "measure": "per_device" },
+          "support_ops":        { "amount": 40,  "measure": "per_device" },
+          "network_ops":        { "amount": 0,   "measure": "per_device" },
+          "compute_ops":        { "amount": 0,   "measure": "per_device" }
+        },
+        "server": {
+          "power_per_kw":       { "amount": 46,  "measure": "per_kw"     },
+          "dc_equipment":       { "amount": 0,   "measure": "per_device" },
+          "network_equipment":  { "amount": 59,  "measure": "per_device" },
+          "dc_ops":             { "amount": 27,  "measure": "per_device" },
+          "support_ops":        { "amount": 40,  "measure": "per_device" },
+          "network_ops":        { "amount": 0,   "measure": "per_device" },
+          "compute_ops":        { "amount": 0,   "measure": "per_device" }
+        },
+        "switch": {
+          "power_per_kw":       { "amount": 46,  "measure": "per_kw"     },
+          "dc_equipment":       { "amount": 0,   "measure": "per_device" },
+          "network_equipment":  { "amount": 59,  "measure": "per_device" },
+          "dc_ops":             { "amount": 27,  "measure": "per_device" },
+          "support_ops":        { "amount": 40,  "measure": "per_device" },
+          "network_ops":        { "amount": 0,   "measure": "per_device" },
+          "compute_ops":        { "amount": 0,   "measure": "per_device" }
+        }
+      },
+      "fusion_dc_abbr": "CRO",
+      "fusion_dc_id": null,
+      "name": "Crawley",
+      "native_currency": "GBP",
+      "note": "Costs copied from POR — verify actual CRO figures"
+    },
     "POR": {
       "costs": {
         "firewall": {

@@ -12,8 +12,10 @@
     .current-mrc { font-size:1.4rem; font-weight:700; color:var(--accent); font-family:'Geist Mono',monospace; margin-top:.5rem; }
     .current-mrc span { font-size:.7rem; color:var(--text-3); font-family:'Geist',sans-serif; }
 
+    .section-title { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); margin:1.5rem 0 .4rem; }
+
     /* ── Component table ─────────────────────────────────────── */
-    .comp-table { width:100%; border-collapse:collapse; margin-bottom:1rem; table-layout:fixed; }
+    .comp-table { width:100%; border-collapse:collapse; margin-bottom:1.25rem; table-layout:fixed; }
     .comp-table colgroup col.col-check   { width:32px; }
     .comp-table colgroup col.col-name    { width:auto; }
     .comp-table colgroup col.col-current { width:110px; }
@@ -147,18 +149,6 @@
   /* ── Category config ──────────────────────────────────────────── */
   const REPRICE_CATS = new Set(['Software', 'Support']);
 
-  const CAT_BADGE = {
-    'Hardware':  { label:'HW',  cls:'cat-hw'  },
-    'Software':  { label:'SW',  cls:'cat-sw'  },
-    'Support':   { label:'SUP', cls:'cat-sup' },
-    'Security':  { label:'SEC', cls:'cat-sec' },
-    'Other':     { label:'OTH', cls:'cat-oth' },
-  };
-  function catBadge(cat) {
-    const b = CAT_BADGE[cat] || { label: cat.slice(0,3).toUpperCase(), cls:'cat-oth' };
-    return `<span class="cat-badge ${b.cls}">${b.label}</span>`;
-  }
-
   /* ── Formatters ── */
   function fmt(n, cur) {
     if (n === null || n === undefined) return '—';
@@ -195,11 +185,81 @@
         '<div class="empty">Failed to load service data.</div>';
     });
 
+  function tableHeader() {
+    return `<table class="comp-table">
+      <colgroup>
+        <col class="col-check"><col class="col-name">
+        <col class="col-current"><col class="col-cost">
+        <col class="col-new"><col class="col-delta">
+      </colgroup>
+      <thead><tr>
+        <th></th>
+        <th>Component</th>
+        <th class="r">Current Price</th>
+        <th class="r">Cost</th>
+        <th class="r">New Price (List)</th>
+        <th class="r">Δ</th>
+      </tr></thead><tbody>`;
+  }
+
+  function compRow(c, i, cur) {
+    const st          = compState[i];
+    const repriceable = st.repriceable;
+    const checked     = st.checked;
+    const sugg        = st.suggested;
+    const delta       = (repriceable && checked) ? r2(sugg - c.component_mrc) : null;
+    const suggestedVal = sugg !== null ? sugg : (c.new_mrc !== null ? c.new_mrc : c.component_mrc);
+    const csym        = sym[cur] || '$';
+
+    let costCell;
+    if (c.new_mrc !== null) {
+      costCell = `<td class="mono">${fmt(c.new_mrc, cur)}/mo</td>`;
+    } else if (c.warning === 'not_in_pricebook') {
+      costCell = `<td><span class="warn-cell" title="Not found in Fusion pricebook">Not priced ⚠</span></td>`;
+    } else if (c.warning === 'dc_not_in_fusion') {
+      costCell = `<td><span class="warn-cell" title="DC not mapped in Fusion">DC unknown ⚠</span></td>`;
+    } else {
+      costCell = `<td class="zero">—</td>`;
+    }
+
+    let rowClass, cbAttr, adjDisabled;
+    if (!repriceable) {
+      rowClass = 'included'; cbAttr = 'checked disabled title="Included — not re-priceable"'; adjDisabled = 'disabled';
+    } else if (!checked) {
+      rowClass = 'unchecked'; cbAttr = ''; adjDisabled = 'disabled';
+    } else {
+      rowClass = ''; cbAttr = 'checked'; adjDisabled = '';
+    }
+
+    return `<tr class="${rowClass}" id="row-${i}">
+      <td class="check-cell">
+        <input type="checkbox" class="row-cb" ${cbAttr}
+               ${repriceable ? `onchange="toggleRow(${i}, this.checked)"` : ''} />
+      </td>
+      <td class="name">
+        <span class="label" title="${esc(c.component)}">${esc(c.component)}</span>
+      </td>
+      <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
+      ${costCell}
+      <td class="adj-cell">
+        <div class="adj-wrap">
+          <span class="curr-sym">${csym}</span>
+          <input type="number" class="adj-input" id="adj-${i}"
+                 value="${suggestedVal.toFixed(2)}" step="0.01" min="0"
+                 ${adjDisabled}
+                 ${repriceable && checked ? `oninput="adjustSuggested(${i}, this.value)"` : ''} />
+        </div>
+      </td>
+      <td id="delta-${i}">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
+    </tr>`;
+  }
+
   /* ── Render main ── */
   function renderMain() {
     const d   = DATA;
     const svc = d.service;
     const cur = (svc.currency || 'USD').toUpperCase();
+    const csym = sym[cur] || '$';
 
     let html = `
       <div class="service-meta">
@@ -210,111 +270,35 @@
           ${d.hw_paid_off ? ' &middot; <span style="color:var(--green)">HW paid off</span>' : ''}
         </div>
         <div class="current-mrc">${fmt(svc.mrc, cur)}<span>/mo current</span></div>
-      </div>
+      </div>`;
 
-      <table class="comp-table">
-        <colgroup>
-          <col class="col-check">
-          <col class="col-name">
-          <col class="col-current">
-          <col class="col-cost">
-          <col class="col-new">
-          <col class="col-delta">
-        </colgroup>
-        <thead><tr>
-          <th></th>
-          <th>Component</th>
-          <th class="r">Current Price</th>
-          <th class="r">Cost</th>
-          <th class="r">New Price (List)</th>
-          <th class="r">Δ</th>
-        </tr></thead>
-        <tbody>`;
-
-    /* Base server row — always included, no badge needed */
-    html += `
+    /* ── Base Server section ── */
+    html += `<div class="section-title">Base Server</div>
+      ${tableHeader()}
       <tr class="included">
-        <td class="check-cell">
-          <input type="checkbox" class="row-cb" checked disabled title="Base server — always included" />
-        </td>
-        <td class="name">
-          <div class="name-wrap">
-            <span class="cat-badge cat-hw">HW</span>
-            <span class="label">${esc(svc.product || 'Server')}</span>
-          </div>
-        </td>
+        <td class="check-cell"><input type="checkbox" class="row-cb" checked disabled title="Base server — always included" /></td>
+        <td class="name"><span class="label">${esc(svc.product || 'Server')}</span></td>
         <td class="mono">${fmt(d.product_mrc, cur)}/mo</td>
         <td class="zero">—</td>
-        <td class="adj-cell"><div class="adj-wrap"><span class="curr-sym">${sym[cur]||'$'}</span><span style="font-family:'Geist Mono',monospace;font-size:.78rem;color:var(--text-3)">—</span></div></td>
+        <td class="adj-cell"><div class="adj-wrap"><span class="curr-sym">${csym}</span><span style="font-family:'Geist Mono',monospace;font-size:.78rem;color:var(--text-3)">—</span></div></td>
         <td class="zero">—</td>
-      </tr>`;
+      </tr>
+      </tbody></table>`;
 
+    /* ── Per-category sections ── */
+    const cats = {};
     d.components.forEach((c, i) => {
-      const st         = compState[i];
-      const repriceable = st.repriceable;
-      const checked    = st.checked;
-      const sugg       = st.suggested;
-      const delta      = (repriceable && checked) ? r2(sugg - c.component_mrc) : null;
-      const cat        = c.component_category || 'Other';
-
-      let costCell;
-      if (c.new_mrc !== null) {
-        costCell = `<td class="mono">${fmt(c.new_mrc, cur)}/mo</td>`;
-      } else if (c.warning === 'not_in_pricebook') {
-        costCell = `<td><span class="warn-cell" title="Not found in Fusion pricebook">Not priced ⚠</span></td>`;
-      } else if (c.warning === 'dc_not_in_fusion') {
-        costCell = `<td><span class="warn-cell" title="DC not mapped in Fusion">DC unknown ⚠</span></td>`;
-      } else {
-        costCell = `<td class="zero">—</td>`;
-      }
-
-      const suggestedVal = sugg !== null ? sugg : (c.new_mrc !== null ? c.new_mrc : c.component_mrc);
-
-      let rowClass, cbAttr, adjDisabled;
-      if (!repriceable) {
-        // Included but not repriceable: checked + disabled
-        rowClass   = 'included';
-        cbAttr     = 'checked disabled title="Included — not re-priceable"';
-        adjDisabled = 'disabled';
-      } else if (!checked) {
-        // Repriceable but user unchecked it
-        rowClass   = 'unchecked';
-        cbAttr     = '';
-        adjDisabled = 'disabled';
-      } else {
-        rowClass   = '';
-        cbAttr     = 'checked';
-        adjDisabled = '';
-      }
-
-      html += `<tr class="${rowClass}" id="row-${i}">
-        <td class="check-cell">
-          <input type="checkbox" class="row-cb" ${cbAttr}
-                 ${repriceable ? `onchange="toggleRow(${i}, this.checked)"` : ''} />
-        </td>
-        <td class="name">
-          <div class="name-wrap">
-            ${catBadge(cat)}
-            <span class="label" title="${esc(c.component)}">${esc(c.component)}</span>
-          </div>
-        </td>
-        <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
-        ${costCell}
-        <td class="adj-cell">
-          <div class="adj-wrap">
-            <span class="curr-sym">${sym[cur]||'$'}</span>
-            <input type="number" class="adj-input" id="adj-${i}"
-                   value="${suggestedVal.toFixed(2)}"
-                   step="0.01" min="0"
-                   ${adjDisabled}
-                   ${repriceable && checked ? `oninput="adjustSuggested(${i}, this.value)"` : ''} />
-          </div>
-        </td>
-        <td id="delta-${i}">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
-      </tr>`;
+      const cat = c.component_category || 'Other';
+      if (!cats[cat]) cats[cat] = [];
+      cats[cat].push({ ...c, _idx: i });
     });
 
-    html += '</tbody></table>';
+    Object.entries(cats).forEach(([cat, comps]) => {
+      html += `<div class="section-title">${esc(cat)}</div>${tableHeader()}`;
+      comps.forEach(c => { html += compRow(c, c._idx, cur); });
+      html += '</tbody></table>';
+    });
+
     document.getElementById('main-content').innerHTML = html;
   }
 
