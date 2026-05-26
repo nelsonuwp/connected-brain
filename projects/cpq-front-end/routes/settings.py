@@ -23,6 +23,28 @@ def settings_overhead_get():
     return jsonify(COST_DRIVERS)
 
 
+@settings_bp.route("/api/settings/service-types")
+def settings_service_types():
+    """All service types: from cost_drivers.json + distinct values in dimServices."""
+    from db.mssql import _configured as mssql_configured
+    json_types = set()
+    for dc in COST_DRIVERS.get("data_centers", {}).values():
+        for svc_type in dc.get("costs", {}).keys():
+            json_types.add(svc_type)
+
+    db_types = set()
+    if mssql_configured():
+        try:
+            from db.profitability import get_profitability_filter_options
+            opts = get_profitability_filter_options()
+            db_types = set(opts.get("service_types", []))
+        except Exception:
+            pass
+
+    all_types = sorted(json_types | db_types)
+    return jsonify(all_types)
+
+
 @settings_bp.route("/api/settings/overhead", methods=["POST"])
 def settings_overhead_post():
     data = request.get_json(force=True)
@@ -34,15 +56,17 @@ def settings_overhead_post():
     except (TypeError, ValueError):
         return jsonify({"error": "sga_pct must be a number"}), 400
 
-    service_types = ["server", "firewall", "switch"]
     for dc_abbr, dc in data.get("data_centers", {}).items():
-        for svc in service_types:
-            for key, entry in dc.get("costs", {}).get(svc, {}).items():
+        for svc_type, svc_costs in dc.get("costs", {}).items():
+            for key, entry in svc_costs.items():
+                amt = entry.get("amount")
+                if amt is None:
+                    continue  # null = no data configured, allowed
                 try:
-                    if float(entry.get("amount", -1)) < 0:
-                        return jsonify({"error": f"{dc_abbr}.{svc}.{key}: amount must be >= 0"}), 400
+                    if float(amt) < 0:
+                        return jsonify({"error": f"{dc_abbr}.{svc_type}.{key}: amount must be >= 0"}), 400
                 except (TypeError, ValueError):
-                    return jsonify({"error": f"{dc_abbr}.{svc}.{key}: amount must be a number"}), 400
+                    return jsonify({"error": f"{dc_abbr}.{svc_type}.{key}: amount must be a number"}), 400
 
     path = _get_path()
     tmp = path.with_suffix(".json.tmp")

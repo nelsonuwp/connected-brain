@@ -25,7 +25,15 @@ def calc_overhead(dc_code: str, mrc_display: float, fx_rate: float = 1.0,
         return {}
     dc_costs = dc["costs"]
     if isinstance(next(iter(dc_costs.values())), dict) and "amount" not in next(iter(dc_costs.values())):
-        costs = dc_costs.get(service_type) or dc_costs.get("server") or {}
+        # Multi-type schema: try exact match, then case-insensitive substring match
+        costs = dc_costs.get(service_type)
+        if costs is None and service_type:
+            lower = service_type.lower()
+            for key in dc_costs:
+                if key in lower or lower in key:
+                    costs = dc_costs[key]
+                    break
+        costs = costs or {}
     else:
         costs = dc_costs
     const = COST_DRIVERS["overhead_constants"]

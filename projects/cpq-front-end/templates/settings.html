@@ -28,7 +28,7 @@
 
     /* ── Service type tabs ── */
     .svc-tabs {
-      display: flex; gap: .4rem;
+      display: flex; gap: .4rem; flex-wrap: wrap;
     }
     .svc-tab {
       padding: .3rem .85rem; border-radius: 6px;
@@ -36,11 +36,19 @@
       border: 1px solid var(--border); background: transparent;
       color: var(--text-2); font-family: 'Geist', sans-serif;
       transition: background .15s, border-color .15s, color .15s;
+      display: flex; align-items: center; gap: .35rem;
     }
     .svc-tab:hover { border-color: var(--border-mid); color: var(--text-1); }
     .svc-tab.active {
       background: var(--accent-dim); border-color: var(--accent);
       color: var(--accent-text);
+    }
+    .svc-tab.no-data { color: var(--text-3); }
+    .svc-tab.no-data .tab-qdot {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--orange-dim); color: var(--orange);
+      font-size: .6rem; font-weight: 700; line-height: 1;
     }
 
     /* ── Cost matrix table ── */
@@ -99,6 +107,20 @@
       color: var(--accent-text);
     }
     td.cell input.modified { color: var(--orange); }
+    td.cell.no-data {
+      text-align: center;
+    }
+    .no-data-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 28px; border-radius: 5px;
+      border: 1px dashed var(--border-mid); background: transparent;
+      color: var(--text-3); font-size: .75rem; font-weight: 600;
+      cursor: pointer; font-family: 'Geist Mono', monospace;
+      transition: border-color .15s, color .15s, background .15s;
+    }
+    .no-data-btn:hover {
+      border-color: var(--accent); color: var(--accent); background: var(--accent-dim);
+    }
 
     /* ── Global inputs ── */
     .globals-row {
@@ -174,9 +196,7 @@
         <div class="card-subtitle">Overhead rates per data center, in each DC's native currency</div>
       </div>
       <div class="svc-tabs" id="svc-tabs">
-        <button class="svc-tab active" data-svc="server"   onclick="switchTab(this)">Server</button>
-        <button class="svc-tab"        data-svc="firewall" onclick="switchTab(this)">Firewall</button>
-        <button class="svc-tab"        data-svc="switch"   onclick="switchTab(this)">Switch</button>
+        <!-- tabs injected by JS -->
       </div>
     </div>
 

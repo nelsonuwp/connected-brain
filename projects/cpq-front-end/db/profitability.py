@@ -32,6 +32,7 @@ def calc_service_margin(
     watts: int | None,
     fx_overhead: float,
     provision_date,
+    service_type: str = "server",
 ) -> dict:
     """Pure calculation — no DB calls. All inputs must be pre-fetched by caller.
 
@@ -56,7 +57,7 @@ def calc_service_margin(
                 break
 
     kw = round(watts / 1000, 3) if watts is not None else None
-    overhead_lines = calc_overhead(overhead_dc, mrc, fx_rate=fx_overhead, kw=kw)
+    overhead_lines = calc_overhead(overhead_dc, mrc, fx_rate=fx_overhead, kw=kw, service_type=service_type)
 
     # Split overhead into per-device lines and SGA
     overhead_amounts: dict[str, float] = {}
@@ -126,11 +127,11 @@ def get_active_services(
             conditions.append(f"ds.service_type IN ({placeholders})")
             params.extend(service_types)
         if company_search:
-            conditions.append("dca.company_name LIKE %s")
+            conditions.append("COALESCE(dca.company_name, osrd.company_name) LIKE %s")
             params.append(f"%{company_search}%")
         if company_names:
             placeholders = ",".join(["%s"] * len(company_names))
-            conditions.append(f"dca.company_name IN ({placeholders})")
+            conditions.append(f"COALESCE(dca.company_name, osrd.company_name) IN ({placeholders})")
             params.extend(company_names)
         if client_ids:
             placeholders = ",".join(["%d"] * len(client_ids))
@@ -144,12 +145,18 @@ def get_active_services(
                 ds.currency, ds.mrc, ds.provision_date,
                 ds.service_type, ds.fusion_id, ds.nickname,
                 ds.product, ds.service_status,
-                dca.company_name, dca.account_manager
+                COALESCE(dca.company_name, osrd.company_name) AS company_name,
+                COALESCE(dca.account_manager, '') AS account_manager
             FROM DM_BusinessInsights.dbo.dimServices ds
             LEFT JOIN DM_BusinessInsights.dbo.dimClientsActive dca
                 ON dca.client_id = ds.client_id
+            LEFT JOIN (
+                SELECT DISTINCT client_id, company_name
+                FROM DM_BusinessInsights.renewals.ocean_services_renewal_date
+                WHERE company_name IS NOT NULL AND company_name != ''
+            ) osrd ON osrd.client_id = ds.client_id
             WHERE {where}
-            ORDER BY dca.company_name, ds.service_id
+            ORDER BY COALESCE(dca.company_name, osrd.company_name), ds.service_id
         """
         if params:
             cur.execute(sql, params)
@@ -213,12 +220,18 @@ def get_profitability_filter_options() -> dict:
         types = [r[0] for r in cur.fetchall() if r[0]]
 
         cur.execute("""
-            SELECT DISTINCT TOP 500 dca.company_name AS val
-            FROM DM_BusinessInsights.dbo.dimClientsActive dca
-            JOIN DM_BusinessInsights.dbo.dimServices ds ON ds.client_id = dca.client_id
-            WHERE dca.company_name IS NOT NULL AND dca.company_name != ''
-              AND ds.service_status = 'Online'
-            ORDER BY dca.company_name
+            SELECT DISTINCT TOP 500 COALESCE(dca.company_name, osrd.company_name) AS val
+            FROM DM_BusinessInsights.dbo.dimServices ds
+            LEFT JOIN DM_BusinessInsights.dbo.dimClientsActive dca ON dca.client_id = ds.client_id
+            LEFT JOIN (
+                SELECT DISTINCT client_id, company_name
+                FROM DM_BusinessInsights.renewals.ocean_services_renewal_date
+                WHERE company_name IS NOT NULL AND company_name != ''
+            ) osrd ON osrd.client_id = ds.client_id
+            WHERE ds.service_status = 'Online'
+              AND COALESCE(dca.company_name, osrd.company_name) IS NOT NULL
+              AND COALESCE(dca.company_name, osrd.company_name) != ''
+            ORDER BY val
         """)
         companies = [r[0].strip() for r in cur.fetchall() if r[0]]
 
@@ -279,6 +292,7 @@ def build_profitability_data(services: list[dict]) -> list[dict]:
         watts = watts_map.get(fid) if fid else None
         mrc = float(service.get("mrc") or 0)
 
+        svc_type = (service.get("service_type") or "server").strip()
         margin_data = calc_service_margin(
             mrc=mrc,
             dc_code=dc_code,
@@ -286,6 +300,7 @@ def build_profitability_data(services: list[dict]) -> list[dict]:
             watts=watts,
             fx_overhead=fx_overhead,
             provision_date=service.get("provision_date"),
+            service_type=svc_type,
         )
 
         missing: list[str] = []
