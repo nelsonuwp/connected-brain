@@ -154,6 +154,35 @@ def fetch_ocean_sku_cost() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def fetch_active_component_counts() -> pd.DataFrame:
+    """
+    Returns a count of online deployments per component_id from dimComponents,
+    filtered to active services only.
+    Columns: fusion_id, active_deployments
+    """
+    conn = pymssql.connect(
+        server=MSSQL_SERVER, user=MSSQL_USER,
+        password=MSSQL_PASS, database=MSSQL_DB,
+        tds_version="7.0",
+    )
+    cur = conn.cursor(as_dict=True)
+    cur.execute("""
+        SELECT dc.component_id, COUNT(*) AS active_deployments
+        FROM DM_BusinessInsights.dbo.dimComponents dc
+        JOIN DM_BusinessInsights.dbo.dimServices ds
+          ON ds.service_id = dc.service_id
+        WHERE dc.is_online = 1
+          AND ds.service_status = 'Active'
+        GROUP BY dc.component_id
+    """)
+    rows = [dict(r) for r in cur.fetchall()]
+    cur.close()
+    conn.close()
+    print(f"  → {len(rows)} component deployment counts fetched", flush=True)
+    df = pd.DataFrame(rows) if rows else pd.DataFrame(columns=["component_id", "active_deployments"])
+    return df.rename(columns={"component_id": "fusion_id"})
+
+
 # ── Report building ───────────────────────────────────────────────────────────
 
 def pivot_pricebook(pb: pd.DataFrame) -> pd.DataFrame:
@@ -208,8 +237,11 @@ def build_report(output_path: str):
         print("ERROR: No pricebook rows returned. Check Fusion credentials/SSH config.")
         sys.exit(1)
 
-    print("\n[2/2] Fetching MSSQL ocean_sku_cost...")
+    print("\n[2/3] Fetching MSSQL ocean_sku_cost...")
     costs = fetch_ocean_sku_cost()
+
+    print("\n[3/3] Fetching active deployment counts from dimComponents...")
+    deploy_counts = fetch_active_component_counts()
 
     print("\nBuilding report...")
 
@@ -232,8 +264,14 @@ def build_report(output_path: str):
 
     merged["has_cost"] = merged["sku_cost"].notna()
 
+    # Join active deployment counts (component rows only; TLS rows won't match, get 0)
+    deploy_counts["fusion_id"] = deploy_counts["fusion_id"].astype(int)
+    merged = merged.merge(deploy_counts, on="fusion_id", how="left")
+    merged["active_deployments"] = merged["active_deployments"].fillna(0).astype(int)
+
     # Final column order
-    id_cols    = ["fusion_id", "sku_name_pb", "sku_level_pb", "is_available", "fusion_category", "fusion_type"]
+    id_cols    = ["fusion_id", "sku_name_pb", "sku_level_pb", "is_available",
+                  "fusion_category", "fusion_type", "active_deployments"]
     cost_cols  = ["sku_name", "sku_level_osc", "sku_category", "sku_type",
                   "sku_cost", "cost_currency", "vendor"]
     price_cols = [c for c in merged.columns if c.endswith("_MRC") or c.endswith("_NRC")]
