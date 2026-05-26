@@ -53,36 +53,43 @@ MSSQL_PASS   = os.environ.get("MSSQL_BI_PASS", "")
 
 # ── Data fetching ─────────────────────────────────────────────────────────────
 
-def fetch_pricebook() -> pd.DataFrame:
-    """
-    Returns all is_available pricebook rows with resolved SKU names.
-    - Server rows (component_id IS NULL):  fusion_id = product_catalog_id, sku_level_pb = 'TLS'
-    - Component rows (component_id IS NOT NULL): fusion_id = component_id, sku_level_pb = 'Component'
-    """
+def _fusion_connect():
+    """Opens SSH tunnel (if needed) and returns (conn, tunnel). Caller must close both."""
     use_tunnel = bool(SSH_USER and SSH_PASSWORD)
     tunnel = None
-    try:
-        if use_tunnel:
-            print(f"  → SSH tunnel via {SSH_HOST} ...", flush=True)
-            tunnel = SSHTunnelForwarder(
-                (SSH_HOST, SSH_PORT),
-                ssh_username=SSH_USER,
-                ssh_password=SSH_PASSWORD,
-                remote_bind_address=(FUSION_HOST, FUSION_PORT),
-            )
-            tunnel.start()
-            host, port = "127.0.0.1", tunnel.local_bind_port
-        else:
-            host, port = FUSION_HOST, FUSION_PORT
-
-        conn = psycopg2.connect(
-            host=host, port=port,
-            dbname=FUSION_DB, user=FUSION_USER, password=FUSION_PASS,
-            gssencmode="disable", cursor_factory=RealDictCursor,
+    if use_tunnel:
+        tunnel = SSHTunnelForwarder(
+            (SSH_HOST, SSH_PORT),
+            ssh_username=SSH_USER,
+            ssh_password=SSH_PASSWORD,
+            remote_bind_address=(FUSION_HOST, FUSION_PORT),
         )
-        conn.set_session(readonly=True, autocommit=True)
+        tunnel.start()
+        host, port = "127.0.0.1", tunnel.local_bind_port
+    else:
+        host, port = FUSION_HOST, FUSION_PORT
 
+    conn = psycopg2.connect(
+        host=host, port=port,
+        dbname=FUSION_DB, user=FUSION_USER, password=FUSION_PASS,
+        gssencmode="disable", cursor_factory=RealDictCursor,
+    )
+    conn.set_session(readonly=True, autocommit=True)
+    return conn, tunnel
+
+
+def fetch_fusion_data() -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Opens a single SSH tunnel and runs both Fusion queries:
+      1. Pricebook (all is_available rows with resolved names/categories)
+      2. Component last_provisioned from service_options + history_service_options
+    Returns (pricebook_df, last_provisioned_df)
+    """
+    print(f"  → SSH tunnel via {SSH_HOST} ...", flush=True)
+    conn, tunnel = _fusion_connect()
+    try:
         with conn.cursor() as cur:
+            # Pricebook
             cur.execute("""
                 SELECT
                     CASE WHEN pb.component_id IS NOT NULL
@@ -118,11 +125,34 @@ def fetch_pricebook() -> pd.DataFrame:
                 WHERE pb.is_available = true
                 ORDER BY fusion_id, pb.currency
             """)
-            rows = cur.fetchall()
-        conn.close()
-        print(f"  → {len(rows)} pricebook rows fetched", flush=True)
-        return pd.DataFrame([dict(r) for r in rows])
+            pb_rows = cur.fetchall()
+            print(f"  → {len(pb_rows)} pricebook rows fetched", flush=True)
+
+            # Last provisioned: union active + historical service options (full history)
+            print("  → querying service_options history (this may take a moment)...", flush=True)
+            cur.execute("""
+                SELECT component_id AS fusion_id, MAX(created) AS last_provisioned
+                FROM (
+                    SELECT component_id, created
+                    FROM public.service_options
+                    WHERE component_id IS NOT NULL
+                    UNION ALL
+                    SELECT component_id, created
+                    FROM public.history_service_options
+                    WHERE component_id IS NOT NULL
+                ) all_so
+                GROUP BY component_id
+            """)
+            so_rows = cur.fetchall()
+            print(f"  → {len(so_rows)} component last_provisioned dates fetched", flush=True)
+
+        pb_df = pd.DataFrame([dict(r) for r in pb_rows])
+        so_df = pd.DataFrame([dict(r) for r in so_rows])
+        so_df["fusion_id"] = so_df["fusion_id"].astype(int)
+        so_df["last_provisioned"] = pd.to_datetime(so_df["last_provisioned"]).dt.strftime("%Y-%m-%d")
+        return pb_df, so_df
     finally:
+        conn.close()
         if tunnel:
             tunnel.stop()
 
@@ -188,10 +218,10 @@ def fetch_server_stats() -> pd.DataFrame:
 
 def fetch_component_stats() -> pd.DataFrame:
     """
-    Returns per-component_id stats from dimComponents (all rows, not filtered by is_online):
-      - active_deployments: count of is_online='Yes' rows on Online services
-      - last_provisioned: most recent component_date across all rows (ever sold)
-    Columns: fusion_id, active_deployments, last_provisioned
+    Returns active_deployments per component_id from dimComponents.
+    active_deployments = is_online='Yes' rows on Online services.
+    last_provisioned is sourced from Fusion service_options (more complete history).
+    Columns: fusion_id, active_deployments
     """
     conn = pymssql.connect(
         server=MSSQL_SERVER, user=MSSQL_USER,
@@ -203,8 +233,7 @@ def fetch_component_stats() -> pd.DataFrame:
         SELECT
             dc.component_id,
             SUM(CASE WHEN dc.is_online = 'Yes' AND ds.service_status = 'Online'
-                     THEN 1 ELSE 0 END)          AS active_deployments,
-            MAX(CAST(dc.component_date AS DATE))  AS last_provisioned
+                     THEN 1 ELSE 0 END) AS active_deployments
         FROM DM_BusinessInsights.dbo.dimComponents dc
         JOIN DM_BusinessInsights.dbo.dimServices ds
           ON ds.service_id = dc.service_id
@@ -214,10 +243,8 @@ def fetch_component_stats() -> pd.DataFrame:
     cur.close()
     conn.close()
     print(f"  → {len(rows)} component stat rows fetched", flush=True)
-    df = pd.DataFrame(rows) if rows else pd.DataFrame(columns=["component_id", "active_deployments", "last_provisioned"])
-    df = df.rename(columns={"component_id": "fusion_id"})
-    df["last_provisioned"] = pd.to_datetime(df["last_provisioned"]).dt.date.astype(str).replace("NaT", "")
-    return df
+    df = pd.DataFrame(rows) if rows else pd.DataFrame(columns=["component_id", "active_deployments"])
+    return df.rename(columns={"component_id": "fusion_id"})
 
 
 # ── Report building ───────────────────────────────────────────────────────────
@@ -268,8 +295,8 @@ def pivot_pricebook(pb: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_report(output_path: str):
-    print("\n[1/2] Fetching Fusion pricebook...")
-    pb = fetch_pricebook()
+    print("\n[1/3] Fetching Fusion pricebook + component history...")
+    pb, so_last_provisioned = fetch_fusion_data()
     if pb.empty:
         print("ERROR: No pricebook rows returned. Check Fusion credentials/SSH config.")
         sys.exit(1)
@@ -277,10 +304,8 @@ def build_report(output_path: str):
     print("\n[2/3] Fetching MSSQL ocean_sku_cost...")
     costs = fetch_ocean_sku_cost()
 
-    print("\n[3/4] Fetching server stats (deployments + last provisioned) from dimServices...")
+    print("\n[3/3] Fetching active deployment counts (dimServices + dimComponents)...")
     server_stats = fetch_server_stats()
-
-    print("\n[4/4] Fetching component stats (deployments + last provisioned) from dimComponents...")
     deploy_counts = fetch_component_stats()
 
     print("\nBuilding report...")
@@ -304,18 +329,24 @@ def build_report(output_path: str):
 
     merged["has_cost"] = merged["sku_cost"].notna()
 
-    # Component rows: stats from dimComponents
+    # Component rows: active_deployments from dimComponents
     deploy_counts["fusion_id"] = deploy_counts["fusion_id"].astype(int)
     merged = merged.merge(deploy_counts, on="fusion_id", how="left", suffixes=("", "_comp"))
 
-    # TLS/server rows: stats from dimServices (different source, same numeric ID space)
-    # Apply server stats directly onto TLS rows, overwriting any component stat bleed
+    # TLS/server rows: active_deployments + last_provisioned from dimServices
     tls_mask = merged["sku_level_pb"] == "TLS"
-    server_stats = server_stats.set_index("fusion_id")
-    for col in ("active_deployments", "last_provisioned"):
-        merged.loc[tls_mask, col] = merged.loc[tls_mask, "fusion_id"].map(server_stats[col])
+    server_idx = server_stats.set_index("fusion_id")
+    merged.loc[tls_mask, "active_deployments"] = merged.loc[tls_mask, "fusion_id"].map(server_idx["active_deployments"])
+    merged.loc[tls_mask, "last_provisioned"]   = merged.loc[tls_mask, "fusion_id"].map(server_idx["last_provisioned"])
 
     merged["active_deployments"] = merged["active_deployments"].fillna(0).astype(int)
+
+    # Component last_provisioned: from Fusion service_options (most complete history)
+    # Overrides dimComponents component_date which misses pre-2014 and migrated services
+    so_last_provisioned["fusion_id"] = so_last_provisioned["fusion_id"].astype(int)
+    so_idx = so_last_provisioned.set_index("fusion_id")["last_provisioned"]
+    comp_mask = merged["sku_level_pb"] == "Component"
+    merged.loc[comp_mask, "last_provisioned"] = merged.loc[comp_mask, "fusion_id"].map(so_idx)
 
     # Final column order
     id_cols    = ["fusion_id", "sku_name_pb", "sku_level_pb", "is_available",
