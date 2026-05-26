@@ -11,12 +11,9 @@
   }
   .filter-group { display:flex; flex-direction:column; gap:.3rem; min-width:160px; position:relative; }
   .filter-group label { font-size:.63rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); }
-  .filter-group input[type="text"] {
-    appearance:none; background:var(--bg); border:1px solid var(--border);
-    color:var(--text-1); font-family:'Geist',sans-serif; font-size:.875rem;
-    padding:.5rem .85rem; border-radius:8px; outline:none; transition:border-color .15s;
-  }
-  .filter-group input:focus { border-color:var(--accent); }
+  .cad-notice { display:inline-flex; align-items:center; gap:.35rem; font-size:.72rem;
+    color:#f59e0b; background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.3);
+    border-radius:5px; padding:.2rem .55rem; margin-left:.5rem; vertical-align:middle; }
   .combo-trigger {
     display:flex; align-items:center; justify-content:space-between; gap:4px;
     background:var(--bg); border:1px solid var(--border); border-radius:8px;
@@ -105,9 +102,9 @@
       <label>Service Type</label>
       <div id="f-svctype"></div>
     </div>
-    <div class="filter-group" style="min-width:140px">
+    <div class="filter-group" style="min-width:200px">
       <label>Customer</label>
-      <input type="text" id="f-company" placeholder="Search…" autocomplete="off"/>
+      <div id="f-company"></div>
     </div>
     <div class="filter-group" style="min-width:120px">
       <label>Display Currency</label>
@@ -340,9 +337,10 @@
   }
 
   // ── Init combos ───────────────────────────────────────────────────────────
-  const amSelect   = new ComboSelect('f-am',      'All managers', true);
-  const dcSelect   = new ComboSelect('f-dc',      'All DCs',      true);
-  const typeSelect = new ComboSelect('f-svctype', 'All types',    true);
+  const amSelect      = new ComboSelect('f-am',      'All managers',    true);
+  const dcSelect      = new ComboSelect('f-dc',      'All DCs',         true);
+  const typeSelect    = new ComboSelect('f-svctype', 'All types',       true);
+  const companySelect = new ComboSelect('f-company', 'All customers',   true);
 
   // Load filter options
   fetch('/api/profitability/filter-options')
@@ -351,6 +349,7 @@
       amSelect.setOptions(d.account_managers || []);
       dcSelect.setOptions(d.dc_codes || []);
       typeSelect.setOptions(d.service_types || []);
+      companySelect.setOptions(d.company_names || []);
       _currencies = ['USD', 'CAD', 'GBP', 'EUR'];
       const sel = document.getElementById('f-currency');
       _currencies.forEach(c => {
@@ -361,12 +360,6 @@
       });
     });
 
-  // Company search input
-  document.getElementById('f-company').addEventListener('input', () => {
-    clearTimeout(_debounce);
-    _debounce = setTimeout(load, 350);
-  });
-
   document.getElementById('f-currency').addEventListener('change', load);
 
   // ── Data loading ──────────────────────────────────────────────────────────
@@ -375,8 +368,7 @@
     amSelect.values().forEach(v => p.append('am', v));
     dcSelect.values().forEach(v => p.append('dc', v));
     typeSelect.values().forEach(v => p.append('service_type', v));
-    const co = document.getElementById('f-company').value.trim();
-    if (co) p.set('company', co);
+    companySelect.values().forEach(v => p.append('company', v));
     const dc = document.getElementById('f-currency').value;
     if (dc) p.set('display_currency', dc);
     return p;
@@ -397,13 +389,16 @@
   // ── KPI rendering ─────────────────────────────────────────────────────────
   function renderKpis(t) {
     const cur = t.currency && t.currency !== 'mixed' ? t.currency : '';
-    document.getElementById('kpi-mrc').textContent    = t.mrc    != null ? fmt(t.mrc, cur) : '—';
-    document.getElementById('kpi-cost').textContent   = t.total_cost != null ? fmt(t.total_cost, cur) : '—';
-    document.getElementById('kpi-margin').textContent = t.margin  != null ? fmt(t.margin, cur) : '—';
-    document.getElementById('kpi-risk').textContent   = t.at_risk_count != null ? t.at_risk_count + ' services' : '—';
+    const autoC = _data && _data.auto_currency;
+    const cadBadge = autoC ? ' <span class="cad-notice">CAD*</span>' : '';
+
+    document.getElementById('kpi-mrc').innerHTML    = (t.mrc    != null ? esc(fmt(t.mrc, cur)) : '—') + cadBadge;
+    document.getElementById('kpi-cost').innerHTML   = t.total_cost != null ? esc(fmt(t.total_cost, cur)) : '—';
+    document.getElementById('kpi-margin').innerHTML = t.margin  != null ? esc(fmt(t.margin, cur)) : '—';
+    document.getElementById('kpi-risk').textContent = t.at_risk_count != null ? t.at_risk_count + ' services' : '—';
     document.getElementById('kpi-mrc-sub').textContent =
-      `${t.service_count || 0} services · ${t.customer_count || 0} customers`;
-    const mpct = t.margin_pct != null ? t.margin_pct + '% blended avg' : 'select a currency to see totals';
+      `${t.service_count || 0} services · ${t.customer_count || 0} customers` + (autoC ? ' · amounts in CAD' : '');
+    const mpct = t.margin_pct != null ? t.margin_pct + '% blended avg' : (autoC ? 'converted to CAD' : 'select a currency to see totals');
     document.getElementById('kpi-margin-sub').textContent = mpct;
     document.getElementById('kpi-margin').style.color = t.margin == null ? '' :
       (t.margin < 0 ? 'var(--red)' : t.margin_pct >= 20 ? 'var(--green)' : '');
@@ -466,21 +461,22 @@
     }
 
     tbody.innerHTML = sorted.map(r => {
-      const name  = r.company_name || r.label || '';
-      const am    = r.account_manager || '';
-      const link  = r.client_id ? `/profitability/${r.client_id}` : '#';
+      const name   = r.company_name || r.label || '';
+      const am     = r.account_manager || '';
+      const link   = r.client_id ? `/profitability/${r.client_id}` : '#';
       const rowCur = r.currency && r.currency !== 'mixed' ? r.currency : (cur || '');
       const mixed  = r.currency_mixed;
+      const warn   = warnIcon(r.warnings);
 
-      const mrcCell    = mixed ? '—' : (r.mrc    != null ? fmt(r.mrc, rowCur)    : '—');
-      const costCell   = mixed ? '—' : (r.total_cost != null ? fmt(r.total_cost, rowCur) : '—');
-      const marginCell = mixed ? '—' : (r.margin != null ? `<span style="${r.margin < 0 ? 'color:var(--red)' : ''}">${fmt(r.margin, rowCur)}</span>` : '—');
+      const mrcCell    = mixed ? '—' : (r.mrc    != null ? esc(fmt(r.mrc, rowCur))    : '—');
+      const costCell   = mixed ? '—' : (r.total_cost != null ? esc(fmt(r.total_cost, rowCur)) : '—');
+      const marginCell = mixed ? '—' : (r.margin != null ? `<span style="${r.margin < 0 ? 'color:var(--red)' : ''}">${esc(fmt(r.margin, rowCur))}</span>` : '—');
       const pctClass   = r.margin_pct == null ? '' : r.margin_pct >= 20 ? 'pos' : r.margin_pct >= 10 ? 'warn' : 'neg';
       const pctCell    = r.margin_pct != null ? r.margin_pct.toFixed(1) + '%' : '—';
-      const amCell     = _seg === 'customer' ? `<td>${am}</td>` : '';
+      const amCell     = _seg === 'customer' ? `<td>${esc(am)}</td>` : '';
 
       return `<tr onclick="window.location='${link}'">
-        <td class="name">${name}</td>
+        <td class="name" style="display:flex;align-items:center;gap:.35rem">${esc(name)}${warn}</td>
         ${amCell}
         <td class="mono">${r.service_count}</td>
         <td class="mono">${mrcCell}</td>
@@ -492,18 +488,16 @@
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
+  const _SYM = { USD: '$', CAD: '$', GBP: '£', EUR: '€' };
   function fmt(val, cur) {
     if (val == null) return '—';
-    const n = new Intl.NumberFormat('en-US', {
-      style: 'currency', currency: cur || 'USD',
-      minimumFractionDigits: 0, maximumFractionDigits: 0,
-    }).format(val);
-    return cur && cur !== 'USD' ? n + ' ' + cur : n;
+    const sym = _SYM[cur] || '$';
+    const abs = Math.abs(val).toLocaleString('en-US', { maximumFractionDigits: 0 });
+    return (val < 0 ? '-' : '') + sym + abs;
   }
 
   function clearFilters() {
-    amSelect.clear(); dcSelect.clear(); typeSelect.clear();
-    document.getElementById('f-company').value = '';
+    amSelect.clear(); dcSelect.clear(); typeSelect.clear(); companySelect.clear();
     document.getElementById('f-currency').value = '';
     load();
   }
