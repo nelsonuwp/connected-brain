@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<style>
+  @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Light.ttf') format('truetype'); font-weight:300; }
+  @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Regular.ttf') format('truetype'); font-weight:400; }
+  @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Medium.ttf') format('truetype'); font-weight:500; }
+  @font-face { font-family:'Geist'; src:url('https://aptumlogos.pages.dev/Geist-Bold.ttf') format('truetype'); font-weight:700; }
+  @font-face { font-family:'Geist Mono'; src:url('https://aptumlogos.pages.dev/GeistMono-Regular.ttf') format('truetype'); font-weight:400; }
+
+  :root {
+    --bg:#F8F7FA; --bg-dot:#D0D1DE; --surface:#FFFFFF; --surface-2:#F0EFF5;
+    --border:#D0D1DE; --border-mid:#88898D; --text-1:#081820; --text-2:#515357;
+    --text-3:#88898D; --accent:#655BD9; --accent-dim:#E7E6FF; --accent-text:#3A2699;
+    --green:#2d6e1f; --green-dim:#E9FEDF; --green-text:#1a4a10;
+    --orange:#a05000; --orange-dim:#FFEBD9; --orange-text:#7a3a00;
+    --red:#c41c1c; --red-dim:#FEE8E8; --red-text:#9b1515;
+    --shadow:rgba(0,0,0,.06);
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family:'Geist', system-ui, sans-serif;
+    background-color:var(--bg);
+    background-image:radial-gradient(var(--bg-dot) 1px, transparent 0);
+    background-size:28px 28px;
+    color:var(--text-2);
+  }
+
+  header {
+    display:flex; align-items:center; gap:1rem;
+    padding:1.25rem 2rem; border-bottom:1px solid var(--border);
+    background:var(--bg);
+  }
+  .logo { height:28px; }
+  .hdr-divider { width:1px; height:22px; background:var(--border); }
+  nav.top-nav { display:flex; align-items:center; gap:.25rem; }
+  nav.top-nav a {
+    font-size:.8rem; font-weight:500; color:var(--text-2);
+    text-decoration:none; padding:.35rem .75rem; border-radius:7px;
+    border:1px solid transparent; transition:color .15s, border-color .15s;
+  }
+  nav.top-nav a:hover { color:var(--text-1); border-color:var(--border); }
+  nav.top-nav a.active { color:var(--accent); border-color:var(--accent); background:var(--accent-dim); }
+  .hdr-right { margin-left:auto; display:flex; align-items:center; gap:.75rem; }
+  .theme-btn {
+    background:var(--surface); border:1px solid var(--border); color:var(--text-2);
+    font-size:.9rem; width:34px; height:34px; border-radius:8px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+
+  .page-body { padding:2rem; }
+
+  /* ── KPI row ── */
+  .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; margin-bottom:1.75rem; }
+  .kpi-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:.9rem 1.1rem; box-shadow:0 2px 6px var(--shadow);
+  }
+  .kpi-label { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--text-3); margin-bottom:.35rem; }
+  .kpi-value { font-size:1.4rem; font-weight:700; color:var(--text-1); font-family:'Geist Mono',monospace; }
+  .kpi-value.green { color:var(--green); }
+  .kpi-value.red { color:var(--red); }
+  .kpi-sub { font-size:.68rem; color:var(--text-3); margin-top:.2rem; }
+
+  /* ── Segment toggle + sort bar ── */
+  .controls {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:1rem;
+  }
+  .seg-toggle { display:flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .seg-btn {
+    padding:.38rem 1rem; font-size:.78rem; font-weight:500; font-family:'Geist',sans-serif;
+    background:var(--surface); color:var(--text-2); border:none; cursor:pointer;
+    border-right:1px solid var(--border);
+    transition:background .12s, color .12s;
+  }
+  .seg-btn:last-child { border-right:none; }
+  .seg-btn.active { background:var(--accent); color:#fff; }
+
+  .sort-hint { font-size:.7rem; color:var(--text-3); }
+
+  /* ── Main table ── */
+  .prof-table { width:100%; border-collapse:collapse; }
+  .prof-table th {
+    font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--text-3); padding:.45rem .75rem; text-align:left;
+    border-bottom:2px solid var(--border); white-space:nowrap;
+  }
+  .prof-table th.r { text-align:right; }
+  .prof-table th.sorted { color:var(--accent); }
+  .prof-table td {
+    padding:.6rem .75rem; font-size:.8rem; color:var(--text-2);
+    border-bottom:1px solid var(--border); vertical-align:middle;
+  }
+  .prof-table td.name { color:var(--text-1); font-weight:500; }
+  .prof-table td.sub { font-size:.7rem; color:var(--text-3); }
+  .prof-table td.mono { font-family:'Geist Mono',monospace; text-align:right; }
+  .prof-table tr:hover { background:var(--surface-2); cursor:pointer; }
+
+  .pill { display:inline-block; font-size:.62rem; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap; }
+  .pill-green { background:var(--green-dim); color:var(--green-text); }
+  .pill-orange { background:var(--orange-dim); color:var(--orange-text); }
+  .pill-red { background:var(--red-dim); color:var(--red-text); }
+
+  .margin-bar-wrap { display:flex; align-items:center; gap:6px; justify-content:flex-end; }
+  .margin-bar { height:6px; border-radius:3px; }
+
+  .table-wrap {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; overflow:hidden;
+    box-shadow:0 2px 8px var(--shadow);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img class="logo" src="https://aptumlogos.pages.dev/Horizontal-Lockup-Black.png" alt="Aptum"/>
+  <div class="hdr-divider"></div>
+  <nav class="top-nav">
+    <a href="#">New Quotes</a>
+    <a href="#" class="active">Profitability</a>
+    <a href="#">Renewals</a>
+    <a href="#">Settings</a>
+  </nav>
+  <div class="hdr-right">
+    <button class="theme-btn">☽</button>
+  </div>
+</header>
+
+<div class="page-body">
+
+  <!-- KPI summary -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Total MRC</div>
+      <div class="kpi-value">$4.21M</div>
+      <div class="kpi-sub">61 active services · 24 customers</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Total Cost</div>
+      <div class="kpi-value">$3.08M</div>
+      <div class="kpi-sub">HW amort + overhead + SG&amp;A</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Net Margin</div>
+      <div class="kpi-value green">$1.13M</div>
+      <div class="kpi-sub">26.8% blended avg</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">At Risk</div>
+      <div class="kpi-value red">8 services</div>
+      <div class="kpi-sub">margin &lt; 10% · 3 customers</div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="seg-toggle">
+      <button class="seg-btn active" onclick="activate(this)">By Customer</button>
+      <button class="seg-btn" onclick="activate(this)">By Data Center</button>
+      <button class="seg-btn" onclick="activate(this)">By Service Type</button>
+    </div>
+    <span class="sort-hint">↕ Click column headers to sort · Click row to drill in</span>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <table class="prof-table" id="main-table">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Account Manager</th>
+          <th class="r">Services</th>
+          <th class="r">MRC</th>
+          <th class="r">Total Cost</th>
+          <th class="r">Margin $</th>
+          <th class="r sorted">Margin % ↑</th>
+        </tr>
+      </thead>
+      <tbody id="by-customer">
+        <tr onclick="window.location='#drilldown'">
+          <td class="name">Acme Corporation</td>
+          <td>Sarah Chen</td>
+          <td class="mono">4</td>
+          <td class="mono">$42,300</td>
+          <td class="mono">$28,100</td>
+          <td class="mono" style="color:var(--green)">$14,200</td>
+          <td><div class="margin-bar-wrap"><div class="margin-bar" style="width:34px;background:var(--green)"></div><span class="pill pill-green">33.6%</span></div></td>
+        </tr>
+        <tr>
+          <td class="name">GlobalBank Financial</td>
+          <td>Sarah Chen</td>
+          <td class="mono">7</td>
+          <td class="mono">$31,800</td>
+          <td class="mono">$24,500</td>
+          <td class="mono" style="color:var(--green)">$7,300</td>
+          <td><div class="margin-bar-wrap"><div class="margin-bar" style="width:23px;background:var(--green)"></div><span class="pill pill-green">23.0%</span></div></td>
+        </tr>
+        <tr>
+          <td class="name">Pacific Logistics</td>
+          <td>Tom Rivera</td>
+          <td class="mono">3</td>
+          <td class="mono">$27,400</td>
+          <td class="mono">$21,800</td>
+          <td class="mono" style="color:var(--green)">$5,600</td>
+          <td><div class="margin-bar-wrap"><div class="margin-bar" style="width:20px;background:var(--green)"></div><span class="pill pill-green">20.4%</span></div></td>
+        </tr>
+        <tr>
+          <td class="name">Northern Logistics</td>
+          <td>Tom Rivera</td>
+          <td class="mono">3</td>
+          <td class="mono">$18,600</td>
+          <td class="mono">$16,800</td>
+          <td class="mono" style="color:var(--orange)">$1,800</td>
+          <td><div class="margin-bar-wrap"><div class="margin-bar" style="width:10px;background:var(--orange)"></div><span class="pill pill-orange">9.7%</span></div></td>
+        </tr>
+        <tr>
+          <td class="name">Meridian Health</td>
+          <td>James Park</td>
+          <td class="mono">5</td>
+          <td class="mono">$22,100</td>
+          <td class="mono">$20,500</td>
+          <td class="mono" style="color:var(--orange)">$1,600</td>
+          <td><div class="margin-bar-wrap"><div class="margin-bar" style="width:7px;background:var(--orange)"></div><span class="pill pill-orange">7.2%</span></div></td>
+        </tr>
+        <tr>
+          <td class="name">RetailCo Inc.</td>
+          <td>James Park</td>
+          <td class="mono">2</td>
+          <td class="mono">$9,100</td>
+          <td class="mono">$10,200</td>
+          <td class="mono" style="color:var(--red)">-$1,100</td>
+          <td><div class="margin-bar-wrap"><div class="margin-bar" style="width:12px;background:var(--red)"></div><span class="pill pill-red">-12.1%</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  function activate(btn) {
+    btn.closest('.seg-toggle').querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const seg = btn.textContent.trim();
+    const tbody = document.getElementById('by-customer');
+
+    if (seg === 'By Data Center') {
+      tbody.innerHTML = `
+        <tr><td class="name">Atlanta (ATL)</td><td>—</td><td class="mono">18</td><td class="mono">$128,400</td><td class="mono">$92,100</td><td class="mono" style="color:var(--green)">$36,300</td><td><div class="margin-bar-wrap"><div class="margin-bar" style="width:28px;background:var(--green)"></div><span class="pill pill-green">28.3%</span></div></td></tr>
+        <tr><td class="name">Toronto (TOR)</td><td>—</td><td class="mono">22</td><td class="mono">$156,200</td><td class="mono">$118,400</td><td class="mono" style="color:var(--green)">$37,800</td><td><div class="margin-bar-wrap"><div class="margin-bar" style="width:24px;background:var(--green)"></div><span class="pill pill-green">24.2%</span></div></td></tr>
+        <tr><td class="name">Chicago (CHI)</td><td>—</td><td class="mono">11</td><td class="mono">$84,600</td><td class="mono">$68,900</td><td class="mono" style="color:var(--green)">$15,700</td><td><div class="margin-bar-wrap"><div class="margin-bar" style="width:18px;background:var(--green)"></div><span class="pill pill-green">18.6%</span></div></td></tr>
+        <tr><td class="name">Vancouver (VAN)</td><td>—</td><td class="mono">10</td><td class="mono">$71,300</td><td class="mono">$64,500</td><td class="mono" style="color:var(--orange)">$6,800</td><td><div class="margin-bar-wrap"><div class="margin-bar" style="width:9px;background:var(--orange)"></div><span class="pill pill-orange">9.5%</span></div></td></tr>
+      `;
+    } else if (seg === 'By Service Type') {
+      tbody.innerHTML = `
+        <tr><td class="name">Dedicated Server</td><td>—</td><td class="mono">38</td><td class="mono">$284,100</td><td class="mono">$201,600</td><td class="mono" style="color:var(--green)">$82,500</td><td><div class="margin-bar-wrap"><div class="margin-bar" style="width:29px;background:var(--green)"></div><span class="pill pill-green">29.0%</span></div></td></tr>
+        <tr><td class="name">Colocation</td><td>—</td><td class="mono">12</td><td class="mono">$98,400</td><td class="mono">$74,200</td><td class="mono" style="color:var(--green)">$24,200</td><td><div class="margin-bar-wrap"><div class="margin-bar" style="width:24px;background:var(--green)"></div><span class="pill pill-green">24.6%</span></div></td></tr>
+        <tr><td class="name">Network / Connectivity</td><td>—</td><td class="mono">8</td><td class="mono">$44,200</td><td class="mono">$18,100</td><td class="mono" style="color:var(--green)">$26,100</td><td><div class="margin-bar-wrap"><div class="margin-bar" style="width:59px;background:var(--green)"></div><span class="pill pill-green">59.0%</span></div></td></tr>
+        <tr><td class="name">Managed Services</td><td>—</td><td class="mono">3</td><td class="mono">$13,800</td><td class="mono">$13,100</td><td class="mono" style="color:var(--orange)">$700</td><td><div class="margin-bar-wrap"><div class="margin-bar" style="width:5px;background:var(--orange)"></div><span class="pill pill-orange">5.1%</span></div></td></tr>
+      `;
+    } else {
+      location.reload();
+    }
+  }
+</script>
+
+</body>
+</html>
