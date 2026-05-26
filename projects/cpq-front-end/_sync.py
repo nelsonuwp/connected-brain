@@ -110,21 +110,11 @@ def cmd_deploy() -> None:
     print(f"""
 [deploy] files synced. Next steps on the VM ({VM_HOST}):
 
-  ── rebuild image ──────────────────────────────────────────
-  cd {VM_DIR} && make build
+  ── rebuild image and restart ──────────────────────────────
+  cd {VM_DIR} && make build && make run-prod
 
-  ── stop any running container ─────────────────────────────
-  podman ps                        # find container ID
-  podman stop <id>                 # stop it
-
-  ── run headless (survives disconnect, logs to {LOG}) ──
-  make run-headless                # nohup + log in one command
-
-  ── OR run in foreground (Ctrl+C to stop) ──────────────────
-  make run-prod
-
-  ── watch the log ──────────────────────────────────────────
-  tail -f {LOG}
+  ── watch logs ─────────────────────────────────────────────
+  docker logs cpq-front-end -f
 
   ── verify it's up ─────────────────────────────────────────
   curl -s http://localhost:5050/api/datacenters | head -c 120

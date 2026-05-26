@@ -12,12 +12,12 @@ PORT  := 5050
 all: build run
 
 build:
-	podman build -t $(IMAGE) .
+	docker build -t $(IMAGE) .
 
 # Dev: Flask debug + auto-reload. Source bind-mounted so edits are live.
 # Single worker because the sshtunnel/psycopg connection is module-level state.
 run:
-	podman run --rm -it \
+	docker run --rm -it \
 		--env-file .env \
 		-p $(PORT):$(PORT) \
 		-v $(PWD)/app.py:/app/app.py \
@@ -31,21 +31,21 @@ run:
 
 # Prod: gunicorn, detached, always restarts unless manually stopped.
 # Safe to re-run on redeploy — old container is stopped and removed first.
-# Logs: podman logs cpq-front-end -f
+# Logs: docker logs cpq-front-end -f
 run-prod:
-	-podman stop cpq-front-end 2>/dev/null || true
-	-podman rm cpq-front-end 2>/dev/null || true
-	podman run -d \
+	-docker stop cpq-front-end 2>/dev/null || true
+	-docker rm cpq-front-end 2>/dev/null || true
+	docker run -d \
 		--name cpq-front-end \
 		--restart=unless-stopped \
 		--env-file .env \
 		-p $(PORT):$(PORT) \
 		-v $(PWD)/cost_drivers.json:/app/cost_drivers.json \
 		$(IMAGE)
-	@echo "Container started. Logs: podman logs cpq-front-end -f"
+	@echo "Container started. Logs: docker logs cpq-front-end -f"
 
 shell:
-	podman run --rm -it --env-file .env --entrypoint bash $(IMAGE)
+	docker run --rm -it --env-file .env --entrypoint bash $(IMAGE)
 
 clean:
-	-podman rmi $(IMAGE)
+	-docker rmi $(IMAGE)
