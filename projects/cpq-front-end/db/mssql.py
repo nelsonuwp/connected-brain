@@ -115,16 +115,19 @@ def _parse_date(value) -> str | None:
 
 
 def get_renewal_services(
-    company: str | None = None,
-    client_id: int | None = None,
+    companies: list[str] | None = None,
+    client_ids: list[int] | None = None,
     service_id: int | None = None,
     m2m_only: bool = False,
     termed_only: bool = False,
+    service_types: list[str] | None = None,
+    sales_reps: list[str] | None = None,
 ) -> list[dict]:
     """
     Returns services from ocean_services_renewal_date JOIN dimServices.
     Sorted: real future dates first (ascending), then m2m/sentinel dates.
-    Expiration dates of 1899-12-31 are normalized to None.
+    Expiration dates <= 1900-01-01 are normalized to None.
+    sales_rep comes from dimClientsActive.account_manager (LEFT JOIN on client_id).
     """
     if not _configured():
         return []
@@ -134,12 +137,14 @@ def get_renewal_services(
 
         conditions = []
         params = []
-        if company:
-            conditions.append("osrd.company_name LIKE %s")
-            params.append(f"%{company}%")
-        if client_id is not None:
-            conditions.append("osrd.client_id = %d")
-            params.append(int(client_id))
+        if companies:
+            placeholders = ",".join(["%s"] * len(companies))
+            conditions.append(f"osrd.company_name IN ({placeholders})")
+            params.extend(companies)
+        if client_ids:
+            placeholders = ",".join(["%d"] * len(client_ids))
+            conditions.append(f"osrd.client_id IN ({placeholders})")
+            params.extend(int(c) for c in client_ids)
         if service_id is not None:
             conditions.append("osrd.service_id = %d")
             params.append(int(service_id))
@@ -147,6 +152,14 @@ def get_renewal_services(
             conditions.append("osrd.m2m = 'yes'")
         if termed_only:
             conditions.append("(osrd.m2m IS NULL OR osrd.m2m != 'yes')")
+        if service_types:
+            placeholders = ",".join(["%s"] * len(service_types))
+            conditions.append(f"ds.service_type IN ({placeholders})")
+            params.extend(service_types)
+        if sales_reps:
+            placeholders = ",".join(["%s"] * len(sales_reps))
+            conditions.append(f"dca.account_manager IN ({placeholders})")
+            params.extend(sales_reps)
 
         where = ("WHERE " + " AND ".join(conditions)) if conditions else ""
         sql = f"""
@@ -156,10 +169,13 @@ def get_renewal_services(
                 ds.product, ds.datacenter_code, ds.currency,
                 ds.mrc, ds.provision_date, ds.contract_months_remaining,
                 ds.service_type, ds.fusion_id, ds.nickname,
-                ds.service_status
+                ds.service_status,
+                dca.account_manager AS sales_rep
             FROM DM_BusinessInsights.renewals.ocean_services_renewal_date osrd
             JOIN DM_BusinessInsights.dbo.dimServices ds
               ON ds.service_id = osrd.service_id
+            LEFT JOIN DM_BusinessInsights.dbo.dimClientsActive dca
+              ON dca.client_id = osrd.client_id
             {where}
             ORDER BY
                 CASE
@@ -185,8 +201,51 @@ def get_renewal_services(
             row["provision_date"] = _parse_date(row.get("provision_date"))
             row["m2m"] = row.get("m2m") == "yes"
             row["mrc"] = float(row.get("mrc") or 0)
+            row["sales_rep"] = (row.get("sales_rep") or "").strip() or None
             result.append(row)
         return result
+    except Exception:
+        return []
+
+
+def get_renewal_autocomplete(field: str, q: str, limit: int = 20) -> list[str]:
+    """Return distinct matching values for renewals filter autocomplete."""
+    if not _configured() or not q or len(q) < 2:
+        return []
+
+    _FIELD_MAP = {
+        "company":      ("DM_BusinessInsights.renewals.ocean_services_renewal_date", "company_name", False),
+        "client_id":    ("DM_BusinessInsights.dbo.dimClientsActive",                 "client_id",    True),
+        "service_type": ("DM_BusinessInsights.dbo.dimServices",                      "service_type", False),
+        "sales_rep":    ("DM_BusinessInsights.dbo.dimClientsActive",                 "account_manager", False),
+    }
+
+    if field not in _FIELD_MAP:
+        return []
+
+    table, col, is_numeric = _FIELD_MAP[field]
+    try:
+        conn = _connect()
+        cur = conn.cursor()
+        if is_numeric:
+            sql = f"""
+                SELECT DISTINCT TOP {limit} CAST({col} AS NVARCHAR(20)) AS val
+                FROM {table}
+                WHERE CAST({col} AS NVARCHAR(20)) LIKE %s AND {col} IS NOT NULL
+                ORDER BY CAST({col} AS NVARCHAR(20))
+            """
+        else:
+            sql = f"""
+                SELECT DISTINCT TOP {limit} {col} AS val
+                FROM {table}
+                WHERE {col} LIKE %s AND {col} IS NOT NULL AND {col} != ''
+                ORDER BY {col}
+            """
+        cur.execute(sql, (f"%{q}%",))
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        return [str(r[0]) for r in rows if r[0]]
     except Exception:
         return []
 

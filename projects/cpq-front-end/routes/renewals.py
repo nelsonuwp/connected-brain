@@ -4,7 +4,8 @@ from flask import Blueprint, jsonify, render_template, request
 
 from db.fusion import get_conn, get_dc_info
 from db.mssql import (get_fx_rate, get_mssql_costs, get_mssql_watts,
-                      get_renewal_services, get_service, get_service_components)
+                      get_renewal_autocomplete, get_renewal_services,
+                      get_service, get_service_components)
 from lib.overhead import COST_DRIVERS, calc_overhead
 from lib.renewal_pricing import (calc_suggested_mrc, hw_paid_off,
                                  provision_age_months)
@@ -24,6 +25,7 @@ def _group_renewals(rows: list[dict]) -> list[dict]:
                 "m2m": row["m2m"],
                 "total_mrc": 0.0,
                 "service_count": 0,
+                "sales_rep": row.get("sales_rep"),
                 "services": [],
             }
         g = groups[key]
@@ -62,28 +64,41 @@ def renewal_page(service_id):
     return render_template("renewal.html", service_id=service_id, active_page="renewals")
 
 
+@renewals_bp.route("/api/renewals/autocomplete")
+def api_renewals_autocomplete():
+    field = request.args.get("field", "").strip()
+    q     = request.args.get("q", "").strip()
+    if not field or len(q) < 2:
+        return jsonify({"results": []})
+    results = get_renewal_autocomplete(field, q)
+    return jsonify({"results": results})
+
+
 @renewals_bp.route("/api/renewals")
 def api_renewals():
     from datetime import date as _date
 
-    company        = request.args.get("company", "").strip() or None
-    client_id      = request.args.get("client_id", "").strip() or None
-    service_id     = request.args.get("service_id", "").strip() or None
-    contract_type  = request.args.get("contract_type", "all")   # all | termed | m2m
+    companies     = request.args.getlist("company") or None
+    client_ids_raw = request.args.getlist("client_id")
+    service_types = request.args.getlist("service_type") or None
+    sales_reps    = request.args.getlist("sales_rep") or None
+    service_id_raw = request.args.get("service_id", "").strip() or None
+    contract_type  = request.args.get("contract_type", "all")
     expires_before = request.args.get("expires_before", "").strip() or None
 
     m2m_only    = contract_type == "m2m"
     termed_only = contract_type == "termed"
 
     try:
-        client_id  = int(client_id)  if client_id  else None
-        service_id = int(service_id) if service_id else None
+        client_ids = [int(c) for c in client_ids_raw] if client_ids_raw else None
+        service_id = int(service_id_raw) if service_id_raw else None
     except ValueError:
         return jsonify({"error": "client_id and service_id must be integers"}), 400
 
     rows   = get_renewal_services(
-        company=company, client_id=client_id, service_id=service_id,
+        companies=companies, client_ids=client_ids, service_id=service_id,
         m2m_only=m2m_only, termed_only=termed_only,
+        service_types=service_types, sales_reps=sales_reps,
     )
     groups = _group_renewals(rows)
 
