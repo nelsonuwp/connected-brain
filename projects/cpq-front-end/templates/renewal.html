@@ -42,11 +42,7 @@
     .comp-table td.neg     { color:var(--green);  font-family:'Geist Mono',monospace; text-align:right; }
     .comp-table td.zero    { color:var(--text-3); font-family:'Geist Mono',monospace; text-align:right; }
     .comp-table td.check-cell { text-align:center; padding:.4rem .25rem; overflow:visible; }
-    .comp-table td.adj-cell   { padding:.3rem .25rem; overflow:visible; }
-
-    /* Currency prefix wrapper for New Price inputs */
-    .adj-wrap { display:flex; align-items:center; justify-content:flex-end; gap:2px; }
-    .curr-sym { font-family:'Geist Mono',monospace; font-size:.78rem; color:var(--text-2); flex-shrink:0; }
+    .comp-table td.adj-cell   { padding:.3rem .25rem; overflow:visible; text-align:right; }
 
     /* Delta cell — always right-aligned */
     .comp-table td.delta { text-align:right; font-family:'Geist Mono',monospace; }
@@ -275,7 +271,7 @@
 
     /* ── Base Server section ── */
     html += `<div class="section-title">Base Server</div>
-      ${tableHeader()}
+      ${tableHeader(cur)}
       <tr class="included">
         <td class="check-cell"><input type="checkbox" class="row-cb" checked disabled title="Base server — always included" /></td>
         <td class="name"><span class="label">${esc(svc.product || 'Server')}</span></td>
@@ -295,7 +291,7 @@
     });
 
     Object.entries(cats).forEach(([cat, comps]) => {
-      html += `<div class="section-title">${esc(cat)}</div>${tableHeader()}`;
+      html += `<div class="section-title">${esc(cat)}</div>${tableHeader(cur)}`;
       comps.forEach(c => { html += compRow(c, c._idx, cur); });
       html += '</tbody></table>';
     });
