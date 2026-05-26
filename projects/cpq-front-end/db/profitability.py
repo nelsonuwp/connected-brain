@@ -127,11 +127,11 @@ def get_active_services(
             conditions.append(f"ds.service_type IN ({placeholders})")
             params.extend(service_types)
         if company_search:
-            conditions.append("COALESCE(dca.company_name, osrd.company_name) LIKE %s")
+            conditions.append("ds.company_name LIKE %s")
             params.append(f"%{company_search}%")
         if company_names:
             placeholders = ",".join(["%s"] * len(company_names))
-            conditions.append(f"COALESCE(dca.company_name, osrd.company_name) IN ({placeholders})")
+            conditions.append(f"ds.company_name IN ({placeholders})")
             params.extend(company_names)
         if client_ids:
             placeholders = ",".join(["%d"] * len(client_ids))
@@ -145,18 +145,13 @@ def get_active_services(
                 ds.currency, ds.mrc, ds.provision_date,
                 ds.service_type, ds.fusion_id, ds.nickname,
                 ds.product, ds.service_status,
-                COALESCE(dca.company_name, osrd.company_name) AS company_name,
-                COALESCE(dca.account_manager, '') AS account_manager
+                ds.company_name,
+                dca.account_manager
             FROM DM_BusinessInsights.dbo.dimServices ds
             LEFT JOIN DM_BusinessInsights.dbo.dimClientsActive dca
                 ON dca.client_id = ds.client_id
-            LEFT JOIN (
-                SELECT DISTINCT client_id, company_name
-                FROM DM_BusinessInsights.renewals.ocean_services_renewal_date
-                WHERE company_name IS NOT NULL AND company_name != ''
-            ) osrd ON osrd.client_id = ds.client_id
             WHERE {where}
-            ORDER BY COALESCE(dca.company_name, osrd.company_name), ds.service_id
+            ORDER BY ds.company_name, ds.service_id
         """
         if params:
             cur.execute(sql, params)
@@ -220,18 +215,11 @@ def get_profitability_filter_options() -> dict:
         types = [r[0] for r in cur.fetchall() if r[0]]
 
         cur.execute("""
-            SELECT DISTINCT TOP 500 COALESCE(dca.company_name, osrd.company_name) AS val
+            SELECT DISTINCT TOP 500 ds.company_name AS val
             FROM DM_BusinessInsights.dbo.dimServices ds
-            LEFT JOIN DM_BusinessInsights.dbo.dimClientsActive dca ON dca.client_id = ds.client_id
-            LEFT JOIN (
-                SELECT DISTINCT client_id, company_name
-                FROM DM_BusinessInsights.renewals.ocean_services_renewal_date
-                WHERE company_name IS NOT NULL AND company_name != ''
-            ) osrd ON osrd.client_id = ds.client_id
             WHERE ds.service_status = 'Online'
-              AND COALESCE(dca.company_name, osrd.company_name) IS NOT NULL
-              AND COALESCE(dca.company_name, osrd.company_name) != ''
-            ORDER BY val
+              AND ds.company_name IS NOT NULL AND ds.company_name != ''
+            ORDER BY ds.company_name
         """)
         companies = [r[0].strip() for r in cur.fetchall() if r[0]]
 
