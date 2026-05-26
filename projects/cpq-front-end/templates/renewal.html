@@ -45,8 +45,11 @@
     .comp-table td.adj-cell   { padding:.3rem .25rem; overflow:visible; }
 
     /* Currency prefix wrapper for New Price inputs */
-    .adj-wrap { display:flex; align-items:center; gap:2px; }
+    .adj-wrap { display:flex; align-items:center; justify-content:flex-end; gap:2px; }
     .curr-sym { font-family:'Geist Mono',monospace; font-size:.78rem; color:var(--text-2); flex-shrink:0; }
+
+    /* Delta cell — always right-aligned */
+    .comp-table td.delta { text-align:right; font-family:'Geist Mono',monospace; }
 
     /* Dimmed rows (unchecked repriceable) */
     .comp-table tr.unchecked td          { opacity:.45; }
@@ -250,7 +253,7 @@
                  ${repriceable && checked ? `oninput="adjustSuggested(${i}, this.value)"` : ''} />
         </div>
       </td>
-      <td id="delta-${i}">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
+      <td id="delta-${i}" class="delta">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
     </tr>`;
   }
 
