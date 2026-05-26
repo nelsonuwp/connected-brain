@@ -35,45 +35,55 @@ def api_profitability():
     account_managers = request.args.getlist("am") or None
     dc_codes         = request.args.getlist("dc") or None
     service_types    = request.args.getlist("service_type") or None
-    company_search   = request.args.get("company", "").strip() or None
+    company_names    = request.args.getlist("company") or None
     display_currency = request.args.get("display_currency", "").strip().upper() or None
 
     services = get_active_services(
         account_managers=account_managers,
         dc_codes=dc_codes,
         service_types=service_types,
-        company_search=company_search,
+        company_names=company_names,
     )
     enriched = build_profitability_data(services)
 
-    if display_currency:
+    # Auto-convert to CAD when currencies are mixed and no explicit display currency
+    auto_currency = None
+    effective_currency = display_currency
+    if not effective_currency:
+        currencies = {(s.get("currency") or "USD").upper() for s in enriched}
+        if len(currencies) > 1:
+            effective_currency = "CAD"
+            auto_currency = "CAD"
+
+    if effective_currency:
         fx_cache: dict[tuple, float] = {}
         converted = []
         for svc in enriched:
             svc_currency = (svc.get("currency") or "USD").upper()
-            key = (svc_currency, display_currency)
+            key = (svc_currency, effective_currency)
             if key not in fx_cache:
-                fx_cache[key] = get_fx_rate(svc_currency, display_currency) if svc_currency != display_currency else 1.0
+                fx_cache[key] = get_fx_rate(svc_currency, effective_currency) if svc_currency != effective_currency else 1.0
             fx = fx_cache[key]
             converted.append({
                 **svc,
                 "mrc":        round(svc["mrc"] * fx, 2),
                 "total_cost": round(svc["total_cost"] * fx, 2),
                 "margin":     round(svc["margin"] * fx, 2),
-                "currency":   display_currency,
+                "currency":   effective_currency,
             })
         enriched = converted
 
-    by_customer     = _aggregate_by_customer(enriched, display_currency)
-    by_dc           = _aggregate_by_field(enriched, "datacenter_code", display_currency)
-    by_service_type = _aggregate_by_field(enriched, "service_type", display_currency)
-    totals          = _compute_totals(enriched, display_currency)
+    by_customer     = _aggregate_by_customer(enriched, effective_currency)
+    by_dc           = _aggregate_by_field(enriched, "datacenter_code", effective_currency)
+    by_service_type = _aggregate_by_field(enriched, "service_type", effective_currency)
+    totals          = _compute_totals(enriched, effective_currency)
 
     return jsonify({
         "by_customer":     by_customer,
         "by_dc":           by_dc,
         "by_service_type": by_service_type,
         "totals":          totals,
+        "auto_currency":   auto_currency,
     })
 
 
@@ -81,22 +91,30 @@ def api_profitability():
 def api_profitability_customer(client_id):
     display_currency = request.args.get("display_currency", "").strip().upper() or None
 
-    services = get_active_services()
-    services = [s for s in services if s["client_id"] == client_id]
+    services = get_active_services(client_ids=[client_id])
 
     if not services:
         return jsonify({"error": "Customer not found or has no active services"}), 404
 
     enriched = build_profitability_data(services)
 
-    if display_currency:
+    # Auto-convert to CAD when currencies are mixed and no explicit display currency
+    auto_currency = None
+    effective_currency = display_currency
+    if not effective_currency:
+        currencies = {(s.get("currency") or "USD").upper() for s in enriched}
+        if len(currencies) > 1:
+            effective_currency = "CAD"
+            auto_currency = "CAD"
+
+    if effective_currency:
         fx_cache: dict[tuple, float] = {}
         converted = []
         for svc in enriched:
             svc_currency = (svc.get("currency") or "USD").upper()
-            key = (svc_currency, display_currency)
+            key = (svc_currency, effective_currency)
             if key not in fx_cache:
-                fx_cache[key] = get_fx_rate(svc_currency, display_currency) if svc_currency != display_currency else 1.0
+                fx_cache[key] = get_fx_rate(svc_currency, effective_currency) if svc_currency != effective_currency else 1.0
             fx = fx_cache[key]
             converted.append({
                 **svc,
@@ -106,15 +124,16 @@ def api_profitability_customer(client_id):
                 "hw_amortized": round(svc["hw_amortized"] * fx, 2),
                 "sga":          round(svc["sga"] * fx, 2),
                 "overhead":     {k: round(v * fx, 2) for k, v in svc["overhead"].items()},
-                "currency":     display_currency,
+                "currency":     effective_currency,
             })
         enriched = converted
 
-    summary = _compute_totals(enriched, display_currency)
+    summary = _compute_totals(enriched, effective_currency)
     info = services[0]
     summary["company_name"]    = info.get("company_name") or ""
     summary["account_manager"] = info.get("account_manager") or ""
     summary["client_id"]       = client_id
+    summary["auto_currency"]   = auto_currency
 
     serialized = []
     for svc in enriched:
@@ -142,6 +161,7 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
                 "mrc":        0.0,
                 "total_cost": 0.0,
                 "margin":     0.0,
+                "warnings":   set(),
             }
         g = groups[cid]
         g["service_count"] += 1
@@ -149,6 +169,8 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
         g["mrc"]        += svc["mrc"]
         g["total_cost"] += svc["total_cost"]
         g["margin"]     += svc["margin"]
+        for w in (svc.get("missing_data") or []):
+            g["warnings"].add(w)
 
     result = []
     for g in groups.values():
@@ -168,6 +190,7 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
             "total_cost": cost,
             "margin":     margin,
             "margin_pct": mpct,
+            "warnings":   sorted(g["warnings"]),
         })
     result.sort(key=lambda x: (x["margin_pct"] is None, x["margin_pct"] or 0))
     return result
@@ -179,13 +202,15 @@ def _aggregate_by_field(enriched: list[dict], field: str, display_currency: str 
         key = (svc.get(field) or "Unknown").strip()
         if key not in groups:
             groups[key] = {"label": key, "service_count": 0, "currencies": set(),
-                           "mrc": 0.0, "total_cost": 0.0, "margin": 0.0}
+                           "mrc": 0.0, "total_cost": 0.0, "margin": 0.0, "warnings": set()}
         g = groups[key]
         g["service_count"] += 1
         g["currencies"].add((svc.get("currency") or "USD").upper())
         g["mrc"]        += svc["mrc"]
         g["total_cost"] += svc["total_cost"]
         g["margin"]     += svc["margin"]
+        for w in (svc.get("missing_data") or []):
+            g["warnings"].add(w)
 
     result = []
     for g in groups.values():
@@ -203,6 +228,7 @@ def _aggregate_by_field(enriched: list[dict], field: str, display_currency: str 
             "total_cost": cost,
             "margin":     margin,
             "margin_pct": mpct,
+            "warnings":   sorted(g["warnings"]),
         })
     result.sort(key=lambda x: (x["margin_pct"] is None, x["margin_pct"] or 0))
     return result

@@ -99,6 +99,8 @@ def get_active_services(
     dc_codes: list[str] | None = None,
     service_types: list[str] | None = None,
     company_search: str | None = None,
+    company_names: list[str] | None = None,
+    client_ids: list[int] | None = None,
 ) -> list[dict]:
     """Fetch all active services from dimServices + dimClientsActive."""
     if not _configured():
@@ -126,6 +128,14 @@ def get_active_services(
         if company_search:
             conditions.append("dca.company_name LIKE %s")
             params.append(f"%{company_search}%")
+        if company_names:
+            placeholders = ",".join(["%s"] * len(company_names))
+            conditions.append(f"dca.company_name IN ({placeholders})")
+            params.extend(company_names)
+        if client_ids:
+            placeholders = ",".join(["%d"] * len(client_ids))
+            conditions.append(f"ds.client_id IN ({placeholders})")
+            params.extend(int(c) for c in client_ids)
 
         where = " AND ".join(conditions)
         sql = f"""
@@ -202,7 +212,17 @@ def get_profitability_filter_options() -> dict:
         """)
         types = [r[0] for r in cur.fetchall() if r[0]]
 
-        return {"account_managers": ams, "dc_codes": dcs, "service_types": types}
+        cur.execute("""
+            SELECT DISTINCT TOP 500 dca.company_name AS val
+            FROM DM_BusinessInsights.dbo.dimClientsActive dca
+            JOIN DM_BusinessInsights.dbo.dimServices ds ON ds.client_id = dca.client_id
+            WHERE dca.company_name IS NOT NULL AND dca.company_name != ''
+              AND ds.service_status = 'Online'
+            ORDER BY dca.company_name
+        """)
+        companies = [r[0].strip() for r in cur.fetchall() if r[0]]
+
+        return {"account_managers": ams, "dc_codes": dcs, "service_types": types, "company_names": companies}
     except Exception:
         logging.exception("get_profitability_filter_options: db error")
         return {"account_managers": [], "dc_codes": [], "service_types": []}
@@ -268,6 +288,19 @@ def build_profitability_data(services: list[dict]) -> list[dict]:
             provision_date=service.get("provision_date"),
         )
 
-        result.append({**service, **margin_data})
+        missing: list[str] = []
+        if not fid:
+            missing.append("No Fusion ID — HW cost and power data unavailable")
+        else:
+            if fid not in hw_costs:
+                missing.append("Hardware cost data not found")
+            if watts is None:
+                missing.append("Power consumption data missing")
+        if service.get("provision_date") is None:
+            missing.append("Provision date unknown")
+        if not margin_data.get("overhead"):
+            missing.append("Overhead rates unavailable for this DC")
+
+        result.append({**service, **margin_data, "missing_data": missing})
 
     return result
