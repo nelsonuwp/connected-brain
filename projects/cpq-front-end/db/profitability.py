@@ -108,7 +108,7 @@ def get_active_services(
         conn = _connect()
         cur = conn.cursor(as_dict=True)
 
-        conditions = ["ds.service_status = 'Active'"]
+        conditions = ["ds.service_status = 'Online'"]
         params = []
 
         if account_managers:
@@ -189,7 +189,7 @@ def get_profitability_filter_options() -> dict:
         cur.execute("""
             SELECT DISTINCT TOP 200 datacenter_code AS val
             FROM DM_BusinessInsights.dbo.dimServices
-            WHERE datacenter_code IS NOT NULL AND service_status = 'Active'
+            WHERE datacenter_code IS NOT NULL AND service_status = 'Online'
             ORDER BY datacenter_code
         """)
         dcs = [r[0] for r in cur.fetchall() if r[0]]
@@ -197,7 +197,7 @@ def get_profitability_filter_options() -> dict:
         cur.execute("""
             SELECT DISTINCT TOP 200 service_type AS val
             FROM DM_BusinessInsights.dbo.dimServices
-            WHERE service_type IS NOT NULL AND service_status = 'Active'
+            WHERE service_type IS NOT NULL AND service_status = 'Online'
             ORDER BY service_type
         """)
         types = [r[0] for r in cur.fetchall() if r[0]]
