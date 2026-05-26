@@ -95,8 +95,12 @@ def fetch_pricebook() -> pd.DataFrame:
                     pb.is_available,
                     CASE WHEN pb.component_id IS NULL
                          THEN 'Server'
-                         ELSE COALESCE(cc.name, ct.name, '')
+                         ELSE COALESCE(cc.name, '')
                     END                                     AS fusion_category,
+                    CASE WHEN pb.component_id IS NULL
+                         THEN ''
+                         ELSE COALESCE(ct.name, '')
+                    END                                     AS fusion_type,
                     pb.currency,
                     pb.datacenter,
                     COALESCE(pb.mrc, 0)::float              AS mrc,
@@ -162,12 +166,12 @@ def pivot_pricebook(pb: pd.DataFrame) -> pd.DataFrame:
     """
     # One value per (fusion_id, currency) — min across datacenters
     agg = pb.groupby(
-        ["fusion_id", "sku_level_pb", "sku_name_pb", "is_available", "fusion_category", "currency"],
+        ["fusion_id", "sku_level_pb", "sku_name_pb", "is_available", "fusion_category", "fusion_type", "currency"],
         as_index=False,
     ).agg(mrc=("mrc", "min"), nrc=("nrc", "min"))
 
     mrc_pivot = agg.pivot_table(
-        index=["fusion_id", "sku_level_pb", "sku_name_pb", "is_available", "fusion_category"],
+        index=["fusion_id", "sku_level_pb", "sku_name_pb", "is_available", "fusion_category", "fusion_type"],
         columns="currency",
         values="mrc",
         aggfunc="first",
@@ -175,7 +179,7 @@ def pivot_pricebook(pb: pd.DataFrame) -> pd.DataFrame:
     mrc_pivot.columns = [f"{c}_MRC" for c in mrc_pivot.columns]
 
     nrc_pivot = agg.pivot_table(
-        index=["fusion_id", "sku_level_pb", "sku_name_pb", "is_available", "fusion_category"],
+        index=["fusion_id", "sku_level_pb", "sku_name_pb", "is_available", "fusion_category", "fusion_type"],
         columns="currency",
         values="nrc",
         aggfunc="first",
@@ -229,7 +233,7 @@ def build_report(output_path: str):
     merged["has_cost"] = merged["sku_cost"].notna()
 
     # Final column order
-    id_cols    = ["fusion_id", "sku_name_pb", "sku_level_pb", "is_available", "fusion_category"]
+    id_cols    = ["fusion_id", "sku_name_pb", "sku_level_pb", "is_available", "fusion_category", "fusion_type"]
     cost_cols  = ["sku_name", "sku_level_osc", "sku_category", "sku_type",
                   "sku_cost", "cost_currency", "vendor"]
     price_cols = [c for c in merged.columns if c.endswith("_MRC") or c.endswith("_NRC")]
