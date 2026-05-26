@@ -4,8 +4,8 @@ from flask import Blueprint, jsonify, render_template, request
 
 from db.fusion import get_conn, get_dc_info
 from db.mssql import (get_fx_rate, get_mssql_costs, get_mssql_watts,
-                      get_renewal_autocomplete, get_renewal_services,
-                      get_service, get_service_components)
+                      get_renewal_autocomplete, get_renewal_filter_options,
+                      get_renewal_services, get_service, get_service_components)
 from lib.overhead import COST_DRIVERS, calc_overhead
 from lib.renewal_pricing import (calc_suggested_mrc, hw_paid_off,
                                  provision_age_months)
@@ -62,6 +62,14 @@ def renewals_page():
 @renewals_bp.route("/renewal/<int:service_id>")
 def renewal_page(service_id):
     return render_template("renewal.html", service_id=service_id, active_page="renewals")
+
+
+@renewals_bp.route("/api/renewals/filter-options")
+def api_renewals_filter_options():
+    field = request.args.get("field", "").strip()
+    if not field:
+        return jsonify({"results": []})
+    return jsonify({"results": get_renewal_filter_options(field)})
 
 
 @renewals_bp.route("/api/renewals/autocomplete")

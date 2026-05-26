@@ -14,7 +14,10 @@
     padding:1.25rem 1.5rem; margin-bottom:1.5rem;
     box-shadow:0 2px 8px var(--shadow);
   }
-  .filter-group { display:flex; flex-direction:column; gap:.3rem; min-width:160px; position:relative; }
+  .filter-group {
+    display:flex; flex-direction:column; gap:.3rem;
+    min-width:160px; position:relative;
+  }
   .filter-group label {
     font-size:.63rem; font-weight:700; text-transform:uppercase;
     letter-spacing:.08em; color:var(--text-3);
@@ -28,41 +31,76 @@
   }
   .filter-group input:focus { border-color:var(--accent); }
 
-  /* ── Tag multi-select ────────────────────────────────────────── */
-  .tag-input-wrap {
-    display:flex; flex-wrap:wrap; gap:4px; align-items:center;
+  /* ── ComboSelect trigger ─────────────────────────────────────── */
+  .combo-trigger {
+    display:flex; align-items:center; justify-content:space-between; gap:4px;
     background:var(--bg); border:1px solid var(--border); border-radius:8px;
-    padding:4px 8px; min-height:36px; cursor:text;
-    transition:border-color .15s;
+    padding:4px 10px 4px 8px; min-height:36px;
+    cursor:pointer; transition:border-color .15s; user-select:none;
   }
-  .tag-input-wrap:focus-within { border-color:var(--accent); }
-  .tag-input-wrap input {
-    border:none; background:transparent; outline:none;
-    color:var(--text-1); font-family:'Geist',sans-serif; font-size:.875rem;
-    padding:2px 0; min-width:70px; flex:1;
+  .combo-trigger:focus { outline:none; }
+  .combo-trigger.open,
+  .combo-trigger:focus-visible { border-color:var(--accent); }
+
+  .combo-chips {
+    display:flex; flex-wrap:wrap; gap:4px; flex:1; align-items:center;
+    min-height:24px;
   }
-  .ac-tag {
+  .combo-placeholder { color:var(--text-3); font-size:.875rem; line-height:1.4; }
+
+  .combo-chevron {
+    color:var(--text-3); font-size:.6rem; flex-shrink:0;
+    transition:transform .15s;
+  }
+  .combo-trigger.open .combo-chevron { transform:rotate(180deg); }
+
+  .combo-chip {
     display:inline-flex; align-items:center; gap:3px;
     background:var(--accent-dim); color:var(--accent-text);
     border-radius:4px; padding:2px 6px;
     font-size:.72rem; font-weight:600; white-space:nowrap;
   }
-  .ac-tag-rm {
+  .combo-chip-rm {
     background:none; border:none; color:inherit; cursor:pointer;
-    font-size:.9rem; line-height:1; padding:0; opacity:.65;
+    font-size:.85rem; line-height:1; padding:0; opacity:.65;
   }
-  .ac-tag-rm:hover { opacity:1; }
-  .ac-dropdown {
-    position:absolute; top:100%; left:0; right:0; margin-top:2px;
-    z-index:200; background:var(--surface);
+  .combo-chip-rm:hover { opacity:1; }
+
+  /* ── ComboSelect dropdown ────────────────────────────────────── */
+  .combo-dropdown {
+    position:absolute; top:calc(100% + 4px); left:0; right:0;
+    z-index:300; background:var(--surface);
     border:1px solid var(--border); border-radius:8px;
-    box-shadow:0 4px 12px var(--shadow);
-    max-height:220px; overflow-y:auto;
+    box-shadow:0 6px 16px var(--shadow);
   }
-  .ac-item {
-    padding:.45rem .75rem; font-size:.82rem; color:var(--text-1); cursor:pointer;
+  .combo-search-wrap {
+    padding:.5rem .65rem;
+    border-bottom:1px solid var(--border);
   }
-  .ac-item:hover { background:var(--surface-2); }
+  .combo-search {
+    width:100%; background:transparent; border:none; outline:none;
+    color:var(--text-1); font-family:'Geist',sans-serif; font-size:.82rem;
+  }
+  .combo-search::placeholder { color:var(--text-3); }
+  .combo-list { max-height:210px; overflow-y:auto; padding:.25rem 0; }
+  .combo-item {
+    display:flex; align-items:center; gap:.5rem;
+    padding:.42rem .75rem; font-size:.82rem; color:var(--text-1);
+    cursor:pointer; transition:background .1s;
+  }
+  .combo-item:hover { background:var(--surface-2); }
+  .combo-check {
+    width:14px; height:14px; border:1.5px solid var(--border);
+    border-radius:3px; flex-shrink:0; display:flex; align-items:center;
+    justify-content:center; font-size:.6rem; color:var(--accent);
+    transition:background .1s, border-color .1s;
+  }
+  .combo-item.selected .combo-check {
+    background:var(--accent-dim); border-color:var(--accent);
+  }
+  .combo-empty {
+    padding:.75rem; font-size:.82rem; color:var(--text-3); text-align:center;
+  }
 
   /* ── Segmented toggle (All / Termed / M2M) ───────────────────── */
   .seg-toggle {
@@ -74,14 +112,13 @@
     background:none; border:none; border-right:1px solid var(--border);
     color:var(--text-2); font-family:'Geist',sans-serif;
     font-size:.8rem; font-weight:500;
-    cursor:pointer; transition:background .15s, color .15s;
-    white-space:nowrap;
+    cursor:pointer; transition:background .15s, color .15s; white-space:nowrap;
   }
   .seg-btn:last-child { border-right:none; }
   .seg-btn:hover { background:var(--surface); color:var(--text-1); }
-  .seg-btn.active[data-val="all"]   { background:var(--accent-dim); color:var(--accent-text); }
-  .seg-btn.active[data-val="termed"]{ background:var(--accent-dim); color:var(--accent-text); }
-  .seg-btn.active[data-val="m2m"]   { background:var(--orange-dim); color:var(--orange-text); }
+  .seg-btn.active[data-val="all"]    { background:var(--accent-dim); color:var(--accent-text); }
+  .seg-btn.active[data-val="termed"] { background:var(--accent-dim); color:var(--accent-text); }
+  .seg-btn.active[data-val="m2m"]    { background:var(--orange-dim); color:var(--orange-text); }
 
   /* ── Status bar ──────────────────────────────────────────────── */
   #status-bar { font-size:.78rem; color:var(--text-2); margin-bottom:1rem; min-height:1.1rem; }
@@ -107,7 +144,6 @@
   .child-row td { padding:.5rem .75rem .5rem 2.5rem; font-size:.78rem; color:var(--text-2); border-bottom:1px solid var(--border); cursor:pointer; }
   .child-row:hover td { color:var(--text-1); background:var(--border); }
 
-  /* ── Badges (categorical labels only) ───────────────────────── */
   .badge {
     display:inline-block; padding:1px 7px; border-radius:999px;
     font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
@@ -115,7 +151,6 @@
   .badge.m2m   { background:var(--orange-dim); color:var(--orange-text); }
   .badge.mixed { background:var(--surface); color:var(--text-3); border:1px solid var(--border); }
 
-  /* ── Expiration date color states ────────────────────────────── */
   .exp { font-family:'Geist Mono',monospace; font-size:.82rem; }
   .exp-ok      { color:var(--text-1); }
   .exp-warn    { color:var(--exp-yellow); font-weight:500; }
@@ -186,8 +221,7 @@
 
   function fmtDate(d) {
     if (!d) return '—';
-    const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-CA');
+    return new Date(d + 'T00:00:00').toLocaleDateString('en-CA');
   }
 
   function expDisplay(group) {
@@ -201,128 +235,245 @@
     return `<span class="exp exp-ok">${label}</span>`;
   }
 
-  // ── TagSelect ────────────────────────────────────────────────────
-  class TagSelect {
-    constructor(mountId, field, placeholder, onChange) {
+  // ─────────────────────────────────────────────────────────────────
+  // ComboSelect
+  //   loadAll=true  → pre-fetches all options on init, filters locally
+  //   loadAll=false → server search on type (min 2 chars)
+  // ─────────────────────────────────────────────────────────────────
+  class ComboSelect {
+    constructor(mountId, field, placeholder, onChange, loadAll = false) {
       this.field       = field;
       this.placeholder = placeholder;
-      this.tags        = [];
       this.onChange    = onChange;
+      this.loadAll     = loadAll;
+      this.selected    = [];
+      this.allOptions  = [];   // populated when loadAll=true
+      this._visible    = [];   // items currently shown in list
+      this._open       = false;
       this._debounce   = null;
 
       const mount = document.getElementById(mountId);
       const group = mount.closest('.filter-group');
 
-      this.wrap = document.createElement('div');
-      this.wrap.className = 'tag-input-wrap';
+      // ── Trigger ─────────────────────────────────────────────────
+      this.trigger = document.createElement('div');
+      this.trigger.className = 'combo-trigger';
+      this.trigger.setAttribute('tabindex', '0');
+      this.trigger.setAttribute('role', 'combobox');
+      this.trigger.setAttribute('aria-expanded', 'false');
 
-      this.input = document.createElement('input');
-      this.input.type = 'text';
-      this.input.autocomplete = 'off';
-      this.input.placeholder = placeholder;
+      this.chipsArea = document.createElement('div');
+      this.chipsArea.className = 'combo-chips';
 
+      this.chevron = document.createElement('span');
+      this.chevron.className = 'combo-chevron';
+      this.chevron.textContent = '▾';
+
+      this.trigger.appendChild(this.chipsArea);
+      this.trigger.appendChild(this.chevron);
+
+      // ── Dropdown ─────────────────────────────────────────────────
       this.dropdown = document.createElement('div');
-      this.dropdown.className = 'ac-dropdown';
+      this.dropdown.className = 'combo-dropdown';
       this.dropdown.style.display = 'none';
 
-      this.wrap.appendChild(this.input);
-      mount.replaceWith(this.wrap);
+      const searchWrap = document.createElement('div');
+      searchWrap.className = 'combo-search-wrap';
+
+      this.searchInput = document.createElement('input');
+      this.searchInput.className = 'combo-search';
+      this.searchInput.placeholder = loadAll ? 'Filter…' : 'Type to search…';
+      this.searchInput.autocomplete = 'off';
+
+      searchWrap.appendChild(this.searchInput);
+
+      this.list = document.createElement('div');
+      this.list.className = 'combo-list';
+
+      this.dropdown.appendChild(searchWrap);
+      this.dropdown.appendChild(this.list);
+
+      mount.replaceWith(this.trigger);
       group.appendChild(this.dropdown);
 
+      this._renderTrigger();
       this._bind();
+
+      if (loadAll) this._fetchAll();
     }
 
+    // ── Public ──────────────────────────────────────────────────────
+    values() { return [...this.selected]; }
+
+    // ── Binding ─────────────────────────────────────────────────────
     _bind() {
-      this.input.addEventListener('input', () => {
-        clearTimeout(this._debounce);
-        const q = this.input.value.trim();
-        if (q.length < 2) { this._hideDropdown(); return; }
-        this._debounce = setTimeout(() => this._fetch(q), 300);
+      this.trigger.addEventListener('click', () => this._toggle());
+      this.trigger.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._toggle(); }
+        if (e.key === 'Escape') this._close();
+        if (e.key === 'ArrowDown' && !this._open) this._open_();
       });
 
-      this.input.addEventListener('keydown', e => {
-        if (e.key === 'Backspace' && !this.input.value && this.tags.length) {
-          this._remove(this.tags.length - 1);
+      this.searchInput.addEventListener('input', () => {
+        const q = this.searchInput.value;
+        if (this.loadAll) {
+          this._renderList(this._filterLocal(q));
+        } else {
+          clearTimeout(this._debounce);
+          if (q.trim().length < 2) { this._renderList([]); return; }
+          this._debounce = setTimeout(() => this._fetchSearch(q.trim()), 300);
         }
-        if (e.key === 'Escape') this._hideDropdown();
       });
 
-      this.wrap.addEventListener('click', e => {
-        if (e.target === this.wrap) this.input.focus();
+      this.searchInput.addEventListener('keydown', e => {
+        if (e.key === 'Escape') this._close();
       });
 
       document.addEventListener('click', e => {
-        if (!this.wrap.contains(e.target) && !this.dropdown.contains(e.target)) {
-          this._hideDropdown();
+        if (!this.trigger.contains(e.target) && !this.dropdown.contains(e.target)) {
+          this._close();
         }
       });
     }
 
-    _fetch(q) {
+    // ── Open / close ────────────────────────────────────────────────
+    _toggle() { this._open ? this._close() : this._open_(); }
+
+    _open_() {
+      this._open = true;
+      this.trigger.classList.add('open');
+      this.trigger.setAttribute('aria-expanded', 'true');
+      this.dropdown.style.display = 'block';
+      this.searchInput.value = '';
+      this._renderList(this.loadAll ? this.allOptions : []);
+      requestAnimationFrame(() => this.searchInput.focus());
+    }
+
+    _close() {
+      this._open = false;
+      this.trigger.classList.remove('open');
+      this.trigger.setAttribute('aria-expanded', 'false');
+      this.dropdown.style.display = 'none';
+    }
+
+    // ── Data fetching ────────────────────────────────────────────────
+    _fetchAll() {
+      fetch(`/api/renewals/filter-options?field=${encodeURIComponent(this.field)}`)
+        .then(r => r.json())
+        .then(d => { this.allOptions = d.results || []; })
+        .catch(() => {});
+    }
+
+    _fetchSearch(q) {
       fetch(`/api/renewals/autocomplete?field=${encodeURIComponent(this.field)}&q=${encodeURIComponent(q)}`)
         .then(r => r.json())
-        .then(d => this._showItems(d.results || []))
-        .catch(() => this._hideDropdown());
+        .then(d => { if (this._open) this._renderList(d.results || []); })
+        .catch(() => {});
     }
 
-    _showItems(items) {
-      const filtered = items.filter(v => v && !this.tags.includes(String(v)));
-      if (!filtered.length) { this._hideDropdown(); return; }
-      this.dropdown.innerHTML = '';
-      filtered.forEach(v => {
-        const el = document.createElement('div');
-        el.className = 'ac-item';
-        el.textContent = v;
-        el.addEventListener('mousedown', e => { e.preventDefault(); this._add(String(v)); });
-        this.dropdown.appendChild(el);
+    _filterLocal(q) {
+      if (!q.trim()) return this.allOptions;
+      const lq = q.toLowerCase();
+      return this.allOptions.filter(v => v.toLowerCase().includes(lq));
+    }
+
+    // ── Rendering ───────────────────────────────────────────────────
+    _renderList(items) {
+      this._visible = items;
+      this.list.innerHTML = '';
+
+      if (!items.length) {
+        const empty = document.createElement('div');
+        empty.className = 'combo-empty';
+        empty.textContent = this.loadAll
+          ? 'No options found'
+          : (this.searchInput.value.trim().length < 2 ? 'Type to search…' : 'No results');
+        this.list.appendChild(empty);
+        return;
+      }
+
+      const frag = document.createDocumentFragment();
+      items.forEach(v => {
+        const isSelected = this.selected.includes(v);
+        const item = document.createElement('div');
+        item.className = 'combo-item' + (isSelected ? ' selected' : '');
+        item.dataset.value = v;
+
+        const check = document.createElement('span');
+        check.className = 'combo-check';
+        check.textContent = isSelected ? '✓' : '';
+
+        const label = document.createElement('span');
+        label.textContent = v;
+
+        item.appendChild(check);
+        item.appendChild(label);
+        item.addEventListener('mousedown', e => { e.preventDefault(); this._toggleItem(v); });
+        frag.appendChild(item);
       });
-      this.dropdown.style.display = 'block';
+      this.list.appendChild(frag);
     }
 
-    _hideDropdown() {
-      this.dropdown.style.display = 'none';
-      this.dropdown.innerHTML = '';
-    }
-
-    _add(value) {
-      if (this.tags.includes(value)) return;
-      this.tags.push(value);
-      this.input.value = '';
-      this._hideDropdown();
-      this._render();
+    _toggleItem(value) {
+      const idx = this.selected.indexOf(value);
+      if (idx >= 0) {
+        this.selected.splice(idx, 1);
+      } else {
+        this.selected.push(value);
+      }
+      // Update checkboxes in-place without re-rendering the whole list
+      this.list.querySelectorAll('.combo-item').forEach(el => {
+        const sel = this.selected.includes(el.dataset.value);
+        el.classList.toggle('selected', sel);
+        el.querySelector('.combo-check').textContent = sel ? '✓' : '';
+      });
+      this._renderTrigger();
       this.onChange();
     }
 
-    _remove(i) {
-      this.tags.splice(i, 1);
-      this._render();
-      this.onChange();
-    }
+    _renderTrigger() {
+      this.chipsArea.innerHTML = '';
+      if (!this.selected.length) {
+        const ph = document.createElement('span');
+        ph.className = 'combo-placeholder';
+        ph.textContent = this.placeholder;
+        this.chipsArea.appendChild(ph);
+        return;
+      }
+      this.selected.forEach((v, i) => {
+        const chip = document.createElement('span');
+        chip.className = 'combo-chip';
 
-    _render() {
-      this.wrap.querySelectorAll('.ac-tag').forEach(el => el.remove());
-      this.tags.forEach((tag, i) => {
-        const span = document.createElement('span');
-        span.className = 'ac-tag';
         const txt = document.createElement('span');
-        txt.textContent = tag;
-        const btn = document.createElement('button');
-        btn.className = 'ac-tag-rm';
-        btn.textContent = '×';
-        btn.addEventListener('click', e => { e.stopPropagation(); this._remove(i); });
-        span.appendChild(txt);
-        span.appendChild(btn);
-        this.wrap.insertBefore(span, this.input);
-      });
-      this.input.placeholder = this.tags.length ? '' : this.placeholder;
-    }
+        txt.textContent = v;
 
-    values() { return [...this.tags]; }
+        const btn = document.createElement('button');
+        btn.className = 'combo-chip-rm';
+        btn.textContent = '×';
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          this.selected.splice(i, 1);
+          this._renderTrigger();
+          if (this._open) {
+            // refresh checkboxes
+            this.list.querySelectorAll('.combo-item').forEach(el => {
+              const sel = this.selected.includes(el.dataset.value);
+              el.classList.toggle('selected', sel);
+              el.querySelector('.combo-check').textContent = sel ? '✓' : '';
+            });
+          }
+          this.onChange();
+        });
+
+        chip.appendChild(txt);
+        chip.appendChild(btn);
+        this.chipsArea.appendChild(chip);
+      });
+    }
   }
 
   // ── Segmented toggle ─────────────────────────────────────────────
   let contractType = 'all';
-
   document.querySelectorAll('.seg-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
@@ -336,11 +487,11 @@
   const d90 = new Date(Date.now() + 90 * 86400000);
   document.getElementById('f-expires').value = d90.toISOString().slice(0, 10);
 
-  // ── Instantiate TagSelects ────────────────────────────────────────
-  const companySelect  = new TagSelect('f-company',  'company',      'Search…',        load);
-  const clientSelect   = new TagSelect('f-client',   'client_id',    'e.g. 5634313',   load);
-  const svcTypeSelect  = new TagSelect('f-svctype',  'service_type', 'e.g. server…',   load);
-  const salesRepSelect = new TagSelect('f-salesrep', 'sales_rep',    'Search…',        load);
+  // ── Instantiate ComboSelects ──────────────────────────────────────
+  const companySelect  = new ComboSelect('f-company',  'company',      'Search companies…', load, false);
+  const clientSelect   = new ComboSelect('f-client',   'client_id',    'Search client IDs…', load, false);
+  const svcTypeSelect  = new ComboSelect('f-svctype',  'service_type', 'Select types…',     load, true);
+  const salesRepSelect = new ComboSelect('f-salesrep', 'sales_rep',    'Select reps…',      load, true);
 
   // ── Plain inputs ──────────────────────────────────────────────────
   let debounceTimer;
@@ -354,7 +505,6 @@
   // ── Load ─────────────────────────────────────────────────────────
   function load() {
     const params = new URLSearchParams();
-
     companySelect.values().forEach(v  => params.append('company',      v));
     clientSelect.values().forEach(v   => params.append('client_id',    v));
     svcTypeSelect.values().forEach(v  => params.append('service_type', v));
@@ -362,7 +512,6 @@
 
     const serviceId = document.getElementById('f-service').value.trim();
     const expires   = document.getElementById('f-expires').value;
-
     if (serviceId) params.set('service_id',     serviceId);
     if (expires)   params.set('expires_before', expires);
     params.set('contract_type', contractType);
@@ -400,18 +549,16 @@
         <tbody>`;
 
     groups.forEach((g, gi) => {
-      const multi    = g.service_count > 1;
-      const chevron  = multi
+      const multi     = g.service_count > 1;
+      const chevron   = multi
         ? `<span class="chevron" id="chv-${gi}">▶</span>`
         : '<span style="margin-right:1.25rem"></span>';
-      const dcBadge  = g.dc === 'Mixed'
-        ? '<span class="badge mixed">Mixed</span>'
-        : esc(g.dc || '—');
+      const dcBadge   = g.dc === 'Mixed'
+        ? '<span class="badge mixed">Mixed</span>' : esc(g.dc || '—');
       const prodBadge = g.product === 'Mixed'
-        ? '<span class="badge mixed">Mixed</span>'
-        : esc(g.product || '—');
-      const firstSvc = g.services[0];
-      const cur      = firstSvc?.currency || 'USD';
+        ? '<span class="badge mixed">Mixed</span>' : esc(g.product || '—');
+      const firstSvc  = g.services[0];
+      const cur       = firstSvc?.currency || 'USD';
 
       html += `
         <tr class="group-row" onclick="${multi ? `toggleGroup(${gi})` : `nav(${g.services[0].service_id})`}">

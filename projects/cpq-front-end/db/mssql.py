@@ -250,6 +250,38 @@ def get_renewal_autocomplete(field: str, q: str, limit: int = 20) -> list[str]:
         return []
 
 
+def get_renewal_filter_options(field: str, limit: int = 200) -> list[str]:
+    """Return all distinct values for a filter field (no search — for pre-loaded dropdowns)."""
+    if not _configured():
+        return []
+
+    _FIELD_MAP = {
+        "service_type": ("DM_BusinessInsights.dbo.dimServices",     "service_type",    False),
+        "sales_rep":    ("DM_BusinessInsights.dbo.dimClientsActive", "account_manager", False),
+    }
+
+    if field not in _FIELD_MAP:
+        return []
+
+    table, col, _ = _FIELD_MAP[field]
+    try:
+        conn = _connect()
+        cur = conn.cursor()
+        sql = f"""
+            SELECT DISTINCT TOP {limit} {col} AS val
+            FROM {table}
+            WHERE {col} IS NOT NULL AND {col} != ''
+            ORDER BY {col}
+        """
+        cur.execute(sql)
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        return [str(r[0]) for r in rows if r[0]]
+    except Exception:
+        return []
+
+
 def get_service(service_id: int) -> dict | None:
     """Returns one dimServices row for service_id, or None."""
     if not _configured():

@@ -12,25 +12,62 @@
     .current-mrc { font-size:1.4rem; font-weight:700; color:var(--accent); font-family:'Geist Mono',monospace; margin-top:.5rem; }
     .current-mrc span { font-size:.7rem; color:var(--text-3); font-family:'Geist',sans-serif; }
 
-    .section-title { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); margin:1.25rem 0 .5rem; }
+    /* ── Component table ─────────────────────────────────────── */
+    .comp-table { width:100%; border-collapse:collapse; margin-bottom:1rem; table-layout:fixed; }
+    .comp-table colgroup col.col-check   { width:32px; }
+    .comp-table colgroup col.col-name    { width:auto; }
+    .comp-table colgroup col.col-current { width:110px; }
+    .comp-table colgroup col.col-cost    { width:110px; }
+    .comp-table colgroup col.col-new     { width:110px; }
+    .comp-table colgroup col.col-delta   { width:90px; }
 
-    /* Component table */
-    .comp-table { width:100%; border-collapse:collapse; margin-bottom:1rem; }
     .comp-table th {
       font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
-      color:var(--text-3); padding:.35rem .5rem; text-align:left; border-bottom:1px solid var(--border);
+      color:var(--text-3); padding:.4rem .5rem; text-align:left;
+      border-bottom:2px solid var(--border);
+      white-space:nowrap;
     }
     .comp-table th.r { text-align:right; }
-    .comp-table td { padding:.4rem .5rem; font-size:.78rem; color:var(--text-2); border-bottom:1px solid var(--border-mid); vertical-align:middle; }
-    .comp-table td.name { color:var(--text-1); max-width:220px; }
-    .comp-table td.mono { font-family:'Geist Mono',monospace; text-align:right; }
-    .comp-table td.pos  { color:var(--orange); font-family:'Geist Mono',monospace; text-align:right; }
-    .comp-table td.neg  { color:var(--green); font-family:'Geist Mono',monospace; text-align:right; }
-    .comp-table td.zero { color:var(--text-3); font-family:'Geist Mono',monospace; text-align:right; }
-    .comp-table td.check-cell { width:28px; padding:.4rem .25rem; text-align:center; }
-    .comp-table td.adj-cell { width:110px; padding:.3rem .25rem; }
-    .comp-table tr.unchecked td { opacity:.5; }
+
+    .comp-table td {
+      padding:.4rem .5rem; font-size:.78rem; color:var(--text-2);
+      border-bottom:1px solid var(--border-mid); vertical-align:middle;
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    }
+    .comp-table td.name    { color:var(--text-1); }
+    .comp-table td.mono    { font-family:'Geist Mono',monospace; text-align:right; }
+    .comp-table td.pos     { color:var(--orange); font-family:'Geist Mono',monospace; text-align:right; }
+    .comp-table td.neg     { color:var(--green);  font-family:'Geist Mono',monospace; text-align:right; }
+    .comp-table td.zero    { color:var(--text-3); font-family:'Geist Mono',monospace; text-align:right; }
+    .comp-table td.check-cell { text-align:center; padding:.4rem .25rem; overflow:visible; }
+    .comp-table td.adj-cell   { padding:.3rem .25rem; overflow:visible; }
+
+    /* Currency prefix wrapper for New Price inputs */
+    .adj-wrap { display:flex; align-items:center; gap:2px; }
+    .curr-sym { font-family:'Geist Mono',monospace; font-size:.78rem; color:var(--text-2); flex-shrink:0; }
+
+    /* Dimmed rows (unchecked repriceable) */
+    .comp-table tr.unchecked td          { opacity:.45; }
     .comp-table tr.unchecked td.check-cell { opacity:1; }
+
+    /* Disabled-included rows: checked but not repriceable */
+    .comp-table tr.included td { color:var(--text-3); }
+    .comp-table tr.included td.name { color:var(--text-2); }
+
+    /* Category badge in component cell */
+    .cat-badge {
+      display:inline-block; font-size:.55rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.05em; padding:1px 5px; border-radius:3px; margin-right:6px;
+      vertical-align:middle; white-space:nowrap; flex-shrink:0;
+    }
+    .cat-hw  { background:var(--surface-2); color:var(--text-3); border:1px solid var(--border); }
+    .cat-sw  { background:var(--accent-dim); color:var(--accent-text); }
+    .cat-sup { background:var(--orange-dim); color:var(--orange-text); }
+    .cat-sec { background:var(--surface-2); color:var(--text-3); border:1px solid var(--border); }
+    .cat-oth { background:var(--surface-2); color:var(--text-3); border:1px solid var(--border); }
+
+    .name-wrap { display:flex; align-items:center; min-width:0; }
+    .name-wrap span.label { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
     /* Adjust input */
     .adj-input {
@@ -40,11 +77,12 @@
       padding:.25rem .4rem; outline:none;
       transition:border-color .15s, background .15s;
     }
-    .adj-input:focus { border-color:var(--accent); background:var(--accent-dim); }
-    .adj-input:disabled { background:transparent; border-color:transparent; color:var(--text-3); cursor:default; }
+    .adj-input:focus     { border-color:var(--accent); background:var(--accent-dim); }
+    .adj-input:disabled  { background:transparent; border-color:transparent; color:var(--text-3); cursor:default; }
 
     /* Row checkbox */
     .row-cb { width:14px; height:14px; accent-color:var(--accent); cursor:pointer; }
+    .row-cb:disabled { cursor:default; opacity:.5; }
 
     .warn-cell { color:var(--red-text); font-size:.72rem; font-style:italic; }
 
@@ -81,6 +119,7 @@
     }
     .copy-btn:hover { background:var(--accent); color:#fff; }
 
+    .section-title { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-3); margin:1.25rem 0 .5rem; }
     .empty { text-align:center; padding:4rem 1rem; color:var(--text-3); font-size:.875rem; }
     .spinner { display:inline-block; width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-right:6px; }
     @keyframes spin { to { transform:rotate(360deg); } }
@@ -103,8 +142,22 @@
   const sym = { USD:'$', CAD:'$', GBP:'£', EUR:'€' };
   let DATA = null;
   let activeTerm = '12';
-  // Map: component index → { checked: bool, suggested: float|null }
   let compState = {};
+
+  /* ── Category config ──────────────────────────────────────────── */
+  const REPRICE_CATS = new Set(['Software', 'Support']);
+
+  const CAT_BADGE = {
+    'Hardware':  { label:'HW',  cls:'cat-hw'  },
+    'Software':  { label:'SW',  cls:'cat-sw'  },
+    'Support':   { label:'SUP', cls:'cat-sup' },
+    'Security':  { label:'SEC', cls:'cat-sec' },
+    'Other':     { label:'OTH', cls:'cat-oth' },
+  };
+  function catBadge(cat) {
+    const b = CAT_BADGE[cat] || { label: cat.slice(0,3).toUpperCase(), cls:'cat-oth' };
+    return `<span class="cat-badge ${b.cls}">${b.label}</span>`;
+  }
 
   /* ── Formatters ── */
   function fmt(n, cur) {
@@ -122,18 +175,16 @@
   }
   function r2(n) { return Math.round(n * 100) / 100; }
 
-  /* ── SW/Support categories that default to checked ── */
-  const REPRICE_CATS = new Set(['Software', 'Support']);
-
-  /* ── Load data ── */
+  /* ── Load ── */
   fetch(`/api/renewals/${SERVICE_ID}`)
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(data => {
       DATA = data;
-      // Initialise per-component state
       data.components.forEach((c, i) => {
+        const repriceable = REPRICE_CATS.has(c.component_category);
         compState[i] = {
-          checked:   REPRICE_CATS.has(c.component_category),
+          repriceable,
+          checked:   true,   // all start checked
           suggested: c.new_mrc !== null ? c.new_mrc : c.component_mrc,
         };
       });
@@ -144,18 +195,11 @@
         '<div class="empty">Failed to load service data.</div>';
     });
 
-  /* ── Render main area ── */
+  /* ── Render main ── */
   function renderMain() {
-    const d = DATA;
+    const d   = DATA;
     const svc = d.service;
     const cur = (svc.currency || 'USD').toUpperCase();
-
-    const cats = {};
-    d.components.forEach((c, i) => {
-      const cat = c.component_category || 'Other';
-      if (!cats[cat]) cats[cat] = [];
-      cats[cat].push({ ...c, _idx: i });
-    });
 
     let html = `
       <div class="service-meta">
@@ -166,87 +210,111 @@
           ${d.hw_paid_off ? ' &middot; <span style="color:var(--green)">HW paid off</span>' : ''}
         </div>
         <div class="current-mrc">${fmt(svc.mrc, cur)}<span>/mo current</span></div>
-      </div>`;
+      </div>
 
-    // Base server row
-    html += `
-      <div class="section-title">Base Server MRC</div>
       <table class="comp-table">
+        <colgroup>
+          <col class="col-check">
+          <col class="col-name">
+          <col class="col-current">
+          <col class="col-cost">
+          <col class="col-new">
+          <col class="col-delta">
+        </colgroup>
         <thead><tr>
-          <th class="check-cell"></th>
-          <th style="width:42%">Component</th>
-          <th class="r">Current</th>
-          <th class="r">Cost (list)</th>
-          <th class="r" style="width:110px">Suggested</th>
+          <th></th>
+          <th>Component</th>
+          <th class="r">Current Price</th>
+          <th class="r">Cost</th>
+          <th class="r">New Price (List)</th>
           <th class="r">Δ</th>
         </tr></thead>
-        <tbody>
-        <tr>
-          <td class="check-cell"></td>
-          <td class="name">${esc(svc.product || 'Server')}</td>
-          <td class="mono">${fmt(d.product_mrc, cur)}/mo</td>
-          <td class="mono">—</td>
-          <td class="adj-cell"></td>
-          <td class="zero">—</td>
-        </tr>
-        </tbody>
-      </table>`;
+        <tbody>`;
 
-    Object.entries(cats).forEach(([cat, comps]) => {
-      html += `<div class="section-title">${esc(cat)}</div>
-        <table class="comp-table">
-          <thead><tr>
-            <th class="check-cell" title="Include in repricing"></th>
-            <th style="width:42%">Component</th>
-            <th class="r">Current</th>
-            <th class="r">Cost (list)</th>
-            <th class="r" style="width:110px">Suggested</th>
-            <th class="r">Δ</th>
-          </tr></thead><tbody>`;
+    /* Base server row — always included, no badge needed */
+    html += `
+      <tr class="included">
+        <td class="check-cell">
+          <input type="checkbox" class="row-cb" checked disabled title="Base server — always included" />
+        </td>
+        <td class="name">
+          <div class="name-wrap">
+            <span class="cat-badge cat-hw">HW</span>
+            <span class="label">${esc(svc.product || 'Server')}</span>
+          </div>
+        </td>
+        <td class="mono">${fmt(d.product_mrc, cur)}/mo</td>
+        <td class="zero">—</td>
+        <td class="adj-cell"><div class="adj-wrap"><span class="curr-sym">${sym[cur]||'$'}</span><span style="font-family:'Geist Mono',monospace;font-size:.78rem;color:var(--text-3)">—</span></div></td>
+        <td class="zero">—</td>
+      </tr>`;
 
-      comps.forEach(c => {
-        const i   = c._idx;
-        const st  = compState[i];
-        const checked = st.checked;
-        const sugg    = st.suggested;
-        const delta   = checked ? r2(sugg - c.component_mrc) : null;
+    d.components.forEach((c, i) => {
+      const st         = compState[i];
+      const repriceable = st.repriceable;
+      const checked    = st.checked;
+      const sugg       = st.suggested;
+      const delta      = (repriceable && checked) ? r2(sugg - c.component_mrc) : null;
+      const cat        = c.component_category || 'Other';
 
-        let costCell;
-        if (c.new_mrc !== null) {
-          costCell = `<td class="mono">${fmt(c.new_mrc, cur)}/mo</td>`;
-        } else if (c.warning === 'not_in_pricebook') {
-          costCell = `<td><span class="warn-cell" title="Not found in Fusion pricebook">Not priced ⚠</span></td>`;
-        } else if (c.warning === 'dc_not_in_fusion') {
-          costCell = `<td><span class="warn-cell" title="DC not mapped in Fusion">DC unknown ⚠</span></td>`;
-        } else {
-          costCell = `<td class="zero">—</td>`;
-        }
+      let costCell;
+      if (c.new_mrc !== null) {
+        costCell = `<td class="mono">${fmt(c.new_mrc, cur)}/mo</td>`;
+      } else if (c.warning === 'not_in_pricebook') {
+        costCell = `<td><span class="warn-cell" title="Not found in Fusion pricebook">Not priced ⚠</span></td>`;
+      } else if (c.warning === 'dc_not_in_fusion') {
+        costCell = `<td><span class="warn-cell" title="DC not mapped in Fusion">DC unknown ⚠</span></td>`;
+      } else {
+        costCell = `<td class="zero">—</td>`;
+      }
 
-        const suggestedVal = sugg !== null ? sugg : (c.new_mrc !== null ? c.new_mrc : c.component_mrc);
-        const rowClass = checked ? '' : 'unchecked';
+      const suggestedVal = sugg !== null ? sugg : (c.new_mrc !== null ? c.new_mrc : c.component_mrc);
 
-        html += `<tr class="${rowClass}" id="row-${i}">
-          <td class="check-cell">
-            <input type="checkbox" class="row-cb" ${checked ? 'checked' : ''}
-                   onchange="toggleRow(${i}, this.checked)" />
-          </td>
-          <td class="name">${esc(c.component)}</td>
-          <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
-          ${costCell}
-          <td class="adj-cell">
+      let rowClass, cbAttr, adjDisabled;
+      if (!repriceable) {
+        // Included but not repriceable: checked + disabled
+        rowClass   = 'included';
+        cbAttr     = 'checked disabled title="Included — not re-priceable"';
+        adjDisabled = 'disabled';
+      } else if (!checked) {
+        // Repriceable but user unchecked it
+        rowClass   = 'unchecked';
+        cbAttr     = '';
+        adjDisabled = 'disabled';
+      } else {
+        rowClass   = '';
+        cbAttr     = 'checked';
+        adjDisabled = '';
+      }
+
+      html += `<tr class="${rowClass}" id="row-${i}">
+        <td class="check-cell">
+          <input type="checkbox" class="row-cb" ${cbAttr}
+                 ${repriceable ? `onchange="toggleRow(${i}, this.checked)"` : ''} />
+        </td>
+        <td class="name">
+          <div class="name-wrap">
+            ${catBadge(cat)}
+            <span class="label" title="${esc(c.component)}">${esc(c.component)}</span>
+          </div>
+        </td>
+        <td class="mono">${c.component_mrc > 0 ? fmt(c.component_mrc, cur) + '/mo' : 'incl.'}</td>
+        ${costCell}
+        <td class="adj-cell">
+          <div class="adj-wrap">
+            <span class="curr-sym">${sym[cur]||'$'}</span>
             <input type="number" class="adj-input" id="adj-${i}"
                    value="${suggestedVal.toFixed(2)}"
                    step="0.01" min="0"
-                   ${checked ? '' : 'disabled'}
-                   oninput="adjustSuggested(${i}, this.value)" />
-          </td>
-          <td id="delta-${i}">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
-        </tr>`;
-      });
-
-      html += '</tbody></table>';
+                   ${adjDisabled}
+                   ${repriceable && checked ? `oninput="adjustSuggested(${i}, this.value)"` : ''} />
+          </div>
+        </td>
+        <td id="delta-${i}">${delta !== null ? fmtDelta(delta, cur) : '<span class="zero">—</span>'}</td>
+      </tr>`;
     });
 
+    html += '</tbody></table>';
     document.getElementById('main-content').innerHTML = html;
   }
 
@@ -257,17 +325,15 @@
     const cur = (svc.currency || 'USD').toUpperCase();
     const p   = d.pricing[activeTerm];
 
-    // Client-side suggested MRC based on checkbox states
     const { suggested, adjTotal } = computeSuggested();
 
-    // Recalculate overhead: fixed lines stay, SGA recalculates on new suggested
-    const sgaPct = d.sga_pct || 0;
-    const fixedOverhead = r2(p.overhead_total - r2(p.suggested_mrc * sgaPct));
-    const newSga = r2(suggested * sgaPct);
+    const sgaPct         = d.sga_pct || 0;
+    const fixedOverhead  = r2(p.overhead_total - r2(p.suggested_mrc * sgaPct));
+    const newSga         = r2(suggested * sgaPct);
     const newOverheadTotal = r2(fixedOverhead + newSga);
-    const totalCost = r2(p.hw_cost_mo + newOverheadTotal);
-    const margin    = r2(suggested - totalCost);
-    const marginPct = suggested > 0 ? Math.round(margin / suggested * 1000) / 10 : 0;
+    const totalCost      = r2(p.hw_cost_mo + newOverheadTotal);
+    const margin         = r2(suggested - totalCost);
+    const marginPct      = suggested > 0 ? Math.round(margin / suggested * 1000) / 10 : 0;
 
     const termLabels = { m2m:'m2m', '12':'12 mo', '24':'24 mo', '36':'36 mo' };
     const termBtns = Object.keys(termLabels).map(t => `
@@ -275,24 +341,22 @@
               onclick="setTerm('${t}')">${termLabels[t]}</button>
     `).join('');
 
-    // Overhead line labels
     const lineLabels = {
-      power_per_kw:       'Power',
-      dc_equipment:       'DC Equipment',
-      network_equipment:  'Network Equipment',
-      dc_ops:             'DC Ops',
-      support_ops:        'Support Ops',
-      network_ops:        'Network Ops',
-      compute_ops:        'Compute Ops',
-      sga:                'G&A',
+      power_per_kw:      'Power',
+      dc_equipment:      'DC Equipment',
+      network_equipment: 'Network Equipment',
+      dc_ops:            'DC Ops',
+      support_ops:       'Support Ops',
+      network_ops:       'Network Ops',
+      compute_ops:       'Compute Ops',
+      sga:               'G&A',
     };
 
     let overheadRows = '';
     for (const [key, amt] of Object.entries(p.overhead_lines || {})) {
       if (!amt && amt !== 0) continue;
-      const label = lineLabels[key] || key;
       overheadRows += `<tr class="dim indent">
-        <td>${label}</td><td>${fmt(amt, cur)}</td>
+        <td>${lineLabels[key] || key}</td><td>${fmt(amt, cur)}</td>
       </tr>`;
     }
 
@@ -324,33 +388,28 @@
       <button class="copy-btn" onclick="copyQuote()">Copy Quote Summary</button>`;
   }
 
-  /* ── Compute client-side suggested MRC ── */
+  /* ── Compute suggested MRC ── */
   function computeSuggested() {
     const d    = DATA;
-    const term = activeTerm;
     let total  = d.product_mrc;
-
     d.components.forEach((c, i) => {
       const st = compState[i];
-      total += st.checked ? st.suggested : c.component_mrc;
+      total += (st.repriceable && st.checked) ? st.suggested : c.component_mrc;
     });
-
-    const multiplier = term === 'm2m' ? 1.25 : 1.0;
+    const multiplier = activeTerm === 'm2m' ? 1.25 : 1.0;
     const suggested  = r2(total * multiplier);
-
-    // adjTotal = how much the suggested MRC changes vs what the customer currently pays
-    const adjTotal = r2(suggested - d.service.mrc);
+    const adjTotal   = r2(suggested - d.service.mrc);
     return { suggested, adjTotal };
   }
 
-  /* ── Checkbox toggle ── */
+  /* ── Checkbox toggle (repriceable rows only) ── */
   function toggleRow(i, checked) {
     compState[i].checked = checked;
     const row = document.getElementById(`row-${i}`);
     row.classList.toggle('unchecked', !checked);
     document.getElementById(`adj-${i}`).disabled = !checked;
 
-    const c = DATA.components[i];
+    const c   = DATA.components[i];
     const cur = (DATA.service.currency || 'USD').toUpperCase();
     const delta = checked ? r2(compState[i].suggested - c.component_mrc) : null;
     document.getElementById(`delta-${i}`).innerHTML =
@@ -359,15 +418,14 @@
     renderSidebar();
   }
 
-  /* ── Adjust suggested price input ── */
+  /* ── Adjust new price input ── */
   function adjustSuggested(i, val) {
     const n = parseFloat(val);
     if (!isNaN(n) && n >= 0) {
       compState[i].suggested = n;
       const c   = DATA.components[i];
       const cur = (DATA.service.currency || 'USD').toUpperCase();
-      const delta = r2(n - c.component_mrc);
-      document.getElementById(`delta-${i}`).innerHTML = fmtDelta(delta, cur);
+      document.getElementById(`delta-${i}`).innerHTML = fmtDelta(r2(n - c.component_mrc), cur);
       renderSidebar();
     }
   }
@@ -376,7 +434,6 @@
   function setTerm(t) {
     activeTerm = t;
     renderSidebar();
-    // Re-render main to reflect any m2m state change
     document.querySelectorAll('.term-btn').forEach(b =>
       b.classList.toggle('active', b.textContent.trim() === { m2m:'m2m', '12':'12 mo', '24':'24 mo', '36':'36 mo' }[t])
     );
@@ -391,13 +448,13 @@
     const cur = (svc.currency || 'USD').toUpperCase();
     const { suggested } = computeSuggested();
     const p = DATA.pricing[activeTerm];
-    const fixedOH = r2(p.overhead_total - r2(p.suggested_mrc * (DATA.sga_pct || 0)));
-    const overhead = r2(fixedOH + r2(suggested * (DATA.sga_pct || 0)));
+    const fixedOH   = r2(p.overhead_total - r2(p.suggested_mrc * (DATA.sga_pct || 0)));
+    const overhead  = r2(fixedOH + r2(suggested * (DATA.sga_pct || 0)));
     const totalCost = r2(p.hw_cost_mo + overhead);
-    const margin = r2(suggested - totalCost);
+    const margin    = r2(suggested - totalCost);
     const marginPct = suggested > 0 ? Math.round(margin / suggested * 1000) / 10 : 0;
     const termLabel = { m2m:'Month-to-Month', '12':'12 months', '24':'24 months', '36':'36 months' }[activeTerm];
-    const text = [
+    navigator.clipboard.writeText([
       `Renewal Quote — ${svc.company_name} (${svc.service_id})`,
       `Product: ${svc.product || '—'} · DC: ${svc.datacenter_code || '—'} · ${cur}`,
       `Term: ${termLabel}`,
@@ -405,8 +462,7 @@
       `Current MRC:   ${fmt(svc.mrc, cur)}/mo`,
       `Suggested MRC: ${fmt(suggested, cur)}/mo`,
       `Margin:        ${fmt(margin, cur)}/mo (${marginPct}%)`,
-    ].join('\n');
-    navigator.clipboard.writeText(text).catch(() => {});
+    ].join('\n')).catch(() => {});
   }
 </script>
 {% endblock %}
