@@ -14,7 +14,7 @@
     padding:1.25rem 1.5rem; margin-bottom:1.5rem;
     box-shadow:0 2px 8px var(--shadow);
   }
-  .filter-group { display:flex; flex-direction:column; gap:.3rem; min-width:160px; }
+  .filter-group { display:flex; flex-direction:column; gap:.3rem; min-width:160px; position:relative; }
   .filter-group label {
     font-size:.63rem; font-weight:700; text-transform:uppercase;
     letter-spacing:.08em; color:var(--text-3);
@@ -27,6 +27,42 @@
     transition:border-color .15s;
   }
   .filter-group input:focus { border-color:var(--accent); }
+
+  /* ── Tag multi-select ────────────────────────────────────────── */
+  .tag-input-wrap {
+    display:flex; flex-wrap:wrap; gap:4px; align-items:center;
+    background:var(--bg); border:1px solid var(--border); border-radius:8px;
+    padding:4px 8px; min-height:36px; cursor:text;
+    transition:border-color .15s;
+  }
+  .tag-input-wrap:focus-within { border-color:var(--accent); }
+  .tag-input-wrap input {
+    border:none; background:transparent; outline:none;
+    color:var(--text-1); font-family:'Geist',sans-serif; font-size:.875rem;
+    padding:2px 0; min-width:70px; flex:1;
+  }
+  .ac-tag {
+    display:inline-flex; align-items:center; gap:3px;
+    background:var(--accent-dim); color:var(--accent-text);
+    border-radius:4px; padding:2px 6px;
+    font-size:.72rem; font-weight:600; white-space:nowrap;
+  }
+  .ac-tag-rm {
+    background:none; border:none; color:inherit; cursor:pointer;
+    font-size:.9rem; line-height:1; padding:0; opacity:.65;
+  }
+  .ac-tag-rm:hover { opacity:1; }
+  .ac-dropdown {
+    position:absolute; top:100%; left:0; right:0; margin-top:2px;
+    z-index:200; background:var(--surface);
+    border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 4px 12px var(--shadow);
+    max-height:220px; overflow-y:auto;
+  }
+  .ac-item {
+    padding:.45rem .75rem; font-size:.82rem; color:var(--text-1); cursor:pointer;
+  }
+  .ac-item:hover { background:var(--surface-2); }
 
   /* ── Segmented toggle (All / Termed / M2M) ───────────────────── */
   .seg-toggle {
@@ -95,13 +131,17 @@
 {% block body %}
 <div class="page-body">
   <div class="filter-bar">
-    <div class="filter-group">
-      <label for="f-company">Company Name</label>
-      <input id="f-company" type="text" placeholder="Search…" autocomplete="off" />
+    <div class="filter-group" id="fg-company">
+      <label>Company Name</label>
+      <div id="f-company"></div>
     </div>
-    <div class="filter-group">
-      <label for="f-client">Client ID</label>
-      <input id="f-client" type="text" placeholder="e.g. 5634313" autocomplete="off" />
+    <div class="filter-group" id="fg-client">
+      <label>Client ID</label>
+      <div id="f-client"></div>
+    </div>
+    <div class="filter-group" id="fg-svctype">
+      <label>Service Type</label>
+      <div id="f-svctype"></div>
     </div>
     <div class="filter-group">
       <label for="f-service">Service ID</label>
@@ -110,6 +150,10 @@
     <div class="filter-group">
       <label for="f-expires">Expires Before</label>
       <input id="f-expires" type="date" />
+    </div>
+    <div class="filter-group" id="fg-salesrep">
+      <label>Sales Rep</label>
+      <div id="f-salesrep"></div>
     </div>
     <div class="filter-group">
       <label>Contract Type</label>
@@ -143,20 +187,137 @@
   function fmtDate(d) {
     if (!d) return '—';
     const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-CA'); // YYYY-MM-DD
+    return dt.toLocaleDateString('en-CA');
   }
 
   function expDisplay(group) {
     if (group.m2m) return '<span class="badge m2m">M2M</span>';
     if (!group.expiration_date) return '<span class="muted">—</span>';
-
     const days = Math.ceil((new Date(group.expiration_date + 'T00:00:00') - Date.now()) / 86400000);
     const label = fmtDate(group.expiration_date);
-
     if (days < 0)  return `<span class="exp exp-expired">${label}</span>`;
     if (days < 60) return `<span class="exp exp-soon">${label}</span>`;
     if (days < 90) return `<span class="exp exp-warn">${label}</span>`;
     return `<span class="exp exp-ok">${label}</span>`;
+  }
+
+  // ── TagSelect ────────────────────────────────────────────────────
+  class TagSelect {
+    constructor(mountId, field, placeholder, onChange) {
+      this.field       = field;
+      this.placeholder = placeholder;
+      this.tags        = [];
+      this.onChange    = onChange;
+      this._debounce   = null;
+
+      const mount = document.getElementById(mountId);
+      const group = mount.closest('.filter-group');
+
+      this.wrap = document.createElement('div');
+      this.wrap.className = 'tag-input-wrap';
+
+      this.input = document.createElement('input');
+      this.input.type = 'text';
+      this.input.autocomplete = 'off';
+      this.input.placeholder = placeholder;
+
+      this.dropdown = document.createElement('div');
+      this.dropdown.className = 'ac-dropdown';
+      this.dropdown.style.display = 'none';
+
+      this.wrap.appendChild(this.input);
+      mount.replaceWith(this.wrap);
+      group.appendChild(this.dropdown);
+
+      this._bind();
+    }
+
+    _bind() {
+      this.input.addEventListener('input', () => {
+        clearTimeout(this._debounce);
+        const q = this.input.value.trim();
+        if (q.length < 2) { this._hideDropdown(); return; }
+        this._debounce = setTimeout(() => this._fetch(q), 300);
+      });
+
+      this.input.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !this.input.value && this.tags.length) {
+          this._remove(this.tags.length - 1);
+        }
+        if (e.key === 'Escape') this._hideDropdown();
+      });
+
+      this.wrap.addEventListener('click', e => {
+        if (e.target === this.wrap) this.input.focus();
+      });
+
+      document.addEventListener('click', e => {
+        if (!this.wrap.contains(e.target) && !this.dropdown.contains(e.target)) {
+          this._hideDropdown();
+        }
+      });
+    }
+
+    _fetch(q) {
+      fetch(`/api/renewals/autocomplete?field=${encodeURIComponent(this.field)}&q=${encodeURIComponent(q)}`)
+        .then(r => r.json())
+        .then(d => this._showItems(d.results || []))
+        .catch(() => this._hideDropdown());
+    }
+
+    _showItems(items) {
+      const filtered = items.filter(v => v && !this.tags.includes(String(v)));
+      if (!filtered.length) { this._hideDropdown(); return; }
+      this.dropdown.innerHTML = '';
+      filtered.forEach(v => {
+        const el = document.createElement('div');
+        el.className = 'ac-item';
+        el.textContent = v;
+        el.addEventListener('mousedown', e => { e.preventDefault(); this._add(String(v)); });
+        this.dropdown.appendChild(el);
+      });
+      this.dropdown.style.display = 'block';
+    }
+
+    _hideDropdown() {
+      this.dropdown.style.display = 'none';
+      this.dropdown.innerHTML = '';
+    }
+
+    _add(value) {
+      if (this.tags.includes(value)) return;
+      this.tags.push(value);
+      this.input.value = '';
+      this._hideDropdown();
+      this._render();
+      this.onChange();
+    }
+
+    _remove(i) {
+      this.tags.splice(i, 1);
+      this._render();
+      this.onChange();
+    }
+
+    _render() {
+      this.wrap.querySelectorAll('.ac-tag').forEach(el => el.remove());
+      this.tags.forEach((tag, i) => {
+        const span = document.createElement('span');
+        span.className = 'ac-tag';
+        const txt = document.createElement('span');
+        txt.textContent = tag;
+        const btn = document.createElement('button');
+        btn.className = 'ac-tag-rm';
+        btn.textContent = '×';
+        btn.addEventListener('click', e => { e.stopPropagation(); this._remove(i); });
+        span.appendChild(txt);
+        span.appendChild(btn);
+        this.wrap.insertBefore(span, this.input);
+      });
+      this.input.placeholder = this.tags.length ? '' : this.placeholder;
+    }
+
+    values() { return [...this.tags]; }
   }
 
   // ── Segmented toggle ─────────────────────────────────────────────
@@ -175,29 +336,34 @@
   const d90 = new Date(Date.now() + 90 * 86400000);
   document.getElementById('f-expires').value = d90.toISOString().slice(0, 10);
 
-  // ── Debounced filter ─────────────────────────────────────────────
+  // ── Instantiate TagSelects ────────────────────────────────────────
+  const companySelect  = new TagSelect('f-company',  'company',      'Search…',        load);
+  const clientSelect   = new TagSelect('f-client',   'client_id',    'e.g. 5634313',   load);
+  const svcTypeSelect  = new TagSelect('f-svctype',  'service_type', 'e.g. server…',   load);
+  const salesRepSelect = new TagSelect('f-salesrep', 'sales_rep',    'Search…',        load);
+
+  // ── Plain inputs ──────────────────────────────────────────────────
   let debounceTimer;
   function onFilter() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(load, 300);
   }
-
-  document.getElementById('f-company').addEventListener('input', onFilter);
-  document.getElementById('f-client').addEventListener('input', onFilter);
   document.getElementById('f-service').addEventListener('input', onFilter);
   document.getElementById('f-expires').addEventListener('input', onFilter);
 
   // ── Load ─────────────────────────────────────────────────────────
   function load() {
     const params = new URLSearchParams();
-    const company   = document.getElementById('f-company').value.trim();
-    const clientId  = document.getElementById('f-client').value.trim();
+
+    companySelect.values().forEach(v  => params.append('company',      v));
+    clientSelect.values().forEach(v   => params.append('client_id',    v));
+    svcTypeSelect.values().forEach(v  => params.append('service_type', v));
+    salesRepSelect.values().forEach(v => params.append('sales_rep',    v));
+
     const serviceId = document.getElementById('f-service').value.trim();
     const expires   = document.getElementById('f-expires').value;
 
-    if (company)   params.set('company',       company);
-    if (clientId)  params.set('client_id',     clientId);
-    if (serviceId) params.set('service_id',    serviceId);
+    if (serviceId) params.set('service_id',     serviceId);
     if (expires)   params.set('expires_before', expires);
     params.set('contract_type', contractType);
 
@@ -228,7 +394,7 @@
     let html = `
       <table class="renewals-table">
         <thead><tr>
-          <th>Company</th><th>Client ID</th><th>Services</th>
+          <th>Company</th><th>Client ID</th><th>Sales Rep</th><th>Services</th>
           <th>DC</th><th>Product</th><th>Total MRC</th><th>Expires</th><th>Status</th>
         </tr></thead>
         <tbody>`;
@@ -251,6 +417,7 @@
         <tr class="group-row" onclick="${multi ? `toggleGroup(${gi})` : `nav(${g.services[0].service_id})`}">
           <td>${chevron}<strong>${esc(g.company_name)}</strong></td>
           <td class="muted mono">${g.client_id}</td>
+          <td class="muted">${esc(g.sales_rep || '—')}</td>
           <td class="muted">${multi ? g.service_count + ' services' : (firstSvc?.nickname ? esc(firstSvc.nickname) : '1 service')}</td>
           <td>${dcBadge}</td>
           <td>${prodBadge}</td>
@@ -265,6 +432,7 @@
             <tr class="child-row" data-group="${gi}" onclick="nav(${svc.service_id})">
               <td>${esc(svc.nickname || String(svc.service_id))}</td>
               <td class="mono">${svc.service_id}</td>
+              <td>—</td>
               <td>${esc(svc.service_type || '—')}</td>
               <td>${esc(svc.datacenter_code || '—')}</td>
               <td>${esc(svc.product || '—')}</td>
