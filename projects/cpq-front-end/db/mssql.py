@@ -73,6 +73,27 @@ def get_mssql_watts(fusion_id: int) -> int | None:
     return None
 
 
+def get_mssql_watts_batch(fusion_ids: list[int]) -> dict[int, int]:
+    """Returns {fusion_id: watts} for all given fusion_ids."""
+    if not fusion_ids or not _configured():
+        return {}
+    try:
+        conn = _connect()
+        cur = conn.cursor(as_dict=True)
+        placeholders = ",".join(["%d"] * len(fusion_ids))
+        cur.execute(
+            f"SELECT fusion_id, watts FROM profitability.hardware_watts "
+            f"WHERE fusion_id IN ({placeholders})",
+            tuple(fusion_ids),
+        )
+        result = {r["fusion_id"]: int(r["watts"]) for r in cur.fetchall() if r.get("watts") is not None}
+        cur.close()
+        conn.close()
+        return result
+    except Exception:
+        return {}
+
+
 def get_fx_rate(from_currency: str, to_currency: str) -> float:
     if from_currency == to_currency:
         return 1.0
