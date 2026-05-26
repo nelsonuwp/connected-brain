@@ -171,8 +171,8 @@ def fetch_active_component_counts() -> pd.DataFrame:
         FROM DM_BusinessInsights.dbo.dimComponents dc
         JOIN DM_BusinessInsights.dbo.dimServices ds
           ON ds.service_id = dc.service_id
-        WHERE dc.is_online = 1
-          AND ds.service_status = 'Active'
+        WHERE dc.is_online = 'Yes'
+          AND ds.service_status = 'Online'
         GROUP BY dc.component_id
     """)
     rows = [dict(r) for r in cur.fetchall()]
