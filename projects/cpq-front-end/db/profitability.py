@@ -1,7 +1,8 @@
-from datetime import date
+import logging
+from datetime import date, datetime as _dt
 
 from db.fusion import get_dc_info
-from db.mssql import get_fx_rate, get_mssql_costs, get_mssql_watts_batch, _configured
+from db.mssql import _connect, get_fx_rate, get_mssql_costs, get_mssql_watts_batch, _configured
 from lib.overhead import COST_DRIVERS, calc_overhead
 from lib.renewal_pricing import hw_paid_off, provision_age_months
 
@@ -9,6 +10,10 @@ from lib.renewal_pricing import hw_paid_off, provision_age_months
 def _parse_date(value) -> date | None:
     if value is None:
         return None
+    if isinstance(value, _dt):
+        return value.date() if value.year > 1900 else None
+    if isinstance(value, date):
+        return value if value.year > 1900 else None
     if isinstance(value, str):
         s = value[:10]
         if s <= "1900-01-01":
@@ -17,8 +22,6 @@ def _parse_date(value) -> date | None:
             return date.fromisoformat(s)
         except ValueError:
             return None
-    if hasattr(value, "date"):
-        return value.date() if value.year > 1900 else None
     return None
 
 
