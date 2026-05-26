@@ -55,7 +55,7 @@ def calc_service_margin(
                 overhead_dc = code
                 break
 
-    kw = round(watts / 1000, 3) if watts else None
+    kw = round(watts / 1000, 3) if watts is not None else None
     overhead_lines = calc_overhead(overhead_dc, mrc, fx_rate=fx_overhead, kw=kw)
 
     # Split overhead into per-device lines and SGA
@@ -103,8 +103,8 @@ def get_active_services(
     """Fetch all active services from dimServices + dimClientsActive."""
     if not _configured():
         return []
+    conn = cur = None
     try:
-        from db.mssql import _connect
         conn = _connect()
         cur = conn.cursor(as_dict=True)
 
@@ -147,8 +147,6 @@ def get_active_services(
             cur.execute(sql)
 
         rows = cur.fetchall()
-        cur.close()
-        conn.close()
 
         result = []
         for r in rows:
@@ -160,15 +158,23 @@ def get_active_services(
             result.append(row)
         return result
     except Exception:
+        logging.exception("get_active_services: db error")
         return []
+    finally:
+        if cur:
+            try: cur.close()
+            except Exception: pass
+        if conn:
+            try: conn.close()
+            except Exception: pass
 
 
 def get_profitability_filter_options() -> dict:
     """Distinct values for filter dropdowns."""
     if not _configured():
         return {"account_managers": [], "dc_codes": [], "service_types": []}
+    conn = cur = None
     try:
-        from db.mssql import _connect
         conn = _connect()
         cur = conn.cursor()
 
@@ -196,11 +202,17 @@ def get_profitability_filter_options() -> dict:
         """)
         types = [r[0] for r in cur.fetchall() if r[0]]
 
-        cur.close()
-        conn.close()
         return {"account_managers": ams, "dc_codes": dcs, "service_types": types}
     except Exception:
+        logging.exception("get_profitability_filter_options: db error")
         return {"account_managers": [], "dc_codes": [], "service_types": []}
+    finally:
+        if cur:
+            try: cur.close()
+            except Exception: pass
+        if conn:
+            try: conn.close()
+            except Exception: pass
 
 
 def build_profitability_data(services: list[dict]) -> list[dict]:
