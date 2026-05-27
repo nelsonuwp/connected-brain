@@ -372,7 +372,7 @@
   document.getElementById('f-currency').addEventListener('change', load);
 
   // ── Cache (stale-while-revalidate) ───────────────────────────────────────
-  const _CACHE_PFX = 'prof_v1_';
+  const _CACHE_PFX = 'prof_v2_';
   const _CACHE_TTL = 15 * 60 * 1000;
 
   function _cacheKey() { return _CACHE_PFX + buildParams().toString(); }
