@@ -291,6 +291,17 @@ def api_profitability_stream():
 
 # ── Aggregation helpers ───────────────────────────────────────────────────────
 
+def _support_trend(curr: float, prev: float) -> str:
+    """5-level trend: more hours = more cost = bad direction."""
+    if prev == 0:
+        return "up" if curr > 0 else "flat"
+    pct = (curr - prev) / prev * 100
+    if pct > 50:    return "up"
+    if pct > 10:    return "slight-up"
+    if pct >= -10:  return "flat"
+    if pct >= -50:  return "slight-down"
+    return "down"
+
 def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -> list[dict]:
     groups: dict[int, dict] = {}
     for svc in enriched:
@@ -342,8 +353,10 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
             "total_cost":      cost,
             "margin":          margin,
             "margin_pct":      mpct,
-            "support_hours":   round(g["support_hours"], 2) if g["support_hours_available"] else None,
-            "warnings":        sorted(g["warnings"]),
+            "support_hours":       round(g["support_hours"], 2) if g["support_hours_available"] else None,
+            "support_hours_prev":  round(g["support_hours_prev"], 2) if g["support_hours_available"] else None,
+            "support_hours_trend": _support_trend(g["support_hours"], g["support_hours_prev"]) if g["support_hours_available"] else None,
+            "warnings":            sorted(g["warnings"]),
         })
     result.sort(key=lambda x: (x["margin_pct"] is None, x["margin_pct"] or 0))
     return result

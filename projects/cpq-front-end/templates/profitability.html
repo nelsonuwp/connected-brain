@@ -371,6 +371,23 @@
 
   document.getElementById('f-currency').addEventListener('change', load);
 
+  // ── Cache (stale-while-revalidate) ───────────────────────────────────────
+  const _CACHE_PFX = 'prof_v1_';
+  const _CACHE_TTL = 15 * 60 * 1000;
+
+  function _cacheKey() { return _CACHE_PFX + buildParams().toString(); }
+  function _cacheRead(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      const { ts, data } = JSON.parse(raw);
+      return { data, fresh: Date.now() - ts < _CACHE_TTL };
+    } catch { return null; }
+  }
+  function _cacheWrite(key, data) {
+    try { localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data })); } catch {}
+  }
+
   // ── Data loading ──────────────────────────────────────────────────────────
   let _activeSource = null;
 
@@ -386,16 +403,15 @@
   }
 
   function _statusCell() {
-    return `<tr><td colspan="7" class="empty-state"><div class="status-log">
+    return `<tr><td colspan="8" class="empty-state"><div class="status-log">
       <div class="status-log-title">Loading profitability data…</div>
       <div id="status-lines"></div>
     </div></td></tr>`;
   }
 
-  function _addStatusLine(msg, src, done) {
+  function _addStatusLine(msg, src) {
     const el = document.getElementById('status-lines');
     if (!el) return;
-    // Mark the previous last line as done
     const prev = el.querySelector('.status-line:last-child .dot');
     if (prev) { prev.className = 'done-dot'; prev.textContent = '✓'; }
     const line = document.createElement('div');
@@ -406,8 +422,24 @@
 
   function load() {
     if (_activeSource) { _activeSource.close(); _activeSource = null; }
-    document.getElementById('tbody').innerHTML = _statusCell();
 
+    const key    = _cacheKey();
+    const cached = _cacheRead(key);
+
+    if (cached) {
+      _data = cached.data;
+      renderKpis(_data.totals);
+      renderTable();
+      if (cached.fresh) return;   // still fresh — skip network
+      // stale: silent background refresh
+      _fetchStream(key, true);
+    } else {
+      document.getElementById('tbody').innerHTML = _statusCell();
+      _fetchStream(key, false);
+    }
+  }
+
+  function _fetchStream(cacheKey, silent) {
     const src = new EventSource('/api/profitability/stream?' + buildParams());
     _activeSource = src;
 
@@ -417,14 +449,16 @@
         src.close();
         _activeSource = null;
         if (msg.error) {
-          document.getElementById('tbody').innerHTML =
-            `<tr><td colspan="7" class="empty-state">Error: ${esc(msg.error)}</td></tr>`;
+          if (!_data)
+            document.getElementById('tbody').innerHTML =
+              `<tr><td colspan="8" class="empty-state">Error: ${esc(msg.error)}</td></tr>`;
           return;
         }
         _data = msg.result;
+        _cacheWrite(cacheKey, _data);
         renderKpis(_data.totals);
         renderTable();
-      } else {
+      } else if (!silent) {
         _addStatusLine(msg.msg, msg.src);
       }
     };
@@ -432,10 +466,9 @@
     src.onerror = () => {
       src.close();
       _activeSource = null;
-      if (!_data) {
+      if (!_data)
         document.getElementById('tbody').innerHTML =
-          '<tr><td colspan="7" class="empty-state">Connection lost. Try refreshing.</td></tr>';
-      }
+          '<tr><td colspan="8" class="empty-state">Connection lost. Try refreshing.</td></tr>';
     };
   }
 
@@ -530,7 +563,8 @@
         : r.margin_pct >= 20 ? 'pos' : r.margin_pct >= 10 ? 'warn' : 'neg';
       const pctCell    = r.margin_pct != null ? r.margin_pct.toFixed(1) + '%' : '—';
       const amCell     = _seg === 'customer' ? `<td>${esc(am)}</td>` : '';
-      const supCell    = r.support_hours != null ? r.support_hours.toFixed(2) + 'h' : '—';
+      const supTrend   = _seg === 'customer' ? trendArrow(r.support_hours_trend) : '';
+      const supCell    = r.support_hours != null ? r.support_hours.toFixed(2) + 'h' + supTrend : '—';
 
       return `<tr onclick="window.location='${link}'">
         <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${esc(name)}${warn}</span></td>
@@ -546,6 +580,19 @@
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
+  const _TREND_MAP = {
+    'up':          ['↑', 'var(--red)'],
+    'slight-up':   ['↗', 'var(--orange)'],
+    'flat':        ['→', 'var(--text-3)'],
+    'slight-down': ['↘', '#86efac'],
+    'down':        ['↓', 'var(--green)'],
+  };
+  function trendArrow(trend) {
+    const entry = _TREND_MAP[trend];
+    if (!entry) return '';
+    return `<span style="color:${entry[1]};font-size:.85em;margin-left:2px" title="${trend}">${entry[0]}</span>`;
+  }
+
   const _SYM = { USD: '$', CAD: '$', GBP: '£', EUR: '€' };
   function fmt(val, cur) {
     if (val == null) return '—';

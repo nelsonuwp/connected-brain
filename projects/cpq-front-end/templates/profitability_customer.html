@@ -200,7 +200,8 @@
         : s.margin_pct >= 20 ? 'pct-pos' : s.margin_pct >= 10 ? 'pct-warn' : 'pct-neg';
       const pctText  = s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—';
       const warn = warnIcon(s.missing_data);
-      const hrsCell = s.support_ops_hours != null ? s.support_ops_hours.toFixed(2) + 'h' : '—';
+      const trend   = computeTrend(s.support_ops_hours, s.support_ops_hours_prev);
+      const hrsCell = s.support_ops_hours != null ? s.support_ops_hours.toFixed(2) + 'h' + trendArrow(trend) : '—';
       return `<tr onclick="selectRow(${i})">
         <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${name}${warn}</span></td>
         <td><span class="dc-badge">${esc(s.datacenter_code || '—')}</span></td>
@@ -338,6 +339,29 @@
       <tr class="${pctClass}"><td>Margin %</td><td>${s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—'}</td></tr>
       <tr class="dim sep"><td>Biggest cost driver</td><td>${biggestLabel}</td></tr>`;
     document.getElementById('sb-margin-card').style.display = '';
+  }
+
+  const _TREND_MAP = {
+    'up':          ['↑', 'var(--red)'],
+    'slight-up':   ['↗', 'var(--orange)'],
+    'flat':        ['→', 'var(--text-3)'],
+    'slight-down': ['↘', '#86efac'],
+    'down':        ['↓', 'var(--green)'],
+  };
+  function trendArrow(trend) {
+    const entry = _TREND_MAP[trend];
+    if (!entry) return '';
+    return `<span style="color:${entry[1]};font-size:.85em;margin-left:2px" title="${trend}">${entry[0]}</span>`;
+  }
+  function computeTrend(curr, prev) {
+    if (curr == null || prev == null) return null;
+    if (prev === 0) return curr > 0 ? 'up' : 'flat';
+    const pct = (curr - prev) / prev * 100;
+    if (pct > 50)   return 'up';
+    if (pct > 10)   return 'slight-up';
+    if (pct >= -10) return 'flat';
+    if (pct >= -50) return 'slight-down';
+    return 'down';
   }
 
   const _SYM = { USD: '$', CAD: '$', GBP: '£', EUR: '€' };
