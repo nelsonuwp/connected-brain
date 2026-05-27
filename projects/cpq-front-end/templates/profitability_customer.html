@@ -97,14 +97,14 @@
     <table class="svc-table">
       <thead>
         <tr>
-          <th>Service / Nickname</th>
-          <th>DC</th>
-          <th>Type</th>
-          <th class="r">MRC</th>
-          <th class="r">Cost</th>
-          <th class="r">Margin $</th>
-          <th class="r">Margin %</th>
-          <th class="r">Support (hrs)</th>
+          <th id="th-name" onclick="sortSvc('name')">Service / Nickname</th>
+          <th id="th-dc" onclick="sortSvc('dc')">DC</th>
+          <th id="th-type" onclick="sortSvc('type')">Type</th>
+          <th id="th-mrc" class="r" onclick="sortSvc('mrc')">MRC</th>
+          <th id="th-cost" class="r" onclick="sortSvc('cost')">Cost</th>
+          <th id="th-margin" class="r" onclick="sortSvc('margin')">Margin $</th>
+          <th id="th-pct" class="r sorted" onclick="sortSvc('pct')">Margin %</th>
+          <th id="th-support" class="r" onclick="sortSvc('support')">Support (hrs)</th>
         </tr>
       </thead>
       <tbody id="svc-tbody">
@@ -145,6 +145,16 @@
   const CLIENT_ID  = {{ client_id }};
   let _services    = [];
   let _cloudDetail = {};
+  let _sortCol     = 'pct';
+  let _sortAsc     = true;
+
+  function sortSvc(col) {
+    if (_sortCol === col) { _sortAsc = !_sortAsc; }
+    else { _sortCol = col; _sortAsc = col === 'pct'; }
+    document.querySelectorAll('.svc-table th').forEach(th => th.classList.remove('sorted'));
+    document.getElementById('th-' + col)?.classList.add('sorted');
+    renderTable();
+  }
 
   async function load() {
     try {
@@ -182,7 +192,10 @@
       }
 
       renderTable();
-      if (_services.length) selectRow(0);
+      if (_services.length) {
+        const firstRow = document.getElementById('svc-tbody').querySelector('tr[data-orig]');
+        selectRow(firstRow ? parseInt(firstRow.dataset.orig) : 0);
+      }
     } catch (e) {
       showError('Failed to load profitability data.');
     }
@@ -194,7 +207,24 @@
       tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No active services found.</td></tr>';
       return;
     }
-    tbody.innerHTML = _services.map((s, i) => {
+    const sorted = [..._services].sort((a, b) => {
+      let av, bv;
+      if      (_sortCol === 'name')    { av = String(a.nickname || a.service_id).toLowerCase(); bv = String(b.nickname || b.service_id).toLowerCase(); }
+      else if (_sortCol === 'dc')      { av = (a.datacenter_code || '').toLowerCase(); bv = (b.datacenter_code || '').toLowerCase(); }
+      else if (_sortCol === 'type')    { av = (a.service_type || '').toLowerCase(); bv = (b.service_type || '').toLowerCase(); }
+      else if (_sortCol === 'mrc')     { av = a.mrc ?? -Infinity; bv = b.mrc ?? -Infinity; }
+      else if (_sortCol === 'cost')    { av = a.total_cost ?? -Infinity; bv = b.total_cost ?? -Infinity; }
+      else if (_sortCol === 'margin')  { av = a.margin ?? -Infinity; bv = b.margin ?? -Infinity; }
+      else if (_sortCol === 'pct')     { av = a.margin_pct ?? -Infinity; bv = b.margin_pct ?? -Infinity; }
+      else /* support */               { av = a.support_ops_hours ?? -Infinity; bv = b.support_ops_hours ?? -Infinity; }
+      if (av === bv) return 0;
+      const cmp = av < bv ? -1 : 1;
+      return _sortAsc ? cmp : -cmp;
+    });
+    // remap sorted indices so selectRow still works
+    const idxMap = sorted.map(s => _services.indexOf(s));
+    tbody.innerHTML = sorted.map((s, i) => {
+      const origIdx = idxMap[i];
       const name = s.nickname ? `${s.service_id} · ${esc(s.nickname)}` : String(s.service_id);
       const cur  = s.currency || '';
       const pctClass = s.margin_pct == null
@@ -204,7 +234,7 @@
       const warn = warnIcon(s.missing_data);
       const trend   = computeTrend(s.support_ops_hours, s.support_ops_hours_prev);
       const hrsCell = s.support_ops_hours != null ? s.support_ops_hours.toFixed(2) + 'h' + trendArrow(trend) : '—';
-      return `<tr onclick="selectRow(${i})">
+      return `<tr data-orig="${origIdx}" onclick="selectRow(${origIdx})">
         <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${name}${warn}</span></td>
         <td><span class="dc-badge">${esc(s.datacenter_code || '—')}</span></td>
         <td>${esc(s.service_type || '—')}</td>
@@ -218,8 +248,9 @@
   }
 
   function selectRow(idx) {
-    const rows = document.getElementById('svc-tbody').querySelectorAll('tr');
-    rows.forEach((r, i) => r.classList.toggle('active-row', i === idx));
+    document.getElementById('svc-tbody').querySelectorAll('tr').forEach(r => {
+      r.classList.toggle('active-row', parseInt(r.dataset.orig) === idx);
+    });
     const s = _services[idx];
     if (!s) return;
     renderSidebar(s);
