@@ -240,12 +240,17 @@ def _is_cloud_service(service: dict) -> bool:
     return (service.get("service_type") or "").strip() == "Public Cloud"
 
 
-def build_profitability_data(services: list[dict]) -> list[dict]:
+def build_profitability_data(services: list[dict], progress_cb=None) -> list[dict]:
     """Enrich each service dict with its cost breakdown and margin.
 
     Physical services: batched MSSQL HW cost + watts + calc_service_margin.
     Cloud (Public Cloud) services: Azure billing DB via SSH tunnel.
+    progress_cb(msg, source) is called at key stages for streaming status.
     """
+    def _progress(msg, source=None):
+        if progress_cb:
+            progress_cb(msg, source)
+
     if not services:
         return []
 
@@ -256,8 +261,14 @@ def build_profitability_data(services: list[dict]) -> list[dict]:
 
     # ── Physical services ──────────────────────────────────────────────────────
     fusion_ids = [s["fusion_id"] for s in physical if s.get("fusion_id")]
+
+    _progress(f"Loading hardware costs for {len(fusion_ids)} services…", "MSSQL · ocean_sku_cost")
     hw_costs   = get_mssql_costs(fusion_ids, "TLS") if fusion_ids else {}
+    _progress(f"Hardware costs found for {len(hw_costs)} of {len(fusion_ids)} services", None)
+
+    _progress(f"Loading power consumption data…", "MSSQL · hardware_watts")
     watts_map  = get_mssql_watts_batch(fusion_ids) if fusion_ids else {}
+    _progress(f"Power data found for {sum(1 for v in watts_map.values() if v)} services", None)
 
     fx_cache: dict[tuple[str, str], float] = {}
 
@@ -316,15 +327,26 @@ def build_profitability_data(services: list[dict]) -> list[dict]:
             "missing_data": missing,
         }
 
+    _progress(f"Computing margins for {len(physical)} physical services…", None)
+
     # ── Cloud (Public Cloud) services ──────────────────────────────────────────
     if cloud:
+        cloud_client_ids = list({s["client_id"] for s in cloud})
+        _progress(
+            f"Fetching Azure billing for {len(cloud_client_ids)} cloud customers…",
+            "PostgreSQL · azurebilling (SSH tunnel)",
+        )
         billing_batch: dict[int, dict] = {}
         try:
             from db.azure_billing import get_cloud_billing_batch
-            cloud_client_ids = list({s["client_id"] for s in cloud})
             billing_batch = get_cloud_billing_batch(cloud_client_ids)
+            _progress(
+                f"Azure billing data received for {len(billing_batch)} of {len(cloud_client_ids)} customers",
+                None,
+            )
         except Exception:
             logging.exception("build_profitability_data: azure billing fetch failed")
+            _progress("Azure billing unavailable — cloud costs will be missing", None)
 
         # Per-client: first cloud service carries consumption; subsequent carry only their MRC.
         seen_cloud_clients: set[int] = set()

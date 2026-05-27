@@ -83,6 +83,14 @@
   .prof-table tr:last-child td { border-bottom:none; }
   .prof-table tr:hover { background:var(--surface-2); cursor:pointer; }
   .empty-state { padding:3rem; text-align:center; color:var(--text-3); font-size:.85rem; }
+
+  .status-log { display:inline-flex; flex-direction:column; gap:.3rem; text-align:left; min-width:420px; }
+  .status-log-title { font-size:.72rem; font-weight:700; color:var(--text-2); margin-bottom:.2rem; }
+  .status-line { display:flex; align-items:baseline; gap:.6rem; font-size:.75rem; font-family:'Geist Mono',monospace; }
+  .status-line .dot { color:var(--accent); flex-shrink:0; }
+  .status-line .done-dot { color:var(--green); flex-shrink:0; }
+  .status-line .smsg { color:var(--text-2); }
+  .status-line .ssrc { color:var(--text-3); font-size:.68rem; margin-left:auto; padding-left:.75rem; white-space:nowrap; }
 {% endblock %}
 
 {% block body %}
@@ -363,6 +371,8 @@
   document.getElementById('f-currency').addEventListener('change', load);
 
   // ── Data loading ──────────────────────────────────────────────────────────
+  let _activeSource = null;
+
   function buildParams() {
     const p = new URLSearchParams();
     amSelect.values().forEach(v => p.append('am', v));
@@ -374,16 +384,58 @@
     return p;
   }
 
-  async function load() {
-    document.getElementById('tbody').innerHTML = '<tr><td colspan="7" class="empty-state">Loading…</td></tr>';
-    try {
-      const res = await fetch('/api/profitability?' + buildParams());
-      _data = await res.json();
-      renderKpis(_data.totals);
-      renderTable();
-    } catch (e) {
-      document.getElementById('tbody').innerHTML = '<tr><td colspan="7" class="empty-state">Error loading data</td></tr>';
-    }
+  function _statusCell() {
+    return `<tr><td colspan="7" class="empty-state"><div class="status-log">
+      <div class="status-log-title">Loading profitability data…</div>
+      <div id="status-lines"></div>
+    </div></td></tr>`;
+  }
+
+  function _addStatusLine(msg, src, done) {
+    const el = document.getElementById('status-lines');
+    if (!el) return;
+    // Mark the previous last line as done
+    const prev = el.querySelector('.status-line:last-child .dot');
+    if (prev) { prev.className = 'done-dot'; prev.textContent = '✓'; }
+    const line = document.createElement('div');
+    line.className = 'status-line';
+    line.innerHTML = `<span class="dot">›</span><span class="smsg">${esc(msg)}</span>${src ? `<span class="ssrc">${esc(src)}</span>` : ''}`;
+    el.appendChild(line);
+  }
+
+  function load() {
+    if (_activeSource) { _activeSource.close(); _activeSource = null; }
+    document.getElementById('tbody').innerHTML = _statusCell();
+
+    const src = new EventSource('/api/profitability/stream?' + buildParams());
+    _activeSource = src;
+
+    src.onmessage = e => {
+      const msg = JSON.parse(e.data);
+      if (msg.done) {
+        src.close();
+        _activeSource = null;
+        if (msg.error) {
+          document.getElementById('tbody').innerHTML =
+            `<tr><td colspan="7" class="empty-state">Error: ${esc(msg.error)}</td></tr>`;
+          return;
+        }
+        _data = msg.result;
+        renderKpis(_data.totals);
+        renderTable();
+      } else {
+        _addStatusLine(msg.msg, msg.src);
+      }
+    };
+
+    src.onerror = () => {
+      src.close();
+      _activeSource = null;
+      if (!_data) {
+        document.getElementById('tbody').innerHTML =
+          '<tr><td colspan="7" class="empty-state">Connection lost. Try refreshing.</td></tr>';
+      }
+    };
   }
 
   // ── KPI rendering ─────────────────────────────────────────────────────────
