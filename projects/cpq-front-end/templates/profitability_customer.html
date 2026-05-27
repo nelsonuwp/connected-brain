@@ -56,6 +56,15 @@
 
   .open-renewal-btn { width:100%; padding:.6rem; border-radius:8px; border:1px solid var(--accent); background:var(--accent-dim); color:var(--accent-text); font-family:'Geist',sans-serif; font-size:.85rem; font-weight:600; cursor:pointer; text-align:center; text-decoration:none; display:block; }
   .empty-state { padding:3rem; text-align:center; color:var(--text-3); font-size:.85rem; }
+
+  .tip-wrap { position:relative; display:inline-flex; align-items:center; gap:3px; }
+  .tip-wrap .tip { display:none; position:absolute; bottom:calc(100% + 6px); right:0; z-index:400;
+    background:var(--surface); border:1px solid var(--border); border-radius:7px;
+    padding:.5rem .7rem; box-shadow:0 4px 16px var(--shadow); font-size:.72rem; white-space:nowrap; }
+  .tip-wrap:hover .tip { display:block; }
+  .tip-row { display:flex; justify-content:space-between; gap:1.25rem; }
+  .tip-row + .tip-row { margin-top:.25rem; }
+  .tip-period { color:var(--text-3); }
 {% endblock %}
 
 {% block body %}
@@ -233,7 +242,19 @@
       const pctText  = s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—';
       const warn = warnIcon(s.missing_data);
       const trend   = computeTrend(s.support_ops_hours, s.support_ops_hours_prev);
-      const hrsCell = s.support_ops_hours != null ? s.support_ops_hours.toFixed(2) + 'h' + trendArrow(trend) : '—';
+      let hrsCell;
+      if (s.support_ops_hours == null) {
+        hrsCell = '—';
+      } else if (s.support_ops_periods) {
+        const periods = s.support_ops_periods;
+        const vals = [s.support_ops_hours_prev2, s.support_ops_hours_prev, s.support_ops_hours];
+        const tipRows = periods.map((p, i) =>
+          `<div class="tip-row"><span class="tip-period">${esc(p)}</span><span>${vals[i] != null ? vals[i].toFixed(2) + 'h' : '—'}</span></div>`
+        ).join('');
+        hrsCell = `<span class="tip-wrap">${s.support_ops_hours.toFixed(2)}h${trendArrow(trend)}<span class="tip">${tipRows}</span></span>`;
+      } else {
+        hrsCell = s.support_ops_hours.toFixed(2) + 'h' + trendArrow(trend);
+      }
       return `<tr data-orig="${origIdx}" onclick="selectRow(${origIdx})">
         <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${name}${warn}</span></td>
         <td><span class="dc-badge">${esc(s.datacenter_code || '—')}</span></td>
