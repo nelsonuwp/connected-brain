@@ -336,11 +336,12 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
             "service_count":   g["service_count"],
             "currency":        display_currency or (list(g["currencies"])[0] if len(g["currencies"]) == 1 else "mixed"),
             "currency_mixed":  mixed,
-            "mrc":        mrc,
-            "total_cost": cost,
-            "margin":     margin,
-            "margin_pct": mpct,
-            "warnings":   sorted(g["warnings"]),
+            "mrc":             mrc,
+            "total_cost":      cost,
+            "margin":          margin,
+            "margin_pct":      mpct,
+            "support_hours":   round(g["support_hours"], 2) if g["support_hours_available"] else None,
+            "warnings":        sorted(g["warnings"]),
         })
     result.sort(key=lambda x: (x["margin_pct"] is None, x["margin_pct"] or 0))
     return result

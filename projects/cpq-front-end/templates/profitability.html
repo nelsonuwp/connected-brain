@@ -171,6 +171,7 @@
           <th class="r" data-col="cost" onclick="sortBy('cost')">Total Cost</th>
           <th class="r" data-col="margin" onclick="sortBy('margin')">Margin $</th>
           <th class="r sorted" id="th-pct" data-col="pct" onclick="sortBy('pct')">Margin %</th>
+          <th class="r" data-col="support" onclick="sortBy('support')">Support (hrs)</th>
         </tr>
       </thead>
       <tbody id="tbody">
@@ -499,7 +500,8 @@
       else if (_sortCol === 'mrc')   { av = a.mrc ?? -Infinity; bv = b.mrc ?? -Infinity; }
       else if (_sortCol === 'cost')  { av = a.total_cost ?? -Infinity; bv = b.total_cost ?? -Infinity; }
       else if (_sortCol === 'margin'){ av = a.margin ?? -Infinity; bv = b.margin ?? -Infinity; }
-      else /* pct */                 { av = a.margin_pct ?? -Infinity; bv = b.margin_pct ?? -Infinity; }
+      else if (_sortCol === 'pct')    { av = a.margin_pct ?? -Infinity; bv = b.margin_pct ?? -Infinity; }
+      else /* support */              { av = a.support_hours ?? -Infinity; bv = b.support_hours ?? -Infinity; }
       if (av === bv) return 0;
       const cmp = av < bv ? -1 : 1;
       return _sortAsc ? cmp : -cmp;
@@ -508,7 +510,7 @@
     const cur = document.getElementById('f-currency').value;
     const tbody = document.getElementById('tbody');
     if (!sorted.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No services match the current filters.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No services match the current filters.</td></tr>';
       return;
     }
 
@@ -523,9 +525,12 @@
       const mrcCell    = mixed ? '—' : (r.mrc    != null ? esc(fmt(r.mrc, rowCur))    : '—');
       const costCell   = mixed ? '—' : (r.total_cost != null ? esc(fmt(r.total_cost, rowCur)) : '—');
       const marginCell = mixed ? '—' : (r.margin != null ? `<span style="${r.margin < 0 ? 'color:var(--red)' : ''}">${esc(fmt(r.margin, rowCur))}</span>` : '—');
-      const pctClass   = r.margin_pct == null ? '' : r.margin_pct >= 20 ? 'pos' : r.margin_pct >= 10 ? 'warn' : 'neg';
+      const pctClass   = r.margin_pct == null
+        ? (r.margin < 0 ? 'neg' : '')
+        : r.margin_pct >= 20 ? 'pos' : r.margin_pct >= 10 ? 'warn' : 'neg';
       const pctCell    = r.margin_pct != null ? r.margin_pct.toFixed(1) + '%' : '—';
       const amCell     = _seg === 'customer' ? `<td>${esc(am)}</td>` : '';
+      const supCell    = r.support_hours != null ? r.support_hours.toFixed(2) + 'h' : '—';
 
       return `<tr onclick="window.location='${link}'">
         <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${esc(name)}${warn}</span></td>
@@ -535,6 +540,7 @@
         <td class="mono">${costCell}</td>
         <td class="mono">${marginCell}</td>
         <td class="pct ${pctClass}">${pctCell}</td>
+        <td class="mono" style="color:var(--text-3)">${supCell}</td>
       </tr>`;
     }).join('');
   }

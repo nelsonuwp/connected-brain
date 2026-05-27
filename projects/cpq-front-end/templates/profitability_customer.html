@@ -85,9 +85,9 @@
         <div class="kpi-sub" id="kpi-margin-sub">—</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">At Risk</div>
-        <div class="kpi-value" id="kpi-risk" style="color:var(--red)">—</div>
-        <div class="kpi-sub">services below 10%</div>
+        <div class="kpi-label">Support Cost (JSM)</div>
+        <div class="kpi-value" id="kpi-support">—</div>
+        <div class="kpi-sub" id="kpi-support-sub">3-month rolling avg</div>
       </div>
     </div>
 
@@ -102,10 +102,11 @@
           <th class="r">Cost</th>
           <th class="r">Margin $</th>
           <th class="r">Margin %</th>
+          <th class="r">Support (hrs)</th>
         </tr>
       </thead>
       <tbody id="svc-tbody">
-        <tr><td colspan="7" class="empty-state">Loading…</td></tr>
+        <tr><td colspan="8" class="empty-state">Loading…</td></tr>
       </tbody>
     </table>
   </div>
@@ -168,7 +169,15 @@
       document.getElementById('kpi-margin').textContent = s.margin  != null ? fmtMoney(s.margin, cur) : '—';
       if (s.margin != null) document.getElementById('kpi-margin').style.color = s.margin < 0 ? 'var(--red)' : 'var(--green)';
       document.getElementById('kpi-margin-sub').textContent = s.margin_pct != null ? s.margin_pct.toFixed(1) + '% avg' : '';
-      document.getElementById('kpi-risk').textContent = (s.at_risk_count ?? 0) + ' services';
+      const sc = s.support_cost_monthly;
+      if (sc && sc.avg_cost != null) {
+        document.getElementById('kpi-support').textContent = fmtMoney(sc.avg_cost, sc.currency);
+        const periods = sc.months.map(m => m.period).join(', ');
+        document.getElementById('kpi-support-sub').textContent = `${sc.avg_hours.toFixed(1)}h avg/mo · ${periods}`;
+      } else {
+        document.getElementById('kpi-support').textContent = '—';
+        document.getElementById('kpi-support-sub').textContent = 'JSM data unavailable';
+      }
 
       renderTable();
       if (_services.length) selectRow(0);
@@ -180,14 +189,18 @@
   function renderTable() {
     const tbody = document.getElementById('svc-tbody');
     if (!_services.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No active services found.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No active services found.</td></tr>';
       return;
     }
     tbody.innerHTML = _services.map((s, i) => {
       const name = s.nickname ? `${s.service_id} · ${esc(s.nickname)}` : String(s.service_id);
       const cur  = s.currency || '';
-      const pctClass = s.margin_pct == null ? '' : s.margin_pct >= 20 ? 'pct-pos' : s.margin_pct >= 10 ? 'pct-warn' : 'pct-neg';
+      const pctClass = s.margin_pct == null
+        ? (s.margin < 0 ? 'pct-neg' : '')
+        : s.margin_pct >= 20 ? 'pct-pos' : s.margin_pct >= 10 ? 'pct-warn' : 'pct-neg';
+      const pctText  = s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—';
       const warn = warnIcon(s.missing_data);
+      const hrsCell = s.support_ops_hours != null ? s.support_ops_hours.toFixed(2) + 'h' : '—';
       return `<tr onclick="selectRow(${i})">
         <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${name}${warn}</span></td>
         <td><span class="dc-badge">${esc(s.datacenter_code || '—')}</span></td>
@@ -195,7 +208,8 @@
         <td class="mono">${esc(fmtMoney(s.mrc, cur))}</td>
         <td class="mono">${esc(fmtMoney(s.total_cost, cur))}</td>
         <td class="mono" style="${s.margin < 0 ? 'color:var(--red)' : ''}">${esc(fmtMoney(s.margin, cur))}</td>
-        <td class="mono ${pctClass}">${s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—'}</td>
+        <td class="mono ${pctClass}">${pctText}</td>
+        <td class="mono" style="color:var(--text-3)">${hrsCell}</td>
       </tr>`;
     }).join('');
   }
@@ -336,7 +350,7 @@
 
   function showError(msg) {
     document.getElementById('cust-name').textContent = 'Error';
-    document.getElementById('svc-tbody').innerHTML = `<tr><td colspan="7" class="empty-state">${msg}</td></tr>`;
+    document.getElementById('svc-tbody').innerHTML = `<tr><td colspan="8" class="empty-state">${msg}</td></tr>`;
   }
 
   load();
