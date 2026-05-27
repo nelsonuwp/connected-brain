@@ -209,7 +209,7 @@
   }
 
   function renderSidebar(s) {
-    const cur = s.currency || 'USD';
+    const cur  = s.currency || 'USD';
     const name = s.nickname ? `${s.service_id} · ${esc(s.nickname)}` : String(s.service_id);
     const missingList = (s.missing_data || []);
     const warnHtml = missingList.length
@@ -221,6 +221,57 @@
       <div class="sub">${esc(s.service_type || '')} · ${esc(s.datacenter_code || '')}</div>
       ${warnHtml}`;
 
+    if (s.is_cloud) {
+      renderSidebarCloud(s, cur);
+    } else {
+      renderSidebarPhysical(s, cur);
+    }
+
+    const link = document.getElementById('sb-renewal-link');
+    link.href = `/renewal/${s.service_id}`;
+    link.style.display = '';
+  }
+
+  function renderSidebarCloud(s, cur) {
+    const hasCons = (s.consumption_revenue || 0) > 0 || (s.consumption_cost || 0) > 0;
+    const mgmtMrc = hasCons ? s.mrc - (s.consumption_revenue || 0) : s.mrc;
+    const period  = s.billing_period_label ? ` (${s.billing_period_label})` : '';
+
+    // Revenue
+    let revRows = '';
+    revRows += `<tr><td>Management Fee</td><td>${fmtMoney(mgmtMrc, cur)}</td></tr>`;
+    if (hasCons) {
+      revRows += `<tr><td>Azure Consumption${period}</td><td>${fmtMoney(s.consumption_revenue, cur)}</td></tr>`;
+      revRows += `<tr class="sep highlight"><td>Total Revenue</td><td>${fmtMoney(s.mrc, cur)}</td></tr>`;
+    } else {
+      revRows += `<tr class="highlight"><td>MRC</td><td>${fmtMoney(s.mrc, cur)}</td></tr>`;
+    }
+    document.getElementById('sb-revenue-table').innerHTML = revRows;
+    document.getElementById('sb-revenue').style.display = '';
+
+    // Costs
+    let costRows = '';
+    if (hasCons) {
+      costRows += `<tr><td>Azure Provider Cost${period}</td><td>${fmtMoney(s.consumption_cost, cur)}</td></tr>`;
+      costRows += `<tr class="dim indent"><td>Management fee cost ~$0</td><td></td></tr>`;
+      costRows += `<tr class="sep"><td><strong>Total Cost</strong></td><td><strong>${fmtMoney(s.total_cost, cur)}</strong></td></tr>`;
+    } else {
+      costRows += `<tr class="dim"><td>No cost data (management only)</td><td>—</td></tr>`;
+      costRows += `<tr class="sep"><td><strong>Total Cost</strong></td><td><strong>${fmtMoney(0, cur)}</strong></td></tr>`;
+    }
+    document.getElementById('sb-costs-table').innerHTML = costRows;
+    document.getElementById('sb-costs').style.display = '';
+
+    // Margin
+    const pctClass = s.margin_pct == null ? '' : s.margin_pct >= 10 ? 'margin-pos' : 'margin-neg';
+    document.getElementById('sb-margin-table').innerHTML = `
+      <tr class="${pctClass}"><td>Margin $</td><td>${fmtMoney(s.margin, cur)}</td></tr>
+      <tr class="${pctClass}"><td>Margin %</td><td>${s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—'}</td></tr>
+      <tr class="dim sep"><td>Billing period</td><td>${esc(s.billing_period_label || '—')}</td></tr>`;
+    document.getElementById('sb-margin-card').style.display = '';
+  }
+
+  function renderSidebarPhysical(s, cur) {
     // Revenue
     document.getElementById('sb-revenue-table').innerHTML = `
       <tr class="highlight"><td>MRC</td><td>${fmtMoney(s.mrc, cur)}</td></tr>`;
@@ -228,7 +279,7 @@
 
     // Costs
     const oh = s.overhead || {};
-    const kw  = s.watts ? (s.watts / 1000).toFixed(3) : null;
+    const kw = s.watts ? (s.watts / 1000).toFixed(3) : null;
     let costRows = '';
 
     costRows += `<tr><td>HW amortization</td><td>${fmtMoney(s.hw_amortized, cur)}</td></tr>`;
@@ -242,12 +293,12 @@
       costRows += `<tr><td>Power</td><td>${fmtMoney(oh.power_per_kw, cur)}</td></tr>`;
       if (kw) costRows += `<tr class="dim indent"><td>${kw} kW</td><td></td></tr>`;
     }
-    if (oh.dc_equipment != null) costRows += `<tr><td>DC Equipment</td><td>${fmtMoney(oh.dc_equipment, cur)}</td></tr>`;
+    if (oh.dc_equipment != null)     costRows += `<tr><td>DC Equipment</td><td>${fmtMoney(oh.dc_equipment, cur)}</td></tr>`;
     if (oh.network_equipment != null) costRows += `<tr><td>Network Equipment</td><td>${fmtMoney(oh.network_equipment, cur)}</td></tr>`;
-    if (oh.dc_ops != null) costRows += `<tr><td>DC Operations</td><td>${fmtMoney(oh.dc_ops, cur)}</td></tr>`;
-    if (oh.support_ops != null) costRows += `<tr><td>Support Ops</td><td>${fmtMoney(oh.support_ops, cur)}</td></tr>`;
-    if (oh.network_ops != null) costRows += `<tr><td>Network Ops</td><td>${fmtMoney(oh.network_ops, cur)}</td></tr>`;
-    if (oh.compute_ops != null) costRows += `<tr><td>Compute Ops</td><td>${fmtMoney(oh.compute_ops, cur)}</td></tr>`;
+    if (oh.dc_ops != null)           costRows += `<tr><td>DC Operations</td><td>${fmtMoney(oh.dc_ops, cur)}</td></tr>`;
+    if (oh.support_ops != null)      costRows += `<tr><td>Support Ops</td><td>${fmtMoney(oh.support_ops, cur)}</td></tr>`;
+    if (oh.network_ops != null)      costRows += `<tr><td>Network Ops</td><td>${fmtMoney(oh.network_ops, cur)}</td></tr>`;
+    if (oh.compute_ops != null)      costRows += `<tr><td>Compute Ops</td><td>${fmtMoney(oh.compute_ops, cur)}</td></tr>`;
 
     const directTotal = Object.values(oh).reduce((a, v) => a + (v || 0), 0);
     costRows += `<tr class="sep"><td>Subtotal Direct</td><td>${fmtMoney(directTotal, cur)}</td></tr>`;
@@ -270,11 +321,6 @@
       <tr class="${pctClass}"><td>Margin %</td><td>${s.margin_pct != null ? s.margin_pct.toFixed(1) + '%' : '—'}</td></tr>
       <tr class="dim sep"><td>Biggest cost driver</td><td>${biggestLabel}</td></tr>`;
     document.getElementById('sb-margin-card').style.display = '';
-
-    // Renewal link
-    const link = document.getElementById('sb-renewal-link');
-    link.href = `/renewal/${s.service_id}`;
-    link.style.display = '';
   }
 
   const _SYM = { USD: '$', CAD: '$', GBP: '£', EUR: '€' };
