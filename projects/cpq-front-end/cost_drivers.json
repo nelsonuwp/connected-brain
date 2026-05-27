@@ -20,8 +20,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 75,
+            "measure": "per_device",
+            "hrs_per_month": 0.9392,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -50,8 +52,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 23,
+            "measure": "per_device",
+            "hrs_per_month": 0.2864,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -80,8 +84,426 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
+            "amount": 3,
+            "measure": "per_device",
+            "hrs_per_month": 0.0384,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
             "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "loadbalancer": {
+          "power_per_kw": {
+            "amount": 337,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 27,
+            "measure": "per_device",
+            "hrs_per_month": 0.3315,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "SAN": {
+          "power_per_kw": {
+            "amount": 337,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 2,
+            "measure": "per_device",
+            "hrs_per_month": 0.0209,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "private rack": {
+          "power_per_kw": {
+            "amount": 337,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0824,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "colocation": {
+          "power_per_kw": {
+            "amount": 337,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 12,
+            "measure": "per_device",
+            "hrs_per_month": 0.1467,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Connectivity": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 11,
+            "measure": "per_device",
+            "hrs_per_month": 0.1357,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "bandwidth": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 6,
+            "measure": "per_device",
+            "hrs_per_month": 0.0714,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Virtual": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 34,
+            "measure": "per_device",
+            "hrs_per_month": 0.431,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "IaaS": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0915,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "clustering": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0928,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "backup": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 1,
+            "measure": "per_device",
+            "hrs_per_month": 0.0166,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Public Cloud": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 29,
+            "measure": "per_device",
+            "hrs_per_month": 0.3621,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Security": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 25,
+            "measure": "per_device",
+            "hrs_per_month": 0.3099,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Managed Services": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 9,
+            "measure": "per_device",
+            "hrs_per_month": 0.1157,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -117,8 +539,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 75,
+            "measure": "per_device",
+            "hrs_per_month": 0.9392,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -147,8 +571,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 23,
+            "measure": "per_device",
+            "hrs_per_month": 0.2864,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -177,8 +603,426 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
+            "amount": 3,
+            "measure": "per_device",
+            "hrs_per_month": 0.0384,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
             "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "loadbalancer": {
+          "power_per_kw": {
+            "amount": 110,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 27,
+            "measure": "per_device",
+            "hrs_per_month": 0.3315,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "SAN": {
+          "power_per_kw": {
+            "amount": 110,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 2,
+            "measure": "per_device",
+            "hrs_per_month": 0.0209,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "private rack": {
+          "power_per_kw": {
+            "amount": 110,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0824,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "colocation": {
+          "power_per_kw": {
+            "amount": 110,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 12,
+            "measure": "per_device",
+            "hrs_per_month": 0.1467,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Connectivity": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 11,
+            "measure": "per_device",
+            "hrs_per_month": 0.1357,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "bandwidth": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 6,
+            "measure": "per_device",
+            "hrs_per_month": 0.0714,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Virtual": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 34,
+            "measure": "per_device",
+            "hrs_per_month": 0.431,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "IaaS": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0915,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "clustering": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0928,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "backup": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 1,
+            "measure": "per_device",
+            "hrs_per_month": 0.0166,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Public Cloud": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 29,
+            "measure": "per_device",
+            "hrs_per_month": 0.3621,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Security": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 25,
+            "measure": "per_device",
+            "hrs_per_month": 0.3099,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Managed Services": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 9,
+            "measure": "per_device",
+            "hrs_per_month": 0.1157,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -215,8 +1059,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 75,
+            "measure": "per_device",
+            "hrs_per_month": 0.9392,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -245,8 +1091,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 23,
+            "measure": "per_device",
+            "hrs_per_month": 0.2864,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -275,8 +1123,426 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
+            "amount": 3,
+            "measure": "per_device",
+            "hrs_per_month": 0.0384,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
             "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "loadbalancer": {
+          "power_per_kw": {
+            "amount": 457,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 27,
+            "measure": "per_device",
+            "hrs_per_month": 0.3315,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "SAN": {
+          "power_per_kw": {
+            "amount": 457,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 2,
+            "measure": "per_device",
+            "hrs_per_month": 0.0209,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "private rack": {
+          "power_per_kw": {
+            "amount": 457,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0824,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "colocation": {
+          "power_per_kw": {
+            "amount": 457,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 12,
+            "measure": "per_device",
+            "hrs_per_month": 0.1467,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Connectivity": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 11,
+            "measure": "per_device",
+            "hrs_per_month": 0.1357,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "bandwidth": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 6,
+            "measure": "per_device",
+            "hrs_per_month": 0.0714,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Virtual": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 34,
+            "measure": "per_device",
+            "hrs_per_month": 0.431,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "IaaS": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0915,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "clustering": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0928,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "backup": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 1,
+            "measure": "per_device",
+            "hrs_per_month": 0.0166,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Public Cloud": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 29,
+            "measure": "per_device",
+            "hrs_per_month": 0.3621,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Security": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 25,
+            "measure": "per_device",
+            "hrs_per_month": 0.3099,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Managed Services": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 9,
+            "measure": "per_device",
+            "hrs_per_month": 0.1157,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -313,8 +1579,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 75,
+            "measure": "per_device",
+            "hrs_per_month": 0.9392,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -343,8 +1611,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 23,
+            "measure": "per_device",
+            "hrs_per_month": 0.2864,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -373,8 +1643,426 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
+            "amount": 3,
+            "measure": "per_device",
+            "hrs_per_month": 0.0384,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
             "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "loadbalancer": {
+          "power_per_kw": {
+            "amount": 48,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 27,
+            "measure": "per_device",
+            "hrs_per_month": 0.3315,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "SAN": {
+          "power_per_kw": {
+            "amount": 48,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 2,
+            "measure": "per_device",
+            "hrs_per_month": 0.0209,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "private rack": {
+          "power_per_kw": {
+            "amount": 48,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0824,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "colocation": {
+          "power_per_kw": {
+            "amount": 48,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 12,
+            "measure": "per_device",
+            "hrs_per_month": 0.1467,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Connectivity": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 11,
+            "measure": "per_device",
+            "hrs_per_month": 0.1357,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "bandwidth": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 6,
+            "measure": "per_device",
+            "hrs_per_month": 0.0714,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Virtual": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 34,
+            "measure": "per_device",
+            "hrs_per_month": 0.431,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "IaaS": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0915,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "clustering": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0928,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "backup": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 1,
+            "measure": "per_device",
+            "hrs_per_month": 0.0166,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Public Cloud": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 29,
+            "measure": "per_device",
+            "hrs_per_month": 0.3621,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Security": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 25,
+            "measure": "per_device",
+            "hrs_per_month": 0.3099,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Managed Services": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 9,
+            "measure": "per_device",
+            "hrs_per_month": 0.1157,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -410,8 +2098,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 75,
+            "measure": "per_device",
+            "hrs_per_month": 0.9392,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -440,8 +2130,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 23,
+            "measure": "per_device",
+            "hrs_per_month": 0.2864,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -470,8 +2162,426 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
+            "amount": 3,
+            "measure": "per_device",
+            "hrs_per_month": 0.0384,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
             "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "loadbalancer": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 27,
+            "measure": "per_device",
+            "hrs_per_month": 0.3315,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "SAN": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 2,
+            "measure": "per_device",
+            "hrs_per_month": 0.0209,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "private rack": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0824,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "colocation": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 12,
+            "measure": "per_device",
+            "hrs_per_month": 0.1467,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Connectivity": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 11,
+            "measure": "per_device",
+            "hrs_per_month": 0.1357,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "bandwidth": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 6,
+            "measure": "per_device",
+            "hrs_per_month": 0.0714,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Virtual": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 34,
+            "measure": "per_device",
+            "hrs_per_month": 0.431,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "IaaS": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0915,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "clustering": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0928,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "backup": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 1,
+            "measure": "per_device",
+            "hrs_per_month": 0.0166,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Public Cloud": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 29,
+            "measure": "per_device",
+            "hrs_per_month": 0.3621,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Security": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 25,
+            "measure": "per_device",
+            "hrs_per_month": 0.3099,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Managed Services": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 9,
+            "measure": "per_device",
+            "hrs_per_month": 0.1157,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -491,38 +2601,523 @@
     "CRO": {
       "costs": {
         "firewall": {
-          "power_per_kw":       { "amount": 46,  "measure": "per_kw"     },
-          "dc_equipment":       { "amount": 0,   "measure": "per_device" },
-          "network_equipment":  { "amount": 59,  "measure": "per_device" },
-          "dc_ops":             { "amount": 27,  "measure": "per_device" },
-          "support_ops":        { "amount": 40,  "measure": "per_device" },
-          "network_ops":        { "amount": 0,   "measure": "per_device" },
-          "compute_ops":        { "amount": 0,   "measure": "per_device" }
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 75,
+            "measure": "per_device",
+            "hrs_per_month": 0.9392,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
         },
         "server": {
-          "power_per_kw":       { "amount": 46,  "measure": "per_kw"     },
-          "dc_equipment":       { "amount": 0,   "measure": "per_device" },
-          "network_equipment":  { "amount": 59,  "measure": "per_device" },
-          "dc_ops":             { "amount": 27,  "measure": "per_device" },
-          "support_ops":        { "amount": 40,  "measure": "per_device" },
-          "network_ops":        { "amount": 0,   "measure": "per_device" },
-          "compute_ops":        { "amount": 0,   "measure": "per_device" }
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 23,
+            "measure": "per_device",
+            "hrs_per_month": 0.2864,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
         },
         "switch": {
-          "power_per_kw":       { "amount": 46,  "measure": "per_kw"     },
-          "dc_equipment":       { "amount": 0,   "measure": "per_device" },
-          "network_equipment":  { "amount": 59,  "measure": "per_device" },
-          "dc_ops":             { "amount": 27,  "measure": "per_device" },
-          "support_ops":        { "amount": 40,  "measure": "per_device" },
-          "network_ops":        { "amount": 0,   "measure": "per_device" },
-          "compute_ops":        { "amount": 0,   "measure": "per_device" }
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 3,
+            "measure": "per_device",
+            "hrs_per_month": 0.0384,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "loadbalancer": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 27,
+            "measure": "per_device",
+            "hrs_per_month": 0.3315,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "SAN": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 2,
+            "measure": "per_device",
+            "hrs_per_month": 0.0209,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "private rack": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0824,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "colocation": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 12,
+            "measure": "per_device",
+            "hrs_per_month": 0.1467,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Connectivity": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 11,
+            "measure": "per_device",
+            "hrs_per_month": 0.1357,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "bandwidth": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 6,
+            "measure": "per_device",
+            "hrs_per_month": 0.0714,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Virtual": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 34,
+            "measure": "per_device",
+            "hrs_per_month": 0.431,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "IaaS": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0915,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "clustering": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0928,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "backup": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 1,
+            "measure": "per_device",
+            "hrs_per_month": 0.0166,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Public Cloud": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 29,
+            "measure": "per_device",
+            "hrs_per_month": 0.3621,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Security": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 25,
+            "measure": "per_device",
+            "hrs_per_month": 0.3099,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Managed Services": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 9,
+            "measure": "per_device",
+            "hrs_per_month": 0.1157,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
         }
       },
       "fusion_dc_abbr": "CRO",
       "fusion_dc_id": null,
       "name": "Crawley",
       "native_currency": "GBP",
-      "note": "Costs copied from POR — verify actual CRO figures"
+      "note": "Costs copied from POR \u2014 verify actual CRO figures"
     },
     "POR": {
       "costs": {
@@ -544,8 +3139,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 75,
+            "measure": "per_device",
+            "hrs_per_month": 0.9392,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -574,8 +3171,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 23,
+            "measure": "per_device",
+            "hrs_per_month": 0.2864,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -604,8 +3203,426 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
+            "amount": 3,
+            "measure": "per_device",
+            "hrs_per_month": 0.0384,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
             "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "loadbalancer": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 27,
+            "measure": "per_device",
+            "hrs_per_month": 0.3315,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "SAN": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 2,
+            "measure": "per_device",
+            "hrs_per_month": 0.0209,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "private rack": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0824,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "colocation": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 12,
+            "measure": "per_device",
+            "hrs_per_month": 0.1467,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Connectivity": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 11,
+            "measure": "per_device",
+            "hrs_per_month": 0.1357,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "bandwidth": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 59,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 6,
+            "measure": "per_device",
+            "hrs_per_month": 0.0714,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Virtual": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 34,
+            "measure": "per_device",
+            "hrs_per_month": 0.431,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "IaaS": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0915,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "clustering": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0928,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "backup": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 1,
+            "measure": "per_device",
+            "hrs_per_month": 0.0166,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Public Cloud": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 29,
+            "measure": "per_device",
+            "hrs_per_month": 0.3621,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Security": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 25,
+            "measure": "per_device",
+            "hrs_per_month": 0.3099,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Managed Services": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 9,
+            "measure": "per_device",
+            "hrs_per_month": 0.1157,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -642,8 +3659,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 75,
+            "measure": "per_device",
+            "hrs_per_month": 0.9392,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -672,8 +3691,10 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
-            "measure": "per_device"
+            "amount": 23,
+            "measure": "per_device",
+            "hrs_per_month": 0.2864,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -702,8 +3723,426 @@
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 40,
+            "amount": 3,
+            "measure": "per_device",
+            "hrs_per_month": 0.0384,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
             "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "loadbalancer": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 27,
+            "measure": "per_device",
+            "hrs_per_month": 0.3315,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "SAN": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 2,
+            "measure": "per_device",
+            "hrs_per_month": 0.0209,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "private rack": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0824,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "colocation": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 12,
+            "measure": "per_device",
+            "hrs_per_month": 0.1467,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Connectivity": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 11,
+            "measure": "per_device",
+            "hrs_per_month": 0.1357,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "bandwidth": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 6,
+            "measure": "per_device",
+            "hrs_per_month": 0.0714,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Virtual": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 34,
+            "measure": "per_device",
+            "hrs_per_month": 0.431,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "IaaS": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0915,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "clustering": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 7,
+            "measure": "per_device",
+            "hrs_per_month": 0.0928,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "backup": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 1,
+            "measure": "per_device",
+            "hrs_per_month": 0.0166,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Public Cloud": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 29,
+            "measure": "per_device",
+            "hrs_per_month": 0.3621,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Security": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 25,
+            "measure": "per_device",
+            "hrs_per_month": 0.3099,
+            "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "Managed Services": {
+          "power_per_kw": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 9,
+            "measure": "per_device",
+            "hrs_per_month": 0.1157,
+            "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
             "amount": 0,
@@ -721,9 +4160,12 @@
       "native_currency": "CAD"
     }
   },
-  "notes": "DC cost overheads from CPQ finance spreadsheet. People cost lines are 0 pending data. Support = $80/hr rate, 0.5hr assumed per server per month = $40/server/month. Fusion sb_datacenter IDs included for pricebook joins.",
+  "notes": "DC cost overheads from CPQ finance spreadsheet. support_ops amounts derived from 6-month Jira worklog analysis (Nov 2025\u2013May 2026): clean rate (P90 outliers removed) \u00d7 2.16\u00d7 overhead multiplier \u00d7 $80/hr. hrs_per_month and source fields added per service type for auditability. network_ops and compute_ops reserved at $0 pending specialist labour-rate data \u2014 firewall/switch/connectivity/loadbalancer should carry network_ops; Virtual/IaaS/clustering/backup should carry compute_ops. power_per_kw=0 for virtual/cloud/software services (power is in host server cost). Fusion sb_datacenter IDs included for pricebook joins.",
   "overhead_constants": {
-    "sga_pct": 0.082
+    "sga_pct": 0.082,
+    "support_hourly_rate_usd": 80,
+    "support_overhead_multiplier": 2.16,
+    "support_data_source": "jira_allocation_model_20251101_to_20260527"
   },
-  "version": "2026-05-13"
+  "version": "2026-05-27"
 }
