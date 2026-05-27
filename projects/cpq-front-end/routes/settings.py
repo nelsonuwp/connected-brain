@@ -56,6 +56,14 @@ def settings_overhead_post():
     except (TypeError, ValueError):
         return jsonify({"error": "sga_pct must be a number"}), 400
 
+    rate = data.get("overhead_constants", {}).get("service_desk_rate_cad")
+    if rate is not None:
+        try:
+            if float(rate) < 0:
+                return jsonify({"error": "service_desk_rate_cad must be >= 0"}), 400
+        except (TypeError, ValueError):
+            return jsonify({"error": "service_desk_rate_cad must be a number"}), 400
+
     for dc_abbr, dc in data.get("data_centers", {}).items():
         for svc_type, svc_costs in dc.get("costs", {}).items():
             for key, entry in svc_costs.items():

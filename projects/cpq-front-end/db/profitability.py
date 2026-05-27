@@ -314,6 +314,22 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
             service_type=svc_type,
         )
 
+        # Override support_ops with actual JSM hours if available
+        sid = service["service_id"]
+        jsm_h = jsm_hours.get(sid)
+        support_ops_hours = None
+        if jsm_h is not None and "support_ops" in (margin_data.get("overhead") or {}):
+            rate_cad = COST_DRIVERS["overhead_constants"].get("service_desk_rate_cad", 0) or 0
+            fx_cad = get_fx("CAD", currency) if currency != "CAD" else 1.0
+            actual_support_cost = round(jsm_h * rate_cad * fx_cad, 2)
+            old_support_cost = margin_data["overhead"].get("support_ops") or 0
+            margin_data["overhead"]["support_ops"] = actual_support_cost
+            delta = actual_support_cost - old_support_cost
+            margin_data["total_cost"] = round(margin_data["total_cost"] + delta, 2)
+            margin_data["margin"]     = round(margin_data["margin"] - delta, 2)
+            margin_data["margin_pct"] = round(margin_data["margin"] / mrc * 100, 1) if mrc > 0 else 0.0
+            support_ops_hours = round(jsm_h, 2)
+
         missing: list[str] = []
         if not fid:
             missing.append("No Fusion ID — HW cost and power data unavailable")
@@ -330,6 +346,7 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
         result_map[service["service_id"]] = {
             **service, **margin_data,
             "is_cloud": False,
+            "support_ops_hours": support_ops_hours,
             "missing_data": missing,
         }
 

@@ -224,6 +224,11 @@
         <input type="number" id="sga-pct" step="0.01" min="0" max="100" placeholder="8.2" />
         <div class="field-hint">% of total MRC — applies to all DCs &amp; types</div>
       </div>
+      <div class="global-field">
+        <label for="support-rate">Support Ops $/hr (CAD)</label>
+        <input type="number" id="support-rate" step="1" min="0" placeholder="100" />
+        <div class="field-hint">Hourly rate in CAD — multiplied by actual JSM hours per service per month</div>
+      </div>
     </div>
 
     <div class="action-bar">
@@ -269,6 +274,8 @@ async function loadData() {
   renderTable();
   document.getElementById('sga-pct').value =
     ((_data.overhead_constants.sga_pct || 0) * 100).toFixed(4).replace(/\.?0+$/, '');
+  document.getElementById('support-rate').value =
+    (_data.overhead_constants.service_desk_rate_cad ?? '');
 }
 
 // ── Tabs ──────────────────────────────────────────────────────────────────
@@ -420,6 +427,10 @@ async function saveSettings() {
 
   const sgaRaw = parseFloat(document.getElementById('sga-pct').value) || 0;
   payload.overhead_constants.sga_pct = parseFloat((sgaRaw / 100).toFixed(6));
+  const rateRaw = parseFloat(document.getElementById('support-rate').value);
+  if (!isNaN(rateRaw) && rateRaw >= 0) {
+    payload.overhead_constants.service_desk_rate_cad = rateRaw;
+  }
 
   try {
     const res = await fetch('/api/settings/overhead', {
@@ -455,6 +466,8 @@ async function resetForm() {
   fillValues();
   document.getElementById('sga-pct').value =
     ((_data.overhead_constants.sga_pct || 0) * 100).toFixed(4).replace(/\.?0+$/, '');
+  document.getElementById('support-rate').value =
+    (_data.overhead_constants.service_desk_rate_cad ?? '');
   document.querySelectorAll('#cost-tbody input').forEach(i => i.classList.remove('modified'));
   renderTabs();
   showToast('Reset to saved values', 'ok');

@@ -296,7 +296,10 @@
     if (oh.dc_equipment != null)     costRows += `<tr><td>DC Equipment</td><td>${fmtMoney(oh.dc_equipment, cur)}</td></tr>`;
     if (oh.network_equipment != null) costRows += `<tr><td>Network Equipment</td><td>${fmtMoney(oh.network_equipment, cur)}</td></tr>`;
     if (oh.dc_ops != null)           costRows += `<tr><td>DC Operations</td><td>${fmtMoney(oh.dc_ops, cur)}</td></tr>`;
-    if (oh.support_ops != null)      costRows += `<tr><td>Support Ops</td><td>${fmtMoney(oh.support_ops, cur)}</td></tr>`;
+    if (oh.support_ops != null) {
+      const hoursLabel = s.support_ops_hours != null ? ` (${s.support_ops_hours.toFixed(2)}h)` : '';
+      costRows += `<tr><td>Support Ops${hoursLabel}</td><td>${fmtMoney(oh.support_ops, cur)}</td></tr>`;
+    }
     if (oh.network_ops != null)      costRows += `<tr><td>Network Ops</td><td>${fmtMoney(oh.network_ops, cur)}</td></tr>`;
     if (oh.compute_ops != null)      costRows += `<tr><td>Compute Ops</td><td>${fmtMoney(oh.compute_ops, cur)}</td></tr>`;
 
