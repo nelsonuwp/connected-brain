@@ -78,7 +78,7 @@ def calc_service_margin(
     direct_total = round(sum(overhead_amounts.values()), 2)
     total_cost = round(hw_amortized + direct_total + sga, 2)
     margin = round(mrc - total_cost, 2)
-    margin_pct = round(margin / mrc * 100, 1) if mrc > 0 else 0.0
+    margin_pct = round(margin / mrc * 100, 1) if mrc > 0 else None
 
     all_components = {"hw_amortized": hw_amortized, **overhead_amounts, "sga": sga}
     biggest = max(all_components, key=lambda k: all_components[k]) if any(v > 0 for v in all_components.values()) else None
@@ -273,8 +273,13 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
     _progress(f"Power data found for {sum(1 for v in watts_map.values() if v)} services", None)
 
     _progress(f"Loading JSM support hours…", "PostgreSQL · jsm_sync")
-    jsm_hours = get_support_hours_batch(service_ids) if service_ids else {}
-    _progress(f"Support hours found for {len(jsm_hours)} of {len(service_ids)} services", None)
+    jsm_result   = get_support_hours_batch(service_ids) if service_ids else None
+    jsm_available = jsm_result is not None
+    jsm_hours    = jsm_result or {}
+    if jsm_available:
+        _progress(f"Support hours found for {len(jsm_hours)} of {len(service_ids)} services", None)
+    else:
+        _progress("JSM data unavailable — using projected rates", None)
 
     fx_cache: dict[tuple[str, str], float] = {}
 
@@ -314,11 +319,13 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
             service_type=svc_type,
         )
 
-        # Override support_ops with actual JSM hours if available
+        # Override support_ops with actual JSM hours when JSM is available.
+        # jsm_available=True means JSM responded; default to 0.0 for services with no tickets.
+        # jsm_available=False means JSM is down/unconfigured; keep flat rate, show no hours.
         sid = service["service_id"]
-        jsm_h = jsm_hours.get(sid)
         support_ops_hours = None
-        if jsm_h is not None and "support_ops" in (margin_data.get("overhead") or {}):
+        if jsm_available and "support_ops" in (margin_data.get("overhead") or {}):
+            jsm_h = jsm_hours.get(sid, 0.0)
             rate_cad = COST_DRIVERS["overhead_constants"].get("service_desk_rate_cad", 0) or 0
             fx_cad = get_fx("CAD", currency) if currency != "CAD" else 1.0
             actual_support_cost = round(jsm_h * rate_cad * fx_cad, 2)
@@ -327,7 +334,7 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
             delta = actual_support_cost - old_support_cost
             margin_data["total_cost"] = round(margin_data["total_cost"] + delta, 2)
             margin_data["margin"]     = round(margin_data["margin"] - delta, 2)
-            margin_data["margin_pct"] = round(margin_data["margin"] / mrc * 100, 1) if mrc > 0 else 0.0
+            margin_data["margin_pct"] = round(margin_data["margin"] / mrc * 100, 1) if mrc > 0 else None
             support_ops_hours = round(jsm_h, 2)
 
         missing: list[str] = []
@@ -398,7 +405,7 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
                 missing      = [] if billing or not is_first else ["Azure billing data unavailable"]
 
             margin     = round(total_mrc - total_cost, 2)
-            margin_pct = round(margin / total_mrc * 100, 1) if total_mrc > 0 else 0.0
+            margin_pct = round(margin / total_mrc * 100, 1) if total_mrc > 0 else None
 
             result_map[service["service_id"]] = {
                 **service,

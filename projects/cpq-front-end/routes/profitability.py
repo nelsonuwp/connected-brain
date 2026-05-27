@@ -7,6 +7,8 @@ from flask import Blueprint, Response, jsonify, render_template, request, stream
 from db.profitability import (build_profitability_data, get_active_services,
                               get_profitability_filter_options)
 from db.mssql import get_fx_rate
+from db.jsm import get_support_hours_by_month
+from lib.overhead import COST_DRIVERS
 
 profitability_bp = Blueprint("profitability", __name__)
 
@@ -144,6 +146,29 @@ def api_profitability_customer(client_id):
     summary["client_id"]       = client_id
     summary["auto_currency"]   = auto_currency
 
+    # Rolling 3-month support cost for the summary card
+    phys_ids = [s["service_id"] for s in services if not (s.get("service_type") or "").strip() == "Public Cloud"]
+    monthly_hours = get_support_hours_by_month(phys_ids, months=3) if phys_ids else []
+    if monthly_hours:
+        rate_cad = COST_DRIVERS["overhead_constants"].get("service_desk_rate_cad", 0) or 0
+        disp_cur = effective_currency or "USD"
+        fx_cad = get_fx_rate("CAD", disp_cur) if disp_cur != "CAD" else 1.0
+        support_monthly = [
+            {"period": m["period"], "hours": round(m["hours"], 2),
+             "cost": round(m["hours"] * rate_cad * fx_cad, 2)}
+            for m in monthly_hours
+        ]
+        avg_cost  = round(sum(m["cost"]  for m in support_monthly) / len(support_monthly), 2)
+        avg_hours = round(sum(m["hours"] for m in support_monthly) / len(support_monthly), 2)
+        summary["support_cost_monthly"] = {
+            "months": support_monthly,
+            "avg_cost": avg_cost,
+            "avg_hours": avg_hours,
+            "currency": disp_cur,
+        }
+    else:
+        summary["support_cost_monthly"] = None
+
     serialized = []
     for svc in enriched:
         s = dict(svc)
@@ -277,10 +302,12 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
                 "account_manager": svc.get("account_manager") or "",
                 "service_count":   0,
                 "currencies":      set(),
-                "mrc":        0.0,
-                "total_cost": 0.0,
-                "margin":     0.0,
-                "warnings":   set(),
+                "mrc":             0.0,
+                "total_cost":      0.0,
+                "margin":          0.0,
+                "support_hours":   0.0,
+                "support_hours_available": False,
+                "warnings":        set(),
             }
         g = groups[cid]
         g["service_count"] += 1
@@ -288,6 +315,10 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
         g["mrc"]        += svc["mrc"]
         g["total_cost"] += svc["total_cost"]
         g["margin"]     += svc["margin"]
+        h = svc.get("support_ops_hours")
+        if h is not None:
+            g["support_hours"] += h
+            g["support_hours_available"] = True
         for w in (svc.get("missing_data") or []):
             g["warnings"].add(w)
 

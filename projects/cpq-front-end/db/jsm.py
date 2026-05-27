@@ -103,20 +103,19 @@ def get_support_hours_by_month(service_ids: list[int], months: int = 3) -> list[
         return []
 
 
-def get_support_hours_batch(service_ids: list[int]) -> dict[int, float]:
+def get_support_hours_batch(service_ids: list[int]) -> dict[int, float] | None:
     """
     Return hours logged against each service_id during the last complete calendar month.
 
-    Queries jsm_sync: ticket_worklogs ← ticket_assets ← assets.service_id.
-    Returns dict[service_id (int) → hours (float)].
-    Services with no logged hours are absent from the result.
+    Returns dict[service_id → hours] on success (services with no hours are absent but
+    callers should default to 0.0, not None, to distinguish "0 hours" from "unavailable").
+    Returns None when JSM is unconfigured or the query fails.
     """
     if not _configured() or not service_ids:
-        return {}
+        return None
     try:
         conn = _get_conn()
         start_date, end_date = _billing_period()
-
         str_ids = [str(sid) for sid in service_ids]
         with conn.cursor() as cur:
             cur.execute(
@@ -136,8 +135,7 @@ def get_support_hours_batch(service_ids: list[int]) -> dict[int, float]:
                 (start_date, end_date, str_ids),
             )
             rows = cur.fetchall()
-
         return {int(r["service_id"]): float(r["hours"]) for r in rows}
     except Exception:
         logger.exception("get_support_hours_batch: error")
-        return {}
+        return None
