@@ -78,28 +78,46 @@ def _billing_period() -> tuple[str, str]:
     return f"{year:04d}-{month:02d}-01", f"{next_y:04d}-{next_m:02d}-01"
 
 
-def get_support_hours_batch(service_ids: list[int]) -> dict[int, float] | None:
+def get_support_hours_batch(service_ids: list[int]) -> dict[int, dict] | None:
     """
-    Return hours logged against each service_id during the last complete calendar month.
+    Return hours for the last 2 complete calendar months per service_id in one query.
 
-    Hours for multi-asset tickets are divided by the number of assets on that ticket.
-    Returns dict[service_id → hours] on success; None if JSM is unavailable.
-    Services with no logged hours are absent from the dict (callers should default to 0.0).
+    Returns dict[service_id → {"current": float, "prev": float}] on success.
+    Services absent from the dict had 0 hours in both months.
+    Returns None when JSM is unconfigured or the query fails.
     """
     if not _configured() or not service_ids:
         return None
     try:
         conn = _get_conn()
-        start_date, end_date = _billing_period()
+        curr_start, curr_end = _billing_period()
+        # Previous month boundaries
+        y, m = int(curr_start[:4]), int(curr_start[5:7])
+        pm, py = (m - 1, y) if m > 1 else (12, y - 1)
+        prev_start = f"{py:04d}-{pm:02d}-01"
+
         str_ids = [str(sid) for sid in service_ids]
         with conn.cursor() as cur:
             cur.execute(
-                _HOURS_CTE + "SELECT a.service_id," + _HOURS_SELECT +
-                " GROUP BY a.service_id",
-                (start_date, end_date, str_ids),
+                _HOURS_CTE +
+                """
+                SELECT
+                    a.service_id,
+                    TO_CHAR(DATE_TRUNC('month', w.started_at), 'YYYY-MM') AS period,
+                    """ + _HOURS_SELECT.replace("SELECT", "").strip() +
+                " GROUP BY a.service_id, DATE_TRUNC('month', w.started_at)",
+                (prev_start, curr_end, str_ids),
             )
             rows = cur.fetchall()
-        return {int(r["service_id"]): float(r["hours"]) for r in rows}
+
+        result: dict[int, dict] = {}
+        for r in rows:
+            sid = int(r["service_id"])
+            if sid not in result:
+                result[sid] = {"current": 0.0, "prev": 0.0}
+            key = "current" if r["period"] == curr_start[:7] else "prev"
+            result[sid][key] = float(r["hours"])
+        return result
     except Exception:
         logger.exception("get_support_hours_batch: error")
         return None

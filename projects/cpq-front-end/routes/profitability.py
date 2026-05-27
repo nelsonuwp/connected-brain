@@ -305,7 +305,8 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
                 "mrc":             0.0,
                 "total_cost":      0.0,
                 "margin":          0.0,
-                "support_hours":   0.0,
+                "support_hours":       0.0,
+                "support_hours_prev":  0.0,
                 "support_hours_available": False,
                 "warnings":        set(),
             }
@@ -318,6 +319,7 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
         h = svc.get("support_ops_hours")
         if h is not None:
             g["support_hours"] += h
+            g["support_hours_prev"] += svc.get("support_ops_hours_prev") or 0.0
             g["support_hours_available"] = True
         for w in (svc.get("missing_data") or []):
             g["warnings"].add(w)
