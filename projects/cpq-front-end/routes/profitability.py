@@ -316,8 +316,10 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
                 "mrc":             0.0,
                 "total_cost":      0.0,
                 "margin":          0.0,
-                "support_hours":       0.0,
-                "support_hours_prev":  0.0,
+                "support_hours":        0.0,
+                "support_hours_prev":   0.0,
+                "support_hours_prev2":  0.0,
+                "support_hours_periods": None,
                 "support_hours_available": False,
                 "warnings":        set(),
             }
@@ -329,9 +331,12 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
         g["margin"]     += svc["margin"]
         h = svc.get("support_ops_hours")
         if h is not None:
-            g["support_hours"] += h
-            g["support_hours_prev"] += svc.get("support_ops_hours_prev") or 0.0
+            g["support_hours"]       += h
+            g["support_hours_prev"]  += svc.get("support_ops_hours_prev")  or 0.0
+            g["support_hours_prev2"] += svc.get("support_ops_hours_prev2") or 0.0
             g["support_hours_available"] = True
+            if g["support_hours_periods"] is None:
+                g["support_hours_periods"] = svc.get("support_ops_periods")
         for w in (svc.get("missing_data") or []):
             g["warnings"].add(w)
 
@@ -353,9 +358,18 @@ def _aggregate_by_customer(enriched: list[dict], display_currency: str | None) -
             "total_cost":      cost,
             "margin":          margin,
             "margin_pct":      mpct,
-            "support_hours":       round(g["support_hours"], 2) if g["support_hours_available"] else None,
-            "support_hours_prev":  round(g["support_hours_prev"], 2) if g["support_hours_available"] else None,
-            "support_hours_trend": _support_trend(g["support_hours"], g["support_hours_prev"]) if g["support_hours_available"] else None,
+            "support_hours":        round(g["support_hours"], 2) if g["support_hours_available"] else None,
+            "support_hours_prev":   round(g["support_hours_prev"], 2) if g["support_hours_available"] else None,
+            "support_hours_trend":  _support_trend(g["support_hours"], g["support_hours_prev"]) if g["support_hours_available"] else None,
+            "support_hours_months": (
+                [
+                    {"period": p, "hours": h}
+                    for p, h in zip(
+                        g["support_hours_periods"] or ["", "", ""],
+                        [round(g["support_hours_prev2"], 2), round(g["support_hours_prev"], 2), round(g["support_hours"], 2)],
+                    )
+                ] if g["support_hours_available"] and g["support_hours_periods"] else None
+            ),
             "warnings":            sorted(g["warnings"]),
         })
     result.sort(key=lambda x: (x["margin_pct"] is None, x["margin_pct"] or 0))

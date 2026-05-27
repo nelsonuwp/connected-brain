@@ -323,12 +323,15 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
         # jsm_available=True means JSM responded; default to 0.0 for services with no tickets.
         # jsm_available=False means JSM is down/unconfigured; keep flat rate, show no hours.
         sid = service["service_id"]
-        support_ops_hours = None
+        support_ops_hours      = None
         support_ops_hours_prev = None
+        support_ops_hours_prev2 = None
+        support_ops_periods    = None
         if jsm_available and "support_ops" in (margin_data.get("overhead") or {}):
-            entry = jsm_hours.get(sid, {"current": 0.0, "prev": 0.0})
-            jsm_h      = entry.get("current", 0.0)
-            jsm_h_prev = entry.get("prev", 0.0)
+            entry = jsm_hours.get(sid, {"current": 0.0, "prev": 0.0, "prev2": 0.0})
+            jsm_h       = entry.get("current", 0.0)
+            jsm_h_prev  = entry.get("prev", 0.0)
+            jsm_h_prev2 = entry.get("prev2", 0.0)
             rate_cad = COST_DRIVERS["overhead_constants"].get("service_desk_rate_cad", 0) or 0
             fx_cad = get_fx("CAD", currency) if currency != "CAD" else 1.0
             actual_support_cost = round(jsm_h * rate_cad * fx_cad, 2)
@@ -338,8 +341,10 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
             margin_data["total_cost"] = round(margin_data["total_cost"] + delta, 2)
             margin_data["margin"]     = round(margin_data["margin"] - delta, 2)
             margin_data["margin_pct"] = round(margin_data["margin"] / mrc * 100, 1) if mrc > 0 else None
-            support_ops_hours      = round(jsm_h, 2)
-            support_ops_hours_prev = round(jsm_h_prev, 2)
+            support_ops_hours       = round(jsm_h, 2)
+            support_ops_hours_prev  = round(jsm_h_prev, 2)
+            support_ops_hours_prev2 = round(jsm_h_prev2, 2)
+            support_ops_periods     = entry.get("periods")
 
         missing: list[str] = []
         if not fid:
@@ -357,8 +362,10 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
         result_map[service["service_id"]] = {
             **service, **margin_data,
             "is_cloud": False,
-            "support_ops_hours":      support_ops_hours,
-            "support_ops_hours_prev": support_ops_hours_prev,
+            "support_ops_hours":       support_ops_hours,
+            "support_ops_hours_prev":  support_ops_hours_prev,
+            "support_ops_hours_prev2": support_ops_hours_prev2,
+            "support_ops_periods":     support_ops_periods,
             "missing_data": missing,
         }
 

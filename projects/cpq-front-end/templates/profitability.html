@@ -84,6 +84,16 @@
   .prof-table tr:hover { background:var(--surface-2); cursor:pointer; }
   .empty-state { padding:3rem; text-align:center; color:var(--text-3); font-size:.85rem; }
 
+  .tip-wrap { position:relative; display:inline-flex; align-items:center; gap:3px; }
+  .tip-wrap .tip { display:none; position:absolute; bottom:calc(100% + 6px); right:0; z-index:400;
+    background:var(--surface); border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 4px 14px var(--shadow); padding:.55rem .75rem; white-space:nowrap;
+    font-family:'Geist Mono',monospace; font-size:.72rem; color:var(--text-1); }
+  .tip-wrap:hover .tip { display:block; }
+  .tip-row { display:flex; justify-content:space-between; gap:1.25rem; }
+  .tip-row + .tip-row { margin-top:.25rem; }
+  .tip-period { color:var(--text-3); }
+
   .status-log { display:inline-flex; flex-direction:column; gap:.3rem; text-align:left; min-width:420px; }
   .status-log-title { font-size:.72rem; font-weight:700; color:var(--text-2); margin-bottom:.2rem; }
   .status-line { display:flex; align-items:baseline; gap:.6rem; font-size:.75rem; font-family:'Geist Mono',monospace; }
@@ -372,7 +382,7 @@
   document.getElementById('f-currency').addEventListener('change', load);
 
   // ── Cache (stale-while-revalidate) ───────────────────────────────────────
-  const _CACHE_PFX = 'prof_v2_';
+  const _CACHE_PFX = 'prof_v3_';
   const _CACHE_TTL = 15 * 60 * 1000;
 
   function _cacheKey() { return _CACHE_PFX + buildParams().toString(); }
@@ -564,7 +574,17 @@
       const pctCell    = r.margin_pct != null ? r.margin_pct.toFixed(1) + '%' : '—';
       const amCell     = _seg === 'customer' ? `<td>${esc(am)}</td>` : '';
       const supTrend   = _seg === 'customer' ? trendArrow(r.support_hours_trend) : '';
-      const supCell    = r.support_hours != null ? r.support_hours.toFixed(2) + 'h' + supTrend : '—';
+      let supCell;
+      if (r.support_hours == null) {
+        supCell = '—';
+      } else if (_seg === 'customer' && r.support_hours_months) {
+        const tipRows = r.support_hours_months.map(m =>
+          `<div class="tip-row"><span class="tip-period">${esc(m.period)}</span><span>${m.hours.toFixed(2)}h</span></div>`
+        ).join('');
+        supCell = `<span class="tip-wrap">${r.support_hours.toFixed(2)}h${supTrend}<span class="tip">${tipRows}</span></span>`;
+      } else {
+        supCell = r.support_hours.toFixed(2) + 'h' + supTrend;
+      }
 
       return `<tr onclick="window.location='${link}'">
         <td class="name"><span style="display:inline-flex;align-items:center;gap:.35rem">${esc(name)}${warn}</span></td>

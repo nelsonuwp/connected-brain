@@ -21,7 +21,9 @@
 
   /* Service table */
   .svc-table { width:100%; border-collapse:collapse; }
-  .svc-table th { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); padding:.4rem .6rem; text-align:left; border-bottom:2px solid var(--border); white-space:nowrap; }
+  .svc-table th { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); padding:.4rem .6rem; text-align:left; border-bottom:2px solid var(--border); white-space:nowrap; cursor:pointer; user-select:none; }
+  .svc-table th:hover { color:var(--text-1); }
+  .svc-table th.sorted { color:var(--accent); }
   .svc-table th.r { text-align:right; }
   .svc-table td { padding:.55rem .6rem; font-size:.8rem; color:var(--text-2); border-bottom:1px solid var(--border); vertical-align:middle; }
   .svc-table td.name { color:var(--text-1); font-weight:500; }
