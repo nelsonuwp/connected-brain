@@ -13,7 +13,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 21,
@@ -109,7 +110,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 21,
@@ -532,7 +534,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 19,
@@ -628,7 +631,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 19,
@@ -1052,7 +1056,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 21,
@@ -1148,7 +1153,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 21,
@@ -1572,7 +1578,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 28,
@@ -1668,7 +1675,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 28,
@@ -2596,7 +2604,11 @@
       "fusion_dc_abbr": "MTL-BH",
       "fusion_dc_id": 42,
       "name": "Montreal",
-      "native_currency": "CAD"
+      "native_currency": "CAD",
+      "_needs_data": [
+        "network_equipment: $0 \u2014 verify whether these DCs have shared switching costs or whether networking is bundled into the colo/facility contract",
+        "dc_ops: $0 \u2014 verify whether DC ops labor is tracked separately or rolled into facility cost"
+      ]
     },
     "CRO": {
       "costs": {
@@ -2611,7 +2623,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 27,
@@ -2707,7 +2720,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 27,
@@ -3132,7 +3146,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 27,
@@ -3228,7 +3243,8 @@
           },
           "network_equipment": {
             "amount": 59,
-            "measure": "per_device"
+            "measure": "per_device",
+            "_note": "Firewalls and LBs consume 3-4 distribution-switch ports vs 2 for servers. This amount is inherited from the server baseline ($59) but may be 1.5-2x understated. Verify with network team: cost per port on distribution switches \u00d7 avg ports per device."
           },
           "dc_ops": {
             "amount": 27,
@@ -4157,15 +4173,177 @@
       "fusion_dc_abbr": "TOR",
       "fusion_dc_id": 12,
       "name": "Toronto",
-      "native_currency": "CAD"
+      "native_currency": "CAD",
+      "_needs_data": [
+        "network_equipment: $0 \u2014 verify whether these DCs have shared switching costs or whether networking is bundled into the colo/facility contract",
+        "dc_ops: $0 \u2014 verify whether DC ops labor is tracked separately or rolled into facility cost"
+      ]
     }
   },
-  "notes": "DC cost overheads from CPQ finance spreadsheet. support_ops amounts derived from 6-month Jira worklog analysis (Nov 2025\u2013May 2026): clean rate (P90 outliers removed) \u00d7 2.16\u00d7 overhead multiplier \u00d7 $80/hr. hrs_per_month and source fields added per service type for auditability. network_ops and compute_ops reserved at $0 pending specialist labour-rate data \u2014 firewall/switch/connectivity/loadbalancer should carry network_ops; Virtual/IaaS/clustering/backup should carry compute_ops. power_per_kw=0 for virtual/cloud/software services (power is in host server cost). Fusion sb_datacenter IDs included for pricebook joins.",
+  "notes": "DC cost overheads from CPQ finance spreadsheet. support_ops: data-driven from 6-month Jira worklog analysis (Nov 2025\u2013May 2026), clean rate \u00d7 2.16\u00d7 overhead \u00d7 $80/hr. dc_equipment: NOT POPULATED \u2014 hardware amortization missing, see cost_component_methodology. network_ops + compute_ops: NOT POPULATED \u2014 specialist labor untracked, see cost_component_methodology. MTL/TOR: network_equipment and dc_ops may be missing \u2014 see _needs_data flags. capacity_model section added for step-cost planning. Fusion sb_datacenter IDs included for pricebook joins.",
   "overhead_constants": {
     "sga_pct": 0.082,
     "support_hourly_rate_usd": 80,
     "support_overhead_multiplier": 2.16,
     "support_data_source": "jira_allocation_model_20251101_to_20260527"
   },
-  "version": "2026-05-27"
+  "version": "2026-05-27-v2",
+  "cost_component_methodology": {
+    "dc_equipment": {
+      "description": "Hardware amortization \u2014 the monthly cost of owning the physical device itself.",
+      "current_state": "NOT POPULATED \u2014 $0 everywhere. This is a real cost gap.",
+      "formula": "device_purchase_price / useful_life_months",
+      "example": "1U server at $6,000 with 5yr life = $100/month",
+      "applies_to": [
+        "server",
+        "firewall",
+        "switch",
+        "loadbalancer",
+        "SAN",
+        "private rack",
+        "colocation"
+      ],
+      "data_needed": "Asset register or CPQ product cost per device type"
+    },
+    "network_equipment": {
+      "description": "Amortized monthly share of shared switching/routing infrastructure per device.",
+      "current_state": "PARTIALLY POPULATED \u2014 $59 for most USD DCs, $0 for MTL/TOR.",
+      "composition": "Includes: ToR/distribution switch amortization, patch panel hardware, fiber/copper cabling, SFP optics",
+      "formula": "(total_switching_infra_monthly_cost) / total_managed_physical_devices",
+      "port_intensity": {
+        "server": "2 ports (standard dual-home bond) \u2014 baseline",
+        "firewall": "3-4 ports (WAN, LAN, HA, MGMT) \u2014 verify: may be 1.5-2x baseline",
+        "switch": "2 uplink ports on parent distribution switch \u2014 baseline",
+        "loadbalancer": "3-4 ports same as firewall \u2014 verify",
+        "SAN": "2-4 FC or iSCSI ports \u2014 baseline to 2x",
+        "colocation": "0 \u2014 customer manages their own networking",
+        "Virtual": "0 \u2014 vSwitch is software, cost is in host server",
+        "Public Cloud": "0 \u2014 no Aptum infrastructure"
+      },
+      "data_needed": "Finance: total monthly switching capex amortization + maintenance per DC / device count"
+    },
+    "dc_ops": {
+      "description": "DC operations labor \u2014 physical hands, facilities overhead, NOC desk share allocated to physical devices.",
+      "current_state": "PARTIALLY POPULATED \u2014 $19-28 for USD DCs, $0 for MTL/TOR.",
+      "composition": "Includes: DC technician time (hands-and-eyes, racking, cabling), facility overhead (security, HVAC management), amortized across all physical devices in that DC",
+      "formula": "(DC_tech_FTE_count \u00d7 fully_loaded_monthly_salary + facility_overhead_monthly) / total_physical_devices_in_DC",
+      "applies_to": [
+        "server",
+        "firewall",
+        "switch",
+        "loadbalancer",
+        "SAN",
+        "colocation",
+        "private rack"
+      ],
+      "does_not_apply_to": [
+        "Virtual",
+        "Public Cloud",
+        "Security",
+        "Managed Services",
+        "backup",
+        "clustering",
+        "IaaS"
+      ],
+      "data_needed": "Finance/HR: DC technician headcount + salary per DC; Facilities: monthly overhead per DC"
+    },
+    "network_ops": {
+      "description": "Network engineering labor \u2014 specialist time managing network device configs, BGP/OSPF, firewall rules, VLAN changes.",
+      "current_state": "NOT POPULATED \u2014 $0 everywhere. Real cost exists but is untracked.",
+      "formula": "(network_eng_FTE \u00d7 fully_loaded_monthly_salary) / total_managed_network_devices",
+      "applies_to_ranked": [
+        "firewall \u2014 highest: rule management, policy reviews, change requests",
+        "switch \u2014 medium: VLAN management, firmware, port configs",
+        "loadbalancer \u2014 medium: VIP management, health checks, SSL certs",
+        "Connectivity \u2014 medium: BGP, routing, circuit management",
+        "bandwidth \u2014 low: mostly monitoring",
+        "server \u2014 low: just uplink management"
+      ],
+      "does_not_apply_to": [
+        "Virtual",
+        "Public Cloud",
+        "Security",
+        "colocation",
+        "SAN",
+        "backup"
+      ],
+      "data_needed": "HR: network engineer headcount + salary; Jira: track time by team specialty (NOC vs Net-Eng vs Compute)"
+    },
+    "compute_ops": {
+      "description": "Compute/virtualization engineering labor \u2014 hypervisor management, VM provisioning, snapshot policies, capacity planning.",
+      "current_state": "NOT POPULATED \u2014 $0 everywhere. Real cost exists but is untracked.",
+      "formula": "(compute_eng_FTE \u00d7 fully_loaded_monthly_salary) / total_managed_VMs_and_clusters",
+      "applies_to_ranked": [
+        "Virtual \u2014 highest: vMotion, snapshots, template management, capacity",
+        "IaaS \u2014 high: same as Virtual",
+        "clustering \u2014 medium: cluster health, failover testing, quorum",
+        "backup \u2014 medium: backup job management, restore testing",
+        "server \u2014 low: only if managed OS/patching is included"
+      ],
+      "does_not_apply_to": [
+        "Public Cloud",
+        "firewall",
+        "switch",
+        "colocation",
+        "SAN",
+        "Connectivity"
+      ],
+      "data_needed": "HR: compute engineer headcount + salary; Jira: track time by team specialty"
+    },
+    "support_ops": {
+      "description": "Service desk labor \u2014 ticket handling, change requests, customer communication.",
+      "current_state": "POPULATED \u2014 derived from 6-month Jira worklog analysis with outlier removal and 2.16x overhead multiplier.",
+      "methodology": "clean_rate (P90 outliers removed) \u00d7 overhead_multiplier \u00d7 $80/hr",
+      "data_source": "jira_allocation_model_20251101_to_20260527",
+      "refresh_cadence": "Re-run jira-service-time-analysis.py every 6 months"
+    }
+  },
+  "capacity_model": {
+    "_description": "Step-cost planning parameters. Use amortized per-device rates for pricing (correct in aggregate). Use capacity triggers to forecast infrastructure purchases when growing the portfolio.",
+    "capacity_reserve_pct": {
+      "value": 0.15,
+      "note": "Add 15% to total cost for infrastructure refresh cycles and step-cost events. Adjust upward (20-25%) if the DC is near capacity; downward (10%) if headroom is ample."
+    },
+    "infrastructure_triggers": {
+      "server": {
+        "rack_units_per_device": "1U typical, 2U for some configs",
+        "ports_consumed": 2,
+        "trigger": "Every ~40 servers fills a 42U rack \u2192 new rack + cabling + TOR switch purchase",
+        "trigger_cost_estimate": "~$8,000-15,000 per rack buildout (varies by DC)"
+      },
+      "Virtual": {
+        "rack_units_per_device": "0 \u2014 runs on shared hypervisor hosts",
+        "ports_consumed": 0,
+        "trigger": "Every ~20-30 VMs fills a typical host \u2192 new hypervisor server purchase",
+        "trigger_cost_estimate": "~$15,000-25,000 per host (high-mem compute node)"
+      },
+      "firewall": {
+        "rack_units_per_device": "1U typical",
+        "ports_consumed": "3-4 on distribution switch",
+        "trigger": "Port exhaustion on distribution switches is more likely trigger than rack space",
+        "trigger_cost_estimate": "~$20,000-50,000 per distribution switch (Cisco/Juniper)"
+      },
+      "switch": {
+        "rack_units_per_device": "1U typical",
+        "ports_consumed": "2 uplinks on parent distribution switch",
+        "trigger": "Same as server for rack; distribution switch ports for uplinks"
+      },
+      "colocation": {
+        "rack_units_per_device": "varies \u2014 customer defines",
+        "ports_consumed": 0,
+        "trigger": "Floor space and power capacity in the DC",
+        "trigger_cost_estimate": "Cost is per-cabinet; Aptum's cost is facility lease + power"
+      },
+      "SAN": {
+        "rack_units_per_device": "2-8U per array, amortized across many LUNs",
+        "ports_consumed": "2-4 FC/iSCSI ports per array",
+        "trigger": "Array capacity (TB); each shelf expansion is ~$10,000-30,000"
+      }
+    },
+    "pricing_guidance": {
+      "use_amortized_rates_for": "all standard pricing \u2014 correct in expectation across portfolio",
+      "use_step_cost_model_for": "large deals (>50 units of same type) \u2014 check DC headroom first",
+      "capacity_check_cadence": "quarterly \u2014 track rack utilization, port utilization, power headroom per DC"
+    }
+  }
 }
