@@ -5,6 +5,7 @@ from db.fusion import get_dc_info
 from db.mssql import _connect, get_fx_rate, get_mssql_costs, get_mssql_watts_batch, _configured
 from lib.overhead import COST_DRIVERS, calc_overhead
 from lib.renewal_pricing import hw_paid_off, provision_age_months
+from db.jsm import get_support_hours_batch
 
 
 def _parse_date(value) -> date | None:
@@ -260,7 +261,8 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
     result_map: dict[int, dict] = {}
 
     # ── Physical services ──────────────────────────────────────────────────────
-    fusion_ids = [s["fusion_id"] for s in physical if s.get("fusion_id")]
+    fusion_ids  = [s["fusion_id"] for s in physical if s.get("fusion_id")]
+    service_ids = [s["service_id"] for s in physical if s.get("service_id")]
 
     _progress(f"Loading hardware costs for {len(fusion_ids)} services…", "MSSQL · ocean_sku_cost")
     hw_costs   = get_mssql_costs(fusion_ids, "TLS") if fusion_ids else {}
@@ -269,6 +271,10 @@ def build_profitability_data(services: list[dict], progress_cb=None) -> list[dic
     _progress(f"Loading power consumption data…", "MSSQL · hardware_watts")
     watts_map  = get_mssql_watts_batch(fusion_ids) if fusion_ids else {}
     _progress(f"Power data found for {sum(1 for v in watts_map.values() if v)} services", None)
+
+    _progress(f"Loading JSM support hours…", "PostgreSQL · jsm_sync")
+    jsm_hours = get_support_hours_batch(service_ids) if service_ids else {}
+    _progress(f"Support hours found for {len(jsm_hours)} of {len(service_ids)} services", None)
 
     fx_cache: dict[tuple[str, str], float] = {}
 
