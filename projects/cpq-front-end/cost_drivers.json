@@ -8,8 +8,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 250,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -27,12 +28,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server": {
@@ -41,8 +44,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 58,
@@ -61,12 +65,14 @@
             "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "switch": {
@@ -75,8 +81,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 125,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -93,12 +100,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "loadbalancer": {
@@ -107,8 +116,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 350,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -126,12 +136,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "SAN": {
@@ -140,8 +152,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 833,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -158,12 +171,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "private rack": {
@@ -190,12 +205,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "colocation": {
@@ -222,12 +239,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Connectivity": {
@@ -254,8 +273,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -286,8 +306,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -300,8 +321,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -318,12 +340,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "IaaS": {
@@ -332,8 +356,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -350,12 +375,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "clustering": {
@@ -364,8 +391,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -382,12 +410,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 18,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "backup": {
@@ -396,8 +426,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 167,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -414,12 +445,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Public Cloud": {
@@ -450,8 +483,9 @@
             "measure": "per_device"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Security": {
@@ -460,8 +494,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -478,12 +513,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Managed Services": {
@@ -492,8 +529,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -510,12 +548,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server_vhost": {
@@ -524,8 +564,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 200,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 104,
@@ -544,12 +585,14 @@
             "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         }
       },
@@ -565,8 +608,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 250,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -584,12 +628,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server": {
@@ -598,8 +644,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 58,
@@ -618,12 +665,14 @@
             "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "switch": {
@@ -632,8 +681,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 125,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -650,12 +700,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "loadbalancer": {
@@ -664,8 +716,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 350,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -683,12 +736,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "SAN": {
@@ -697,8 +752,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 833,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -715,12 +771,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "private rack": {
@@ -747,12 +805,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "colocation": {
@@ -779,12 +839,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Connectivity": {
@@ -811,8 +873,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -843,8 +906,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -857,8 +921,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -875,12 +940,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "IaaS": {
@@ -889,8 +956,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -907,12 +975,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "clustering": {
@@ -921,8 +991,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -939,12 +1010,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 18,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "backup": {
@@ -953,8 +1026,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 167,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -971,12 +1045,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Public Cloud": {
@@ -1007,8 +1083,9 @@
             "measure": "per_device"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Security": {
@@ -1017,8 +1094,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1035,12 +1113,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Managed Services": {
@@ -1049,8 +1129,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1067,12 +1148,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server_vhost": {
@@ -1081,8 +1164,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 200,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 104,
@@ -1101,12 +1185,14 @@
             "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         }
       },
@@ -1123,8 +1209,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 250,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -1142,12 +1229,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server": {
@@ -1156,8 +1245,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 58,
@@ -1176,12 +1266,14 @@
             "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "switch": {
@@ -1190,8 +1282,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 125,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -1208,12 +1301,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "loadbalancer": {
@@ -1222,8 +1317,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 350,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -1241,12 +1337,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "SAN": {
@@ -1255,8 +1353,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 833,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -1273,12 +1372,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "private rack": {
@@ -1305,12 +1406,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "colocation": {
@@ -1337,12 +1440,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Connectivity": {
@@ -1369,8 +1474,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -1401,8 +1507,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -1415,8 +1522,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1433,12 +1541,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "IaaS": {
@@ -1447,8 +1557,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1465,12 +1576,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "clustering": {
@@ -1479,8 +1592,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1497,12 +1611,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 18,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "backup": {
@@ -1511,8 +1627,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 167,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1529,12 +1646,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Public Cloud": {
@@ -1565,8 +1684,9 @@
             "measure": "per_device"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Security": {
@@ -1575,8 +1695,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1593,12 +1714,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Managed Services": {
@@ -1607,8 +1730,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1625,12 +1749,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server_vhost": {
@@ -1639,8 +1765,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 200,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 104,
@@ -1659,12 +1786,14 @@
             "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         }
       },
@@ -1681,8 +1810,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 250,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -1700,12 +1830,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server": {
@@ -1714,8 +1846,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 58,
@@ -1734,12 +1867,14 @@
             "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "switch": {
@@ -1748,8 +1883,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 125,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -1766,12 +1902,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "loadbalancer": {
@@ -1780,8 +1918,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 350,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -1799,12 +1938,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "SAN": {
@@ -1813,8 +1954,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 833,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -1831,12 +1973,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "private rack": {
@@ -1863,12 +2007,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "colocation": {
@@ -1895,12 +2041,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Connectivity": {
@@ -1927,8 +2075,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -1959,8 +2108,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -1973,8 +2123,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -1991,12 +2142,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "IaaS": {
@@ -2005,8 +2158,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2023,12 +2177,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 3,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "clustering": {
@@ -2037,8 +2193,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2055,12 +2212,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 18,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "backup": {
@@ -2069,8 +2228,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 167,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2087,12 +2247,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Public Cloud": {
@@ -2123,8 +2285,9 @@
             "measure": "per_device"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 5,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Security": {
@@ -2133,8 +2296,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 100,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2151,12 +2315,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Managed Services": {
@@ -2165,8 +2331,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2183,12 +2350,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 15,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server_vhost": {
@@ -2197,8 +2366,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 200,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 104,
@@ -2217,12 +2387,14 @@
             "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 10,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 30,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         }
       },
@@ -2238,8 +2410,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 345,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2256,12 +2429,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 41,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server": {
@@ -2270,8 +2445,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 138,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 58,
@@ -2290,12 +2466,14 @@
             "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 17,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "switch": {
@@ -2304,8 +2482,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 172,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2322,12 +2501,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 21,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "loadbalancer": {
@@ -2336,8 +2517,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 483,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2354,12 +2536,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 34,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 11,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "SAN": {
@@ -2368,8 +2552,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 1150,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2386,12 +2571,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 21,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "private rack": {
@@ -2418,12 +2605,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "colocation": {
@@ -2450,12 +2639,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Connectivity": {
@@ -2482,8 +2673,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 34,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -2514,8 +2706,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -2528,8 +2721,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 28,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2546,12 +2740,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "IaaS": {
@@ -2560,8 +2756,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 28,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2578,12 +2775,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "clustering": {
@@ -2592,8 +2791,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 138,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2610,12 +2810,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 11,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "backup": {
@@ -2624,8 +2826,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 230,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2642,12 +2845,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 17,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Public Cloud": {
@@ -2678,8 +2883,9 @@
             "measure": "per_device"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Security": {
@@ -2688,8 +2894,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 138,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2706,12 +2913,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 28,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 17,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Managed Services": {
@@ -2720,8 +2929,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 41,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -2738,12 +2948,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 21,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server_vhost": {
@@ -2752,8 +2964,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 276,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 104,
@@ -2772,12 +2985,14 @@
             "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 41,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         }
       },
@@ -2798,8 +3013,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 198,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -2817,12 +3033,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 24,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server": {
@@ -2831,8 +3049,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 79,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 58,
@@ -2851,12 +3070,14 @@
             "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 9,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "switch": {
@@ -2865,8 +3086,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 99,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -2883,12 +3105,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "loadbalancer": {
@@ -2897,8 +3121,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 276,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -2916,12 +3141,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 6,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "SAN": {
@@ -2930,8 +3157,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 658,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -2948,12 +3176,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "private rack": {
@@ -2980,12 +3210,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "colocation": {
@@ -3012,12 +3244,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Connectivity": {
@@ -3044,8 +3278,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -3076,8 +3311,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -3090,8 +3326,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 16,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3108,12 +3345,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "IaaS": {
@@ -3122,8 +3361,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 16,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3140,12 +3380,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "clustering": {
@@ -3154,8 +3396,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 79,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3172,12 +3415,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 6,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "backup": {
@@ -3186,8 +3431,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 132,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3204,12 +3450,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 9,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Public Cloud": {
@@ -3240,8 +3488,9 @@
             "measure": "per_device"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Security": {
@@ -3250,8 +3499,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 79,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3268,12 +3518,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 16,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 9,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Managed Services": {
@@ -3282,8 +3534,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 24,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3300,12 +3553,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server_vhost": {
@@ -3314,8 +3569,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 158,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 104,
@@ -3334,12 +3590,14 @@
             "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 24,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         }
       },
@@ -3357,8 +3615,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 198,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -3376,12 +3635,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 24,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server": {
@@ -3390,8 +3651,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 79,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 58,
@@ -3410,12 +3672,14 @@
             "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 9,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "switch": {
@@ -3424,8 +3688,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 99,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -3442,12 +3707,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "loadbalancer": {
@@ -3456,8 +3723,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 276,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -3475,12 +3743,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 6,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "SAN": {
@@ -3489,8 +3759,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 658,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 59,
@@ -3507,12 +3778,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "private rack": {
@@ -3539,12 +3812,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "colocation": {
@@ -3571,12 +3846,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Connectivity": {
@@ -3603,8 +3880,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 20,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -3635,8 +3913,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -3649,8 +3928,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 16,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3667,12 +3947,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "IaaS": {
@@ -3681,8 +3963,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 16,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3699,12 +3982,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 2,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "clustering": {
@@ -3713,8 +3998,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 79,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3731,12 +4017,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 6,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "backup": {
@@ -3745,8 +4033,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 132,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3763,12 +4052,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 9,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Public Cloud": {
@@ -3799,8 +4090,9 @@
             "measure": "per_device"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Security": {
@@ -3809,8 +4101,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 79,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3827,12 +4120,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 16,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 9,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Managed Services": {
@@ -3841,8 +4136,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 24,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3859,12 +4155,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 12,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server_vhost": {
@@ -3873,8 +4171,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 158,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 104,
@@ -3893,12 +4192,14 @@
             "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 8,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 24,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         }
       },
@@ -3915,8 +4216,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 345,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3933,12 +4235,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 41,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server": {
@@ -3947,8 +4251,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 138,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 58,
@@ -3967,12 +4272,14 @@
             "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 17,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "switch": {
@@ -3981,8 +4288,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 172,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -3999,12 +4307,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 21,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "loadbalancer": {
@@ -4013,8 +4323,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 483,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -4031,12 +4342,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 34,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 11,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "SAN": {
@@ -4045,8 +4358,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 1150,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -4063,12 +4377,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 21,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "private rack": {
@@ -4095,12 +4411,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "colocation": {
@@ -4127,12 +4445,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Connectivity": {
@@ -4159,8 +4479,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 34,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -4191,8 +4512,9 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
             "amount": 0,
@@ -4205,8 +4527,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 28,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -4223,12 +4546,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "IaaS": {
@@ -4237,8 +4562,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 28,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -4255,12 +4581,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 4,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "clustering": {
@@ -4269,8 +4597,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 138,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -4287,12 +4616,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 11,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 25,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "backup": {
@@ -4301,8 +4632,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 230,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -4319,12 +4651,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 17,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Public Cloud": {
@@ -4355,8 +4689,9 @@
             "measure": "per_device"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 7,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Security": {
@@ -4365,8 +4700,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 138,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -4383,12 +4719,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 28,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 17,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "Managed Services": {
@@ -4397,8 +4735,9 @@
             "measure": "per_device"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 41,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 0,
@@ -4415,12 +4754,14 @@
             "source": "jira_allocation_model_20251101_to_20260527"
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 21,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         },
         "server_vhost": {
@@ -4429,8 +4770,9 @@
             "measure": "per_kw"
           },
           "dc_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 276,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "network_equipment": {
             "amount": 104,
@@ -4449,12 +4791,14 @@
             "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 14,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           },
           "compute_ops": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 41,
+            "measure": "per_device",
+            "_source": "best_guess_2026-05-27"
           }
         }
       },
@@ -4473,9 +4817,10 @@
     "sga_pct": 0.082,
     "support_hourly_rate_usd": 80,
     "support_overhead_multiplier": 2.16,
-    "support_data_source": "jira_allocation_model_20251101_to_20260527"
+    "support_data_source": "jira_allocation_model_20251101_to_20260527",
+    "service_desk_rate_cad": 100
   },
-  "version": "2026-05-27-v3",
+  "version": "2026-05-27-v4",
   "cost_component_methodology": {
     "dc_equipment": {
       "description": "Hardware amortization \u2014 the monthly cost of owning the physical device itself.",
