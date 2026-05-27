@@ -236,21 +236,29 @@ def get_profitability_filter_options() -> dict:
             except Exception: pass
 
 
+def _is_cloud_service(service: dict) -> bool:
+    return (service.get("service_type") or "").strip() == "Public Cloud"
+
+
 def build_profitability_data(services: list[dict]) -> list[dict]:
     """Enrich each service dict with its cost breakdown and margin.
 
-    Makes two batched MSSQL calls (HW costs + watts) then computes
-    margin for every service using calc_service_margin.
+    Physical services: batched MSSQL HW cost + watts + calc_service_margin.
+    Cloud (Public Cloud) services: Azure billing DB via SSH tunnel.
     """
     if not services:
         return []
 
-    fusion_ids = [s["fusion_id"] for s in services if s.get("fusion_id")]
+    physical = [s for s in services if not _is_cloud_service(s)]
+    cloud    = [s for s in services if _is_cloud_service(s)]
 
-    hw_costs = get_mssql_costs(fusion_ids, "TLS") if fusion_ids else {}
-    watts_map = get_mssql_watts_batch(fusion_ids) if fusion_ids else {}
+    result_map: dict[int, dict] = {}
 
-    # Cache FX rates — at most a handful of currency pairs across all services
+    # ── Physical services ──────────────────────────────────────────────────────
+    fusion_ids = [s["fusion_id"] for s in physical if s.get("fusion_id")]
+    hw_costs   = get_mssql_costs(fusion_ids, "TLS") if fusion_ids else {}
+    watts_map  = get_mssql_watts_batch(fusion_ids) if fusion_ids else {}
+
     fx_cache: dict[tuple[str, str], float] = {}
 
     def get_fx(from_c: str, to_c: str) -> float:
@@ -261,26 +269,24 @@ def build_profitability_data(services: list[dict]) -> list[dict]:
             fx_cache[key] = get_fx_rate(from_c, to_c)
         return fx_cache[key]
 
-    result = []
-    for service in services:
-        fid = service.get("fusion_id")
+    for service in physical:
+        fid      = service.get("fusion_id")
         currency = (service.get("currency") or "USD").upper()
-        dc_code = (service.get("datacenter_code") or "").upper()
+        dc_code  = (service.get("datacenter_code") or "").upper()
 
-        dc_info = get_dc_info(dc_code) if dc_code else None
+        dc_info         = get_dc_info(dc_code) if dc_code else None
         native_currency = dc_info["native_currency"] if dc_info else currency
 
-        # HW capex → service billing currency
         hw_capex_in_currency = 0.0
         if fid and fid in hw_costs:
             hw = hw_costs[fid]
             hw_capex_in_currency = round(hw["cost"] * get_fx(hw["currency"], currency), 2)
 
         fx_overhead = get_fx(native_currency, currency)
-        watts = watts_map.get(fid) if fid else None
-        mrc = float(service.get("mrc") or 0)
+        watts       = watts_map.get(fid) if fid else None
+        mrc         = float(service.get("mrc") or 0)
+        svc_type    = (service.get("service_type") or "server").strip()
 
-        svc_type = (service.get("service_type") or "server").strip()
         margin_data = calc_service_margin(
             mrc=mrc,
             dc_code=dc_code,
@@ -304,6 +310,66 @@ def build_profitability_data(services: list[dict]) -> list[dict]:
         if not margin_data.get("overhead"):
             missing.append("Overhead rates unavailable for this DC")
 
-        result.append({**service, **margin_data, "missing_data": missing})
+        result_map[service["service_id"]] = {
+            **service, **margin_data,
+            "is_cloud": False,
+            "missing_data": missing,
+        }
 
-    return result
+    # ── Cloud (Public Cloud) services ──────────────────────────────────────────
+    if cloud:
+        billing_batch: dict[int, dict] = {}
+        try:
+            from db.azure_billing import get_cloud_billing_batch
+            cloud_client_ids = list({s["client_id"] for s in cloud})
+            billing_batch = get_cloud_billing_batch(cloud_client_ids)
+        except Exception:
+            logging.exception("build_profitability_data: azure billing fetch failed")
+
+        # Per-client: first cloud service carries consumption; subsequent carry only their MRC.
+        seen_cloud_clients: set[int] = set()
+        for service in cloud:
+            client_id = service["client_id"]
+            mrc_base  = float(service.get("mrc") or 0)
+            billing   = billing_batch.get(client_id, {})
+            is_first  = client_id not in seen_cloud_clients
+            seen_cloud_clients.add(client_id)
+
+            if is_first and billing:
+                cons_revenue = billing.get("consumption_revenue", 0.0)
+                cons_cost    = billing.get("consumption_cost", 0.0)
+                total_mrc    = mrc_base + cons_revenue
+                total_cost   = cons_cost
+                missing      = []
+            else:
+                cons_revenue = 0.0
+                cons_cost    = 0.0
+                total_mrc    = mrc_base
+                total_cost   = 0.0
+                missing      = [] if billing or not is_first else ["Azure billing data unavailable"]
+
+            margin     = round(total_mrc - total_cost, 2)
+            margin_pct = round(margin / total_mrc * 100, 1) if total_mrc > 0 else 0.0
+
+            result_map[service["service_id"]] = {
+                **service,
+                "is_cloud":             True,
+                "hw_amortized":         0.0,
+                "overhead":             {},
+                "sga":                  0.0,
+                "mrc":                  total_mrc,
+                "total_cost":           total_cost,
+                "margin":               margin,
+                "margin_pct":           margin_pct,
+                "hw_paid_off":          None,
+                "hw_months_remaining":  None,
+                "biggest_cost_driver":  "azure_consumption" if cons_cost > 0 else None,
+                "consumption_revenue":  cons_revenue,
+                "consumption_cost":     cons_cost,
+                "billing_period_label": billing.get("billing_period_label", ""),
+                "missing_data":         missing,
+            }
+
+    # Preserve original order
+    order = {s["service_id"]: i for i, s in enumerate(services)}
+    return sorted(result_map.values(), key=lambda s: order.get(s["service_id"], 999999))

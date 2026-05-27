@@ -116,16 +116,21 @@ def api_profitability_customer(client_id):
             if key not in fx_cache:
                 fx_cache[key] = get_fx_rate(svc_currency, effective_currency) if svc_currency != effective_currency else 1.0
             fx = fx_cache[key]
-            converted.append({
+            entry = {
                 **svc,
-                "mrc":          round(svc["mrc"] * fx, 2),
-                "total_cost":   round(svc["total_cost"] * fx, 2),
-                "margin":       round(svc["margin"] * fx, 2),
-                "hw_amortized": round(svc["hw_amortized"] * fx, 2),
-                "sga":          round(svc["sga"] * fx, 2),
-                "overhead":     {k: round(v * fx, 2) for k, v in svc["overhead"].items()},
-                "currency":     effective_currency,
-            })
+                "mrc":        round(svc["mrc"] * fx, 2),
+                "total_cost": round(svc["total_cost"] * fx, 2),
+                "margin":     round(svc["margin"] * fx, 2),
+                "currency":   effective_currency,
+            }
+            if not svc.get("is_cloud"):
+                entry["hw_amortized"] = round(svc["hw_amortized"] * fx, 2)
+                entry["sga"]          = round(svc["sga"] * fx, 2)
+                entry["overhead"]     = {k: round(v * fx, 2) for k, v in svc["overhead"].items()}
+            else:
+                entry["consumption_revenue"] = round(svc.get("consumption_revenue", 0) * fx, 2)
+                entry["consumption_cost"]    = round(svc.get("consumption_cost", 0) * fx, 2)
+            converted.append(entry)
         enriched = converted
 
     summary = _compute_totals(enriched, effective_currency)
@@ -142,7 +147,17 @@ def api_profitability_customer(client_id):
             s["provision_date"] = s["provision_date"].isoformat()
         serialized.append(s)
 
-    return jsonify({"services": serialized, "summary": summary})
+    # Attach Azure billing detail for cloud customers
+    cloud_detail = {}
+    has_cloud = any(s.get("is_cloud") for s in enriched)
+    if has_cloud:
+        try:
+            from db.azure_billing import get_cloud_billing_detail
+            cloud_detail = get_cloud_billing_detail(client_id)
+        except Exception:
+            pass
+
+    return jsonify({"services": serialized, "summary": summary, "cloud_detail": cloud_detail})
 
 
 # ── Aggregation helpers ───────────────────────────────────────────────────────

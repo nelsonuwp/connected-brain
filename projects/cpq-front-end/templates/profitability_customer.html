@@ -139,8 +139,9 @@
 
 {% block extra_scripts %}
 <script>
-  const CLIENT_ID = {{ client_id }};
-  let _services   = [];
+  const CLIENT_ID  = {{ client_id }};
+  let _services    = [];
+  let _cloudDetail = {};
 
   async function load() {
     try {
@@ -148,8 +149,9 @@
       const data = await res.json();
       if (data.error) { showError(data.error); return; }
 
-      _services = data.services || [];
-      const s   = data.summary  || {};
+      _services    = data.services     || [];
+      _cloudDetail = data.cloud_detail || {};
+      const s      = data.summary      || {};
 
       const autoC = s.auto_currency;
       const cadBadge = autoC ? ' <span style="display:inline-flex;align-items:center;gap:.25rem;font-size:.65rem;color:#f59e0b;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:4px;padding:1px 6px;vertical-align:middle">CAD*</span>' : '';
