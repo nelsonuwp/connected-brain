@@ -23,16 +23,22 @@ _SSH_PORT = int(os.environ.get("SSH_PORT", "22"))
 _SSH_USER = os.environ.get("SSH_USER", "")
 _SSH_PASS = os.environ.get("SSH_PASS", "")
 
+# In prod: set AZURE_BILLING_DB_HOST to the DB server's internal IP (e.g. 10.121.21.20)
+# and leave SSH_USER/SSH_PASS unset — the tunnel is skipped and we connect directly.
+_AZURE_DB_HOST = os.environ.get("AZURE_BILLING_DB_HOST", "")
+_AZURE_DB_PORT = int(os.environ.get("AZURE_BILLING_DB_PORT", "5432"))
 _AZURE_DB_NAME = os.environ.get("AZURE_BILLING_DB_NAME", "")
 _AZURE_DB_USER = os.environ.get("AZURE_BILLING_DB_USER", "")
 _AZURE_DB_PASS = os.environ.get("AZURE_BILLING_DB_PASS", "")
+
+_USE_TUNNEL = bool(_SSH_USER and _SSH_PASS)
 
 _tunnel = None
 _conn = None
 
 
 def _configured() -> bool:
-    return bool(_SSH_USER and _SSH_PASS and _AZURE_DB_NAME and _AZURE_DB_USER)
+    return bool(_AZURE_DB_NAME and _AZURE_DB_USER and (_USE_TUNNEL or _AZURE_DB_HOST))
 
 
 def _get_conn():
@@ -44,21 +50,27 @@ def _get_conn():
         except Exception:
             _conn = None
 
-    if _tunnel and not _tunnel.is_active:
-        _tunnel = None
-    if not _tunnel:
-        _tunnel = SSHTunnelForwarder(
-            (_SSH_HOST, _SSH_PORT),
-            ssh_username=_SSH_USER,
-            ssh_password=_SSH_PASS,
-            remote_bind_address=("localhost", 5432),
-        )
-        _tunnel.start()
-        logger.info("azure_billing: SSH tunnel up on localhost:%s", _tunnel.local_bind_port)
+    if _USE_TUNNEL:
+        if _tunnel and not _tunnel.is_active:
+            _tunnel = None
+        if not _tunnel:
+            _tunnel = SSHTunnelForwarder(
+                (_SSH_HOST, _SSH_PORT),
+                ssh_username=_SSH_USER,
+                ssh_password=_SSH_PASS,
+                remote_bind_address=("localhost", _AZURE_DB_PORT),
+            )
+            _tunnel.start()
+            logger.info("azure_billing: SSH tunnel up on localhost:%s", _tunnel.local_bind_port)
+        db_host = "localhost"
+        db_port = _tunnel.local_bind_port
+    else:
+        db_host = _AZURE_DB_HOST
+        db_port = _AZURE_DB_PORT
 
     _conn = psycopg2.connect(
-        host="localhost",
-        port=_tunnel.local_bind_port,
+        host=db_host,
+        port=db_port,
         dbname=_AZURE_DB_NAME,
         user=_AZURE_DB_USER,
         password=_AZURE_DB_PASS,
