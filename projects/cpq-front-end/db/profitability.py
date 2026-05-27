@@ -338,7 +338,11 @@ def build_profitability_data(services: list[dict]) -> list[dict]:
             if is_first and billing:
                 cons_revenue = billing.get("consumption_revenue", 0.0)
                 cons_cost    = billing.get("consumption_cost", 0.0)
-                total_mrc    = mrc_base + cons_revenue
+                # Prefer management fee from billing DB over dimServices MRC when billing
+                # has data — dimServices MRC is often $0 for cloud services even though
+                # a real management fee is billed (product codes 5799/5801/5803).
+                mgmt_fee  = billing.get("management_fee_revenue", 0.0)
+                total_mrc = (mgmt_fee if mgmt_fee > 0 else mrc_base) + cons_revenue
                 total_cost   = cons_cost
                 missing      = []
             else:
