@@ -45,18 +45,20 @@
             "measure": "per_device"
           },
           "network_equipment": {
-            "amount": 59,
-            "measure": "per_device"
+            "amount": 58,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: standard servers avg 3.7 ports. Cost per switch port: $15.57/month (implied from original $59 baseline \u00f7 3.79 weighted-avg ports across all servers). Original $59 was a blended average and remains approximately correct for standard servers."
           },
           "dc_ops": {
             "amount": 21,
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 23,
+            "amount": 22,
             "measure": "per_device",
-            "hrs_per_month": 0.2864,
-            "source": "jira_allocation_model_20251101_to_20260527"
+            "hrs_per_month": 0.2724,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
             "amount": 0,
@@ -506,6 +508,40 @@
             "measure": "per_device",
             "hrs_per_month": 0.1157,
             "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server_vhost": {
+          "power_per_kw": {
+            "amount": 337,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 104,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: vHost servers avg 6.7 ports (6.7/3.7 = 1.8\u00d7 standard). $15.57/port \u00d7 6.7 ports = $104. vHosts carry 4-port management NICs plus 4-port data NICs for VM traffic separation."
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 57,
+            "measure": "per_device",
+            "hrs_per_month": 0.7096,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
             "amount": 0,
@@ -566,18 +602,20 @@
             "measure": "per_device"
           },
           "network_equipment": {
-            "amount": 59,
-            "measure": "per_device"
+            "amount": 58,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: standard servers avg 3.7 ports. Cost per switch port: $15.57/month (implied from original $59 baseline \u00f7 3.79 weighted-avg ports across all servers). Original $59 was a blended average and remains approximately correct for standard servers."
           },
           "dc_ops": {
             "amount": 19,
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 23,
+            "amount": 22,
             "measure": "per_device",
-            "hrs_per_month": 0.2864,
-            "source": "jira_allocation_model_20251101_to_20260527"
+            "hrs_per_month": 0.2724,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
             "amount": 0,
@@ -1027,6 +1065,40 @@
             "measure": "per_device",
             "hrs_per_month": 0.1157,
             "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server_vhost": {
+          "power_per_kw": {
+            "amount": 110,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 104,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: vHost servers avg 6.7 ports (6.7/3.7 = 1.8\u00d7 standard). $15.57/port \u00d7 6.7 ports = $104. vHosts carry 4-port management NICs plus 4-port data NICs for VM traffic separation."
+          },
+          "dc_ops": {
+            "amount": 19,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 57,
+            "measure": "per_device",
+            "hrs_per_month": 0.7096,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
             "amount": 0,
@@ -1088,18 +1160,20 @@
             "measure": "per_device"
           },
           "network_equipment": {
-            "amount": 59,
-            "measure": "per_device"
+            "amount": 58,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: standard servers avg 3.7 ports. Cost per switch port: $15.57/month (implied from original $59 baseline \u00f7 3.79 weighted-avg ports across all servers). Original $59 was a blended average and remains approximately correct for standard servers."
           },
           "dc_ops": {
             "amount": 21,
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 23,
+            "amount": 22,
             "measure": "per_device",
-            "hrs_per_month": 0.2864,
-            "source": "jira_allocation_model_20251101_to_20260527"
+            "hrs_per_month": 0.2724,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
             "amount": 0,
@@ -1549,6 +1623,40 @@
             "measure": "per_device",
             "hrs_per_month": 0.1157,
             "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server_vhost": {
+          "power_per_kw": {
+            "amount": 457,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 104,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: vHost servers avg 6.7 ports (6.7/3.7 = 1.8\u00d7 standard). $15.57/port \u00d7 6.7 ports = $104. vHosts carry 4-port management NICs plus 4-port data NICs for VM traffic separation."
+          },
+          "dc_ops": {
+            "amount": 21,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 57,
+            "measure": "per_device",
+            "hrs_per_month": 0.7096,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
             "amount": 0,
@@ -1610,18 +1718,20 @@
             "measure": "per_device"
           },
           "network_equipment": {
-            "amount": 59,
-            "measure": "per_device"
+            "amount": 58,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: standard servers avg 3.7 ports. Cost per switch port: $15.57/month (implied from original $59 baseline \u00f7 3.79 weighted-avg ports across all servers). Original $59 was a blended average and remains approximately correct for standard servers."
           },
           "dc_ops": {
             "amount": 28,
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 23,
+            "amount": 22,
             "measure": "per_device",
-            "hrs_per_month": 0.2864,
-            "source": "jira_allocation_model_20251101_to_20260527"
+            "hrs_per_month": 0.2724,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
             "amount": 0,
@@ -2080,6 +2190,40 @@
             "amount": 0,
             "measure": "per_device"
           }
+        },
+        "server_vhost": {
+          "power_per_kw": {
+            "amount": 48,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 104,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: vHost servers avg 6.7 ports (6.7/3.7 = 1.8\u00d7 standard). $15.57/port \u00d7 6.7 ports = $104. vHosts carry 4-port management NICs plus 4-port data NICs for VM traffic separation."
+          },
+          "dc_ops": {
+            "amount": 28,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 57,
+            "measure": "per_device",
+            "hrs_per_month": 0.7096,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
         }
       },
       "fusion_dc_id": 2,
@@ -2130,18 +2274,20 @@
             "measure": "per_device"
           },
           "network_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 58,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: standard servers avg 3.7 ports. Cost per switch port: $15.57/month (implied from original $59 baseline \u00f7 3.79 weighted-avg ports across all servers). Original $59 was a blended average and remains approximately correct for standard servers."
           },
           "dc_ops": {
             "amount": 0,
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 23,
+            "amount": 22,
             "measure": "per_device",
-            "hrs_per_month": 0.2864,
-            "source": "jira_allocation_model_20251101_to_20260527"
+            "hrs_per_month": 0.2724,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
             "amount": 0,
@@ -2590,6 +2736,40 @@
             "measure": "per_device",
             "hrs_per_month": 0.1157,
             "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server_vhost": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 104,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: vHost servers avg 6.7 ports (6.7/3.7 = 1.8\u00d7 standard). $15.57/port \u00d7 6.7 ports = $104. vHosts carry 4-port management NICs plus 4-port data NICs for VM traffic separation."
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 57,
+            "measure": "per_device",
+            "hrs_per_month": 0.7096,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
             "amount": 0,
@@ -2655,18 +2835,20 @@
             "measure": "per_device"
           },
           "network_equipment": {
-            "amount": 59,
-            "measure": "per_device"
+            "amount": 58,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: standard servers avg 3.7 ports. Cost per switch port: $15.57/month (implied from original $59 baseline \u00f7 3.79 weighted-avg ports across all servers). Original $59 was a blended average and remains approximately correct for standard servers."
           },
           "dc_ops": {
             "amount": 27,
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 23,
+            "amount": 22,
             "measure": "per_device",
-            "hrs_per_month": 0.2864,
-            "source": "jira_allocation_model_20251101_to_20260527"
+            "hrs_per_month": 0.2724,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
             "amount": 0,
@@ -3116,6 +3298,40 @@
             "measure": "per_device",
             "hrs_per_month": 0.1157,
             "source": "jira_allocation_model_20251101_to_20260527"
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
+        },
+        "server_vhost": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 104,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: vHost servers avg 6.7 ports (6.7/3.7 = 1.8\u00d7 standard). $15.57/port \u00d7 6.7 ports = $104. vHosts carry 4-port management NICs plus 4-port data NICs for VM traffic separation."
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 57,
+            "measure": "per_device",
+            "hrs_per_month": 0.7096,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
           },
           "network_ops": {
             "amount": 0,
@@ -3178,18 +3394,20 @@
             "measure": "per_device"
           },
           "network_equipment": {
-            "amount": 59,
-            "measure": "per_device"
+            "amount": 58,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: standard servers avg 3.7 ports. Cost per switch port: $15.57/month (implied from original $59 baseline \u00f7 3.79 weighted-avg ports across all servers). Original $59 was a blended average and remains approximately correct for standard servers."
           },
           "dc_ops": {
             "amount": 27,
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 23,
+            "amount": 22,
             "measure": "per_device",
-            "hrs_per_month": 0.2864,
-            "source": "jira_allocation_model_20251101_to_20260527"
+            "hrs_per_month": 0.2724,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
             "amount": 0,
@@ -3648,6 +3866,40 @@
             "amount": 0,
             "measure": "per_device"
           }
+        },
+        "server_vhost": {
+          "power_per_kw": {
+            "amount": 46,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 104,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: vHost servers avg 6.7 ports (6.7/3.7 = 1.8\u00d7 standard). $15.57/port \u00d7 6.7 ports = $104. vHosts carry 4-port management NICs plus 4-port data NICs for VM traffic separation."
+          },
+          "dc_ops": {
+            "amount": 27,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 57,
+            "measure": "per_device",
+            "hrs_per_month": 0.7096,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
         }
       },
       "fusion_dc_abbr": "POR",
@@ -3699,18 +3951,20 @@
             "measure": "per_device"
           },
           "network_equipment": {
-            "amount": 0,
-            "measure": "per_device"
+            "amount": 58,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: standard servers avg 3.7 ports. Cost per switch port: $15.57/month (implied from original $59 baseline \u00f7 3.79 weighted-avg ports across all servers). Original $59 was a blended average and remains approximately correct for standard servers."
           },
           "dc_ops": {
             "amount": 0,
             "measure": "per_device"
           },
           "support_ops": {
-            "amount": 23,
+            "amount": 22,
             "measure": "per_device",
-            "hrs_per_month": 0.2864,
-            "source": "jira_allocation_model_20251101_to_20260527"
+            "hrs_per_month": 0.2724,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "De-blended from overall server rate: standard servers only (excludes vhost)"
           },
           "network_ops": {
             "amount": 0,
@@ -4168,6 +4422,40 @@
             "amount": 0,
             "measure": "per_device"
           }
+        },
+        "server_vhost": {
+          "power_per_kw": {
+            "amount": 253,
+            "measure": "per_kw"
+          },
+          "dc_equipment": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "network_equipment": {
+            "amount": 104,
+            "measure": "per_device",
+            "_note": "Derived from dimComponents NIC data: vHost servers avg 6.7 ports (6.7/3.7 = 1.8\u00d7 standard). $15.57/port \u00d7 6.7 ports = $104. vHosts carry 4-port management NICs plus 4-port data NICs for VM traffic separation."
+          },
+          "dc_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "support_ops": {
+            "amount": 57,
+            "measure": "per_device",
+            "hrs_per_month": 0.7096,
+            "source": "jira_allocation_model_20251101_to_20260527 + dimComponents NIC analysis",
+            "_note": "vHost servers generate 2.6\u00d7 more Jira support time than standard servers (0.4627h/mo raw vs 0.1776h/mo). Hypervisor management: VM provisioning, vMotion, snapshot issues, cluster health."
+          },
+          "network_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          },
+          "compute_ops": {
+            "amount": 0,
+            "measure": "per_device"
+          }
         }
       },
       "fusion_dc_abbr": "TOR",
@@ -4180,14 +4468,14 @@
       ]
     }
   },
-  "notes": "DC cost overheads from CPQ finance spreadsheet. support_ops: data-driven from 6-month Jira worklog analysis (Nov 2025\u2013May 2026), clean rate \u00d7 2.16\u00d7 overhead \u00d7 $80/hr. dc_equipment: NOT POPULATED \u2014 hardware amortization missing, see cost_component_methodology. network_ops + compute_ops: NOT POPULATED \u2014 specialist labor untracked, see cost_component_methodology. MTL/TOR: network_equipment and dc_ops may be missing \u2014 see _needs_data flags. capacity_model section added for step-cost planning. Fusion sb_datacenter IDs included for pricebook joins.",
+  "notes": "v3: Added server_vhost as distinct service type based on dimComponents NIC analysis. vHosts avg 6.7 switch ports and 2.6x Jira support time vs standard servers. network_equipment now port-derived ($15.57/port implied). support_ops de-blended into standard ($22) and vhost ($57). capacity_model.network_port_data added with full methodology. dc_equipment still $0 everywhere \u2014 needs asset register data. network_ops/compute_ops still $0 \u2014 needs team headcount data. See cost_component_methodology for how to populate missing fields.",
   "overhead_constants": {
     "sga_pct": 0.082,
     "support_hourly_rate_usd": 80,
     "support_overhead_multiplier": 2.16,
     "support_data_source": "jira_allocation_model_20251101_to_20260527"
   },
-  "version": "2026-05-27-v2",
+  "version": "2026-05-27-v3",
   "cost_component_methodology": {
     "dc_equipment": {
       "description": "Hardware amortization \u2014 the monthly cost of owning the physical device itself.",
@@ -4344,6 +4632,57 @@
       "use_amortized_rates_for": "all standard pricing \u2014 correct in expectation across portfolio",
       "use_step_cost_model_for": "large deals (>50 units of same type) \u2014 check DC headroom first",
       "capacity_check_cadence": "quarterly \u2014 track rack utilization, port utilization, power headroom per DC"
+    },
+    "network_port_data": {
+      "_source": "DM_BusinessInsights.dbo.dimComponents NIC analysis (online services only, May 2026)",
+      "cost_per_switch_port_monthly": 15.57,
+      "cost_per_port_derivation": "Existing $59 network_equipment \u00f7 3.79 weighted-avg ports across all servers",
+      "server_classes": {
+        "standard": {
+          "avg_ports": 3.7,
+          "common_configs": "Dual-port 1GbE or 10/25GbE NICs; newer Dell R-660XS ships quad-port as standard",
+          "network_equipment_monthly": 58,
+          "active_count": 2301
+        },
+        "vhost": {
+          "avg_ports": 6.7,
+          "common_configs": "Typically 2\u00d7 quad-port NICs: 4 ports for management/storage + 4 for VM traffic",
+          "network_equipment_monthly": 104,
+          "active_count": 78,
+          "products": "Advanced Series 5.0/6.0 vHost, Pro Series 5.0/6.0 vHost, Pro Dell PE 650xs vHost"
+        }
+      },
+      "other_service_types": {
+        "firewall": {
+          "avg_ports": "3-4 (WAN, LAN, HA, MGMT)",
+          "note": "Uses distribution-layer switch ports, not ToR \u2014 higher cost per port than servers. VERIFY with network team.",
+          "current_network_equipment": 59,
+          "suggested_range": "75-120"
+        },
+        "loadbalancer": {
+          "avg_ports": "3-4 (similar to firewall)",
+          "current_network_equipment": 59,
+          "suggested_range": "75-120"
+        },
+        "switch": {
+          "avg_ports": "2 uplinks to parent distribution switch",
+          "current_network_equipment": 59,
+          "note": "Switch itself is the product; only uplink ports consume parent-switch capacity"
+        }
+      }
+    },
+    "dimComponents_fields_available": {
+      "component_category": "Hardware / Network / Software / Bandwidth / Backup & Storage / etc.",
+      "component_type": "NICs / chassis / processor / ram / hdd / etc.",
+      "component": "specific component name e.g. 'Intel X550 Quad Port 10GbE'",
+      "service_option_type": "network / hdd / raid / processor / etc.",
+      "is_online": "Yes/No",
+      "is_virtual": "0/1 \u2014 whether the component is a virtual resource",
+      "useful_queries": [
+        "Port count per server: join dimComponents (component_type=NICs) to dimServices, extract Dual/Quad from component name",
+        "vHost identification: dimServices.product LIKE '%vHost%'",
+        "NIC speed: component name contains '1GbE', '10GbE', '25GbE', '40GbE'"
+      ]
     }
   }
 }
